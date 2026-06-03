@@ -1,0 +1,60 @@
+name: Refresh baked data + redeploy
+
+# Keeps the React app's baked JSON as current as the Streamlit app. Runs after the
+# source repo's scheduled cache refresh (fundamentals ~10am & ~11pm ET). Re-bakes
+# against the SOURCE repo's fresh caches and commits the refreshed public/data here;
+# the push auto-deploys on Vercel (git integration).
+on:
+  schedule:
+    - cron: "30 15 * * *"   # ~11:30 ET (after morning fundamentals refresh)
+    - cron: "30 4 * * *"    # ~00:30 ET (after evening fundamentals refresh)
+  workflow_dispatch: {}      # manual trigger from the Actions tab
+
+permissions:
+  contents: write            # GITHUB_TOKEN may push back to this repo
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  rebake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout v2 (this repo — has bake/ tooling)
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Clone source repo + pull price-cache LFS object
+        run: |
+          git lfs install
+          git clone --depth 1 https://github.com/bradleygpt/quant-dashboard-pro.git source
+          cd source && git lfs pull --include="prices_cache.parquet" || true
+
+      - name: Install deps
+        run: pip install -r source/requirements.txt pyarrow
+
+      - name: Re-bake against fresh caches
+        run: |
+          cp -r bake source/bake
+          cd source && python bake/bake.py        # writes source/web/public/data
+
+      - name: Sync refreshed data into this repo
+        run: |
+          rm -rf public/data
+          mkdir -p public
+          cp -r source/web/public/data public/data
+
+      - name: Commit + push (auto-deploys on Vercel)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data
+          if git diff --cached --quiet; then
+            echo "No data change — skipping commit."
+          else
+            git commit -m "chore: bake data refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi

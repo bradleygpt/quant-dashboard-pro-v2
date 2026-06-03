@@ -65,6 +65,17 @@ export function Spinner({ label = "Loading…" }: { label?: string }) {
   );
 }
 
+export function Unavailable({ what, detail }: { what: string; detail?: string }) {
+  return (
+    <div className="rounded-lg border border-[#3A2A20] bg-[#1A140E] p-5">
+      <div className="text-sm font-semibold text-[#FFB454]">⚠ {what} temporarily unavailable</div>
+      <p className="mt-1 text-xs leading-relaxed text-[#9CA7BB]">
+        {detail ?? "The live data source didn’t respond. This is a transient condition — other tabs are unaffected. Try again shortly."}
+      </p>
+    </div>
+  );
+}
+
 export function Pill({ active, onClick, children }: { active?: boolean; onClick?: () => void; children: React.ReactNode }) {
   return (
     <button

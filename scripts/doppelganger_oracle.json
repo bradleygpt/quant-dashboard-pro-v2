@@ -1,0 +1,2439 @@
+{
+  "tickers": [
+    "MU",
+    "ECPG",
+    "SNDK",
+    "DAL",
+    "NEM",
+    "INDV",
+    "ETSY",
+    "NBIX",
+    "UNIT",
+    "LPG",
+    "WDC",
+    "SM",
+    "VST",
+    "MO",
+    "APP"
+  ],
+  "cases": [
+    {
+      "ticker": "MU",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.779,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.721,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.555,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CRM_2014",
+          "similarity": 0.469,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 64.7,
+        "weighted_3yr_pct": 52.2,
+        "weighted_5yr_pct": 319.8,
+        "median_1yr_pct": 35,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MU",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.779,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.721,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NFLX_2015",
+          "similarity": 0.595,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.555,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 56.0,
+        "weighted_3yr_pct": 53.0,
+        "weighted_5yr_pct": 356.1,
+        "median_1yr_pct": -8,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MU",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.779,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.721,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.65,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.614,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 30.7,
+        "weighted_3yr_pct": -12.7,
+        "weighted_5yr_pct": 186.3,
+        "median_1yr_pct": -27,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MU",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ECPG",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JPM_2015",
+          "similarity": 0.712,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        },
+        {
+          "match_key": "C_2008",
+          "similarity": 0.668,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        },
+        {
+          "match_key": "BAC_2011",
+          "similarity": 0.591,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -43.4,
+        "weighted_3yr_pct": 25.9,
+        "weighted_5yr_pct": 82.6,
+        "median_1yr_pct": -55,
+        "best_1yr": 8,
+        "worst_1yr": -88,
+        "contributing_count": 3,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ECPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "META_2022",
+          "similarity": 0.803,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.781,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "UNH_2012",
+          "similarity": 0.754,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.736,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.732,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 130.0,
+        "weighted_3yr_pct": 175.6,
+        "weighted_5yr_pct": 445.8,
+        "median_1yr_pct": 145,
+        "best_1yr": 230,
+        "worst_1yr": 35,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ECPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "META_2022",
+          "similarity": 0.803,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.781,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.775,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.772,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.764,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 86.0,
+        "weighted_3yr_pct": 93.1,
+        "weighted_5yr_pct": 288.6,
+        "median_1yr_pct": 20,
+        "best_1yr": 230,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ECPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.663,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SNDK",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.822,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.701,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.669,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.54,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CRM_2014",
+          "similarity": 0.46,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 62.6,
+        "weighted_3yr_pct": 49.6,
+        "weighted_5yr_pct": 312.0,
+        "median_1yr_pct": 35,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SNDK",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.822,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.701,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.669,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NFLX_2015",
+          "similarity": 0.587,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.54,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 54.0,
+        "weighted_3yr_pct": 50.6,
+        "weighted_5yr_pct": 348.2,
+        "median_1yr_pct": -8,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SNDK",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.822,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.701,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.669,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.621,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.588,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 29.6,
+        "weighted_3yr_pct": -13.8,
+        "weighted_5yr_pct": 182.7,
+        "median_1yr_pct": -27,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SNDK",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.669,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "DAL",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.922,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 35.0,
+        "weighted_3yr_pct": 65.0,
+        "weighted_5yr_pct": 110.0,
+        "median_1yr_pct": 35,
+        "best_1yr": 35,
+        "worst_1yr": 35,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "DAL",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.941,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "COST_2015",
+          "similarity": 0.927,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.89,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.856,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.776,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 68.3,
+        "weighted_3yr_pct": 129.1,
+        "weighted_5yr_pct": 214.4,
+        "median_1yr_pct": 32,
+        "best_1yr": 195,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "DAL",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.941,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "COST_2015",
+          "similarity": 0.927,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.922,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        },
+        {
+          "match_key": "XOM_2014",
+          "similarity": 0.921,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.89,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 38.6,
+        "weighted_3yr_pct": 87.3,
+        "weighted_5yr_pct": 172.0,
+        "median_1yr_pct": 32,
+        "best_1yr": 145,
+        "worst_1yr": -22,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "DAL",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NEM",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "FCX_2020",
+          "similarity": 0.617,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 235.0,
+        "weighted_3yr_pct": 380.0,
+        "weighted_5yr_pct": 280.0,
+        "median_1yr_pct": 235,
+        "best_1yr": 235,
+        "worst_1yr": 235,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NEM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.912,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.878,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.857,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.835,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.817,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 71.8,
+        "weighted_3yr_pct": 110.0,
+        "weighted_5yr_pct": 186.1,
+        "median_1yr_pct": 32,
+        "best_1yr": 195,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NEM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.912,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.892,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.891,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.878,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.876,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 50.0,
+        "weighted_3yr_pct": 36.8,
+        "weighted_5yr_pct": 234.6,
+        "median_1yr_pct": 20,
+        "best_1yr": 230,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NEM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.809,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "INDV",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.727,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "REGN_2011",
+          "similarity": 0.631,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 140.8,
+        "weighted_3yr_pct": 404.6,
+        "weighted_5yr_pct": 501.3,
+        "median_1yr_pct": 280,
+        "best_1yr": 280,
+        "worst_1yr": 20,
+        "contributing_count": 2,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "INDV",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.765,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.709,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.693,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.679,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.669,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 117.8,
+        "weighted_3yr_pct": 142.6,
+        "weighted_5yr_pct": 420.2,
+        "median_1yr_pct": 145,
+        "best_1yr": 230,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "INDV",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.765,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.727,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.726,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.709,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.706,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 95.5,
+        "weighted_3yr_pct": 107.7,
+        "weighted_5yr_pct": 320.6,
+        "median_1yr_pct": 28,
+        "best_1yr": 230,
+        "worst_1yr": -2,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "INDV",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.66,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ETSY",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.739,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AMZN_2008",
+          "similarity": 0.714,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        },
+        {
+          "match_key": "TSLA_2019",
+          "similarity": 0.585,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 280.8,
+        "weighted_3yr_pct": 419.7,
+        "weighted_5yr_pct": 250.9,
+        "median_1yr_pct": 162,
+        "best_1yr": 740,
+        "worst_1yr": 32,
+        "contributing_count": 3,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ETSY",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.781,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.756,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.739,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.737,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.725,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 80.7,
+        "weighted_3yr_pct": 141.5,
+        "weighted_5yr_pct": 225.5,
+        "median_1yr_pct": 35,
+        "best_1yr": 195,
+        "worst_1yr": -2,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ETSY",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.781,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.768,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.765,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.761,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.756,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 43.6,
+        "weighted_3yr_pct": 67.5,
+        "weighted_5yr_pct": 81.2,
+        "median_1yr_pct": 20,
+        "best_1yr": 195,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "ETSY",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.661,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NBIX",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.908,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "UNH_2012",
+          "similarity": 0.739,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 26.7,
+        "weighted_3yr_pct": 59.3,
+        "weighted_5yr_pct": 101.3,
+        "median_1yr_pct": 35,
+        "best_1yr": 35,
+        "worst_1yr": 20,
+        "contributing_count": 2,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NBIX",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.914,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.872,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.867,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.866,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.841,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 67.9,
+        "weighted_3yr_pct": 112.9,
+        "weighted_5yr_pct": 189.9,
+        "median_1yr_pct": 32,
+        "best_1yr": 195,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NBIX",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.914,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.908,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.899,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.872,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.868,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 0.1,
+        "weighted_3yr_pct": -2.0,
+        "weighted_5yr_pct": 5.9,
+        "median_1yr_pct": -2,
+        "best_1yr": 28,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "NBIX",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.811,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "UNIT",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "PLD_2014",
+          "similarity": 0.484,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 18.0,
+        "weighted_3yr_pct": 65.0,
+        "weighted_5yr_pct": 145.0,
+        "median_1yr_pct": 18,
+        "best_1yr": 18,
+        "worst_1yr": 18,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "UNIT",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.607,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.6,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.593,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.591,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.578,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 128.1,
+        "weighted_3yr_pct": 170.8,
+        "weighted_5yr_pct": 444.5,
+        "median_1yr_pct": 145,
+        "best_1yr": 230,
+        "worst_1yr": 32,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "UNIT",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.607,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.6,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.593,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.591,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.584,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 117.2,
+        "weighted_3yr_pct": 151.6,
+        "weighted_5yr_pct": 413.4,
+        "median_1yr_pct": 145,
+        "best_1yr": 230,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "UNIT",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.501,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "LPG",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "XOM_2014",
+          "similarity": 0.734,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        },
+        {
+          "match_key": "XOM_2020",
+          "similarity": 0.562,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 13.6,
+        "weighted_3yr_pct": 73.9,
+        "weighted_5yr_pct": 78.6,
+        "median_1yr_pct": 60,
+        "best_1yr": 60,
+        "worst_1yr": -22,
+        "contributing_count": 2,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "LPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.834,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.782,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.78,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.771,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.768,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 117.2,
+        "weighted_3yr_pct": 143.0,
+        "weighted_5yr_pct": 417.2,
+        "median_1yr_pct": 145,
+        "best_1yr": 230,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "LPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.834,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.799,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.791,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.787,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.782,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 95.4,
+        "weighted_3yr_pct": 107.7,
+        "weighted_5yr_pct": 319.1,
+        "median_1yr_pct": 28,
+        "best_1yr": 230,
+        "worst_1yr": -2,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "LPG",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.725,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "WDC",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.774,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.704,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.642,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.595,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CRM_2014",
+          "similarity": 0.48,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 72.8,
+        "weighted_3yr_pct": 62.0,
+        "weighted_5yr_pct": 350.6,
+        "median_1yr_pct": 35,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "WDC",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.774,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.704,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.642,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NFLX_2015",
+          "similarity": 0.622,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.602,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 43.0,
+        "weighted_3yr_pct": 34.1,
+        "weighted_5yr_pct": 335.7,
+        "median_1yr_pct": -8,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "WDC",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NVDA_2016",
+          "similarity": 0.774,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.704,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.683,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.65,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "ZM_2020",
+          "similarity": 0.642,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 35.9,
+        "weighted_3yr_pct": -7.6,
+        "weighted_5yr_pct": 206.4,
+        "median_1yr_pct": -27,
+        "best_1yr": 230,
+        "worst_1yr": -45,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "WDC",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.704,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SM",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "XOM_2014",
+          "similarity": 0.759,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        },
+        {
+          "match_key": "XOM_2020",
+          "similarity": 0.624,
+          "era_bucket": "2019-2020 (pre-COVID / COVID)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 15.0,
+        "weighted_3yr_pct": 78.4,
+        "weighted_5yr_pct": 83.6,
+        "median_1yr_pct": 60,
+        "best_1yr": 60,
+        "worst_1yr": -22,
+        "contributing_count": 2,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "META_2022",
+          "similarity": 0.843,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.834,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.791,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.786,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CRM_2014",
+          "similarity": 0.778,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 77.9,
+        "weighted_3yr_pct": 132.8,
+        "weighted_5yr_pct": 227.0,
+        "median_1yr_pct": 35,
+        "best_1yr": 195,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "META_2022",
+          "similarity": 0.843,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.834,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.825,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.823,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.819,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 44.8,
+        "weighted_3yr_pct": 68.9,
+        "weighted_5yr_pct": 82.8,
+        "median_1yr_pct": 20,
+        "best_1yr": 195,
+        "worst_1yr": -20,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "SM",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.733,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "VST",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "NEE_2017",
+          "similarity": 0.769,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 28.0,
+        "weighted_3yr_pct": 110.0,
+        "weighted_5yr_pct": 145.0,
+        "median_1yr_pct": 28,
+        "best_1yr": 28,
+        "worst_1yr": 28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "VST",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.925,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.893,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.886,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CAT_2015",
+          "similarity": 0.869,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.833,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 44.3,
+        "weighted_3yr_pct": 79.4,
+        "weighted_5yr_pct": 165.6,
+        "median_1yr_pct": 32,
+        "best_1yr": 145,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "VST",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.925,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PG_2018",
+          "similarity": 0.893,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.893,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "HD_2011",
+          "similarity": 0.886,
+          "era_bucket": "2010-2012 (post-crisis recovery)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AMZN_2008",
+          "similarity": 0.869,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 73.1,
+        "weighted_3yr_pct": 127.4,
+        "weighted_5yr_pct": 215.6,
+        "median_1yr_pct": 32,
+        "best_1yr": 162,
+        "worst_1yr": -2,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "VST",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.772,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MO",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.763,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "COST_2015",
+          "similarity": 0.603,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 2.0,
+        "weighted_3yr_pct": 47.1,
+        "weighted_5yr_pct": 74.1,
+        "median_1yr_pct": 7,
+        "best_1yr": 7,
+        "worst_1yr": -2,
+        "contributing_count": 2,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MO",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.788,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.776,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.752,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JPM_2015",
+          "similarity": 0.689,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.688,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 68.3,
+        "weighted_3yr_pct": 100.5,
+        "weighted_5yr_pct": 160.9,
+        "median_1yr_pct": 20,
+        "best_1yr": 195,
+        "worst_1yr": -27,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MO",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.788,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.776,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.763,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.752,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "MSFT_2000",
+          "similarity": 0.752,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 29.9,
+        "weighted_3yr_pct": 41.8,
+        "weighted_5yr_pct": 54.9,
+        "median_1yr_pct": -2,
+        "best_1yr": 195,
+        "worst_1yr": -41,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "MO",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.676,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "APP",
+      "opts": {
+        "sector_filter": "same",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "META_2022",
+          "similarity": 0.751,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": true
+        },
+        {
+          "match_key": "T_2017",
+          "similarity": 0.707,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": true
+        },
+        {
+          "match_key": "NFLX_2015",
+          "similarity": 0.699,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": true
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 58.7,
+        "weighted_3yr_pct": 111.3,
+        "weighted_5yr_pct": 234.4,
+        "median_1yr_pct": -8,
+        "best_1yr": 195,
+        "worst_1yr": -20,
+        "contributing_count": 3,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "APP",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "MSFT_2000",
+          "similarity": 0.892,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.81,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "META_2022",
+          "similarity": 0.751,
+          "era_bucket": "2021-2022 (post-COVID + correction)",
+          "same_sector": true
+        },
+        {
+          "match_key": "AAPL_2008",
+          "similarity": 0.712,
+          "era_bucket": "2008-2009 (financial crisis)",
+          "same_sector": false
+        },
+        {
+          "match_key": "PLD_2014",
+          "similarity": 0.702,
+          "era_bucket": "2013-2015 (mid-cycle expansion)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": 62.6,
+        "weighted_3yr_pct": 105.6,
+        "weighted_5yr_pct": 172.4,
+        "median_1yr_pct": 20,
+        "best_1yr": 195,
+        "worst_1yr": -41,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "APP",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": false,
+        "tag_filter": null
+      },
+      "matches": [
+        {
+          "match_key": "MSFT_2000",
+          "similarity": 0.892,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "INTC_2000",
+          "similarity": 0.86,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.828,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        },
+        {
+          "match_key": "JNJ_2017",
+          "similarity": 0.81,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        },
+        {
+          "match_key": "KO_2016",
+          "similarity": 0.789,
+          "era_bucket": "2016-2018 (late-cycle growth)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -16.4,
+        "weighted_3yr_pct": -33.7,
+        "weighted_5yr_pct": -26.7,
+        "median_1yr_pct": -27,
+        "best_1yr": 20,
+        "worst_1yr": -41,
+        "contributing_count": 5,
+        "missing_count": 0
+      }
+    },
+    {
+      "ticker": "APP",
+      "opts": {
+        "sector_filter": "any",
+        "dedupe_eras": true,
+        "tag_filter": "bubble-era"
+      },
+      "matches": [
+        {
+          "match_key": "CSCO_1999",
+          "similarity": 0.828,
+          "era_bucket": "1999-2001 (dot-com peak)",
+          "same_sector": false
+        }
+      ],
+      "agg": {
+        "weighted_1yr_pct": -28.0,
+        "weighted_3yr_pct": -85.0,
+        "weighted_5yr_pct": -75.0,
+        "median_1yr_pct": -28,
+        "best_1yr": -28,
+        "worst_1yr": -28,
+        "contributing_count": 1,
+        "missing_count": 0
+      }
+    }
+  ]
+}

@@ -19,9 +19,9 @@ export interface RawRef { sector: string | null; price: number | null; isEtf: bo
 
 export interface Position {
   ticker: string; name: string | null; shares: number; price: number | null;
-  market_value: number; cost_basis?: number | null; gain_pct: number | null;
+  market_value: number | null; cost_basis?: number | null; gain_pct: number | null;
   sector: string | null; type: "stock" | "etf"; composite: number | null; rating: string;
-  weight: number; pillars: Record<string, number>;
+  weight: number | null; pillars: Record<string, number>;
 }
 export interface PortfolioAnalysis {
   total_value: number;
@@ -66,30 +66,33 @@ export function analyzePortfolio(
     if (r) {
       nScored++;
       // in scored_df.index -> "stock" branch (ETFs included)
-      const price = r.price ?? 0;
+      // Null price -> market_value NaN -> null (pandas skipna), NOT coalesced to 0.
+      const price = r.price;
+      const mv = price == null ? null : h.shares * price;
       const cb = h.cost_basis;
       const pillars: Record<string, number> = {};
       for (const p of PILLARS) pillars[p] = pyRound2(r.pillars[p] ?? 0);
       positions.push({
-        ticker: tk, name: r.name, shares: h.shares, price: r.price, market_value: h.shares * price,
-        cost_basis: cb, gain_pct: cb && cb > 0 ? (price - cb) / cb * 100 : null,
-        sector: r.sector, type: "stock", composite: r.composite, rating: r.rating, weight: 0, pillars,
+        ticker: tk, name: r.name, shares: h.shares, price: r.price, market_value: mv,
+        cost_basis: cb, gain_pct: cb && cb > 0 && price != null ? (price - cb) / cb * 100 : null,
+        sector: r.sector, type: "stock", composite: r.composite, rating: r.rating, weight: null, pillars,
       });
       continue;
     }
     const raw = rawByTicker?.get(tk);
     if (raw) {
       nRaw++;
-      const price = raw.price ?? 0;
+      const price = raw.price;
+      const mv = price == null ? null : h.shares * price;
       const cb = h.cost_basis;
       const pillars: Record<string, number> = {};
       for (const p of PILLARS) pillars[p] = 0;
       positions.push({
-        ticker: tk, name: tk, shares: h.shares, price: raw.price, market_value: h.shares * price,
-        cost_basis: cb, gain_pct: cb && cb > 0 ? (price - cb) / cb * 100 : null,
+        ticker: tk, name: tk, shares: h.shares, price: raw.price, market_value: mv,
+        cost_basis: cb, gain_pct: cb && cb > 0 && price != null ? (price - cb) / cb * 100 : null,
         sector: raw.sector ?? (raw.isEtf ? "ETF" : "Unknown"),
         type: raw.isEtf ? "etf" : "stock",
-        composite: null, rating: raw.isEtf ? "N/A (ETF)" : "Not Scored", weight: 0, pillars,
+        composite: null, rating: raw.isEtf ? "N/A (ETF)" : "Not Scored", weight: null, pillars,
       });
       continue;
     }
@@ -97,22 +100,24 @@ export function analyzePortfolio(
   }
   if (!positions.length) return null;
 
-  const total = positions.reduce((a, p) => a + p.market_value, 0);
-  for (const p of positions) p.weight = total > 0 ? p.market_value / total : 0;
+  // total_value sums non-null market_values (pandas .sum() skipna); null-priced
+  // holdings get null weight and are skipped in all weighted aggregations.
+  const total = positions.reduce((a, p) => a + (p.market_value ?? 0), 0);
+  for (const p of positions) p.weight = p.market_value == null || total <= 0 ? null : p.market_value / total;
 
   const stocks = positions.filter((p) => p.type === "stock");
-  const stocksW = stocks.reduce((a, p) => a + p.weight, 0);
-  // numerator skips null composite (pandas skipna); denominator = all stock weights
-  const wcNum = stocks.reduce((a, p) => a + (p.composite != null ? p.weight * p.composite : 0), 0);
+  const stocksW = stocks.reduce((a, p) => a + (p.weight ?? 0), 0);
+  // numerator skips null composite (pandas skipna); denominator = all non-null stock weights
+  const wcNum = stocks.reduce((a, p) => a + (p.weight != null && p.composite != null ? p.weight * p.composite : 0), 0);
   const weightedCompositeRaw = stocks.length && stocksW > 0 ? wcNum / stocksW : 0;
-  const etfW = positions.filter((p) => p.type === "etf").reduce((a, p) => a + p.weight, 0);
+  const etfW = positions.filter((p) => p.type === "etf").reduce((a, p) => a + (p.weight ?? 0), 0);
   const stockW = 1 - etfW;
 
   // pillar weighted avgs (stocks only); raw-branch pillars are 0 -> dilute
   const pillarScores: Record<string, number> = {};
   for (const pk of PILLARS) {
     pillarScores[pk] = stocks.length && stocksW > 0
-      ? stocks.reduce((a, p) => a + p.weight * (p.pillars[pk] ?? 0), 0) / stocksW : 0;
+      ? stocks.reduce((a, p) => a + (p.weight ?? 0) * (p.pillars[pk] ?? 0), 0) / stocksW : 0;
   }
   // universe avgs over ALL rows (incl ETFs), rounded pillar columns
   const uniAvg: Record<string, number> = {};
@@ -131,13 +136,13 @@ export function analyzePortfolio(
   }
   // rating distribution (stocks only, by weight)
   const ratingDist: Record<string, number> = {};
-  for (const p of stocks) ratingDist[p.rating] = (ratingDist[p.rating] ?? 0) + p.weight;
+  for (const p of stocks) ratingDist[p.rating] = (ratingDist[p.rating] ?? 0) + (p.weight ?? 0);
   // sector weights + hhi (over ALL positions)
   const secMap = new Map<string, { weight: number; count: number; scores: number[] }>();
   for (const p of positions) {
     const k = p.sector ?? "Unknown";
     const e = secMap.get(k) ?? { weight: 0, count: 0, scores: [] };
-    e.weight += p.weight; e.count++; if (p.composite != null) e.scores.push(p.composite);
+    e.weight += p.weight ?? 0; e.count++; if (p.composite != null) e.scores.push(p.composite);
     secMap.set(k, e);
   }
   const sectorWeights: PortfolioAnalysis["sector_weights"] = {};

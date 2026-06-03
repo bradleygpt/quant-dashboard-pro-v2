@@ -11,9 +11,23 @@ async function getJSON<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 async function getJSONOrNull<T>(path: string): Promise<T | null> {
-  const res = await fetch(`${BASE}/${path}`);
-  if (!res.ok) return null;
-  return res.json() as Promise<T>;
+  try {
+    const res = await fetch(`${BASE}/${path}`);
+    if (!res.ok) return null;
+    return (await res.json()) as T;
+  } catch {
+    return null;
+  }
+}
+
+// Windows reserved device names (CON, PRN, …) can't be filenames; the bake writes
+// CON_.json etc. Mirror that mapping when building the per-ticker shard path.
+const RESERVED_NAMES = new Set(
+  ["CON", "PRN", "AUX", "NUL", ...Array.from({ length: 9 }, (_, i) => `COM${i + 1}`), ...Array.from({ length: 9 }, (_, i) => `LPT${i + 1}`)],
+);
+function shardName(ticker: string): string {
+  const safe = RESERVED_NAMES.has(ticker.toUpperCase()) ? `${ticker}_` : ticker;
+  return encodeURIComponent(safe);
 }
 
 let metaP: Promise<Meta> | null = null;
@@ -32,13 +46,13 @@ const detailCache = new Map<string, Promise<TickerDetail | null>>();
 export function loadTickerDetail(floor: Floor, ticker: string): Promise<TickerDetail | null> {
   const key = `${floor}/${ticker}`;
   if (!detailCache.has(key))
-    detailCache.set(key, getJSONOrNull<TickerDetail>(`detail/floor${floor}/${encodeURIComponent(ticker)}.json`));
+    detailCache.set(key, getJSONOrNull<TickerDetail>(`detail/floor${floor}/${shardName(ticker)}.json`));
   return detailCache.get(key)!;
 }
 
 const priceCache = new Map<string, Promise<PriceSeries | null>>();
 export function loadTickerPrices(ticker: string): Promise<PriceSeries | null> {
   if (!priceCache.has(ticker))
-    priceCache.set(ticker, getJSONOrNull<PriceSeries>(`prices/${encodeURIComponent(ticker)}.json`));
+    priceCache.set(ticker, getJSONOrNull<PriceSeries>(`prices/${shardName(ticker)}.json`));
   return priceCache.get(ticker)!;
 }

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "validate-parity": "node --experimental-strip-types scripts/validate-scoring.ts",
-    "validate-portfolio": "node --experimental-strip-types scripts/validate-portfolio.ts"
+    "validate-portfolio": "node --experimental-strip-types scripts/validate-portfolio.ts",
+    "validate-doppelganger": "node --experimental-strip-types scripts/validate-doppelganger.ts"
   },
   "dependencies": {
     "react": "^18.3.1",

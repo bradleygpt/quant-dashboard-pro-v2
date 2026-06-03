@@ -27,7 +27,7 @@ export default function PortfolioTab() {
     { key: "shares", header: "Shares", align: "right", sortValue: (p) => p.shares, render: (p) => p.shares },
     { key: "price", header: "Price", align: "right", sortValue: (p) => p.price, render: (p) => fmtMoney(p.price) },
     { key: "value", header: "Value", align: "right", sortValue: (p) => p.market_value, render: (p) => fmtMoney(p.market_value, 0) },
-    { key: "weight", header: "Weight", align: "right", sortValue: (p) => p.weight, render: (p) => fmtPct(p.weight * 100) },
+    { key: "weight", header: "Weight", align: "right", sortValue: (p) => p.weight, render: (p) => p.weight == null ? "—" : fmtPct(p.weight * 100) },
     { key: "gain", header: "Gain", align: "right", sortValue: (p) => p.gain_pct,
       render: (p) => <span style={{ color: p.gain_pct == null ? "#7C879B" : p.gain_pct >= 0 ? "#00C805" : "#FF5722" }}>{p.gain_pct == null ? "—" : fmtPct(p.gain_pct, 1, true)}</span> },
     { key: "rating", header: "Rating", sortValue: (p) => RATING_RANK[p.rating] ?? 0, render: (p) => <RatingBadge rating={p.rating} /> },

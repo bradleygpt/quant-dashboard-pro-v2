@@ -3,11 +3,5 @@
   "framework": "vite",
   "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
-    }
-  ],
-  "rewrites": [{ "source": "/((?!data/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!data/|api/).*)", "destination": "/index.html" }]
 }

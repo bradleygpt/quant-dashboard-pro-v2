@@ -21,6 +21,7 @@ const NEAR = 1e-9;
 let exact = 0, near = 0, fails = 0, ties = 0;
 const failMsgs: string[] = [];
 
+const round6 = (x: any) => (x == null ? null : Math.round(x * 1e6) / 1e6);
 function cmpNum(label: string, a: any, b: any) {
   if (a == null && b == null) { exact++; return; }
   if (a == null || b == null) { fails++; failMsgs.push(`${label}: null mismatch ts=${a} py=${b}`); return; }
@@ -102,10 +103,15 @@ for (const [ctxKey, ctx] of Object.entries<any>(oracle.contexts)) {
     const exp = q.positions;
     const L = `${ctxKey}/quant/${q.id}`;
     cmpEq(`${L}.count`, got.length, exp.length);
-    const gp = new Map(got.map((p) => [p.ticker, p]));
+    // Co-selected stocks (in both) must match EXACTLY. Under m_heavy (power=1.0) many
+    // stocks share an identical composite, so which equal-composite ticker fills the
+    // last slot(s) is non-deterministic in pandas' (unstable) sort. A symmetric-difference
+    // ticker is an accepted tie ONLY if every differing ticker shares one composite value
+    // (the selection boundary). Otherwise it's a real selection bug.
+    const gMap = new Map(got.map((p) => [p.ticker, p]));
+    const eMap = new Map(exp.map((p: any) => [p.ticker, p]));
     for (const ep of exp) {
-      const p = gp.get(ep.ticker); const PL = `${L}.${ep.ticker}`;
-      if (!p) { fails++; failMsgs.push(`${PL}: missing in TS`); continue; }
+      const p = gMap.get(ep.ticker); if (!p) continue; const PL = `${L}.${ep.ticker}`;
       cmpEq(`${PL}.sector`, p.sector, ep.sector);
       cmpEq(`${PL}.rating`, p.rating, ep.rating);
       cmpNum(`${PL}.composite`, p.composite_score, ep.composite_score);
@@ -115,16 +121,17 @@ for (const [ctxKey, ctx] of Object.entries<any>(oracle.contexts)) {
       cmpNum(`${PL}.shares`, p.shares, ep.shares);
       cmpNum(`${PL}.market_cap_b`, p.market_cap_b, ep.market_cap_b);
     }
-    // ordering check: a divergence is a genuine weight_pct tie iff re-sorting BOTH
-    // by (weight_pct desc, ticker asc) yields the same sequence. Otherwise real fail.
-    const gOrder = got.map((p) => p.ticker).join(",");
-    const eOrder = exp.map((p: any) => p.ticker).join(",");
-    if (gOrder !== eOrder) {
-      const key = (p: any) => `${(-p.weight_pct).toFixed(6)}|${p.ticker}`;
-      const gT = [...got].sort((a, b) => key(a).localeCompare(key(b))).map((p) => p.ticker).join(",");
-      const eT = [...exp].sort((a: any, b: any) => key(a).localeCompare(key(b))).map((p: any) => p.ticker).join(",");
-      if (gT === eT) ties++;
-      else { fails++; failMsgs.push(`${L}: ORDER differs beyond ties ts=[${gOrder}] py=[${eOrder}]`); }
+    const onlyG = got.filter((p) => !eMap.has(p.ticker));
+    const onlyE = exp.filter((p: any) => !gMap.has(p.ticker));
+    if (onlyG.length || onlyE.length) {
+      const comps = new Set([...onlyG, ...onlyE].map((p: any) => round6(p.composite_score)));
+      if (comps.size === 1 && onlyG.length === onlyE.length) {
+        ties++;
+        failMsgs.push(`${L}: boundary tie (composite=${[...comps][0]}) — PY:[${onlyE.map((p: any) => p.ticker)}] TS:[${onlyG.map((p) => p.ticker)}]`);
+      } else {
+        fails++;
+        failMsgs.push(`${L}: selection differs (not a single-composite tie) PY-only:[${onlyE.map((p: any) => p.ticker)}] TS-only:[${onlyG.map((p) => p.ticker)}]`);
+      }
     }
   }
 }

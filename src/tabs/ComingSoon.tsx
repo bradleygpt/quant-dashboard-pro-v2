@@ -4,7 +4,7 @@ export default function ComingSoon({ title, reason }: { title: string; reason: s
       <div className="text-lg font-semibold text-white">{title}</div>
       <p className="mt-2 text-sm leading-relaxed text-[#9CA7BB]">{reason}</p>
       <div className="mt-4 inline-block rounded-full bg-[#1A2130] px-3 py-1 text-xs text-[#7C879B]">
-        Deferred in this build pass
+        Not implemented in the source app
       </div>
     </div>
   );
