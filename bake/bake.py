@@ -313,6 +313,18 @@ try:
 except Exception as e:
     log(f"pundits.json skipped: {e}")
 
+# ── quarterly history (for Stock Detail quarterly earnings/margins trend) ──
+try:
+    qmap = {}
+    for tk, d in base_raw.items():
+        qh = d.get("quarterly_history")
+        if isinstance(qh, list) and qh:
+            qmap[tk] = qh
+    json.dump(qmap, open(f"{OUT}/quarterly.json", "w"))
+    log(f"wrote quarterly.json ({len(qmap)} tickers)")
+except Exception as e:
+    log(f"quarterly.json skipped: {e}")
+
 # ── indicator snapshots (for Home market-health 1W/1M deltas) ──
 try:
     import shutil

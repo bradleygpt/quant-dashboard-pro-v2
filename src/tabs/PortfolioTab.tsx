@@ -1,9 +1,32 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, RatingBadge, TH, TD } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { analyzePortfolio, type Holding, type Position } from "../lib/portfolio";
+import { generateSuggestions, runMonteCarlo, sugColor, sugIcon } from "../lib/suggestions";
+import { loadTickerPrices } from "../lib/data";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
+
+// Generic Fidelity-style CSV → holdings (Symbol/Ticker, Quantity/Shares, Cost Basis Per Share)
+function parseHoldingsCsv(text: string): Holding[] {
+  const lines = text.split(/\r?\n/).filter((l) => l.trim());
+  if (lines.length < 2) return [];
+  const split = (l: string) => l.split(",").map((x) => x.trim().replace(/^"|"$/g, ""));
+  const header = split(lines[0]).map((h) => h.toLowerCase());
+  const find = (...keys: string[]) => header.findIndex((h) => keys.some((k) => h.includes(k)));
+  const si = find("symbol", "ticker"), qi = find("quantity", "shares"), ci = find("cost basis per share", "average cost", "cost basis");
+  if (si < 0 || qi < 0) return [];
+  const out: Holding[] = [];
+  for (let i = 1; i < lines.length; i++) {
+    const c = split(lines[i]);
+    const t = (c[si] || "").toUpperCase().replace(/[^A-Z.\-]/g, "");
+    const q = parseFloat((c[qi] || "").replace(/[^0-9.\-]/g, ""));
+    const cb = ci >= 0 ? parseFloat((c[ci] || "").replace(/[^0-9.\-]/g, "")) : NaN;
+    if (t && Number.isFinite(q) && q > 0) out.push({ ticker: t, shares: q, cost_basis: Number.isFinite(cb) ? cb : null });
+  }
+  return out;
+}
 
 function useHoldings(): [Holding[], (h: Holding[]) => void] {
   const [h, setH] = useState<Holding[]>(() => {
@@ -19,6 +42,22 @@ export default function PortfolioTab() {
   const [tk, setTk] = useState(""); const [sh, setSh] = useState(""); const [cb, setCb] = useState("");
 
   const analysis = useMemo(() => analyzePortfolio(holdings, byTicker, rows), [holdings, byTicker, rows]);
+  const suggestions = useMemo(() => analysis ? generateSuggestions(analysis, rows) : [], [analysis, rows]);
+
+  // Monte Carlo needs per-holding price series (lazy-loaded)
+  const [priceMap, setPriceMap] = useState<Map<string, number[]>>(new Map());
+  useEffect(() => {
+    let live = true;
+    const stockTickers = (analysis?.positions ?? []).filter((p) => p.type === "stock").map((p) => p.ticker);
+    Promise.all(stockTickers.map((t) => loadTickerPrices(t).then((s) => [t, s?.close ?? null] as const)))
+      .then((pairs) => { if (live) { const m = new Map<string, number[]>(); for (const [t, c] of pairs) if (c) m.set(t, c); setPriceMap(m); } });
+    return () => { live = false; };
+  }, [analysis]);
+  const mc = useMemo(() => analysis ? runMonteCarlo(analysis, rows, priceMap) : null, [analysis, rows, priceMap]);
+
+  const pillarTilt = useMemo(() => analysis ? Object.entries(analysis.factor_tilts).map(([p, f]) => ({ pillar: p.replace(" Revisions", " Rev"), Portfolio: f.portfolio, Universe: f.universe })) : [], [analysis]);
+
+  const onCsv = (file: File) => { const r = new FileReader(); r.onload = () => { const parsed = parseHoldingsCsv(String(r.result || "")); if (parsed.length) setHoldings(parsed); }; r.readAsText(file); };
 
   const holdingCols = useMemo<Column<Position>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (p) => p.ticker,
@@ -51,8 +90,13 @@ export default function PortfolioTab() {
           <label className="text-xs text-[#9CA7BB]">Shares<input value={sh} onChange={(e) => setSh(e.target.value)} className="mt-1 block w-24 rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1.5 text-sm text-white" /></label>
           <label className="text-xs text-[#9CA7BB]">Cost basis<input value={cb} onChange={(e) => setCb(e.target.value)} placeholder="opt." className="mt-1 block w-24 rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1.5 text-sm text-white" /></label>
           <button onClick={add} className="rounded-md bg-[#3B82F6] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Add</button>
+          <label className="cursor-pointer rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#9CA7BB] hover:bg-[#161D29]">
+            Upload CSV
+            <input type="file" accept=".csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onCsv(f); e.target.value = ""; }} />
+          </label>
           {holdings.length > 0 && <button onClick={() => setHoldings([])} className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#9CA7BB] hover:bg-[#161D29]">Clear all</button>}
         </div>
+        <div className="mt-1 text-[10px] text-[#5C6678]">CSV: a header row with Symbol/Ticker, Quantity/Shares, and optional Cost Basis Per Share (Fidelity-style export works).</div>
       </Card>
 
       {!analysis ? (
@@ -102,6 +146,57 @@ export default function PortfolioTab() {
               </table>
             </Card>
           </div>
+
+          {/* Pillar tilt chart (Portfolio vs Universe) */}
+          <Card title="Pillar Tilt — Portfolio vs Universe">
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={pillarTilt} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+                <XAxis dataKey="pillar" tick={{ fill: "#9CA7BB", fontSize: 11 }} />
+                <YAxis domain={[0, 12]} tick={{ fill: "#7C879B", fontSize: 11 }} width={28} />
+                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar dataKey="Portfolio" fill="#5BA8FF" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="Universe" fill="#3A4254" radius={[3, 3, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </Card>
+
+          {/* Actionable recommendations (suggestions_v2) */}
+          <Card title="Actionable Recommendations" sub="Prescriptive, prioritized — position sizing, sector risk, tax-loss, momentum exits, new ideas">
+            {suggestions.length === 0 ? <div className="text-sm text-[#7C879B]">No flags — portfolio looks balanced.</div> : (
+              <div className="space-y-2">
+                {suggestions.map((s, i) => (
+                  <div key={i} className="rounded-md p-3" style={{ background: "#141B27", borderLeft: `4px solid ${sugColor(s.type)}` }}>
+                    <div className="text-sm font-semibold" style={{ color: sugColor(s.type) }}>{sugIcon(s.type)} {s.title}</div>
+                    <div className="text-sm text-white">→ {s.action}</div>
+                    <div className="text-xs text-[#9CA7BB]">{s.reasoning}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Card>
+
+          {/* Monte Carlo projection */}
+          {mc && (
+            <Card title="Monte Carlo Projection" sub={`${mc.sims.toLocaleString()} simulations · ${mc.horizonDays}-day horizon · GBM from per-holding return/vol (deterministic seed)`}>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <Metric label="Expected return" value={fmtPct(mc.expReturnPct, 1, true)} />
+                <Metric label="Volatility" value={fmtPct(mc.volPct, 1)} />
+                <Metric label="P(gain)" value={`${mc.pGain.toFixed(0)}%`} />
+                <Metric label="P(loss > 20%)" value={`${mc.pLoss20.toFixed(0)}%`} />
+              </div>
+              <table className="mt-2 w-full text-sm">
+                <thead><tr><TH>Percentile</TH><TH className="text-right">Value</TH><TH className="text-right">Return</TH></tr></thead>
+                <tbody>
+                  {([["5th", mc.p5], ["25th", mc.p25], ["50th (median)", mc.p50], ["75th", mc.p75], ["95th", mc.p95]] as const).map(([l, v]) => (
+                    <tr key={l} className="border-t border-[#161D29]"><TD className="text-[#C3CAD7]">{l}</TD><TD className="text-right">{fmtMoney(v, 0)}</TD>
+                      <TD className="text-right" style={{ color: v >= mc.start ? "#00C805" : "#FF5722" }}>{fmtPct((v / mc.start - 1) * 100, 1, true)}</TD></tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="mt-1 text-[10px] text-[#5C6678]">Illustrative projection from historical per-holding return/vol; not a forecast. Correlations simplified (independent paths).</div>
+            </Card>
+          )}
         </>
       )}
     </div>

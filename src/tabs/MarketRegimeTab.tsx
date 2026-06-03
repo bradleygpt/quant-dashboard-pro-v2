@@ -28,6 +28,7 @@ interface Market {
   yields?: { ok: boolean; y10?: number; y2?: number; spread?: number };
   buffett?: { ok: boolean; ratio?: number; level?: string; score?: number };
   pgi?: { ok: boolean; pgi?: number; level?: string; money_market_t?: number; fred_keyless?: boolean };
+  dots?: { ok: boolean; median_current_year?: number; median_longer_run?: number };
 }
 interface MarketStatic {
   ok?: boolean;
@@ -182,9 +183,17 @@ export default function MarketRegimeTab() {
           <Card title="Fed Rate Outlook" sub={nextFomc ? `Next FOMC: ${nextFomc}` : undefined}>
             <div className="space-y-1 text-sm">
               {stat.data.fed_outlook.bias && <div><span className="text-[#7C879B]">Bias: </span><span className="text-[#C3CAD7]">{stat.data.fed_outlook.bias}</span></div>}
-              {["cut_prob", "hold_prob", "hike_prob"].map((k) => stat.data!.fed_outlook[k] != null && (
-                <div key={k} className="flex justify-between"><span className="capitalize text-[#7C879B]">{k.replace("_prob", "")}</span><span>{stat.data!.fed_outlook[k]}%</span></div>
+              {["cut_probability", "hold_probability", "hike_probability"].map((k) => stat.data!.fed_outlook[k] != null && (
+                <div key={k} className="flex justify-between"><span className="capitalize text-[#7C879B]">{k.replace("_probability", "")}</span><span>{stat.data!.fed_outlook[k]}%</span></div>
               ))}
+              {mkt.data?.dots?.ok && (
+                <div className="mt-2 border-t border-[#1E2632] pt-2">
+                  <div className="text-[10px] uppercase text-[#7C879B]">SEP median projection (FRED)</div>
+                  <div className="flex justify-between"><span className="text-[#9CA7BB]">Current year</span><span>{mkt.data.dots.median_current_year != null ? `${mkt.data.dots.median_current_year.toFixed(2)}%` : "—"}</span></div>
+                  <div className="flex justify-between"><span className="text-[#9CA7BB]">Longer run</span><span>{mkt.data.dots.median_longer_run != null ? `${mkt.data.dots.median_longer_run.toFixed(2)}%` : "—"}</span></div>
+                  <div className="text-[10px] text-[#5C6678]">Full per-participant dot matrix is only in the FOMC SEP release (not in keyless FRED); median path shown.</div>
+                </div>
+              )}
             </div>
           </Card>
         )}

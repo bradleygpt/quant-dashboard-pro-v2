@@ -75,11 +75,13 @@ async function fredLatest(seriesId: string): Promise<number | null> {
 }
 
 export default async function handler() {
-  const [indexCloses, vixCloses, tnx, irx, w5000, mmMillions] = await Promise.all([
+  const [indexCloses, vixCloses, tnx, irx, w5000, mmMillions, sepMedian, sepLongRun] = await Promise.all([
     Promise.all(INDICES.map(([sym]) => yahooCloses(sym))),
     yahooCloses("^VIX"),
     yahooCloses("^TNX"), yahooCloses("^IRX"), yahooCloses("^W5000"),
     fredLatest("MMMFFAQ027S"),
+    fredLatest("FEDTARMD"),    // SEP median target, current year (keyless)
+    fredLatest("FEDTARMDLR"),  // SEP median target, longer run
   ]);
 
   // indices
@@ -146,7 +148,9 @@ export default async function handler() {
     pgi = { ok: true, pgi: val, money_market_t: mmT, total_mkt_cap_t: totalT, level, score, fred_keyless: mmMillions != null };
   }
 
-  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, spy, vix, yields, buffett, pgi });
+  const dots = (sepMedian != null || sepLongRun != null)
+    ? { ok: true, median_current_year: sepMedian, median_longer_run: sepLongRun } : { ok: false };
+  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, spy, vix, yields, buffett, pgi, dots });
   return new Response(body, {
     headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=600, stale-while-revalidate=3600" },
   });

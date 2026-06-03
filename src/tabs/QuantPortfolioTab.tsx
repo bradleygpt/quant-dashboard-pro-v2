@@ -3,25 +3,26 @@ import { useStore } from "../store";
 import { Card, Metric, RatingBadge } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtPct, fmtCapB } from "../lib/format";
-import { buildOptimalPortfolio, type Aggressiveness, type QpPosition } from "../lib/portfolio";
+import { buildOptimalPortfolio, buildTop25, type Aggressiveness, type QpPosition } from "../lib/portfolio";
 
-const LEVELS: Aggressiveness[] = ["Conservative", "Balanced", "Aggressive"];
+type Level = Aggressiveness | "Validated TOP-25";
+const LEVELS: Level[] = ["Validated TOP-25", "Conservative", "Balanced", "Aggressive"];
 
 export default function QuantPortfolioTab() {
   const { rows, preset, meta, goToDetail } = useStore();
   const [capital, setCapital] = useState(100000);
-  const [level, setLevel] = useState<Aggressiveness>("Balanced");
+  const [level, setLevel] = useState<Level>("Validated TOP-25");
 
   const weightScheme = preset === "Custom" ? "equal" : preset;
   const port = useMemo(
-    () => buildOptimalPortfolio(rows, capital, level, weightScheme),
+    () => level === "Validated TOP-25" ? buildTop25(rows, capital) : buildOptimalPortfolio(rows, capital, level, weightScheme),
     [rows, capital, level, weightScheme],
   );
   const presetInfo = preset !== "Custom" ? meta.presets[preset] : null;
   const deployed = port.reduce((a, p) => a + p.dollars, 0);
   const avgScore = port.length ? port.reduce((a, p) => a + p.composite_score, 0) / port.length : 0;
   const nSectors = new Set(port.map((p) => p.sector)).size;
-  const POS_BY_LEVEL: Record<Aggressiveness, number> = { Conservative: 30, Balanced: 20, Aggressive: 12 };
+  const POS_BY_LEVEL: Record<Level, number> = { "Validated TOP-25": 25, Conservative: 30, Balanced: 20, Aggressive: 12 };
 
   const columns = useMemo<Column<QpPosition>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (p) => p.ticker,
@@ -74,7 +75,7 @@ export default function QuantPortfolioTab() {
                 className={`rounded-md px-3 py-1.5 text-xs ${level === l ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"}`}>{l} ({POS_BY_LEVEL[l]})</button>
             ))}
           </div>
-          <span className="text-[11px] text-[#7C879B]">Position count is aggressiveness-dependent: Conservative 30 · Balanced 20 · Aggressive 12.</span>
+          <span className="text-[11px] text-[#7C879B]">Validated TOP-25 = the equal-weight construction the backtest above describes. Conservative 30 · Balanced 20 · Aggressive 12 are score-weighted with sector caps.</span>
         </div>
       </Card>
 

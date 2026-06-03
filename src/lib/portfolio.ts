@@ -212,6 +212,20 @@ function selectWithSectorCap(cands: ViewRow[], maxPos: number, sectorCap: number
   return selected;
 }
 
+// Validated TOP-25 construction: the exact portfolio the backtest stats describe —
+// top 25 non-ETF stocks by composite, EQUAL weight (no sector cap / score floor).
+export function buildTop25(rows: ViewRow[], capital: number): QpPosition[] {
+  const stocks = rows.filter((r) => r.sector !== "ETF" && r.composite != null && r.price != null && r.price > 0)
+    .sort((a, b) => b.composite - a.composite).slice(0, 25);
+  if (!stocks.length) return [];
+  const w = 1 / stocks.length;
+  return stocks.map((r) => ({
+    ticker: r.ticker, sector: r.sector, rating: r.rating, composite_score: r.composite, price: r.price!,
+    weight_pct: pyRound(w * 100, 2), dollars: pyRound(w * capital, 2),
+    shares: pyRound(pyRound(w * capital, 2) / r.price!, 3), market_cap_b: pyRound((r.marketCap ?? 0) / 1e9, 2),
+  }));
+}
+
 export function buildOptimalPortfolio(
   rows: ViewRow[], capital: number, preset: Aggressiveness, weightScheme: string, minPositionDollars = 200,
 ): QpPosition[] {
