@@ -4,6 +4,20 @@ import { Card, Metric, Spinner, Unavailable } from "../components/ui";
 import { fmtPct, fmtNum } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+
+const clip = (x: number) => Math.max(0, Math.min(100, x));
+// port of macro.compute_macro_health (static macro + live yield curve)
+function macroHealth(md: Record<string, any>, spread: number | null) {
+  const ism = md.ism_composite, unemp = md.unemployment_current, gdp = md.gdp_latest_qoq_annualized, cpi = md.cpi_current;
+  const ismS = clip((ism - 45) * 6.67), unS = clip((7.0 - unemp) / 3.5 * 100), gdpS = clip(gdp * 25);
+  const cpiS = cpi >= 2.0 && cpi <= 2.5 ? 100 : cpi >= 1.5 && cpi <= 3.0 ? 75 : cpi >= 1.0 && cpi <= 3.5 ? 50 : Math.max(0, 50 - Math.abs(cpi - 2.5) * 20);
+  const ycS = spread == null ? 50 : spread > 0.5 ? 80 : spread > 0 ? 60 : spread > -0.5 ? 30 : 10;
+  const score = ismS * 0.25 + unS * 0.25 + gdpS * 0.2 + cpiS * 0.15 + ycS * 0.15;
+  const [label, color] = score >= 75 ? ["Strong Expansion", "#00C805"] : score >= 55 ? ["Moderate Growth", "#8BC34A"]
+    : score >= 40 ? ["Slowing", "#FFC107"] : score >= 25 ? ["Contraction Risk", "#FF5722"] : ["Recession", "#D32F2F"];
+  return { score: Math.round(score), label, color, comps: { ISM: Math.round(ismS), Unemployment: Math.round(unS), GDP: Math.round(gdpS), CPI: Math.round(cpiS), "Yield Curve": Math.round(ycS) } };
+}
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -97,9 +111,68 @@ export default function MarketRegimeTab() {
             <Metric label="Fed Funds" value={md.fed_funds_upper != null ? `${md.fed_funds_lower}–${md.fed_funds_upper}%` : "—"} />
             <Metric label="GDP QoQ" value={md.gdp_latest_qoq_annualized != null ? `${md.gdp_latest_qoq_annualized}%` : "—"} hint={md.gdp_quarter} />
           </div>
-          {ef?.sp500_earnings_growth != null && (
-            <div className="mt-3 text-sm text-[#C3CAD7]">S&P 500 modeled earnings growth: <strong className="text-white">{fmtPct(ef.sp500_earnings_growth, 1, true)}</strong></div>
+        </Card>
+      )}
+
+      {/* Macro Health + Earnings Forecast */}
+      {stat.status === "ok" && (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {(() => {
+            const mh = macroHealth(md, mkt.data?.yields?.spread ?? null);
+            return (
+              <Card title="Macro Health" sub="ISM, jobs, GDP, CPI + yield curve">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl font-bold" style={{ color: mh.color }}>{mh.score}<span className="text-base text-[#7C879B]">/100</span></span>
+                  <span className="text-sm font-semibold" style={{ color: mh.color }}>{mh.label}</span>
+                </div>
+                <div className="mt-2 space-y-1 text-xs">
+                  {Object.entries(mh.comps).map(([k, v]) => (
+                    <div key={k} className="flex items-center gap-2">
+                      <span className="w-24 text-[#7C879B]">{k}</span>
+                      <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1A2130]"><div className="h-full rounded bg-[#5BA8FF]" style={{ width: `${v}%` }} /></div>
+                      <span className="w-8 text-right text-[#9CA7BB]">{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            );
+          })()}
+          {ef && (
+            <Card title="S&P 500 Earnings Forecast" sub="3-factor model (CPI + Unemployment + ISM)">
+              <div className="text-2xl font-bold text-white">{fmtPct(ef.sp500_earnings_growth, 1, true)}</div>
+              <div className="text-xs text-[#7C879B]">modeled YoY earnings growth</div>
+              {ef.scenarios && (
+                <table className="mt-2 w-full text-xs">
+                  <thead><tr><th className="py-1 text-left text-[#7C879B]">Scenario</th><th className="py-1 text-right text-[#7C879B]">Growth</th><th className="py-1 text-left text-[#7C879B]">CPI/Unemp/ISM</th></tr></thead>
+                  <tbody>
+                    {Object.entries<any>(ef.scenarios).map(([name, s]) => (
+                      <tr key={name} className="border-t border-[#161D29]">
+                        <td className="py-1 text-[#C3CAD7]">{name}</td>
+                        <td className="py-1 text-right font-semibold" style={{ color: s.earnings_growth >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(s.earnings_growth, 1, true)}</td>
+                        <td className="py-1 text-[#7C879B]">{s.cpi?.toFixed(1)} / {s.unemployment?.toFixed(1)} / {s.ism?.toFixed(0)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </Card>
           )}
+        </div>
+      )}
+
+      {/* Sector earnings forecast chart */}
+      {stat.status === "ok" && ef?.sector_forecasts && (
+        <Card title="Sector Earnings Forecast" sub="Modeled YoY earnings growth by sector">
+          <ResponsiveContainer width="100%" height={Math.max(220, Object.keys(ef.sector_forecasts).length * 26)}>
+            <BarChart layout="vertical" data={Object.entries<number>(ef.sector_forecasts).map(([s, v]) => ({ sector: s, growth: v })).sort((a, b) => b.growth - a.growth)} margin={{ left: 40, right: 20 }}>
+              <XAxis type="number" tick={{ fill: "#7C879B", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+              <YAxis type="category" dataKey="sector" width={140} tick={{ fill: "#9CA7BB", fontSize: 11 }} />
+              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`${v.toFixed(1)}%`, "Growth"]} />
+              <Bar dataKey="growth" radius={[0, 3, 3, 0]}>
+                {Object.entries<number>(ef.sector_forecasts).sort((a, b) => b[1] - a[1]).map(([s, v]) => <Cell key={s} fill={v >= 0 ? "#00C805" : "#FF5722"} />)}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </Card>
       )}
 

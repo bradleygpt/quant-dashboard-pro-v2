@@ -313,6 +313,17 @@ try:
 except Exception as e:
     log(f"pundits.json skipped: {e}")
 
+# ── indicator snapshots (for Home market-health 1W/1M deltas) ──
+try:
+    import shutil
+    for p in ("indicator_snapshots.json", os.path.join("data_cache", "indicator_snapshots.json")):
+        if os.path.exists(p):
+            shutil.copyfile(p, f"{OUT}/snapshots.json"); log("wrote snapshots.json"); break
+    else:
+        log("snapshots.json skipped: not found")
+except Exception as e:
+    log(f"snapshots.json skipped: {e}")
+
 # ── doppelganger DBs (static analog + forward-return tables; algorithm ported to TS) ──
 try:
     import doppelganger as _dg, doppelganger_returns as _dgr

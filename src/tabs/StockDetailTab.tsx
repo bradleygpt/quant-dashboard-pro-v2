@@ -4,7 +4,8 @@ import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui"
 import { fmtMoney, fmtPct, fmtCapB } from "../lib/format";
 import { loadTickerDetail, loadTickerPrices } from "../lib/data";
 import type { TickerDetail, PriceSeries } from "../lib/types";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid } from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
+import { computeRisk } from "../lib/risk";
 
 export default function StockDetailTab() {
   const { rows, byTicker, selectedTicker, selectTicker, floor, watchlist, toggleWatch, meta } = useStore();
@@ -35,6 +36,18 @@ export default function StockDetailTab() {
     if (!series) return [];
     return series.dates.map((d, i) => ({ date: d, close: series.close[i] }));
   }, [series]);
+
+  // y-domain ALWAYS includes FV and QBP so neither reference line clips off-scale
+  const yDomain = useMemo<[number, number] | undefined>(() => {
+    if (!series?.close.length) return undefined;
+    const vals = [...series.close];
+    if (row?.fv) vals.push(row.fv);
+    if (row?.qbp) vals.push(row.qbp);
+    const lo = Math.min(...vals), hi = Math.max(...vals);
+    const pad = (hi - lo) * 0.05 || hi * 0.05;
+    return [Math.max(0, lo - pad), hi + pad];
+  }, [series, row?.fv, row?.qbp]);
+  const priceAsOf = series?.dates.length ? series.dates[series.dates.length - 1] : null;
 
   if (!row) return <div className="p-4 text-[#9CA7BB]">Select a ticker.</div>;
 
@@ -82,13 +95,13 @@ export default function StockDetailTab() {
       </div>
 
       {/* price chart */}
-      <Card title="Price — last ~1y (daily close)" sub={series ? undefined : "Loading price history…"}>
+      <Card title="Price — daily close" sub={series ? (priceAsOf ? `Price data through ${priceAsOf} (source price cache). FV/QBP lines always in view.` : undefined) : "Loading price history…"}>
         {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={chartData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
               <CartesianGrid stroke="#1A2130" vertical={false} />
               <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={48} />
-              <YAxis domain={["auto", "auto"]} tick={{ fill: "#7C879B", fontSize: 11 }} width={52} tickFormatter={(v) => `$${v}`} />
+              <YAxis domain={yDomain ?? ["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={(v) => `$${Math.round(v)}`} />
               <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number) => [`$${v.toFixed(2)}`, "Close"]} />
               {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
               {row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
@@ -98,6 +111,38 @@ export default function StockDetailTab() {
         ) : (
           <div className="py-8 text-center text-sm text-[#7C879B]">No price history baked for this ticker.</div>
         )}
+      </Card>
+
+      {/* Risk-adjusted performance (computed from the daily close series) */}
+      {(() => {
+        const rm = series ? computeRisk(series.close) : null;
+        if (!rm) return null;
+        const f = (v: number | null, dp = 2, suf = "") => v == null ? "—" : `${v.toFixed(dp)}${suf}`;
+        return (
+          <Card title="Risk-Adjusted Performance" sub="From the daily close history (annualized, rf 4%)">
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+              <Metric label="CAGR" value={f(rm.cagr_pct, 1, "%")} />
+              <Metric label="Sharpe" value={f(rm.sharpe)} />
+              <Metric label="Sortino" value={f(rm.sortino)} />
+              <Metric label="Calmar" value={f(rm.calmar)} />
+              <Metric label="Max DD" value={rm.max_drawdown_pct == null ? "—" : `-${rm.max_drawdown_pct.toFixed(1)}%`} />
+              <Metric label="Volatility" value={f(rm.volatility_pct, 1, "%")} />
+              <Metric label="Current DD" value={rm.current_drawdown_pct == null ? "—" : `-${rm.current_drawdown_pct.toFixed(1)}%`} />
+            </div>
+          </Card>
+        );
+      })()}
+
+      {/* Pillar radar */}
+      <Card title="Pillar Profile" sub="Sector-relative pillar scores (0–12)">
+        <ResponsiveContainer width="100%" height={240}>
+          <RadarChart data={Object.entries(row.pillars).map(([k, v]) => ({ pillar: k.replace(" Revisions", " Rev"), score: v ?? 0 }))}>
+            <PolarGrid stroke="#1E2632" />
+            <PolarAngleAxis dataKey="pillar" tick={{ fill: "#9CA7BB", fontSize: 11 }} />
+            <Radar dataKey="score" stroke="#5BA8FF" fill="#5BA8FF" fillOpacity={0.3} />
+            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [v.toFixed(2), "Score"]} />
+          </RadarChart>
+        </ResponsiveContainer>
       </Card>
 
       {/* FV + QBP */}

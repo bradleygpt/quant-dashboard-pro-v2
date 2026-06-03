@@ -3,6 +3,7 @@ import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import { fmtPct, fmtMoney } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import CryptoCycle from "./CryptoCycle";
 
 interface Coin {
   price?: number; market_cap?: number; volume_24h?: number; circulating_supply?: number; max_supply?: number;
@@ -11,6 +12,7 @@ interface Coin {
 interface Crypto {
   ok?: boolean; coins_ok?: boolean; coins?: { btc?: Coin; eth?: Coin };
   btc_history?: { dates: string[]; close: number[] }; eth_history?: { dates: string[]; close: number[] };
+  btc_daily_max?: { dates: string[]; close: number[] };
   onchain?: { ok?: boolean; block_height?: number; fees?: { fastest?: number; half_hour?: number }; hashrate_ehs?: number; difficulty?: number };
 }
 
@@ -39,6 +41,7 @@ function CoinCard({ name, c }: { name: string; c?: Coin }) {
 export default function CryptoTab() {
   const cr = useLiveData<Crypto>("/api/crypto");
   const [coin, setCoin] = useState<"btc" | "eth">("btc");
+  const [section, setSection] = useState<"overview" | "cycle">("overview");
   const hist = coin === "btc" ? cr.data?.btc_history : cr.data?.eth_history;
   const chart = useMemo(() => hist ? hist.dates.map((d, i) => ({ date: d, close: hist.close[i] })) : [], [hist]);
 
@@ -56,8 +59,14 @@ export default function CryptoTab() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">₿ Crypto</h2>
-        <p className="text-xs text-[#7C879B]">Bitcoin & Ethereum prices, on-chain metrics. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
+        <p className="text-xs text-[#7C879B]">Bitcoin & Ethereum prices, on-chain metrics, and cycle analysis. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
       </div>
+      <div className="flex gap-2">
+        <Pill active={section === "overview"} onClick={() => setSection("overview")}>Overview</Pill>
+        <Pill active={section === "cycle"} onClick={() => setSection("cycle")}>Bitcoin Cycle Analysis</Pill>
+      </div>
+
+      {section === "cycle" ? <CryptoCycle btcDaily={cr.data.btc_daily_max} /> : <>
 
       {cr.data.coins_ok ? (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -94,6 +103,7 @@ export default function CryptoTab() {
           </ResponsiveContainer>
         </Card>
       )}
+      </>}
     </div>
   );
 }

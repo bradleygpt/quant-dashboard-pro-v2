@@ -15,7 +15,7 @@ interface Pundits {
   ok?: boolean; last_updated_human?: string; market_context?: Record<string, number>;
   equity?: PunditSection; crypto?: PunditSection; equity_status?: string; crypto_status?: string;
 }
-interface Poly { ok?: boolean; markets?: { question: string; yes_prob: number | null; volume_24h: number | null; end_date?: string }[] }
+interface Poly { ok?: boolean; markets?: { question: string; category?: string; yes_prob: number | null; volume_24h: number | null; end_date?: string }[] }
 
 function stanceColor(s = ""): string {
   const l = s.toLowerCase();
@@ -54,13 +54,14 @@ function Predictions() {
   if (poly.status === "unavailable" || !poly.data?.markets?.length)
     return <Unavailable what="Prediction markets" detail="Live Polymarket data is fetched server-side on the deployed app. In a static preview (no serverless), this shows unavailable — by design." />;
   return (
-    <Card title="Top prediction markets" sub="Polymarket · by 24h volume">
+    <Card title="Top prediction markets" sub="Polymarket · politics / economics / finance / crypto / geopolitics (sports & entertainment excluded) · by 24h volume">
       <table className="w-full text-sm">
-        <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Market</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Yes</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">24h Vol</th></tr></thead>
+        <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Market</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Category</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Yes</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">24h Vol</th></tr></thead>
         <tbody>
-          {poly.data.markets.slice(0, 25).map((m, i) => (
+          {poly.data.markets.slice(0, 30).map((m, i) => (
             <tr key={i} className="border-t border-[#161D29]">
               <td className="py-1.5 pr-3 text-[#C3CAD7]">{m.question}</td>
+              <td className="py-1.5 pr-3"><span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] capitalize text-[#9CA7BB]">{m.category ?? "—"}</span></td>
               <td className="py-1.5 text-right font-semibold" style={{ color: (m.yes_prob ?? 0) >= 0.5 ? "#00C805" : "#FF9800" }}>{m.yes_prob == null ? "—" : fmtPct(m.yes_prob * 100, 0)}</td>
               <td className="py-1.5 text-right text-[#9CA7BB]">{m.volume_24h == null ? "—" : `$${Math.round(m.volume_24h).toLocaleString()}`}</td>
             </tr>

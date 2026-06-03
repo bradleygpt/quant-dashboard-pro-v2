@@ -158,7 +158,7 @@ export default function ScreenerTab() {
         </div>
       </div>
 
-      <SortableTable columns={columns} rows={filtered} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" />
+      <SortableTable columns={columns} rows={filtered} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" freezeFirst minWidth={1180} />
     </div>
   );
 }

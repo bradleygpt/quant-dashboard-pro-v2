@@ -35,7 +35,7 @@ function compare(a: unknown, b: unknown, dir: Dir): number {
 }
 
 export function SortableTable<T>({
-  columns, rows, rowKey, initialSortKey, initialSortDir = "desc", maxHeight = "72vh",
+  columns, rows, rowKey, initialSortKey, initialSortDir = "desc", maxHeight = "72vh", freezeFirst = false, minWidth,
 }: {
   columns: Column<T>[];
   rows: T[];
@@ -43,6 +43,8 @@ export function SortableTable<T>({
   initialSortKey?: string;
   initialSortDir?: Dir;
   maxHeight?: string;
+  freezeFirst?: boolean;
+  minWidth?: number;
 }) {
   const [sortKey, setSortKey] = useState<string | undefined>(initialSortKey);
   const [dir, setDir] = useState<Dir>(initialSortDir);
@@ -89,20 +91,21 @@ export function SortableTable<T>({
         setViewH(e.currentTarget.clientHeight);
       }}
     >
-      <table className="w-full border-collapse text-sm" style={virtual ? { tableLayout: "fixed" } : undefined}>
+      <table className="w-full border-collapse text-sm" style={{ ...(virtual ? { tableLayout: "fixed" as const } : {}), ...(minWidth ? { minWidth } : {}) }}>
         <thead>
           <tr>
-            {columns.map((col) => {
+            {columns.map((col, ci) => {
               const active = sortKey === col.key;
               const canSort = col.sortable !== false && !!col.sortValue;
+              const frozen = freezeFirst && ci === 0;
               return (
                 <th
                   key={col.key}
                   onClick={() => onHeader(col)}
                   style={col.width ? { width: col.width } : undefined}
-                  className={`sticky top-0 z-10 bg-[#0F1420] px-3 py-2 text-xs font-semibold uppercase tracking-wide ${alignCls(col.align)} ${
-                    canSort ? "cursor-pointer select-none hover:text-[#C3CAD7]" : ""
-                  } ${active ? "text-[#5BA8FF]" : "text-[#7C879B]"}`}
+                  className={`sticky top-0 bg-[#0F1420] px-3 py-2 text-xs font-semibold uppercase tracking-wide ${alignCls(col.align)} ${
+                    frozen ? "left-0 z-30 border-r border-[#1E2632]" : "z-10"
+                  } ${canSort ? "cursor-pointer select-none hover:text-[#C3CAD7]" : ""} ${active ? "text-[#5BA8FF]" : "text-[#7C879B]"}`}
                   title={canSort ? "Click to sort" : undefined}
                 >
                   {col.header}
@@ -116,11 +119,14 @@ export function SortableTable<T>({
           {topPad > 0 && <tr style={{ height: topPad }}><td colSpan={columns.length} /></tr>}
           {visible.map((row) => (
             <tr key={rowKey(row)} className="border-t border-[#161D29] hover:bg-[#141B27]" style={virtual ? { height: ROW_H } : undefined}>
-              {columns.map((col) => (
-                <td key={col.key} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${col.className ?? ""}`}>
-                  {col.render(row)}
-                </td>
-              ))}
+              {columns.map((col, ci) => {
+                const frozen = freezeFirst && ci === 0;
+                return (
+                  <td key={col.key} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${frozen ? "sticky left-0 z-20 border-r border-[#1E2632] bg-[#0F1420]" : ""} ${col.className ?? ""}`}>
+                    {col.render(row)}
+                  </td>
+                );
+              })}
             </tr>
           ))}
           {bottomPad > 0 && <tr style={{ height: bottomPad }}><td colSpan={columns.length} /></tr>}

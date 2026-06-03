@@ -3,6 +3,7 @@ import { useStore, type ViewRow } from "../store";
 import { Card, RatingBadge, Spinner } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtCapB } from "../lib/format";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface SectorAgg {
   sector: string; count: number; avgScore: number; medCap: number; buyish: number;
@@ -63,6 +64,18 @@ export default function SectorTab() {
     <div className="space-y-4">
       <h2 className="text-lg font-bold text-white">Sector Overview</h2>
       <p className="text-xs text-[#7C879B]">Click a sector to expand its stocks. All columns sortable.</p>
+      <Card title="Quality Distribution" sub="% of sector rated Buy-tier (Strong Buy+/Strong Buy/Buy)">
+        <ResponsiveContainer width="100%" height={Math.max(200, aggs.length * 24)}>
+          <BarChart layout="vertical" data={aggs.map((a) => ({ sector: a.sector, pct: a.count ? (a.buyish / a.count) * 100 : 0 })).sort((a, b) => b.pct - a.pct)} margin={{ left: 40, right: 20 }}>
+            <XAxis type="number" domain={[0, 100]} tick={{ fill: "#7C879B", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+            <YAxis type="category" dataKey="sector" width={140} tick={{ fill: "#9CA7BB", fontSize: 11 }} />
+            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`${v.toFixed(0)}%`, "Buy-tier"]} />
+            <Bar dataKey="pct" radius={[0, 3, 3, 0]}>
+              {aggs.map((a) => <Cell key={a.sector} fill="#5BA8FF" />)}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </Card>
       <SortableTable columns={aggCols} rows={aggs} rowKey={(r) => r.sector} initialSortKey="avg" initialSortDir="desc" />
       {open && (
         <Card title={`${open} — ${bySector.get(open)?.length ?? 0} stocks`}>

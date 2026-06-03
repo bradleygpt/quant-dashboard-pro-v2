@@ -94,6 +94,19 @@ export default async function handler() {
     };
   });
 
+  // SPY (^GSPC) moving averages + 3-month return — for Pullback Pressure
+  let spy: any = { ok: false };
+  {
+    const c = indexCloses[0]; // ^GSPC
+    if (c && c.length >= 50) {
+      const sma = (n: number) => c.length >= n ? c.slice(-n).reduce((a, b) => a + b, 0) / n : null;
+      const cur = c[c.length - 1];
+      const ago3m = c.length > 63 ? c[c.length - 64] : c[0];
+      spy = { ok: true, price: cur, sma50: sma(50), sma200: sma(200),
+              ret_3m_pct: ago3m ? ((cur - ago3m) / ago3m) * 100 : null };
+    }
+  }
+
   // VIX
   let vix: any = { ok: false };
   if (vixCloses && vixCloses.length) {
@@ -133,7 +146,7 @@ export default async function handler() {
     pgi = { ok: true, pgi: val, money_market_t: mmT, total_mkt_cap_t: totalT, level, score, fred_keyless: mmMillions != null };
   }
 
-  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, vix, yields, buffett, pgi });
+  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, spy, vix, yields, buffett, pgi });
   return new Response(body, {
     headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=600, stale-while-revalidate=3600" },
   });
