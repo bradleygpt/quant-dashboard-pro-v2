@@ -53,7 +53,7 @@ export default function CryptoCycle({ btcDaily }: { btcDaily: Series }) {
       </Card>
 
       {/* VIEW 2: Current cycle vs historical projection */}
-      <Card title="Current Cycle vs Historical Projection" sub="Days since the 2024 halving · 2016 & 2020 cycles scaled to current halving price">
+      <Card title="Current Cycle vs Historical Projection" sub="Days since the 2024 halving. Band = the 2016 & 2020 cycles' price paths scaled to the $64k current-cycle halving price (their ROI applied to today's base). The HIGH line is the 2016 cycle's ~30× run — an optimistic ceiling, not a target; the 2020 cycle is the low. Log scale.">
         {overlay.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={overlay} margin={{ top: 5, right: 12, bottom: 0, left: 4 }}>
@@ -65,9 +65,9 @@ export default function CryptoCycle({ btcDaily }: { btcDaily: Series }) {
               <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }}
                 labelFormatter={(d) => `Day ${d} since halving`} formatter={(v: number, n: string) => [`$${Math.round(v).toLocaleString()}`, n]} />
               <ReferenceLine x={cd.daysSinceHalving} stroke="#fff" strokeDasharray="3 3" label={{ value: "TODAY", fill: "#fff", fontSize: 10, position: "top" }} />
-              <Line type="monotone" dataKey="proj_high" stroke="#3A4254" dot={false} strokeWidth={1} name="hist high" connectNulls />
-              <Line type="monotone" dataKey="proj_median" stroke="#7C879B" dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="hist median" connectNulls />
-              <Line type="monotone" dataKey="proj_low" stroke="#3A4254" dot={false} strokeWidth={1} name="hist low" connectNulls />
+              <Line type="monotone" dataKey="proj_high" stroke="#3A4254" dot={false} strokeWidth={1} name="2016-cycle scaled (high)" connectNulls />
+              <Line type="monotone" dataKey="proj_median" stroke="#7C879B" dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="median of cycles" connectNulls />
+              <Line type="monotone" dataKey="proj_low" stroke="#3A4254" dot={false} strokeWidth={1} name="2020-cycle scaled (low)" connectNulls />
               <Line type="monotone" dataKey="current" stroke="#F7931A" dot={false} strokeWidth={2.4} name="current cycle" connectNulls />
             </LineChart>
           </ResponsiveContainer>

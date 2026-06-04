@@ -48,18 +48,21 @@ export default function StockDetailTab() {
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
 
   // AI note (Gemini via /api/ai) — on-demand, degrades if no key
-  const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string }>({ kind: "", status: "idle" });
+  const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean }>({ kind: "", status: "idle" });
   const runAi = (kind: "research" | "earnings") => {
     if (!row) return;
     setAi({ kind, status: "loading" });
-    const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(row.price ?? ""), fv: String(row.fv ?? ""), qbp: String(row.qbp ?? "") });
-    fetch(`/api/ai?${qs}`).then((r) => r.json()).then((d) => setAi({ kind, status: "done", text: d.ok ? d.text : undefined, reason: d.reason })).catch(() => setAi({ kind, status: "done", reason: "error" }));
+    // Current price = LIVE /api/quote (matches the chart); composite/FV/QBP stay BAKED.
+    const livePrice = quote.status === "ok" ? quote.data?.price ?? null : null;
+    const usePrice = livePrice ?? row.price;
+    const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(usePrice ?? ""), price_live: livePrice != null ? "1" : "0", fv: String(row.fv ?? ""), qbp: String(row.qbp ?? "") });
+    fetch(`/api/ai?${qs}`).then((r) => r.json()).then((d) => setAi({ kind, status: "done", text: d.ok ? d.text : undefined, reason: d.reason, price: usePrice ?? undefined, live: livePrice != null })).catch(() => setAi({ kind, status: "done", reason: "error" }));
   };
 
   useEffect(() => {
     if (!ticker) return;
     let live = true;
-    setDetailLoading(true); setTd(null); setSeries(null);
+    setDetailLoading(true); setTd(null); setSeries(null); setAi({ kind: "", status: "idle" }); // clear stale AI note on ticker change
     loadTickerDetail(floor, ticker).then((d) => { if (live) { setTd(d); setDetailLoading(false); } });
     loadTickerPrices(ticker).then((p) => { if (live) setSeries(p); });
     return () => { live = false; };
@@ -253,7 +256,7 @@ export default function StockDetailTab() {
         </div>
         {ai.status === "loading" && <div className="mt-2"><Spinner label="Generating…" /></div>}
         {ai.status === "done" && (ai.text
-          ? <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text}<span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind}</span></p>
+          ? <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text}<span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked</span></p>
           : <p className="mt-2 text-xs text-[#FFB454]">{ai.reason === "no_key" ? "Set GEMINI_API_KEY in Vercel to enable AI analysis." : `AI unavailable (${ai.reason ?? "error"}).`}</p>)}
       </Card>
 

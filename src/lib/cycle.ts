@@ -123,15 +123,22 @@ export function buildCycleOverlay(series: { dates: string[]; close: number[] } |
   const curPts = new Map<number, number>();
   for (const p of sliceFrom(curHalving, 1400)) curPts.set(p.day, p.close);
 
+  // Proper median (matches pandas/numpy: even length averages the two middle values).
+  // The previous vals[floor(len/2)] returned the UPPER element, so for the 2-cycle
+  // band median always equalled max — the high==median bug.
+  const median = (sorted: number[]): number | null => {
+    if (!sorted.length) return null;
+    const m = Math.floor(sorted.length / 2);
+    return sorted.length % 2 ? sorted[m] : (sorted[m - 1] + sorted[m]) / 2;
+  };
   const allDays = new Set<number>([...perDay.keys(), ...curPts.keys()]);
   const rows = [...allDays].sort((a, b) => a - b).map((day) => {
     const vals = (perDay.get(day) ?? []).slice().sort((a, b) => a - b);
-    const median = vals.length ? vals[Math.floor(vals.length / 2)] : null;
     return {
       day,
       proj_low: vals.length ? vals[0] : null,
       proj_high: vals.length ? vals[vals.length - 1] : null,
-      proj_median: median,
+      proj_median: median(vals),
       current: curPts.get(day) ?? null,
     };
   });

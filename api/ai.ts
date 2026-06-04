@@ -14,7 +14,8 @@ export default async function handler(req: Request) {
   if (!ticker) return json({ ok: false, reason: "no_ticker" });
   if (!key) return json({ ok: false, reason: "no_key", needs: "GEMINI_API_KEY" });
 
-  const ctx = `Ticker ${ticker} (${p.name || ""}), sector ${p.sector || "?"}, quant composite ${p.score || "?"}/12, rating ${p.rating || "?"}, price $${p.price || "?"}, fair value $${p.fv || "?"}, quant buy point $${p.qbp || "?"}.`;
+  const priceLabel = p.price_live === "1" ? "current LIVE price" : "current price";
+  const ctx = `Ticker ${ticker} (${p.name || ""}), sector ${p.sector || "?"}, quant composite ${p.score || "?"}/12, rating ${p.rating || "?"}, ${priceLabel} $${p.price || "?"}, fair value $${p.fv || "?"}, quant buy point $${p.qbp || "?"}. (Composite/fair value/buy point are from the daily quant pipeline; the price is the live quote.)`;
   const prompt = kind === "earnings"
     ? `You are an equity analyst. In ~150 words, review the investment thesis for ${ticker} given: ${ctx} Focus on whether the latest fundamentals support the current quant rating. Be specific and balanced. End with a one-line verdict (BUY / HOLD / AVOID).`
     : `You are an equity research analyst. Write a concise (~180 word) research note on ${ticker} given: ${ctx} Cover the bull case, bear case, and key risk. Neutral, factual tone. No disclaimers.`;
