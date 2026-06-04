@@ -31,10 +31,11 @@ async function yahooCloses(symbol: string, range = "1y", interval = "1d"): Promi
 }
 
 export default async function handler() {
-  const [markets, btcHist, ethHist, btcMax, blockHeight, fees, hashrate] = await Promise.all([
+  const [markets, btcHist, ethHist, btcMax, ethMax, blockHeight, fees, hashrate] = await Promise.all([
     jget("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum&order=market_cap_desc&per_page=2&page=1&sparkline=false&price_change_percentage=24h,7d,30d,1y"),
     yahooCloses("BTC-USD"), yahooCloses("ETH-USD"),
     yahooCloses("BTC-USD", "10y", "1d"),  // daily 10y for cycle analysis (range=max downsamples to monthly)
+    yahooCloses("ETH-USD", "10y", "1d"),  // daily 10y ETH for Merge-milestone chart + ETH/BTC ratio
     (async () => { const r = await tfetch("https://mempool.space/api/blocks/tip/height"); if (!r) return null; try { return parseInt((await r.text()).trim(), 10); } catch { return null; } })(),
     jget("https://mempool.space/api/v1/fees/recommended"),
     jget("https://mempool.space/api/v1/mining/hashrate/3d"),
@@ -65,7 +66,7 @@ export default async function handler() {
     ok: Object.keys(coins).length > 0 || onchain.ok,
     generated_at: new Date().toISOString(),
     coins_ok: Object.keys(coins).length > 0, coins,
-    btc_history: btcHist, eth_history: ethHist, btc_daily_max: btcMax, onchain,
+    btc_history: btcHist, eth_history: ethHist, btc_daily_max: btcMax, eth_daily_max: ethMax, onchain,
   });
   return new Response(body, { headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=300, stale-while-revalidate=1800" } });
 }

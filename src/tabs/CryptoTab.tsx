@@ -1,9 +1,12 @@
-import { useMemo, useState } from "react";
-import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
-import { fmtPct, fmtMoney } from "../lib/format";
+import { useState } from "react";
+import { Card, Pill, Spinner, Unavailable } from "../components/ui";
 import { useLiveData } from "../lib/live";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import CryptoCycle from "./CryptoCycle";
+import CryptoBitcoin from "./CryptoBitcoin";
+import CryptoEthereum from "./CryptoEthereum";
+import CryptoEthBtc from "./CryptoEthBtc";
+import CryptoOnChain from "./CryptoOnChain";
+
+const BASE = `${import.meta.env.BASE_URL}data`;
 
 interface Coin {
   price?: number; market_cap?: number; volume_24h?: number; circulating_supply?: number; max_supply?: number;
@@ -12,98 +15,86 @@ interface Coin {
 interface Crypto {
   ok?: boolean; coins_ok?: boolean; coins?: { btc?: Coin; eth?: Coin };
   btc_history?: { dates: string[]; close: number[] }; eth_history?: { dates: string[]; close: number[] };
-  btc_daily_max?: { dates: string[]; close: number[] };
+  btc_daily_max?: { dates: string[]; close: number[] }; eth_daily_max?: { dates: string[]; close: number[] };
   onchain?: { ok?: boolean; block_height?: number; fees?: { fastest?: number; half_hour?: number }; hashrate_ehs?: number; difficulty?: number };
 }
+interface Commentator { name: string; firm?: string; stance?: string; key_quote?: string; quote_source?: string; quote_date?: string; key_views?: string[]; btc_view?: string; eth_view?: string; price_target_or_view?: string }
+interface Pundits { ok?: boolean; crypto?: { commentators?: Commentator[]; synthesis?: string; themes?: string[] }; last_updated_human?: string }
 
-function clr(v?: number) { return (v ?? 0) >= 0 ? "#00C805" : "#FF5722"; }
+function stanceColor(s = ""): string {
+  const l = s.toLowerCase();
+  if (l.includes("very bull") || l.includes("bullish")) return "#00C805";
+  if (l.includes("cautiously bull")) return "#8BC34A";
+  if (l.includes("neutral")) return "#FFC107";
+  if (l.includes("caution")) return "#FF9800";
+  if (l.includes("bear")) return "#FF5722";
+  return "#9CA7BB";
+}
 
-function CoinCard({ name, c }: { name: string; c?: Coin }) {
-  if (!c) return null;
+function CryptoPundits() {
+  const p = useLiveData<Pundits>(`${BASE}/pundits.json`);
+  if (p.status === "loading") return <Spinner label="Loading crypto commentary…" />;
+  const sec = p.data?.crypto;
+  if (p.status === "unavailable" || !sec?.commentators?.length)
+    return <Unavailable what="Crypto commentary" detail="Crypto-commentator views are AI-summarized daily with web grounding and baked into pundits.json by the refresh job." />;
   return (
-    <Card title={name} sub={c.price != null ? fmtMoney(c.price, c.price > 100 ? 0 : 2) : undefined}>
-      <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
-        {([["24h", c.change_24h_pct], ["7d", c.change_7d_pct], ["30d", c.change_30d_pct], ["1y", c.change_1y_pct]] as const).map(([l, v]) => (
-          <div key={l}><div className="text-[10px] uppercase text-[#7C879B]">{l}</div><div className="font-semibold" style={{ color: clr(v) }}>{v == null ? "—" : fmtPct(v, 1, true)}</div></div>
+    <div className="space-y-3">
+      <p className="text-xs text-[#7C879B]">Crypto-commentator outlook — refreshed daily, AI-summarized with web grounding.{p.data?.last_updated_human ? ` As of ${p.data.last_updated_human}.` : ""}</p>
+      {sec.synthesis && (
+        <Card title="Synthesis">
+          <p className="text-sm leading-relaxed text-[#C3CAD7]">{sec.synthesis}</p>
+          {sec.themes && <div className="mt-2 flex flex-wrap gap-1">{sec.themes.map((t, i) => <span key={i} className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[11px] text-[#9CA7BB]">{t}</span>)}</div>}
+        </Card>
+      )}
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+        {sec.commentators.map((c, i) => (
+          <Card key={i} title={c.name} sub={[c.firm, c.quote_date].filter(Boolean).join(" · ")}>
+            {c.stance && <span className="inline-block rounded px-2 py-0.5 text-xs font-semibold" style={{ color: stanceColor(c.stance), background: `${stanceColor(c.stance)}22` }}>{c.stance}</span>}
+            {c.key_quote && <p className="mt-2 border-l-2 border-[#2A3242] pl-2 text-sm italic text-[#C3CAD7]">“{c.key_quote}”{c.quote_source ? <span className="not-italic text-[#7C879B]"> — {c.quote_source}</span> : null}</p>}
+            {c.btc_view && <div className="mt-2 text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">BTC:</strong> {c.btc_view}</div>}
+            {c.eth_view && <div className="text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">ETH:</strong> {c.eth_view}</div>}
+            {c.price_target_or_view && <div className="text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">Target/View:</strong> {c.price_target_or_view}</div>}
+            {c.key_views?.length ? <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-[#9CA7BB]">{c.key_views.map((v, j) => <li key={j}>{v}</li>)}</ul> : null}
+          </Card>
         ))}
       </div>
-      <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-[#9CA7BB]">
-        {c.market_cap != null && <div className="flex justify-between"><span>Market cap</span><span>${(c.market_cap / 1e9).toFixed(0)}B</span></div>}
-        {c.volume_24h != null && <div className="flex justify-between"><span>24h vol</span><span>${(c.volume_24h / 1e9).toFixed(1)}B</span></div>}
-        {c.ath != null && <div className="flex justify-between"><span>ATH</span><span>{fmtMoney(c.ath, 0)}</span></div>}
-        {c.ath_change_pct != null && <div className="flex justify-between"><span>vs ATH</span><span style={{ color: clr(c.ath_change_pct) }}>{fmtPct(c.ath_change_pct, 0, true)}</span></div>}
-        {c.circulating_supply != null && <div className="flex justify-between"><span>Supply</span><span>{(c.circulating_supply / 1e6).toFixed(1)}M</span></div>}
-      </div>
-    </Card>
+    </div>
   );
 }
 
+type Sub = "btc" | "eth" | "ratio" | "onchain" | "pundits";
+
 export default function CryptoTab() {
   const cr = useLiveData<Crypto>("/api/crypto");
-  const [coin, setCoin] = useState<"btc" | "eth">("btc");
-  const [section, setSection] = useState<"overview" | "cycle">("overview");
-  const hist = coin === "btc" ? cr.data?.btc_history : cr.data?.eth_history;
-  const chart = useMemo(() => hist ? hist.dates.map((d, i) => ({ date: d, close: hist.close[i] })) : [], [hist]);
+  const [sub, setSub] = useState<Sub>("btc");
 
   if (cr.status === "loading") return <Spinner label="Loading crypto data…" />;
   if (cr.status === "unavailable" || !cr.data?.ok)
     return (
       <div className="space-y-3">
         <h2 className="text-lg font-bold text-white">Crypto</h2>
-        <Unavailable what="Crypto data" detail="BTC/ETH prices and on-chain metrics are fetched by the /api/crypto serverless function (CoinGecko, Yahoo, mempool.space) on the deployed app. In a static-only preview this shows unavailable — by design." />
+        <Unavailable what="Crypto data" detail="BTC/ETH prices, cycle history and on-chain metrics are fetched by the /api/crypto serverless function (CoinGecko, Yahoo, mempool.space) on the deployed app. In a static-only preview this shows unavailable — by design." />
       </div>
     );
 
-  const oc = cr.data.onchain;
+  const d = cr.data;
+  const tabs: [Sub, string][] = [["btc", "Bitcoin Cycle"], ["eth", "Ethereum"], ["ratio", "ETH/BTC Ratio"], ["onchain", "On-Chain"], ["pundits", "🎤 Crypto Pundits"]];
+
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">₿ Crypto</h2>
-        <p className="text-xs text-[#7C879B]">Bitcoin & Ethereum prices, on-chain metrics, and cycle analysis. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
+        <h2 className="text-lg font-bold text-white">₿ Crypto Analysis</h2>
+        <p className="text-xs text-[#7C879B]">Bitcoin cycle position, Ethereum supply dynamics, on-chain metrics, and commentator outlook. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
       </div>
-      <div className="flex gap-2">
-        <Pill active={section === "overview"} onClick={() => setSection("overview")}>Overview</Pill>
-        <Pill active={section === "cycle"} onClick={() => setSection("cycle")}>Bitcoin Cycle Analysis</Pill>
+      <div className="flex flex-wrap gap-2">
+        {tabs.map(([key, label]) => <Pill key={key} active={sub === key} onClick={() => setSub(key)}>{label}</Pill>)}
       </div>
 
-      {section === "cycle" ? <CryptoCycle btcDaily={cr.data.btc_daily_max} /> : <>
-
-      {cr.data.coins_ok ? (
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <CoinCard name="Bitcoin (BTC)" c={cr.data.coins?.btc} />
-          <CoinCard name="Ethereum (ETH)" c={cr.data.coins?.eth} />
-        </div>
-      ) : <Unavailable what="Price feed (CoinGecko)" />}
-
-      {oc?.ok && (
-        <Card title="Bitcoin On-Chain">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {oc.block_height != null && <Metric label="Block Height" value={oc.block_height.toLocaleString()} />}
-            {oc.fees?.fastest != null && <Metric label="Fastest Fee" value={`${oc.fees.fastest} sat/vB`} />}
-            {oc.fees?.half_hour != null && <Metric label="~30m Fee" value={`${oc.fees.half_hour} sat/vB`} />}
-            {oc.hashrate_ehs != null && <Metric label="Hash Rate" value={`${oc.hashrate_ehs} EH/s`} />}
-          </div>
-        </Card>
-      )}
-
-      {chart.length > 0 && (
-        <Card title="Price history (1y)">
-          <div className="mb-2 flex gap-2">
-            <Pill active={coin === "btc"} onClick={() => setCoin("btc")}>BTC</Pill>
-            <Pill active={coin === "eth"} onClick={() => setCoin("eth")}>ETH</Pill>
-          </div>
-          <ResponsiveContainer width="100%" height={260}>
-            <LineChart data={chart} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-              <CartesianGrid stroke="#1A2130" vertical={false} />
-              <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={48} />
-              <YAxis domain={["auto", "auto"]} tick={{ fill: "#7C879B", fontSize: 11 }} width={60} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`$${v.toLocaleString()}`, "Close"]} />
-              <Line type="monotone" dataKey="close" stroke="#F7931A" dot={false} strokeWidth={1.6} />
-            </LineChart>
-          </ResponsiveContainer>
-        </Card>
-      )}
-      </>}
+      {sub === "btc" && <CryptoBitcoin btcDaily={d.btc_daily_max} btc={d.coins?.btc} blockHeight={d.onchain?.block_height} />}
+      {sub === "eth" && <CryptoEthereum eth={d.coins?.eth} ethDaily={d.eth_daily_max} />}
+      {sub === "ratio" && <CryptoEthBtc ethDaily={d.eth_daily_max} btcDaily={d.btc_daily_max} />}
+      {sub === "onchain" && <CryptoOnChain oc={d.onchain} />}
+      {sub === "pundits" && <CryptoPundits />}
     </div>
   );
 }
