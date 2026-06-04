@@ -26,7 +26,7 @@ function Delta({ wk, mo }: { wk: number | null; mo: number | null }) {
 
 export default function HomeTab() {
   const { rows, loadingUniverse, preset, meta, setActiveTab, goToDetail } = useStore();
-  const mkt = useLiveData<Market>("/api/market");
+  const mkt = useLiveData<Market>("/api/market", 25000); // ~11s chain (FRED CSV slow) — avoid racing the 12s default abort
   const cal = useLiveData<Cal>("/api/calendar");
   const [snap, setSnap] = useState<SnapshotsFile | null>(null);
   useEffect(() => { fetch(`${BASE}/snapshots.json`).then((r) => r.ok ? r.json() : null).then(setSnap).catch(() => {}); }, []);
@@ -39,7 +39,7 @@ export default function HomeTab() {
   const breadth = useMemo(() => (rows.length ? computeBreadth(rows) : null), [rows]);
   const sp = mkt.data?.indices?.find((i: any) => i.name === "S&P 500");
   const fearGreed = useMemo(() => (breadth && mkt.status === "ok" ? computeFearGreed(mkt.data?.vix ?? null, breadth, sp?.distance_from_ath_pct ?? null, mkt.data?.buffett ?? null) : null), [breadth, mkt, sp]);
-  const ppiFeed = useLiveData<{ ok?: boolean; spy?: { close: number[] }; vix?: { close: number[] }; vvix?: { close: number[] } }>("/api/ppi");
+  const ppiFeed = useLiveData<{ ok?: boolean; spy?: { close: number[] }; vix?: { close: number[] }; vvix?: { close: number[] } }>("/api/ppi", 20000);
   const ppi = useMemo(() => (ppiFeed.status === "ok" && ppiFeed.data?.spy && breadth ? computePpi(ppiFeed.data.spy.close, ppiFeed.data.vix?.close, ppiFeed.data.vvix?.close, breadth.pct_above_50sma) : null), [ppiFeed, breadth]);
 
   const ratingCounts = useMemo(() => {

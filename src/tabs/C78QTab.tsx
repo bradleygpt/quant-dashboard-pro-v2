@@ -29,7 +29,7 @@ type Sub = "ppi" | "deployed" | "backtest" | "analysis";
 
 export default function C78QTab() {
   const { rows } = useStore();
-  const ppiFeed = useLiveData<PpiFeed>("/api/ppi");
+  const ppiFeed = useLiveData<PpiFeed>("/api/ppi", 20000);
   const [data, setData] = useState<C78q | null>(null);
   const [err, setErr] = useState(false);
   const [sub, setSub] = useState<Sub>("ppi");

@@ -40,7 +40,7 @@ interface MarketStatic {
 
 export default function MarketRegimeTab() {
   const { rows, loadingUniverse } = useStore();
-  const mkt = useLiveData<Market>("/api/market");
+  const mkt = useLiveData<Market>("/api/market", 25000); // /api/market chain is ~11s (FRED CSV is slow); 12s default raced the abort → spurious "unavailable"
   const stat = useLiveData<MarketStatic>(`${BASE}/market_static.json`);
 
   const breadth = useMemo(() => (rows.length ? computeBreadth(rows) : null), [rows]);
