@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Spinner } from "../components/ui";
 
 const SECTIONS: { key: string; label: string }[] = [
@@ -12,6 +12,7 @@ const SECTIONS: { key: string; label: string }[] = [
   { key: "DOPPELGANGER", label: "Doppelganger" },
   { key: "PRO_CHARTS", label: "Pro Charts" },
   { key: "ETF_CENTER", label: "ETF Center" },
+  { key: "_glossary", label: "Glossary" },
   { key: "BEST_PRACTICES", label: "Best Practices" },
   { key: "DATA_SOURCES", label: "Data Sources" },
   { key: "DISCLAIMER", label: "Disclaimer" },
@@ -46,8 +47,35 @@ function Markdown({ text }: { text: string }) {
   return <div>{out}</div>;
 }
 
+interface GlossaryTerm { term: string; definition: string }
+function Glossary({ terms }: { terms: GlossaryTerm[] }) {
+  const [q, setQ] = useState("");
+  const filtered = useMemo(() => {
+    const s = q.trim().toLowerCase();
+    const list = s ? terms.filter((t) => t.term.toLowerCase().includes(s) || t.definition.toLowerCase().includes(s)) : terms;
+    return [...list].sort((a, b) => a.term.localeCompare(b.term));
+  }, [q, terms]);
+  return (
+    <div>
+      <h2 className="mb-1 text-lg font-bold text-white">Glossary</h2>
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search glossary (e.g. PEG, ROE, RSI…)"
+        className="mb-3 w-full max-w-md rounded-md border border-[#1E2632] bg-[#0F1420] px-3 py-2 text-sm text-white" />
+      <div className="text-[11px] text-[#7C879B]">{filtered.length} of {terms.length} terms</div>
+      <dl className="mt-2 space-y-2">
+        {filtered.map((t) => (
+          <div key={t.term} className="border-t border-[#161D29] pt-2">
+            <dt className="text-sm font-semibold text-[#E6E9EF]">{t.term}</dt>
+            <dd className="text-sm leading-relaxed text-[#C3CAD7]">{t.definition}</dd>
+          </div>
+        ))}
+        {filtered.length === 0 && <div className="text-sm text-[#7C879B]">No terms match “{q}”.</div>}
+      </dl>
+    </div>
+  );
+}
+
 export default function HelpTab() {
-  const [content, setContent] = useState<Record<string, string> | null>(null);
+  const [content, setContent] = useState<Record<string, any> | null>(null);
   const [active, setActive] = useState(SECTIONS[0].key);
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/help.json`).then((r) => r.json()).then(setContent);
@@ -65,7 +93,8 @@ export default function HelpTab() {
         ))}
       </div>
       <div className="min-w-0 flex-1 rounded-lg border border-[#1E2632] bg-[#121723] p-5">
-        {content[active] ? <Markdown text={content[active]} /> : <div className="text-[#7C879B]">Section unavailable.</div>}
+        {active === "_glossary" ? <Glossary terms={content._glossary ?? []} />
+          : content[active] ? <Markdown text={content[active]} /> : <div className="text-[#7C879B]">Section unavailable.</div>}
       </div>
     </div>
   );

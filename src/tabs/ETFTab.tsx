@@ -3,8 +3,10 @@ import { useStore, type ViewRow } from "../store";
 import { Card, Metric, Pill, RatingBadge, Spinner, Unavailable } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
+const ETF_COLORS = ["#00D4AA", "#00A3FF", "#A855F7", "#FBBF24", "#F97316"];
 
 interface Alloc { category: string; etf: string; alt: string; weight: number; purpose: string }
 interface Template { description: string; risk_score: number; expected_annual_return: string; max_drawdown_estimate: string; allocations: Alloc[] }
@@ -85,6 +87,29 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
           </tbody>
           <tfoot><tr className="border-t border-[#2A3242]"><td className="py-1.5 font-semibold text-[#C3CAD7]" colSpan={3}>Total</td><td className="py-1.5 text-right font-semibold">{t.allocations.reduce((a, x) => a + x.weight, 0)}%</td><td className="py-1.5 text-right font-semibold">{fmtMoney(capital, 0)}</td><td /></tr></tfoot>
         </table>
+        <details className="mt-3 text-xs">
+          <summary className="cursor-pointer text-[#7C879B]">How to use this allocation</summary>
+          <div className="mt-2 space-y-2 text-[#9CA7BB]">
+            <div>
+              <div className="font-semibold text-[#C3CAD7]">Implementation steps:</div>
+              <ol className="list-decimal space-y-0.5 pl-4">
+                <li>Open a brokerage account if you don't have one (Fidelity, Schwab, Vanguard recommended for low fees).</li>
+                <li>For each row above, place a buy order for the listed ETF using the dollar amount shown.</li>
+                <li>Rebalance quarterly or when any position drifts more than 5% from target.</li>
+                <li>The "Alt" column shows substitute ETFs from different providers if your broker doesn't offer the primary.</li>
+              </ol>
+            </div>
+            <div>
+              <div className="font-semibold text-[#C3CAD7]">Notes:</div>
+              <ul className="list-disc space-y-0.5 pl-4">
+                <li>Expected returns are based on historical averages and are not guaranteed.</li>
+                <li>Max drawdown estimates reflect what historically happens in market crashes.</li>
+                <li>Tax-efficient placement: hold bonds/REITs in retirement accounts and equities in taxable accounts when possible.</li>
+                <li>This is informational only, not financial advice.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
       </Card>
     </div>
   );
@@ -123,6 +148,39 @@ function Comparison({ data }: { data: EtfFile }) {
           </tbody>
         </table>
       </div>
+      {/* Returns comparison bar chart */}
+      {sel.length >= 2 && (() => {
+        const periods: [string, keyof EtfData][] = [["1M", "momentum_1m"], ["3M", "momentum_3m"], ["6M", "momentum_6m"], ["12M", "momentum_12m"], ["YTD", "ytdReturn"]];
+        const chart = periods.map(([label, key]) => {
+          const row: Record<string, number | string> = { period: label };
+          for (const t of sel) { const v = data.etfs[t]?.[key] as number | null | undefined; if (v != null) row[t] = v * 100; }
+          return row;
+        });
+        return (
+          <Card title="Returns Comparison" sub="Trailing returns by period across the selected ETFs.">
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={chart} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+                <CartesianGrid stroke="#1A2130" vertical={false} />
+                <XAxis dataKey="period" tick={{ fill: "#7C879B", fontSize: 11 }} />
+                <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
+                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n]} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                {sel.map((t, i) => <Bar key={t} dataKey={t} fill={ETF_COLORS[i % ETF_COLORS.length]} />)}
+              </BarChart>
+            </ResponsiveContainer>
+          </Card>
+        );
+      })()}
+      <details className="text-xs">
+        <summary className="cursor-pointer text-[#7C879B]">Comparison guide</summary>
+        <ul className="mt-2 list-disc space-y-0.5 pl-4 text-[#9CA7BB]">
+          <li><strong className="text-[#C3CAD7]">Lower expense ratio</strong> is better (saves money long-term).</li>
+          <li><strong className="text-[#C3CAD7]">Higher AUM</strong> means more liquidity, tighter bid/ask spreads.</li>
+          <li><strong className="text-[#C3CAD7]">Yield</strong> matters for income-focused investors.</li>
+          <li><strong className="text-[#C3CAD7]">Returns</strong> show recent performance, but past performance doesn't predict future.</li>
+          <li><strong className="text-[#C3CAD7]">Beta</strong> measures volatility vs the market (1.0 = market, &gt;1 more volatile).</li>
+        </ul>
+      </details>
       <p className="text-[10px] text-[#5C6678]">Yield & 3Y beta are not in the source ETF cache (shown N/A), matching the Streamlit app.</p>
     </div>
   );

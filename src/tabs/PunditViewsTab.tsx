@@ -50,15 +50,41 @@ function Commentators({ section }: { section?: PunditSection }) {
 
 function Predictions() {
   const poly = useLiveData<Poly>("/api/polymarket");
+  const [cat, setCat] = useState("all");
+  const [sort, setSort] = useState<"volume" | "prob">("volume");
+  const [limit, setLimit] = useState(30);
   if (poly.status === "loading") return <Spinner label="Loading prediction markets…" />;
   if (poly.status === "unavailable" || !poly.data?.markets?.length)
     return <Unavailable what="Prediction markets" detail="Live Polymarket data is fetched server-side on the deployed app. In a static preview (no serverless), this shows unavailable — by design." />;
+  const cats = ["all", ...Array.from(new Set(poly.data.markets.map((m) => m.category).filter(Boolean) as string[])).sort()];
+  const shown = poly.data.markets
+    .filter((m) => cat === "all" || m.category === cat)
+    .sort((a, b) => sort === "volume" ? (b.volume_24h ?? 0) - (a.volume_24h ?? 0) : (b.yes_prob ?? 0) - (a.yes_prob ?? 0))
+    .slice(0, limit);
   return (
-    <Card title="Macro prediction markets" sub="Polymarket · macro/event markets relevant to equities (Fed, CPI, recession, BTC/ETH, tariffs…). One row per event; multi-candidate elections & sports excluded. By 24h volume.">
+    <Card title="Macro prediction markets" sub="Polymarket · macro/event markets relevant to equities (Fed, CPI, recession, BTC/ETH, tariffs…). One row per event; multi-candidate elections & sports excluded.">
+      <div className="mb-2 flex flex-wrap items-end gap-3 text-xs text-[#9CA7BB]">
+        <label>Theme
+          <select value={cat} onChange={(e) => setCat(e.target.value)} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1 text-sm capitalize text-white">
+            {cats.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+        </label>
+        <label>Sort by
+          <select value={sort} onChange={(e) => setSort(e.target.value as "volume" | "prob")} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1 text-sm text-white">
+            <option value="volume">24h Volume</option><option value="prob">Probability</option>
+          </select>
+        </label>
+        <label>Show
+          <select value={limit} onChange={(e) => setLimit(+e.target.value)} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1 text-sm text-white">
+            {[10, 20, 30, 40].map((n) => <option key={n} value={n}>{n}</option>)}
+          </select>
+        </label>
+        <span className="text-[#7C879B]">{shown.length} markets</span>
+      </div>
       <table className="w-full text-sm">
         <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Market</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Theme</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Leading</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">24h Vol</th></tr></thead>
         <tbody>
-          {poly.data.markets.slice(0, 30).map((m, i) => (
+          {shown.map((m, i) => (
             <tr key={i} className="border-t border-[#161D29]">
               <td className="py-1.5 pr-3 text-[#C3CAD7]">{m.question}{m.n_outcomes && m.n_outcomes > 1 ? <span className="ml-1 text-[10px] text-[#7C879B]">· {m.n_outcomes} outcomes{m.leading_outcome ? ` · leads: ${m.leading_outcome}` : ""}</span> : null}</td>
               <td className="py-1.5 pr-3"><span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] capitalize text-[#9CA7BB]">{m.category ?? "—"}</span></td>
