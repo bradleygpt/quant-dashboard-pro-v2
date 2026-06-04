@@ -111,11 +111,12 @@ export default function StockDetailTab() {
   const usingLive = !!liveHist?.close?.length;
   const chartData = useMemo(() => {
     const src = liveHist ?? (series ? { dates: series.dates, close: series.close, volume: series.close.map(() => 0) } : null);
-    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null }[];
+    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null; fv: number | null; qbp: number | null }[];
     const rsi = rsiSeries(src.close);
     const sma50 = smaSeries(src.close, 50), sma200 = smaSeries(src.close, 200);
-    return src.dates.map((d, i) => ({ date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0, rsi: rsi[i], sma50: sma50[i], sma200: sma200[i] }));
-  }, [liveHist, series]);
+    const fv = row?.fv ?? null, qbp = row?.qbp ?? null;
+    return src.dates.map((d, i) => ({ date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0, rsi: rsi[i], sma50: sma50[i], sma200: sma200[i], fv, qbp }));
+  }, [liveHist, series, row?.fv, row?.qbp]);
   const curRsi = useMemo(() => { for (let i = chartData.length - 1; i >= 0; i--) if (chartData[i].rsi != null) return chartData[i].rsi; return null; }, [chartData]);
   const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: "#FF5722" } : curRsi <= 30 ? { t: "Oversold", c: "#00C805" } : { t: "Neutral", c: "#FFC107" };
 
@@ -205,10 +206,13 @@ export default function StockDetailTab() {
                 <CartesianGrid stroke="#1A2130" vertical={false} />
                 <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={48} />
                 <YAxis domain={yDomain ?? ["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={(v) => `$${Math.round(v)}`} />
-                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number) => [`$${v.toFixed(2)}`, "Close"]} />
+                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number, n) => [`$${v.toFixed(2)}`, n]} />
+                {/* FV / QBP as named constant lines (axis labels via ReferenceLine) so the tooltip labels each series correctly */}
                 {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
                 {row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
                 <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} name="Close" />
+                {row.fv && <Line type="monotone" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
+                {row.qbp && <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
                 {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke="#E8A33D" dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
                 {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke="#FF6B6B" dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
               </LineChart>

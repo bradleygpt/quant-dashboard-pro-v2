@@ -3,10 +3,10 @@ import { Card, Metric } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
 import {
   ComposedChart, LineChart, Line, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  CartesianGrid, ReferenceLine, ReferenceArea,
+  CartesianGrid, ReferenceLine, ReferenceArea, Legend,
 } from "recharts";
 import {
-  HALVINGS, HISTORICAL_CYCLES, ETF_EVENTS, cycleMilestones, cycleCountdown, weekly200MA,
+  HALVINGS, HISTORICAL_CYCLES, ETF_EVENTS, cycleMilestones, cycleCountdown,
   buildCyclePctOverlay, getCurrentHalvingInfo, getCyclePhase, estimateNextHalvingFromBlock,
   btcValuationIndicators, interpretValuation, cycleTimeline,
 } from "../lib/cycle";
@@ -19,6 +19,29 @@ const TONE_DOT: Record<string, string> = { red: "🔴", orange: "🟠", yellow: 
 const MARKER_COLOR: Record<string, string> = { halving: "#9B59B6", takeoff: "#3498DB", peak: "#27AE60", bottom: "#E74C3C" };
 const MARKER_SHAPE: Record<string, "triangle" | "diamond" | "star" | "wye"> = { halving: "triangle", takeoff: "diamond", peak: "star", bottom: "wye" };
 
+const TL_LABELS: Record<string, string> = {
+  price: "BTC price", peakTrend: "Peak trendline", bottomTrend: "Bottom trendline",
+  mk_halving: "Halving", mk_takeoff: "Takeoff", mk_peak: "Peak", mk_bottom: "Bottom",
+  mp_halving: "Halving (proj.)", mp_takeoff: "Takeoff (proj.)", mp_peak: "Peak (proj.)", mp_bottom: "Bottom (proj.)",
+};
+// Custom tooltip: each entry shows ITS OWN datapoint value (fixes the all-same-price bug).
+function TimelineTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  const seen = new Set<string>();
+  const items = payload.filter((p: any) => p?.value != null && p.dataKey && !seen.has(p.dataKey) && seen.add(p.dataKey));
+  if (!items.length) return null;
+  return (
+    <div className="rounded-lg border border-[#1E2632] bg-[#0F1420] px-3 py-2 text-xs">
+      <div className="mb-1 text-[#7C879B]">{new Date(label).toLocaleDateString()}</div>
+      {items.map((p: any) => (
+        <div key={p.dataKey} className="flex items-center justify-between gap-3">
+          <span style={{ color: p.color || p.stroke || p.fill || "#C3CAD7" }}>{TL_LABELS[p.dataKey] ?? p.dataKey}</span>
+          <span className="font-medium text-[#E6E9EF]">${Math.round(p.value).toLocaleString()}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 const fmtMonthYear = (iso: string) => new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short" });
 const fmtDayMonthYear = (iso: string) => new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 const k = (v: number) => (v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v.toFixed(0)}`);
@@ -208,7 +231,19 @@ function CycleTimelineChart({ btcDaily, include2012, show2012, setShow2012, show
   }, [btcDaily]);
 
   const allMarkers = [...tl.markers, ...tl.projMarkers];
-  const byType = (type: string, projected: boolean) => allMarkers.filter((m) => m.type === type && m.projected === projected).map((m) => ({ t: m.t, price: m.price }));
+  // Unified, index-aligned dataset: every series reads its own field from the SAME
+  // row (keyed by timestamp), so the tooltip shows each series' own value — not the
+  // cursor's price for all (the img1 bug, caused by separate per-series data arrays).
+  const chartData = useMemo(() => {
+    const rows = new Map<number, any>();
+    const get = (t: number) => { let r = rows.get(t); if (!r) { r = { t }; rows.set(t, r); } return r; };
+    for (const b of bg) get(b.t).price = b.price;
+    for (const p of tl.peakTrend) get(p.t).peakTrend = p.y;
+    for (const p of tl.bottomTrend) get(p.t).bottomTrend = p.y;
+    for (const m of tl.markers) get(m.t)[`mk_${m.type}`] = m.price;
+    for (const m of tl.projMarkers) get(m.t)[`mp_${m.type}`] = m.price;
+    return [...rows.values()].sort((a, b) => a.t - b.t);
+  }, [bg, tl]);
 
   // explicit domains covering markers, trendlines, projections, ETF lines, today
   const tVals = [...allMarkers.map((m) => m.t), ...bg.map((b) => b.t), tl.nextWindow.x1, tl.today, ...(showEtf ? ETF_EVENTS.map((e) => Date.parse(e.date)) : [])];
@@ -232,26 +267,25 @@ function CycleTimelineChart({ btcDaily, include2012, show2012, setShow2012, show
       </div>
       {bg.length > 0 ? (
         <ResponsiveContainer width="100%" height={460}>
-          <ComposedChart margin={{ top: 16, right: 16, bottom: 4, left: 4 }}>
+          <ComposedChart data={chartData} margin={{ top: 16, right: 16, bottom: 4, left: 4 }}>
             <CartesianGrid stroke="#1A2130" vertical={false} />
             <XAxis dataKey="t" type="number" domain={[tMin, tMax]} scale="time" allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50}
               tickFormatter={(t) => new Date(t).getFullYear().toString()} />
             <YAxis scale="log" domain={[pMin, pMax]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={k} />
-            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }}
-              labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}`, n]} />
+            <Tooltip content={<TimelineTooltip />} />
             {/* projected next-cycle window */}
             <ReferenceArea x1={tl.nextWindow.x0} x2={tl.nextWindow.x1} fill="#9B59B6" fillOpacity={0.08} ifOverflow="extendDomain" />
             {/* background BTC price */}
-            <Line data={bg} dataKey="price" stroke="#F7931A" dot={false} strokeWidth={1.3} name="BTC price" isAnimationActive={false} />
+            <Line dataKey="price" stroke="#F7931A" dot={false} strokeWidth={1.3} name="BTC price" isAnimationActive={false} connectNulls />
             {/* trendlines */}
-            <Line data={tl.peakTrend} dataKey="y" stroke="#27AE60" strokeOpacity={0.5} strokeDasharray="5 4" dot={false} strokeWidth={1.6} name="Peak trendline" isAnimationActive={false} />
-            <Line data={tl.bottomTrend} dataKey="y" stroke="#E74C3C" strokeOpacity={0.5} strokeDasharray="5 4" dot={false} strokeWidth={1.6} name="Bottom trendline" isAnimationActive={false} />
+            <Line dataKey="peakTrend" stroke="#27AE60" strokeOpacity={0.5} strokeDasharray="5 4" dot={false} strokeWidth={1.6} name="Peak trendline" isAnimationActive={false} connectNulls />
+            <Line dataKey="bottomTrend" stroke="#E74C3C" strokeOpacity={0.5} strokeDasharray="5 4" dot={false} strokeWidth={1.6} name="Bottom trendline" isAnimationActive={false} connectNulls />
             {/* event markers — actual (filled) + projected (hollow) per type */}
             {(["halving", "takeoff", "peak", "bottom"] as const).map((type) => (
-              <Scatter key={type} data={byType(type, false)} dataKey="price" fill={MARKER_COLOR[type]} shape={MARKER_SHAPE[type]} name={type} isAnimationActive={false} />
+              <Scatter key={type} dataKey={`mk_${type}`} fill={MARKER_COLOR[type]} shape={MARKER_SHAPE[type]} name={type} isAnimationActive={false} />
             ))}
             {(["halving", "takeoff", "peak", "bottom"] as const).map((type) => (
-              <Scatter key={`p-${type}`} data={byType(type, true)} dataKey="price" fill="#0F1420" stroke={MARKER_COLOR[type]} strokeWidth={1.5} shape={MARKER_SHAPE[type]} name={`${type} (proj.)`} isAnimationActive={false} />
+              <Scatter key={`p-${type}`} dataKey={`mp_${type}`} fill="#0F1420" stroke={MARKER_COLOR[type]} strokeWidth={1.5} shape={MARKER_SHAPE[type]} name={`${type} (proj.)`} isAnimationActive={false} />
             ))}
             {/* ETF event vlines */}
             {showEtf && ETF_EVENTS.map((e) => (
@@ -322,21 +356,34 @@ function OverlayBand({ btcDaily, daysSinceHalving }: { btcDaily: Series; daysSin
 
 // ──────────────────────────────────────────────────────────────────────────
 function LongTermPrice({ btcDaily }: { btcDaily: Series }) {
+  // Resample daily→weekly ONCE, then compute all MAs on that same series so every
+  // MA spans the full available history (fixes the truncated MA: the old code joined
+  // two different weekly resamplings by date, dropping most MA points). Units = weeks,
+  // matching the existing 200-week MA.
   const longChart = useMemo(() => {
     if (!btcDaily?.dates?.length) return [];
-    const ma = weekly200MA(btcDaily);
-    const maByDate = new Map(ma.map((m) => [m.date, m.ma]));
     const byWeek = new Map<string, { date: string; close: number }>();
     for (let i = 0; i < btcDaily.dates.length; i++) {
       const d = new Date(btcDaily.dates[i]);
       const key = `${d.getUTCFullYear()}-${Math.floor(d.getTime() / (7 * 86400000))}`;
-      byWeek.set(key, { date: btcDaily.dates[i], close: btcDaily.close[i] });
+      byWeek.set(key, { date: btcDaily.dates[i], close: btcDaily.close[i] }); // last close in week
     }
-    return [...byWeek.values()].map((w) => ({ t: Date.parse(w.date), close: w.close, ma: maByDate.get(w.date) ?? null }));
+    const weeks = [...byWeek.values()].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    const closes = weeks.map((w) => w.close);
+    const trailingMA = (n: number, i: number): number | null => {
+      if (i < n - 1) return null;
+      let s = 0; for (let j = i - n + 1; j <= i; j++) s += closes[j];
+      return s / n;
+    };
+    return weeks.map((w, i) => ({
+      t: Date.parse(w.date), close: w.close,
+      ma21: trailingMA(21, i), ma50: trailingMA(50, i), ma200: trailingMA(200, i),
+    }));
   }, [btcDaily]);
 
+  const MA_LABEL: Record<string, string> = { close: "BTC", ma21: "21w MA", ma50: "50w MA", ma200: "200w MA" };
   return (
-    <Card title="Long-term Price with Halvings" sub="Log scale · 200-week MA · halving markers">
+    <Card title="Long-term Price with Halvings" sub="Log scale · 21 / 50 / 200-week moving averages · halving markers">
       {longChart.length > 0 ? (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={longChart} margin={{ top: 5, right: 12, bottom: 0, left: 4 }}>
@@ -344,12 +391,15 @@ function LongTermPrice({ btcDaily }: { btcDaily: Series }) {
             <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50} />
             <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={k} />
             <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }}
-              labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}`, n === "ma" ? "200w MA" : "BTC"]} />
+              labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n: string) => [`$${Math.round(v).toLocaleString()}`, MA_LABEL[n] ?? n]} />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
             {HALVINGS.filter((h) => Date.parse(h.date) <= Date.now()).map((h) => (
               <ReferenceLine key={h.date} x={Date.parse(h.date)} stroke="#F7931A" strokeDasharray="3 3" opacity={0.6} label={{ value: `⌗ ${new Date(h.date).getFullYear()}`, fill: "#F7931A", fontSize: 10, position: "top" }} />
             ))}
             <Line type="monotone" dataKey="close" stroke="#F7931A" dot={false} strokeWidth={1.4} name="BTC" />
-            <Line type="monotone" dataKey="ma" stroke="#5DADE2" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="ma" connectNulls />
+            <Line type="monotone" dataKey="ma21" stroke="#8BC34A" dot={false} strokeWidth={1.2} strokeDasharray="2 2" name="21w MA" connectNulls />
+            <Line type="monotone" dataKey="ma50" stroke="#FFC107" dot={false} strokeWidth={1.2} strokeDasharray="3 2" name="50w MA" connectNulls />
+            <Line type="monotone" dataKey="ma200" stroke="#5DADE2" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="200w MA" connectNulls />
           </LineChart>
         </ResponsiveContainer>
       ) : <div className="py-8 text-center text-sm text-[#7C879B]">Price history loading / unavailable.</div>}

@@ -72,13 +72,13 @@ export default function ScreenerTab() {
       { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[r.rating] ?? 0, render: (r) => <RatingBadge rating={r.rating} /> },
       { key: "price", header: "Price", align: "right", sortValue: (r) => r.price, render: (r) => fmtMoney(r.price) },
       { key: "fv", header: "Fair Value", align: "right", sortValue: (r) => r.fv, render: (r) => fmtMoney(r.fv) },
-      { key: "fvVerdict", header: "FV Verdict", sortValue: (r) => (r.fvVerdict ? FV_RANK[r.fvVerdict] ?? 0 : null),
+      { key: "fvVerdict", header: "FV Verdict", sortValue: (r) => (r.fvVerdict ? FV_RANK[r.fvVerdict] ?? 0 : null), title: (r) => r.fvVerdict ?? undefined,
         render: (r) => <span className="text-[#9CA7BB]">{r.fvVerdict ?? "—"}</span> },
       { key: "fvPremium", header: "Prem/Disc", align: "right", sortValue: (r) => r.fvPremium,
         render: (r) => <span style={{ color: r.fvPremium == null ? "#7C879B" : r.fvPremium <= 0 ? "#00C805" : r.fvPremium > 25 ? "#FF5722" : "#FFC107" }}>{r.fvPremium == null ? "—" : fmtPct(r.fvPremium, 1, true)}</span> },
       { key: "qbp", header: "Buy Point", align: "right", sortValue: (r) => r.qbp, render: (r) => fmtMoney(r.qbp) },
       { key: "qbpDistance", header: "BP Dist", align: "right", sortValue: (r) => r.qbpDistance, render: (r) => r.qbpDistance == null ? "—" : fmtPct(r.qbpDistance, 1, true) },
-      { key: "qbpSignal", header: "BP Signal", sortValue: (r) => (r.qbpSignal ? SIGNAL_RANK[r.qbpSignal] ?? 0 : null), render: (r) => <span className="text-[#9CA7BB]">{r.qbpSignal ?? "—"}</span> },
+      { key: "qbpSignal", header: "BP Signal", sortValue: (r) => (r.qbpSignal ? SIGNAL_RANK[r.qbpSignal] ?? 0 : null), title: (r) => r.qbpSignal ?? undefined, render: (r) => <span className="text-[#9CA7BB]">{r.qbpSignal ?? "—"}</span> },
       grade("Valuation", "Val"), grade("Growth", "Grw"), grade("Profitability", "Prof"),
       grade("Momentum", "Mom"), grade("EPS Revisions", "EPS"),
       { key: "marketCapB", header: "Mkt Cap", align: "right", sortValue: (r) => r.marketCapB, render: (r) => <span className="text-[#9CA7BB]">{fmtCapB(r.marketCapB)}</span> },
@@ -158,7 +158,7 @@ export default function ScreenerTab() {
         </div>
       </div>
 
-      <SortableTable columns={columns} rows={filtered} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" freezeFirst minWidth={1180} />
+      <SortableTable columns={columns} rows={filtered} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" freezeFirst minWidth={1480} />
     </div>
   );
 }

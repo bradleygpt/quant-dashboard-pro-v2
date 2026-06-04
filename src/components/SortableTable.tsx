@@ -11,6 +11,8 @@ export interface Column<T> {
   render: (row: T) => ReactNode;
   className?: string;
   width?: string; // optional fixed width (used when virtualized, table-layout:fixed)
+  /** Native hover tooltip for the cell — shows full text when the column truncates. */
+  title?: (row: T) => string | undefined;
 }
 
 export const RATING_RANK: Record<string, number> = {
@@ -121,8 +123,11 @@ export function SortableTable<T>({
             <tr key={rowKey(row)} className="border-t border-[#161D29] hover:bg-[#141B27]" style={virtual ? { height: ROW_H } : undefined}>
               {columns.map((col, ci) => {
                 const frozen = freezeFirst && ci === 0;
+                // Tooltip for truncating cells: explicit col.title, else a string sortValue.
+                const sv = col.sortValue?.(row);
+                const cellTitle = col.title?.(row) ?? (typeof sv === "string" ? sv : undefined);
                 return (
-                  <td key={col.key} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${frozen ? "sticky left-0 z-20 border-r border-[#1E2632] bg-[#0F1420]" : ""} ${col.className ?? ""}`}>
+                  <td key={col.key} title={cellTitle} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${frozen ? "sticky left-0 z-20 border-r border-[#1E2632] bg-[#0F1420]" : ""} ${col.className ?? ""}`}>
                     {col.render(row)}
                   </td>
                 );
