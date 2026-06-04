@@ -264,3 +264,126 @@ export function buildOptimalPortfolio(
   }));
   return out.sort((a, b) => b.weight_pct - a.weight_pct);
 }
+
+// ── Rebalance deltas (quant_portfolio.compute_rebalance_deltas) ──
+export interface RebalAction {
+  ticker: string; action: "INITIATE" | "ADD" | "TRIM" | "EXIT" | "HOLD";
+  delta_dollars: number; current_dollars: number; target_dollars: number;
+  current_pct: number; target_pct: number; reason: string;
+  score: number | null; rating: string | null;
+}
+export interface CurrentHolding { ticker: string; shares: number; current_price: number }
+
+export function computeRebalanceDeltas(
+  optimal: QpPosition[], holdings: CurrentHolding[], byTicker: Map<string, ViewRow>, totalCapital: number,
+): RebalAction[] {
+  const curMap = new Map<string, { value: number }>();
+  let currentTotal = 0;
+  for (const h of holdings) {
+    const t = h.ticker.toUpperCase();
+    const shares = Number(h.shares) || 0, price = Number(h.current_price) || 0;
+    if (!t || shares <= 0 || price <= 0) continue;
+    const value = shares * price;
+    curMap.set(t, { value }); currentTotal += value;
+  }
+  const tgtMap = new Map<string, QpPosition>();
+  for (const p of optimal) tgtMap.set(p.ticker, p);
+
+  const getScore = (t: string) => { const r = byTicker.get(t); return r && r.composite != null ? r.composite : null; };
+  const getRating = (t: string) => { const r = byTicker.get(t); return r ? r.rating : null; };
+  const explainExit = (t: string) => {
+    const s = getScore(t), rt = getRating(t);
+    if (s == null) return `${t} not in scored universe`;
+    if (rt === "Sell" || rt === "Strong Sell") return `Rated ${rt} (score ${s.toFixed(1)})`;
+    return `Below quant threshold (score ${s.toFixed(1)}, rated ${rt})`;
+  };
+
+  const all = new Set<string>([...curMap.keys(), ...tgtMap.keys()]);
+  const actions: RebalAction[] = [];
+  for (const t of all) {
+    const cur = curMap.get(t), tgt = tgtMap.get(t);
+    const curDollars = cur ? cur.value : 0;
+    const tgtDollars = tgt ? tgt.dollars : 0;
+    const delta = tgtDollars - curDollars;
+    if (cur && !tgt) {
+      actions.push({ ticker: t, action: "EXIT", delta_dollars: -curDollars, current_dollars: curDollars, target_dollars: 0,
+        current_pct: currentTotal ? (100 * curDollars) / currentTotal : 0, target_pct: 0,
+        reason: explainExit(t), score: getScore(t), rating: getRating(t) });
+    } else if (tgt && !cur) {
+      actions.push({ ticker: t, action: "INITIATE", delta_dollars: delta, current_dollars: 0, target_dollars: tgtDollars,
+        current_pct: 0, target_pct: tgt.weight_pct, reason: `Rated ${tgt.rating} (score ${tgt.composite_score.toFixed(1)})`,
+        score: tgt.composite_score, rating: tgt.rating });
+    } else if (tgt && cur) {
+      const curPct = totalCapital ? (100 * curDollars) / totalCapital : 0;
+      const tgtPct = tgt.weight_pct;
+      const pctDelta = tgtPct - curPct;
+      let action: RebalAction["action"], reason: string;
+      if (Math.abs(pctDelta) < 1.5 || Math.abs(delta) < 100) { action = "HOLD"; reason = "Within target range"; }
+      else if (delta > 0) { action = "ADD"; reason = `Underweight by ${pctDelta.toFixed(1)}pp`; }
+      else { action = "TRIM"; reason = `Overweight by ${(-pctDelta).toFixed(1)}pp`; }
+      actions.push({ ticker: t, action, delta_dollars: delta, current_dollars: curDollars, target_dollars: tgtDollars,
+        current_pct: curPct, target_pct: tgtPct, reason, score: tgt.composite_score, rating: tgt.rating });
+    }
+  }
+  const order: Record<string, number> = { INITIATE: 0, ADD: 1, TRIM: 2, EXIT: 3, HOLD: 4 };
+  actions.sort((a, b) => (order[a.action] - order[b.action]) || (Math.abs(b.delta_dollars) - Math.abs(a.delta_dollars)));
+  return actions;
+}
+
+// ── Diversification stats (quant_portfolio.compute_diversification_stats) ──
+export function computeDiversificationStats(port: QpPosition[]) {
+  if (!port.length) return null;
+  const secMap = new Map<string, number>();
+  for (const p of port) { const k = p.sector ?? "Unknown"; secMap.set(k, (secMap.get(k) ?? 0) + p.weight_pct); }
+  const sorted = [...secMap.entries()].sort((a, b) => b[1] - a[1]);
+  const scores = port.map((p) => p.composite_score);
+  return {
+    num_positions: port.length,
+    avg_score: scores.reduce((a, b) => a + b, 0) / port.length,
+    largest_position_pct: Math.max(...port.map((p) => p.weight_pct)),
+    largest_position_ticker: port[0]?.ticker ?? "",
+    sector_breakdown: sorted.map(([sector, weight]) => ({ sector, weight })),
+    num_sectors: sorted.length,
+    top_sector: sorted[0]?.[0] ?? "",
+    top_sector_pct: sorted[0]?.[1] ?? 0,
+  };
+}
+
+// ── SPY overlap (quant_portfolio.compare_to_spy_overlap) ──
+const SPY_TOP_30 = ["NVDA", "MSFT", "AAPL", "AMZN", "META", "GOOGL", "AVGO", "TSLA", "BRK-B", "GOOG",
+  "JPM", "LLY", "V", "WMT", "MA", "XOM", "UNH", "ORCL", "COST", "HD",
+  "JNJ", "PG", "NFLX", "BAC", "ABBV", "CRM", "CVX", "KO", "MRK", "AMD"];
+export function compareToSpyOverlap(port: QpPosition[]) {
+  if (!port.length) return { overlap_count: 0, overlap_pct: 0, overlap_tickers: [] as string[] };
+  const overlap = port.filter((p) => SPY_TOP_30.includes(p.ticker));
+  return {
+    overlap_count: overlap.length,
+    overlap_pct: pyRound(overlap.reduce((a, p) => a + p.weight_pct, 0), 1),
+    overlap_tickers: overlap.map((p) => p.ticker),
+  };
+}
+
+// ── Ideal allocation from pullback pressure (ideal_allocation.compute_ideal_allocation) ──
+const ALLOCATION_REGIMES: [number, number, number, string][] = [
+  [24, 100, 0, "Aggressive Deploy"], [44, 95, 5, "Standard Deploy"], [64, 85, 15, "Modest Defensive"],
+  [79, 70, 30, "Defensive"], [100, 55, 45, "Highly Defensive"],
+];
+export function computeIdealAllocation(pullbackScore: number) {
+  let target_stock_pct = 95, target_cash_pct = 5, regime_label = "Standard Deploy";
+  for (const [maxP, sPct, cPct, label] of ALLOCATION_REGIMES) {
+    if (pullbackScore <= maxP) { target_stock_pct = sPct; target_cash_pct = cPct; regime_label = label; break; }
+  }
+  const s = Math.round(pullbackScore);
+  const rationale =
+    regime_label === "Aggressive Deploy" ? `Pullback pressure is very low (${s}/100), often indicating market fear or oversold conditions — historically favorable entry points. Recommended: ${target_stock_pct}% stocks, ${target_cash_pct}% cash.`
+    : regime_label === "Standard Deploy" ? `Pullback pressure is low (${s}/100). Conditions favor deployment without significant defensive positioning. Recommended: ${target_stock_pct}% stocks, ${target_cash_pct}% cash for opportunistic adds.`
+    : regime_label === "Modest Defensive" ? `Pullback pressure is moderate (${s}/100). Some stretching but no strong sell signal. A 15% cash buffer provides flexibility for tactical adds on weakness. Recommended: ${target_stock_pct}% stocks, ${target_cash_pct}% cash.`
+    : regime_label === "Defensive" ? `Pullback pressure is elevated (${s}/100). Markets show signs of being stretched. A 30% cash position provides capacity to deploy on a 5–10% pullback. Recommended: ${target_stock_pct}% stocks, ${target_cash_pct}% cash.`
+    : `Pullback pressure is extreme (${s}/100). Multiple signals suggest correction risk is meaningfully elevated. A 45% cash position prepares for opportunistic deployment on a significant decline — but even at extreme pressure markets can keep rising. Recommended: ${target_stock_pct}% stocks, ${target_cash_pct}% cash.`;
+  const warnings: string[] = [];
+  if (target_cash_pct > 20) warnings.push("Selling existing positions to raise cash creates capital-gains tax events. Consider whether tax cost outweighs the defensive benefit.");
+  if (target_cash_pct >= 30) warnings.push("Large cash positions (>30%) historically underperform fully-invested portfolios over long periods. Use for short-term tactical positioning, not as a default.");
+  if (s >= 80) warnings.push("Even at extreme pressure, markets can keep rising for weeks or months. This indicator suggests defense, not panic-selling.");
+  if (s < 25) warnings.push("Low pullback pressure often coincides with fear or recent declines. Counter-intuitively, these are often good entry points historically.");
+  return { pullback_score: pullbackScore, target_stock_pct, target_cash_pct, regime_label, rationale, warnings };
+}
