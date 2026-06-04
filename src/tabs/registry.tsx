@@ -13,6 +13,7 @@ import CryptoTab from "./CryptoTab";
 import PunditViewsTab from "./PunditViewsTab";
 import DoppelgangerTab from "./DoppelgangerTab";
 import C78QTab from "./C78QTab";
+import AiBubbleWatchTab from "./AiBubbleWatchTab";
 
 export interface TabDef {
   id: string;
@@ -35,6 +36,7 @@ export const TABS: TabDef[] = [
   { id: "bh", label: "🔥 c78q", component: C78QTab },
   { id: "sectors", label: "Sector Overview", component: SectorTab },
   { id: "crypto", label: "₿ Crypto", component: CryptoTab },
+  { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
   { id: "etfs", label: "ETF Center", component: ETFTab },
   { id: "voices", label: "🎤 Pundit Views", component: PunditViewsTab },
   { id: "help", label: "📖 Help", component: HelpTab },
