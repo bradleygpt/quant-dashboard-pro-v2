@@ -23,7 +23,8 @@ const BASE = `${import.meta.env.BASE_URL}data`;
 
 interface Market {
   ok?: boolean;
-  indices?: { name: string; ok: boolean; price?: number; distance_from_ath_pct?: number; change_1d_pct?: number; change_1m_pct?: number; change_3m_pct?: number }[];
+  indices?: { name: string; ok: boolean; price?: number; distance_from_ath_pct?: number; change_1d_pct?: number; change_5d_pct?: number; change_1m_pct?: number; change_3m_pct?: number; ytd_pct?: number }[];
+  dxy?: { ok: boolean; current?: number; change_1d_pct?: number; ytd_pct?: number };
   vix?: { ok: boolean; current?: number; level?: string; score?: number; percentile?: number; avg_1y?: number };
   yields?: { ok: boolean; y10?: number; y2?: number; spread?: number };
   buffett?: { ok: boolean; ratio?: number; level?: string; score?: number };
@@ -69,9 +70,11 @@ export default function MarketRegimeTab() {
       {mkt.status === "loading" ? <Spinner label="Loading live market data…" /> :
        mkt.status === "unavailable" ? <Unavailable what="Live market data" detail="Market prices/VIX/yields are fetched by the /api/market serverless function on the deployed app. In a static-only preview this is unavailable; baked macro context below still renders." /> :
        (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
           {fearGreed && <Metric label="Fear & Greed" value={<span style={{ color: fearGreed.color }}>{fearGreed.score.toFixed(0)}</span>} hint={fearGreed.classification} />}
           {mkt.data?.vix?.ok && <Metric label="VIX" value={fmtNum(mkt.data.vix.current, 1)} hint={mkt.data.vix.level} />}
+          {mkt.data?.yields?.ok && <Metric label="10Y Treasury" value={`${(mkt.data.yields.y10 ?? 0).toFixed(2)}%`} hint={`10Y–2Y ${(mkt.data.yields.spread ?? 0).toFixed(2)}%`} />}
+          {mkt.data?.dxy?.ok && <Metric label="Dollar (DXY)" value={fmtNum(mkt.data.dxy.current, 2)} hint={mkt.data.dxy.ytd_pct != null ? `YTD ${fmtPct(mkt.data.dxy.ytd_pct, 1, true)}` : undefined} />}
           {sp && <Metric label="S&P vs ATH" value={fmtPct(sp.distance_from_ath_pct ?? 0, 1, true)} />}
           {mkt.data?.yields?.ok && <Metric label="10Y–2Y" value={`${(mkt.data.yields.spread ?? 0).toFixed(2)}%`} hint={(mkt.data.yields.spread ?? 0) < 0 ? "Inverted" : "Normal"} />}
           {mkt.data?.buffett?.ok && <Metric label="Buffett Ind." value={`${Math.round(mkt.data.buffett.ratio ?? 0)}%`} hint={mkt.data.buffett.level} />}
@@ -105,8 +108,8 @@ export default function MarketRegimeTab() {
       {stat.status === "ok" && (
         <Card title="Macro Context" sub={`Updated ${md.last_updated ?? "periodically"}`}>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <Metric label="CPI" value={md.cpi_current != null ? `${md.cpi_current}%` : "—"} hint={md.cpi_trend} />
-            <Metric label="Unemployment" value={md.unemployment_current != null ? `${md.unemployment_current}%` : "—"} hint={md.unemployment_trend} />
+            <Metric label="CPI (YoY)" value={md.cpi_current != null ? `${md.cpi_current}%` : "—"} hint={md.cpi_prior != null ? `${(md.cpi_current - md.cpi_prior) >= 0 ? "+" : ""}${(md.cpi_current - md.cpi_prior).toFixed(1)}% vs prior` : md.cpi_trend} />
+            <Metric label="Unemployment" value={md.unemployment_current != null ? `${md.unemployment_current}%` : "—"} hint={md.unemployment_prior != null ? `${(md.unemployment_current - md.unemployment_prior) >= 0 ? "+" : ""}${(md.unemployment_current - md.unemployment_prior).toFixed(1)}% vs prior` : md.unemployment_trend} />
             <Metric label="ISM Mfg" value={md.ism_manufacturing ?? "—"} />
             <Metric label="ISM Svcs" value={md.ism_services ?? "—"} />
             <Metric label="Fed Funds" value={md.fed_funds_upper != null ? `${md.fed_funds_lower}–${md.fed_funds_upper}%` : "—"} />
@@ -198,15 +201,36 @@ export default function MarketRegimeTab() {
           </Card>
         )}
         {stat.data?.economic_calendar?.length ? (
-          <Card title="Economic Calendar" sub="Upcoming releases (scheduled)">
-            <ul className="space-y-1 text-sm">
-              {stat.data.economic_calendar.slice(0, 8).map((e, i) => (
-                <li key={i} className="flex justify-between border-t border-[#161D29] py-1 first:border-0">
-                  <span className="text-[#C3CAD7]">{e.name ?? e.event ?? e.title}</span>
-                  <span className="text-[#7C879B]">{e.date ?? e.next_date ?? ""}</span>
-                </li>
-              ))}
-            </ul>
+          <Card title="Economic Calendar" sub="Scheduled macro releases, grouped by month.">
+            {(() => {
+              const byMonth = new Map<string, { name: string; date: string }[]>();
+              for (const e of stat.data!.economic_calendar!) {
+                const date = String(e.date ?? (e as any).next_date ?? "");
+                const name = String(e.name ?? (e as any).event ?? (e as any).title ?? "");
+                if (!name) continue;
+                const key = date.slice(0, 7) || "Scheduled";
+                (byMonth.get(key) ?? byMonth.set(key, []).get(key)!).push({ name, date });
+              }
+              const months = [...byMonth.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+              const monthLabel = (k: string) => /^\d{4}-\d{2}$/.test(k) ? new Date(`${k}-01T00:00:00`).toLocaleDateString(undefined, { month: "long", year: "numeric" }) : k;
+              return (
+                <div className="space-y-2">
+                  {months.map(([k, items]) => (
+                    <div key={k}>
+                      <div className="text-[11px] font-semibold uppercase text-[#7C879B]">{monthLabel(k)}</div>
+                      <ul className="text-sm">
+                        {items.map((e, i) => (
+                          <li key={i} className="flex justify-between border-t border-[#161D29] py-1">
+                            <span className="text-[#C3CAD7]">{e.name}</span><span className="text-[#7C879B]">{e.date}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+            <div className="mt-2 text-[10px] text-[#5C6678]">Bellwether (S&P 100) earnings dates require a live earnings-date feed (Finnhub) — deferred, pending the same API-wiring decision as the EPS beat/miss feature.</div>
           </Card>
         ) : null}
       </div>
@@ -215,23 +239,23 @@ export default function MarketRegimeTab() {
       {mkt.status === "ok" && mkt.data?.indices?.some((i) => i.ok) && (
         <Card title="Major Indices">
           <table className="w-full text-sm">
-            <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Index</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Price</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">vs ATH</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">1D</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">1M</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">3M</th></tr></thead>
+            <thead><tr>{["Index", "Price", "1D", "5D", "1M", "3M", "YTD", "vs ATH"].map((h) => <th key={h} className={`py-1 text-xs uppercase text-[#7C879B] ${h === "Index" ? "text-left" : "text-right"}`}>{h}</th>)}</tr></thead>
             <tbody>
               {mkt.data.indices.filter((i) => i.ok).map((i) => (
                 <tr key={i.name} className="border-t border-[#161D29]">
                   <td className="py-1.5 text-[#C3CAD7]">{i.name}</td>
                   <td className="py-1.5 text-right">{fmtNum(i.price, 0)}</td>
-                  <td className="py-1.5 text-right" style={{ color: (i.distance_from_ath_pct ?? 0) >= -1 ? "#00C805" : "#FF9800" }}>{fmtPct(i.distance_from_ath_pct ?? 0, 1, true)}</td>
-                  {[i.change_1d_pct, i.change_1m_pct, i.change_3m_pct].map((v, j) => (
+                  {[i.change_1d_pct, i.change_5d_pct, i.change_1m_pct, i.change_3m_pct, i.ytd_pct].map((v, j) => (
                     <td key={j} className="py-1.5 text-right" style={{ color: (v ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{v == null ? "—" : fmtPct(v, 1, true)}</td>
                   ))}
+                  <td className="py-1.5 text-right" style={{ color: (i.distance_from_ath_pct ?? 0) >= -1 ? "#00C805" : "#FF9800" }}>{fmtPct(i.distance_from_ath_pct ?? 0, 1, true)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </Card>
       )}
-      <p className="text-[10px] text-[#5C6678]">Live market data via keyless Yahoo Finance + FRED endpoints, fetched server-side. Macro indicators refreshed each bake. Bellwether earnings calendar deferred.</p>
+      <p className="text-[10px] text-[#5C6678]">Live market data via keyless Yahoo Finance + FRED endpoints, fetched server-side. Macro indicators refreshed each bake.</p>
     </div>
   );
 }

@@ -30,6 +30,27 @@ async function yahooCloses(symbol: string, range = "1y"): Promise<number[] | nul
   } catch { return null; }
 }
 
+async function yahooClosesDated(symbol: string, range = "1y"): Promise<{ t: number[]; c: number[] } | null> {
+  const r = await tfetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=1d`, { headers: UA });
+  if (!r) return null;
+  try {
+    const j: any = await r.json();
+    const res = j?.chart?.result?.[0];
+    const ts: number[] = res?.timestamp ?? [];
+    const cl: (number | null)[] = res?.indicators?.quote?.[0]?.close ?? [];
+    const t: number[] = [], c: number[] = [];
+    for (let i = 0; i < ts.length; i++) if (typeof cl[i] === "number" && isFinite(cl[i] as number)) { t.push(ts[i] * 1000); c.push(cl[i] as number); }
+    return c.length ? { t, c } : null;
+  } catch { return null; }
+}
+function ytdChange(t: number[], c: number[]): number | null {
+  if (!c.length) return null;
+  const year = new Date(t[t.length - 1]).getUTCFullYear();
+  let base: number | null = null;
+  for (let i = 0; i < t.length; i++) { if (new Date(t[i]).getUTCFullYear() === year) { base = c[i]; break; } }
+  const cur = c[c.length - 1];
+  return base && base > 0 ? ((cur - base) / base) * 100 : null;
+}
 function last<T>(a: T[]): T | null { return a.length ? a[a.length - 1] : null; }
 function pctChange(c: number[], lookback: number): number | null {
   if (c.length <= lookback) return null;
@@ -75,26 +96,37 @@ async function fredLatest(seriesId: string): Promise<number | null> {
 }
 
 export default async function handler() {
-  const [indexCloses, vixCloses, tnx, irx, w5000, mmMillions, sepMedian, sepLongRun] = await Promise.all([
-    Promise.all(INDICES.map(([sym]) => yahooCloses(sym))),
+  const [indexDated, dxyDated, vixCloses, tnx, irx, w5000, mmMillions, sepMedian, sepLongRun] = await Promise.all([
+    Promise.all(INDICES.map(([sym]) => yahooClosesDated(sym))),
+    yahooClosesDated("DX-Y.NYB"),
     yahooCloses("^VIX"),
     yahooCloses("^TNX"), yahooCloses("^IRX"), yahooCloses("^W5000"),
     fredLatest("MMMFFAQ027S"),
     fredLatest("FEDTARMD"),    // SEP median target, current year (keyless)
     fredLatest("FEDTARMDLR"),  // SEP median target, longer run
   ]);
+  const indexCloses = indexDated.map((d) => d?.c ?? null);
 
-  // indices
+  // indices (5D / 1M / 3M / YTD / vs ATH)
   const indices = INDICES.map(([, name], i) => {
-    const c = indexCloses[i];
-    if (!c || !c.length) return { name, ok: false };
-    const cur = last(c)!, ath = Math.max(...c);
+    const d = indexDated[i];
+    if (!d || !d.c.length) return { name, ok: false };
+    const c = d.c, cur = last(c)!, ath = Math.max(...c);
     return {
       name, ok: true, price: cur, all_time_high: ath,
       distance_from_ath_pct: ((cur - ath) / ath) * 100,
-      change_1d_pct: pctChange(c, 1), change_1m_pct: pctChange(c, 22), change_3m_pct: pctChange(c, 66),
+      change_1d_pct: pctChange(c, 1), change_5d_pct: pctChange(c, 5),
+      change_1m_pct: pctChange(c, 22), change_3m_pct: pctChange(c, 66),
+      ytd_pct: ytdChange(d.t, c),
     };
   });
+
+  // US Dollar Index (DXY)
+  let dxy: any = { ok: false };
+  if (dxyDated?.c.length) {
+    const c = dxyDated.c, cur = last(c)!;
+    dxy = { ok: true, current: cur, change_1d_pct: pctChange(c, 1), ytd_pct: ytdChange(dxyDated.t, c) };
+  }
 
   // SPY (^GSPC) moving averages + 3-month return — for Pullback Pressure
   let spy: any = { ok: false };
@@ -150,7 +182,7 @@ export default async function handler() {
 
   const dots = (sepMedian != null || sepLongRun != null)
     ? { ok: true, median_current_year: sepMedian, median_longer_run: sepLongRun } : { ok: false };
-  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, spy, vix, yields, buffett, pgi, dots });
+  const body = JSON.stringify({ ok: true, generated_at: new Date().toISOString(), indices, dxy, spy, vix, yields, buffett, pgi, dots });
   return new Response(body, {
     headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=600, stale-while-revalidate=3600" },
   });
