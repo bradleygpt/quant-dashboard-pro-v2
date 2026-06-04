@@ -5,7 +5,7 @@ import { SortableTable, RATING_RANK, type Column } from "../components/SortableT
 import { fmtMoney, fmtPct } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
-import { computePullback } from "../lib/pullback";
+import { computePpi } from "../lib/ppiIndex";
 import { getDeltas, type SnapshotsFile } from "../lib/snapshots";
 import { analyzePortfolio, type Holding } from "../lib/portfolio";
 
@@ -39,7 +39,8 @@ export default function HomeTab() {
   const breadth = useMemo(() => (rows.length ? computeBreadth(rows) : null), [rows]);
   const sp = mkt.data?.indices?.find((i: any) => i.name === "S&P 500");
   const fearGreed = useMemo(() => (breadth && mkt.status === "ok" ? computeFearGreed(mkt.data?.vix ?? null, breadth, sp?.distance_from_ath_pct ?? null, mkt.data?.buffett ?? null) : null), [breadth, mkt, sp]);
-  const pullback = useMemo(() => (breadth && mkt.status === "ok" ? computePullback(mkt.data?.spy ?? null, mkt.data?.vix?.current ?? null, breadth.pct_above_50sma) : null), [breadth, mkt]);
+  const ppiFeed = useLiveData<{ ok?: boolean; spy?: { close: number[] }; vix?: { close: number[] }; vvix?: { close: number[] } }>("/api/ppi");
+  const ppi = useMemo(() => (ppiFeed.status === "ok" && ppiFeed.data?.spy && breadth ? computePpi(ppiFeed.data.spy.close, ppiFeed.data.vix?.close, ppiFeed.data.vvix?.close, breadth.pct_above_50sma) : null), [ppiFeed, breadth]);
 
   const ratingCounts = useMemo(() => {
     const c: Record<string, number> = {};
@@ -84,28 +85,28 @@ export default function HomeTab() {
     <div className="space-y-4">
       <div><h2 className="text-lg font-bold text-white">Dashboard Overview</h2><p className="text-xs text-[#7C879B]">Your universe and market at a glance.</p></div>
 
-      {/* 1. Pullback Pressure */}
-      <Card title="Pullback Pressure Index" sub="Market-timing gauge — how stretched conditions are, and how much to deploy">
-        {mkt.status === "loading" ? <Spinner label="Loading market timing…" /> :
-         !pullback ? <Unavailable what="Pullback pressure" detail="Needs live SPY/VIX from /api/market (deployed app only)." /> : (
+      {/* 1. Pullback Pressure Index (c78q — faithful port of pullback_pressure_index.py) */}
+      <Card title="Pullback Pressure Index (PPI)" sub="c78q market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown on the c78q tab.">
+        {ppiFeed.status === "loading" ? <Spinner label="Loading market timing…" /> :
+         !ppi ? <Unavailable what="PPI inputs" detail="Needs live SPY/VIX/VVIX from /api/ppi (deployed app only)." /> : (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <div>
-              <div className="text-3xl font-bold" style={{ color: pullback.level_color }}>{pullback.score.toFixed(0)}<span className="text-base text-[#7C879B]">/100</span></div>
-              <div className="text-sm font-semibold" style={{ color: pullback.level_color }}>{pullback.level} pressure</div>
+              <div className="text-3xl font-bold" style={{ color: ppi.color }}>{ppi.score.toFixed(1)}<span className="text-base text-[#7C879B]">/100</span></div>
+              <div className="text-sm font-semibold" style={{ color: ppi.color }}>{ppi.level}</div>
             </div>
             <div className="rounded-md border border-[#1E2632] bg-[#121723] p-3">
-              <div className="text-xs uppercase text-[#7C879B]">Recommended deployment</div>
-              <div className="text-2xl font-bold text-white">{pullback.deploy_pct}%</div>
-              <div className="mt-1 text-xs leading-relaxed text-[#9CA7BB]">{pullback.deploy_strategy}</div>
+              <div className="text-xs uppercase text-[#7C879B]">Suggested deployment</div>
+              <div className="text-2xl font-bold text-white">{ppi.band_deploy_pct}%</div>
+              <div className="mt-1 text-xs leading-relaxed text-[#9CA7BB]">{ppi.action}</div>
             </div>
             <div className="lg:col-span-1">
-              <div className="mb-1 text-xs font-semibold uppercase text-[#7C879B]">Why?</div>
+              <div className="mb-1 text-xs font-semibold uppercase text-[#7C879B]">Components</div>
               <div className="space-y-1 text-xs">
-                {pullback.components.map((c) => (
-                  <div key={c.name} className="flex items-center justify-between gap-2">
+                {ppi.components.map((c) => (
+                  <div key={c.key} className="flex items-center justify-between gap-2">
                     <span className="text-[#C3CAD7]">{c.name}</span>
-                    <span className="text-[#9CA7BB]">{c.value}</span>
-                    <span className="w-28 text-right text-[#7C879B]">{c.interp}</span>
+                    <span className="w-10 text-right" style={{ color: c.score < 30 ? "#00C805" : c.score < 50 ? "#FFC107" : c.score < 70 ? "#FF9800" : "#FF5722" }}>{c.score}</span>
+                    <span className="w-40 truncate text-right text-[#7C879B]">{c.detail}</span>
                   </div>
                 ))}
               </div>

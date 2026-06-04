@@ -12,6 +12,7 @@ import MarketRegimeTab from "./MarketRegimeTab";
 import CryptoTab from "./CryptoTab";
 import PunditViewsTab from "./PunditViewsTab";
 import DoppelgangerTab from "./DoppelgangerTab";
+import C78QTab from "./C78QTab";
 
 export interface TabDef {
   id: string;
@@ -31,7 +32,7 @@ export const TABS: TabDef[] = [
   { id: "doppel", label: "✨ Doppelganger", component: DoppelgangerTab },
   { id: "screener", label: "📋 Quant Screener", component: ScreenerTab },
   { id: "raqp", label: "🎯 RAQP", component: Placeholder("RAQP") },
-  { id: "bh", label: "🔥 BH Watch", component: Placeholder("BH Watch") },
+  { id: "bh", label: "🔥 c78q", component: C78QTab },
   { id: "sectors", label: "Sector Overview", component: SectorTab },
   { id: "crypto", label: "₿ Crypto", component: CryptoTab },
   { id: "etfs", label: "ETF Center", component: ETFTab },
