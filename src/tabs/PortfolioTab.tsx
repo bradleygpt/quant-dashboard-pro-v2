@@ -4,9 +4,10 @@ import { Card, Metric, RatingBadge, TH, TD } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { analyzePortfolio, type Holding, type Position } from "../lib/portfolio";
-import { generateSuggestions, runMonteCarlo, sugColor, sugIcon } from "../lib/suggestions";
+import { generateSuggestions, sugColor, sugIcon } from "../lib/suggestions";
+import { runMonteCarlo, type Scenario } from "../lib/montecarlo";
 import { loadTickerPrices } from "../lib/data";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, AreaChart, Area, CartesianGrid, ReferenceLine } from "recharts";
 
 // Generic Fidelity-style CSV → holdings (Symbol/Ticker, Quantity/Shares, Cost Basis Per Share)
 function parseHoldingsCsv(text: string): Holding[] {
@@ -44,16 +45,23 @@ export default function PortfolioTab() {
   const analysis = useMemo(() => analyzePortfolio(holdings, byTicker, rows), [holdings, byTicker, rows]);
   const suggestions = useMemo(() => analysis ? generateSuggestions(analysis, rows) : [], [analysis, rows]);
 
-  // Monte Carlo needs per-holding price series (lazy-loaded)
+  // Monte Carlo needs per-holding price series (lazy-loaded) + controls
   const [priceMap, setPriceMap] = useState<Map<string, number[]>>(new Map());
   useEffect(() => {
     let live = true;
-    const stockTickers = (analysis?.positions ?? []).filter((p) => p.type === "stock").map((p) => p.ticker);
-    Promise.all(stockTickers.map((t) => loadTickerPrices(t).then((s) => [t, s?.close ?? null] as const)))
+    const tickers = (analysis?.positions ?? []).filter((p) => p.weight != null && p.weight > 0).map((p) => p.ticker);
+    Promise.all(tickers.map((t) => loadTickerPrices(t).then((s) => [t, s?.close ?? null] as const)))
       .then((pairs) => { if (live) { const m = new Map<string, number[]>(); for (const [t, c] of pairs) if (c) m.set(t, c); setPriceMap(m); } });
     return () => { live = false; };
   }, [analysis]);
-  const mc = useMemo(() => analysis ? runMonteCarlo(analysis, rows, priceMap) : null, [analysis, rows, priceMap]);
+  const [mcSims, setMcSims] = useState(5000);
+  const [mcHorizon, setMcHorizon] = useState(252);
+  const [mcScenario, setMcScenario] = useState<Scenario>("Blended");
+  const mc = useMemo(
+    () => analysis ? runMonteCarlo(analysis.positions, analysis.total_value, byTicker, priceMap, { sims: mcSims, horizonDays: mcHorizon, scenario: mcScenario }) : null,
+    [analysis, byTicker, priceMap, mcSims, mcHorizon, mcScenario],
+  );
+  const HORIZON_LABEL: Record<number, string> = { 63: "3 Months", 126: "6 Months", 252: "1 Year" };
 
   const pillarTilt = useMemo(() => analysis ? Object.entries(analysis.factor_tilts).map(([p, f]) => ({ pillar: p.replace(" Revisions", " Rev"), Portfolio: f.portfolio, Universe: f.universe })) : [], [analysis]);
 
@@ -176,27 +184,110 @@ export default function PortfolioTab() {
             )}
           </Card>
 
-          {/* Monte Carlo projection */}
-          {mc && (
-            <Card title="Monte Carlo Projection" sub={`${mc.sims.toLocaleString()} simulations · ${mc.horizonDays}-day horizon · GBM from per-holding return/vol (deterministic seed)`}>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <Metric label="Expected return" value={fmtPct(mc.expReturnPct, 1, true)} />
-                <Metric label="Volatility" value={fmtPct(mc.volPct, 1)} />
-                <Metric label="P(gain)" value={`${mc.pGain.toFixed(0)}%`} />
-                <Metric label="P(loss > 20%)" value={`${mc.pLoss20.toFixed(0)}%`} />
-              </div>
-              <table className="mt-2 w-full text-sm">
-                <thead><tr><TH>Percentile</TH><TH className="text-right">Value</TH><TH className="text-right">Return</TH></tr></thead>
-                <tbody>
-                  {([["5th", mc.p5], ["25th", mc.p25], ["50th (median)", mc.p50], ["75th", mc.p75], ["95th", mc.p95]] as const).map(([l, v]) => (
-                    <tr key={l} className="border-t border-[#161D29]"><TD className="text-[#C3CAD7]">{l}</TD><TD className="text-right">{fmtMoney(v, 0)}</TD>
-                      <TD className="text-right" style={{ color: v >= mc.start ? "#00C805" : "#FF5722" }}>{fmtPct((v / mc.start - 1) * 100, 1, true)}</TD></tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="mt-1 text-[10px] text-[#5C6678]">Illustrative projection from historical per-holding return/vol; not a forecast. Correlations simplified (independent paths).</div>
-            </Card>
-          )}
+          {/* Monte Carlo simulation */}
+          <Card title="🎲 Monte Carlo Simulation" sub="Geometric Brownian Motion with mean reversion, return caps, 0.45 cross-correlation, and macro scenario adjustment.">
+            <div className="mb-3 flex flex-wrap items-end gap-3">
+              <label className="text-xs text-[#9CA7BB]">Sims
+                <select value={mcSims} onChange={(e) => setMcSims(+e.target.value)} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1.5 text-sm text-white">
+                  {[1000, 5000, 10000].map((n) => <option key={n} value={n}>{n.toLocaleString()}</option>)}
+                </select>
+              </label>
+              <label className="text-xs text-[#9CA7BB]">Horizon
+                <select value={mcHorizon} onChange={(e) => setMcHorizon(+e.target.value)} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1.5 text-sm text-white">
+                  {[63, 126, 252].map((n) => <option key={n} value={n}>{HORIZON_LABEL[n]}</option>)}
+                </select>
+              </label>
+              <label className="text-xs text-[#9CA7BB]">Scenario
+                <select value={mcScenario} onChange={(e) => setMcScenario(e.target.value as Scenario)} className="mt-1 block rounded-md border border-[#1E2632] bg-[#0F1420] px-2 py-1.5 text-sm text-white">
+                  {(["Blended", "Bull", "Base", "Bear"] as Scenario[]).map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </label>
+              <span className="text-[11px] text-[#7C879B]">Bull +8% drift · Base neutral · Bear −12% · Blended 25/50/25.</span>
+            </div>
+            {!mc ? <div className="py-4 text-sm text-[#7C879B]">Add priced holdings to run a simulation.</div> : (
+              <>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+                  <Metric label="Exp. return" value={fmtPct(mc.expReturnPct, 1, true)} hint="annualized" />
+                  <Metric label="Volatility" value={fmtPct(mc.volPct, 1)} hint="annualized" />
+                  <Metric label="P(gain)" value={`${mc.pPositive.toFixed(0)}%`} />
+                  <Metric label="P(loss > 20%)" value={`${mc.pLoss20.toFixed(0)}%`} />
+                  <Metric label="Scenario" value={mc.scenario} />
+                </div>
+                {/* Fan chart (5/25/50/75/95 bands) */}
+                <ResponsiveContainer width="100%" height={340}>
+                  <AreaChart data={mc.fan.map((f) => ({ day: f.day, p50: f.p50, base: f.p5, outer: f.p95 - f.p5, base2: f.p25, inner: f.p75 - f.p25 }))} margin={{ top: 12, right: 12, bottom: 0, left: 4 }}>
+                    <CartesianGrid stroke="#1A2130" vertical={false} />
+                    <XAxis dataKey="day" type="number" domain={[0, mc.horizonDays]} tick={{ fill: "#7C879B", fontSize: 11 }} tickFormatter={(d) => `${d}d`} minTickGap={36} />
+                    <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={64} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} domain={["auto", "auto"]} />
+                    <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelFormatter={(d) => `Day ${d}`}
+                      formatter={(v: number, n: string) => n === "p50" ? [fmtMoney(v, 0), "Median"] : [null, null]} />
+                    <ReferenceLine y={mc.totalValue} stroke="#666" strokeDasharray="4 4" label={{ value: "Start", fill: "#9CA7BB", fontSize: 10, position: "insideLeft" }} />
+                    {/* 5–95 band (transparent base + filled span), then 25–75 band, then median */}
+                    <Area type="monotone" dataKey="base" stackId="o" stroke="none" fill="transparent" isAnimationActive={false} legendType="none" />
+                    <Area type="monotone" dataKey="outer" stackId="o" stroke="none" fill="#00D4AA" fillOpacity={0.10} isAnimationActive={false} name="5–95th" />
+                    <Area type="monotone" dataKey="base2" stackId="i" stroke="none" fill="transparent" isAnimationActive={false} legendType="none" />
+                    <Area type="monotone" dataKey="inner" stackId="i" stroke="none" fill="#00D4AA" fillOpacity={0.20} isAnimationActive={false} name="25–75th" />
+                    <Area type="monotone" dataKey="p50" stroke="#00D4AA" strokeWidth={2} fill="none" dot={false} name="Median" isAnimationActive={false} />
+                  </AreaChart>
+                </ResponsiveContainer>
+                <div className="text-[10px] text-[#5C6678]">Shaded = 5th–95th and 25th–75th percentile cone; line = median portfolio value over time.</div>
+
+                <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  {/* Outcome probabilities (6 rows) */}
+                  <div>
+                    <div className="mb-1 text-xs font-semibold uppercase text-[#7C879B]">Outcome Probabilities</div>
+                    <table className="w-full text-sm">
+                      <thead><tr><TH>Outcome</TH><TH className="text-right">Probability</TH></tr></thead>
+                      <tbody>
+                        {([
+                          ["Gain 50%+", mc.pGain50],
+                          ["Gain 20%+", mc.pGain20],
+                          ["Any Gain", mc.pPositive],
+                          ["Loss < 10%", Math.max(0, 100 - mc.pPositive - mc.pLoss10)],
+                          ["Loss 10–20%", Math.max(0, mc.pLoss10 - mc.pLoss20)],
+                          ["Loss > 20%", mc.pLoss20],
+                        ] as const).map(([l, v]) => (
+                          <tr key={l} className="border-t border-[#161D29]"><TD className="text-[#C3CAD7]">{l}</TD><TD className="text-right">{v.toFixed(1)}%</TD></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* Value at Risk (terminal percentiles) */}
+                  <div>
+                    <div className="mb-1 text-xs font-semibold uppercase text-[#7C879B]">Value at Risk (terminal)</div>
+                    <table className="w-full text-sm">
+                      <thead><tr><TH>Percentile</TH><TH className="text-right">Value</TH><TH className="text-right">Return</TH></tr></thead>
+                      <tbody>
+                        {([["5th (worst)", mc.percentiles.p5], ["25th", mc.percentiles.p25], ["50th (median)", mc.percentiles.p50], ["75th", mc.percentiles.p75], ["95th (best)", mc.percentiles.p95]] as const).map(([l, v]) => (
+                          <tr key={l} className="border-t border-[#161D29]"><TD className="text-[#C3CAD7]">{l}</TD><TD className="text-right">{fmtMoney(v, 0)}</TD>
+                            <TD className="text-right" style={{ color: v >= mc.totalValue ? "#00C805" : "#FF5722" }}>{fmtPct((v / mc.totalValue - 1) * 100, 1, true)}</TD></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Per-holding assumptions + model params */}
+                <details className="mt-3 text-xs">
+                  <summary className="cursor-pointer text-[#7C879B]">Model Assumptions (per holding)</summary>
+                  <table className="mt-2 w-full text-sm">
+                    <thead><tr><TH>Ticker</TH><TH className="text-right">Exp. Return</TH><TH className="text-right">Est. Vol</TH><TH className="text-right">Weight</TH></tr></thead>
+                    <tbody>
+                      {mc.holdingDetails.map((d) => (
+                        <tr key={d.ticker} className="border-t border-[#161D29]"><TD className="text-[#C3CAD7]">{d.ticker}</TD><TD className="text-right">{d.expReturnPct.toFixed(1)}%</TD><TD className="text-right">{d.volPct.toFixed(1)}%</TD><TD className="text-right">{d.weightPct.toFixed(1)}%</TD></tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="mt-2 space-y-0.5 text-[11px] text-[#7C879B]">
+                    <div>Mean reversion: {(mc.modelParams.meanReversionWeight * 100).toFixed(0)}% long-term / {((1 - mc.modelParams.meanReversionWeight) * 100).toFixed(0)}% trailing</div>
+                    <div>Return cap: {(mc.modelParams.maxAnnualReturnCap * 100).toFixed(0)}% max per holding · Long-term equity premium: {(mc.modelParams.longTermPremium * 100).toFixed(0)}%</div>
+                    <div>Avg cross-correlation: {mc.modelParams.avgCorrelation.toFixed(2)} · Scenario adjustment: {mc.modelParams.scenarioAdjustmentPct >= 0 ? "+" : ""}{mc.modelParams.scenarioAdjustmentPct.toFixed(1)}%</div>
+                  </div>
+                </details>
+                <div className="mt-1 text-[10px] text-[#5C6678]">Per-holding return/vol derived from baked price-series momentum (1m/3m/6m/12m) blended with a long-term premium; not a forecast.</div>
+              </>
+            )}
+          </Card>
         </>
       )}
     </div>
