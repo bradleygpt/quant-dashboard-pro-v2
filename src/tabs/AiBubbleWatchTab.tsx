@@ -4,6 +4,10 @@ import {
   TYPE_META, validDeals, forceLayout, cycleEdgeIds, enumerateCycles,
   type AiDealsFile, type Deal, type DealType,
 } from "../lib/aiGraph";
+import {
+  BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer,
+  CartesianGrid, ReferenceLine, Legend, Cell,
+} from "recharts";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 const W = 940, H = 580;
@@ -65,6 +69,11 @@ export default function AiBubbleWatchTab() {
           companies commit capital to one another in circles, so headline deal totals may overstate how much <em>independent</em>
           money is really flowing in. The graph below makes that circularity visible — follow the loops.
         </p>
+      </div>
+
+      {/* top disclaimer */}
+      <div className="rounded-md border border-[#3A2A20] bg-[#1A140E] px-3 py-2 text-[11px] leading-relaxed text-[#E0C07F]">
+        ⚠ Illustrative · figures are analyst tallies &amp; point-in-time estimates · as of ~mid-2026 · not a live feed.
       </div>
 
       {/* headline */}
@@ -176,9 +185,175 @@ export default function AiBubbleWatchTab() {
         </div>
       </div>
 
+      {/* ── The other 7 research findings ── */}
+      <div className="pt-2">
+        <h3 className="text-base font-bold text-white">Is it a bubble? Seven more lenses</h3>
+        <p className="text-xs text-[#7C879B]">Each lens is tagged by whether it <em>rhymes</em> with a past bubble, <em>diverges</em> from one, is <em>novel</em>, or is a <em>mixed signal</em>. All figures illustrative / as-of ~mid-2026.</p>
+      </div>
+      <Findings />
+
+      {/* synthesis banner */}
+      <div className="rounded-lg border border-[#2A3242] bg-[#10151F] p-4">
+        <div className="text-sm font-bold text-white">Honest synthesis</div>
+        <p className="mt-1 text-xs leading-relaxed text-[#C3CAD7]">
+          Equity-valuation risk looks <strong>moderate</strong> — the index is concentrated and richly priced, but the leaders are
+          cheaper and more cash-generative than 2000's. The sharper risk is in the <strong>financing structure</strong>: genuine
+          end-demand, but increasingly <strong>circular and concentrated</strong> commitments (see the network above) plus an
+          overbuild risk if utilization disappoints. Net: a <strong>telecom-shaped financing/overbuild risk</strong> sitting on a
+          <strong> railway-and-electrification-scale real economy</strong> of compute and power. Not a verdict that it is — or isn't — a bubble; a map of where the risk actually lives.
+        </p>
+      </div>
+
       <p className="text-[10px] leading-relaxed text-[#5C6678]">
-        Every figure is the <em>reported / announced</em> amount, not verified-paid; multi-year commitments and options are included at their headline value. Market-value node sizes are approximate (public market cap or last reported private valuation, mixed as-of). Dataset is curated in <code>ai_deals.json</code>; proposed additions are staged in <code>ai_deals_proposed.json</code> for human review and never rendered automatically.
+        Every deal figure is the <em>reported / announced</em> amount, not verified-paid; multi-year commitments and options are included at their headline value. Market-value node sizes are approximate (public market cap or last reported private valuation, mixed as-of). Findings figures are analyst tallies / point-in-time estimates as of ~mid-2026, not a live feed. The contested GPU-depreciation thesis is intentionally excluded as unresolved. Dataset is curated in <code>ai_deals.json</code>; proposed additions are staged in <code>ai_deals_proposed.json</code> for human review and never rendered automatically.
       </p>
+    </div>
+  );
+}
+
+// ── Findings (7 research lenses) ─────────────────────────────────────────────
+const VERDICT: Record<string, string> = { Divergence: "#00C805", Rhyme: "#FF9800", Novel: "#A855F7", "Mixed signal": "#FFC107" };
+function Tag({ kind, label }: { kind: keyof typeof VERDICT | string; label: string }) {
+  const c = VERDICT[kind] ?? "#9CA7BB";
+  return <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>{kind} · {label}</span>;
+}
+function FindingCard({ title, tagKind, tagLabel, source, children, wide }: { title: string; tagKind: string; tagLabel: string; source: string; children: React.ReactNode; wide?: boolean }) {
+  return (
+    <div className={`rounded-lg border border-[#1E2632] bg-[#121723] p-4 ${wide ? "lg:col-span-2" : ""}`}>
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <div className="text-sm font-semibold text-[#E6E9EF]">{title}</div>
+        <Tag kind={tagKind} label={tagLabel} />
+      </div>
+      {children}
+      <div className="mt-2 text-[10px] text-[#5C6678]">{source}</div>
+    </div>
+  );
+}
+const AX = { fill: "#7C879B", fontSize: 11 };
+const TT = { background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 };
+
+function Findings() {
+  // All figures illustrative analyst tallies / point-in-time estimates, as-of ~mid-2026.
+  const capex = [
+    { co: "Microsoft", y2025: 80, y2026: 120 }, { co: "Amazon", y2025: 105, y2026: 125 },
+    { co: "Alphabet", y2025: 85, y2026: 175 }, { co: "Meta", y2025: 70, y2026: 115 },
+    { co: "Oracle", y2025: 35, y2026: 65 },
+  ];
+  const valuations = [
+    { label: "Top-10 forward P/E", now: 31, then: 43 },
+    { label: "Lead chipmaker (× sales)", now: 22, then: 31 },
+  ];
+  const concentration = [
+    { year: 2015, pct: 12 }, { year: 2017, pct: 16 }, { year: 2019, pct: 17 },
+    { year: 2021, pct: 23 }, { year: 2023, pct: 28 }, { year: 2024, pct: 32 }, { year: 2025, pct: 34.5 },
+  ];
+  const rates = [
+    { m: 0, ai: 5.3, dot: 4.75 }, { m: 6, ai: 5.0, dot: 5.5 }, { m: 12, ai: 4.5, dot: 6.0 },
+    { m: 18, ai: 4.1, dot: 6.5 }, { m: 24, ai: 3.8, dot: 6.5 }, { m: 30, ai: 3.6, dot: 6.5 },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      {/* 2. Valuations vs 2000 — most decision-relevant, given prominence */}
+      <FindingCard wide title="Valuations vs 2000" tagKind="Divergence" tagLabel="cheaper than 2000"
+        source="Illustrative: top-10 S&P forward P/E now ~31× vs dot-com peak ~43×; lead chipmaker Nvidia ~22× sales vs Cisco 2000 ~31×. Analyst estimates, as-of ~mid-2026.">
+        <ResponsiveContainer width="100%" height={230}>
+          <BarChart data={valuations} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <XAxis dataKey="label" tick={AX} /><YAxis tick={AX} width={36} />
+            <RTooltip contentStyle={TT} formatter={(v: number, n) => [`${v}×`, n === "now" ? "Now (~2026)" : "2000 peak"]} />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Bar dataKey="now" name="Now (~2026)" fill="#5BA8FF" />
+            <Bar dataKey="then" name="2000 peak" fill="#7C879B" />
+          </BarChart>
+        </ResponsiveContainer>
+        <p className="mt-1 text-[11px] text-[#9CA7BB]">The most decision-relevant chart: today's AI leaders are richly valued but <strong>cheaper and far more cash-generative</strong> than the 2000 peak — valuation risk is real but not 2000-extreme.</p>
+      </FindingCard>
+
+      {/* 1. Capex */}
+      <FindingCard title="Hyperscaler capex — 2025 → 2026" tagKind="Divergence" tagLabel="incumbent-funded"
+        source="Illustrative analyst tallies / company guidance, capex $bn, as-of ~mid-2026. Funded largely from operating cash flow (not vendor debt / IPO equity as in 2000).">
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={capex} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <XAxis dataKey="co" tick={AX} interval={0} /><YAxis tick={AX} width={40} tickFormatter={(v) => `$${v}b`} />
+            <RTooltip contentStyle={TT} formatter={(v: number, n) => [`$${v}bn`, n === "y2025" ? "2025" : "2026 (est.)"]} />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Bar dataKey="y2025" name="2025" fill="#7C879B" />
+            <Bar dataKey="y2026" name="2026 (est.)" fill="#F7931A" />
+          </BarChart>
+        </ResponsiveContainer>
+      </FindingCard>
+
+      {/* 3. Concentration */}
+      <FindingCard title="Mag-7 share of S&P 500 market cap" tagKind="Rhyme" tagLabel="50-yr extreme"
+        source="Illustrative: Magnificent-7 ≈ 12% (2015) → ~34.5% (2025); dashed line = 2000 top-cohort peak ~27%. A half-century concentration extreme.">
+        <ResponsiveContainer width="100%" height={220}>
+          <LineChart data={concentration} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <XAxis dataKey="year" tick={AX} /><YAxis tick={AX} width={36} tickFormatter={(v) => `${v}%`} domain={[0, 40]} />
+            <RTooltip contentStyle={TT} formatter={(v: number) => [`${v}%`, "Mag-7 share"]} />
+            <ReferenceLine y={27} stroke="#FF9800" strokeDasharray="4 3" label={{ value: "2000 peak ~27%", fill: "#FF9800", fontSize: 9, position: "insideTopRight" }} />
+            <Line type="monotone" dataKey="pct" stroke="#5BA8FF" strokeWidth={2} dot={{ r: 2 }} name="Mag-7 share" />
+          </LineChart>
+        </ResponsiveContainer>
+      </FindingCard>
+
+      {/* 4. Rates inversion */}
+      <FindingCard title="Rates backdrop — opposite of dot-com" tagKind="Divergence" tagLabel="easing not tightening"
+        source="Illustrative Fed funds paths from each cycle's start: AI-era easing toward ~3.6% vs dot-com tightening to 6.5%. Schematic, monthly, as-of ~mid-2026.">
+        <ResponsiveContainer width="100%" height={220}>
+          <LineChart data={rates} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <XAxis dataKey="m" tick={AX} tickFormatter={(v) => `${v}mo`} /><YAxis tick={AX} width={40} tickFormatter={(v) => `${v}%`} domain={[3, 7]} />
+            <RTooltip contentStyle={TT} formatter={(v: number, n) => [`${v}%`, n === "ai" ? "AI era (2024→)" : "Dot-com (1999→)"]} />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Line type="monotone" dataKey="ai" name="AI era (2024→)" stroke="#00C805" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="dot" name="Dot-com (1999→)" stroke="#FF5722" strokeWidth={2} strokeDasharray="4 2" dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </FindingCard>
+
+      {/* 5. Macro reliance — stat callouts */}
+      <FindingCard title="Macro reliance on the buildout" tagKind="Rhyme" tagLabel="railway-scale dependence"
+        source="Illustrative: ~92% of H1-2025 US GDP growth attributed to information-processing investment; AI capex ~2% of GDP ≈ ~20% of the late-1800s railway peak. Point-in-time estimates.">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#FF9800]">~92%</div><div className="text-[11px] text-[#9CA7BB]">of H1-2025 US GDP growth from info-processing investment</div></div>
+          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#FF9800]">~2%</div><div className="text-[11px] text-[#9CA7BB]">AI capex as share of GDP — ≈20% of the railway-era peak</div></div>
+        </div>
+      </FindingCard>
+
+      {/* 6. Demand — two-sided panel */}
+      <FindingCard wide title="Demand — real, but how durable?" tagKind="Mixed signal" tagLabel="bull vs bear"
+        source="Illustrative, as-of ~mid-2026. Run-rates annualized from short windows are caveated. The contested GPU-depreciation thesis is excluded as unresolved.">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <div className="mb-1 text-xs font-semibold text-[#00C805]">🟢 Bull</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">
+              <li>Nvidia record Q3 revenue ~$57bn, +66% YoY.</li>
+              <li>Anthropic run-rate reportedly ~$1bn → ~$30bn.</li>
+              <li>Generative-AI adoption ~54.6% faster than the PC or internet at the same stage.</li>
+            </ul>
+          </div>
+          <div>
+            <div className="mb-1 text-xs font-semibold text-[#FF5722]">🔴 Bear</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">
+              <li>MIT: ~95% of enterprise AI pilots show no measurable P&L impact.</li>
+              <li>OpenAI reportedly burning ~$17bn/yr.</li>
+              <li>Many headline run-rates are <em>annualized from a single month</em> — treat with caution.</li>
+            </ul>
+          </div>
+        </div>
+      </FindingCard>
+
+      {/* 7. Power — stat callouts */}
+      <FindingCard title="Power & the grid" tagKind="Novel" tagLabel="no clean historical analog"
+        source="Illustrative: US grid-interconnection queues running 5–7+ years; data centers projected at ~6.7–12% of US electricity by 2030 (range; 'up to' ceiling). Point-in-time estimates.">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">5–7+ yr</div><div className="text-[11px] text-[#9CA7BB]">grid interconnection queues</div></div>
+          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">6.7–12%</div><div className="text-[11px] text-[#9CA7BB]">projected US electricity from data centers by 2030</div></div>
+        </div>
+      </FindingCard>
     </div>
   );
 }
