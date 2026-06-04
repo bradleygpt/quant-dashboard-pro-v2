@@ -240,7 +240,25 @@ function BacktestBlock({ data }: { data: C78q }) {
   const bt = data.metrics?.backtest ?? {};
   const summary = data.backtest?.summary ?? [];
   const regimes = data.backtest?.regime_periods ?? [];
-  const curve = useMemo(() => summary.map((r) => ({ t: Date.parse(r.date), strat: 1 + r.cum_strat / 100, spy: 1 + r.cum_spy / 100 })), [summary]);
+  // Real buy-and-hold SPY benchmark (keyless Yahoo, adjusted monthly). The dataset's
+  // bundled spy_return is NOT buy-and-hold SPY (compounds to ~32% CAGR / ~$48), so we
+  // source actual SPY for the benchmark line.
+  const spyFeed = useLiveData<{ ok?: boolean; months?: string[]; close?: number[] }>("/api/spy-monthly", 15000);
+  const curve = useMemo(() => {
+    const spyByMonth = new Map<string, number>();
+    if (spyFeed.status === "ok" && spyFeed.data?.months && spyFeed.data.close)
+      spyFeed.data.months.forEach((m, i) => spyByMonth.set(m, spyFeed.data!.close![i]));
+    const spyBase = summary.length ? spyByMonth.get(summary[0].date.slice(0, 7)) : undefined;
+    let cs = 1; // c78q growth of $1 by compounding per-period decimal returns
+    return summary.map((r) => {
+      cs *= 1 + r.portfolio_return;
+      const spyClose = spyByMonth.get(r.date.slice(0, 7));
+      return { t: Date.parse(r.date), strat: cs, spy: spyBase && spyClose ? spyClose / spyBase : null };
+    });
+  }, [summary, spyFeed]);
+  const stratEnd = curve.length ? curve[curve.length - 1].strat : null;
+  const spyEnd = (() => { for (let i = curve.length - 1; i >= 0; i--) if (curve[i].spy != null) return curve[i].spy!; return null; })();
+  const spyLive = spyFeed.status === "ok" && spyEnd != null;
 
   return (
     <div className="space-y-4">
@@ -255,24 +273,27 @@ function BacktestBlock({ data }: { data: C78q }) {
         </div>
       </Card>
 
-      <Card title="Equity Curve — c78q vs SPY" sub="Growth of $1, log scale, monthly compounding. Shaded = stress/crisis regime months.">
+      <Card title="Equity Curve — c78q vs SPY" sub="Growth of $1, log scale. Both curves compound per-period returns; SPY = real buy-and-hold (adjusted close). Shaded = stress/crisis regime months.">
         {curve.length > 1 ? (
           <ResponsiveContainer width="100%" height={380}>
             <LineChart data={curve} margin={{ top: 8, right: 12, bottom: 0, left: 4 }}>
               <CartesianGrid stroke="#1A2130" vertical={false} />
               <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50} />
               <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={52} tickFormatter={(v) => `$${v >= 10 ? v.toFixed(0) : v.toFixed(1)}`} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${v.toFixed(2)} (${((v - 1) * 100).toFixed(0)}%)`, n === "strat" ? "c78q" : "SPY"]} />
+              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${v.toFixed(2)} (${((v - 1) * 100).toFixed(0)}%)`, n]} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               {regimes.map((rp, i) => <ReferenceArea key={i} x1={Date.parse(rp.start)} x2={Date.parse(rp.end)} fill={rp.regime === "crisis" ? "#E74C3C" : "#FF9800"} fillOpacity={0.08} ifOverflow="extendDomain" />)}
-              <Line type="monotone" dataKey="strat" stroke="#00C805" dot={false} strokeWidth={2} name="c78q" />
-              <Line type="monotone" dataKey="spy" stroke="#7C879B" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="SPY" />
+              <Line type="monotone" dataKey="strat" stroke="#00C805" dot={false} strokeWidth={2} name="c78q" isAnimationActive={false} />
+              <Line type="monotone" dataKey="spy" stroke="#7C879B" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="SPY" connectNulls isAnimationActive={false} />
             </LineChart>
           </ResponsiveContainer>
         ) : <Unavailable what="Backtest equity curve" detail="No backtest summary rows in c78q.json — the ETL output may be degenerate or missing." />}
         {summary.length > 0 && (
           <div className="mt-2 text-[11px] text-[#7C879B]">
-            Final: c78q ${(1 + summary[summary.length - 1].cum_strat / 100).toFixed(0)} vs SPY ${(1 + summary[summary.length - 1].cum_spy / 100).toFixed(0)} per $1 over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}).
+            Final per $1 over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}): c78q <span className="font-semibold text-[#00C805]">${stratEnd != null ? stratEnd.toFixed(0) : "—"}</span>
+            {" vs SPY "}<span className="font-semibold text-[#C3CAD7]">{spyLive ? `$${spyEnd!.toFixed(1)}` : "unavailable in preview"}</span>
+            {spyLive ? " (real buy-and-hold)." : " — SPY benchmark needs the keyless /api/spy-monthly feed (deployed app)."}
+            <span className="block text-[#5C6678]">Note: the c78q dataset's bundled SPY field is an upstream relative series (compounds to ~$48 / ~32% CAGR), so the chart uses actual SPY for an honest benchmark.</span>
           </div>
         )}
       </Card>
