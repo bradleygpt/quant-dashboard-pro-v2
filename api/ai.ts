@@ -15,9 +15,10 @@ export default async function handler(req: Request) {
   if (!key) return json({ ok: false, reason: "no_key", needs: "GEMINI_API_KEY" });
 
   const priceLabel = p.price_live === "1" ? "current LIVE price" : "current price";
+  const period = p.period || ""; // latest reported fiscal quarter, e.g. "2026-03"
   const ctx = `Ticker ${ticker} (${p.name || ""}), sector ${p.sector || "?"}, quant composite ${p.score || "?"}/12, rating ${p.rating || "?"}, ${priceLabel} $${p.price || "?"}, fair value $${p.fv || "?"}, quant buy point $${p.qbp || "?"}. (Composite/fair value/buy point are from the daily quant pipeline; the price is the live quote.)`;
   const prompt = kind === "earnings"
-    ? `You are an equity analyst. In ~150 words, review the investment thesis for ${ticker} given: ${ctx} Focus on whether the latest fundamentals support the current quant rating. Be specific and balanced. End with a one-line verdict (BUY / HOLD / AVOID).`
+    ? `You are an equity analyst reviewing ${ticker}'s most recent quarterly earnings release (8-K Item 2.02${period ? `, latest reported period ~${period}` : ""}) as a thesis-check against prior guidance. In ~150 words, assess whether the latest reported results and forward guidance support the current quant rating — call out revenue/EPS trajectory, margins, and any guidance change. Be specific and balanced. Then, on its OWN final line, output exactly: "VERDICT: X" where X is one of BUY ON STRENGTH, BUY, HOLD, TRIM, EXIT.`
     : `You are an equity research analyst. Write a concise (~180 word) research note on ${ticker} given: ${ctx} Cover the bull case, bear case, and key risk. Neutral, factual tone. No disclaimers.`;
 
   try {

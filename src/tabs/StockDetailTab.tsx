@@ -13,7 +13,15 @@ interface Quote {
   dayHigh?: number | null; dayLow?: number | null; rangePosition?: number | null; vwap?: number | null; volume?: number | null;
   history?: { dates: string[]; close: number[]; high: number[]; low: number[]; volume: number[] } | null;
 }
-const PERIODS = ["6mo", "1y", "2y", "5y"];
+const PERIODS = ["6mo", "1y", "2y", "5y", "10y", "max"];
+// simple moving average (trailing n); null until enough points
+function smaSeries(closes: number[], n: number): (number | null)[] {
+  const out: (number | null)[] = closes.map(() => null);
+  if (closes.length < n) return out;
+  let s = 0;
+  for (let i = 0; i < closes.length; i++) { s += closes[i]; if (i >= n) s -= closes[i - n]; if (i >= n - 1) out[i] = s / n; }
+  return out;
+}
 // RSI(14), simple rolling-average method (matches buy_point.py _compute_rsi)
 function rsiSeries(closes: number[], period = 14): (number | null)[] {
   const out: (number | null)[] = closes.map(() => null);
@@ -48,16 +56,41 @@ export default function StockDetailTab() {
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
 
   // AI note (Gemini via /api/ai) — on-demand, degrades if no key
-  const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean }>({ kind: "", status: "idle" });
+  const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean; verdict?: string; cached?: boolean; period?: string }>({ kind: "", status: "idle" });
+  // Verdict parsing/ranking mirrors earnings_reviewer._verdict_rank
+  const parseVerdict = (text: string): string | undefined => {
+    const m = text.match(/VERDICT:\s*([A-Z ]+)/i);
+    const v = (m ? m[1] : "").toUpperCase().trim();
+    if (v.includes("BUY ON STRENGTH")) return "BUY ON STRENGTH";
+    if (v.startsWith("BUY")) return "BUY";
+    if (v.includes("HOLD")) return "HOLD";
+    if (v.includes("TRIM")) return "TRIM";
+    if (v.includes("EXIT") || v.includes("AVOID")) return "EXIT";
+    return undefined;
+  };
   const runAi = (kind: "research" | "earnings") => {
     if (!row) return;
-    setAi({ kind, status: "loading" });
-    // Current price = LIVE /api/quote (matches the chart); composite/FV/QBP stay BAKED.
     const livePrice = quote.status === "ok" ? quote.data?.price ?? null : null;
     const usePrice = livePrice ?? row.price;
-    const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(usePrice ?? ""), price_live: livePrice != null ? "1" : "0", fv: String(row.fv ?? ""), qbp: String(row.qbp ?? "") });
-    fetch(`/api/ai?${qs}`).then((r) => r.json()).then((d) => setAi({ kind, status: "done", text: d.ok ? d.text : undefined, reason: d.reason, price: usePrice ?? undefined, live: livePrice != null })).catch(() => setAi({ kind, status: "done", reason: "error" }));
+    const period = kind === "earnings" && qhist.length ? String(qhist[0]?.date ?? "").slice(0, 7) : "";
+    // Cache-per-filing: same ticker + reported quarter ⇒ reuse the saved review.
+    if (kind === "earnings" && period) {
+      try {
+        const hit = JSON.parse(localStorage.getItem(`qd_earn_review_${row.ticker}_${period}`) || "null");
+        if (hit?.text) { setAi({ kind, status: "done", text: hit.text, verdict: hit.verdict, price: hit.price, live: hit.live, period, cached: true }); return; }
+      } catch { /* ignore */ }
+    }
+    setAi({ kind, status: "loading", period });
+    const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(usePrice ?? ""), price_live: livePrice != null ? "1" : "0", fv: String(row.fv ?? ""), qbp: String(row.qbp ?? ""), period });
+    fetch(`/api/ai?${qs}`).then((r) => r.json()).then((d) => {
+      const verdict = d.ok && kind === "earnings" ? parseVerdict(d.text || "") : undefined;
+      if (d.ok && kind === "earnings" && period) {
+        try { localStorage.setItem(`qd_earn_review_${row.ticker}_${period}`, JSON.stringify({ text: d.text, verdict, price: usePrice, live: livePrice != null })); } catch { /* ignore */ }
+      }
+      setAi({ kind, status: "done", text: d.ok ? d.text : undefined, reason: d.reason, price: usePrice ?? undefined, live: livePrice != null, verdict, period, cached: false });
+    }).catch(() => setAi({ kind, status: "done", reason: "error" }));
   };
+  const VERDICT_COLOR: Record<string, string> = { "BUY ON STRENGTH": "#00C805", BUY: "#8BC34A", HOLD: "#FFC107", TRIM: "#FF9800", EXIT: "#FF5722" };
 
   useEffect(() => {
     if (!ticker) return;
@@ -78,10 +111,13 @@ export default function StockDetailTab() {
   const usingLive = !!liveHist?.close?.length;
   const chartData = useMemo(() => {
     const src = liveHist ?? (series ? { dates: series.dates, close: series.close, volume: series.close.map(() => 0) } : null);
-    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null }[];
+    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null }[];
     const rsi = rsiSeries(src.close);
-    return src.dates.map((d, i) => ({ date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0, rsi: rsi[i] }));
+    const sma50 = smaSeries(src.close, 50), sma200 = smaSeries(src.close, 200);
+    return src.dates.map((d, i) => ({ date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0, rsi: rsi[i], sma50: sma50[i], sma200: sma200[i] }));
   }, [liveHist, series]);
+  const curRsi = useMemo(() => { for (let i = chartData.length - 1; i >= 0; i--) if (chartData[i].rsi != null) return chartData[i].rsi; return null; }, [chartData]);
+  const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: "#FF5722" } : curRsi <= 30 ? { t: "Oversold", c: "#00C805" } : { t: "Neutral", c: "#FFC107" };
 
   // y-domain ALWAYS includes FV and QBP so neither reference line clips off-scale
   const yDomain = useMemo<[number, number] | undefined>(() => {
@@ -172,7 +208,9 @@ export default function StockDetailTab() {
                 <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number) => [`$${v.toFixed(2)}`, "Close"]} />
                 {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
                 {row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
-                <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} />
+                <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} name="Close" />
+                {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke="#E8A33D" dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
+                {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke="#FF6B6B" dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
               </LineChart>
             </ResponsiveContainer>
             {usingLive && chartData.some((d) => d.volume > 0) && (
@@ -184,6 +222,8 @@ export default function StockDetailTab() {
               </ResponsiveContainer>
             )}
             {chartData.some((d) => d.rsi != null) && (
+              <>
+              {rsiLabel && <div className="mt-1 text-[11px] text-[#7C879B]">RSI(14): <span className="font-semibold" style={{ color: rsiLabel.c }}>{curRsi!.toFixed(0)} · {rsiLabel.t}</span> <span className="text-[#5C6678]">(&gt;70 overbought · &lt;30 oversold)</span></div>}
               <ResponsiveContainer width="100%" height={90}>
                 <LineChart data={chartData} margin={{ top: 4, right: 10, bottom: 0, left: 0 }} syncId="sd">
                   <CartesianGrid stroke="#1A2130" vertical={false} />
@@ -193,6 +233,7 @@ export default function StockDetailTab() {
                   <Line type="monotone" dataKey="rsi" stroke="#A855F7" dot={false} strokeWidth={1.4} connectNulls />
                 </LineChart>
               </ResponsiveContainer>
+              </>
             )}
           </>
         ) : (
@@ -248,15 +289,27 @@ export default function StockDetailTab() {
         </Card>
       )}
 
-      {/* AI research / earnings thesis (Gemini, on-demand) */}
-      <Card title="AI Analysis" sub="LLM-generated (Gemini). Requires GEMINI_API_KEY in Vercel; otherwise shows a configure note.">
-        <div className="flex gap-2">
+      {/* AI research / earnings review (Gemini, on-demand) */}
+      <Card title="AI Analysis" sub="LLM-generated (Gemini). Requires GEMINI_API_KEY in Vercel; otherwise shows a configure note. Earnings Review is a thesis-check against the latest 8-K (Item 2.02) earnings release, cached per reported quarter.">
+        <div className="flex flex-wrap gap-2">
           <button onClick={() => runAi("research")} className="rounded-md bg-[#3B82F6] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Research Note</button>
-          <button onClick={() => runAi("earnings")} className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#C3CAD7] hover:bg-[#161D29]">Earnings Thesis Review</button>
+          <button onClick={() => runAi("earnings")} className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#C3CAD7] hover:bg-[#161D29]">AI Earnings Review</button>
+          <a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${encodeURIComponent(row.ticker)}&type=8-K&dateb=&owner=include&count=20`} target="_blank" rel="noreferrer"
+            className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#5BA8FF] hover:bg-[#161D29]">SEC 8-K filings ↗</a>
         </div>
         {ai.status === "loading" && <div className="mt-2"><Spinner label="Generating…" /></div>}
         {ai.status === "done" && (ai.text
-          ? <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text}<span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked</span></p>
+          ? <div className="mt-2">
+              {ai.kind === "earnings" && (
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  {ai.verdict && <span className="rounded px-2 py-0.5 text-xs font-bold" style={{ color: VERDICT_COLOR[ai.verdict] ?? "#9CA7BB", background: `${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}22`, border: `1px solid ${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}55` }}>VERDICT: {ai.verdict}</span>}
+                  {ai.period && <span className="text-[11px] text-[#7C879B]">8-K thesis-check · reported quarter ~{ai.period}</span>}
+                  {ai.cached && <span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] text-[#9CA7BB]">cached for this filing</span>}
+                </div>
+              )}
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim()}</p>
+              <span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
+            </div>
           : <p className="mt-2 text-xs text-[#FFB454]">{ai.reason === "no_key" ? "Set GEMINI_API_KEY in Vercel to enable AI analysis." : `AI unavailable (${ai.reason ?? "error"}).`}</p>)}
       </Card>
 
@@ -269,7 +322,19 @@ export default function StockDetailTab() {
                 <span className="text-2xl font-bold" style={{ color: td.fv.verdict_color }}>{fmtMoney(td.fv.composite_fair_value)}</span>
                 <span className="text-sm" style={{ color: td.fv.verdict_color }}>{fmtPct(td.fv.premium_discount_pct, 1, true)} vs price</span>
               </div>
-              <table className="w-full text-sm">
+              {/* FV-by-method bar chart vs current price (source parity) */}
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={Object.entries(td.fv.methods).map(([name, m]) => ({ name, fv: m.fair_value }))} margin={{ top: 16, right: 8, bottom: 0, left: 0 }}>
+                  <CartesianGrid stroke="#1A2130" vertical={false} />
+                  <XAxis dataKey="name" tick={{ fill: "#7C879B", fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={48} />
+                  <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={48} tickFormatter={(v) => `$${Math.round(v)}`} />
+                  <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [fmtMoney(v), "Fair value"]} />
+                  <ReferenceLine y={td.fv.current_price} stroke="#FF6B6B" strokeDasharray="4 3" label={{ value: `Current ${fmtMoney(td.fv.current_price, 0)}`, fill: "#FF6B6B", fontSize: 9, position: "insideTopRight" }} />
+                  <ReferenceLine y={td.fv.composite_fair_value} stroke="#00D4AA" strokeDasharray="4 3" label={{ value: `Fair ${fmtMoney(td.fv.composite_fair_value, 0)}`, fill: "#00D4AA", fontSize: 9, position: "insideBottomRight" }} />
+                  <Bar dataKey="fv" fill="#4ECDC4" />
+                </BarChart>
+              </ResponsiveContainer>
+              <table className="mt-2 w-full text-sm">
                 <tbody>
                   {Object.entries(td.fv.methods).map(([name, m]) => (
                     <tr key={name} className="border-t border-[#161D29]">
@@ -288,7 +353,21 @@ export default function StockDetailTab() {
         <Card title="Quant Buy Point" sub={td?.qbp ? `${td.qbp.signal} · ${fmtPct(td.qbp.distance_pct, 1, true)} from buy point` : undefined}>
           {detailLoading ? <Spinner /> : td?.qbp ? (
             <div>
-              <div className="mb-2 text-2xl font-bold" style={{ color: td.qbp.signal_color }}>{fmtMoney(td.qbp.buy_point)}</div>
+              <div className="mb-2 flex items-center gap-3">
+                <span className="text-2xl font-bold" style={{ color: td.qbp.signal_color }}>{fmtMoney(td.qbp.buy_point)}</span>
+                <span className="rounded px-2 py-0.5 text-xs font-semibold" style={{ color: td.qbp.signal_color, background: `${td.qbp.signal_color}22`, border: `1px solid ${td.qbp.signal_color}55` }}>{td.qbp.signal}</span>
+              </div>
+              {/* Signal-strength meter — closer to/below the buy point = stronger */}
+              {(() => {
+                const d = td.qbp.distance_pct;
+                const strength = d <= 0 ? 100 : d < 3 ? 85 : d < 8 ? 60 : d < 15 ? 35 : 12;
+                return (
+                  <div className="mb-3">
+                    <div className="flex justify-between text-[11px] text-[#7C879B]"><span>Signal strength</span><span style={{ color: td.qbp.signal_color }}>{strength}/100 · {fmtPct(d, 1, true)} from buy point</span></div>
+                    <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-[#1A2130]"><div className="h-full rounded-full" style={{ width: `${strength}%`, background: td.qbp.signal_color }} /></div>
+                  </div>
+                );
+              })()}
               <table className="w-full text-sm">
                 <tbody>
                   {Object.entries(td.qbp.components).map(([name, c]) => (
