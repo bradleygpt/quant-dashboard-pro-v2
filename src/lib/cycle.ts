@@ -107,6 +107,52 @@ export function weekly200MA(series: { dates: string[]; close: number[] } | null)
   return out;
 }
 
+// Cycle overlay in % RETURN since the halving (day 0). Intentionally diverges from
+// the Streamlit source's absolute-dollar scaling (which produced the meaningless
+// ~$1.1M y-axis): every cycle is expressed as % change from its own day-0 close, so
+// the current cycle is directly comparable to the 2016/2020 return *rhythm* on one
+// axis. Returns per-day {day, proj_low, proj_median, proj_high, current} in percent.
+export function buildCyclePctOverlay(series: { dates: string[]; close: number[] } | null) {
+  if (!series) return [];
+  const past = ["2016-07-09", "2020-05-11"];
+  const curHalving = "2024-04-19";
+  const idx = series.dates.map((d) => Date.parse(d));
+  const slice = (startISO: string, endDays: number) => {
+    const start = Date.parse(startISO);
+    const pts: { day: number; close: number }[] = [];
+    for (let i = 0; i < idx.length; i++) {
+      const dd = Math.round((idx[i] - start) / DAY);
+      if (dd >= 0 && dd <= endDays) pts.push({ day: dd, close: series.close[i] });
+    }
+    return pts.sort((a, b) => a.day - b.day);
+  };
+  const toPct = (pts: { day: number; close: number }[]) => {
+    if (!pts.length) return [] as { day: number; pct: number }[];
+    const base = pts[0].close; // day-0 (or earliest available) close
+    return base > 0 ? pts.map((p) => ({ day: p.day, pct: (p.close / base - 1) * 100 })) : [];
+  };
+  const median = (sorted: number[]): number | null => {
+    if (!sorted.length) return null;
+    const m = Math.floor(sorted.length / 2);
+    return sorted.length % 2 ? sorted[m] : (sorted[m - 1] + sorted[m]) / 2;
+  };
+  const perDay = new Map<number, number[]>();
+  for (const h of past) for (const p of toPct(slice(h, 1400))) { const a = perDay.get(p.day) ?? []; a.push(p.pct); perDay.set(p.day, a); }
+  const curPts = new Map<number, number>();
+  for (const p of toPct(slice(curHalving, 1400))) curPts.set(p.day, p.pct);
+  const allDays = new Set<number>([...perDay.keys(), ...curPts.keys()]);
+  return [...allDays].sort((a, b) => a - b).map((day) => {
+    const vals = (perDay.get(day) ?? []).slice().sort((a, b) => a - b);
+    return {
+      day,
+      proj_low: vals.length ? vals[0] : null,
+      proj_high: vals.length ? vals[vals.length - 1] : null,
+      proj_median: median(vals),
+      current: curPts.get(day) ?? null,
+    };
+  });
+}
+
 // Cycle overlay: scale past cycles (2016, 2020) to the current halving price and
 // aggregate min/median/max by days-since-halving; merge the current cycle path.
 export function buildCycleOverlay(series: { dates: string[]; close: number[] } | null) {

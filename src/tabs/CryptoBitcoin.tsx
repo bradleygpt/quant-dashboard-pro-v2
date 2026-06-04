@@ -7,7 +7,7 @@ import {
 } from "recharts";
 import {
   HALVINGS, HISTORICAL_CYCLES, ETF_EVENTS, cycleMilestones, cycleCountdown, weekly200MA,
-  buildCycleOverlay, getCurrentHalvingInfo, getCyclePhase, estimateNextHalvingFromBlock,
+  buildCyclePctOverlay, getCurrentHalvingInfo, getCyclePhase, estimateNextHalvingFromBlock,
   btcValuationIndicators, interpretValuation, cycleTimeline,
 } from "../lib/cycle";
 
@@ -291,29 +291,31 @@ function CycleTimelineChart({ btcDaily, include2012, show2012, setShow2012, show
 
 // ──────────────────────────────────────────────────────────────────────────
 function OverlayBand({ btcDaily, daysSinceHalving }: { btcDaily: Series; daysSinceHalving: number }) {
-  const overlay = useMemo(() => buildCycleOverlay(btcDaily ?? null).filter((r) => r.day <= 1100), [btcDaily]);
+  const overlay = useMemo(() => buildCyclePctOverlay(btcDaily ?? null).filter((r) => r.day <= 1100), [btcDaily]);
+  const pctFmt = (v: number) => `${v >= 0 ? "+" : ""}${Math.round(v)}%`;
   return (
-    <Card title="Current Cycle vs Historical Projection" sub="Days since the 2024 halving. Band = the 2016 & 2020 cycles' paths scaled to the $64k current-cycle halving price. Solid orange = the actual current cycle; inside the band = tracking history, below = underperforming. Log scale.">
+    <Card title="Current Cycle vs Historical Projection" sub="% return since the halving (day 0). Band = the 2016 & 2020 cycles' return paths on the same % axis; solid orange = the current cycle. Above the band = outpacing history, below = lagging (diminishing-returns reality). Not absolute price — % change, so cycles are directly comparable.">
       {overlay.length > 0 ? (
         <ResponsiveContainer width="100%" height={320}>
           <LineChart data={overlay} margin={{ top: 16, right: 12, bottom: 0, left: 4 }}>
             <CartesianGrid stroke="#1A2130" vertical={false} />
             <XAxis dataKey="day" type="number" domain={[0, 1100]} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={40} tickFormatter={(d) => `${d}d`} />
-            <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={k} />
+            <YAxis domain={["auto", "auto"]} tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={pctFmt} />
             <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }}
-              labelFormatter={(d) => `Day ${d} since halving`} formatter={(v: number, n: string) => [`$${Math.round(v).toLocaleString()}`, n]} />
-            {/* day-0 halving marker + typical peak window highlight (source parity) */}
+              labelFormatter={(d) => `Day ${d} since halving`} formatter={(v: number, n: string) => [pctFmt(v), n]} />
+            {/* day-0 halving marker + typical peak window highlight */}
             <ReferenceLine x={0} stroke="#7C879B" strokeDasharray="3 3" label={{ value: "Halving", fill: "#7C879B", fontSize: 10, position: "insideTopLeft" }} />
+            <ReferenceLine y={0} stroke="#2A3242" />
             <ReferenceArea x1={520} x2={550} fill="#27AE60" fillOpacity={0.15} label={{ value: "Peak window", fill: "#27AE60", fontSize: 9, position: "insideTop" }} />
             <ReferenceLine x={daysSinceHalving} stroke="#fff" strokeDasharray="3 3" label={{ value: "TODAY", fill: "#fff", fontSize: 10, position: "top" }} />
-            <Line type="monotone" dataKey="proj_high" stroke="#3A4254" dot={false} strokeWidth={1} name="2016-cycle scaled (high)" connectNulls />
+            <Line type="monotone" dataKey="proj_high" stroke="#3A4254" dot={false} strokeWidth={1} name="historical high (2016)" connectNulls />
             <Line type="monotone" dataKey="proj_median" stroke="#7C879B" dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="median of cycles" connectNulls />
-            <Line type="monotone" dataKey="proj_low" stroke="#3A4254" dot={false} strokeWidth={1} name="2020-cycle scaled (low)" connectNulls />
+            <Line type="monotone" dataKey="proj_low" stroke="#3A4254" dot={false} strokeWidth={1} name="historical low (2020)" connectNulls />
             <Line type="monotone" dataKey="current" stroke="#F7931A" dot={false} strokeWidth={2.4} name="current cycle" connectNulls />
           </LineChart>
         </ResponsiveContainer>
       ) : <div className="py-8 text-center text-sm text-[#7C879B]">Projection unavailable.</div>}
-      <div className="mt-1 text-[10px] text-[#5C6678]">Gray band = scaled 2016 & 2020 cycle range; green band = historical 520–550d peak window; orange = current cycle. Illustrative, not a prediction.</div>
+      <div className="mt-1 text-[10px] text-[#5C6678]">All series are % return since each cycle's halving (day 0) — no absolute-dollar scaling. Gray band = 2016/2020 return range; green = historical 520–550d peak window; orange = current cycle. Illustrative, not a prediction.</div>
     </Card>
   );
 }
