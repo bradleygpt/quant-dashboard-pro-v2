@@ -1,4 +1,4 @@
-name: Refresh baked data + redeploy
+﻿name: Refresh baked data + redeploy
 
 # Keeps the React app's baked JSON as current as the Streamlit app. Runs after the
 # source repo's scheduled cache refresh (fundamentals ~10am & ~11pm ET). Re-bakes
@@ -21,7 +21,7 @@ jobs:
   rebake:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout v2 (this repo — has bake/ tooling)
+      - name: Checkout v2 (this repo - has bake/ tooling)
         uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
@@ -41,11 +41,13 @@ jobs:
           cp -r bake source/bake
           cd source && python bake/bake.py        # writes source/web/public/data
 
-      - name: Sync refreshed data into this repo
+      - name: Sync refreshed data into this repo (non-destructive)
         run: |
-          rm -rf public/data
-          mkdir -p public
-          cp -r source/web/public/data public/data
+          mkdir -p public/data
+          cp -r source/web/public/data/. public/data/
+          # NOTE: no rm -rf. c78q.json, ai_deals.json, and MLPred files are baked
+          # locally from quant-historical (unavailable in CI) and must NOT be deleted.
+          # This overlays CI-baked files only, preserving locally-committed data.
 
       - name: Commit + push (auto-deploys on Vercel)
         run: |
@@ -53,7 +55,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data
           if git diff --cached --quiet; then
-            echo "No data change — skipping commit."
+            echo "No data change - skipping commit."
           else
             git commit -m "chore: bake data refresh $(date -u +%Y-%m-%dT%H:%MZ)"
             git push
