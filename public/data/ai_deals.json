@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-06",
+  "currency": "USD",
+  "_doc": "Source of truth for the AI Bubble Watch graph. Bounded to the ~15 largest reported AI deals by value. Every deal MUST have source_url + date or it does not render. Market values are approximate (public market cap or last reported private valuation). Curated manually; Job B proposes additions into ai_deals_proposed.json — never here.",
+  "market_values_usd_bn": {
+    "Nvidia": 4500,
+    "Microsoft": 3800,
+    "Amazon": 2400,
+    "Google": 2300,
+    "Meta": 1800,
+    "Oracle": 650,
+    "OpenAI": 500,
+    "AMD": 350,
+    "Anthropic": 350,
+    "xAI": 200,
+    "Intel": 140,
+    "CoreWeave": 80
+  },
+  "market_values_note": "Approximate, mixed as-of 2025–2026. Public companies = market cap; OpenAI / Anthropic / xAI = last widely-reported private valuation. For node sizing only.",
+  "deals": [
+    { "id": "openai-oracle-cloud", "from": "OpenAI", "to": "Oracle", "type": "services", "value_usd_bn": 300, "date": "2025-09", "source_url": "https://techcrunch.com/2025/09/10/openai-and-oracle-reportedly-ink-historic-cloud-computing-deal/", "note": "OpenAI to buy ~$300bn of Oracle cloud compute over ~5 years (purchases begin 2027)." },
+    { "id": "nvidia-openai-invest", "from": "Nvidia", "to": "OpenAI", "type": "investment", "value_usd_bn": 100, "date": "2025-09", "source_url": "https://www.cnbc.com/2025/09/22/nvidia-openai-data-center.html", "note": "Nvidia to invest up to $100bn in OpenAI, deployed progressively as ≥10GW of Nvidia systems are built out." },
+    { "id": "openai-amd-gpu", "from": "OpenAI", "to": "AMD", "type": "hardware_software", "value_usd_bn": 90, "date": "2025-10", "source_url": "https://www.amd.com/en/newsroom/press-releases/2025-10-6-amd-and-openai-announce-strategic-partnership-to-d.html", "note": "6GW AMD Instinct GPU deployment; up to ~$90bn cumulative AMD hardware revenue + a warrant for up to 160M AMD shares." },
+    { "id": "oracle-nvidia-gpu", "from": "Oracle", "to": "Nvidia", "type": "hardware_software", "value_usd_bn": 40, "date": "2025-05", "source_url": "https://www.networkworld.com/article/3995015/oracle-to-spend-40b-on-nvidia-chips-for-openai-data-center-in-texas.html", "note": "Oracle to spend ~$40bn on ~400k Nvidia GB200 chips for the first Stargate data center (Abilene, TX) leased to OpenAI." },
+    { "id": "meta-coreweave-cloud", "from": "Meta", "to": "CoreWeave", "type": "services", "value_usd_bn": 14.2, "date": "2025", "source_url": "https://www.sec.gov/Archives/edgar/data/0001769628/000176962825000059/coreweave3q25earningspress.htm", "note": "Meta multi-year cloud-capacity deal with CoreWeave of up to ~$14.2bn (per CoreWeave Q3 2025 disclosure)." },
+    { "id": "microsoft-openai-invest", "from": "Microsoft", "to": "OpenAI", "type": "investment", "value_usd_bn": 13, "date": "2019–2025", "source_url": "https://www.cnbc.com/2023/04/08/microsofts-complex-bet-on-openai-brings-potential-and-uncertainty.html", "note": "Microsoft cumulative ~$13bn invested in OpenAI across 2019–2023 ($1bn / +$2bn / +$10bn); largest backer." },
+    { "id": "xai-nvidia-spv", "from": "xAI", "to": "Nvidia", "type": "hardware_software", "value_usd_bn": 12.5, "date": "2025-10", "source_url": "https://www.roic.ai/news/xai-pursues-20-billion-lease-to-own-deal-for-nvidia-gpus-through-spv-structure-10-16-2025", "note": "~$12.5bn GPU-secured debt leg of a ~$20bn SPV that buys Nvidia GPUs and leases them to xAI (Colossus 2); Nvidia contributes up to ~$2bn equity." },
+    { "id": "microsoft-coreweave-cloud", "from": "Microsoft", "to": "CoreWeave", "type": "services", "value_usd_bn": 10, "date": "2023–2030", "source_url": "https://www.datacenterdynamics.com/en/news/microsoft-to-invest-10bn-in-coreweave-by-end-of-decade/", "note": "Microsoft committed ~$10bn of GPU/cloud capacity from CoreWeave through 2030 (CoreWeave's largest customer)." },
+    { "id": "amazon-anthropic-invest", "from": "Amazon", "to": "Anthropic", "type": "investment", "value_usd_bn": 8, "date": "2024–2025", "source_url": "https://www.cnbc.com/2026/04/20/amazon-invest-up-to-25-billion-in-anthropic-part-of-ai-infrastructure.html", "note": "Amazon ~$8bn invested in Anthropic across 2023–2025 (with up to $25bn more committed in 2026)." },
+    { "id": "openai-coreweave-cloud", "from": "OpenAI", "to": "CoreWeave", "type": "services", "value_usd_bn": 6.5, "date": "2025", "source_url": "https://www.sec.gov/Archives/edgar/data/0001769628/000176962825000059/coreweave3q25earningspress.htm", "note": "OpenAI expanded its CoreWeave compute deal by up to ~$6.5bn (per CoreWeave Q3 2025 disclosure)." },
+    { "id": "nvidia-intel-invest", "from": "Nvidia", "to": "Intel", "type": "investment", "value_usd_bn": 5, "date": "2025-09", "source_url": "https://www.cnbc.com/2025/12/29/nvidia-takes-5-billion-stake-in-intel-under-september-agreement.html", "note": "Nvidia took a $5bn common-stock stake in Intel (217.4M shares at $23.28) under the Sept 2025 agreement; ~4% of Intel." },
+    { "id": "google-anthropic-invest", "from": "Google", "to": "Anthropic", "type": "investment", "value_usd_bn": 3, "date": "2024–2025", "source_url": "https://fortune.com/2026/06/04/amazon-google-billions-anthropic-ipo/", "note": "Alphabet/Google ~$3bn equity in Anthropic to date (~14% stake), with up to $40bn more committed in 2026." },
+    { "id": "nvidia-coreweave-invest", "from": "Nvidia", "to": "CoreWeave", "type": "investment", "value_usd_bn": 2, "date": "2026-01", "source_url": "https://www.nextplatform.com/ai/2026/01/27/nvidias-2-billion-investment-in-coreweave-is-a-drop-in-a-250-billion-bucket/4092118", "note": "Nvidia ~$2bn equity investment in CoreWeave (at $87.20/share); Nvidia's disclosed CoreWeave stake later ~$3.7bn." },
+    { "id": "coreweave-nvidia-gpu", "from": "CoreWeave", "to": "Nvidia", "type": "hardware_software", "value_usd_bn": 15, "date": "2025", "value_approx": true, "source_url": "https://www.nextplatform.com/ai/2026/01/27/nvidias-2-billion-investment-in-coreweave-is-a-drop-in-a-250-billion-bucket/4092118", "note": "APPROXIMATE — CoreWeave's data centers run on Nvidia GPUs (~250k deployed); cumulative Nvidia hardware purchases are large but not separately disclosed. Figure illustrative; completes the Nvidia↔CoreWeave loop." }
+  ]
+}
