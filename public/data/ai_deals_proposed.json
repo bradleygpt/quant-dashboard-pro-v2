@@ -1,7 +1,0 @@
-{
-  "_doc": "STAGING ONLY — reviewed by a human, then manually promoted into ai_deals.json. The graph never reads this file.",
-  "generated_at": "2026-06-04T20:09:46.546Z",
-  "rendered_deal_count": 14,
-  "prune_threshold_usd_bn": 2,
-  "proposed": []
-}
