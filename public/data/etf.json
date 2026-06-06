@@ -410,13 +410,13 @@
       "ytdReturn": 0.45474,
       "threeYearReturn": 0.0400596,
       "fiveYearReturn": 0.0013212999,
-      "currentPrice": 98.34,
+      "currentPrice": 98.17,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0053,
-      "momentum_3m": -0.0079,
-      "momentum_6m": -0.0008,
-      "momentum_12m": 0.0515
+      "momentum_1m": -0.007,
+      "momentum_3m": -0.0095,
+      "momentum_6m": -0.0025,
+      "momentum_12m": 0.0484
     },
     "ARKK": {
       "shortName": "ARK Innovation ETF",
@@ -427,13 +427,13 @@
       "ytdReturn": 6.47009,
       "threeYearReturn": 0.2437199,
       "fiveYearReturn": -0.0591407,
-      "currentPrice": 75.06,
+      "currentPrice": 74.49,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0568,
-      "momentum_3m": 0.0367,
-      "momentum_6m": -0.0705,
-      "momentum_12m": 0.2279
+      "momentum_1m": -0.064,
+      "momentum_3m": 0.0289,
+      "momentum_6m": -0.0775,
+      "momentum_12m": 0.1936
     },
     "ARKX": {
       "shortName": "ARK Space & Defense Innovation ",
@@ -444,13 +444,13 @@
       "ytdReturn": 29.1622,
       "threeYearReturn": 0.37066,
       "fiveYearReturn": 0.1185038,
-      "currentPrice": 34.41,
+      "currentPrice": 34.04,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0175,
-      "momentum_3m": 0.1011,
-      "momentum_6m": 0.2369,
-      "momentum_12m": 0.5828
+      "momentum_1m": 0.0065,
+      "momentum_3m": 0.0893,
+      "momentum_6m": 0.2236,
+      "momentum_12m": 0.523
     },
     "BAI": {
       "shortName": "iShares A.I. Innovation and Tec",
@@ -461,13 +461,13 @@
       "ytdReturn": 49.55979,
       "threeYearReturn": null,
       "fiveYearReturn": null,
-      "currentPrice": 46.46,
+      "currentPrice": 45.55,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0069,
-      "momentum_3m": 0.4208,
-      "momentum_6m": 0.3647,
-      "momentum_12m": 0.7639
+      "momentum_1m": -0.0128,
+      "momentum_3m": 0.393,
+      "momentum_6m": 0.338,
+      "momentum_12m": 0.7287
     },
     "BITQ": {
       "shortName": "Bitwise Crypto Industry Innovat",
@@ -478,13 +478,13 @@
       "ytdReturn": 43.47717,
       "threeYearReturn": 0.578646,
       "fiveYearReturn": 0.049524,
-      "currentPrice": 24.92,
+      "currentPrice": 25.05,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.1158,
-      "momentum_3m": 0.2874,
-      "momentum_6m": 0.0861,
-      "momentum_12m": 0.3635
+      "momentum_1m": -0.1114,
+      "momentum_3m": 0.2939,
+      "momentum_6m": 0.0915,
+      "momentum_12m": 0.3461
     },
     "BND": {
       "shortName": "Vanguard Total Bond Market ETF",
@@ -492,16 +492,16 @@
       "expenseRatio": null,
       "totalAssets": 394429661184,
       "navPrice": 73.13,
-      "ytdReturn": 0.45289,
+      "ytdReturn": 0.48025,
       "threeYearReturn": 0.0401024,
       "fiveYearReturn": 0.0011182,
-      "currentPrice": 72.93,
+      "currentPrice": 72.83,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.005,
-      "momentum_3m": -0.0076,
-      "momentum_6m": -0.0005,
-      "momentum_12m": 0.0504
+      "momentum_1m": -0.0064,
+      "momentum_3m": -0.0091,
+      "momentum_6m": -0.002,
+      "momentum_12m": 0.0473
     },
     "COPX": {
       "shortName": "Global X Copper Miners ETF",
@@ -512,13 +512,13 @@
       "ytdReturn": 22.13285,
       "threeYearReturn": 0.3734375,
       "fiveYearReturn": 0.1987787,
-      "currentPrice": 82.46,
+      "currentPrice": 80.64,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0133,
-      "momentum_3m": 0.0314,
-      "momentum_6m": 0.2508,
-      "momentum_12m": 0.9652
+      "momentum_1m": -0.0351,
+      "momentum_3m": 0.0086,
+      "momentum_6m": 0.2232,
+      "momentum_12m": 0.9051
     },
     "DIA": {
       "shortName": "State Street SPDR Dow Jones Ind",
@@ -529,13 +529,13 @@
       "ytdReturn": 6.7985,
       "threeYearReturn": 0.1708767,
       "fiveYearReturn": 0.101209804,
-      "currentPrice": 512.41,
+      "currentPrice": 509.7,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0273,
-      "momentum_3m": 0.0816,
-      "momentum_6m": 0.0762,
-      "momentum_12m": 0.2145
+      "momentum_1m": 0.0219,
+      "momentum_3m": 0.0759,
+      "momentum_6m": 0.0706,
+      "momentum_12m": 0.2081
     },
     "EEM": {
       "shortName": "iShares MSCI Emerging Index Fun",
@@ -546,13 +546,13 @@
       "ytdReturn": 25.15766,
       "threeYearReturn": 0.2347762,
       "fiveYearReturn": 0.0677575,
-      "currentPrice": 65.4,
+      "currentPrice": 64.59,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.031,
-      "momentum_3m": 0.141,
-      "momentum_6m": 0.2208,
-      "momentum_12m": 0.4275
+      "momentum_1m": -0.043,
+      "momentum_3m": 0.1268,
+      "momentum_6m": 0.2056,
+      "momentum_12m": 0.3979
     },
     "EFA": {
       "shortName": "iShares MSCI EAFE ETF",
@@ -563,13 +563,13 @@
       "ytdReturn": 9.44945,
       "threeYearReturn": 0.16764,
       "fiveYearReturn": 0.0848293,
-      "currentPrice": 102.89,
+      "currentPrice": 102.26,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0183,
-      "momentum_3m": 0.0469,
-      "momentum_6m": 0.0963,
-      "momentum_12m": 0.1875
+      "momentum_1m": -0.0243,
+      "momentum_3m": 0.0405,
+      "momentum_6m": 0.0896,
+      "momentum_12m": 0.1804
     },
     "GLD": {
       "shortName": "SPDR Gold Shares",
@@ -580,13 +580,13 @@
       "ytdReturn": 5.35679,
       "threeYearReturn": 0.3145471,
       "fiveYearReturn": 0.1834564,
-      "currentPrice": 398.36,
+      "currentPrice": 396.24,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0756,
-      "momentum_3m": -0.1587,
-      "momentum_6m": 0.0297,
-      "momentum_12m": 0.3053
+      "momentum_1m": -0.0806,
+      "momentum_3m": -0.1632,
+      "momentum_6m": 0.0242,
+      "momentum_12m": 0.2923
     },
     "IAU": {
       "shortName": "iShares Gold Trust Shares",
@@ -597,13 +597,13 @@
       "ytdReturn": 5.41724,
       "threeYearReturn": 0.3164647,
       "fiveYearReturn": 0.1851899,
-      "currentPrice": 81.64,
+      "currentPrice": 81.22,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0754,
-      "momentum_3m": -0.1582,
-      "momentum_6m": 0.0304,
-      "momentum_12m": 0.3069
+      "momentum_1m": -0.0802,
+      "momentum_3m": -0.1625,
+      "momentum_6m": 0.0251,
+      "momentum_12m": 0.2945
     },
     "IBIT": {
       "shortName": "iShares Bitcoin Trust ETF",
@@ -614,13 +614,13 @@
       "ytdReturn": -16.0312,
       "threeYearReturn": null,
       "fiveYearReturn": null,
-      "currentPrice": 34.67,
+      "currentPrice": 34.14,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.2495,
-      "momentum_3m": -0.1019,
-      "momentum_6m": -0.3427,
-      "momentum_12m": -0.415
+      "momentum_1m": -0.2609,
+      "momentum_3m": -0.1155,
+      "momentum_6m": -0.3527,
+      "momentum_12m": -0.4473
     },
     "IDEV": {
       "shortName": "iShares Core MSCI International",
@@ -631,13 +631,13 @@
       "ytdReturn": 9.90173,
       "threeYearReturn": 0.1773592,
       "fiveYearReturn": 0.086818896,
-      "currentPrice": 88.82,
+      "currentPrice": 88.23,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0157,
-      "momentum_3m": 0.0449,
-      "momentum_6m": 0.1029,
-      "momentum_12m": 0.2101
+      "momentum_1m": -0.0222,
+      "momentum_3m": 0.038,
+      "momentum_6m": 0.0957,
+      "momentum_12m": 0.202
     },
     "IEMG": {
       "shortName": "iShares Core MSCI Emerging Mark",
@@ -648,13 +648,13 @@
       "ytdReturn": 24.17366,
       "threeYearReturn": 0.2316239,
       "fiveYearReturn": 0.0738385,
-      "currentPrice": 79.61,
+      "currentPrice": 78.63,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0356,
-      "momentum_3m": 0.1295,
-      "momentum_6m": 0.2071,
-      "momentum_12m": 0.4018
+      "momentum_1m": -0.0475,
+      "momentum_3m": 0.1155,
+      "momentum_6m": 0.1922,
+      "momentum_12m": 0.3743
     },
     "IJH": {
       "shortName": "iShares Core S&P Mid-Cap ETF",
@@ -665,13 +665,13 @@
       "ytdReturn": 13.25282,
       "threeYearReturn": 0.162711,
       "fiveYearReturn": 0.0827165,
-      "currentPrice": 74.26,
+      "currentPrice": 73.95,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0048,
-      "momentum_3m": 0.0911,
-      "momentum_6m": 0.1301,
-      "momentum_12m": 0.2323
+      "momentum_1m": -0.009,
+      "momentum_3m": 0.0865,
+      "momentum_6m": 0.1254,
+      "momentum_12m": 0.2235
     },
     "IJR": {
       "shortName": "iShares Core S&P Small-Cap ETF",
@@ -682,13 +682,13 @@
       "ytdReturn": 15.49554,
       "threeYearReturn": 0.14891599,
       "fiveYearReturn": 0.0592158,
-      "currentPrice": 138.46,
+      "currentPrice": 137.68,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0034,
-      "momentum_3m": 0.1113,
-      "momentum_6m": 0.1426,
-      "momentum_12m": 0.3036
+      "momentum_1m": -0.009,
+      "momentum_3m": 0.105,
+      "momentum_6m": 0.1361,
+      "momentum_12m": 0.2826
     },
     "IMCV": {
       "shortName": "iShares Morningstar Mid-Cap Val",
@@ -699,13 +699,13 @@
       "ytdReturn": 9.62015,
       "threeYearReturn": 0.1701968,
       "fiveYearReturn": 0.088943005,
-      "currentPrice": 90.54,
+      "currentPrice": 90.36,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0135,
-      "momentum_3m": 0.0543,
-      "momentum_6m": 0.1179,
-      "momentum_12m": 0.236
+      "momentum_1m": 0.0114,
+      "momentum_3m": 0.0521,
+      "momentum_6m": 0.1156,
+      "momentum_12m": 0.2343
     },
     "ISCV": {
       "shortName": "iShares Morningstar Small-Cap V",
@@ -716,13 +716,13 @@
       "ytdReturn": 10.43728,
       "threeYearReturn": 0.1590803,
       "fiveYearReturn": 0.067834705,
-      "currentPrice": 75.06,
+      "currentPrice": 74.9,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.002,
-      "momentum_3m": 0.0708,
-      "momentum_6m": 0.102,
-      "momentum_12m": 0.2704
+      "momentum_1m": -0.0041,
+      "momentum_3m": 0.0686,
+      "momentum_6m": 0.0996,
+      "momentum_12m": 0.2584
     },
     "ITOT": {
       "shortName": "iShares Core S&P Total U.S. Sto",
@@ -733,13 +733,13 @@
       "ytdReturn": 11.5126,
       "threeYearReturn": 0.2228903,
       "fiveYearReturn": 0.1280299,
-      "currentPrice": 162.68,
+      "currentPrice": 161.35,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.012,
-      "momentum_3m": 0.1102,
-      "momentum_6m": 0.0953,
-      "momentum_12m": 0.2554
+      "momentum_1m": 0.0038,
+      "momentum_3m": 0.1011,
+      "momentum_6m": 0.0863,
+      "momentum_12m": 0.2443
     },
     "IVES": {
       "shortName": "Dan IVES Wedbush AI Revolution ",
@@ -750,13 +750,13 @@
       "ytdReturn": 26.98759,
       "threeYearReturn": null,
       "fiveYearReturn": null,
-      "currentPrice": 37.79,
+      "currentPrice": 37.37,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0684,
-      "momentum_3m": 0.2639,
-      "momentum_6m": 0.1715,
-      "momentum_12m": 0.4843
+      "momentum_1m": 0.0565,
+      "momentum_3m": 0.2498,
+      "momentum_6m": 0.1585,
+      "momentum_12m": 0.4566
     },
     "IVV": {
       "shortName": "iShares Core S&P 500 ETF",
@@ -767,13 +767,13 @@
       "ytdReturn": 11.25277,
       "threeYearReturn": 0.2262846,
       "fiveYearReturn": 0.13995309,
-      "currentPrice": 746.99,
+      "currentPrice": 740.91,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.013,
-      "momentum_3m": 0.1089,
-      "momentum_6m": 0.0937,
-      "momentum_12m": 0.2562
+      "momentum_1m": 0.0047,
+      "momentum_3m": 0.0999,
+      "momentum_6m": 0.0848,
+      "momentum_12m": 0.2448
     },
     "IWM": {
       "shortName": "iShares Russell 2000 Index Fund",
@@ -784,13 +784,13 @@
       "ytdReturn": 18.10537,
       "threeYearReturn": 0.1847396,
       "fiveYearReturn": 0.0643294,
-      "currentPrice": 284.05,
+      "currentPrice": 281.65,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0096,
-      "momentum_3m": 0.1342,
-      "momentum_6m": 0.1438,
-      "momentum_12m": 0.355
+      "momentum_1m": -0.018,
+      "momentum_3m": 0.1246,
+      "momentum_6m": 0.1341,
+      "momentum_12m": 0.3343
     },
     "MAGS": {
       "shortName": "Roundhill Magnificent Seven ETF",
@@ -801,13 +801,13 @@
       "ytdReturn": 7.0168,
       "threeYearReturn": 0.341755,
       "fiveYearReturn": null,
-      "currentPrice": 67.51,
+      "currentPrice": 66.51,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0139,
-      "momentum_3m": 0.1069,
-      "momentum_6m": 0.0224,
-      "momentum_12m": 0.2998
+      "momentum_1m": -0.0285,
+      "momentum_3m": 0.0905,
+      "momentum_6m": 0.0073,
+      "momentum_12m": 0.2669
     },
     "MDY": {
       "shortName": "State Street SPDR S&P MIDCAP 40",
@@ -818,13 +818,13 @@
       "ytdReturn": 13.08434,
       "threeYearReturn": 0.1591834,
       "fiveYearReturn": 0.0800689,
-      "currentPrice": 677.65,
+      "currentPrice": 674.59,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0048,
-      "momentum_3m": 0.0903,
-      "momentum_6m": 0.1284,
-      "momentum_12m": 0.2283
+      "momentum_1m": -0.0093,
+      "momentum_3m": 0.0853,
+      "momentum_6m": 0.1233,
+      "momentum_12m": 0.2195
     },
     "NLR": {
       "shortName": "VanEck Uranium and Nuclear ETF",
@@ -835,13 +835,13 @@
       "ytdReturn": 7.60333,
       "threeYearReturn": 0.3499226,
       "fiveYearReturn": 0.2188373,
-      "currentPrice": 124.1,
+      "currentPrice": 122.11,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.1685,
-      "momentum_3m": -0.0876,
-      "momentum_6m": -0.0444,
-      "momentum_12m": 0.2762
+      "momentum_1m": -0.1818,
+      "momentum_3m": -0.1022,
+      "momentum_6m": -0.0597,
+      "momentum_12m": 0.2276
     },
     "QQQ": {
       "shortName": "Invesco QQQ Trust, Series 1",
@@ -852,13 +852,13 @@
       "ytdReturn": 20.35716,
       "threeYearReturn": 0.2856808,
       "fiveYearReturn": 0.1785704,
-      "currentPrice": 714.99,
+      "currentPrice": 705.06,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0276,
-      "momentum_3m": 0.1936,
-      "momentum_6m": 0.1496,
-      "momentum_12m": 0.3558
+      "momentum_1m": 0.0134,
+      "momentum_3m": 0.1771,
+      "momentum_6m": 0.1337,
+      "momentum_12m": 0.335
     },
     "QTUM": {
       "shortName": "Defiance Quantum ETF",
@@ -869,13 +869,13 @@
       "ytdReturn": 46.09625,
       "threeYearReturn": 0.51852983,
       "fiveYearReturn": 0.2896999,
-      "currentPrice": 155.2,
+      "currentPrice": 152.78,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0803,
-      "momentum_3m": 0.4191,
-      "momentum_6m": 0.3941,
-      "momentum_12m": 0.7789
+      "momentum_1m": 0.0635,
+      "momentum_3m": 0.3969,
+      "momentum_6m": 0.3724,
+      "momentum_12m": 0.7337
     },
     "SCHA": {
       "shortName": "Schwab U.S. Small-Cap ETF",
@@ -886,13 +886,13 @@
       "ytdReturn": 19.75547,
       "threeYearReturn": 0.1925214,
       "fiveYearReturn": 0.073140405,
-      "currentPrice": 33.4,
+      "currentPrice": 33.19,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.004,
-      "momentum_3m": 0.1455,
-      "momentum_6m": 0.1696,
-      "momentum_12m": 0.3588
+      "momentum_1m": -0.0101,
+      "momentum_3m": 0.1385,
+      "momentum_6m": 0.1624,
+      "momentum_12m": 0.3435
     },
     "SCHB": {
       "shortName": "Schwab U.S. Broad Market ETF",
@@ -903,13 +903,13 @@
       "ytdReturn": 11.47377,
       "threeYearReturn": 0.2229373,
       "fiveYearReturn": 0.12862739,
-      "currentPrice": 28.68,
+      "currentPrice": 28.45,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0121,
-      "momentum_3m": 0.1101,
-      "momentum_6m": 0.0949,
-      "momentum_12m": 0.2553
+      "momentum_1m": 0.0039,
+      "momentum_3m": 0.101,
+      "momentum_6m": 0.086,
+      "momentum_12m": 0.2434
     },
     "SCHC": {
       "shortName": "Schwab International Small-Cap ",
@@ -920,13 +920,13 @@
       "ytdReturn": 11.5831,
       "threeYearReturn": 0.1825516,
       "fiveYearReturn": 0.0633544,
-      "currentPrice": 48.98,
+      "currentPrice": 48.61,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.043,
-      "momentum_3m": 0.0132,
-      "momentum_6m": 0.1012,
-      "momentum_12m": 0.2412
+      "momentum_1m": -0.0502,
+      "momentum_3m": 0.0056,
+      "momentum_6m": 0.0929,
+      "momentum_12m": 0.2294
     },
     "SCHF": {
       "shortName": "Schwab International Equity ETF",
@@ -937,13 +937,13 @@
       "ytdReturn": 15.64965,
       "threeYearReturn": 0.2001577,
       "fiveYearReturn": 0.099083595,
-      "currentPrice": 27.05,
+      "currentPrice": 26.81,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0119,
-      "momentum_3m": 0.0758,
-      "momentum_6m": 0.1548,
-      "momentum_12m": 0.281
+      "momentum_1m": -0.0205,
+      "momentum_3m": 0.0664,
+      "momentum_6m": 0.1448,
+      "momentum_12m": 0.2693
     },
     "SCHG": {
       "shortName": "Schwab U.S. Large-Cap Growth ET",
@@ -954,13 +954,13 @@
       "ytdReturn": 7.82937,
       "threeYearReturn": 0.2516096,
       "fiveYearReturn": 0.1567247,
-      "currentPrice": 34.05,
+      "currentPrice": 33.75,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0071,
-      "momentum_3m": 0.1167,
-      "momentum_6m": 0.0391,
-      "momentum_12m": 0.2172
+      "momentum_1m": -0.0018,
+      "momentum_3m": 0.1068,
+      "momentum_6m": 0.03,
+      "momentum_12m": 0.2047
     },
     "SCHM": {
       "shortName": "Schwab U.S. Mid Cap ETF",
@@ -971,13 +971,13 @@
       "ytdReturn": 17.82145,
       "threeYearReturn": 0.1820283,
       "fiveYearReturn": 0.0811447,
-      "currentPrice": 34.98,
+      "currentPrice": 34.83,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0003,
-      "momentum_3m": 0.1171,
-      "momentum_6m": 0.1709,
-      "momentum_12m": 0.289
+      "momentum_1m": -0.004,
+      "momentum_3m": 0.1123,
+      "momentum_6m": 0.1659,
+      "momentum_12m": 0.283
     },
     "SCHV": {
       "shortName": "Schwab U.S. Large-Cap Value ETF",
@@ -988,13 +988,13 @@
       "ytdReturn": 13.96912,
       "threeYearReturn": 0.19055201,
       "fiveYearReturn": 0.105169095,
-      "currentPrice": 33.71,
+      "currentPrice": 33.52,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0259,
-      "momentum_3m": 0.0893,
-      "momentum_6m": 0.1498,
-      "momentum_12m": 0.2693
+      "momentum_1m": 0.0201,
+      "momentum_3m": 0.0831,
+      "momentum_6m": 0.1433,
+      "momentum_12m": 0.2617
     },
     "SCHX": {
       "shortName": "Schwab U.S. Large-Cap ETF",
@@ -1005,13 +1005,13 @@
       "ytdReturn": 10.98204,
       "threeYearReturn": 0.2256015,
       "fiveYearReturn": 0.1338965,
-      "currentPrice": 29.28,
+      "currentPrice": 29.05,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0137,
-      "momentum_3m": 0.1074,
-      "momentum_6m": 0.0902,
-      "momentum_12m": 0.2485
+      "momentum_1m": 0.0055,
+      "momentum_3m": 0.0985,
+      "momentum_6m": 0.0814,
+      "momentum_12m": 0.2374
     },
     "SHY": {
       "shortName": "iShares 1-3 Year Treasury Bond ",
@@ -1022,13 +1022,13 @@
       "ytdReturn": 0.52344,
       "threeYearReturn": 0.0405159,
       "fiveYearReturn": 0.0172715,
-      "currentPrice": 81.9,
+      "currentPrice": 81.86,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0019,
-      "momentum_3m": -0.0012,
-      "momentum_6m": 0.006,
-      "momentum_12m": 0.0333
+      "momentum_1m": -0.0024,
+      "momentum_3m": -0.0017,
+      "momentum_6m": 0.0056,
+      "momentum_12m": 0.032
     },
     "SPLG": {
       "shortName": "SPDR Portfolio S&P 500 ETF",
@@ -1039,13 +1039,13 @@
       "ytdReturn": 17.78646,
       "threeYearReturn": 0.21311991,
       "fiveYearReturn": 0.1491008,
-      "currentPrice": 89.11,
+      "currentPrice": 86.81,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.046,
-      "momentum_3m": 0.1143,
-      "momentum_6m": 0.1174,
-      "momentum_12m": 0.2791
+      "momentum_1m": 0.0051,
+      "momentum_3m": 0.0998,
+      "momentum_6m": 0.0848,
+      "momentum_12m": 0.245
     },
     "SPTM": {
       "shortName": "State Street SPDR Portfolio S&P",
@@ -1056,13 +1056,13 @@
       "ytdReturn": 11.38774,
       "threeYearReturn": 0.2206997,
       "fiveYearReturn": 0.134691,
-      "currentPrice": 90.19,
+      "currentPrice": 89.42,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0122,
-      "momentum_3m": 0.1075,
-      "momentum_6m": 0.0969,
-      "momentum_12m": 0.2563
+      "momentum_1m": 0.0035,
+      "momentum_3m": 0.098,
+      "momentum_6m": 0.0874,
+      "momentum_12m": 0.2432
     },
     "SPY": {
       "shortName": "State Street SPDR S&P 500 ETF T",
@@ -1073,13 +1073,13 @@
       "ytdReturn": 11.22979,
       "threeYearReturn": 0.2250836,
       "fiveYearReturn": 0.13919811,
-      "currentPrice": 743.5,
+      "currentPrice": 737.55,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0132,
-      "momentum_3m": 0.1088,
-      "momentum_6m": 0.0934,
-      "momentum_12m": 0.2552
+      "momentum_1m": 0.0051,
+      "momentum_3m": 0.0999,
+      "momentum_6m": 0.0846,
+      "momentum_12m": 0.244
     },
     "SPYG": {
       "shortName": "State Street SPDR Portfolio S&P",
@@ -1090,13 +1090,13 @@
       "ytdReturn": 13.99541,
       "threeYearReturn": 0.2814617,
       "fiveYearReturn": 0.1606583,
-      "currentPrice": 117.85,
+      "currentPrice": 116.55,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0135,
-      "momentum_3m": 0.1556,
-      "momentum_6m": 0.1042,
-      "momentum_12m": 0.2963
+      "momentum_1m": 0.0023,
+      "momentum_3m": 0.1428,
+      "momentum_6m": 0.092,
+      "momentum_12m": 0.2813
     },
     "SPYV": {
       "shortName": "State Street SPDR Portfolio S&P",
@@ -1107,13 +1107,13 @@
       "ytdReturn": 7.95664,
       "threeYearReturn": 0.1607001,
       "fiveYearReturn": 0.1087881,
-      "currentPrice": 61.0,
+      "currentPrice": 60.69,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0126,
-      "momentum_3m": 0.0573,
-      "momentum_6m": 0.0809,
-      "momentum_12m": 0.2096
+      "momentum_1m": 0.0075,
+      "momentum_3m": 0.0519,
+      "momentum_6m": 0.0754,
+      "momentum_12m": 0.2023
     },
     "TLT": {
       "shortName": "iShares 20+ Year Treasury Bond ",
@@ -1124,13 +1124,13 @@
       "ytdReturn": -0.24988,
       "threeYearReturn": -0.017345099,
       "fiveYearReturn": -0.0627431,
-      "currentPrice": 85.3,
+      "currentPrice": 85.06,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0052,
-      "momentum_3m": -0.0245,
-      "momentum_6m": -0.0203,
-      "momentum_12m": 0.045
+      "momentum_1m": -0.008,
+      "momentum_3m": -0.0272,
+      "momentum_6m": -0.0231,
+      "momentum_12m": 0.041
     },
     "UFO": {
       "shortName": "Procure Space ETF",
@@ -1141,13 +1141,13 @@
       "ytdReturn": 69.30754,
       "threeYearReturn": 0.473368,
       "fiveYearReturn": 0.1621867,
-      "currentPrice": 55.07,
+      "currentPrice": 54.71,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.045,
-      "momentum_3m": 0.2373,
-      "momentum_6m": 0.6315,
-      "momentum_12m": 1.1534
+      "momentum_1m": 0.0381,
+      "momentum_3m": 0.2292,
+      "momentum_6m": 0.6209,
+      "momentum_12m": 1.1025
     },
     "VB": {
       "shortName": "Vanguard Small-Cap ETF",
@@ -1155,16 +1155,16 @@
       "expenseRatio": null,
       "totalAssets": 182652223488,
       "navPrice": 295.42,
-      "ytdReturn": 14.23553,
+      "ytdReturn": 14.23943,
       "threeYearReturn": 0.17325029,
       "fiveYearReturn": 0.0724878,
-      "currentPrice": 289.63,
+      "currentPrice": 288.2,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0042,
-      "momentum_3m": 0.0962,
-      "momentum_6m": 0.1267,
-      "momentum_12m": 0.2609
+      "momentum_1m": -0.0091,
+      "momentum_3m": 0.0908,
+      "momentum_6m": 0.1211,
+      "momentum_12m": 0.2503
     },
     "VBK": {
       "shortName": "Vanguard Small-Cap Growth ETF",
@@ -1172,16 +1172,16 @@
       "expenseRatio": null,
       "totalAssets": 45535940608,
       "navPrice": 356.53,
-      "ytdReturn": 17.89691,
+      "ytdReturn": 17.90023,
       "threeYearReturn": 0.1796952,
       "fiveYearReturn": 0.0581463,
-      "currentPrice": 344.88,
+      "currentPrice": 342.12,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0068,
-      "momentum_3m": 0.1286,
-      "momentum_6m": 0.1386,
-      "momentum_12m": 0.2766
+      "momentum_1m": -0.0148,
+      "momentum_3m": 0.1195,
+      "momentum_6m": 0.1295,
+      "momentum_12m": 0.262
     },
     "VEA": {
       "shortName": "Vanguard FTSE Developed Markets",
@@ -1192,13 +1192,13 @@
       "ytdReturn": 15.26113,
       "threeYearReturn": 0.1987184,
       "fiveYearReturn": 0.0965553,
-      "currentPrice": 69.81,
+      "currentPrice": 69.17,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.015,
-      "momentum_3m": 0.0711,
-      "momentum_6m": 0.1508,
-      "momentum_12m": 0.2796
+      "momentum_1m": -0.024,
+      "momentum_3m": 0.0614,
+      "momentum_6m": 0.1403,
+      "momentum_12m": 0.2675
     },
     "VIG": {
       "shortName": "Vanguard Div Appreciation ETF",
@@ -1209,13 +1209,13 @@
       "ytdReturn": 7.19242,
       "threeYearReturn": 0.16647859,
       "fiveYearReturn": 0.1070884,
-      "currentPrice": 234.75,
+      "currentPrice": 233.28,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0215,
-      "momentum_3m": 0.0639,
-      "momentum_6m": 0.0665,
-      "momentum_12m": 0.1903
+      "momentum_1m": 0.0151,
+      "momentum_3m": 0.0572,
+      "momentum_6m": 0.0598,
+      "momentum_12m": 0.1851
     },
     "VNQ": {
       "shortName": "Vanguard Real Estate ETF",
@@ -1226,13 +1226,13 @@
       "ytdReturn": 9.29077,
       "threeYearReturn": 0.097931005,
       "fiveYearReturn": 0.0253745,
-      "currentPrice": 97.1,
+      "currentPrice": 96.79,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0001,
-      "momentum_3m": 0.049,
-      "momentum_6m": 0.0979,
-      "momentum_12m": 0.1234
+      "momentum_1m": -0.0031,
+      "momentum_3m": 0.0457,
+      "momentum_6m": 0.0944,
+      "momentum_12m": 0.1183
     },
     "VO": {
       "shortName": "Vanguard Mid-Cap ETF",
@@ -1243,13 +1243,13 @@
       "ytdReturn": 9.23442,
       "threeYearReturn": 0.1699639,
       "fiveYearReturn": 0.080430806,
-      "currentPrice": 78.88,
+      "currentPrice": 78.53,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0087,
-      "momentum_3m": 0.0675,
-      "momentum_6m": 0.0881,
-      "momentum_12m": 0.1688
+      "momentum_1m": 0.0042,
+      "momentum_3m": 0.0627,
+      "momentum_6m": 0.0833,
+      "momentum_12m": 0.1663
     },
     "VOO": {
       "shortName": "Vanguard S&P 500 ETF",
@@ -1260,13 +1260,13 @@
       "ytdReturn": 11.25203,
       "threeYearReturn": 0.22601101,
       "fiveYearReturn": 0.1398042,
-      "currentPrice": 683.53,
+      "currentPrice": 678.0,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0131,
-      "momentum_3m": 0.1087,
-      "momentum_6m": 0.0936,
-      "momentum_12m": 0.2562
+      "momentum_1m": 0.005,
+      "momentum_3m": 0.0998,
+      "momentum_6m": 0.0848,
+      "momentum_12m": 0.2447
     },
     "VOT": {
       "shortName": "Vanguard Mid-Cap Growth ETF",
@@ -1277,13 +1277,13 @@
       "ytdReturn": 7.21186,
       "threeYearReturn": 0.1650704,
       "fiveYearReturn": 0.0702834,
-      "currentPrice": 295.36,
+      "currentPrice": 293.53,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0065,
-      "momentum_3m": 0.0891,
-      "momentum_6m": 0.0411,
-      "momentum_12m": 0.0829
+      "momentum_1m": 0.0003,
+      "momentum_3m": 0.0823,
+      "momentum_6m": 0.0346,
+      "momentum_12m": 0.0798
     },
     "VSS": {
       "shortName": "Vanguard FTSE All-Wld ex-US SmC",
@@ -1294,13 +1294,13 @@
       "ytdReturn": 12.26369,
       "threeYearReturn": 0.17047471,
       "fiveYearReturn": 0.059657797,
-      "currentPrice": 155.68,
+      "currentPrice": 154.39,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0385,
-      "momentum_3m": 0.0372,
-      "momentum_6m": 0.1111,
-      "momentum_12m": 0.2383
+      "momentum_1m": -0.0464,
+      "momentum_3m": 0.0286,
+      "momentum_6m": 0.1018,
+      "momentum_12m": 0.2236
     },
     "VTI": {
       "shortName": "Vanguard Total Stock Market ETF",
@@ -1311,13 +1311,13 @@
       "ytdReturn": 11.44105,
       "threeYearReturn": 0.22266501,
       "fiveYearReturn": 0.1279936,
-      "currentPrice": 366.39,
+      "currentPrice": 363.38,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0125,
-      "momentum_3m": 0.109,
-      "momentum_6m": 0.0951,
-      "momentum_12m": 0.2562
+      "momentum_1m": 0.0042,
+      "momentum_3m": 0.0999,
+      "momentum_6m": 0.0861,
+      "momentum_12m": 0.2448
     },
     "VTV": {
       "shortName": "Vanguard Value ETF",
@@ -1328,13 +1328,13 @@
       "ytdReturn": 11.52527,
       "threeYearReturn": 0.1858015,
       "fiveYearReturn": 0.114162795,
-      "currentPrice": 213.04,
+      "currentPrice": 212.02,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0245,
-      "momentum_3m": 0.0709,
-      "momentum_6m": 0.1298,
-      "momentum_12m": 0.2577
+      "momentum_1m": 0.0196,
+      "momentum_3m": 0.0658,
+      "momentum_6m": 0.1244,
+      "momentum_12m": 0.2511
     },
     "VUG": {
       "shortName": "Vanguard Growth ETF",
@@ -1345,13 +1345,13 @@
       "ytdReturn": 10.30111,
       "threeYearReturn": 0.2604289,
       "fiveYearReturn": 0.15173,
-      "currentPrice": 86.83,
+      "currentPrice": 85.93,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0109,
-      "momentum_3m": 0.1386,
-      "momentum_6m": 0.0616,
-      "momentum_12m": 0.24
+      "momentum_1m": 0.0003,
+      "momentum_3m": 0.1268,
+      "momentum_6m": 0.0506,
+      "momentum_12m": 0.226
     },
     "VWO": {
       "shortName": "Vanguard FTSE Emerging Markets ",
@@ -1362,13 +1362,13 @@
       "ytdReturn": 11.26025,
       "threeYearReturn": 0.1800456,
       "fiveYearReturn": 0.051662102,
-      "currentPrice": 58.4,
+      "currentPrice": 58.03,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0388,
-      "momentum_3m": 0.0721,
-      "momentum_6m": 0.1014,
-      "momentum_12m": 0.2443
+      "momentum_1m": -0.0448,
+      "momentum_3m": 0.0654,
+      "momentum_6m": 0.0945,
+      "momentum_12m": 0.2276
     },
     "VXUS": {
       "shortName": "Vanguard Total International St",
@@ -1379,13 +1379,13 @@
       "ytdReturn": 14.1984,
       "threeYearReturn": 0.19381149,
       "fiveYearReturn": 0.0849767,
-      "currentPrice": 83.74,
+      "currentPrice": 83.03,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.022,
-      "momentum_3m": 0.0749,
-      "momentum_6m": 0.1371,
-      "momentum_12m": 0.2704
+      "momentum_1m": -0.0302,
+      "momentum_3m": 0.0659,
+      "momentum_6m": 0.1275,
+      "momentum_12m": 0.2567
     },
     "VYM": {
       "shortName": "Vanguard High Dividend Yield ET",
@@ -1396,13 +1396,13 @@
       "ytdReturn": 11.56393,
       "threeYearReturn": 0.18863449,
       "fiveYearReturn": 0.1146199,
-      "currentPrice": 158.91,
+      "currentPrice": 158.24,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0125,
-      "momentum_3m": 0.0604,
-      "momentum_6m": 0.1091,
-      "momentum_12m": 0.2492
+      "momentum_1m": 0.0082,
+      "momentum_3m": 0.0559,
+      "momentum_6m": 0.1045,
+      "momentum_12m": 0.2437
     },
     "XLB": {
       "shortName": "State Street Materials Select S",
@@ -1413,13 +1413,13 @@
       "ytdReturn": 13.36295,
       "threeYearReturn": 0.1168921,
       "fiveYearReturn": 0.0533776,
-      "currentPrice": 50.81,
+      "currentPrice": 50.63,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0306,
-      "momentum_3m": 0.0235,
-      "momentum_6m": 0.1528,
-      "momentum_12m": 0.1802
+      "momentum_1m": -0.034,
+      "momentum_3m": 0.02,
+      "momentum_6m": 0.1488,
+      "momentum_12m": 0.1683
     },
     "XLE": {
       "shortName": "State Street Energy Select Sect",
@@ -1430,13 +1430,13 @@
       "ytdReturn": 26.71044,
       "threeYearReturn": 0.1746854,
       "fiveYearReturn": 0.2042209,
-      "currentPrice": 57.99,
+      "currentPrice": 57.67,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0175,
-      "momentum_3m": 0.0319,
-      "momentum_6m": 0.2822,
-      "momentum_12m": 0.4352
+      "momentum_1m": 0.0118,
+      "momentum_3m": 0.0261,
+      "momentum_6m": 0.275,
+      "momentum_12m": 0.4245
     },
     "XLF": {
       "shortName": "State Street Financial Select S",
@@ -1447,13 +1447,13 @@
       "ytdReturn": -5.34472,
       "threeYearReturn": 0.1863398,
       "fiveYearReturn": 0.0815074,
-      "currentPrice": 52.22,
+      "currentPrice": 52.3,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0074,
-      "momentum_3m": 0.038,
-      "momentum_6m": -0.0163,
-      "momentum_12m": 0.0342
+      "momentum_1m": 0.0089,
+      "momentum_3m": 0.0395,
+      "momentum_6m": -0.0149,
+      "momentum_12m": 0.0413
     },
     "XLI": {
       "shortName": "State Street Industrial Select ",
@@ -1464,13 +1464,13 @@
       "ytdReturn": 11.95679,
       "threeYearReturn": 0.2219782,
       "fiveYearReturn": 0.1252611,
-      "currentPrice": 175.05,
+      "currentPrice": 174.18,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0103,
-      "momentum_3m": 0.033,
-      "momentum_6m": 0.1422,
-      "momentum_12m": 0.2241
+      "momentum_1m": -0.0152,
+      "momentum_3m": 0.0278,
+      "momentum_6m": 0.1366,
+      "momentum_12m": 0.2191
     },
     "XLK": {
       "shortName": "State Street Technology Select ",
@@ -1481,13 +1481,13 @@
       "ytdReturn": 32.85584,
       "threeYearReturn": 0.331959,
       "fiveYearReturn": 0.23441759,
-      "currentPrice": 182.76,
+      "currentPrice": 180.3,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0749,
-      "momentum_3m": 0.3329,
-      "momentum_6m": 0.2639,
-      "momentum_12m": 0.5422
+      "momentum_1m": 0.0604,
+      "momentum_3m": 0.3149,
+      "momentum_6m": 0.2469,
+      "momentum_12m": 0.5141
     },
     "XLP": {
       "shortName": "State Street Consumer Staples S",
@@ -1498,13 +1498,13 @@
       "ytdReturn": 7.3569,
       "threeYearReturn": 0.0653595,
       "fiveYearReturn": 0.055137,
-      "currentPrice": 83.76,
+      "currentPrice": 83.44,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0057,
-      "momentum_3m": -0.0181,
-      "momentum_6m": 0.0771,
-      "momentum_12m": 0.0537
+      "momentum_1m": -0.0095,
+      "momentum_3m": -0.0218,
+      "momentum_6m": 0.073,
+      "momentum_12m": 0.0511
     },
     "XLRE": {
       "shortName": "State Street Real Estate Select",
@@ -1515,13 +1515,13 @@
       "ytdReturn": 9.7446,
       "threeYearReturn": 0.1016099,
       "fiveYearReturn": 0.032706,
-      "currentPrice": 44.85,
+      "currentPrice": 44.7,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0026,
-      "momentum_3m": 0.0528,
-      "momentum_6m": 0.1115,
-      "momentum_12m": 0.1083
+      "momentum_1m": -0.0009,
+      "momentum_3m": 0.0492,
+      "momentum_6m": 0.1077,
+      "momentum_12m": 0.105
     },
     "XLU": {
       "shortName": "State Street Utilities Select S",
@@ -1532,13 +1532,13 @@
       "ytdReturn": 4.80798,
       "threeYearReturn": 0.13929631,
       "fiveYearReturn": 0.093449004,
-      "currentPrice": 44.43,
+      "currentPrice": 44.35,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.028,
-      "momentum_3m": -0.0428,
-      "momentum_6m": 0.0291,
-      "momentum_12m": 0.1256
+      "momentum_1m": -0.0298,
+      "momentum_3m": -0.0445,
+      "momentum_6m": 0.0273,
+      "momentum_12m": 0.1308
     },
     "XLV": {
       "shortName": "State Street Health Care Select",
@@ -1549,13 +1549,13 @@
       "ytdReturn": -2.98696,
       "threeYearReturn": 0.0704529,
       "fiveYearReturn": 0.061821297,
-      "currentPrice": 154.31,
+      "currentPrice": 153.01,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0613,
-      "momentum_3m": 0.0147,
-      "momentum_6m": 0.0034,
-      "momentum_12m": 0.1688
+      "momentum_1m": 0.0523,
+      "momentum_3m": 0.0061,
+      "momentum_6m": -0.0051,
+      "momentum_12m": 0.1609
     },
     "XLY": {
       "shortName": "State Street Consumer Discretio",
@@ -1566,13 +1566,13 @@
       "ytdReturn": 1.46328,
       "threeYearReturn": 0.1523979,
       "fiveYearReturn": 0.0738255,
-      "currentPrice": 116.14,
+      "currentPrice": 114.86,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": -0.0311,
-      "momentum_3m": 0.0169,
-      "momentum_6m": -0.0242,
-      "momentum_12m": 0.1034
+      "momentum_1m": -0.0418,
+      "momentum_3m": 0.0057,
+      "momentum_6m": -0.0349,
+      "momentum_12m": 0.0826
     },
     "XOVR": {
       "shortName": "ERShares Private-Public Crossov",
@@ -1583,13 +1583,13 @@
       "ytdReturn": 1.84539,
       "threeYearReturn": 0.1996011,
       "fiveYearReturn": 0.0625622,
-      "currentPrice": 19.72,
+      "currentPrice": 19.58,
       "beta3Year": null,
       "yield": null,
-      "momentum_1m": 0.0426,
-      "momentum_3m": 0.117,
-      "momentum_6m": -0.0123,
-      "momentum_12m": 0.0756
+      "momentum_1m": 0.0354,
+      "momentum_3m": 0.1093,
+      "momentum_6m": -0.019,
+      "momentum_12m": 0.0729
     }
   }
 }
