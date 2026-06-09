@@ -13,6 +13,7 @@ import CryptoTab from "./CryptoTab";
 import PunditViewsTab from "./PunditViewsTab";
 import DoppelgangerTab from "./DoppelgangerTab";
 import C78QTab from "./C78QTab";
+import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
 
 export interface TabDef {
@@ -34,6 +35,7 @@ export const TABS: TabDef[] = [
   { id: "screener", label: "📋 Quant Screener", component: ScreenerTab },
   { id: "raqp", label: "🎯 RAQP", component: Placeholder("RAQP") },
   { id: "bh", label: "🔥 c78q", component: C78QTab },
+  { id: "mlpred", label: "🔮 ML Predictions", component: MLPredTab },
   { id: "sectors", label: "Sector Overview", component: SectorTab },
   { id: "crypto", label: "₿ Crypto", component: CryptoTab },
   { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
