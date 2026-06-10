@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ScatterChart, Scatter, ZAxis } from "recharts";
@@ -32,13 +33,31 @@ const SECTORS = ["All", "Technology", "Healthcare", "Financial Services", "Consu
   "Basic Materials", "Utilities"];
 
 export default function MLPredTab() {
-  const [data, setData] = useState<MLPred | null>(null);
+  const { rows: universeRows } = useStore();
+  const [raw, setRaw] = useState<MLPred | null>(null);
   const [err, setErr] = useState(false);
   const [sub, setSub] = useState<Sub>("rankings");
 
   useEffect(() => {
-    fetch(`${BASE}/mlpred.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setData).catch(() => setErr(true));
+    fetch(`${BASE}/mlpred.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setRaw).catch(() => setErr(true));
   }, []);
+
+  // Single price source app-wide: the baked daily-refresh universe price.
+  // Targets are monthly model outputs (as-of prediction date). Predicted return
+  // is recomputed LIVE as target/price - 1, so it compresses as a move gets
+  // eaten and expands if price falls below the prediction-date level.
+  const data = useMemo<MLPred | null>(() => {
+    if (!raw) return null;
+    const priceByTicker = new Map<string, number>();
+    for (const u of universeRows) if (u.price != null) priceByTicker.set(u.ticker, u.price);
+    const rows = raw.rows.map((r) => {
+      const livePrice = priceByTicker.get(r.ticker) ?? r.price; // fallback: as-of-prediction price
+      const p3 = livePrice && r.target_3m != null ? r.target_3m / livePrice - 1 : r.pred_3m;
+      const p12 = livePrice && r.target_12m != null ? r.target_12m / livePrice - 1 : r.pred_12m;
+      return { ...r, price: livePrice, pred_3m: p3, pred_12m: p12 };
+    });
+    return { ...raw, rows };
+  }, [raw, universeRows]);
 
   const tabs: [Sub, string][] = [["rankings", "🏆 Rankings"], ["screener", "🔍 Screener"], ["detail", "🔬 Stream Detail"]];
 
@@ -49,8 +68,9 @@ export default function MLPredTab() {
         <p className="text-xs text-[#7C879B]">
           MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run
-          ({(data?.streams_present ?? []).join(", ") || "loading"}). Isotonic per-stream calibration on actual forward
-          returns, compounded by historical R². The 1-month horizon is intentionally excluded (never validated as signal).
+          ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Targets are monthly model outputs (as-of prediction date); prices are the app's daily-baked quotes; predicted
+          returns recompute live as target/price − 1, shrinking as a move gets eaten. Isotonic per-stream calibration
+          on actual forward returns; 1-month horizon intentionally excluded (never validated as signal).
         </p>
       </div>
 
