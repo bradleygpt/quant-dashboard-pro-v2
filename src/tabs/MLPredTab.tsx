@@ -68,7 +68,8 @@ export default function MLPredTab() {
         <p className="text-xs text-[#7C879B]">
           MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run
-          ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Targets are monthly model outputs (as-of prediction date); prices are the app's daily-baked quotes; predicted
+          ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Two engines: P(beat) is the binary classifier's probability of outperforming over 12 months (c78q posterior); targets
+          are the return engine's monthly outputs (as-of prediction date). Prices are the app's daily-baked quotes; predicted
           returns recompute live as target/price − 1, shrinking as a move gets eaten. Isotonic per-stream calibration
           on actual forward returns; 1-month horizon intentionally excluded (never validated as signal).
         </p>
@@ -131,7 +132,7 @@ function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
   return (
     <div className="overflow-auto rounded-lg border border-[#1E2632]">
       <table className="w-full text-sm">
-        <thead><tr>{["#", "Ticker", "Sector", "Price", "Pred Return", "Target", "Bull/Bear", "RSI14"].map((h) =>
+        <thead><tr>{["#", "Ticker", "Sector", "Price", "Pred Return", "Target", "P(beat)", "Bull/Bear", "RSI14"].map((h) =>
           <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
         <tbody>
           {rows.map((r, i) => (
@@ -144,6 +145,7 @@ function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
                 {r[horizon] != null ? fmtPct(r[horizon]! * 100, 1, true) : "—"}
               </td>
               <td className="px-3 py-1.5 text-[#C3CAD7]">{r[target] != null ? fmtMoney(r[target]!) : "—"}</td>
+              <td className="px-3 py-1.5 font-semibold" style={{ color: (r.c78q_post ?? 0) >= 0.6 ? "#00C805" : (r.c78q_post ?? 0) >= 0.4 ? "#FFC107" : "#9CA7BB" }}>{r.c78q_post != null ? `${(r.c78q_post * 100).toFixed(0)}%` : "—"}</td>
               <td className="px-3 py-1.5 text-xs"><span className="text-[#00C805]">{r.n_bull}</span> / <span className="text-[#FF5722]">{r.n_bear}</span></td>
               <td className="px-3 py-1.5 text-[#9CA7BB]">{r.rsi14 != null ? r.rsi14.toFixed(0) : "—"}</td>
             </tr>
@@ -231,6 +233,7 @@ function DetailBlock({ data }: { data: MLPred }) {
               <Metric label="Price" value={row.price != null ? fmtMoney(row.price) : "—"} />
               <Metric label="Pred 3M" value={<span style={{ color: (row.pred_3m ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{row.pred_3m != null ? fmtPct(row.pred_3m * 100, 1, true) : "—"}</span>} />
               <Metric label="Pred 12M" value={<span style={{ color: (row.pred_12m ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{row.pred_12m != null ? fmtPct(row.pred_12m * 100, 1, true) : "—"}</span>} />
+              <Metric label="P(beat, 12m)" value={row.c78q_post != null ? `${(row.c78q_post * 100).toFixed(1)}%` : "—"} hint={row.c78q_rank != null ? `rank ${row.c78q_rank}` : undefined} />
               <Metric label="Streams active" value={row.n_active} />
               <Metric label="Bull / Bear" value={`${row.n_bull} / ${row.n_bear}`} />
               <Metric label="RSI14" value={row.rsi14 != null ? row.rsi14.toFixed(0) : "—"} />
