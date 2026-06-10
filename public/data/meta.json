@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-09T17:40:53",
-  "source_commit": "cc9d60d",
+  "generated_at": "2026-06-10T08:38:48",
+  "source_commit": "993bc24",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -399,9 +399,9 @@
   "floor_meta": {
     "0": {
       "floor": 0,
-      "n_total": 1357,
-      "n_stocks": 1287,
-      "n_etf": 70,
+      "n_total": 1358,
+      "n_stocks": 1289,
+      "n_etf": 69,
       "sectors": [
         "Basic Materials",
         "Communication Services",
@@ -420,8 +420,8 @@
     "1": {
       "floor": 1,
       "n_total": 1280,
-      "n_stocks": 1212,
-      "n_etf": 68,
+      "n_stocks": 1213,
+      "n_etf": 67,
       "sectors": [
         "Basic Materials",
         "Communication Services",
@@ -439,9 +439,9 @@
     },
     "10": {
       "floor": 10,
-      "n_total": 633,
-      "n_stocks": 578,
-      "n_etf": 55,
+      "n_total": 635,
+      "n_stocks": 581,
+      "n_etf": 54,
       "sectors": [
         "Basic Materials",
         "Communication Services",
