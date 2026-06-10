@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useRef, useState } from "react";
 import { useStore } from "../store";
 import Hud from "../landing/Hud";
 import {
@@ -25,30 +25,54 @@ export default function LandingDemoTab() {
   const [chaos, setChaos] = useState<number>(() => computeChaos());
   const [hover, setHover] = useState<HoverState | null>(null);
   const [nav, setNav] = useState<PlanetDef | null>(null);
+  const [flying, setFlying] = useState(false);
+  const flyTimer = useRef<number | null>(null);
 
   const onHover = (def: PlanetDef | null, x: number, y: number) =>
     setHover(def ? { def, x, y } : null);
 
+  // click = camera fly-toward + fade, then the mock nav overlay resolves.
+  const onSelect = (def: PlanetDef) => {
+    setHover(null);
+    setFlying(true);
+    if (flyTimer.current) window.clearTimeout(flyTimer.current);
+    flyTimer.current = window.setTimeout(() => setNav(def), 620);
+  };
+
+  const closeNav = () => {
+    setNav(null);
+    setFlying(false);
+  };
+
   return (
     // fixed full-bleed so the experience reads cinematic, not boxed in a tab pane.
     <div className="fixed inset-0 z-50 overflow-hidden bg-[#04060b]">
-      <Suspense
-        fallback={
-          <div className="flex h-full w-full items-center justify-center">
-            <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#7C879B]">
-              initializing system…
-            </span>
-          </div>
-        }
+      <div
+        className="h-full w-full transition-all duration-[620ms] ease-in"
+        style={{
+          transform: flying ? "scale(1.22)" : "scale(1)",
+          opacity: flying ? 0 : 1,
+          filter: flying ? "blur(3px)" : "none",
+        }}
       >
-        <Scene
-          chaos={chaos}
-          marketStateKey={marketKey}
-          hoveredId={hover?.def.tabId ?? null}
-          onHover={onHover}
-          onSelect={(def) => setNav(def)}
-        />
-      </Suspense>
+        <Suspense
+          fallback={
+            <div className="flex h-full w-full items-center justify-center">
+              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#7C879B]">
+                initializing system…
+              </span>
+            </div>
+          }
+        >
+          <Scene
+            chaos={chaos}
+            marketStateKey={marketKey}
+            hoveredId={hover?.def.tabId ?? null}
+            onHover={onHover}
+            onSelect={onSelect}
+          />
+        </Suspense>
+      </div>
 
       <Hud
         chaos={chaos}
@@ -59,7 +83,7 @@ export default function LandingDemoTab() {
         era={ERA(chaos)}
         hover={hover}
         nav={nav}
-        onCloseNav={() => setNav(null)}
+        onCloseNav={closeNav}
         onExit={() => setActiveTab("home")}
       />
     </div>
