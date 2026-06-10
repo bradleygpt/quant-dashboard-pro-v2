@@ -1,0 +1,178 @@
+import { SYSTEM_STATUS, SUNS, LIGHTING, MARKET_ORDER, type MarketStateKey, type PlanetDef } from "./mockData";
+
+interface HoverState {
+  def: PlanetDef;
+  x: number;
+  y: number;
+}
+
+interface Props {
+  chaos: number;
+  setChaos: (v: number) => void;
+  resetChaos: () => void;
+  marketKey: MarketStateKey;
+  setMarketKey: (k: MarketStateKey) => void;
+  era: string;
+  hover: HoverState | null;
+  nav: PlanetDef | null;
+  onCloseNav: () => void;
+  onExit: () => void;
+}
+
+const micro = "text-[10px] uppercase tracking-[0.22em] text-[#7C879B]";
+const rule = "h-px w-full bg-gradient-to-r from-[#1E2632] to-transparent";
+
+export default function Hud(props: Props) {
+  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, hover, nav, onCloseNav, onExit } = props;
+  const s = SYSTEM_STATUS;
+  const pnl = s.c78q.pnl;
+
+  return (
+    <div className="pointer-events-none absolute inset-0 select-none font-mono text-[#C3CAD7]">
+      {/* ---------- title + era (top-left) ---------- */}
+      <div className="absolute left-6 top-5">
+        <div className="flex items-baseline gap-3">
+          <h1 className="text-[22px] font-semibold tracking-[0.42em] text-[#DCE3EE]">TRISOLARIS</h1>
+          <span className={micro}>three-body solar system</span>
+        </div>
+        <div className="mt-1.5 flex items-center gap-2">
+          <span
+            className={`text-[11px] tracking-[0.28em] ${era === "CHAOTIC ERA" ? "text-[#FF9800]" : "text-[#5BA8FF]"}`}
+          >
+            {era}
+          </span>
+          <span className={micro}>chaos {chaos.toFixed(2)}</span>
+        </div>
+        <div className="mt-3 w-56">
+          <div className={rule} />
+        </div>
+      </div>
+
+      {/* ---------- status strip (top-right) ---------- */}
+      <div className="absolute right-6 top-5 text-right">
+        <div className="flex justify-end gap-6 tabular-nums">
+          <Stat label="PIPELINE" value={s.bake.fresh ? "FRESH" : "STALE"} tone={s.bake.fresh ? "#00C805" : "#FF5722"} />
+          <Stat label="PPI" value={`${s.ppi.score} ${s.ppi.level}`} tone="#FF9800" />
+          <Stat label="c78q P&L" value={`${pnl >= 0 ? "+" : ""}${pnl.toFixed(1)}%`} tone={pnl >= 0 ? "#00C805" : "#FF5722"} />
+        </div>
+        <div className="mt-3 ml-auto w-56">
+          <div className={rule} style={{ transform: "scaleX(-1)" }} />
+        </div>
+        <button
+          onClick={onExit}
+          className="pointer-events-auto mt-3 text-[10px] uppercase tracking-[0.22em] text-[#7C879B] transition hover:text-[#C3CAD7]"
+        >
+          exit demo ✕
+        </button>
+      </div>
+
+      {/* ---------- legend: the three engines (bottom-left) ---------- */}
+      <div className="absolute bottom-6 left-6">
+        <div className={`${micro} mb-2`}>three suns · core engines</div>
+        <div className="space-y-1.5">
+          {SUNS.map((sun) => (
+            <div key={sun.id} className="flex items-center gap-2.5">
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ background: sun.color, boxShadow: `0 0 8px ${sun.color}` }}
+              />
+              <span className="text-[11px] tracking-[0.14em] text-[#C3CAD7]">{sun.name}</span>
+              <span className={micro}>{sun.role}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ---------- controls (bottom-right) ---------- */}
+      <div className="pointer-events-auto absolute bottom-6 right-6 w-[260px]">
+        <div className={`${micro} mb-2`}>market clock</div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {MARKET_ORDER.map((k) => {
+            const active = k === marketKey;
+            return (
+              <button
+                key={k}
+                onClick={() => setMarketKey(k)}
+                className={`rounded-sm border px-2 py-1.5 text-left text-[10px] uppercase tracking-[0.16em] transition ${
+                  active
+                    ? "border-[#5BA8FF]/60 bg-[#5BA8FF]/10 text-[#DCE3EE]"
+                    : "border-[#1E2632] text-[#7C879B] hover:border-[#2A3545] hover:text-[#9CA7BB]"
+                }`}
+              >
+                {LIGHTING[k].label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-4 flex items-center justify-between">
+          <span className={micro}>chaos</span>
+          <button onClick={resetChaos} className={`${micro} transition hover:text-[#C3CAD7]`}>
+            reset → {(SYSTEM_STATUS.ppi.score / 100).toFixed(2)}
+          </button>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={chaos}
+          onChange={(e) => setChaos(parseFloat(e.target.value))}
+          className="mt-1.5 w-full accent-[#5BA8FF]"
+        />
+        <div className={`${micro} mt-1 flex justify-between`}>
+          <span>stable</span>
+          <span>chaotic</span>
+        </div>
+      </div>
+
+      {/* ---------- hover tooltip ---------- */}
+      {hover && (
+        <div
+          className="absolute z-10 -translate-y-1/2 rounded-sm border border-[#1E2632] bg-[#05070d]/85 px-3 py-2 backdrop-blur-sm"
+          style={{ left: Math.min(hover.x + 18, window.innerWidth - 220), top: hover.y }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: hover.def.accent }} />
+            <span className="text-[12px] tracking-[0.12em] text-[#DCE3EE]">{hover.def.name}</span>
+          </div>
+          <div className="mt-1 text-[10px] tracking-[0.06em] text-[#9CA7BB] tabular-nums">{hover.def.status}</div>
+        </div>
+      )}
+
+      {/* ---------- mock nav overlay (click = fly-to) ---------- */}
+      {nav && (
+        <div className="pointer-events-auto absolute inset-0 flex items-center justify-center bg-[#04060b]/70 backdrop-blur-[2px]">
+          <div className="w-[340px] rounded-md border border-[#1E2632] bg-[#0F1420]/90 p-6 text-center">
+            <div className={micro}>fly-to · mock navigation</div>
+            <div className="mt-2 flex items-center justify-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full" style={{ background: nav.accent, boxShadow: `0 0 8px ${nav.accent}` }} />
+              <h2 className="text-[16px] tracking-[0.18em] text-[#DCE3EE]">{nav.name}</h2>
+            </div>
+            <p className="mt-2 text-[11px] tracking-[0.06em] text-[#9CA7BB] tabular-nums">{nav.status}</p>
+            <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-[#7C879B]">
+              would route to tab · {nav.tabId}
+            </p>
+            <button
+              onClick={onCloseNav}
+              className="mt-5 rounded-sm border border-[#2A3545] px-4 py-1.5 text-[10px] uppercase tracking-[0.2em] text-[#C3CAD7] transition hover:border-[#5BA8FF]/60 hover:bg-[#5BA8FF]/10"
+            >
+              ← back to system
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Stat({ label, value, tone }: { label: string; value: string; tone: string }) {
+  return (
+    <div>
+      <div className={micro}>{label}</div>
+      <div className="mt-0.5 text-[12px] tracking-[0.08em]" style={{ color: tone }}>
+        {value}
+      </div>
+    </div>
+  );
+}

@@ -15,6 +15,7 @@ import DoppelgangerTab from "./DoppelgangerTab";
 import C78QTab from "./C78QTab";
 import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
+import LandingDemoTab from "./LandingDemoTab";
 
 export interface TabDef {
   id: string;
@@ -41,4 +42,6 @@ export const TABS: TabDef[] = [
   { id: "etfs", label: "ETF Center", component: ETFTab },
   { id: "voices", label: "🎤 Pundit Views", component: PunditViewsTab },
   { id: "help", label: "📖 Help", component: HelpTab },
+  // registered LAST — self-contained cinematic landing demo (mock data only)
+  { id: "landing-demo", label: "✦ Landing Demo", component: LandingDemoTab },
 ];
