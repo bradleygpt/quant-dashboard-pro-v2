@@ -23,7 +23,7 @@ const LEVELS: Level[] = ["Validated TOP-25", "Conservative", "Balanced", "Aggres
 const POS_BY_LEVEL: Record<Level, number> = { "Validated TOP-25": 25, Conservative: 30, Balanced: 20, Aggressive: 12 };
 const DONUT = ["#3B82F6", "#00C805", "#F7931A", "#9B59B6", "#FF9800", "#5DADE2", "#E74C3C", "#FFC107", "#1ABC9C", "#E91E63", "#8BC34A"];
 
-interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; headline?: { quant_total_pct?: number; spy_total_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number }[] }
+interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
 
 // Static validated 3-period × preset CAGR table (app.py, 121 quarterly rebalances 1996-2026)
 const CAGR_TABLE = {
@@ -142,14 +142,21 @@ export default function QuantPortfolioTab() {
         </div>
       </Card>
 
-      {/* ── Validated cumulative-growth chart (quant vs SPY) ── */}
-      {bt && curve.length > 1 && (
-        <Card title="📈 Validated Backtest: Quant Strategy vs SPY" sub="Cumulative growth of $100, compounded per checkpoint. Real point-in-time SEC EDGAR fundamentals; top picks per quarter.">
+      {/* ── Realistic swing equity curve vs REAL buy-&-hold SPY (distinct from the TOP-25 table) ── */}
+      {bt && curve.length > 1 && (() => {
+        const buyhold = bt.spy_source === "buyhold_yahoo_v8";
+        const alphaCagr = h?.quant_cagr_pct != null && h?.spy_cagr_pct != null ? h.quant_cagr_pct - h.spy_cagr_pct : null;
+        return (
+        <Card title="📉 Realistic Swing Backtest: Strategy vs Buy-&-Hold SPY"
+          sub={`Cumulative growth of $100. ${bt.strategy_label ?? "Realistic swing strategy"}, monthly checkpoints${bt.populated_range ? ` ${bt.populated_range[0].slice(0, 7)} → ${bt.populated_range[1].slice(0, 7)}` : ""}. This is a stricter, after-cost record — NOT the validated TOP-25 quarterly strategy in the table above.`}>
+          <div className="mb-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-3 py-2 text-[11px] leading-relaxed text-[#D8B878]">
+            ⚠️ Different strategy from the table above. This is the <strong>realistic top-10 swing</strong> floor (≈63-day holds, after costs) — it intentionally trails buy-&-hold SPY here. The validated <strong>TOP-25 quarterly</strong> record (CAGR table above) is the headline strategy; its full 1996–2026 equity series is regenerated upstream and will replace this curve once bundled.
+          </div>
           {h && (
             <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Metric label="Quant Strategy" value={<span className="text-[#00C805]">{h.quant_total_pct != null ? `+${h.quant_total_pct.toFixed(0)}%` : "—"}</span>} hint={h.quant_total_pct != null ? `$100 → $${(100 + h.quant_total_pct).toFixed(0)}` : undefined} />
-              <Metric label="SPY Benchmark" value={h.spy_total_pct != null ? `${h.spy_total_pct >= 0 ? "+" : ""}${h.spy_total_pct.toFixed(0)}%` : "—"} hint={h.spy_total_pct != null ? `$100 → $${(100 + h.spy_total_pct).toFixed(0)}` : undefined} />
-              <Metric label="Outperformance" value={h.quant_total_pct != null && h.spy_total_pct != null ? `+${(h.quant_total_pct - h.spy_total_pct).toFixed(0)}%` : "—"} hint="absolute" />
+              <Metric label="Realistic Strategy" value={<span className="text-[#00C805]">{h.quant_total_pct != null ? `${h.quant_total_pct >= 0 ? "+" : ""}${h.quant_total_pct.toFixed(0)}%` : "—"}</span>} hint={h.quant_total_pct != null ? `$100 → $${(100 + h.quant_total_pct).toFixed(0)}${h.quant_cagr_pct != null ? ` · ${h.quant_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
+              <Metric label="SPY (buy & hold)" value={h.spy_total_pct != null ? `${h.spy_total_pct >= 0 ? "+" : ""}${h.spy_total_pct.toFixed(0)}%` : "—"} hint={h.spy_total_pct != null ? `$100 → $${(100 + h.spy_total_pct).toFixed(0)}${h.spy_cagr_pct != null ? ` · ${h.spy_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
+              <Metric label="Alpha (CAGR)" value={alphaCagr != null ? <span className={alphaCagr >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}>{alphaCagr >= 0 ? "+" : ""}{alphaCagr.toFixed(1)}%</span> : "—"} hint="vs buy & hold" />
               <Metric label="Win Rate" value={h.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"} hint={h.n_periods != null ? `${h.n_periods} periods` : undefined} />
             </div>
           )}
@@ -160,17 +167,19 @@ export default function QuantPortfolioTab() {
               <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={48} tickFormatter={(v) => `$${v.toFixed(0)}`} />
               <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${v.toFixed(0)}`, n]} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line type="monotone" dataKey="quant" stroke="#00C805" dot={false} strokeWidth={2} name="Quant Strategy" />
-              <Line type="monotone" dataKey="spy" stroke="#7C879B" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="SPY Benchmark" />
+              <Line type="monotone" dataKey="quant" stroke="#00C805" dot={false} strokeWidth={2} name="Realistic Strategy" />
+              <Line type="monotone" dataKey="spy" stroke="#7C879B" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="SPY (buy & hold)" connectNulls />
             </LineChart>
           </ResponsiveContainer>
           <div className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-            Data source: <code className="text-[#9CA7BB]">{bt.source_file}</code> · {bt.n_checkpoints} checkpoints
-            {bt.populated_range ? `, returns populated ${bt.populated_range[0]} → ${bt.populated_range[1]} (${bt.n_populated} checkpoints)` : ""}.
-            The headline 30-year record is the validated CAGR table above; this curve reflects the checkpoints with populated returns in the in-repo backtest record (the full 1996–2026 equity series is not bundled in the public repo). Survivorship bias, sparse pre-2009 data, and no transaction costs apply.
+            Source: <code className="text-[#9CA7BB]">{bt.source_file}</code> · {bt.n_checkpoints} checkpoints
+            {bt.populated_range ? `, returns populated ${bt.populated_range[0]} → ${bt.populated_range[1]} (${bt.n_populated} populated)` : ""}.
+            SPY line = {buyhold ? <>true <strong className="text-[#9CA7BB]">buy-&-hold</strong> from the app's Yahoo v8 feed{bt.spy_asof ? `, as-of ${bt.spy_asof}` : ""}</> : <span className="text-[#FF9800]">approximate (overlapping per-checkpoint returns — live buy-&-hold fetch unavailable at bake time)</span>}.
+            Survivorship bias, sparse pre-2009 data, and modeled costs apply.
           </div>
         </Card>
-      )}
+        );
+      })()}
 
       {/* ── Validated strategy summary (preset metrics) ── */}
       {presetInfo && (
