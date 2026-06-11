@@ -1,7 +1,12 @@
-import { SYSTEM_STATUS, SUNS, LIGHTING, MARKET_ORDER, type MarketStateKey, type PlanetDef } from "./mockData";
+import { SYSTEM_STATUS, SUNS, LIGHTING, MARKET_ORDER, isDaylight, type MarketStateKey, type PlanetDef, type SunDef } from "./mockData";
 
 interface HoverState {
   def: PlanetDef;
+  x: number;
+  y: number;
+}
+interface SunHoverState {
+  def: SunDef;
   x: number;
   y: number;
 }
@@ -14,6 +19,7 @@ interface Props {
   setMarketKey: (k: MarketStateKey) => void;
   era: string;
   hover: HoverState | null;
+  sunHover: SunHoverState | null;
   nav: PlanetDef | null;
   onCloseNav: () => void;
   onExit: () => void;
@@ -23,17 +29,23 @@ const micro = "text-[10px] uppercase tracking-[0.22em] text-[#7C879B]";
 const rule = "h-px w-full bg-gradient-to-r from-[#1E2632] to-transparent";
 
 export default function Hud(props: Props) {
-  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, hover, nav, onCloseNav, onExit } = props;
+  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, hover, sunHover, nav, onCloseNav, onExit } = props;
   const s = SYSTEM_STATUS;
   const pnl = s.c78q.pnl;
+
+  // On the daylight (Market Open) background the light HUD ink would wash out, so
+  // each cluster gets a translucent dark scrim that keeps the existing palette
+  // legible. Night states keep the bare-on-void look.
+  const daylight = isDaylight(marketKey);
+  const scrim = daylight ? "rounded-md bg-[#070b12]/55 px-3 py-2.5 backdrop-blur-[2px] ring-1 ring-white/10" : "";
 
   return (
     <div className="pointer-events-none absolute inset-0 select-none font-mono text-[#C3CAD7]">
       {/* ---------- title + era (top-left) ---------- */}
-      <div className="absolute left-6 top-5">
+      <div className={`absolute left-6 top-5 ${scrim}`}>
         <div className="flex items-baseline gap-3">
-          <h1 className="text-[22px] font-semibold tracking-[0.42em] text-[#DCE3EE]">TRISOLARIS</h1>
-          <span className={micro}>three-body solar system</span>
+          <h1 className="text-[22px] font-semibold tracking-[0.42em] text-[#DCE3EE]">TRI-STAR</h1>
+          <span className={micro}>three-sun gravitational system</span>
         </div>
         <div className="mt-1.5 flex items-center gap-2">
           <span
@@ -48,8 +60,8 @@ export default function Hud(props: Props) {
         </div>
       </div>
 
-      {/* ---------- status strip (top-right) ---------- */}
-      <div className="absolute right-6 top-5 text-right">
+      {/* ---------- status strip (top-right): pipeline/PPI/c78q ---------- */}
+      <div className={`absolute right-6 top-5 text-right ${scrim}`}>
         <div className="flex justify-end gap-6 tabular-nums">
           <Stat label="PIPELINE" value={s.bake.fresh ? "FRESH" : "STALE"} tone={s.bake.fresh ? "#00C805" : "#FF5722"} />
           <Stat label="PPI" value={`${s.ppi.score} ${s.ppi.level}`} tone="#FF9800" />
@@ -67,7 +79,7 @@ export default function Hud(props: Props) {
       </div>
 
       {/* ---------- legend: the three engines (bottom-left) ---------- */}
-      <div className="absolute bottom-6 left-6">
+      <div className={`absolute bottom-6 left-6 ${scrim}`}>
         <div className={`${micro} mb-2`}>three suns · core engines</div>
         <div className="space-y-1.5">
           {SUNS.map((sun) => (
@@ -84,7 +96,7 @@ export default function Hud(props: Props) {
       </div>
 
       {/* ---------- controls (bottom-right) ---------- */}
-      <div className="pointer-events-auto absolute bottom-6 right-6 w-[260px]">
+      <div className={`pointer-events-auto absolute bottom-6 right-6 w-[260px] ${scrim}`}>
         <div className={`${micro} mb-2`}>market clock</div>
         <div className="grid grid-cols-2 gap-1.5">
           {MARKET_ORDER.map((k) => {
@@ -121,12 +133,12 @@ export default function Hud(props: Props) {
           className="mt-1.5 w-full accent-[#5BA8FF]"
         />
         <div className={`${micro} mt-1 flex justify-between`}>
-          <span>stable</span>
-          <span>chaotic</span>
+          <span>stable · separated</span>
+          <span>chaotic · converged</span>
         </div>
       </div>
 
-      {/* ---------- hover tooltip ---------- */}
+      {/* ---------- planet hover tooltip ---------- */}
       {hover && (
         <div
           className="absolute z-10 -translate-y-1/2 rounded-sm border border-[#1E2632] bg-[#05070d]/85 px-3 py-2 backdrop-blur-sm"
@@ -137,6 +149,22 @@ export default function Hud(props: Props) {
             <span className="text-[12px] tracking-[0.12em] text-[#DCE3EE]">{hover.def.name}</span>
           </div>
           <div className="mt-1 text-[10px] tracking-[0.06em] text-[#9CA7BB] tabular-nums">{hover.def.status}</div>
+        </div>
+      )}
+
+      {/* ---------- sun hover tooltip (ambient status, no navigation) ---------- */}
+      {sunHover && (
+        <div
+          className="absolute z-10 -translate-y-1/2 rounded-sm border border-[#1E2632] bg-[#05070d]/85 px-3 py-2 backdrop-blur-sm"
+          style={{ left: Math.min(sunHover.x + 18, window.innerWidth - 240), top: sunHover.y }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-2 w-2 rounded-full" style={{ background: sunHover.def.color, boxShadow: `0 0 8px ${sunHover.def.color}` }} />
+            <span className="text-[12px] tracking-[0.16em] text-[#DCE3EE]">{sunHover.def.name}</span>
+            <span className={micro}>engine</span>
+          </div>
+          <div className="mt-1 text-[10px] tracking-[0.06em] text-[#9CA7BB]">{sunHover.def.role}</div>
+          <div className="mt-0.5 text-[10px] tracking-[0.06em] text-[#7C879B] tabular-nums">{sunHover.def.status}</div>
         </div>
       )}
 

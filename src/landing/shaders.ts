@@ -1,4 +1,4 @@
-// Custom materials for the Trisolaris landing. Suns are layered ADDITIVE glow
+// Custom materials for the tri-star landing. Suns are layered ADDITIVE glow
 // (bright core + limb corona + far halo) — never MeshBasicMaterial balls.
 // Planets are near-silhouettes lit only by a thin Fresnel rim that catches the
 // suns. Bloom + ACES tone mapping in the post chain do the heavy lifting.
