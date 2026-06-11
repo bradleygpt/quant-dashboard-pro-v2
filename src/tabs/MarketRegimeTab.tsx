@@ -28,8 +28,17 @@ interface Market {
   vix?: { ok: boolean; current?: number; level?: string; score?: number; percentile?: number; avg_1y?: number };
   yields?: { ok: boolean; y10?: number; y2?: number; spread?: number };
   buffett?: { ok: boolean; ratio?: number; level?: string; score?: number };
-  pgi?: { ok: boolean; pgi?: number; level?: string; money_market_t?: number; fred_keyless?: boolean };
+  pgi?: { ok: boolean; pgi?: number; level?: string; money_market_t?: number; total_mkt_cap_t?: number; fred_keyless?: boolean };
   dots?: { ok: boolean; median_current_year?: number; median_longer_run?: number };
+}
+interface PgiMM { ok?: boolean; money_market_t?: number; as_of?: string; source?: string; source_desc?: string; fetched_at?: string }
+
+// Quarterly series + publish lag: an as-of older than ~7 months is genuinely stale.
+function staleDays(asOf?: string): number | null {
+  if (!asOf) return null;
+  const t = Date.parse(asOf);
+  if (!isFinite(t)) return null;
+  return Math.floor((Date.now() - t) / 86_400_000);
 }
 interface MarketStatic {
   ok?: boolean;
@@ -42,6 +51,28 @@ export default function MarketRegimeTab() {
   const { rows, loadingUniverse } = useStore();
   const mkt = useLiveData<Market>("/api/market", 25000); // /api/market chain is ~11s (FRED CSV is slow); 12s default raced the abort → spurious "unavailable"
   const stat = useLiveData<MarketStatic>(`${BASE}/market_static.json`);
+  const pgiMM = useLiveData<PgiMM>(`${BASE}/pgi_money_market.json`); // baked real AUM (FRED MMMFFAQ027S) — never frozen
+
+  // PGI money-market AUM: prefer a successful LIVE FRED hit, else the dated baked
+  // value (recompute the % against live total market cap), else a flagged estimate.
+  // The hardcoded constant only surfaces when both real sources are absent.
+  const pgiView = useMemo(() => {
+    const live = mkt.data?.pgi;
+    const baked = pgiMM.data;
+    const totalT = live?.total_mkt_cap_t ?? null;
+    const levelOf = (pct: number | null) => pct == null ? (live?.level ?? "—") : pct > 11.5 ? "Eager to Invest" : pct >= 9.5 ? "Neutral" : "Cautious";
+    if (live?.ok && live.fred_keyless && live.money_market_t != null)
+      return { mmT: live.money_market_t, pct: live.pgi ?? null, level: live.level ?? levelOf(live.pgi ?? null), src: "live" as const, asOf: "live · FRED MMMFFAQ027S", stale: false };
+    if (baked?.ok && baked.money_market_t != null) {
+      const mmT = baked.money_market_t;
+      const pct = totalT && totalT > 0 ? (mmT / totalT) * 100 : (live?.pgi ?? null);
+      const days = staleDays(baked.as_of);
+      return { mmT, pct, level: levelOf(pct), src: "baked" as const, asOf: `FRED MMMFFAQ027S · as-of ${baked.as_of}`, stale: days != null && days > 210 };
+    }
+    if (live?.ok)
+      return { mmT: live.money_market_t ?? null, pct: live.pgi ?? null, level: live.level ?? "—", src: "estimate" as const, asOf: "estimate — live & baked FRED both unavailable", stale: true };
+    return null;
+  }, [mkt.data, pgiMM.data]);
 
   const breadth = useMemo(() => (rows.length ? computeBreadth(rows) : null), [rows]);
   const sp = mkt.data?.indices?.find((i) => i.name === "S&P 500");
@@ -83,13 +114,26 @@ export default function MarketRegimeTab() {
 
       {/* PGI + breadth */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {mkt.status === "ok" && mkt.data?.pgi?.ok && (
-          <Card title="Potential Growth Indicator (PGI)" sub={`Money-market AUM vs total market cap${mkt.data.pgi.fred_keyless ? " · FRED keyless" : " · fallback estimate"}`}>
+        {pgiView && (
+          <Card title="Potential Growth Indicator (PGI)" sub={`Money-market AUM vs total market cap · ${pgiView.asOf}`}>
             <div className="flex items-baseline gap-3">
-              <span className="text-2xl font-bold text-white">{(mkt.data.pgi.pgi ?? 0).toFixed(1)}%</span>
-              <span className="text-sm text-[#9CA7BB]">{mkt.data.pgi.level}</span>
+              <span className="text-2xl font-bold text-white">{pgiView.pct != null ? `${pgiView.pct.toFixed(1)}%` : "—"}</span>
+              <span className="text-sm text-[#9CA7BB]">{pgiView.level}</span>
             </div>
-            <div className="mt-1 text-xs text-[#7C879B]">Money market: ${(mkt.data.pgi.money_market_t ?? 0).toFixed(2)}T dry powder</div>
+            <div className="mt-1 text-xs text-[#7C879B]">
+              Money market: {pgiView.mmT != null ? `$${pgiView.mmT.toFixed(2)}T` : "—"} dry powder
+              {pgiView.pct == null && pgiView.mmT != null ? " · % needs live total market cap" : ""}
+            </div>
+            {pgiView.src === "estimate" && (
+              <div className="mt-2 rounded-md border border-[#5A1F1F] bg-[#1F0E0E] px-2 py-1 text-[11px] text-[#FF8A80]">
+                ⚠️ Hardcoded estimate — both live and baked FRED sources are unavailable. Do not rely on this value.
+              </div>
+            )}
+            {pgiView.src === "baked" && pgiView.stale && (
+              <div className="mt-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-2 py-1 text-[11px] text-[#D8B878]">
+                ⚠️ Stale: latest published FRED observation is {pgiView.asOf.replace("FRED MMMFFAQ027S · as-of ", "")}. Quarterly series — a publish lag is normal, but this is older than expected.
+              </div>
+            )}
           </Card>
         )}
         {breadth && (
