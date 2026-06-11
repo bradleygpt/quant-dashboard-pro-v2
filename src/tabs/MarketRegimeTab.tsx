@@ -150,12 +150,12 @@ export default function MarketRegimeTab() {
 
       {/* macro context (baked) */}
       {stat.status === "ok" && (
-        <Card title="Macro Context" sub={`Updated ${md.last_updated ?? "periodically"}`}>
+        <Card title="Macro Context" sub="CPI & Unemployment verified live vs FRED at bake time; ISM is manual (not published on FRED). Each value carries its own as-of date.">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <Metric label="CPI (YoY)" value={md.cpi_current != null ? `${md.cpi_current}%` : "—"} hint={md.cpi_prior != null ? `${(md.cpi_current - md.cpi_prior) >= 0 ? "+" : ""}${(md.cpi_current - md.cpi_prior).toFixed(1)}% vs prior` : md.cpi_trend} />
-            <Metric label="Unemployment" value={md.unemployment_current != null ? `${md.unemployment_current}%` : "—"} hint={md.unemployment_prior != null ? `${(md.unemployment_current - md.unemployment_prior) >= 0 ? "+" : ""}${(md.unemployment_current - md.unemployment_prior).toFixed(1)}% vs prior` : md.unemployment_trend} />
-            <Metric label="ISM Mfg" value={md.ism_manufacturing ?? "—"} />
-            <Metric label="ISM Svcs" value={md.ism_services ?? "—"} />
+            <Metric label="CPI (YoY)" value={md.cpi_current != null ? `${md.cpi_current}%` : "—"} hint={`${md.cpi_prior != null ? `${(md.cpi_current - md.cpi_prior) >= 0 ? "+" : ""}${(md.cpi_current - md.cpi_prior).toFixed(1)}% vs prior · ` : ""}${md.cpi_asof ? `as-of ${md.cpi_asof.slice(0, 7)}` : md.cpi_trend ?? ""}`} />
+            <Metric label="Unemployment" value={md.unemployment_current != null ? `${md.unemployment_current}%` : "—"} hint={`${md.unemployment_prior != null ? `${(md.unemployment_current - md.unemployment_prior) >= 0 ? "+" : ""}${(md.unemployment_current - md.unemployment_prior).toFixed(1)}% vs prior · ` : ""}${md.unemployment_asof ? `as-of ${md.unemployment_asof.slice(0, 7)}` : md.unemployment_trend ?? ""}`} />
+            <Metric label="ISM Mfg" value={md.ism_manufacturing ?? "—"} hint={md.ism_asof ? `manual · ${md.ism_asof}` : "manual"} />
+            <Metric label="ISM Svcs" value={md.ism_services ?? "—"} hint={md.ism_asof ? `manual · ${md.ism_asof}` : "manual"} />
             <Metric label="Fed Funds" value={md.fed_funds_upper != null ? `${md.fed_funds_lower}–${md.fed_funds_upper}%` : "—"} />
             <Metric label="GDP QoQ" value={md.gdp_latest_qoq_annualized != null ? `${md.gdp_latest_qoq_annualized}%` : "—"} hint={md.gdp_quarter} />
           </div>
@@ -189,6 +189,9 @@ export default function MarketRegimeTab() {
             <Card title="S&P 500 Earnings Forecast" sub="3-factor model (CPI + Unemployment + ISM)">
               <div className="text-2xl font-bold text-white">{fmtPct(ef.sp500_earnings_growth, 1, true)}</div>
               <div className="text-xs text-[#7C879B]">modeled YoY earnings growth</div>
+              <div className="mt-1 text-[10px] leading-relaxed text-[#5C6678]">
+                Inputs: CPI {md.cpi_current ?? "—"}% {md.cpi_source?.startsWith("FRED") ? `(FRED, as-of ${md.cpi_asof?.slice(0, 7) ?? "?"})` : "(static)"} · Unemp {md.unemployment_current ?? "—"}% {md.unemployment_source?.startsWith("FRED") ? `(FRED, as-of ${md.unemployment_asof?.slice(0, 7) ?? "?"})` : "(static)"} · ISM {md.ism_composite ?? "—"} (manual, as-of {md.ism_asof ?? "?"})
+              </div>
               {ef.scenarios && (
                 <table className="mt-2 w-full text-xs">
                   <thead><tr><th className="py-1 text-left text-[#7C879B]">Scenario</th><th className="py-1 text-right text-[#7C879B]">Growth</th><th className="py-1 text-left text-[#7C879B]">CPI/Unemp/ISM</th></tr></thead>
