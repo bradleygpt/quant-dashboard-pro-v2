@@ -56,3 +56,17 @@ export function loadTickerPrices(ticker: string): Promise<PriceSeries | null> {
     priceCache.set(ticker, getJSONOrNull<PriceSeries>(`prices/${shardName(ticker)}.json`));
   return priceCache.get(ticker)!;
 }
+
+// Point-in-time FV/QBP daily series (build_detail_timeseries_v2). Null when the
+// shard is absent, so the chart falls back to flat FV/QBP lines.
+export interface DetailTimeseries {
+  ticker: string; sector: string; n: number;
+  series: { date: string; close: number; fair_value: number | null; buy_point: number | null }[];
+  fv_steps: { date: string; fair_value: number }[];
+}
+const tsCache = new Map<string, Promise<DetailTimeseries | null>>();
+export function loadTickerTimeseries(ticker: string): Promise<DetailTimeseries | null> {
+  if (!tsCache.has(ticker))
+    tsCache.set(ticker, getJSONOrNull<DetailTimeseries>(`detail_timeseries/${shardName(ticker)}.json`));
+  return tsCache.get(ticker)!;
+}

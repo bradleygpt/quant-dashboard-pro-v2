@@ -16,6 +16,7 @@ interface MLRow {
   ret_5d: number | null; ret_21d: number | null; ret_63d: number | null; ret_252d: number | null;
   dd_52wh: number | null;
   streams: Record<string, StreamSig>;
+  price_src?: "live" | "baked" | "asof";
 }
 interface MLPred {
   generated_at?: string;
@@ -42,22 +43,51 @@ export default function MLPredTab() {
     fetch(`${BASE}/mlpred.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setRaw).catch(() => setErr(true));
   }, []);
 
-  // Single price source app-wide: the baked daily-refresh universe price.
-  // Targets are monthly model outputs (as-of prediction date). Predicted return
-  // is recomputed LIVE as target/price - 1, so it compresses as a move gets
-  // eaten and expands if price falls below the prediction-date level.
+  // Price preference: LIVE intraday quote -> baked daily price -> as-of-prediction
+  // price. Predicted return is target/price - 1, so a STALE baked denominator
+  // manufactures fake upside (verified: baked sat ~10-15% below live for the
+  // Healthcare names dominating the top, inflating their returns). Live prices are
+  // fetched only for a bounded candidate pool (the names that can populate the top
+  // tables) so we never fire ~1,180 calls; the rest use baked, labeled.
+  const bakedPrice = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const u of universeRows) if (u.price != null) m.set(u.ticker, u.price);
+    return m;
+  }, [universeRows]);
+
+  const pool = useMemo(() => {
+    if (!raw) return [] as string[];
+    const scored = raw.rows.map((r) => {
+      const p = bakedPrice.get(r.ticker) ?? r.price;
+      const p12 = p && r.target_12m != null ? r.target_12m / p - 1 : (r.pred_12m ?? -99);
+      const p3 = p && r.target_3m != null ? r.target_3m / p - 1 : (r.pred_3m ?? -99);
+      return { t: r.ticker, m: Math.max(p12, p3) };
+    });
+    return scored.sort((a, b) => b.m - a.m).slice(0, 80).map((x) => x.t);
+  }, [raw, bakedPrice]);
+
+  const [live, setLive] = useState<Map<string, number>>(new Map());
+  useEffect(() => {
+    if (!pool.length) return;
+    let alive = true;
+    fetch(`/api/quotes?tickers=${pool.join(",")}`).then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (alive && j?.prices) setLive(new Map(Object.entries(j.prices).map(([k, v]) => [k, Number(v)]))); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [pool]);
+
   const data = useMemo<MLPred | null>(() => {
     if (!raw) return null;
-    const priceByTicker = new Map<string, number>();
-    for (const u of universeRows) if (u.price != null) priceByTicker.set(u.ticker, u.price);
     const rows = raw.rows.map((r) => {
-      const livePrice = priceByTicker.get(r.ticker) ?? r.price; // fallback: as-of-prediction price
-      const p3 = livePrice && r.target_3m != null ? r.target_3m / livePrice - 1 : r.pred_3m;
-      const p12 = livePrice && r.target_12m != null ? r.target_12m / livePrice - 1 : r.pred_12m;
-      return { ...r, price: livePrice, pred_3m: p3, pred_12m: p12 };
+      const lp = live.get(r.ticker), bp = bakedPrice.get(r.ticker);
+      const price = lp ?? bp ?? r.price;
+      const price_src: MLRow["price_src"] = lp != null ? "live" : bp != null ? "baked" : "asof";
+      const p3 = price && r.target_3m != null ? r.target_3m / price - 1 : r.pred_3m;
+      const p12 = price && r.target_12m != null ? r.target_12m / price - 1 : r.pred_12m;
+      return { ...r, price, pred_3m: p3, pred_12m: p12, price_src };
     });
     return { ...raw, rows };
-  }, [raw, universeRows]);
+  }, [raw, bakedPrice, live]);
 
   const tabs: [Sub, string][] = [["rankings", "🏆 Rankings"], ["screener", "🔍 Screener"], ["detail", "🔬 Stream Detail"]];
 
@@ -69,8 +99,9 @@ export default function MLPredTab() {
           MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run
           ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Two engines: P(beat) is the binary classifier's probability of outperforming over 12 months (c78q posterior); targets
-          are the return engine's monthly outputs (as-of prediction date). Prices are the app's daily-baked quotes; predicted
-          returns recompute live as target/price − 1, shrinking as a move gets eaten. Isotonic per-stream calibration
+          are the return engine's monthly outputs (as-of prediction date). Predicted returns recompute as target/price − 1; the
+          top tables prefer the LIVE intraday quote (labeled <span className="text-[#00C805]">live</span>) over the
+          baked daily price (<span className="text-[#FF9800]">bkd</span>) so a stale denominator can't manufacture fake upside. Isotonic per-stream calibration
           on actual forward returns; 1-month horizon intentionally excluded (never validated as signal).
         </p>
       </div>
@@ -140,7 +171,8 @@ function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
               <td className="px-3 py-1.5 text-[#7C879B]">{i + 1}</td>
               <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{r.ticker}</td>
               <td className="px-3 py-1.5 text-xs text-[#9CA7BB]">{r.sector ?? "—"}</td>
-              <td className="px-3 py-1.5">{r.price != null ? fmtMoney(r.price) : "—"}</td>
+              <td className="px-3 py-1.5">{r.price != null ? fmtMoney(r.price) : "—"}
+                {r.price_src && <span title={r.price_src === "live" ? "live intraday quote" : r.price_src === "baked" ? "baked daily price" : "as-of prediction date"} className="ml-1 text-[9px] uppercase" style={{ color: r.price_src === "live" ? "#00C805" : r.price_src === "baked" ? "#FF9800" : "#7C879B" }}>{r.price_src === "live" ? "live" : r.price_src === "baked" ? "bkd" : "asof"}</span>}</td>
               <td className="px-3 py-1.5 font-semibold" style={{ color: (r[horizon] ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>
                 {r[horizon] != null ? fmtPct(r[horizon]! * 100, 1, true) : "—"}
               </td>

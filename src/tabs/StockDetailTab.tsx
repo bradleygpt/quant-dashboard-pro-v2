@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
-import { loadTickerDetail, loadTickerPrices } from "../lib/data";
+import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
 import type { TickerDetail, PriceSeries } from "../lib/types";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, Radar, BarChart, Bar, Cell, ComposedChart } from "recharts";
 import { computeRisk } from "../lib/risk";
@@ -41,6 +41,7 @@ export default function StockDetailTab() {
   const [td, setTd] = useState<TickerDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(true);
   const [series, setSeries] = useState<PriceSeries | null>(null);
+  const [ts, setTs] = useState<DetailTimeseries | null>(null);
   const [query, setQuery] = useState("");
   const [period, setPeriod] = useState("1y");
 
@@ -98,6 +99,8 @@ export default function StockDetailTab() {
     setDetailLoading(true); setTd(null); setSeries(null); setAi({ kind: "", status: "idle" }); // clear stale AI note on ticker change
     loadTickerDetail(floor, ticker).then((d) => { if (live) { setTd(d); setDetailLoading(false); } });
     loadTickerPrices(ticker).then((p) => { if (live) setSeries(p); });
+    setTs(null);
+    loadTickerTimeseries(ticker).then((t) => { if (live) setTs(t); });
     return () => { live = false; };
   }, [ticker, floor]);
 
@@ -114,9 +117,21 @@ export default function StockDetailTab() {
     if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null; fv: number | null; qbp: number | null }[];
     const rsi = rsiSeries(src.close);
     const sma50 = smaSeries(src.close, 50), sma200 = smaSeries(src.close, 200);
-    const fv = row?.fv ?? null, qbp = row?.qbp ?? null;
-    return src.dates.map((d, i) => ({ date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0, rsi: rsi[i], sma50: sma50[i], sma200: sma200[i], fv, qbp }));
-  }, [liveHist, series, row?.fv, row?.qbp]);
+    const flatFv = row?.fv ?? null, flatQbp = row?.qbp ?? null;
+    // Point-in-time FV/QBP per date when the timeseries shard exists; else flat
+    // (today's value across the window). Dates outside the timeseries window also fall back.
+    const tsMap = ts?.series?.length ? new Map(ts.series.map((p) => [p.date, p])) : null;
+    return src.dates.map((d, i) => {
+      const tp = tsMap?.get(d);
+      return {
+        date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0,
+        rsi: rsi[i], sma50: sma50[i], sma200: sma200[i],
+        fv: tp ? (tp.fair_value ?? flatFv) : flatFv,
+        qbp: tp ? (tp.buy_point ?? flatQbp) : flatQbp,
+      };
+    });
+  }, [liveHist, series, ts, row?.fv, row?.qbp]);
+  const usingTimeseries = !!ts?.series?.length;
   const curRsi = useMemo(() => { for (let i = chartData.length - 1; i >= 0; i--) if (chartData[i].rsi != null) return chartData[i].rsi; return null; }, [chartData]);
   const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: "#FF5722" } : curRsi <= 30 ? { t: "Oversold", c: "#00C805" } : { t: "Neutral", c: "#FFC107" };
 
@@ -193,7 +208,7 @@ export default function StockDetailTab() {
 
       {/* price chart */}
       <Card title="Price, Volume & RSI"
-        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. FV/QBP lines always in view.` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
+        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${usingTimeseries ? "Fair Value is a stepped line (re-derived at each filing); Buy Point is a daily line." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
         <div className="mb-2 flex gap-1">
           {PERIODS.map((p) => (
             <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"}`}>{p}</button>
@@ -207,12 +222,20 @@ export default function StockDetailTab() {
                 <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={48} />
                 <YAxis domain={yDomain ?? ["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={(v) => `$${Math.round(v)}`} />
                 <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number, n) => [`$${v.toFixed(2)}`, n]} />
-                {/* FV / QBP as named constant lines (axis labels via ReferenceLine) so the tooltip labels each series correctly */}
-                {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
-                {row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
+                {/* Timeseries: visible stepped FV + daily QBP lines. Flat fallback: a single
+                    horizontal ReferenceLine at today's value (with an invisible line for the tooltip). */}
+                {!usingTimeseries && row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
+                {!usingTimeseries && row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
                 <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} name="Close" />
-                {row.fv && <Line type="monotone" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
-                {row.qbp && <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
+                {usingTimeseries
+                  ? <>
+                      <Line type="stepAfter" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />
+                      <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={1.3} name="Buy Point" connectNulls activeDot={false} />
+                    </>
+                  : <>
+                      {row.fv && <Line type="monotone" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
+                      {row.qbp && <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
+                    </>}
                 {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke="#E8A33D" dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
                 {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke="#FF6B6B" dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
               </LineChart>
