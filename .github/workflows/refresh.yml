@@ -38,7 +38,10 @@ jobs:
 
       - name: Re-bake against fresh caches
         run: |
-          cp -r bake source/bake
+          # Canonical bake = source/bake/bake.py (cloned from the source repo); it
+          # os.chdir(ROOT)+sys.path.insert(ROOT) to resolve its deps from source/.
+          # (Formerly `cp -r bake source/bake` copied a v2 bake/ in, but that copy
+          # was a stale, unused divergence — removed along with web/bake/.)
           cd source && python bake/bake.py        # writes source/web/public/data
 
       - name: Sync refreshed data into this repo (non-destructive)
