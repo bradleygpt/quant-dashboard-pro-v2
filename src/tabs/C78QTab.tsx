@@ -173,6 +173,20 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
 function DeployedBlock({ data }: { data: C78q }) {
   const t = data.target, s = data.state, wpp = data.spec?.weight_per_position ?? 0.125;
   const cap = s?.capital ?? data.spec?.capital_default ?? 25000;
+  // Live-preferred deployment prices: the c78q ledger's current_price is a static
+  // ETL snapshot frozen at the deploy date (stale_mark), so "current"/gains read 0%.
+  // Prefer a live intraday quote (batched keyless /api/quotes) so this Live Deployment
+  // view reflects today; fall back to the baked snapshot, labeled per row.
+  const posTickers = useMemo(() => (s?.positions ?? []).map((p) => p.ticker), [s]);
+  const [livePx, setLivePx] = useState<Map<string, number>>(new Map());
+  useEffect(() => {
+    if (!posTickers.length) return;
+    let on = true;
+    fetch(`/api/quotes?tickers=${posTickers.join(",")}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+      if (on && j?.prices) setLivePx(new Map(Object.entries(j.prices as Record<string, number>)));
+    }).catch(() => {});
+    return () => { on = false; };
+  }, [posTickers]);
   return (
     <div className="space-y-4">
       <Card title="Current Monthly Target" sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
@@ -198,7 +212,7 @@ function DeployedBlock({ data }: { data: C78q }) {
       </Card>
 
       {s?.mode === "deployed" ? (
-        <Card title="Live Deployment State" sub={`Deployed ${s.deployed_date} · scale-in ${s.scale_in_pct}% · next rebalance ${s.next_rebalance}`}>
+        <Card title="Live Deployment State" sub={`Deployed ${s.deployed_date} · scale-in ${s.scale_in_pct}% · next rebalance ${s.next_rebalance}. Current = live intraday quote when available (else baked snapshot, labeled).`}>
           <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Metric label="Capital" value={fmtMoney(s.capital ?? 0, 0)} />
             <Metric label="Scale-in" value={`${s.scale_in_pct}%`} />
@@ -211,15 +225,20 @@ function DeployedBlock({ data }: { data: C78q }) {
                 <thead><tr>{["Ticker", "Shares", "Entry", "Current", "Gain", "Value"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
                 <tbody>
                   {s.positions.map((p) => {
-                    const gain = p.entry_price > 0 ? (p.current_price / p.entry_price - 1) * 100 : 0;
+                    const lq = livePx.get(p.ticker);
+                    const cur = lq ?? p.current_price;
+                    const isLive = lq != null;
+                    const gain = p.entry_price > 0 ? (cur / p.entry_price - 1) * 100 : 0;
                     return (
                       <tr key={p.ticker} className="border-t border-[#161D29]">
                         <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{p.ticker}</td>
                         <td className="px-3 py-1.5">{p.shares}</td>
                         <td className="px-3 py-1.5">{fmtMoney(p.entry_price)}</td>
-                        <td className="px-3 py-1.5">{fmtMoney(p.current_price)}{p.stale_mark ? <span className="ml-1 text-[10px] text-[#7C879B]">(stale)</span> : null}</td>
+                        <td className="px-3 py-1.5">{fmtMoney(cur)}
+                          <span className={`ml-1 text-[10px] ${isLive ? "text-[#00C805]" : "text-[#7C879B]"}`}>{isLive ? "live" : "stale"}</span>
+                        </td>
                         <td className="px-3 py-1.5 font-semibold" style={{ color: gain >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(gain, 1, true)}</td>
-                        <td className="px-3 py-1.5">{fmtMoney(p.shares * p.current_price, 0)}</td>
+                        <td className="px-3 py-1.5">{fmtMoney(p.shares * cur, 0)}</td>
                       </tr>
                     );
                   })}
