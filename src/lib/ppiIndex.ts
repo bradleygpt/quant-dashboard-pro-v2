@@ -10,8 +10,11 @@ export const PPI_WEIGHTS = {
 } as const;
 type Key = keyof typeof PPI_WEIGHTS;
 
+// Labels name what each component MEASURES (higher component score = more pullback
+// pressure), not the raw indicator — e.g. "RSI-14 sustained 10" misread as an RSI
+// value; it's the count of days RSI14>70 in the last 10 (overbought persistence).
 const NICE: Record<Key, string> = {
-  mri: "MRI", rsi14_sustained: "RSI-14 sustained", rsi2_extreme: "RSI-2 extreme",
+  mri: "MRI", rsi14_sustained: "Overbought persistence (RSI14>70, 10d)", rsi2_extreme: "Short-term extreme (RSI2)",
   vix_structure: "VIX structure", vvix_spike: "VVIX spike", breadth: "Breadth",
   drawdown_from_peak: "Drawdown from peak",
 };

@@ -63,7 +63,9 @@ export default function MLPredTab() {
       const p3 = p && r.target_3m != null ? r.target_3m / p - 1 : (r.pred_3m ?? -99);
       return { t: r.ticker, m: Math.max(p12, p3) };
     });
-    return scored.sort((a, b) => b.m - a.m).slice(0, 80).map((x) => x.t);
+    // top 120 (the /api/quotes cap) so the full 100-row filtered table — not just
+    // the top-10/25/50 tables — is covered by live-preferred quotes.
+    return scored.sort((a, b) => b.m - a.m).slice(0, 120).map((x) => x.t);
   }, [raw, bakedPrice]);
 
   const [live, setLive] = useState<Map<string, number>>(new Map());
