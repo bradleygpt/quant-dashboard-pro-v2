@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-11T18:41:17",
-  "source_commit": "2c89881",
+  "generated_at": "2026-06-12T08:51:25",
+  "source_commit": "c73a36d",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -399,8 +399,8 @@
   "floor_meta": {
     "0": {
       "floor": 0,
-      "n_total": 1357,
-      "n_stocks": 1287,
+      "n_total": 1359,
+      "n_stocks": 1289,
       "n_etf": 70,
       "sectors": [
         "Basic Materials",
@@ -414,13 +414,14 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     },
     "1": {
       "floor": 1,
-      "n_total": 1283,
-      "n_stocks": 1215,
+      "n_total": 1285,
+      "n_stocks": 1217,
       "n_etf": 68,
       "sectors": [
         "Basic Materials",
@@ -434,13 +435,14 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     },
     "10": {
       "floor": 10,
-      "n_total": 638,
-      "n_stocks": 583,
+      "n_total": 639,
+      "n_stocks": 584,
       "n_etf": 55,
       "sectors": [
         "Basic Materials",
@@ -454,6 +456,7 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     }
