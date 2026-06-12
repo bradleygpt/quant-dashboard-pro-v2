@@ -132,6 +132,9 @@ export default function StockDetailTab() {
     });
   }, [liveHist, series, ts, row?.fv, row?.qbp]);
   const usingTimeseries = !!ts?.series?.length;
+  // FV history is withheld until the PIT-vs-live-FV reconciliation is decided; the
+  // shards currently ship close + a genuine daily QBP only, with fair_value nulled.
+  const hasFvHistory = !!ts?.series?.some((p) => p.fair_value != null);
   const curRsi = useMemo(() => { for (let i = chartData.length - 1; i >= 0; i--) if (chartData[i].rsi != null) return chartData[i].rsi; return null; }, [chartData]);
   const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: "#FF5722" } : curRsi <= 30 ? { t: "Oversold", c: "#00C805" } : { t: "Neutral", c: "#FFC107" };
 
@@ -208,7 +211,7 @@ export default function StockDetailTab() {
 
       {/* price chart */}
       <Card title="Price, Volume & RSI"
-        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${usingTimeseries ? "Fair Value is a stepped line (re-derived at each filing); Buy Point is a daily line." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
+        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${hasFvHistory ? "Fair Value is a stepped line (re-derived at each filing); Buy Point is a daily line." : usingTimeseries ? "Buy Point is a genuine daily line; Fair Value shown at today's value (history pending)." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
         <div className="mb-2 flex gap-1">
           {PERIODS.map((p) => (
             <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"}`}>{p}</button>
