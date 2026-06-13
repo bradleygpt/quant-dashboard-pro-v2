@@ -69,7 +69,7 @@ export default function StockDetailTab() {
     if (v.includes("EXIT") || v.includes("AVOID")) return "EXIT";
     return undefined;
   };
-  const runAi = (kind: "research" | "earnings") => {
+  const runAi = async (kind: "research" | "earnings") => {
     if (!row) return;
     const livePrice = quote.status === "ok" ? quote.data?.price ?? null : null;
     const usePrice = livePrice ?? row.price;
@@ -80,6 +80,22 @@ export default function StockDetailTab() {
         const hit = JSON.parse(localStorage.getItem(`qd_earn_review_${row.ticker}_${period}`) || "null");
         if (hit?.text) { setAi({ kind, status: "done", text: hit.text, verdict: hit.verdict, price: hit.price, live: hit.live, period, cached: true }); return; }
       } catch { /* ignore */ }
+      // Pre-baked review (bake copies ai_earnings_cache.json → earnings_reviews.json),
+      // so Vercel shows the SAME review as Streamlit without a live LLM key. Strict
+      // no-op when the file is absent → falls through to the live /api/ai path below.
+      try {
+        const res = await fetch(`${import.meta.env.BASE_URL}data/earnings_reviews.json`, { cache: "force-cache" });
+        if (res.ok) {
+          const all = await res.json();
+          const hit = all?.[`${row.ticker}_${period}`];
+          const text = hit?.text ?? hit?.review ?? hit?.body;
+          if (text) {
+            const verdict = hit.verdict ?? parseVerdict(text);
+            setAi({ kind, status: "done", text, verdict, price: usePrice ?? undefined, live: false, period, cached: true });
+            return;
+          }
+        }
+      } catch { /* fall through to live */ }
     }
     setAi({ kind, status: "loading", period });
     const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(usePrice ?? ""), price_live: livePrice != null ? "1" : "0", fv: String(row.fv ?? ""), qbp: String(row.qbp ?? ""), period });
@@ -349,7 +365,11 @@ export default function StockDetailTab() {
               <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim()}</p>
               <span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
             </div>
-          : <p className="mt-2 text-xs text-[#FFB454]">{ai.reason === "no_key" ? "Set GEMINI_API_KEY in Vercel to enable AI analysis." : `AI unavailable (${ai.reason ?? "error"}).`}</p>)}
+          : <p className="mt-2 text-xs text-[#FFB454]">{ai.reason === "no_key"
+              ? (ai.kind === "earnings"
+                  ? "Earnings review pending next bake — Vercel serves pre-baked reviews (no live LLM). Generate it in the local Streamlit app and it ships on the next bake."
+                  : "Set GEMINI_API_KEY in Vercel to enable AI analysis.")
+              : `AI unavailable (${ai.reason ?? "error"}).`}</p>)}
       </Card>
 
       {/* FV + QBP */}
