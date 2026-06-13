@@ -14,6 +14,18 @@ interface Quote {
   history?: { dates: string[]; close: number[]; high: number[]; low: number[]; volume: number[] } | null;
 }
 const PERIODS = ["6mo", "1y", "2y", "5y", "10y", "max"];
+// Indicator lookback: fetch a PADDED range (visible window + ≥200 trading days)
+// so SMA-200 / RSI-14 are warmed up and span the FULL visible window, then slice
+// the display back to the visible window. Without this the 200-SMA only appears
+// ~200 bars in (e.g. the last ~2 months of a 1y view).
+const RANGE_PAD: Record<string, { fetch: string; visibleDays: number | null }> = {
+  "6mo": { fetch: "2y", visibleDays: 126 },
+  "1y": { fetch: "2y", visibleDays: 252 },
+  "2y": { fetch: "5y", visibleDays: 504 },
+  "5y": { fetch: "10y", visibleDays: 1260 },
+  "10y": { fetch: "max", visibleDays: 2520 },
+  "max": { fetch: "max", visibleDays: null }, // no slice — SMA naturally warms in
+};
 // simple moving average (trailing n); null until enough points
 function smaSeries(closes: number[], n: number): (number | null)[] {
   const out: (number | null)[] = closes.map(() => null);
@@ -48,7 +60,9 @@ export default function StockDetailTab() {
   const ticker = selectedTicker ?? rows.find((r) => r.sector !== "ETF")?.ticker ?? null;
   const row = ticker ? byTicker.get(ticker) : null;
   // LIVE quote + history (current to today; covers tickers absent from the baked parquet)
-  const quote = useLiveData<Quote>(ticker ? `/api/quote?ticker=${encodeURIComponent(ticker)}&range=${period}` : `/api/quote?ticker=`);
+  // fetch the padded range so indicators warm up before the visible window
+  const fetchRange = RANGE_PAD[period]?.fetch ?? period;
+  const quote = useLiveData<Quote>(ticker ? `/api/quote?ticker=${encodeURIComponent(ticker)}&range=${fetchRange}` : `/api/quote?ticker=`);
   const liveHist = quote.status === "ok" ? quote.data?.history ?? null : null;
 
   // quarterly earnings/margins history (baked)
@@ -137,7 +151,7 @@ export default function StockDetailTab() {
     // Point-in-time FV/QBP per date when the timeseries shard exists; else flat
     // (today's value across the window). Dates outside the timeseries window also fall back.
     const tsMap = ts?.series?.length ? new Map(ts.series.map((p) => [p.date, p])) : null;
-    return src.dates.map((d, i) => {
+    const full = src.dates.map((d, i) => {
       const tp = tsMap?.get(d);
       return {
         date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0,
@@ -148,7 +162,11 @@ export default function StockDetailTab() {
         qbp: tp ? (tp.buy_point ?? flatQbp) : flatQbp,
       };
     });
-  }, [liveHist, series, ts, row?.fv, row?.qbp]);
+    // Indicators are computed over the full padded series above; now trim the
+    // DISPLAY to the visible window so SMA-200/RSI-14 span its full left edge.
+    const visibleDays = RANGE_PAD[period]?.visibleDays ?? null;
+    return visibleDays != null && full.length > visibleDays ? full.slice(-visibleDays) : full;
+  }, [liveHist, series, ts, row?.fv, row?.qbp, period]);
   const usingTimeseries = !!ts?.series?.length;
   // FV history is withheld until the PIT-vs-live-FV reconciliation is decided; the
   // shards currently ship close + a genuine daily QBP only, with fair_value nulled.
