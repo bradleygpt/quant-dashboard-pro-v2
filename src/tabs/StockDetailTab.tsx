@@ -114,7 +114,7 @@ export default function StockDetailTab() {
   const usingLive = !!liveHist?.close?.length;
   const chartData = useMemo(() => {
     const src = liveHist ?? (series ? { dates: series.dates, close: series.close, volume: series.close.map(() => 0) } : null);
-    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null; fv: number | null; qbp: number | null }[];
+    if (!src) return [] as { date: string; close: number; volume: number; rsi: number | null; sma50: number | null; sma200: number | null; fv: number | null; mfv: number | null; qbp: number | null }[];
     const rsi = rsiSeries(src.close);
     const sma50 = smaSeries(src.close, 50), sma200 = smaSeries(src.close, 200);
     const flatFv = row?.fv ?? null, flatQbp = row?.qbp ?? null;
@@ -127,6 +127,8 @@ export default function StockDetailTab() {
         date: d, close: src.close[i], volume: (src as any).volume?.[i] ?? 0,
         rsi: rsi[i], sma50: sma50[i], sma200: sma200[i],
         fv: tp ? (tp.fair_value ?? flatFv) : flatFv,
+        // modeled PIT FV (raw, null where absent) — the distinct-methodology line
+        mfv: tp?.fair_value ?? null,
         qbp: tp ? (tp.buy_point ?? flatQbp) : flatQbp,
       };
     });
@@ -211,7 +213,7 @@ export default function StockDetailTab() {
 
       {/* price chart */}
       <Card title="Price, Volume & RSI"
-        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${hasFvHistory ? "Fair Value is a stepped line (re-derived at each filing); Buy Point is a daily line." : usingTimeseries ? "Buy Point is a genuine daily line; Fair Value shown at today's value (history pending)." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
+        sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${hasFvHistory ? "Modeled FV history — point-in-time SEC filings (dim-gold dotted), a distinct methodology that differs from the live FV card (Live FV marker). Buy Point is a daily line." : usingTimeseries ? "Buy Point is a genuine daily line; Fair Value shown at today's value (history pending)." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
         <div className="mb-2 flex gap-1">
           {PERIODS.map((p) => (
             <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"}`}>{p}</button>
@@ -232,7 +234,14 @@ export default function StockDetailTab() {
                 <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} name="Close" />
                 {usingTimeseries
                   ? <>
-                      <Line type="stepAfter" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />
+                      {hasFvHistory
+                        ? <>
+                            {/* Modeled PIT FV (point-in-time SEC filings) — distinct dim-gold dotted
+                                line; visually separated from the authoritative live "Live FV" marker. */}
+                            <Line type="stepAfter" dataKey="mfv" stroke="#B8902B" dot={false} strokeWidth={1.2} strokeDasharray="1 3" name="Modeled FV (PIT filings)" connectNulls activeDot={false} />
+                            {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="6 3" label={{ value: "Live FV", fill: "#FFC107", fontSize: 10 }} />}
+                          </>
+                        : <Line type="stepAfter" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />}
                       <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={1.3} name="Buy Point" connectNulls activeDot={false} />
                     </>
                   : <>
