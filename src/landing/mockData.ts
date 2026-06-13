@@ -1,32 +1,106 @@
-// Self-contained mock data for the tri-star landing demo.
-// NOTHING here is wired to the live stores yet — art sign-off comes first.
-// The system_status object below is hardcoded straight from the handoff and
-// mirrors the schema the bake pipeline will eventually emit to
-// web/public/data/system_status.json.
+// Live data for the tri-star landing. The real values come from the bake at
+// web/public/data/system_status.json (see loadSystemStatus() below); the
+// SYSTEM_STATUS constant here is the FALLBACK used only if that fetch fails —
+// it is NOT a hand-tuned mock. Every field traces to a real baked artifact and
+// pnl is null when there is no honest live mark (DATA_INTEGRITY_STANDARD).
 
 export interface SystemStatus {
   bake: { fresh: boolean; at: string };
   engines: {
-    binary: { current: boolean; asOf: string };
-    return: { current: boolean; asOf: string };
+    binary: { current: boolean; asOf: string | null };
+    return: { current: boolean; asOf: string | null };
   };
   ppi: { score: number; level: string };
-  c78q: { pnl: number; nextRebalance: string };
+  c78q: { pnl: number | null; nextRebalance: string | null };
   market: { state: MarketStateKey };
 }
 
 export type MarketStateKey = "rth" | "pre" | "after" | "closed";
 
+// Fallback only — overwritten at runtime by /data/system_status.json. Seeded
+// with the last-known real values (PPI from the c78q computation, pnl null)
+// so even a failed fetch never resurrects the old fake PPI 55 / +2.3% P&L.
 export const SYSTEM_STATUS: SystemStatus = {
-  bake: { fresh: true, at: "2026-06-10T18:21:00" },
+  bake: { fresh: true, at: "2026-06-13T16:00:00" },
   engines: {
-    binary: { current: true, asOf: "2026-06-05" },
+    binary: { current: false, asOf: "2026-05-29" },
     return: { current: true, asOf: "2026-06-05" },
   },
-  ppi: { score: 55, level: "ELEVATED" },
-  c78q: { pnl: 2.3, nextRebalance: "2026-07-01" },
-  market: { state: "rth" },
+  ppi: { score: 50.8, level: "ELEVATED" },
+  c78q: { pnl: null, nextRebalance: "2026-07-01" },
+  market: { state: "closed" },
 };
+
+// ----- live wiring ------------------------------------------------------------
+// Render `MM-DD` from an ISO date, or an em-dash when the source is missing.
+export const mmdd = (iso: string | null | undefined): string =>
+  iso && iso.length >= 10 ? iso.slice(5, 10) : "—";
+
+// The live US-market session from the wall clock (America/New_York), so the
+// day/night cycle tracks the real clock rather than the bake-time snapshot.
+// Market holidays are not modeled here (weekends are) — the bake snapshot in
+// system_status.json is the calendar-aware fallback.
+export function liveMarketState(): MarketStateKey {
+  try {
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/New_York", weekday: "short", hour: "2-digit",
+      minute: "2-digit", hour12: false,
+    });
+    const parts = Object.fromEntries(fmt.formatToParts(new Date()).map((p) => [p.type, p.value]));
+    const wd = String(parts.weekday);
+    if (wd === "Sat" || wd === "Sun") return "closed";
+    let hh = parseInt(parts.hour, 10);
+    if (hh === 24) hh = 0; // some engines emit "24" for midnight
+    const mins = hh * 60 + parseInt(parts.minute, 10);
+    if (mins >= 240 && mins < 570) return "pre";    // 04:00–09:30
+    if (mins >= 570 && mins < 960) return "rth";    // 09:30–16:00
+    if (mins >= 960 && mins < 1200) return "after"; // 16:00–20:00
+    return "closed";
+  } catch {
+    return SYSTEM_STATUS.market.state;
+  }
+}
+
+const MARKET_KEYS: MarketStateKey[] = ["rth", "pre", "after", "closed"];
+
+// Fetch the baked system status, mapping it onto SystemStatus and falling back
+// to the constant above on any error (404 before first deploy, parse failure).
+// ALWAYS resolves — callers can gate render on it without a hang risk.
+export async function loadSystemStatus(): Promise<SystemStatus> {
+  try {
+    const res = await fetch(`${import.meta.env.BASE_URL}data/system_status.json`, { cache: "no-cache" });
+    if (!res.ok) return SYSTEM_STATUS;
+    const j = await res.json();
+    const mk = (j?.market?.state as MarketStateKey) ?? SYSTEM_STATUS.market.state;
+    return {
+      bake: {
+        fresh: j?.bake?.fresh ?? SYSTEM_STATUS.bake.fresh,
+        at: j?.bake?.at ?? SYSTEM_STATUS.bake.at,
+      },
+      engines: {
+        binary: {
+          current: j?.engines?.binary?.current ?? false,
+          asOf: j?.engines?.binary?.asOf ?? null,
+        },
+        return: {
+          current: j?.engines?.return?.current ?? false,
+          asOf: j?.engines?.return?.asOf ?? null,
+        },
+      },
+      ppi: {
+        score: j?.ppi?.score ?? SYSTEM_STATUS.ppi.score,
+        level: j?.ppi?.level ?? SYSTEM_STATUS.ppi.level,
+      },
+      c78q: {
+        pnl: j?.c78q?.pnl ?? null,
+        nextRebalance: j?.c78q?.nextRebalance ?? null,
+      },
+      market: { state: MARKET_KEYS.includes(mk) ? mk : SYSTEM_STATUS.market.state },
+    };
+  } catch {
+    return SYSTEM_STATUS;
+  }
+}
 
 // ----- The three suns = the three core engines --------------------------------
 // QUANT (scoring/FV/rating), MLPRED (prediction ensemble), THESIS (LLM thesis,
@@ -58,13 +132,19 @@ function engineState(s: SystemStatus): Record<SunDef["id"], { lum: number; agita
   };
 }
 
-const ES = engineState(SYSTEM_STATUS);
+// Suns derive their engine health (lum/agitation) and the MLPRED status line
+// from the live status. Geometry (mass/color) is fixed art.
+export function buildSuns(s: SystemStatus = SYSTEM_STATUS): SunDef[] {
+  const es = engineState(s);
+  const mlAsOf = mmdd(s.engines.return.asOf);
+  return [
+    { id: "quant", name: "QUANT", role: "Scoring · FV · rating", status: "online · universe scored", color: "#FFE3A8", mass: 1.04, lum: es.quant.lum, agitation: es.quant.agitation },
+    { id: "mlpred", name: "MLPRED", role: "Prediction ensemble", status: s.engines.return.current ? `targets current · ${mlAsOf}` : `targets stale · ${mlAsOf}`, color: "#CFE0FF", mass: 1.0, lum: es.mlpred.lum, agitation: es.mlpred.agitation },
+    { id: "thesis", name: "THESIS", role: "LLM thesis engine", status: "in development · nascent", color: "#FF9E5A", mass: 0.92, lum: es.thesis.lum, agitation: es.thesis.agitation },
+  ];
+}
 
-export const SUNS: SunDef[] = [
-  { id: "quant", name: "QUANT", role: "Scoring · FV · rating", status: "online · universe scored", color: "#FFE3A8", mass: 1.04, lum: ES.quant.lum, agitation: ES.quant.agitation },
-  { id: "mlpred", name: "MLPRED", role: "Prediction ensemble", status: `targets current · ${SYSTEM_STATUS.engines.return.asOf}`, color: "#CFE0FF", mass: 1.0, lum: ES.mlpred.lum, agitation: ES.mlpred.agitation },
-  { id: "thesis", name: "THESIS", role: "LLM thesis engine", status: "in development · nascent", color: "#FF9E5A", mass: 0.92, lum: ES.thesis.lum, agitation: ES.thesis.agitation },
-];
+export const SUNS: SunDef[] = buildSuns(SYSTEM_STATUS);
 
 // ----- chaos parameter --------------------------------------------------------
 // Overall system stress: PPI score / 100, plus a penalty when the pipeline is
@@ -107,10 +187,20 @@ export interface PlanetDef {
   flagship?: boolean;
 }
 
-export const PLANETS: PlanetDef[] = [
+// c78q P&L is null until a live mark exists, so the flagship shows its deploy
+// state + next rebalance rather than a fabricated return. PPI / mlpred-as-of
+// come from the live status too.
+function c78qStatus(s: SystemStatus): string {
+  const rebal = mmdd(s.c78q.nextRebalance);
+  if (s.c78q.pnl == null) return `deployed · rebal ${rebal}`;
+  return `P&L ${s.c78q.pnl >= 0 ? "+" : ""}${s.c78q.pnl.toFixed(1)}% · rebal ${rebal}`;
+}
+
+export function buildPlanets(s: SystemStatus = SYSTEM_STATUS): PlanetDef[] {
+  return [
   // inner band — strategies. c78q is the flagship (self-lit, brightest planet).
-  { tabId: "bh", name: "c78q Strategy", accent: "#00C805", status: "P&L +2.3% · rebal 07-01", band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
-  { tabId: "mlpred", name: "ML Predictions", accent: "#5BA8FF", status: "targets current · 06-05", band: 0, phase: 1.9, size: 0.42, ecc: 0.14, incl: -0.08, speed: 0.92 },
+  { tabId: "bh", name: "c78q Strategy", accent: "#00C805", status: c78qStatus(s), band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
+  { tabId: "mlpred", name: "ML Predictions", accent: "#5BA8FF", status: `targets ${s.engines.return.current ? "current" : "stale"} · ${mmdd(s.engines.return.asOf)}`, band: 0, phase: 1.9, size: 0.42, ecc: 0.14, incl: -0.08, speed: 0.92 },
   { tabId: "quantport", name: "Quant Portfolio", accent: "#7FB0FF", status: "12 holds · drift 0.4%", band: 0, phase: 3.5, size: 0.50, ecc: 0.08, incl: 0.10, speed: 0.86 },
   { tabId: "portfolio", name: "Your Portfolio", accent: "#FF9800", status: "watchlist · 8 tickers", band: 0, phase: 5.1, size: 0.44, ecc: 0.12, incl: -0.04, speed: 0.80 },
   // middle band — instruments
@@ -119,14 +209,17 @@ export const PLANETS: PlanetDef[] = [
   { tabId: "doppel", name: "Doppelganger", accent: "#7FB0FF", status: "analogs ready", band: 1, phase: 3.9, size: 0.43, ecc: 0.13, incl: 0.06, speed: 0.57 },
   { tabId: "sectors", name: "Sector Overview", accent: "#5BA8FF", status: "11 sectors · breadth+", band: 1, phase: 5.6, size: 0.47, ecc: 0.10, incl: -0.07, speed: 0.53 },
   // outer band — context
-  { tabId: "regime", name: "Market Regime", accent: "#FF9800", status: "ELEVATED · PPI 55", band: 2, phase: 1.1, size: 0.38, ecc: 0.16, incl: 0.14, speed: 0.40 },
+  { tabId: "regime", name: "Market Regime", accent: "#FF9800", status: `${s.ppi.level} · PPI ${s.ppi.score}`, band: 2, phase: 1.1, size: 0.38, ecc: 0.16, incl: 0.14, speed: 0.40 },
   { tabId: "aibubble", name: "AI Bubble Watch", accent: "#FF5722", status: "froth index 0.62", band: 2, phase: 2.9, size: 0.62, ecc: 0.05, incl: -0.18, speed: 0.36, ring: true },
   { tabId: "crypto", name: "Crypto", accent: "#FFA133", status: "BTC regime · risk-on", band: 2, phase: 4.7, size: 0.41, ecc: 0.12, incl: 0.09, speed: 0.33 },
   // far satellites — folded context
   { tabId: "voices", name: "Pundit Views", accent: "#9CA7BB", status: "14 voices tracked", band: 3, phase: 0.4, size: 0.30, ecc: 0.20, incl: 0.22, speed: 0.22 },
   { tabId: "etfs", name: "ETF Center", accent: "#7FB0FF", status: "flows · 06-09", band: 3, phase: 2.5, size: 0.32, ecc: 0.18, incl: -0.24, speed: 0.20 },
   { tabId: "help", name: "Help", accent: "#7C879B", status: "docs · shortcuts", band: 3, phase: 4.4, size: 0.27, ecc: 0.22, incl: 0.18, speed: 0.18 },
-];
+  ];
+}
+
+export const PLANETS: PlanetDef[] = buildPlanets(SYSTEM_STATUS);
 
 /** Base orbital semi-major axis (world units) for each band. */
 export const BAND_RADIUS: Record<number, number> = { 0: 5.4, 1: 8.2, 2: 11.4, 3: 14.6 };

@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { LIGHTING, type MarketStateKey, type PlanetDef, type SunDef } from "./mockData";
+// suns/planets are passed in (built from the live system_status) so the scene
+// never reads the module-level fallback arrays directly.
 import { makeSimState, makeLiveLighting, type LiveLighting } from "./runtime";
 import Suns from "./Suns";
 import Planets from "./Planets";
@@ -13,6 +15,8 @@ interface Props {
   chaos: number;
   marketStateKey: MarketStateKey;
   hoveredId: string | null;
+  suns: SunDef[];
+  planets: PlanetDef[];
   onHover: (def: PlanetDef | null, x: number, y: number) => void;
   onSelect: (def: PlanetDef) => void;
   onSunHover: (def: SunDef | null, x: number, y: number) => void;
@@ -77,7 +81,7 @@ function CameraRig() {
   return null;
 }
 
-export default function Scene({ chaos, marketStateKey, hoveredId, onHover, onSelect, onSunHover }: Props) {
+export default function Scene({ chaos, marketStateKey, hoveredId, suns, planets, onHover, onSelect, onSunHover }: Props) {
   const simRef = useRef(makeSimState());
   const lightingRef = useRef(makeLiveLighting());
   const frozen = LIGHTING[marketStateKey].frozen;
@@ -97,12 +101,13 @@ export default function Scene({ chaos, marketStateKey, hoveredId, onHover, onSel
 
       <SkyDome lightingRef={lightingRef} />
       <Stars lightingRef={lightingRef} />
-      <Suns simRef={simRef} lightingRef={lightingRef} chaos={chaos} frozen={frozen} onSunHover={onSunHover} />
+      <Suns simRef={simRef} lightingRef={lightingRef} chaos={chaos} frozen={frozen} suns={suns} onSunHover={onSunHover} />
       <Planets
         simRef={simRef}
         lightingRef={lightingRef}
         frozen={frozen}
         hoveredId={hoveredId}
+        planets={planets}
         onHover={onHover}
         onSelect={onSelect}
       />

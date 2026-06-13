@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
-import { PLANETS, BAND_RADIUS, type PlanetDef } from "./mockData";
+import { BAND_RADIUS, type PlanetDef } from "./mockData";
 import { makePlanetMaterial } from "./shaders";
 import type { SimState, LiveLighting } from "./runtime";
 
@@ -10,6 +10,7 @@ interface Props {
   lightingRef: React.MutableRefObject<LiveLighting>;
   frozen: boolean;
   hoveredId: string | null;
+  planets: PlanetDef[];
   onHover: (def: PlanetDef | null, x: number, y: number) => void;
   onSelect: (def: PlanetDef) => void;
 }
@@ -27,7 +28,7 @@ interface Orbit {
   speed: number;
 }
 
-export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHover, onSelect }: Props) {
+export default function Planets({ simRef, lightingRef, frozen, hoveredId, planets, onHover, onSelect }: Props) {
   const groups = useRef<(THREE.Group | null)[]>([]);
   const mats = useRef<THREE.ShaderMaterial[]>([]);
   const elapsed = useRef(0);
@@ -36,7 +37,7 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
 
   const orbits = useMemo<Orbit[]>(
     () =>
-      PLANETS.map((p) => {
+      planets.map((p) => {
         const a = BAND_RADIUS[p.band];
         const b = a * Math.sqrt(1 - p.ecc * p.ecc);
         return {
@@ -50,12 +51,12 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
           speed: p.speed,
         };
       }),
-    [],
+    [], // eslint-disable-line react-hooks/exhaustive-deps — fixed geometry, built once
   );
 
   const materials = useMemo(
     () =>
-      PLANETS.map((p) => {
+      planets.map((p) => {
         const m = makePlanetMaterial();
         (m.uniforms.uAccent.value as THREE.Color).set(p.accent);
         // c78q is the flagship inner planet — a self-lit accent body that stays
@@ -66,7 +67,7 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
         }
         return m;
       }),
-    [],
+    [], // eslint-disable-line react-hooks/exhaustive-deps — fixed geometry, built once
   );
   materials.forEach((m, i) => (mats.current[i] = m));
 
@@ -77,7 +78,7 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
     const L = lightingRef.current;
     const bary = simRef.current.bary;
 
-    for (let i = 0; i < PLANETS.length; i++) {
+    for (let i = 0; i < planets.length; i++) {
       const o = orbits[i];
       const theta = o.anomaly0 + t * o.speed * ORBIT_SPEED;
       // parametric ellipse with the barycenter at one focus
@@ -104,9 +105,9 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
         tmp.current.set(bary.x + wx, bary.y + py, bary.z + wz);
         lightDir.current.subVectors(bary, tmp.current).normalize();
         (m.uniforms.uLightDir.value as THREE.Vector3).copy(lightDir.current);
-        m.uniforms.uRimStrength.value = L.rim * (PLANETS[i].flagship ? 1.8 : 1);
-        m.uniforms.uAmbient.value = L.ambient * (PLANETS[i].flagship ? 1.6 : 1);
-        const target = hoveredId === PLANETS[i].tabId ? 1 : 0;
+        m.uniforms.uRimStrength.value = L.rim * (planets[i].flagship ? 1.8 : 1);
+        m.uniforms.uAmbient.value = L.ambient * (planets[i].flagship ? 1.6 : 1);
+        const target = hoveredId === planets[i].tabId ? 1 : 0;
         m.uniforms.uHover.value += (target - m.uniforms.uHover.value) * Math.min(1, delta * 8);
       }
     }
@@ -114,7 +115,7 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
 
   return (
     <group>
-      {PLANETS.map((p, i) => {
+      {planets.map((p, i) => {
         const handleOver = (e: ThreeEvent<PointerEvent>) => {
           e.stopPropagation();
           document.body.style.cursor = "pointer";

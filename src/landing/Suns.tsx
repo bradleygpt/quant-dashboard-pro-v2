@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
-import { SUNS, type SunDef } from "./mockData";
+import { type SunDef } from "./mockData";
 import { initBodies, paramsForChaos, step, barycenter, type Body } from "./triStarSim";
 import { makeCoreMaterial, makeCoronaMaterial, makeHaloTexture } from "./shaders";
 import { EMBER_COLOR, type SimState, type LiveLighting } from "./runtime";
@@ -11,30 +11,33 @@ interface Props {
   lightingRef: React.MutableRefObject<LiveLighting>;
   chaos: number;
   frozen: boolean;
+  suns: SunDef[];
   onSunHover: (def: SunDef | null, x: number, y: number) => void;
 }
 
 const FIXED_DT = 1 / 120;
 const MAX_FRAME = 1 / 30;
 
-export default function Suns({ simRef, lightingRef, chaos, frozen, onSunHover }: Props) {
+export default function Suns({ simRef, lightingRef, chaos, frozen, suns, onSunHover }: Props) {
   const halo = useMemo(() => makeHaloTexture(), []);
   const groups = useRef<(THREE.Group | null)[]>([]);
   const halos = useRef<THREE.SpriteMaterial[]>([]);
 
   // physics state lives in a ref so it survives re-renders / chaos changes
-  const bodies = useRef<Body[]>(initBodies(SUNS.map((s) => s.mass)));
+  const bodies = useRef<Body[]>(initBodies(suns.map((s) => s.mass)));
   const accum = useRef(0);
   // chaos eased toward the prop so an instant slider/state jump still migrates
   // the stations smoothly (separated ↔ converged) rather than teleporting.
   const liveChaos = useRef(chaos);
 
-  const baseColors = useMemo(() => SUNS.map((s) => new THREE.Color(s.color)), []);
+  // colors/materials are fixed art (mass+color never change with live data) —
+  // built once from the initial suns so live-status updates never rebuild them.
+  const baseColors = useMemo(() => suns.map((s) => new THREE.Color(s.color)), []); // eslint-disable-line react-hooks/exhaustive-deps
   const liveColor = useMemo(() => new THREE.Color(), []);
 
   // build the layered shader materials exactly once — they're driven by uniforms
-  const cores = useMemo(() => SUNS.map((_, i) => makeCoreMaterial(baseColors[i])), [baseColors]);
-  const coronas = useMemo(() => SUNS.map((_, i) => makeCoronaMaterial(baseColors[i])), [baseColors]);
+  const cores = useMemo(() => baseColors.map((c) => makeCoreMaterial(c)), [baseColors]);
+  const coronas = useMemo(() => baseColors.map((c) => makeCoronaMaterial(c)), [baseColors]);
 
   useFrame((_, deltaRaw) => {
     const delta = Math.min(deltaRaw, MAX_FRAME);
@@ -64,7 +67,7 @@ export default function Suns({ simRef, lightingRef, chaos, frozen, onSunHover }:
       const g = groups.current[i];
       if (g) g.position.copy(bodies.current[i].pos);
 
-      const sun = SUNS[i];
+      const sun = suns[i];
       const agitation = sun.agitation;
       // degraded suns (agitation) shift toward red; the embers state pushes all
       // of them down. A nascent-but-healthy sun (THESIS) stays its own amber.
@@ -102,9 +105,9 @@ export default function Suns({ simRef, lightingRef, chaos, frozen, onSunHover }:
     onPointerOver: (e: ThreeEvent<PointerEvent>) => {
       e.stopPropagation();
       document.body.style.cursor = "help";
-      onSunHover(SUNS[i], e.clientX, e.clientY);
+      onSunHover(suns[i], e.clientX, e.clientY);
     },
-    onPointerMove: (e: ThreeEvent<PointerEvent>) => onSunHover(SUNS[i], e.clientX, e.clientY),
+    onPointerMove: (e: ThreeEvent<PointerEvent>) => onSunHover(suns[i], e.clientX, e.clientY),
     onPointerOut: () => {
       document.body.style.cursor = "auto";
       onSunHover(null, 0, 0);
@@ -113,7 +116,7 @@ export default function Suns({ simRef, lightingRef, chaos, frozen, onSunHover }:
 
   return (
     <group>
-      {SUNS.map((s, i) => (
+      {suns.map((s, i) => (
         <group key={s.id} ref={(el) => (groups.current[i] = el)}>
           <mesh material={cores[i]}>
             <icosahedronGeometry args={[0.62, 5]} />

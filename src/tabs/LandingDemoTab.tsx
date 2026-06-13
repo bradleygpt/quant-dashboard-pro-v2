@@ -1,13 +1,17 @@
-import { Suspense, lazy, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "../store";
 import Hud from "../landing/Hud";
 import {
-  SYSTEM_STATUS,
   computeChaos,
   ERA,
+  buildSuns,
+  buildPlanets,
+  loadSystemStatus,
+  liveMarketState,
   type MarketStateKey,
   type PlanetDef,
   type SunDef,
+  type SystemStatus,
 } from "../landing/mockData";
 
 // The whole three.js scene + post chain is code-split so it only loads when the
@@ -27,13 +31,34 @@ interface SunHoverState {
 
 export default function LandingDemoTab() {
   const { setActiveTab } = useStore();
-  const [marketKey, setMarketKey] = useState<MarketStateKey>(SYSTEM_STATUS.market.state);
-  const [chaos, setChaos] = useState<number>(() => computeChaos());
+  // Live system status from the bake (web/public/data/system_status.json). Null
+  // until loaded; we gate the scene on it so every sun/planet/HUD value is built
+  // from real data — never the old hardcoded PPI 55 / +2.3% mock.
+  const [status, setStatus] = useState<SystemStatus | null>(null);
+  // Day/night default tracks the live US market session; the toggle overrides it.
+  const [marketKey, setMarketKey] = useState<MarketStateKey>(() => liveMarketState());
+  const [chaos, setChaos] = useState<number>(0.5);
+  const userChaos = useRef(false);
   const [hover, setHover] = useState<HoverState | null>(null);
   const [sunHover, setSunHover] = useState<SunHoverState | null>(null);
   const [nav, setNav] = useState<PlanetDef | null>(null);
   const [flying, setFlying] = useState(false);
   const flyTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    loadSystemStatus().then((s) => {
+      if (!alive) return;
+      setStatus(s);
+      if (!userChaos.current) setChaos(computeChaos(s));
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const suns = useMemo(() => (status ? buildSuns(status) : []), [status]);
+  const planets = useMemo(() => (status ? buildPlanets(status) : []), [status]);
 
   const onHover = (def: PlanetDef | null, x: number, y: number) =>
     setHover(def ? { def, x, y } : null);
@@ -53,6 +78,23 @@ export default function LandingDemoTab() {
     setFlying(false);
   };
 
+  const onChaos = (v: number) => {
+    userChaos.current = true;
+    setChaos(v);
+  };
+  const resetChaos = () => {
+    if (status) setChaos(computeChaos(status));
+    userChaos.current = false;
+  };
+
+  const initializing = (
+    <div className="flex h-full w-full items-center justify-center">
+      <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#7C879B]">
+        initializing system…
+      </span>
+    </div>
+  );
+
   return (
     // fixed full-bleed so the experience reads cinematic, not boxed in a tab pane.
     <div className="fixed inset-0 z-50 overflow-hidden bg-[#04060b]">
@@ -64,39 +106,43 @@ export default function LandingDemoTab() {
           filter: flying ? "blur(3px)" : "none",
         }}
       >
-        <Suspense
-          fallback={
-            <div className="flex h-full w-full items-center justify-center">
-              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#7C879B]">
-                initializing system…
-              </span>
-            </div>
-          }
-        >
-          <Scene
-            chaos={chaos}
-            marketStateKey={marketKey}
-            hoveredId={hover?.def.tabId ?? null}
-            onHover={onHover}
-            onSelect={onSelect}
-            onSunHover={onSunHover}
-          />
-        </Suspense>
+        {/* Gate the scene on the live status so the suns/planets are built from
+            real data on first paint (no mock→live flash, no material rebuild). */}
+        {status ? (
+          <Suspense fallback={initializing}>
+            <Scene
+              chaos={chaos}
+              marketStateKey={marketKey}
+              hoveredId={hover?.def.tabId ?? null}
+              suns={suns}
+              planets={planets}
+              onHover={onHover}
+              onSelect={onSelect}
+              onSunHover={onSunHover}
+            />
+          </Suspense>
+        ) : (
+          initializing
+        )}
       </div>
 
-      <Hud
-        chaos={chaos}
-        setChaos={setChaos}
-        resetChaos={() => setChaos(computeChaos())}
-        marketKey={marketKey}
-        setMarketKey={setMarketKey}
-        era={ERA(chaos)}
-        hover={hover}
-        sunHover={sunHover}
-        nav={nav}
-        onCloseNav={closeNav}
-        onExit={() => setActiveTab("home")}
-      />
+      {status && (
+        <Hud
+          chaos={chaos}
+          setChaos={onChaos}
+          resetChaos={resetChaos}
+          marketKey={marketKey}
+          setMarketKey={setMarketKey}
+          era={ERA(chaos)}
+          status={status}
+          suns={suns}
+          hover={hover}
+          sunHover={sunHover}
+          nav={nav}
+          onCloseNav={closeNav}
+          onExit={() => setActiveTab("home")}
+        />
+      )}
     </div>
   );
 }

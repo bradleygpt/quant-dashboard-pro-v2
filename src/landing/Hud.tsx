@@ -1,4 +1,4 @@
-import { SYSTEM_STATUS, SUNS, LIGHTING, MARKET_ORDER, isDaylight, type MarketStateKey, type PlanetDef, type SunDef } from "./mockData";
+import { LIGHTING, MARKET_ORDER, isDaylight, type MarketStateKey, type PlanetDef, type SunDef, type SystemStatus } from "./mockData";
 
 interface HoverState {
   def: PlanetDef;
@@ -18,6 +18,8 @@ interface Props {
   marketKey: MarketStateKey;
   setMarketKey: (k: MarketStateKey) => void;
   era: string;
+  status: SystemStatus;
+  suns: SunDef[];
   hover: HoverState | null;
   sunHover: SunHoverState | null;
   nav: PlanetDef | null;
@@ -29,9 +31,9 @@ const micro = "text-[10px] uppercase tracking-[0.22em] text-[#7C879B]";
 const rule = "h-px w-full bg-gradient-to-r from-[#1E2632] to-transparent";
 
 export default function Hud(props: Props) {
-  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, hover, sunHover, nav, onCloseNav, onExit } = props;
-  const s = SYSTEM_STATUS;
-  const pnl = s.c78q.pnl;
+  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, status, suns, hover, sunHover, nav, onCloseNav, onExit } = props;
+  const s = status;
+  const pnl = s.c78q.pnl; // null when no honest live mark exists
 
   // On the daylight (Market Open) background the light HUD ink would wash out, so
   // each cluster gets a translucent dark scrim that keeps the existing palette
@@ -65,7 +67,11 @@ export default function Hud(props: Props) {
         <div className="flex justify-end gap-6 tabular-nums">
           <Stat label="PIPELINE" value={s.bake.fresh ? "FRESH" : "STALE"} tone={s.bake.fresh ? "#00C805" : "#FF5722"} />
           <Stat label="PPI" value={`${s.ppi.score} ${s.ppi.level}`} tone="#FF9800" />
-          <Stat label="c78q P&L" value={`${pnl >= 0 ? "+" : ""}${pnl.toFixed(1)}%`} tone={pnl >= 0 ? "#00C805" : "#FF5722"} />
+          {pnl == null ? (
+            <Stat label="c78q" value="DEPLOYED" tone="#9CA7BB" />
+          ) : (
+            <Stat label="c78q P&L" value={`${pnl >= 0 ? "+" : ""}${pnl.toFixed(1)}%`} tone={pnl >= 0 ? "#00C805" : "#FF5722"} />
+          )}
         </div>
         <div className="mt-3 ml-auto w-56">
           <div className={rule} style={{ transform: "scaleX(-1)" }} />
@@ -82,7 +88,7 @@ export default function Hud(props: Props) {
       <div className={`absolute bottom-6 left-6 ${scrim}`}>
         <div className={`${micro} mb-2`}>three suns · core engines</div>
         <div className="space-y-1.5">
-          {SUNS.map((sun) => (
+          {suns.map((sun) => (
             <div key={sun.id} className="flex items-center gap-2.5">
               <span
                 className="inline-block h-2.5 w-2.5 rounded-full"
@@ -120,7 +126,7 @@ export default function Hud(props: Props) {
         <div className="mt-4 flex items-center justify-between">
           <span className={micro}>chaos</span>
           <button onClick={resetChaos} className={`${micro} transition hover:text-[#C3CAD7]`}>
-            reset → {(SYSTEM_STATUS.ppi.score / 100).toFixed(2)}
+            reset → {(s.ppi.score / 100).toFixed(2)}
           </button>
         </div>
         <input

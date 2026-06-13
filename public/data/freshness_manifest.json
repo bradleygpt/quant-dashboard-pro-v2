@@ -7,6 +7,14 @@
       "fv_excluded": 27,
       "gap_vs_live_fv_median_pct": 32.4,
       "check_status": "ok"
+    },
+    "system_status": {
+      "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
+      "as_of": "2026-06-13",
+      "ppi": "50.8 ELEVATED (live c78q PPI, as-of 2026-06-01)",
+      "c78q_pnl": "null — no live mark newer than entry; not fabricated",
+      "consumed_by": "TRI-STAR landing (LandingDemoTab) — replaces old hardcoded PPI 55 / +2.3% mock",
+      "check_status": "ok"
     }
   }
 }
