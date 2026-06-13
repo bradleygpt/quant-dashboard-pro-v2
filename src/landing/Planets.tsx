@@ -58,6 +58,12 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
       PLANETS.map((p) => {
         const m = makePlanetMaterial();
         (m.uniforms.uAccent.value as THREE.Color).set(p.accent);
+        // c78q is the flagship inner planet — a self-lit accent body that stays
+        // the brightest planet (it is downstream of MLPred, not a pillar sun).
+        if (p.flagship) {
+          (m.uniforms.uBaseColor.value as THREE.Color).set("#0e3a20");
+          (m.uniforms.uRimColor.value as THREE.Color).set(p.accent);
+        }
         return m;
       }),
     [],
@@ -98,8 +104,8 @@ export default function Planets({ simRef, lightingRef, frozen, hoveredId, onHove
         tmp.current.set(bary.x + wx, bary.y + py, bary.z + wz);
         lightDir.current.subVectors(bary, tmp.current).normalize();
         (m.uniforms.uLightDir.value as THREE.Vector3).copy(lightDir.current);
-        m.uniforms.uRimStrength.value = L.rim;
-        m.uniforms.uAmbient.value = L.ambient;
+        m.uniforms.uRimStrength.value = L.rim * (PLANETS[i].flagship ? 1.8 : 1);
+        m.uniforms.uAmbient.value = L.ambient * (PLANETS[i].flagship ? 1.6 : 1);
         const target = hoveredId === PLANETS[i].tabId ? 1 : 0;
         m.uniforms.uHover.value += (target - m.uniforms.uHover.value) * Math.min(1, delta * 8);
       }

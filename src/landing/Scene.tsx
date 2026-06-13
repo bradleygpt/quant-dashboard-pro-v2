@@ -1,11 +1,12 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { LIGHTING, type MarketStateKey, type PlanetDef } from "./mockData";
+import { LIGHTING, type MarketStateKey, type PlanetDef, type SunDef } from "./mockData";
 import { makeSimState, makeLiveLighting, type LiveLighting } from "./runtime";
 import Suns from "./Suns";
 import Planets from "./Planets";
 import Stars from "./Stars";
+import SkyDome from "./SkyDome";
 import PostFX from "./PostFX";
 
 interface Props {
@@ -14,10 +15,12 @@ interface Props {
   hoveredId: string | null;
   onHover: (def: PlanetDef | null, x: number, y: number) => void;
   onSelect: (def: PlanetDef) => void;
+  onSunHover: (def: SunDef | null, x: number, y: number) => void;
 }
 
 // Smoothly eases the live lighting toward the active market-clock state, so the
-// four states cross-fade rather than snap.
+// four states cross-fade rather than snap — including the sky/background colors,
+// which it writes straight onto the scene background + fog every frame.
 function LightingController({
   marketStateKey,
   lightingRef,
@@ -25,6 +28,11 @@ function LightingController({
   marketStateKey: MarketStateKey;
   lightingRef: React.MutableRefObject<LiveLighting>;
 }) {
+  const scene = useThree((s) => s.scene);
+  const targetBg = useRef(new THREE.Color());
+  const targetTop = useRef(new THREE.Color());
+  const targetBot = useRef(new THREE.Color());
+
   useFrame((_, delta) => {
     const T = LIGHTING[marketStateKey];
     const L = lightingRef.current;
@@ -36,6 +44,13 @@ function LightingController({
     L.ember += (T.ember - L.ember) * k;
     L.ambient += (T.ambient - L.ambient) * k;
     L.exposure += (T.exposure - L.exposure) * k;
+    L.bg.lerp(targetBg.current.set(T.bg), k);
+    L.skyTop.lerp(targetTop.current.set(T.skyTop), k);
+    L.skyBottom.lerp(targetBot.current.set(T.skyBottom), k);
+
+    if (!(scene.background instanceof THREE.Color)) scene.background = new THREE.Color();
+    (scene.background as THREE.Color).copy(L.bg);
+    if (scene.fog) (scene.fog as THREE.Fog).color.copy(L.bg);
   });
   return null;
 }
@@ -62,11 +77,10 @@ function CameraRig() {
   return null;
 }
 
-export default function Scene({ chaos, marketStateKey, hoveredId, onHover, onSelect }: Props) {
+export default function Scene({ chaos, marketStateKey, hoveredId, onHover, onSelect, onSunHover }: Props) {
   const simRef = useRef(makeSimState());
   const lightingRef = useRef(makeLiveLighting());
   const frozen = LIGHTING[marketStateKey].frozen;
-  const bg = useMemo(() => new THREE.Color("#04060b"), []);
 
   return (
     <Canvas
@@ -75,14 +89,15 @@ export default function Scene({ chaos, marketStateKey, hoveredId, onHover, onSel
       gl={{ antialias: true, powerPreference: "high-performance", toneMapping: THREE.ACESFilmicToneMapping }}
       onPointerMissed={() => onHover(null, 0, 0)}
     >
-      <color attach="background" args={[bg.r, bg.g, bg.b]} />
-      <fog attach="fog" args={["#04060b", 60, 320]} />
+      <color attach="background" args={["#8EC0E6"]} />
+      <fog attach="fog" args={["#8EC0E6", 60, 340]} />
 
       <LightingController marketStateKey={marketStateKey} lightingRef={lightingRef} />
       <CameraRig />
 
+      <SkyDome lightingRef={lightingRef} />
       <Stars lightingRef={lightingRef} />
-      <Suns simRef={simRef} lightingRef={lightingRef} chaos={chaos} frozen={frozen} />
+      <Suns simRef={simRef} lightingRef={lightingRef} chaos={chaos} frozen={frozen} onSunHover={onSunHover} />
       <Planets
         simRef={simRef}
         lightingRef={lightingRef}

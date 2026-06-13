@@ -7,6 +7,7 @@ import {
   ERA,
   type MarketStateKey,
   type PlanetDef,
+  type SunDef,
 } from "../landing/mockData";
 
 // The whole three.js scene + post chain is code-split so it only loads when the
@@ -18,18 +19,26 @@ interface HoverState {
   x: number;
   y: number;
 }
+interface SunHoverState {
+  def: SunDef;
+  x: number;
+  y: number;
+}
 
 export default function LandingDemoTab() {
   const { setActiveTab } = useStore();
   const [marketKey, setMarketKey] = useState<MarketStateKey>(SYSTEM_STATUS.market.state);
   const [chaos, setChaos] = useState<number>(() => computeChaos());
   const [hover, setHover] = useState<HoverState | null>(null);
+  const [sunHover, setSunHover] = useState<SunHoverState | null>(null);
   const [nav, setNav] = useState<PlanetDef | null>(null);
   const [flying, setFlying] = useState(false);
   const flyTimer = useRef<number | null>(null);
 
   const onHover = (def: PlanetDef | null, x: number, y: number) =>
     setHover(def ? { def, x, y } : null);
+  const onSunHover = (def: SunDef | null, x: number, y: number) =>
+    setSunHover(def ? { def, x, y } : null);
 
   // click = camera fly-toward + fade, then the mock nav overlay resolves.
   const onSelect = (def: PlanetDef) => {
@@ -70,6 +79,7 @@ export default function LandingDemoTab() {
             hoveredId={hover?.def.tabId ?? null}
             onHover={onHover}
             onSelect={onSelect}
+            onSunHover={onSunHover}
           />
         </Suspense>
       </div>
@@ -82,6 +92,7 @@ export default function LandingDemoTab() {
         setMarketKey={setMarketKey}
         era={ERA(chaos)}
         hover={hover}
+        sunHover={sunHover}
         nav={nav}
         onCloseNav={closeNav}
         onExit={() => setActiveTab("home")}

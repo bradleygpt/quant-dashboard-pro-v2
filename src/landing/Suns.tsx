@@ -1,8 +1,8 @@
 import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
-import { SUNS } from "./mockData";
-import { initBodies, paramsForChaos, step, barycenter, type Body } from "./threeBody";
+import { SUNS, type SunDef } from "./mockData";
+import { initBodies, paramsForChaos, step, barycenter, type Body } from "./triStarSim";
 import { makeCoreMaterial, makeCoronaMaterial, makeHaloTexture } from "./shaders";
 import { EMBER_COLOR, type SimState, type LiveLighting } from "./runtime";
 
@@ -11,12 +11,13 @@ interface Props {
   lightingRef: React.MutableRefObject<LiveLighting>;
   chaos: number;
   frozen: boolean;
+  onSunHover: (def: SunDef | null, x: number, y: number) => void;
 }
 
 const FIXED_DT = 1 / 120;
 const MAX_FRAME = 1 / 30;
 
-export default function Suns({ simRef, lightingRef, chaos, frozen }: Props) {
+export default function Suns({ simRef, lightingRef, chaos, frozen, onSunHover }: Props) {
   const halo = useMemo(() => makeHaloTexture(), []);
   const groups = useRef<(THREE.Group | null)[]>([]);
   const halos = useRef<THREE.SpriteMaterial[]>([]);
@@ -24,7 +25,9 @@ export default function Suns({ simRef, lightingRef, chaos, frozen }: Props) {
   // physics state lives in a ref so it survives re-renders / chaos changes
   const bodies = useRef<Body[]>(initBodies(SUNS.map((s) => s.mass)));
   const accum = useRef(0);
-  const params = useMemo(() => paramsForChaos(chaos), [chaos]);
+  // chaos eased toward the prop so an instant slider/state jump still migrates
+  // the stations smoothly (separated ↔ converged) rather than teleporting.
+  const liveChaos = useRef(chaos);
 
   const baseColors = useMemo(() => SUNS.map((s) => new THREE.Color(s.color)), []);
   const liveColor = useMemo(() => new THREE.Color(), []);
@@ -37,7 +40,10 @@ export default function Suns({ simRef, lightingRef, chaos, frozen }: Props) {
     const delta = Math.min(deltaRaw, MAX_FRAME);
     const L = lightingRef.current;
 
-    // ----- advance the three-body sim (frozen in Closed state) -----
+    liveChaos.current += (chaos - liveChaos.current) * Math.min(1, delta * 1.5);
+    const params = paramsForChaos(liveChaos.current);
+
+    // ----- advance the tri-star sim (frozen in Closed state) -----
     if (!frozen) {
       accum.current += delta * params.timeScale;
       let guard = 0;
@@ -58,14 +64,16 @@ export default function Suns({ simRef, lightingRef, chaos, frozen }: Props) {
       const g = groups.current[i];
       if (g) g.position.copy(bodies.current[i].pos);
 
-      const health = SUNS[i].health;
-      const agitation = 1 - health;
-      // degraded suns dim and shift toward red; embers state pushes all of them down
+      const sun = SUNS[i];
+      const agitation = sun.agitation;
+      // degraded suns (agitation) shift toward red; the embers state pushes all
+      // of them down. A nascent-but-healthy sun (THESIS) stays its own amber.
       liveColor.copy(baseColors[i]);
-      if (health < 1) liveColor.lerp(EMBER_COLOR, 0.45 * agitation);
+      if (agitation > 0) liveColor.lerp(EMBER_COLOR, 0.45 * agitation);
       liveColor.lerp(EMBER_COLOR, L.ember * 0.85);
 
-      const lum = L.sunIntensity * (0.55 + 0.45 * health);
+      // THESIS reads dimmer (lum 0.58); QUANT/MLPRED full.
+      const lum = L.sunIntensity * (0.5 + 0.5 * sun.lum);
 
       const core = cores[i];
       if (core) {
@@ -88,33 +96,51 @@ export default function Suns({ simRef, lightingRef, chaos, frozen }: Props) {
     }
   });
 
+  // Suns are ambient state, NOT navigation — no onClick. Hover surfaces the
+  // engine's status line via an invisible hit-sphere.
+  const hoverHandlers = (i: number) => ({
+    onPointerOver: (e: ThreeEvent<PointerEvent>) => {
+      e.stopPropagation();
+      document.body.style.cursor = "help";
+      onSunHover(SUNS[i], e.clientX, e.clientY);
+    },
+    onPointerMove: (e: ThreeEvent<PointerEvent>) => onSunHover(SUNS[i], e.clientX, e.clientY),
+    onPointerOut: () => {
+      document.body.style.cursor = "auto";
+      onSunHover(null, 0, 0);
+    },
+  });
+
   return (
     <group>
-      {SUNS.map((s, i) => {
-        return (
-          <group key={s.id} ref={(el) => (groups.current[i] = el)}>
-            <mesh material={cores[i]}>
-              <icosahedronGeometry args={[0.62, 5]} />
-            </mesh>
-            <mesh material={coronas[i]}>
-              <icosahedronGeometry args={[1.5, 4]} />
-            </mesh>
-            <sprite scale={[7, 7, 7]}>
-              <spriteMaterial
-                ref={(el) => {
-                  if (el) halos.current[i] = el;
-                }}
-                map={halo}
-                color={baseColors[i]}
-                transparent
-                opacity={0.5}
-                depthWrite={false}
-                blending={THREE.AdditiveBlending}
-              />
-            </sprite>
-          </group>
-        );
-      })}
+      {SUNS.map((s, i) => (
+        <group key={s.id} ref={(el) => (groups.current[i] = el)}>
+          <mesh material={cores[i]}>
+            <icosahedronGeometry args={[0.62, 5]} />
+          </mesh>
+          <mesh material={coronas[i]}>
+            <icosahedronGeometry args={[1.5, 4]} />
+          </mesh>
+          <sprite scale={[7, 7, 7]}>
+            <spriteMaterial
+              ref={(el) => {
+                if (el) halos.current[i] = el;
+              }}
+              map={halo}
+              color={baseColors[i]}
+              transparent
+              opacity={0.5}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </sprite>
+          {/* invisible hit-sphere for hover-only status (non-navigating) */}
+          <mesh {...hoverHandlers(i)}>
+            <sphereGeometry args={[1.3, 12, 12]} />
+            <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 }
