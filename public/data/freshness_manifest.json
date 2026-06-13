@@ -1,9 +1,11 @@
 {
   "sources": {
     "detail_timeseries": {
-      "source": "build_detail_timeseries_v3 (close + price-only daily QBP; FV history pending reconciliation)",
-      "as_of": "2026-06-12",
+      "source": "build_detail_timeseries_v3 (close + price-only QBP + Modeled FV history: PIT SEC filings, fairvalue.py composite, true-EBITDA)",
+      "as_of": "2026-06-13",
       "rows": 1311,
+      "fv_excluded": 27,
+      "gap_vs_live_fv_median_pct": 32.4,
       "check_status": "ok"
     }
   }
