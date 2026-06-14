@@ -78,17 +78,31 @@ export default function MLPredTab() {
     return () => { alive = false; };
   }, [pool]);
 
-  const data = useMemo<MLPred | null>(() => {
-    if (!raw) return null;
+  // Sanity bounds on the IMPLIED return (target/price − 1). A corrupt target or a
+  // split/share-basis mismatch between the target's basis and the (live) price
+  // denominator can manufacture absurd returns — e.g. KLAC: target $1,984 (baked
+  // basis ~$1,929) ÷ live $254.54 = +680%, ranking it #1. Mirror the live-price
+  // guard on the TARGET side: anything beyond a sane horizon bound is excluded
+  // (its prediction nulled → dropped from rankings/screener) and flagged loudly.
+  const SANE_3M = 1.5;   // |3-month implied return| > 150% ⇒ corrupt
+  const SANE_12M = 3.0;  // |12-month implied return| > 300% ⇒ corrupt
+  const { data, excluded } = useMemo<{ data: MLPred | null; excluded: { ticker: string; p3: number | null; p12: number | null }[] }>(() => {
+    if (!raw) return { data: null, excluded: [] };
+    const ex: { ticker: string; p3: number | null; p12: number | null }[] = [];
     const rows = raw.rows.map((r) => {
       const lp = live.get(r.ticker), bp = bakedPrice.get(r.ticker);
       const price = lp ?? bp ?? r.price;
       const price_src: MLRow["price_src"] = lp != null ? "live" : bp != null ? "baked" : "asof";
-      const p3 = price && r.target_3m != null ? r.target_3m / price - 1 : r.pred_3m;
-      const p12 = price && r.target_12m != null ? r.target_12m / price - 1 : r.pred_12m;
+      let p3 = price && r.target_3m != null ? r.target_3m / price - 1 : r.pred_3m;
+      let p12 = price && r.target_12m != null ? r.target_12m / price - 1 : r.pred_12m;
+      const bad3 = p3 != null && Math.abs(p3) > SANE_3M;
+      const bad12 = p12 != null && Math.abs(p12) > SANE_12M;
+      if (bad3 || bad12) ex.push({ ticker: r.ticker, p3: bad3 ? p3 : null, p12: bad12 ? p12 : null });
+      if (bad3) p3 = null;     // exclude from 3-month rankings/screener
+      if (bad12) p12 = null;   // exclude from 12-month rankings/screener
       return { ...r, price, pred_3m: p3, pred_12m: p12, price_src };
     });
-    return { ...raw, rows };
+    return { data: { ...raw, rows }, excluded: ex };
   }, [raw, bakedPrice, live]);
 
   const tabs: [Sub, string][] = [["rankings", "🏆 Rankings"], ["screener", "🔍 Screener"], ["detail", "🔬 Stream Detail"]];
@@ -114,6 +128,13 @@ export default function MLPredTab() {
         <Unavailable what="ML prediction data" detail="mlpred.json is produced by the predict_returns engine and baked during deploy. Unavailable in a preview without it." />
       ) : <Spinner label="Loading predictions…" />) : (
         <>
+          {excluded.length > 0 && (
+            <div className="rounded-md border border-[#5a2a2a] bg-[#1f0d0d] px-3 py-2 text-[11px] leading-relaxed text-[#FF8A80]">
+              ⚠ {excluded.length} row{excluded.length > 1 ? "s" : ""} excluded — corrupt target / price-basis mismatch (likely a stock-split or share-basis error):{" "}
+              {excluded.map((e) => `${e.ticker}${e.p3 != null ? ` 3M ${(e.p3 * 100).toFixed(0)}%` : ""}${e.p12 != null ? ` 12M ${(e.p12 * 100).toFixed(0)}%` : ""}`).join("; ")}.
+              An implied return (target ÷ price) beyond ±150% (3M) / ±300% (12M) is treated as corrupt and dropped from the rankings/screener rather than surfaced as a top pick.
+            </div>
+          )}
           {sub === "rankings" && <RankingsBlock data={data} />}
           {sub === "screener" && <ScreenerBlock data={data} />}
           {sub === "detail" && <DetailBlock data={data} />}
