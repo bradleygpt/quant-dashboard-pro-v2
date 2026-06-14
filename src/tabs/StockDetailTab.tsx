@@ -72,6 +72,16 @@ export default function StockDetailTab() {
 
   // AI note (Gemini via /api/ai) — on-demand, degrades if no key
   const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean; verdict?: string; cached?: boolean; period?: string }>({ kind: "", status: "idle" });
+  // An 8-K whose figures the parser couldn't extract yields a review full of
+  // "Not disclosed" fields (e.g. Intel's exhibit layout). Such a review is NOT
+  // real analysis — treat it as unavailable rather than shipping an empty HOLD.
+  // (Primary guard is in the bake, which excludes these from earnings_reviews.json;
+  // this is the client-side safety net.)
+  const isEmptyReview = (text?: string): boolean => {
+    if (!text || text.trim().length < 120) return true;
+    const hits = (text.match(/not disclosed|not in the provided 8-?k|not provided in|not specified|\bn\/a\b/gi) || []).length;
+    return hits >= 4;
+  };
   // Verdict parsing/ranking mirrors earnings_reviewer._verdict_rank
   const parseVerdict = (text: string): string | undefined => {
     const m = text.match(/VERDICT:\s*([A-Z ]+)/i);
@@ -101,11 +111,19 @@ export default function StockDetailTab() {
         const res = await fetch(`${import.meta.env.BASE_URL}data/earnings_reviews.json`, { cache: "force-cache" });
         if (res.ok) {
           const all = await res.json();
-          const hit = all?.[`${row.ticker}_${period}`];
-          const text = hit?.text ?? hit?.review ?? hit?.body;
-          if (text) {
+          // Try the reported-quarter key, then the per-ticker LATEST (the bake emits
+          // {TICKER}_LATEST because the filing month ≠ the reported-quarter month).
+          const hit = all?.[`${row.ticker}_${period}`] ?? all?.[`${row.ticker}_LATEST`];
+          // earnings_reviewer stores the body as `full_text`; tolerate aliases.
+          const text = hit?.full_text ?? hit?.text ?? hit?.review ?? hit?.body;
+          if (text && !isEmptyReview(text)) {
             const verdict = hit.verdict ?? parseVerdict(text);
             setAi({ kind, status: "done", text, verdict, price: usePrice ?? undefined, live: false, period, cached: true });
+            return;
+          }
+          // entry present but unparsed (all "Not disclosed") → don't show garbage
+          if (hit && isEmptyReview(text)) {
+            setAi({ kind, status: "done", reason: "empty_filing", period });
             return;
           }
         }
@@ -383,10 +401,13 @@ export default function StockDetailTab() {
               <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim()}</p>
               <span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
             </div>
-          : <p className="mt-2 text-xs text-[#FFB454]">{ai.reason === "no_key"
-              ? (ai.kind === "earnings"
-                  ? "Earnings review pending next bake — Vercel serves pre-baked reviews (no live LLM). Generate it in the local Streamlit app and it ships on the next bake."
-                  : "Set GEMINI_API_KEY in Vercel to enable AI analysis.")
+          : <p className="mt-2 text-xs text-[#FFB454]">{
+              ai.reason === "empty_filing"
+                ? "8-K format not parsed for this quarter — review unavailable (the filing's figures weren't machine-extractable)."
+              : ai.reason === "no_key"
+                ? (ai.kind === "earnings"
+                    ? "Earnings review pending next bake — Vercel serves pre-baked reviews (no live LLM). Generate it in the local Streamlit app and it ships on the next bake."
+                    : "Set GEMINI_API_KEY in Vercel to enable AI analysis.")
               : `AI unavailable (${ai.reason ?? "error"}).`}</p>)}
       </Card>
 
