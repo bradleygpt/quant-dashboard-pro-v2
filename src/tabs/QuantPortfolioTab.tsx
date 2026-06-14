@@ -23,7 +23,7 @@ const LEVELS: Level[] = ["Validated TOP-25", "Conservative", "Balanced", "Aggres
 const POS_BY_LEVEL: Record<Level, number> = { "Validated TOP-25": 25, Conservative: 30, Balanced: 20, Aggressive: 12 };
 const DONUT = ["#3B82F6", "#00C805", "#F7931A", "#9B59B6", "#FF9800", "#5DADE2", "#E74C3C", "#FFC107", "#1ABC9C", "#E91E63", "#8BC34A"];
 
-interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
+interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; caveat?: string | null; source_meta?: string | null; coverage?: { first_date?: string; last_date?: string; min_n?: number; max_n?: number } | null; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
 
 // Static validated 3-period × preset CAGR table (app.py, 121 quarterly rebalances 1996-2026)
 const CAGR_TABLE = {
@@ -142,19 +142,21 @@ export default function QuantPortfolioTab() {
         </div>
       </Card>
 
-      {/* ── Realistic swing equity curve vs REAL buy-&-hold SPY (distinct from the TOP-25 table) ── */}
+      {/* ── Validated TOP-25 equity curve vs REAL buy-&-hold SPY (matches the CAGR table) ── */}
       {bt && curve.length > 1 && (() => {
         const buyhold = bt.spy_source === "buyhold_yahoo_v8";
         const alphaCagr = h?.quant_cagr_pct != null && h?.spy_cagr_pct != null ? h.quant_cagr_pct - h.spy_cagr_pct : null;
         return (
-        <Card title="📉 Realistic Swing Backtest: Strategy vs Buy-&-Hold SPY"
-          sub={`Cumulative growth of $100. ${bt.strategy_label ?? "Realistic swing strategy"}, monthly checkpoints${bt.populated_range ? ` ${bt.populated_range[0].slice(0, 7)} → ${bt.populated_range[1].slice(0, 7)}` : ""}. This is a stricter, after-cost record — NOT the validated TOP-25 quarterly strategy in the table above.`}>
-          <div className="mb-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-3 py-2 text-[11px] leading-relaxed text-[#D8B878]">
-            ⚠️ Different strategy from the table above. This is the <strong>realistic top-10 swing</strong> floor (≈63-day holds, after costs) — it intentionally trails buy-&-hold SPY here. The validated <strong>TOP-25 quarterly</strong> record (CAGR table above) is the headline strategy; its full 1996–2026 equity series is regenerated upstream and will replace this curve once bundled.
-          </div>
+        <Card title="📈 Validated TOP-25 Backtest: Strategy vs Buy-&-Hold SPY"
+          sub={`Cumulative growth of $100. ${bt.strategy_label ?? "Validated TOP-25 strategy"}${bt.populated_range ? `, ${bt.populated_range[0].slice(0, 7)} → ${bt.populated_range[1].slice(0, 7)}` : ""}. This is the same record as the CAGR table above (equal-weight preset), now shown as its equity series.`}>
+          {bt.caveat && (
+            <div className="mb-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-3 py-2 text-[11px] leading-relaxed text-[#D8B878]">
+              ⚠️ {bt.caveat}{bt.coverage ? ` Coverage ranged ${bt.coverage.min_n}–${bt.coverage.max_n} names per rebalance.` : ""}
+            </div>
+          )}
           {h && (
             <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Metric label="Realistic Strategy" value={<span className="text-[#00C805]">{h.quant_total_pct != null ? `${h.quant_total_pct >= 0 ? "+" : ""}${h.quant_total_pct.toFixed(0)}%` : "—"}</span>} hint={h.quant_total_pct != null ? `$100 → $${(100 + h.quant_total_pct).toFixed(0)}${h.quant_cagr_pct != null ? ` · ${h.quant_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
+              <Metric label="TOP-25 Strategy" value={<span className="text-[#00C805]">{h.quant_total_pct != null ? `${h.quant_total_pct >= 0 ? "+" : ""}${h.quant_total_pct.toFixed(0)}%` : "—"}</span>} hint={h.quant_total_pct != null ? `$100 → $${(100 + h.quant_total_pct).toLocaleString(undefined, { maximumFractionDigits: 0 })}${h.quant_cagr_pct != null ? ` · ${h.quant_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
               <Metric label="SPY (buy & hold)" value={h.spy_total_pct != null ? `${h.spy_total_pct >= 0 ? "+" : ""}${h.spy_total_pct.toFixed(0)}%` : "—"} hint={h.spy_total_pct != null ? `$100 → $${(100 + h.spy_total_pct).toFixed(0)}${h.spy_cagr_pct != null ? ` · ${h.spy_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
               <Metric label="Alpha (CAGR)" value={alphaCagr != null ? <span className={alphaCagr >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}>{alphaCagr >= 0 ? "+" : ""}{alphaCagr.toFixed(1)}%</span> : "—"} hint="vs buy & hold" />
               <Metric label="Win Rate" value={h.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"} hint={h.n_periods != null ? `${h.n_periods} periods` : undefined} />
@@ -172,10 +174,10 @@ export default function QuantPortfolioTab() {
             </LineChart>
           </ResponsiveContainer>
           <div className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-            Source: <code className="text-[#9CA7BB]">{bt.source_file}</code> · {bt.n_checkpoints} checkpoints
-            {bt.populated_range ? `, returns populated ${bt.populated_range[0]} → ${bt.populated_range[1]} (${bt.n_populated} populated)` : ""}.
+            Source: <code className="text-[#9CA7BB]">{bt.source_meta ?? bt.source_file}</code> · {bt.n_checkpoints} quarterly rebalances
+            {bt.populated_range ? ` ${bt.populated_range[0]} → ${bt.populated_range[1]}` : ""}.
             SPY line = {buyhold ? <>true <strong className="text-[#9CA7BB]">buy-&-hold</strong> from the app's Yahoo v8 feed{bt.spy_asof ? `, as-of ${bt.spy_asof}` : ""}</> : <span className="text-[#FF9800]">approximate (overlapping per-checkpoint returns — live buy-&-hold fetch unavailable at bake time)</span>}.
-            Survivorship bias, sparse pre-2009 data, and modeled costs apply.
+            Gross of costs/taxes (same basis as the CAGR table). Pre-2010 is survivorship-biased (see caveat); the survivorship-free Era-2 rebuild is separate.
           </div>
         </Card>
         );
