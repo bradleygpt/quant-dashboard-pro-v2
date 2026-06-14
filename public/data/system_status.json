@@ -1,31 +1,31 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-06-13T16:01:54"
+    "at": "2026-06-14T08:36:56"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": "2026-05-29"
+      "asOf": null
     },
     "return": {
-      "current": true,
-      "asOf": "2026-06-05"
+      "current": false,
+      "asOf": null
     }
   },
   "ppi": {
-    "score": 50.8,
-    "level": "ELEVATED"
+    "score": null,
+    "level": null
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-07-01"
+    "nextRebalance": null
   },
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-06-01",
+    "ppi_as_of": null,
     "source": "c78q.json (ppi+state), mlpred effective_date, US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }

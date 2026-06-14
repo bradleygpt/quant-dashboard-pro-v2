@@ -1,29 +1,11 @@
 {
   "sources": {
-    "detail_timeseries": {
-      "source": "build_detail_timeseries_v3 (close + price-only QBP + Modeled FV history: PIT SEC filings, fairvalue.py composite, true-EBITDA)",
-      "as_of": "2026-06-13",
-      "rows": 1311,
-      "fv_excluded": 27,
-      "gap_vs_live_fv_median_pct": 32.4,
-      "check_status": "ok"
-    },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-06-13",
-      "ppi": "50.8 ELEVATED (live c78q PPI, as-of 2026-06-01)",
-      "c78q_pnl": "null — no live mark newer than entry; not fabricated",
-      "consumed_by": "TRI-STAR landing (LandingDemoTab) — replaces old hardcoded PPI 55 / +2.3% mock",
-      "check_status": "ok"
-    },
-    "quant_backtest": {
-      "source": "emit_quant_backtest_for_dashboard.py via backtest_three_periods on historical_scores_combined.parquet (1996-2026, 121 quarterly rebalances)",
-      "as_of": "2026-06-13",
-      "strategy": "Validated TOP-25, equal-weight, 1Q reselect, no MC floor (gross)",
-      "cagr": "26.2% (matches app table Equal 1996-present +26.22%); SPY buy-&-hold 10.1%",
-      "range": "1996-02-15 -> 2026-02-15",
-      "caveat": "survivorship-biased pre-2010 (current universe scored back; coverage 189-1213/rebalance). Era-2 survivorship-free rebuild is separate.",
-      "replaces": "the conservative top-10 2005 swing variant previously served (backtest_results_conservative_top10_2005.json)",
+      "as_of": "2026-06-14",
+      "ppi": "None None (live c78q PPI, as-of None)",
+      "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
+      "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
     }
   }
