@@ -33,7 +33,8 @@ export default function HomeTab() {
   const [holdings] = useState<Holding[]>(() => { try { return JSON.parse(localStorage.getItem("qd_holdings") || "[]"); } catch { return []; } });
 
   const presetKey = preset === "Custom" ? meta.default_preset : preset;
-  const threshold = meta.absolute_thresholds[presetKey];
+  // research-prior presets have no validated absolute threshold — fall back to the default.
+  const threshold = meta.absolute_thresholds[presetKey] ?? meta.absolute_thresholds[meta.default_preset];
 
   const stocks = useMemo(() => rows.filter((r) => r.sector !== "ETF"), [rows]);
   const breadth = useMemo(() => (rows.length ? computeBreadth(rows) : null), [rows]);

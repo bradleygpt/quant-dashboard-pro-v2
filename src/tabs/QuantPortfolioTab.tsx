@@ -183,17 +183,28 @@ export default function QuantPortfolioTab() {
         );
       })()}
 
-      {/* ── Validated strategy summary (preset metrics) ── */}
+      {/* ── strategy summary (preset metrics) — validated record OR research prior ── */}
       {presetInfo && (
-        <Card title="Validated Strategy Backtest" sub={`TOP-25 quarterly rebalance · ${presetInfo.backtest_universe}`}>
+        <Card title={presetInfo.is_research_prior ? "⚗ Research-Prior Backtest" : "Validated Strategy Backtest"}
+              sub={presetInfo.is_research_prior
+                ? `Walk-forward OOS · top-${presetInfo.top_n ?? 7} · ~${presetInfo.hold_days ?? 42}-day hold · ${presetInfo.backtest_universe}`
+                : `TOP-25 quarterly rebalance · ${presetInfo.backtest_universe}`}>
+          {presetInfo.is_research_prior && (
+            <div className="mb-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-3 py-2 text-[11px] leading-relaxed text-[#D8B878]">
+              ⚗ {presetInfo.caveat ?? "Research prior, not a validated record."}
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Metric label="CAGR" value={<span className="text-[#00C805]">{fmtPct(presetInfo.backtest_cagr)}</span>} />
+            <Metric label={presetInfo.is_research_prior ? "OOS CAGR" : "CAGR"} value={<span className="text-[#00C805]">{fmtPct(presetInfo.backtest_cagr)}</span>}
+                    hint={presetInfo.is_research_prior && presetInfo.in_sample_cagr != null ? `${fmtPct(presetInfo.in_sample_cagr)} in-sample` : undefined} />
             <Metric label="Sharpe" value={presetInfo.backtest_sharpe.toFixed(2)} />
             <Metric label="Max Drawdown" value={<span className="text-[#FF5722]">{fmtPct(presetInfo.backtest_max_dd)}</span>} />
-            <Metric label="Portfolio size" value="25" hint="validated construction" />
+            <Metric label="Portfolio size" value={presetInfo.is_research_prior ? String(presetInfo.top_n ?? 7) : "25"} hint={presetInfo.is_research_prior ? "research prior" : "validated construction"} />
           </div>
           <p className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-            These describe the validated <strong>TOP-25</strong> equal-rebalance strategy under the <strong>{weightScheme}</strong> preset, 1996–2026, 121 quarterly rebalances. NOT a backtest of the specific allocation built below.
+            {presetInfo.is_research_prior
+              ? <>A <strong>research prior</strong> from the walk-forward-OOS sweep on EDGAR-era 2011–2026 data — <strong>not</strong> the validated 1996–2026 TOP-25 record above, and not a default. Survivorship-biased; gated downstream by MLPred.</>
+              : <>These describe the validated <strong>TOP-25</strong> equal-rebalance strategy under the <strong>{weightScheme}</strong> preset, 1996–2026, 121 quarterly rebalances. NOT a backtest of the specific allocation built below.</>}
           </p>
         </Card>
       )}

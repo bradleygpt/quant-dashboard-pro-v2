@@ -43,11 +43,17 @@ export default function Sidebar() {
       </div>
 
       {info && (
-        <div className="mb-4 rounded-md border border-[#1E2632] bg-[#121723] p-2.5 text-xs">
-          <div className="flex justify-between"><span className="text-[#7C879B]">Backtest CAGR</span><span className="font-semibold text-[#00C805]">{fmtPct(info.backtest_cagr)}</span></div>
+        <div className={`mb-4 rounded-md border p-2.5 text-xs ${info.is_research_prior ? "border-[#3A2A12] bg-[#1C1407]" : "border-[#1E2632] bg-[#121723]"}`}>
+          {info.is_research_prior && (
+            <div className="mb-1.5 inline-block rounded-sm bg-[#D8B878]/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#D8B878]">⚗ Research prior · not validated</div>
+          )}
+          <div className="flex justify-between"><span className="text-[#7C879B]">{info.is_research_prior ? "OOS CAGR (2011-26)" : "Backtest CAGR"}</span><span className="font-semibold text-[#00C805]">{fmtPct(info.backtest_cagr)}</span></div>
+          {info.is_research_prior && info.in_sample_cagr != null && (
+            <div className="flex justify-between"><span className="text-[#7C879B]">in-sample (overfit)</span><span className="text-[#9CA7BB]">{fmtPct(info.in_sample_cagr)}</span></div>
+          )}
           <div className="flex justify-between"><span className="text-[#7C879B]">Sharpe</span><span>{info.backtest_sharpe.toFixed(2)}</span></div>
           <div className="flex justify-between"><span className="text-[#7C879B]">Max DD</span><span className="text-[#FF5722]">{fmtPct(info.backtest_max_dd)}</span></div>
-          <div className="mt-1 text-[10px] leading-tight text-[#5C6678]">{info.backtest_universe}</div>
+          <div className={`mt-1 text-[10px] leading-tight ${info.is_research_prior ? "text-[#D8B878]" : "text-[#5C6678]"}`}>{info.caveat ?? info.backtest_universe}</div>
         </div>
       )}
 

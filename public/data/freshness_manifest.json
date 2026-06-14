@@ -5,7 +5,23 @@
       "as_of": "2026-06-14",
       "ppi": "None None (live c78q PPI, as-of None)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
-      "consumed_by": "TRI-STAR landing (LandingDemoTab)",
+      "consumed_by": "TRI-STAR landing = Home route (planets route to real tabs)",
+      "check_status": "ok"
+    },
+    "quant_backtest": {
+      "source": "emit_quant_backtest_for_dashboard.py on historical_scores_combined.parquet (1996-2026, 121 quarterly rebalances)",
+      "as_of": "2026-06-14",
+      "strategy": "Validated TOP-25, equal-weight, 1Q reselect, no floor (gross)",
+      "cagr": "26.2% (matches table Equal +26.22%); SPY 10.1%",
+      "caveat": "survivorship-biased pre-2010 (current universe; coverage 189-1213/rebalance) — caveat shown on the chart",
+      "check_status": "ok"
+    },
+    "quant_preset_research_vq": {
+      "source": "config.py WEIGHT_PRESETS['research_vq'] -> meta.json; from q_full_sweep walk-forward-OOS (EDGAR 2011-2026)",
+      "as_of": "2026-06-14",
+      "weights": "V0.50 G0.20 P0.25 M0.05, top-7, ~42-day hold",
+      "cagr": "26.7% OOS (NOT the ~32% in-sample); Sharpe 1.48",
+      "caveat": "research prior, survivorship-biased, NOT default, NOT the validated 1996-2026 record",
       "check_status": "ok"
     }
   }

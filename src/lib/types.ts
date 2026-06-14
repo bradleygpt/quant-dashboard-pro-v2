@@ -1,6 +1,6 @@
 // Types mirror the bake artifacts emitted by _bake.py.
 
-export type PresetName = "equal" | "m_heavy" | "v_heavy";
+export type PresetName = "equal" | "m_heavy" | "v_heavy" | "research_vq";
 export type Floor = 0 | 1 | 10;
 
 export interface PresetInfo {
@@ -11,6 +11,12 @@ export interface PresetInfo {
   backtest_max_dd: number;
   backtest_universe: string;
   validated_at_floor: boolean;
+  // research-prior presets (e.g. research_vq) carry these; validated presets omit them.
+  is_research_prior?: boolean;
+  caveat?: string;
+  top_n?: number;
+  hold_days?: number;
+  in_sample_cagr?: number;
 }
 
 export interface Meta {
