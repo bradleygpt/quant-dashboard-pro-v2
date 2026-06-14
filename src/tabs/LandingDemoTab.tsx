@@ -41,7 +41,6 @@ export default function LandingDemoTab() {
   const userChaos = useRef(false);
   const [hover, setHover] = useState<HoverState | null>(null);
   const [sunHover, setSunHover] = useState<SunHoverState | null>(null);
-  const [nav, setNav] = useState<PlanetDef | null>(null);
   const [flying, setFlying] = useState(false);
   const flyTimer = useRef<number | null>(null);
 
@@ -65,17 +64,14 @@ export default function LandingDemoTab() {
   const onSunHover = (def: SunDef | null, x: number, y: number) =>
     setSunHover(def ? { def, x, y } : null);
 
-  // click = camera fly-toward + fade, then the mock nav overlay resolves.
+  // click = camera fly-toward + fade, then REAL navigation to that planet's tab.
+  // Each planet's tabId is a real registry id (verified), so this routes to the
+  // actual working tab — no mock overlay.
   const onSelect = (def: PlanetDef) => {
     setHover(null);
     setFlying(true);
     if (flyTimer.current) window.clearTimeout(flyTimer.current);
-    flyTimer.current = window.setTimeout(() => setNav(def), 620);
-  };
-
-  const closeNav = () => {
-    setNav(null);
-    setFlying(false);
+    flyTimer.current = window.setTimeout(() => setActiveTab(def.tabId), 620);
   };
 
   const onChaos = (v: number) => {
@@ -138,9 +134,7 @@ export default function LandingDemoTab() {
           suns={suns}
           hover={hover}
           sunHover={sunHover}
-          nav={nav}
-          onCloseNav={closeNav}
-          onExit={() => setActiveTab("home")}
+          onExit={() => setActiveTab("overview")}
         />
       )}
     </div>

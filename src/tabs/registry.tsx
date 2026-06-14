@@ -27,7 +27,10 @@ const Placeholder = (title: string) => () =>
   ComingSoon({ title, reason: "This tab is a placeholder in the source Streamlit app (no implemented logic)." });
 
 export const TABS: TabDef[] = [
-  { id: "home", label: "🏠 Home", component: HomeTab },
+  // Home = the cinematic TRI-STAR landing (planets route to real tabs; live system_status).
+  { id: "home", label: "🏠 Home", component: LandingDemoTab },
+  // The previous data-dashboard home is preserved here, reachable from the nav bar / landing.
+  { id: "overview", label: "📊 Overview", component: HomeTab },
   { id: "regime", label: "📊 Market Regime", component: MarketRegimeTab },
   { id: "portfolio", label: "💼 Your Portfolio", component: PortfolioTab },
   { id: "quantport", label: "💎 Quant Portfolio", component: QuantPortfolioTab },
@@ -42,6 +45,4 @@ export const TABS: TabDef[] = [
   { id: "etfs", label: "ETF Center", component: ETFTab },
   { id: "voices", label: "🎤 Pundit Views", component: PunditViewsTab },
   { id: "help", label: "📖 Help", component: HelpTab },
-  // registered LAST — self-contained cinematic landing demo (mock data only)
-  { id: "landing-demo", label: "✦ Landing Demo", component: LandingDemoTab },
 ];

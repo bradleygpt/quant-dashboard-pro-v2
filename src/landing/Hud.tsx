@@ -22,8 +22,6 @@ interface Props {
   suns: SunDef[];
   hover: HoverState | null;
   sunHover: SunHoverState | null;
-  nav: PlanetDef | null;
-  onCloseNav: () => void;
   onExit: () => void;
 }
 
@@ -31,7 +29,7 @@ const micro = "text-[10px] uppercase tracking-[0.22em] text-[#7C879B]";
 const rule = "h-px w-full bg-gradient-to-r from-[#1E2632] to-transparent";
 
 export default function Hud(props: Props) {
-  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, status, suns, hover, sunHover, nav, onCloseNav, onExit } = props;
+  const { chaos, setChaos, resetChaos, marketKey, setMarketKey, era, status, suns, hover, sunHover, onExit } = props;
   const s = status;
   const pnl = s.c78q.pnl; // null when no honest live mark exists
 
@@ -80,7 +78,7 @@ export default function Hud(props: Props) {
           onClick={onExit}
           className="pointer-events-auto mt-3 text-[10px] uppercase tracking-[0.22em] text-[#7C879B] transition hover:text-[#C3CAD7]"
         >
-          exit demo ✕
+          enter dashboard →
         </button>
       </div>
 
@@ -174,28 +172,6 @@ export default function Hud(props: Props) {
         </div>
       )}
 
-      {/* ---------- mock nav overlay (click = fly-to) ---------- */}
-      {nav && (
-        <div className="pointer-events-auto absolute inset-0 flex items-center justify-center bg-[#04060b]/70 backdrop-blur-[2px]">
-          <div className="w-[340px] rounded-md border border-[#1E2632] bg-[#0F1420]/90 p-6 text-center">
-            <div className={micro}>fly-to · mock navigation</div>
-            <div className="mt-2 flex items-center justify-center gap-2">
-              <span className="inline-block h-2 w-2 rounded-full" style={{ background: nav.accent, boxShadow: `0 0 8px ${nav.accent}` }} />
-              <h2 className="text-[16px] tracking-[0.18em] text-[#DCE3EE]">{nav.name}</h2>
-            </div>
-            <p className="mt-2 text-[11px] tracking-[0.06em] text-[#9CA7BB] tabular-nums">{nav.status}</p>
-            <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-[#7C879B]">
-              would route to tab · {nav.tabId}
-            </p>
-            <button
-              onClick={onCloseNav}
-              className="mt-5 rounded-sm border border-[#2A3545] px-4 py-1.5 text-[10px] uppercase tracking-[0.2em] text-[#C3CAD7] transition hover:border-[#5BA8FF]/60 hover:bg-[#5BA8FF]/10"
-            >
-              ← back to system
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
