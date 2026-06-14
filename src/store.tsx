@@ -79,7 +79,9 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
     const scored = resolveScores(rawRows, preset, customWeights);
     const vr: ViewRow[] = rawRows.map((r) => {
       const s = scored.get(r.ticker)!;
-      return { ...r, composite: s?.composite ?? 0, rating: s?.rating ?? "Hold" };
+      // A missing company name (e.g. MCW once baked as null) must not reach consumers
+      // that call name.toLowerCase()/sort — coerce to the ticker so nothing crashes.
+      return { ...r, name: r.name ?? r.ticker, composite: s?.composite ?? 0, rating: s?.rating ?? "Hold" };
     });
     vr.sort((a, b) => b.composite - a.composite);
     const map = new Map<string, ViewRow>();

@@ -5,16 +5,24 @@ import type { Meta, UniverseFile, Floor, TickerDetail, PriceSeries } from "./typ
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
+// Python json.dump (allow_nan default) can emit bare NaN/Infinity, which is INVALID
+// JSON and makes the browser's JSON.parse reject the WHOLE file — e.g. one ticker
+// (MCW) with a NaN name once blanked the entire universe ("0 stocks scored"). Parse
+// tolerantly: replace any NaN/Infinity appearing as a JSON *value* (right after :,
+// [ or ,) with null. The delimiter anchors avoid touching "NaN" inside a quoted string.
+function parseTolerant<T>(text: string): T {
+  return JSON.parse(text.replace(/([:[,]\s*)(NaN|-?Infinity)(?=\s*[,\]}])/g, "$1null")) as T;
+}
 async function getJSON<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}/${path}`);
   if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
-  return res.json() as Promise<T>;
+  return parseTolerant<T>(await res.text());
 }
 async function getJSONOrNull<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(`${BASE}/${path}`);
     if (!res.ok) return null;
-    return (await res.json()) as T;
+    return parseTolerant<T>(await res.text());
   } catch {
     return null;
   }
