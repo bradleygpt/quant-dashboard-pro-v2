@@ -1743,6 +1743,8 @@
     "Realizable OOS CAGR ~26.7% (walk-forward, by-Sharpe). The full-period in-sample figure (~32%) is OVERFIT and is shown only for contrast.",
     "Survivorship-biased: scores the CURRENT universe back through 2011 (delisted names absent).",
     "The ~42-day hold was validated on the DAILY panel only (2011-2026); not on the 1996-2026 quarterly record.",
+    "Valuation-pillar contamination: the backtest panel computes market cap as split-ADJUSTED price \u00d7 AS-REPORTED shares, so PE/PB/PS are scaled by each name's cumulative split factor (e.g. NVDA ~40\u00d7). Because heavy splitters tend to be the eventual winners, this injects a forward-looking bias that likely overstates the valuation edge \u2014 pending a re-derivation from raw point-in-time prices. (The live dashboard is unaffected; it scores on current yfinance ratios.)",
+    "Filing-lag not exact: fundamentals align to mid-month rebalances (~45d post quarter-end \u2248 10-Q window) with no explicit as-reported/filing-date column, so the most recent quarter (esp. Q4/10-K at a Feb-15 rebalance) may be days-to-weeks early for some names.",
     "Research strategy for ranking/prior \u2014 NOT a live-deployment recommendation, NOT a validated default."
   ]
 }
