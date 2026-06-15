@@ -44,7 +44,7 @@ export default function Hud(props: Props) {
       {/* ---------- title + era (top-left) ---------- */}
       <div className={`absolute left-6 top-5 ${scrim}`}>
         <div className="flex items-baseline gap-3">
-          <h1 className="text-[22px] font-semibold tracking-[0.42em] text-[#DCE3EE]">TRI-STAR</h1>
+          <h1 className="text-[22px] font-semibold tracking-[0.42em] text-[#DCE3EE]">AKRIBEIA</h1>
           <span className={micro}>three-sun gravitational system</span>
         </div>
         <div className="mt-1.5 flex items-center gap-2">
