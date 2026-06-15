@@ -110,9 +110,9 @@ export default function MLPredTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">ML Predictions</h2>
+        <h2 className="text-lg font-bold text-white">Project Prolepsis (ML Predictions)</h2>
         <p className="text-xs text-[#7C879B]">
-          MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
+          Project Prolepsis — MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run
           ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Two engines: P(beat) is the binary classifier's probability of outperforming over 12 months (c78q posterior); targets
           are the return engine's monthly outputs (as-of prediction date). Predicted returns recompute as target/price − 1; the

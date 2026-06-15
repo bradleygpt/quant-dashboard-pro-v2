@@ -55,7 +55,7 @@
       "validated_at_floor": true
     },
     "research_vq": {
-      "label": "\u2697 Research Prior \u00b7 Value+Quality (2011-26 OOS)",
+      "label": "\u2697 Project Axia \u00b7 Research Prior \u00b7 Value+Quality (2011-26 OOS)",
       "weights": {
         "Valuation": 0.5,
         "Growth": 0.2,

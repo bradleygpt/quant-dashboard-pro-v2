@@ -139,7 +139,7 @@ export function buildSuns(s: SystemStatus = SYSTEM_STATUS): SunDef[] {
   const mlAsOf = mmdd(s.engines.return.asOf);
   return [
     { id: "quant", name: "QUANT", role: "Scoring · FV · rating", status: "online · universe scored", color: "#FFE3A8", mass: 1.04, lum: es.quant.lum, agitation: es.quant.agitation },
-    { id: "mlpred", name: "MLPRED", role: "Prediction ensemble", status: s.engines.return.current ? `targets current · ${mlAsOf}` : `targets stale · ${mlAsOf}`, color: "#CFE0FF", mass: 1.0, lum: es.mlpred.lum, agitation: es.mlpred.agitation },
+    { id: "mlpred", name: "PROLEPSIS", role: "Prediction ensemble", status: s.engines.return.current ? `targets current · ${mlAsOf}` : `targets stale · ${mlAsOf}`, color: "#CFE0FF", mass: 1.0, lum: es.mlpred.lum, agitation: es.mlpred.agitation },
     { id: "thesis", name: "THESIS", role: "LLM thesis engine", status: "in development · nascent", color: "#FF9E5A", mass: 0.92, lum: es.thesis.lum, agitation: es.thesis.agitation },
   ];
 }
@@ -199,8 +199,8 @@ function c78qStatus(s: SystemStatus): string {
 export function buildPlanets(s: SystemStatus = SYSTEM_STATUS): PlanetDef[] {
   return [
   // inner band — strategies. c78q is the flagship (self-lit, brightest planet).
-  { tabId: "bh", name: "c78q Strategy", accent: "#00C805", status: c78qStatus(s), band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
-  { tabId: "mlpred", name: "ML Predictions", accent: "#5BA8FF", status: `targets ${s.engines.return.current ? "current" : "stale"} · ${mmdd(s.engines.return.asOf)}`, band: 0, phase: 1.9, size: 0.42, ecc: 0.14, incl: -0.08, speed: 0.92 },
+  { tabId: "bh", name: "Project Katalepsis (c78q)", accent: "#00C805", status: c78qStatus(s), band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
+  { tabId: "mlpred", name: "Project Prolepsis (ML Predictions)", accent: "#5BA8FF", status: `targets ${s.engines.return.current ? "current" : "stale"} · ${mmdd(s.engines.return.asOf)}`, band: 0, phase: 1.9, size: 0.42, ecc: 0.14, incl: -0.08, speed: 0.92 },
   { tabId: "quantport", name: "Quant Portfolio", accent: "#7FB0FF", status: "12 holds · drift 0.4%", band: 0, phase: 3.5, size: 0.50, ecc: 0.08, incl: 0.10, speed: 0.86 },
   { tabId: "portfolio", name: "Your Portfolio", accent: "#FF9800", status: "watchlist · 8 tickers", band: 0, phase: 5.1, size: 0.44, ecc: 0.12, incl: -0.04, speed: 0.80 },
   // middle band — instruments

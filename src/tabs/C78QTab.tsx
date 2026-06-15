@@ -46,7 +46,7 @@ export default function C78QTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">c78q Strategy</h2>
+        <h2 className="text-lg font-bold text-white">Project Katalepsis (c78q) Strategy</h2>
         <p className="text-xs text-[#7C879B]">
           The validated c78q strategy (config {data?.spec?.config ?? "A_top8"} · {data?.spec?.basket_size ?? 8} US stocks, equal-weight {(data?.spec?.weight_per_position ?? 0.125) * 100}%).
           Backtest / picks / state from the quant-historical ETL ({data?.generated_at ? new Date(data.generated_at).toLocaleDateString() : "daily"}); PPI computed live from SPY/VIX/VVIX + baked-universe breadth.

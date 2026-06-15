@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 shrink-0 border-r border-[#1E2632] bg-[#0E131D] p-4">
       <div className="mb-4">
-        <div className="text-lg font-bold text-white">Quant Dashboard <span className="text-[#3B82F6]">Pro</span></div>
+        <div className="text-lg font-bold text-white">Akribeia <span className="text-[#3B82F6]">Analytics</span></div>
         <div className="text-xs text-[#7C879B]">React migration candidate</div>
       </div>
 

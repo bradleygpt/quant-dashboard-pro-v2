@@ -66,9 +66,9 @@ export default function Hud(props: Props) {
           <Stat label="PIPELINE" value={s.bake.fresh ? "FRESH" : "STALE"} tone={s.bake.fresh ? "#00C805" : "#FF5722"} />
           <Stat label="PPI" value={`${s.ppi.score} ${s.ppi.level}`} tone="#FF9800" />
           {pnl == null ? (
-            <Stat label="c78q" value="DEPLOYED" tone="#9CA7BB" />
+            <Stat label="KATALEPSIS" value="DEPLOYED" tone="#9CA7BB" />
           ) : (
-            <Stat label="c78q P&L" value={`${pnl >= 0 ? "+" : ""}${pnl.toFixed(1)}%`} tone={pnl >= 0 ? "#00C805" : "#FF5722"} />
+            <Stat label="KATALEPSIS P&L" value={`${pnl >= 0 ? "+" : ""}${pnl.toFixed(1)}%`} tone={pnl >= 0 ? "#00C805" : "#FF5722"} />
           )}
         </div>
         <div className="mt-3 ml-auto w-56">

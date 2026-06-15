@@ -48,8 +48,8 @@ export default function ValueQualityTab() {
     return showAll ? sorted : sorted.slice(0, 12);
   }, [d, showAll]);
 
-  if (err) return <Unavailable what="Value+Quality research" detail="value_quality_strategy.json failed to load." />;
-  if (!d) return <Spinner label="Loading Value+Quality research…" />;
+  if (err) return <Unavailable what="Project Axia (Value+Quality) research" detail="value_quality_strategy.json failed to load." />;
+  if (!d) return <Spinner label="Loading Project Axia (Value+Quality)…" />;
 
   const w = d.config.weights;
   const yh = d.year_hold;
@@ -57,7 +57,7 @@ export default function ValueQualityTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">Value + Quality Strategy</h2>
+        <h2 className="text-lg font-bold text-white">Project Axia (Value+Quality)</h2>
         <p className="text-xs text-[#7C879B]">
           A standalone presentation of the validated 42-day value+quality research — a composite that overweights
           Valuation and Profitability with light Growth and Momentum, holding the top {d.config.top_n} names for
