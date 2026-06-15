@@ -14,8 +14,8 @@
     }
   },
   "ppi": {
-    "score": null,
-    "level": null
+    "score": 39.5,
+    "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
@@ -25,8 +25,9 @@
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": null,
-    "source": "c78q.json (ppi+state), mlpred effective_date, US session snapshot",
-    "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
+    "ppi_as_of": "2026-06-14",
+    "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q)",
+    "pnl_note": "null \u2014 no live mark newer than entry; not fabricated",
+    "ppi_breadth_pct": 65.3
   }
 }
