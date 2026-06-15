@@ -76,12 +76,33 @@ export function resolveScores(
   rows: Row[],
   preset: PresetName | "Custom",
   customWeights: Record<string, number>,
+  presetWeights?: Record<string, number>,
 ): Map<string, Scored> {
   if (preset !== "Custom") {
+    // A preset added to config AFTER this universe was baked (e.g. research_vq /
+    // Project Axia) is absent from every row's byPreset, so reading cell?.c ?? 0
+    // would silently render the WHOLE universe at 0.00 / "Hold". Detect that and
+    // recompute from the preset's own weights — exactly the Custom path the working
+    // presets are validated against — instead of shipping a zeroed screener.
+    const baked = rows.some((r) => r.byPreset?.[preset] != null);
+    if (!baked) {
+      if (presetWeights) {
+        console.error(
+          `[scoring] preset "${preset}" missing from baked byPreset — recomputing client-side ` +
+          `from meta weights (bake predates this preset; next full bake will carry it).`,
+        );
+        return scoreUniverse(rows, presetWeights);
+      }
+      console.error(`[scoring] preset "${preset}" missing from byPreset AND no weights to recompute.`);
+    }
     const m = new Map<string, Scored>();
     for (const r of rows) {
       const cell = r.byPreset[preset];
       m.set(r.ticker, { composite: cell?.c ?? 0, rating: cell?.r ?? "Hold" });
+    }
+    // Fail-loud: an all-zero universe is never a valid scoring — surface it.
+    if (rows.length > 0 && [...m.values()].every((s) => !s.composite)) {
+      console.error(`[scoring] preset "${preset}" yielded an all-zero universe — data bug, not valid.`);
     }
     return m;
   }

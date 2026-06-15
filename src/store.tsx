@@ -76,7 +76,8 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
   }, [floor]);
 
   const { rows, byTicker } = useMemo(() => {
-    const scored = resolveScores(rawRows, preset, customWeights);
+    const presetWeights = preset !== "Custom" ? meta.presets[preset]?.weights : undefined;
+    const scored = resolveScores(rawRows, preset, customWeights, presetWeights);
     const vr: ViewRow[] = rawRows.map((r) => {
       const s = scored.get(r.ticker)!;
       // A missing company name (e.g. MCW once baked as null) must not reach consumers
@@ -87,7 +88,7 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
     const map = new Map<string, ViewRow>();
     for (const r of vr) map.set(r.ticker, r);
     return { rows: vr, byTicker: map };
-  }, [rawRows, preset, customWeights]);
+  }, [rawRows, preset, customWeights, meta.presets]);
 
   const selectTicker = useCallback((t: string | null) => setSelectedTicker(t), []);
   const goToDetail = useCallback((t: string) => { setSelectedTicker(t); setActiveTab("detail"); }, []);
