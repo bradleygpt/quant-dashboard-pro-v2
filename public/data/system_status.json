@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-06-15T10:51:00"
+    "at": "2026-06-15T19:22:47"
   },
   "engines": {
     "binary": {
@@ -14,7 +14,7 @@
     }
   },
   "ppi": {
-    "score": 39.5,
+    "score": 38.7,
     "level": "MODERATE"
   },
   "c78q": {
@@ -22,11 +22,11 @@
     "nextRebalance": null
   },
   "market": {
-    "state": "pre"
+    "state": "rth"
   },
   "_meta": {
     "ppi_as_of": "2026-06-15",
-    "ppi_breadth_pct": 65.4,
+    "ppi_breadth_pct": 67.1,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
