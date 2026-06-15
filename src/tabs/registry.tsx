@@ -16,6 +16,7 @@ import C78QTab from "./C78QTab";
 import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
 import LandingDemoTab from "./LandingDemoTab";
+import ValueQualityTab from "./ValueQualityTab";
 
 export interface TabDef {
   id: string;
@@ -34,6 +35,7 @@ export const TABS: TabDef[] = [
   { id: "regime", label: "📊 Market Regime", component: MarketRegimeTab },
   { id: "portfolio", label: "💼 Your Portfolio", component: PortfolioTab },
   { id: "quantport", label: "💎 Quant Portfolio", component: QuantPortfolioTab },
+  { id: "valqual", label: "🎯 Value+Quality", component: ValueQualityTab },
   { id: "detail", label: "🔍 Stock Detail", component: StockDetailTab },
   { id: "doppel", label: "✨ Doppelganger", component: DoppelgangerTab },
   { id: "screener", label: "📋 Quant Screener", component: ScreenerTab },
