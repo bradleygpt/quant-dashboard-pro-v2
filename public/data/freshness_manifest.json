@@ -2,8 +2,8 @@
   "sources": {
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-06-17",
-      "ppi": "39.2 MODERATE (live c78q PPI, as-of 2026-06-17)",
+      "as_of": "2026-06-18",
+      "ppi": "35.8 MODERATE (live c78q PPI, as-of 2026-06-18)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
