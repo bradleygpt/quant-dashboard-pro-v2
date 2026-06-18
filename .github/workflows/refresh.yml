@@ -1,4 +1,4 @@
-﻿name: Refresh baked data + redeploy
+name: Refresh baked data + redeploy
 
 # Keeps the React app's baked JSON as current as the Streamlit app. Runs after the
 # source repo's scheduled cache refresh (fundamentals ~10am & ~11pm ET). Re-bakes
@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write            # GITHUB_TOKEN may push back to this repo
+  issues: write              # open/append a tracking issue if the job fails
 
 concurrency:
   group: refresh
@@ -23,6 +24,15 @@ jobs:
     steps:
       - name: Checkout v2 (this repo - has bake/ tooling)
         uses: actions/checkout@v4
+        with:
+          # ROOT-CAUSE FIX: full history. checkout@v4 defaults to a shallow
+          # (fetch-depth: 1) clone. The bot then commits a large public/data bake
+          # (~5.9k JSON files) on top of a grafted single-commit history, and
+          # `git push` fails with "ref 'main': missing object: <sha>" because the
+          # thin-pack negotiation references tree/blob objects below the shallow
+          # horizon that the job never fetched. fetch-depth: 0 guarantees the push
+          # references only objects the job actually has.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
@@ -31,7 +41,10 @@ jobs:
         run: |
           git lfs install
           git clone --depth 1 https://github.com/bradleygpt/quant-dashboard-pro.git source
-          cd source && git lfs pull --include="prices_cache.parquet" || true
+          # FAIL LOUD on LFS pull failure (was `|| true`). A swallowed failure here
+          # bakes a 130-byte LFS pointer instead of the real parquet -> silent bad
+          # data / crash (gap #6). If the pull fails, the whole run should go red.
+          cd source && git lfs pull --include="prices_cache.parquet"
 
       - name: Install deps
         run: pip install -r source/requirements.txt pyarrow
@@ -40,8 +53,6 @@ jobs:
         run: |
           # Canonical bake = source/bake/bake.py (cloned from the source repo); it
           # os.chdir(ROOT)+sys.path.insert(ROOT) to resolve its deps from source/.
-          # (Formerly `cp -r bake source/bake` copied a v2 bake/ in, but that copy
-          # was a stale, unused divergence — removed along with web/bake/.)
           cd source && python bake/bake.py        # writes source/web/public/data
 
       - name: Sync refreshed data into this repo (non-destructive)
@@ -61,5 +72,28 @@ jobs:
             echo "No data change - skipping commit."
           else
             git commit -m "chore: bake data refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            # No auto-rebase: public/data has multiple writers (manual strategy
+            # JSON / system_status / c78q commits land on main alongside this bot).
+            # If the remote tip advanced during the bake, this push fails LOUD
+            # (non-fast-forward) and the failure step below surfaces it; the next
+            # scheduled run re-checks-out the new tip and succeeds. Preferred over a
+            # blind rebase that could replay the bake over a concurrent manual edit.
             git push
+          fi
+
+      - name: Surface failure (anti-silent-break)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # A scheduled job that fails silently for days is the lapsed-SEC-fetch
+          # class. Open one tracking issue and append to it on repeat failures
+          # (deduped so repeated failures don't spam new issues).
+          title="Rebake refresh workflow is failing"
+          body="Scheduled rebake failed on $(date -u +%Y-%m-%dT%H:%MZ). Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "$body"
+          else
+            gh issue comment "$existing" --body "$body"
           fi
