@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-06-18T18:23:47"
+    "at": "2026-06-18T20:40:08"
   },
   "engines": {
     "binary": {
@@ -14,7 +14,7 @@
     }
   },
   "ppi": {
-    "score": 35.8,
+    "score": 35.7,
     "level": "MODERATE"
   },
   "c78q": {
@@ -22,7 +22,7 @@
     "nextRebalance": null
   },
   "market": {
-    "state": "rth"
+    "state": "after"
   },
   "_meta": {
     "ppi_as_of": "2026-06-18",
