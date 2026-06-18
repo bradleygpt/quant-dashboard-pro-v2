@@ -17,6 +17,9 @@ import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
 import LandingDemoTab from "./LandingDemoTab";
 import ValueQualityTab from "./ValueQualityTab";
+import ProsodosTab from "./ProsodosTab";
+import KrasisTab from "./KrasisTab";
+import AuxoTab from "./AuxoTab";
 
 export interface TabDef {
   id: string;
@@ -35,12 +38,15 @@ export const TABS: TabDef[] = [
   { id: "regime", label: "📊 Market Regime", component: MarketRegimeTab },
   { id: "portfolio", label: "💼 Your Portfolio", component: PortfolioTab },
   { id: "quantport", label: "💎 Quant Portfolio", component: QuantPortfolioTab },
-  { id: "valqual", label: "🎯 Project Axia (Value+Quality)", component: ValueQualityTab },
   { id: "detail", label: "🔍 Stock Detail", component: StockDetailTab },
   { id: "doppel", label: "✨ Doppelganger", component: DoppelgangerTab },
   { id: "screener", label: "📋 Quant Screener", component: ScreenerTab },
   { id: "mlpred", label: "Project Prolepsis (ML Predictions)", component: MLPredTab },
   { id: "bh", label: "🔥 Project Katalepsis (c78q)", component: C78QTab },
+  { id: "valqual", label: "🎯 Project Axia (Value+Quality)", component: ValueQualityTab },
+  { id: "prosodos", label: "💰 Prosodos (Profitability)", component: ProsodosTab },
+  { id: "krasis", label: "⚖️ Krasis (Balanced)", component: KrasisTab },
+  { id: "auxo", label: "🌱 Auxo (Growth)", component: AuxoTab },
   { id: "sectors", label: "Sector Overview", component: SectorTab },
   { id: "crypto", label: "₿ Crypto", component: CryptoTab },
   { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
