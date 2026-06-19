@@ -1,0 +1,69 @@
+{
+  "strategy": "akribeia_event_balanced",
+  "config": {
+    "blend": {
+      "ml": 0.25,
+      "fund": 0.25,
+      "event": 0.5
+    },
+    "N": 3,
+    "universe": "broad (no floor; trading = eligible)",
+    "rebalance": "first trading day of each calendar month, equal-weight"
+  },
+  "inception_date": "2026-06-17",
+  "benchmark": "SPY",
+  "spy_entry_adj_close": 739.0560302734375,
+  "spy_entry_date": "2026-06-17",
+  "expected_net_cagr_backtest": "Event-balanced (.25ml/.25fund/.50event). Backtest 30.0%; liquidity-survival 0.96 (edge is tradeable, NOT microcap); worst 2-yr regime +12.7%; maxDD -41%; Sharpe 0.94. Realistic forward expectation ~25-29% after survivorship+concentration. E3/PEAD core confirmed by open-hunt OOS walk-forward (selected every fold). ADV reported per holding for sizing, not exclusion.",
+  "display": {
+    "engine": "Aristeia",
+    "character": "Event-Balanced",
+    "factor": "Event / PEAD",
+    "status": "live",
+    "backtest_cagr": 30.0,
+    "sharpe": 0.94,
+    "max_dd": -41.0,
+    "spy_cagr": 13.5,
+    "liquidity_survival": 0.96,
+    "worst_regime": 12.7,
+    "realistic_forward": "~25-29%",
+    "window": "2011-2026"
+  },
+  "holdings": [
+    {
+      "ticker": "INSW",
+      "entry_date": "2026-06-17",
+      "entry_adj_close": 81.44999694824219,
+      "adv_usd_m": 41.7,
+      "blend_score": 10.295,
+      "event": 10.76,
+      "fund": 8.09,
+      "ml": 11.56,
+      "weight": 0.3333
+    },
+    {
+      "ticker": "MTZ",
+      "entry_date": "2026-06-17",
+      "entry_adj_close": 374.9100036621094,
+      "adv_usd_m": 424.9,
+      "blend_score": 9.913,
+      "event": 10.04,
+      "fund": 7.66,
+      "ml": 11.91,
+      "weight": 0.3333
+    },
+    {
+      "ticker": "AKAM",
+      "entry_date": "2026-06-17",
+      "entry_adj_close": 127.8550033569336,
+      "adv_usd_m": 738.0,
+      "blend_score": 9.83,
+      "event": 10.41,
+      "fund": 7.8,
+      "ml": 10.7,
+      "weight": 0.3333
+    }
+  ],
+  "next_rebalance_date": "2026-07-01",
+  "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance."
+}

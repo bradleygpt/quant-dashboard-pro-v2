@@ -18,6 +18,11 @@ export interface StrategyData {
     spy_cagr: number; nasdaq_cagr: number; n_rebalances: number;
     annual_turnover_pct: number; final_multiple: number;
   };
+  backtest?: {
+    cagr: number; sharpe: number; max_dd: number; window: string;
+    regime_cagr: { blocks: { period: string; cagr: number }[]; median: number; best: number; worst: number };
+    forward_note: string;
+  };
   equity_curve: { date: string; equity: number; spy: number; nasdaq: number }[];
   yearly: YearRow[];
   holdings: Holding[];
@@ -80,11 +85,21 @@ export default function StrategyTab({ slug }: { slug: string }) {
       </div>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Metric label="CAGR 2011–2026" value={`${m.in_sample.cagr.toFixed(1)}%`} hint={`vs SPY ${m.spy_cagr.toFixed(1)}% · Nasdaq ${m.nasdaq_cagr.toFixed(1)}%`} />
+        <Metric label={`Backtest CAGR ${d.backtest?.window ?? "2011–2026"}`} value={`${m.in_sample.cagr.toFixed(1)}%`} hint={`vs SPY ${m.spy_cagr.toFixed(1)}% · Nasdaq ${m.nasdaq_cagr.toFixed(1)}%`} />
         <Metric label="Sharpe (daily)" value={m.in_sample.sharpe.toFixed(2)} hint="true daily marks" />
         <Metric label="Max Drawdown (true)" value={`${m.in_sample.max_dd.toFixed(1)}%`} hint="real COVID-2020 low" />
-        <Metric label="Out-of-sample 2021–26" value={`${m.oos.cagr.toFixed(1)}%`} hint={`untouched holdout · Sh ${m.oos.sharpe.toFixed(2)}`} />
+        {d.backtest ? (
+          <Metric label="Regime CAGR range" value={`${d.backtest.regime_cagr.worst.toFixed(0)}–${d.backtest.regime_cagr.best.toFixed(0)}%`} hint={`median ${d.backtest.regime_cagr.median.toFixed(0)}% · across 2-yr blocks`} />
+        ) : (
+          <Metric label="Out-of-sample 2021–26" value={`${m.oos.cagr.toFixed(1)}%`} hint={`untouched holdout · Sh ${m.oos.sharpe.toFixed(2)}`} />
+        )}
       </div>
+
+      {d.backtest && (
+        <div className="rounded-lg border border-[#5A4A1E] bg-[#1E1A0E] px-3 py-2 text-xs text-[#FFC107]">
+          ⚠ {d.backtest.forward_note}
+        </div>
+      )}
 
       <Card title="Configuration" sub="Frozen config — the same weights/hold used across every panel below.">
         <div className="flex flex-wrap gap-2">
