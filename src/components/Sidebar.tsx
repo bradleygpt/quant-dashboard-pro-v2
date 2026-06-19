@@ -4,17 +4,31 @@ import { fmtPct } from "../lib/format";
 
 const FLOOR_LABELS: Record<number, string> = { 0: "No floor", 1: "$1B+", 10: "$10B+" };
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen = false, onClose }: { mobileOpen?: boolean; onClose?: () => void }) {
   const { meta, floor, setFloor, preset, setPreset, rows } = useStore();
   const presetNames = Object.keys(meta.presets) as PresetName[];
   const info = preset !== "Custom" ? meta.presets[preset] : null;
   const stockCount = rows.filter((r) => r.sector !== "ETF").length;
 
   return (
-    <aside className="w-64 shrink-0 border-r border-[#1E2632] bg-[#0E131D] p-4">
-      <div className="mb-4">
-        <div className="text-lg font-bold text-white">Akribeia</div>
-        <div className="text-xs text-[#7C879B]">React migration candidate</div>
+    <aside
+      style={{ left: mobileOpen ? 0 : "-16rem" }}
+      className="fixed inset-y-0 z-40 flex w-64 shrink-0 flex-col overflow-y-auto border-r border-[#1E2632] bg-[#0E131D] p-4 md:static md:z-auto md:!left-auto"
+    >
+      <div className="mb-4 flex items-start justify-between">
+        <div>
+          <div className="text-lg font-bold text-white">Akribeia</div>
+          <div className="text-xs text-[#7C879B]">React migration candidate</div>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Close menu"
+          className="-mr-1 rounded-md p-1 text-[#7C879B] transition hover:bg-[#161D29] md:hidden"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+            <path d="M5 5l10 10M15 5L5 15" strokeLinecap="round" />
+          </svg>
+        </button>
       </div>
 
       <div className="mb-4">
@@ -23,7 +37,7 @@ export default function Sidebar() {
           {presetNames.map((p) => (
             <button
               key={p}
-              onClick={() => setPreset(p as PresetSel)}
+              onClick={() => { setPreset(p as PresetSel); onClose?.(); }}
               className={`rounded-md px-2.5 py-1.5 text-left text-xs transition ${
                 preset === p ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
               }`}
@@ -32,7 +46,7 @@ export default function Sidebar() {
             </button>
           ))}
           <button
-            onClick={() => setPreset("Custom")}
+            onClick={() => { setPreset("Custom"); onClose?.(); }}
             className={`rounded-md px-2.5 py-1.5 text-left text-xs transition ${
               preset === "Custom" ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
             }`}
@@ -63,7 +77,7 @@ export default function Sidebar() {
           {meta.floors.map((f) => (
             <button
               key={f}
-              onClick={() => setFloor(f as Floor)}
+              onClick={() => { setFloor(f as Floor); onClose?.(); }}
               className={`flex-1 rounded-md px-2 py-1.5 text-xs transition ${
                 floor === f ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"
               }`}
