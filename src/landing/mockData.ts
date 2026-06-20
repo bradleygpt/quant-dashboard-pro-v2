@@ -198,8 +198,8 @@ function c78qStatus(s: SystemStatus): string {
 
 export function buildPlanets(s: SystemStatus = SYSTEM_STATUS): PlanetDef[] {
   return [
-  // inner band — strategies. c78q is the flagship (self-lit, brightest planet).
-  { tabId: "bh", name: "Project Katalepsis (c78q)", accent: "#00C805", status: c78qStatus(s), band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
+  // inner band — strategies. Katalepsis (c78q) is the flagship; it now lives inside the Strategies tab.
+  { tabId: "strategies", name: "Strategies · Katalepsis +4", accent: "#00C805", status: c78qStatus(s), band: 0, phase: 0.2, size: 0.50, ecc: 0.10, incl: 0.05, speed: 1.00, flagship: true },
   { tabId: "mlpred", name: "Project Prolepsis (ML Predictions)", accent: "#5BA8FF", status: `targets ${s.engines.return.current ? "current" : "stale"} · ${mmdd(s.engines.return.asOf)}`, band: 0, phase: 1.9, size: 0.42, ecc: 0.14, incl: -0.08, speed: 0.92 },
   { tabId: "quantport", name: "Quant Portfolio", accent: "#7FB0FF", status: "12 holds · drift 0.4%", band: 0, phase: 3.5, size: 0.50, ecc: 0.08, incl: 0.10, speed: 0.86 },
   { tabId: "portfolio", name: "Your Portfolio", accent: "#FF9800", status: "watchlist · 8 tickers", band: 0, phase: 5.1, size: 0.44, ecc: 0.12, incl: -0.04, speed: 0.80 },

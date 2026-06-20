@@ -87,7 +87,7 @@ export default function HomeTab() {
       <div><h2 className="text-lg font-bold text-white">Dashboard Overview</h2><p className="text-xs text-[#7C879B]">Your universe and market at a glance.</p></div>
 
       {/* 1. Pullback Pressure Index (c78q — faithful port of pullback_pressure_index.py) */}
-      <Card title="Pullback Pressure Index (PPI)" sub="c78q market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown on the c78q tab.">
+      <Card title="Pullback Pressure Index (PPI)" sub="Market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown in Strategies → Katalepsis.">
         {ppiFeed.status === "loading" ? <Spinner label="Loading market timing…" /> :
          !ppi ? <Unavailable what="PPI inputs" detail="Needs live SPY/VIX/VVIX from /api/ppi (deployed app only)." /> : (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">

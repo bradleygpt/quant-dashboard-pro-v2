@@ -11,7 +11,7 @@
     "rebalance": "every 105 trading days (~5 months)"
   },
   "target": {
-    "as_of": "2026-05-29",
+    "as_of": "2026-06-17",
     "rows": [
       {
         "rank": 1,

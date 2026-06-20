@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
+import IndexBadges from "../components/IndexBadges";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ScatterChart, Scatter, ZAxis } from "recharts";
@@ -195,7 +196,7 @@ function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
               <td className="px-3 py-1.5 text-[#7C879B]">{i + 1}</td>
               <td className="px-3 py-1.5">
                 <button onClick={() => goToDetail(r.ticker)} className="text-left" title={`Open ${r.ticker} stock detail`}>
-                  <span className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</span>
+                  <span className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</span><IndexBadges ticker={r.ticker} />
                   {(byTicker.get(r.ticker) as any)?.name && (
                     <span className="block max-w-[180px] truncate text-[10px] text-[#7C879B]">{(byTicker.get(r.ticker) as any).name}</span>
                   )}
