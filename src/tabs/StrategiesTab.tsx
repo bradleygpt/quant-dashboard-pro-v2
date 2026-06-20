@@ -6,7 +6,7 @@ import PaperTrackTab from "./PaperTrackTab";
 const BASE = `${import.meta.env.BASE_URL}data`;
 
 type Kind = "quant" | "paper";
-interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind }
+interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string }
 
 // All strategies live here. Quant factor strategies render the backtest StrategyTab;
 // the Event-balanced strategy renders the live PaperTrackTab.
@@ -16,7 +16,7 @@ const STRATS: StratDef[] = [
   { key: "krasis", slug: "krasis", label: "Krasis", factor: "Balanced", kind: "quant" },
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
   { key: "horme", slug: "horme", label: "Horme", factor: "Momentum", kind: "quant" },
-  { key: "event_balanced", slug: "event_balanced", label: "Event-Balanced", factor: "Event / PEAD", kind: "paper" },
+  { key: "event_balanced", slug: "event_balanced", label: "Event-Balanced", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia" },
 ];
 
 interface Row {
@@ -136,6 +136,30 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
   );
 }
 
+// Aristeia / Event-balanced: historical backtest (mirrors the other strategies) + the
+// live forward paper-track, which doesn't begin accruing until its first rebalance (2026-07-01).
+function PaperStrategyView({ def }: { def: StratDef }) {
+  const [view, setView] = useState<"backtest" | "live">("backtest");
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        {(["backtest", "live"] as const).map((v) => (
+          <button
+            key={v}
+            onClick={() => setView(v)}
+            className={`rounded-md px-3 py-1.5 text-xs transition ${
+              view === v ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
+            }`}
+          >
+            {v === "backtest" ? "📈 Backtest history" : "● Live paper-track (from 2026-07-01)"}
+          </button>
+        ))}
+      </div>
+      {view === "backtest" ? <StrategyTab slug={def.backtestSlug ?? def.slug} /> : <PaperTrackTab />}
+    </div>
+  );
+}
+
 export default function StrategiesTab() {
   const [active, setActive] = useState<string>("summary");
   const items = [{ key: "summary", label: "📊 Summary" }, ...STRATS.map((s) => ({ key: s.key, label: s.label }))];
@@ -160,7 +184,7 @@ export default function StrategiesTab() {
       {active === "summary" ? (
         <Summary onPick={setActive} />
       ) : cur?.kind === "paper" ? (
-        <PaperTrackTab />
+        <PaperStrategyView def={cur} />
       ) : cur ? (
         <StrategyTab slug={cur.slug} />
       ) : null}
