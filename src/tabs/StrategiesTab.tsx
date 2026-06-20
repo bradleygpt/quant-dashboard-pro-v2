@@ -9,14 +9,15 @@ const BASE = `${import.meta.env.BASE_URL}data`;
 type Kind = "quant" | "paper" | "c78q";
 interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string; live?: boolean }
 
-// The consolidated portfolio (post-redundancy-audit 2026-06-20): Katalepsis + Aristeia are the
-// two genuinely distinct bets; Auxo + Prosodos are the surviving quant factors (ordered by forward
-// CAGR). Axia/Krasis/Horme retired as redundant. One slot open for a future MLPred strategy.
+// The consolidated portfolio (post-redundancy-audit 2026-06-20): Katalepsis + Aristeia are the two
+// genuinely distinct bets; Auxo + Prosodos are the surviving quant factors; Pronoia (ML 12-month
+// foresight) is the validated, decorrelated 5th (added 2026-06-20). Axia/Krasis/Horme retired.
 const STRATS: StratDef[] = [
   { key: "katalepsis", slug: "c78q", label: "Katalepsis", factor: "ML posterior · c78q", kind: "c78q", live: true },
   { key: "aristeia", slug: "event_balanced", label: "Aristeia", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia", live: true },
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
   { key: "prosodos", slug: "prosodos", label: "Prosodos", factor: "Profitability", kind: "quant" },
+  { key: "pronoia", slug: "pronoia", label: "Pronoia", factor: "ML 12-month foresight", kind: "quant" },
 ];
 
 interface Row {
@@ -76,10 +77,10 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
       <div>
         <h2 className="text-lg font-bold text-white">Strategies — consolidated portfolio</h2>
         <p className="text-xs text-[#7C879B]">
-          Four strategies run as one pooled book: <span className="text-[#C7CEDA]">Katalepsis</span> (ML posterior) and
-          <span className="text-[#C7CEDA]"> Aristeia</span> (event/PEAD) are the two distinct bets; Auxo and Prosodos are the
-          surviving quant factors (ordered by forward CAGR). Axia/Krasis/Horme were retired as redundant per the combined-book audit.
-          Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
+          Five strategies run as one pooled book: <span className="text-[#C7CEDA]">Katalepsis</span> (ML posterior),
+          <span className="text-[#C7CEDA]"> Aristeia</span> (event/PEAD) and <span className="text-[#C7CEDA]">Pronoia</span> (ML
+          12-month foresight) are the three distinct, decorrelated bets; Auxo and Prosodos are the surviving quant factors.
+          Axia/Krasis/Horme were retired as redundant per the combined-book audit. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
 
