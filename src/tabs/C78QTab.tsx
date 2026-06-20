@@ -189,7 +189,7 @@ function DeployedBlock({ data }: { data: C78q }) {
   }, [posTickers]);
   return (
     <div className="space-y-4">
-      <Card title="Current Monthly Target" sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
+      <Card title="Current Target" sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
         {!t?.rows?.length ? <div className="text-sm text-[#7C879B]">No current target available.</div> : (
           <div className="overflow-auto rounded-lg border border-[#1E2632]">
             <table className="w-full text-sm">
@@ -281,7 +281,7 @@ function BacktestBlock({ data }: { data: C78q }) {
 
   return (
     <div className="space-y-4">
-      <Card title="Validated Backtest" sub={`c78q ${data.spec?.version ?? ""} · ${bt.n_months ?? summary.length} months · TOP-${data.spec?.basket_size ?? 8} monthly, equal-weight`}>
+      <Card title="Validated Backtest" sub={`c78q ${data.spec?.version ?? ""} · ${bt.n_months ?? summary.length} months · TOP-${data.spec?.basket_size ?? 8}, ${(data.spec as any)?.rebalance ?? "monthly"}, equal-weight`}>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <Metric label="Net CAGR" value={<span className="text-[#00C805]">{bt.net_cagr != null ? fmtPct(bt.net_cagr * 100, 1) : "—"}</span>} />
           <Metric label="Sharpe" value={bt.sharpe != null ? bt.sharpe.toFixed(2) : "—"} />

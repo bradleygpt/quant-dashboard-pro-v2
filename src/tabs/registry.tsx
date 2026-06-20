@@ -16,6 +16,7 @@ import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
 import LandingDemoTab from "./LandingDemoTab";
 import StrategiesTab from "./StrategiesTab";
+import C78QTab from "./C78QTab";
 
 export interface TabDef {
   id: string;
@@ -39,6 +40,7 @@ export const TABS: TabDef[] = [
   { id: "screener", label: "📋 Quant Screener", component: ScreenerTab },
   { id: "mlpred", label: "Project Prolepsis (ML Predictions)", component: MLPredTab },
   { id: "strategies", label: "📈 Strategies", component: StrategiesTab },
+  { id: "c78q", label: "⚗ Project Katalepsis (c78q)", component: C78QTab },
   { id: "sectors", label: "Sector Overview", component: SectorTab },
   { id: "crypto", label: "₿ Crypto", component: CryptoTab },
   { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
