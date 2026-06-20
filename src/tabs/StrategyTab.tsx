@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
-import PipelineViz, { buildPeriods, type VizStream } from "../components/PipelineViz";
+import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 const STREAM_COLS = ["#3FB984", "#5B8BC4", "#D4A24E", "#9B7FC9", "#C25A5A"];
@@ -59,11 +58,12 @@ export default function StrategyTab({ slug }: { slug: string }) {
     return showAll ? sorted : sorted.slice(0, 12);
   }, [d, showAll]);
 
-  // real-data pipeline viz: equity curve -> growth multiple, holdings -> per-rebalance baskets
-  const vizPeriods = useMemo(() => {
-    if (!d) return [];
+  // real-data pipeline viz: ACTUAL equity-curve path + REAL per-rebalance baskets (per-ticker
+  // returns aren't baked per quant strategy, so each candle uses the basket's realized period return).
+  const vizData = useMemo(() => {
+    if (!d) return { curve: [1], rebalances: [] };
     const pts = d.equity_curve.map((e) => ({ date: e.date, growth: e.equity / 100 }));
-    return buildPeriods(pts, d.holdings.map((h) => ({ date: h.date, tickers: h.tickers })));
+    return buildVizData(pts, d.holdings.map((h) => ({ date: h.date, tickers: h.tickers })));
   }, [d]);
   const vizStreams = useMemo<VizStream[]>(() => {
     if (!d) return [];
@@ -88,10 +88,10 @@ export default function StrategyTab({ slug }: { slug: string }) {
         </p>
       </div>
 
-      {vizPeriods.length > 1 && (
+      {vizData.rebalances.length > 0 && (
         <PipelineViz
           title={`${d.engine.toUpperCase()} · ${d.character}`}
-          periods={vizPeriods}
+          data={vizData}
           basketSize={d.config.top_n}
           weightPct={100 / d.config.top_n}
           kpis={{ cagr: m.in_sample.cagr, sharpe: m.in_sample.sharpe, maxdd: m.in_sample.max_dd }}
@@ -145,29 +145,11 @@ export default function StrategyTab({ slug }: { slug: string }) {
         </div>
       </Card>
 
-      <Card
-        title={`Growth of $100 — ${d.engine} vs S&P 500 & Nasdaq (2011–2026)`}
-        sub={`True daily mark-to-market: $100 compounds to $${(m.final_multiple * 100).toFixed(0)} (${m.final_multiple.toFixed(0)}x) at the ${d.config.hold_days}-day hold, vs S&P 500 ${m.spy_cagr.toFixed(1)}%/yr and Nasdaq ${m.nasdaq_cagr.toFixed(1)}%/yr. The visible dip is the real −${Math.abs(m.in_sample.max_dd).toFixed(0)}% COVID drawdown, not a smoothed line.`}
-      >
-        <div className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={d.equity_curve} margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1E2632" />
-              <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 10 }} minTickGap={48}
-                tickFormatter={(s: string) => s.slice(0, 4)} />
-              <YAxis scale="log" domain={["auto", "auto"]} tick={{ fill: "#7C879B", fontSize: 10 }}
-                tickFormatter={(v: number) => `$${v.toFixed(0)}`} width={52} />
-              <Tooltip contentStyle={{ background: "#0C0F16", border: "1px solid #1E2632", fontSize: 12 }}
-                labelStyle={{ color: "#7C879B" }}
-                formatter={(v: number, n: string) => [`$${v.toFixed(0)}`, n]} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line type="monotone" dataKey="equity" name={d.engine} stroke="#00C805" strokeWidth={1.9} dot={false} />
-              <Line type="monotone" dataKey="nasdaq" name="Nasdaq" stroke="#FFB020" strokeWidth={1.2} strokeDasharray="5 2" dot={false} />
-              <Line type="monotone" dataKey="spy" name="S&P 500" stroke="#7C879B" strokeWidth={1.2} strokeDasharray="2 2" dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </Card>
+      <div className="rounded-lg border border-[#1E2632] bg-[#0C0F16] px-4 py-3 text-[11px] text-[#7C879B]">
+        The animated pipeline above plots the <span className="text-[#C7CEDA]">actual</span> daily-marked backtest path and real per-rebalance baskets:
+        $1 compounds to <span className="font-semibold text-[#00C805]">${m.final_multiple.toFixed(0)}</span> ({m.final_multiple.toFixed(0)}×) over {d.backtest?.window ?? "2011–2026"},
+        vs S&P 500 {m.spy_cagr.toFixed(1)}%/yr and Nasdaq {m.nasdaq_cagr.toFixed(1)}%/yr. The visible dip is the real −{Math.abs(m.in_sample.max_dd).toFixed(0)}% COVID drawdown.
+      </div>
 
       <Card
         title={`Annual return — ${d.engine} vs S&P 500`}
