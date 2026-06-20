@@ -5,8 +5,8 @@ import { fmtMoney, fmtPct } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, ReferenceArea } from "recharts";
-import PipelineViz, { buildPeriods, type VizStream } from "../components/PipelineViz";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
+import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 // the 15 c78q signal streams: Pr1-6 (price/momentum, green), F1-6 (fundamentals, blue), P1/E3/N1 (insider/PEAD/8-K, violet)
@@ -265,7 +265,6 @@ function DeployedBlock({ data }: { data: C78q }) {
 function BacktestBlock({ data }: { data: C78q }) {
   const bt = data.metrics?.backtest ?? {};
   const summary = data.backtest?.summary ?? [];
-  const regimes = data.backtest?.regime_periods ?? [];
   // Real buy-and-hold SPY benchmark (keyless Yahoo, adjusted monthly). The dataset's
   // bundled spy_return is NOT buy-and-hold SPY (compounds to ~32% CAGR / ~$48), so we
   // source actual SPY for the benchmark line.
@@ -286,24 +285,25 @@ function BacktestBlock({ data }: { data: C78q }) {
   const spyEnd = (() => { for (let i = curve.length - 1; i >= 0; i--) if (curve[i].spy != null) return curve[i].spy!; return null; })();
   const spyLive = spyFeed.status === "ok" && spyEnd != null;
 
-  // real-data pipeline viz: growth series from compounded portfolio_return, baskets from per-rebalance holdings
-  const vizPeriods = useMemo(() => {
+  // real-data pipeline viz: ACTUAL growth path (compounded portfolio_return) + REAL per-rebalance
+  // baskets with each name's realized forward_return for the candle.
+  const vizData = useMemo(() => {
     let g = 1; const pts = summary.map((r) => { g *= 1 + r.portfolio_return; return { date: r.date, growth: g }; });
-    const hold = ((data.backtest as any)?.holdings ?? []) as { date: string; ticker: string; rank: number }[];
-    const bk = new Map<string, { date: string; tickers: string[] }>();
+    const hold = ((data.backtest as any)?.holdings ?? []) as { date: string; ticker: string; rank: number; forward_return?: number }[];
+    const bk = new Map<string, { date: string; tickers: { sym: string; ret: number }[] }>();
     [...hold].sort((a, b) => a.date.localeCompare(b.date) || a.rank - b.rank).forEach((h) => {
       if (!bk.has(h.date)) bk.set(h.date, { date: h.date, tickers: [] });
-      bk.get(h.date)!.tickers.push(h.ticker);
+      bk.get(h.date)!.tickers.push({ sym: h.ticker, ret: h.forward_return ?? 0 });
     });
-    return buildPeriods(pts, [...bk.values()]);
+    return buildVizData(pts, [...bk.values()]);
   }, [summary, data]);
 
   return (
     <div className="space-y-4">
-      {vizPeriods.length > 1 && (
+      {vizData.rebalances.length > 0 && (
         <PipelineViz
           title="KATALEPSIS · c78q"
-          periods={vizPeriods}
+          data={vizData}
           basketSize={data.spec?.basket_size ?? 3}
           weightPct={(data.spec?.weight_per_position ?? 0.333) * 100}
           kpis={{ cagr: (bt.net_cagr ?? 0) * 100, sharpe: bt.sharpe ?? 0, maxdd: (bt.max_drawdown ?? 0) * 100 }}
@@ -324,30 +324,14 @@ function BacktestBlock({ data }: { data: C78q }) {
         </div>
       </Card>
 
-      <Card title="Equity Curve — c78q vs SPY" sub="Growth of $1, log scale. Both curves compound per-period returns; SPY = real buy-and-hold (adjusted close). Shaded = stress/crisis regime months.">
-        {curve.length > 1 ? (
-          <ResponsiveContainer width="100%" height={380}>
-            <LineChart data={curve} margin={{ top: 8, right: 12, bottom: 0, left: 4 }}>
-              <CartesianGrid stroke="#1A2130" vertical={false} />
-              <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50} />
-              <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={52} tickFormatter={(v) => `$${v >= 10 ? v.toFixed(0) : v.toFixed(1)}`} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${v.toFixed(2)} (${((v - 1) * 100).toFixed(0)}%)`, n]} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              {regimes.map((rp, i) => <ReferenceArea key={i} x1={Date.parse(rp.start)} x2={Date.parse(rp.end)} fill={rp.regime === "crisis" ? "#E74C3C" : "#FF9800"} fillOpacity={0.08} ifOverflow="extendDomain" />)}
-              <Line type="monotone" dataKey="strat" stroke="#00C805" dot={false} strokeWidth={2} name="c78q" isAnimationActive={false} />
-              <Line type="monotone" dataKey="spy" stroke="#7C879B" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="SPY" connectNulls isAnimationActive={false} />
-            </LineChart>
-          </ResponsiveContainer>
-        ) : <Unavailable what="Backtest equity curve" detail="No backtest summary rows in c78q.json — the ETL output may be degenerate or missing." />}
-        {summary.length > 0 && (
-          <div className="mt-2 text-[11px] text-[#7C879B]">
-            Final per $1 over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}): c78q <span className="font-semibold text-[#00C805]">${stratEnd != null ? stratEnd.toFixed(0) : "—"}</span>
-            {" vs SPY "}<span className="font-semibold text-[#C3CAD7]">{spyLive ? `$${spyEnd!.toFixed(1)}` : "unavailable in preview"}</span>
-            {spyLive ? " (real buy-and-hold)." : " — SPY benchmark needs the keyless /api/spy-monthly feed (deployed app)."}
-            <span className="block text-[#5C6678]">Note: the c78q dataset's bundled SPY field is an upstream relative series (compounds to ~$48 / ~32% CAGR), so the chart uses actual SPY for an honest benchmark.</span>
-          </div>
-        )}
-      </Card>
+      {summary.length > 0 && (
+        <div className="rounded-lg border border-[#1E2632] bg-[#0C0F16] px-4 py-3 text-[11px] text-[#7C879B]">
+          The animated pipeline above plots the <span className="text-[#C3CAD7]">actual</span> backtest path — real cum_strat over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}), real per-rebalance baskets, each name's realized return as its candle.
+          Terminal per $1: c78q <span className="font-semibold text-[#00C805]">${stratEnd != null ? stratEnd.toFixed(0) : "—"}</span>
+          {" vs SPY "}<span className="font-semibold text-[#C3CAD7]">{spyLive ? `$${spyEnd!.toFixed(1)}` : "—"}</span>
+          {spyLive ? " (real buy-and-hold)." : ""}
+        </div>
+      )}
     </div>
   );
 }
