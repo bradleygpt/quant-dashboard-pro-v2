@@ -181,6 +181,7 @@ function RankingsBlock({ data }: { data: MLPred }) {
 }
 
 function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
+  const { byTicker, goToDetail } = useStore();
   const target = horizon === "pred_3m" ? "target_3m" : "target_12m";
   if (!rows.length) return <div className="text-sm text-[#7C879B]">No rows.</div>;
   return (
@@ -192,7 +193,14 @@ function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
           {rows.map((r, i) => (
             <tr key={r.ticker} className="border-t border-[#161D29]">
               <td className="px-3 py-1.5 text-[#7C879B]">{i + 1}</td>
-              <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{r.ticker}</td>
+              <td className="px-3 py-1.5">
+                <button onClick={() => goToDetail(r.ticker)} className="text-left" title={`Open ${r.ticker} stock detail`}>
+                  <span className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</span>
+                  {(byTicker.get(r.ticker) as any)?.name && (
+                    <span className="block max-w-[180px] truncate text-[10px] text-[#7C879B]">{(byTicker.get(r.ticker) as any).name}</span>
+                  )}
+                </button>
+              </td>
               <td className="px-3 py-1.5 text-xs text-[#9CA7BB]">{r.sector ?? "—"}</td>
               <td className="px-3 py-1.5">{r.price != null ? fmtMoney(r.price) : "—"}
                 {r.price_src && <span title={r.price_src === "live" ? "live intraday quote" : r.price_src === "baked" ? "baked daily price" : "as-of prediction date"} className="ml-1 text-[9px] uppercase" style={{ color: r.price_src === "live" ? "#00C805" : r.price_src === "baked" ? "#FF9800" : "#7C879B" }}>{r.price_src === "live" ? "live" : r.price_src === "baked" ? "bkd" : "asof"}</span>}</td>
