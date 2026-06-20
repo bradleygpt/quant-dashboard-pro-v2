@@ -55,8 +55,15 @@ function SummaryRow(d: any, def: StratDef): Row {
   };
 }
 
+interface Basket { full: { cagr: number; sharpe: number; max_dd: number }; deployable: { cagr: number; sharpe: number; max_dd: number }; spy_cagr: number; n: number }
+
 function Summary({ onPick }: { onPick: (key: string) => void }) {
   const [rows, setRows] = useState<Row[] | null>(null);
+  const [basket, setBasket] = useState<Basket | null>(null);
+
+  useEffect(() => {
+    fetch(`${BASE}/basket_summary.json`).then((r) => (r.ok ? r.json() : null)).then(setBasket).catch(() => setBasket(null));
+  }, []);
 
   useEffect(() => {
     Promise.all(
@@ -83,6 +90,22 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
           Axia/Krasis/Horme were retired as redundant per the combined-book audit. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
+
+      {basket && (
+        <div className="rounded-lg border border-[#1C5C2E] bg-[#0B1A0F] p-4">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="text-sm font-semibold text-[#00C805]">▣ Total basket — all {basket.n} strategies, equal-weight pooled</div>
+              <div className="text-[11px] text-[#7C879B]">The consolidated book (2011–2026 backtest). Deployable = excluding &gt;10% SPY drawdowns (PPI takes the book to cash there).</div>
+            </div>
+            <div className="flex flex-wrap gap-5">
+              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Basket CAGR</div><div className="font-mono text-xl font-bold text-[#00C805]">{basket.full.cagr.toFixed(1)}%</div><div className="text-[10px] text-[#7C879B]">vs SPY {basket.spy_cagr.toFixed(1)}%</div></div>
+              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Sharpe</div><div className="font-mono text-xl font-bold text-white">{basket.full.sharpe.toFixed(2)}</div><div className="text-[10px] text-[#7C879B]">{basket.deployable.sharpe.toFixed(2)} deployable</div></div>
+              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Max DD</div><div className="font-mono text-xl font-bold text-[#FF8A65]">{basket.full.max_dd.toFixed(1)}%</div><div className="text-[10px] text-[#7C879B]">true daily</div></div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Card title="" sub="">
         <div className="overflow-x-auto">
