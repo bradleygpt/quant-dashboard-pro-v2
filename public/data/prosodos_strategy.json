@@ -23,7 +23,7 @@
    "TPR"
   ]
  },
- "next_rebalance": "2026-11-10",
+ "next_rebalance": "2026-07-01",
  "backtest": {
   "cagr": 26.2,
   "sharpe": 1.11,
@@ -1674,5 +1674,6 @@
   "Top-5 concentration: high single-name risk. Held 110 distinct names over the backtest, rotating ~5 at a time.",
   "Frictionless backtest: ignores ~195%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
   "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-11-10 (105-day hold)."
- ]
+ ],
+ "rebalance_cadence": "semi-annual (Jan 1 / Jul 1)"
 }

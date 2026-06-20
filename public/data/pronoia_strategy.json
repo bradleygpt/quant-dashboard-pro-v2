@@ -20,7 +20,7 @@
    "VSAT"
   ]
  },
- "next_rebalance": "2026-11-10",
+ "next_rebalance": "2026-07-01",
  "backtest": {
   "cagr": 26.8,
   "sharpe": 1.17,
@@ -1671,5 +1671,6 @@
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
   "TRADEABLE: low quarterly turnover (~165%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
   "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (117 distinct names rotated)."
- ]
+ ],
+ "rebalance_cadence": "semi-annual (Jan 1 / Jul 1)"
 }
