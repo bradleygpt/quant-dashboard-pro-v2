@@ -21,7 +21,7 @@
    "MOS"
   ]
  },
- "next_rebalance": "2026-11-10",
+ "next_rebalance": "2026-07-01",
  "backtest": {
   "cagr": 30.9,
   "sharpe": 1.15,
@@ -1596,5 +1596,6 @@
   "Top-3 concentration: high single-name risk. Held 62 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~210%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
   "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-11-10 (105-day hold)."
- ]
+ ],
+ "rebalance_cadence": "semi-annual (Jan 1 / Jul 1)"
 }
