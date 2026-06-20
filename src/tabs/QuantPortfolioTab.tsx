@@ -111,6 +111,19 @@ export default function QuantPortfolioTab() {
 
   const curve = useMemo(() => (bt?.curve ?? []).map((c) => ({ t: Date.parse(c.date), quant: c.quant, spy: c.spy })), [bt]);
   const h = bt?.headline;
+  // The robust dataset = 2011+ (pre-2011 is survivorship-biased; shown separately). Rebase to $100 at 2011.
+  const robust = useMemo(() => {
+    const start = Date.parse("2011-01-01");
+    const seg = curve.filter((c) => c.t >= start && c.quant != null);
+    if (seg.length < 2) return null;
+    const q0 = seg[0].quant; const s0 = seg.find((c) => c.spy != null)?.spy ?? null;
+    const reb = seg.map((c) => ({ t: c.t, quant: (c.quant / q0) * 100, spy: c.spy != null && s0 ? (c.spy / s0) * 100 : null }));
+    const last = reb[reb.length - 1]; const yrs = (last.t - reb[0].t) / (365.25 * 864e5);
+    const lastSpy = (() => { for (let i = reb.length - 1; i >= 0; i--) if (reb[i].spy != null) return reb[i].spy!; return null; })();
+    const qCagr = (Math.pow(last.quant / 100, 1 / yrs) - 1) * 100;
+    const sCagr = lastSpy != null ? (Math.pow(lastSpy / 100, 1 / yrs) - 1) * 100 : null;
+    return { curve: reb, startYear: new Date(reb[0].t).getFullYear(), qTotal: last.quant - 100, qCagr, sTotal: lastSpy != null ? lastSpy - 100 : null, sCagr, alpha: sCagr != null ? qCagr - sCagr : null };
+  }, [curve]);
 
   return (
     <div className="space-y-4">
@@ -122,48 +135,43 @@ export default function QuantPortfolioTab() {
       </p>
 
       {/* ── Validated CAGR table (30y/15y/5y × presets) ── */}
-      <Card title="Validated Backtest CAGR by Period & Preset" sub="121 quarterly rebalances (1996-Q1 → 2026-Q1), point-in-time SEC EDGAR fundamentals. TOP-25, quarterly rebalance. Gross of costs/taxes.">
+      <Card title="Validated Backtest CAGR by Period & Preset" sub="Quarterly rebalance, point-in-time SEC EDGAR fundamentals, TOP-25, gross of costs/taxes. The 2010+ and 2020+ columns are the ROBUST window; the 1996+ column is survivorship-biased (current survivors scored back in time) and is shown separately, dimmed — do not lead with it.">
         <div className="overflow-auto rounded-lg border border-[#1E2632]">
           <table className="w-full text-sm">
-            <thead><tr>{["Preset", ...CAGR_TABLE.periods].map((hh) => <th key={hh} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{hh}</th>)}</tr></thead>
+            <thead><tr>{["Preset", ...CAGR_TABLE.periods].map((hh, hi) => {
+              const biased = hi === 1; // periods[0] = "1996–present" -> header index 1 after "Preset"
+              return <th key={hh} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase" style={{ color: biased ? "#7A6A45" : "#7C879B" }}>{biased ? "⚠ " : ""}{hh}{biased ? " · biased" : ""}</th>;
+            })}</tr></thead>
             <tbody>
               {CAGR_TABLE.rows.map((r) => (
                 <tr key={r.label} className="border-t border-[#161D29]">
                   <td className="px-3 py-1.5 font-medium" style={{ color: r.color }}>{r.label}</td>
-                  {r.vals.map((v, i) => <td key={i} className="px-3 py-1.5 font-semibold" style={{ color: r.label.includes("SPY") ? "#7C879B" : "#00C805" }}>{v}</td>)}
+                  {r.vals.map((v, i) => <td key={i} className="px-3 py-1.5 font-semibold" style={{ color: i === 0 ? "#6E6A5A" : r.label.includes("SPY") ? "#7C879B" : "#00C805" }}>{v}</td>)}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <div className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-          Momentum (m_heavy) shows no decay across regimes (2020-present +37.19% strongest). Value (v_heavy) edges Momentum on 15y by Sharpe but trails on recent CAGR.
-          Equal-weighted is the conservative floor — never the top, always profitable. Alpha vs SPY ranges +12% (30y) to +22% (5y). ⚠️ Past performance ≠ future results; realized after-cost alpha is typically 2–4% below backtest CAGR.
+          <strong className="text-[#C3CAD7]">Read the 2010+ / 2020+ columns</strong> — the robust, survivorship-clean window. The dimmed <span className="text-[#9C8A5E]">1996+ column is survivorship-biased upward</span> (pre-2010 scores only names that survived to today) and is kept only for context, not as the headline.
+          Momentum (m_heavy) shows no decay across the robust regimes (2020+ +37.19% strongest); Equal-weighted is the conservative floor. ⚠️ Past performance ≠ future; realized after-cost alpha is typically 2–4% below backtest CAGR.
         </div>
       </Card>
 
-      {/* ── Validated TOP-25 equity curve vs REAL buy-&-hold SPY (matches the CAGR table) ── */}
-      {bt && curve.length > 1 && (() => {
+      {/* ── ROBUST (2011+) equity curve leads; the pre-2011 survivorship-biased record is shown SEPARATELY below ── */}
+      {bt && robust && (() => {
         const buyhold = bt.spy_source === "buyhold_yahoo_v8";
-        const alphaCagr = h?.quant_cagr_pct != null && h?.spy_cagr_pct != null ? h.quant_cagr_pct - h.spy_cagr_pct : null;
         return (
-        <Card title="📈 Validated TOP-25 Backtest: Strategy vs Buy-&-Hold SPY"
-          sub={`Cumulative growth of $100. ${bt.strategy_label ?? "Validated TOP-25 strategy"}${bt.populated_range ? `, ${bt.populated_range[0].slice(0, 7)} → ${bt.populated_range[1].slice(0, 7)}` : ""}. This is the same record as the CAGR table above (equal-weight preset), now shown as its equity series.`}>
-          {bt.caveat && (
-            <div className="mb-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-3 py-2 text-[11px] leading-relaxed text-[#D8B878]">
-              ⚠️ {bt.caveat}{bt.coverage ? ` Coverage ranged ${bt.coverage.min_n}–${bt.coverage.max_n} names per rebalance.` : ""}
-            </div>
-          )}
-          {h && (
-            <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Metric label="TOP-25 Strategy" value={<span className="text-[#00C805]">{h.quant_total_pct != null ? `${h.quant_total_pct >= 0 ? "+" : ""}${h.quant_total_pct.toFixed(0)}%` : "—"}</span>} hint={h.quant_total_pct != null ? `$100 → $${(100 + h.quant_total_pct).toLocaleString(undefined, { maximumFractionDigits: 0 })}${h.quant_cagr_pct != null ? ` · ${h.quant_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
-              <Metric label="SPY (buy & hold)" value={h.spy_total_pct != null ? `${h.spy_total_pct >= 0 ? "+" : ""}${h.spy_total_pct.toFixed(0)}%` : "—"} hint={h.spy_total_pct != null ? `$100 → $${(100 + h.spy_total_pct).toFixed(0)}${h.spy_cagr_pct != null ? ` · ${h.spy_cagr_pct.toFixed(1)}% CAGR` : ""}` : undefined} />
-              <Metric label="Alpha (CAGR)" value={alphaCagr != null ? <span className={alphaCagr >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}>{alphaCagr >= 0 ? "+" : ""}{alphaCagr.toFixed(1)}%</span> : "—"} hint="vs buy & hold" />
-              <Metric label="Win Rate" value={h.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"} hint={h.n_periods != null ? `${h.n_periods} periods` : undefined} />
-            </div>
-          )}
+        <Card title={`📈 Validated TOP-25 Backtest (${robust.startYear}+) — robust dataset, vs Buy-&-Hold SPY`}
+          sub={`Cumulative growth of $100 from ${robust.startYear}. This is the survivorship-clean window — point-in-time EDGAR coverage is thin and biased upward pre-2010, so that stretch is excluded from the headline and shown separately below. Same TOP-25 equal-weight quarterly strategy.`}>
+          <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Metric label={`TOP-25 (${robust.startYear}+)`} value={<span className="text-[#00C805]">+{robust.qTotal.toFixed(0)}%</span>} hint={`$100 → $${(100 + robust.qTotal).toLocaleString(undefined, { maximumFractionDigits: 0 })} · ${robust.qCagr.toFixed(1)}% CAGR`} />
+            <Metric label="SPY (buy & hold)" value={robust.sTotal != null ? `+${robust.sTotal.toFixed(0)}%` : "—"} hint={robust.sCagr != null ? `${robust.sCagr.toFixed(1)}% CAGR` : undefined} />
+            <Metric label="Alpha (CAGR)" value={robust.alpha != null ? <span className="text-[#00C805]">+{robust.alpha.toFixed(1)}%</span> : "—"} hint="vs buy & hold" />
+            <Metric label="Win Rate" value={h?.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"} hint="full-period (1996+)" />
+          </div>
           <ResponsiveContainer width="100%" height={340}>
-            <LineChart data={curve} margin={{ top: 5, right: 12, bottom: 0, left: 4 }}>
+            <LineChart data={robust.curve} margin={{ top: 5, right: 12, bottom: 0, left: 4 }}>
               <CartesianGrid stroke="#1A2130" vertical={false} />
               <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50} />
               <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={48} tickFormatter={(v) => `$${v.toFixed(0)}`} />
@@ -174,11 +182,15 @@ export default function QuantPortfolioTab() {
             </LineChart>
           </ResponsiveContainer>
           <div className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-            Source: <code className="text-[#9CA7BB]">{bt.source_meta ?? bt.source_file}</code> · {bt.n_checkpoints} quarterly rebalances
-            {bt.populated_range ? ` ${bt.populated_range[0]} → ${bt.populated_range[1]}` : ""}.
-            SPY line = {buyhold ? <>true <strong className="text-[#9CA7BB]">buy-&-hold</strong> from the app's Yahoo v8 feed{bt.spy_asof ? `, as-of ${bt.spy_asof}` : ""}</> : <span className="text-[#FF9800]">approximate (overlapping per-checkpoint returns — live buy-&-hold fetch unavailable at bake time)</span>}.
-            Gross of costs/taxes (same basis as the CAGR table). Pre-2010 is survivorship-biased (see caveat); the survivorship-free Era-2 rebuild is separate.
+            Source: <code className="text-[#9CA7BB]">{bt.source_meta ?? bt.source_file}</code> · TOP-25 quarterly rebalance, rebased to $100 at {robust.startYear}.
+            SPY line = {buyhold ? <>true <strong className="text-[#9CA7BB]">buy-&-hold</strong> from the app's Yahoo v8 feed{bt.spy_asof ? `, as-of ${bt.spy_asof}` : ""}</> : <span className="text-[#FF9800]">approximate (overlapping per-checkpoint returns)</span>}. Gross of costs/taxes.
           </div>
+          {/* pre-2011 record, shown SEPARATELY and flagged */}
+          {h?.quant_total_pct != null && (
+            <div className="mt-4 rounded-md border border-[#3A2A12] bg-[#140F06] px-3 py-2 text-[11px] leading-relaxed text-[#9C8A5E]">
+              <span className="font-semibold text-[#D8B878]">⚠️ Extended record (1996+) — survivorship-biased, shown separately:</span> over the full 1996 → 2026 span the same strategy reads <span className="text-[#C3CAD7]">+{h.quant_total_pct.toLocaleString(undefined, { maximumFractionDigits: 0 })}% / {h.quant_cagr_pct?.toFixed(1)}% CAGR</span>. But pre-2010 scores the CURRENT survivors back in time (delisted losers are absent), so it is biased upward and is <strong>not</strong> the headline — use the {robust.startYear}+ figure above. The survivorship-free Era-2 rebuild is a separate project.
+            </div>
+          )}
         </Card>
         );
       })()}
