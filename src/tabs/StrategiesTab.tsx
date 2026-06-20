@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { Card, Spinner } from "../components/ui";
 import StrategyTab from "./StrategyTab";
 import PaperTrackTab from "./PaperTrackTab";
+import C78QTab from "./C78QTab";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
-type Kind = "quant" | "paper";
-interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string }
+type Kind = "quant" | "paper" | "c78q";
+interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string; live?: boolean }
 
-// All strategies live here. Quant factor strategies render the backtest StrategyTab;
-// the Event-balanced strategy renders the live PaperTrackTab.
+// The consolidated portfolio (post-redundancy-audit 2026-06-20): Katalepsis + Aristeia are the
+// two genuinely distinct bets; Auxo + Prosodos are the surviving quant factors (ordered by forward
+// CAGR). Axia/Krasis/Horme retired as redundant. One slot open for a future MLPred strategy.
 const STRATS: StratDef[] = [
-  { key: "axia", slug: "axia", label: "Axia", factor: "Valuation", kind: "quant" },
-  { key: "prosodos", slug: "prosodos", label: "Prosodos", factor: "Profitability", kind: "quant" },
-  { key: "krasis", slug: "krasis", label: "Krasis", factor: "Balanced", kind: "quant" },
+  { key: "katalepsis", slug: "c78q", label: "Katalepsis", factor: "ML posterior · c78q", kind: "c78q", live: true },
+  { key: "aristeia", slug: "event_balanced", label: "Aristeia", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia", live: true },
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
-  { key: "horme", slug: "horme", label: "Horme", factor: "Momentum", kind: "quant" },
-  { key: "event_balanced", slug: "event_balanced", label: "Event-Balanced", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia" },
+  { key: "prosodos", slug: "prosodos", label: "Prosodos", factor: "Profitability", kind: "quant" },
 ];
 
 interface Row {
@@ -25,6 +25,15 @@ interface Row {
 }
 
 function SummaryRow(d: any, def: StratDef): Row {
+  if (def.kind === "c78q") {
+    const bt = d.metrics?.backtest ?? {};
+    const tickers = (d.target?.rows ?? []).map((r: any) => r.ticker);
+    return {
+      def, engine: "Katalepsis", cagr: (bt.net_cagr ?? NaN) * 100, sharpe: bt.sharpe ?? NaN,
+      maxdd: (bt.max_drawdown ?? NaN) * 100, spy: (bt.spy_cagr ?? NaN) * 100,
+      tickers, next: d.state?.next_rebalance ?? "—", status: "live",
+    };
+  }
   if (def.kind === "paper") {
     const dz = d.display ?? {};
     const holds = d.current_holdings ?? d.holdings ?? [];
@@ -51,7 +60,7 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
   useEffect(() => {
     Promise.all(
       STRATS.map((def) => {
-        const file = def.kind === "paper" ? "paper_track_event_pead.json" : `${def.slug}_strategy.json`;
+        const file = def.kind === "paper" ? "paper_track_event_pead.json" : def.kind === "c78q" ? "c78q.json" : `${def.slug}_strategy.json`;
         return fetch(`${BASE}/${file}`)
           .then((r) => (r.ok ? r.json() : null))
           .then((j) => (j ? SummaryRow(j, def) : null))
@@ -65,10 +74,12 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">Strategies — overview</h2>
+        <h2 className="text-lg font-bold text-white">Strategies — consolidated portfolio</h2>
         <p className="text-xs text-[#7C879B]">
-          Five quant factor strategies (backtests over the de-contaminated 2011–2026 EDGAR panel) plus the live
-          Event-balanced paper-track. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
+          Four strategies run as one pooled book: <span className="text-[#C7CEDA]">Katalepsis</span> (ML posterior) and
+          <span className="text-[#C7CEDA]"> Aristeia</span> (event/PEAD) are the two distinct bets; Auxo and Prosodos are the
+          surviving quant factors (ordered by forward CAGR). Axia/Krasis/Horme were retired as redundant per the combined-book audit.
+          Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
 
@@ -176,13 +187,15 @@ export default function StrategiesTab() {
               it.key === active ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
             }`}
           >
-            {it.key === "event_balanced" && it.key !== active ? <span className="mr-1 text-[#00C805]">●</span> : null}
+            {STRATS.find((s) => s.key === it.key)?.live && it.key !== active ? <span className="mr-1 text-[#00C805]">●</span> : null}
             {it.label}
           </button>
         ))}
       </div>
       {active === "summary" ? (
         <Summary onPick={setActive} />
+      ) : cur?.kind === "c78q" ? (
+        <C78QTab />
       ) : cur?.kind === "paper" ? (
         <PaperStrategyView def={cur} />
       ) : cur ? (
