@@ -3,6 +3,7 @@ import { useStore, type ViewRow } from "../store";
 import { RatingBadge, GradePill, Spinner, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
+import IndexBadges from "../components/IndexBadges";
 import { applyScreen, flattenMetrics, type ScreenFilters } from "../lib/screener";
 
 const RATINGS = ["Strong Buy+", "Strong Buy", "Buy", "Hold", "Sell", "Strong Sell"];
@@ -64,7 +65,7 @@ export default function ScreenerTab() {
     });
     const cols: Column<ViewRow>[] = [
       { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker,
-        render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button> },
+        render: (r) => <><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button><IndexBadges ticker={r.ticker} /></> },
       { key: "name", header: "Company", sortValue: (r) => r.name ?? "",
         render: (r) => <span className="block max-w-[200px] truncate text-[#C3CAD7]" title={r.name ?? ""}>{r.name}</span> },
       { key: "sector", header: "Sector", sortValue: (r) => r.sector ?? "", render: (r) => <span className="text-[#9CA7BB]">{r.sector}</span> },
