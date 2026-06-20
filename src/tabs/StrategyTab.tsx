@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
+import PipelineViz, { buildPeriods, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
+const STREAM_COLS = ["#3FB984", "#5B8BC4", "#D4A24E", "#9B7FC9", "#C25A5A"];
 
 interface Holding { date: string; tickers: string[] }
 interface YearRow { label: string; strategy: number; spy: number }
@@ -57,6 +59,17 @@ export default function StrategyTab({ slug }: { slug: string }) {
     return showAll ? sorted : sorted.slice(0, 12);
   }, [d, showAll]);
 
+  // real-data pipeline viz: equity curve -> growth multiple, holdings -> per-rebalance baskets
+  const vizPeriods = useMemo(() => {
+    if (!d) return [];
+    const pts = d.equity_curve.map((e) => ({ date: e.date, growth: e.equity / 100 }));
+    return buildPeriods(pts, d.holdings.map((h) => ({ date: h.date, tickers: h.tickers })));
+  }, [d]);
+  const vizStreams = useMemo<VizStream[]>(() => {
+    if (!d) return [];
+    return Object.keys(d.config.weights).map((k, i) => ({ id: k.slice(0, 4), col: STREAM_COLS[i % STREAM_COLS.length] }));
+  }, [d]);
+
   if (err) return <Unavailable what={`${slug} strategy`} detail={`${slug}_strategy.json failed to load.`} />;
   if (!d) return <Spinner label="Loading strategy…" />;
 
@@ -74,6 +87,18 @@ export default function StrategyTab({ slug }: { slug: string }) {
           <span className="text-[#7C879B]">Research record, not a live recommendation — read the caveats first.</span>
         </p>
       </div>
+
+      {vizPeriods.length > 1 && (
+        <PipelineViz
+          title={`${d.engine.toUpperCase()} · ${d.character}`}
+          periods={vizPeriods}
+          basketSize={d.config.top_n}
+          weightPct={100 / d.config.top_n}
+          kpis={{ cagr: m.in_sample.cagr, sharpe: m.in_sample.sharpe, maxdd: m.in_sample.max_dd }}
+          streams={vizStreams}
+          footer={`${d.engine} backtest ${d.backtest?.window ?? "2011-2026"} · illustrative top-down pipeline · research record, NOT a forward projection — walk-forward realized ~0.4× backtest CAGR`}
+        />
+      )}
 
       <div className="rounded-lg border border-[#5A4A1E] bg-[#1E1A0E] p-4">
         <div className="text-sm font-semibold text-[#FFC107]">⚠ Read this before the numbers</div>

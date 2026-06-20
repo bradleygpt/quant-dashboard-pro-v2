@@ -6,8 +6,15 @@ import { useLiveData } from "../lib/live";
 import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, ReferenceArea } from "recharts";
+import PipelineViz, { buildPeriods, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
+// the 15 c78q signal streams: Pr1-6 (price/momentum, green), F1-6 (fundamentals, blue), P1/E3/N1 (insider/PEAD/8-K, violet)
+const C78_STREAMS: VizStream[] = [
+  ...Array.from({ length: 6 }, (_, i) => ({ id: `Pr${i + 1}`, col: "#3FB984" })),
+  ...Array.from({ length: 6 }, (_, i) => ({ id: `F${i + 1}`, col: "#5B8BC4" })),
+  { id: "P1", col: "#9B7FC9" }, { id: "E3", col: "#9B7FC9" }, { id: "N1", col: "#9B7FC9" },
+];
 
 interface PpiFeed { ok?: boolean; spy?: { dates: string[]; close: number[] }; vix?: { close: number[] }; vvix?: { close: number[] } }
 interface TargetRow { rank: number; ticker: string; posterior_prob: number; n_streams: number }
@@ -279,8 +286,33 @@ function BacktestBlock({ data }: { data: C78q }) {
   const spyEnd = (() => { for (let i = curve.length - 1; i >= 0; i--) if (curve[i].spy != null) return curve[i].spy!; return null; })();
   const spyLive = spyFeed.status === "ok" && spyEnd != null;
 
+  // real-data pipeline viz: growth series from compounded portfolio_return, baskets from per-rebalance holdings
+  const vizPeriods = useMemo(() => {
+    let g = 1; const pts = summary.map((r) => { g *= 1 + r.portfolio_return; return { date: r.date, growth: g }; });
+    const hold = ((data.backtest as any)?.holdings ?? []) as { date: string; ticker: string; rank: number }[];
+    const bk = new Map<string, { date: string; tickers: string[] }>();
+    [...hold].sort((a, b) => a.date.localeCompare(b.date) || a.rank - b.rank).forEach((h) => {
+      if (!bk.has(h.date)) bk.set(h.date, { date: h.date, tickers: [] });
+      bk.get(h.date)!.tickers.push(h.ticker);
+    });
+    return buildPeriods(pts, [...bk.values()]);
+  }, [summary, data]);
+
   return (
     <div className="space-y-4">
+      {vizPeriods.length > 1 && (
+        <PipelineViz
+          title="KATALEPSIS · c78q"
+          periods={vizPeriods}
+          basketSize={data.spec?.basket_size ?? 3}
+          weightPct={(data.spec?.weight_per_position ?? 0.333) * 100}
+          kpis={{ cagr: (bt.net_cagr ?? 0) * 100, sharpe: bt.sharpe ?? 0, maxdd: (bt.max_drawdown ?? 0) * 100 }}
+          edge={{ full: { val: 1.10, t: 2.47, sig: true }, recent: { val: 1.27, t: 1.55, sig: false } }}
+          candidate
+          streams={C78_STREAMS}
+          footer="dump_78q_holdings.py · illustrative top-down pipeline · HEADLINE NOT CERTIFIED — broad rank-IC ≈ 0, thin top-bucket edge, recently t<2 · candidate-grade"
+        />
+      )}
       <Card title="Validated Backtest" sub={`c78q ${data.spec?.version ?? ""} · ${bt.n_months ?? summary.length} months · TOP-${data.spec?.basket_size ?? 8}, ${(data.spec as any)?.rebalance ?? "monthly"}, equal-weight`}>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <Metric label="Net CAGR" value={<span className="text-[#00C805]">{bt.net_cagr != null ? fmtPct(bt.net_cagr * 100, 1) : "—"}</span>} />
