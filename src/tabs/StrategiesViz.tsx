@@ -184,11 +184,15 @@ function ForceNetwork({ d }: { d: Corr }) {
             const f = 520 / d2; fx += dx * f; fy += dy * f;
           }
         }
-        // weak centering + faint perpetual shimmer (alive but calm; repulsion does the spreading)
-        fx += (W / 2 - a.x) * 0.0007 + Math.sin(frame * 0.011 + k) * 0.012;
-        fy += (H / 2 - a.y) * 0.0007 + Math.cos(frame * 0.011 + k) * 0.012;
-        a.vx = (a.vx + fx) * 0.88; a.vy = (a.vy + fy) * 0.88;
-        const sp = Math.hypot(a.vx, a.vy); if (sp > 1.6) { a.vx *= 1.6 / sp; a.vy *= 1.6 / sp; } // hard speed cap → always a calm drift
+        // weak centering only — NO per-node jitter (that read as a swarm). The graph settles into
+        // stable clusters; a slow rigid orbit (below) adds coherent life without scrambling them.
+        fx += (W / 2 - a.x) * 0.0007;
+        fy += (H / 2 - a.y) * 0.0007;
+        a.vx = (a.vx + fx) * 0.85; a.vy = (a.vy + fy) * 0.85;
+        // cooling: full speed while the layout finds itself (~first 9s), then clamp toward stillness
+        // so the settled cloud stops jiggling and only the slow rigid orbit remains.
+        const cap = Math.max(0.16, 1.3 - frame * 0.002);
+        const sp = Math.hypot(a.vx, a.vy); if (sp > cap) { a.vx *= cap / sp; a.vy *= cap / sp; }
       }
       // springs along correlation edges (higher |corr| -> shorter rest length)
       for (const e of edges) {
@@ -204,6 +208,10 @@ function ForceNetwork({ d }: { d: Corr }) {
         const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
         if (dd > R) { a.x = cx + (ddx / dd) * R; a.y = cy + (ddy / dd) * R; a.vx *= 0.4; a.vy *= 0.4; }
       }
+      // slow rigid orbit — preserves every pairwise distance, so the cluster layout is untouched and
+      // forces don't fight it; just gives the settled graph a calm, coherent "alive" drift.
+      const ROT = 0.00018, rc = Math.cos(ROT), rs = Math.sin(ROT);
+      for (const a of sim) { const dx = a.x - cx, dy = a.y - cy; a.x = cx + dx * rc - dy * rs; a.y = cy + dx * rs + dy * rc; }
       // ── render (deep-space palette mirroring the landing) ──
       const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.35);
       bg.addColorStop(0, "#0B1A30"); bg.addColorStop(0.55, "#070E1C"); bg.addColorStop(1, "#03060C");
@@ -258,10 +266,19 @@ function CorrelationNetwork() {
   const slugs = Object.keys(d.strategy_labels);
   return (
     <Card title="🕸️ Holdings correlation network — all backtest holdings"
-      sub={`All ${d.n_nodes} names ever held across the 5 strategies, as a live force graph: correlated names (${d.window}) pull together, the strategies settle into separate clusters — decoupling by design. Avg |corr| ${d.avg_abs_corr}.`}>
+      sub={`All ${d.n_nodes} names ever held across the 5 strategies. Distance encodes correlation (${d.window}); the slow orbit is decorative. Avg |corr| ${d.avg_abs_corr}.`}>
       <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
         <ForceNetwork d={d} />
         <div className="space-y-3 text-xs">
+          <div className="rounded-md border border-[#1E2632] bg-[#0B1018] px-2.5 py-2">
+            <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
+            <ul className="space-y-1 text-[10px] leading-relaxed text-[#9CA7BB]">
+              <li><span className="text-[#C7CEDA]">Each dot</span> is a stock the strategies have held; colour = the strategy that held it most.</li>
+              <li><span className="text-[#C7CEDA]">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
+              <li><span className="text-[#C7CEDA]">Separate colour-clusters = the decoupling</span> — different strategies pick names that don't co-move. That's the whole design.</li>
+              <li><span className="text-[#C7CEDA]">The drift is just decoration</span> — a slow rigid orbit; relative position is the only thing that carries meaning, not the motion.</li>
+            </ul>
+          </div>
           <div>
             <div className="mb-1 text-[10px] uppercase tracking-wide text-[#7C879B]">Strategy (dominant)</div>
             <div className="flex flex-col gap-1">
