@@ -178,10 +178,10 @@ function ForceNetwork({ d }: { d: Corr }) {
             const f = 240 / d2; fx += dx * f; fy += dy * f;
           }
         }
-        // centering + gentle perpetual shimmer (keeps it "alive")
-        fx += (W / 2 - a.x) * 0.0016 + Math.sin(frame * 0.03 + k) * 0.06;
-        fy += (H / 2 - a.y) * 0.0016 + Math.cos(frame * 0.03 + k) * 0.06;
-        a.vx = (a.vx + fx) * 0.86; a.vy = (a.vy + fy) * 0.86;
+        // centering + gentle perpetual shimmer (keeps it "alive", slow drift)
+        fx += (W / 2 - a.x) * 0.0016 + Math.sin(frame * 0.018 + k) * 0.022;
+        fy += (H / 2 - a.y) * 0.0016 + Math.cos(frame * 0.018 + k) * 0.022;
+        a.vx = (a.vx + fx) * 0.9; a.vy = (a.vy + fy) * 0.9;
       }
       // springs along correlation edges (higher |corr| -> shorter rest length)
       for (const e of edges) {
@@ -191,8 +191,9 @@ function ForceNetwork({ d }: { d: Corr }) {
         a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
       }
       const { cx, cy, R } = geo();
+      const SPEED = 0.5; // overall slowdown of the drift
       for (const a of sim) {
-        a.x += a.vx; a.y += a.vy;
+        a.x += a.vx * SPEED; a.y += a.vy * SPEED;
         const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
         if (dd > R) { a.x = cx + (ddx / dd) * R; a.y = cy + (ddy / dd) * R; a.vx *= 0.4; a.vy *= 0.4; }
       }
