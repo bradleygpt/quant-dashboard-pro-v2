@@ -18,21 +18,21 @@
      "name": "Micron Technology, Inc.",
      "daily": 2.2,
      "rebalance": 0.0,
-     "alltime": 0.0
+     "alltime": 12818.2
     },
     {
      "ticker": "RKLB",
      "name": "Rocket Lab Corporation",
      "daily": 3.2,
      "rebalance": 0.0,
-     "alltime": 0.0
+     "alltime": 1008.2
     },
     {
      "ticker": "MXL",
      "name": "MaxLinear, Inc",
      "daily": -1.8,
      "rebalance": 0.0,
-     "alltime": 0.0
+     "alltime": 661.0
     }
    ]
   },
@@ -47,21 +47,21 @@
      "name": "Akamai Technologies, Inc.",
      "daily": -3.4,
      "rebalance": -3.4,
-     "alltime": -3.4
+     "alltime": 164.9
     },
     {
      "ticker": "INSW",
      "name": "International Seaways, Inc.",
      "daily": -0.6,
      "rebalance": -0.6,
-     "alltime": -0.6
+     "alltime": 1339.4
     },
     {
      "ticker": "MTZ",
      "name": "MasTec, Inc.",
      "daily": 1.5,
      "rebalance": 1.5,
-     "alltime": 1.5
+     "alltime": 2490.9
     }
    ]
   },
@@ -76,21 +76,21 @@
      "name": "Edison International",
      "daily": -1.6,
      "rebalance": -1.6,
-     "alltime": -1.6
+     "alltime": 224.5
     },
     {
      "ticker": "FISV",
      "name": "Fiserv, Inc.",
      "daily": -2.1,
      "rebalance": -2.1,
-     "alltime": -2.1
+     "alltime": 227.9
     },
     {
      "ticker": "MOS",
      "name": "Mosaic Company (The)",
      "daily": 3.8,
      "rebalance": 3.8,
-     "alltime": 3.8
+     "alltime": -60.5
     }
    ]
   },
@@ -105,35 +105,35 @@
      "name": "Deckers Outdoor Corporation",
      "daily": -4.0,
      "rebalance": -4.0,
-     "alltime": -4.0
+     "alltime": 680.9
     },
     {
      "ticker": "EIX",
      "name": "Edison International",
      "daily": -1.6,
      "rebalance": -1.6,
-     "alltime": -1.6
+     "alltime": 224.5
     },
     {
      "ticker": "FISV",
      "name": "Fiserv, Inc.",
      "daily": -2.1,
      "rebalance": -2.1,
-     "alltime": -2.1
+     "alltime": 227.9
     },
     {
      "ticker": "MU",
      "name": "Micron Technology, Inc.",
      "daily": 2.2,
      "rebalance": 2.2,
-     "alltime": 2.2
+     "alltime": 12818.2
     },
     {
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
      "daily": -2.4,
      "rebalance": -2.4,
-     "alltime": -2.4
+     "alltime": 307.3
     }
    ]
   },
@@ -148,35 +148,35 @@
      "name": "IREN LIMITED",
      "daily": -1.8,
      "rebalance": -1.8,
-     "alltime": -1.8
+     "alltime": 137.7
     },
     {
      "ticker": "MU",
      "name": "Micron Technology, Inc.",
      "daily": 2.2,
      "rebalance": 2.2,
-     "alltime": 2.2
+     "alltime": 12818.2
     },
     {
      "ticker": "STX",
      "name": "Seagate Technology Holdings PLC",
      "daily": 3.4,
      "rebalance": 3.4,
-     "alltime": 3.4
+     "alltime": 13673.4
     },
     {
      "ticker": "VIAV",
      "name": "Viavi Solutions Inc.",
      "daily": -2.7,
      "rebalance": -2.7,
-     "alltime": -2.7
+     "alltime": 473.0
     },
     {
      "ticker": "VSAT",
      "name": "ViaSat, Inc.",
      "daily": 3.4,
      "rebalance": 3.4,
-     "alltime": 3.4
+     "alltime": 41.1
     }
    ]
   }
