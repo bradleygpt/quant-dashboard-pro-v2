@@ -146,8 +146,17 @@ function ForceNetwork({ d }: { d: Corr }) {
 
     const idx = new Map<string, number>(); d.nodes.forEach((n, i) => idx.set(n.t, i));
     const R0 = Math.min(W, H) / 2 - 14;
-    const sim: Sim[] = d.nodes.map((n) => ({
-      t: n.t, x: W / 2 + n.x * R0 * 0.92, y: H / 2 + n.y * R0 * 0.92, vx: 0, vy: 0,
+    // ── FORMATION SEAM (Akribeia logo, not yet made) ──────────────────────────────────────────
+    // Nodes START here and the force sim then disperses them into the correlation layout. Today
+    // that start IS the settled MDS layout. When the logo exists, drop its outline as normalised
+    // [-1,1] points into LOGO_POINTS: the cloud will assemble AS the logo, then bloom outward into
+    // the correlation map for free (the springs/repulsion carry every node from start → equilibrium).
+    const LOGO_POINTS = null as { x: number; y: number }[] | null;
+    const start = (n: Node, i: number) => LOGO_POINTS && LOGO_POINTS.length
+      ? { x: W / 2 + LOGO_POINTS[i % LOGO_POINTS.length].x * R0 * 0.7, y: H / 2 + LOGO_POINTS[i % LOGO_POINTS.length].y * R0 * 0.7 }
+      : { x: W / 2 + n.x * R0 * 0.92, y: H / 2 + n.y * R0 * 0.92 };
+    const sim: Sim[] = d.nodes.map((n, i) => ({
+      t: n.t, ...start(n, i), vx: 0, vy: 0,
       r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: n.c, cur: n.cur,
     }));
     const edges = d.edges.map((e) => ({ i: idx.get(e.a)!, j: idx.get(e.b)!, v: e.v }))
@@ -210,7 +219,7 @@ function ForceNetwork({ d }: { d: Corr }) {
       }
       // slow rigid orbit — preserves every pairwise distance, so the cluster layout is untouched and
       // forces don't fight it; just gives the settled graph a calm, coherent "alive" drift.
-      const ROT = 0.00018, rc = Math.cos(ROT), rs = Math.sin(ROT);
+      const ROT = 0.0011, rc = Math.cos(ROT), rs = Math.sin(ROT); // ~95s/revolution — calm galactic spin for ~382 nodes
       for (const a of sim) { const dx = a.x - cx, dy = a.y - cy; a.x = cx + dx * rc - dy * rs; a.y = cy + dx * rs + dy * rc; }
       // ── render (deep-space palette mirroring the landing) ──
       const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.35);
