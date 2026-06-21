@@ -131,13 +131,17 @@ function ForceNetwork({ d }: { d: Corr }) {
     const canvas = canvasRef.current, wrap = wrapRef.current;
     if (!canvas || !wrap) return;
     const ctx = canvas.getContext("2d")!;
-    const H = 540;
+    const H = 560;
     let W = wrap.clientWidth || 720;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
+    // faint starfield (normalized coords) — mirrors the landing's deep-space backdrop
+    const STARS = Array.from({ length: 120 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.1 + 0.2, a: Math.random() * 0.45 + 0.12 }));
+    const geo = () => { const cx = W / 2, cy = H / 2; return { cx, cy, R: Math.min(W, H) / 2 - 14 }; };
 
     const idx = new Map<string, number>(); d.nodes.forEach((n, i) => idx.set(n.t, i));
+    const R0 = Math.min(W, H) / 2 - 14;
     const sim: Sim[] = d.nodes.map((n) => ({
-      t: n.t, x: (n.x * 0.46 + 0.5) * W, y: (n.y * 0.46 + 0.5) * H, vx: 0, vy: 0,
+      t: n.t, x: W / 2 + n.x * R0 * 0.82, y: H / 2 + n.y * R0 * 0.82, vx: 0, vy: 0,
       r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: n.c, cur: n.cur,
     }));
     const edges = d.edges.map((e) => ({ i: idx.get(e.a)!, j: idx.get(e.b)!, v: e.v }))
@@ -186,23 +190,32 @@ function ForceNetwork({ d }: { d: Corr }) {
         const f = (dist - rest) * 0.012; dx /= dist; dy /= dist;
         a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
       }
+      const { cx, cy, R } = geo();
       for (const a of sim) {
-        a.x = Math.max(8, Math.min(W - 8, a.x + a.vx)); a.y = Math.max(8, Math.min(H - 8, a.y + a.vy));
+        a.x += a.vx; a.y += a.vy;
+        const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
+        if (dd > R) { a.x = cx + (ddx / dd) * R; a.y = cy + (ddy / dd) * R; a.vx *= 0.4; a.vy *= 0.4; }
       }
-      // ── render ──
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "#070A0F"; ctx.fillRect(0, 0, W, H);
+      // ── render (deep-space palette mirroring the landing) ──
+      const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.35);
+      bg.addColorStop(0, "#0B1A30"); bg.addColorStop(0.55, "#070E1C"); bg.addColorStop(1, "#03060C");
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      for (const s of STARS) { ctx.fillStyle = `rgba(200,222,255,${s.a})`; ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 6.2832); ctx.fill(); }
+      ctx.strokeStyle = "rgba(91,168,255,0.14)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+      // edges — soft cosmic threads
       ctx.lineWidth = 0.7;
       for (const e of edges) {
-        const a = sim[e.i], b = sim[e.j], al = 0.05 + 0.32 * Math.abs(e.v);
-        ctx.strokeStyle = e.v >= 0 ? `rgba(90,150,220,${al})` : `rgba(170,90,240,${al})`;
+        const a = sim[e.i], b = sim[e.j], al = 0.05 + 0.34 * Math.abs(e.v);
+        ctx.strokeStyle = e.v >= 0 ? `rgba(120,180,255,${al})` : `rgba(190,130,255,${al})`;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
+      // nodes — glowing bodies (cheap two-pass halo, like the landing's planets/suns)
       const hov = hoverRef.current;
       for (const a of sim) {
-        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832);
-        ctx.fillStyle = a.c; ctx.globalAlpha = a.cur ? 1 : 0.78; ctx.fill(); ctx.globalAlpha = 1;
-        if (a.cur) { ctx.lineWidth = 1.2; ctx.strokeStyle = "#fff"; ctx.stroke(); }
+        ctx.globalAlpha = 0.20; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 2.6, 0, 6.2832); ctx.fill();
+        ctx.globalAlpha = a.cur ? 1 : 0.82; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+        ctx.globalAlpha = 1;
+        if (a.cur) { ctx.lineWidth = 1.3; ctx.strokeStyle = "#EAF2FF"; ctx.stroke(); }
       }
       // labels: current holdings always + hovered
       ctx.font = "600 9px ui-sans-serif, system-ui"; ctx.textAlign = "center";
