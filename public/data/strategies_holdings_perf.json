@@ -1,0 +1,184 @@
+{
+ "generated_at": "2026-06-17",
+ "as_of": "2026-06-17",
+ "periods": [
+  "daily",
+  "rebalance",
+  "alltime"
+ ],
+ "strategies": [
+  {
+   "slug": "katalepsis",
+   "label": "Katalepsis",
+   "color": "#00C805",
+   "entry": "2026-06-17",
+   "holdings": [
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": 2.2,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "RKLB",
+     "name": "Rocket Lab Corporation",
+     "daily": 3.2,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "MXL",
+     "name": "MaxLinear, Inc",
+     "daily": -1.8,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    }
+   ]
+  },
+  {
+   "slug": "aristeia",
+   "label": "Aristeia",
+   "color": "#5BA8FF",
+   "entry": "2026-06-16",
+   "holdings": [
+    {
+     "ticker": "AKAM",
+     "name": "Akamai Technologies, Inc.",
+     "daily": -3.4,
+     "rebalance": -3.4,
+     "alltime": -3.4
+    },
+    {
+     "ticker": "INSW",
+     "name": "International Seaways, Inc.",
+     "daily": -0.6,
+     "rebalance": -0.6,
+     "alltime": -0.6
+    },
+    {
+     "ticker": "MTZ",
+     "name": "MasTec, Inc.",
+     "daily": 1.5,
+     "rebalance": 1.5,
+     "alltime": 1.5
+    }
+   ]
+  },
+  {
+   "slug": "auxo",
+   "label": "Auxo",
+   "color": "#A855F7",
+   "entry": "2026-06-16",
+   "holdings": [
+    {
+     "ticker": "EIX",
+     "name": "Edison International",
+     "daily": -1.6,
+     "rebalance": -1.6,
+     "alltime": -1.6
+    },
+    {
+     "ticker": "FISV",
+     "name": "Fiserv, Inc.",
+     "daily": -2.1,
+     "rebalance": -2.1,
+     "alltime": -2.1
+    },
+    {
+     "ticker": "MOS",
+     "name": "Mosaic Company (The)",
+     "daily": 3.8,
+     "rebalance": 3.8,
+     "alltime": 3.8
+    }
+   ]
+  },
+  {
+   "slug": "prosodos",
+   "label": "Prosodos",
+   "color": "#FBBF24",
+   "entry": "2026-06-16",
+   "holdings": [
+    {
+     "ticker": "DECK",
+     "name": "Deckers Outdoor Corporation",
+     "daily": -4.0,
+     "rebalance": -4.0,
+     "alltime": -4.0
+    },
+    {
+     "ticker": "EIX",
+     "name": "Edison International",
+     "daily": -1.6,
+     "rebalance": -1.6,
+     "alltime": -1.6
+    },
+    {
+     "ticker": "FISV",
+     "name": "Fiserv, Inc.",
+     "daily": -2.1,
+     "rebalance": -2.1,
+     "alltime": -2.1
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": 2.2,
+     "rebalance": 2.2,
+     "alltime": 2.2
+    },
+    {
+     "ticker": "TPR",
+     "name": "Tapestry, Inc.",
+     "daily": -2.4,
+     "rebalance": -2.4,
+     "alltime": -2.4
+    }
+   ]
+  },
+  {
+   "slug": "pronoia",
+   "label": "Pronoia",
+   "color": "#F97316",
+   "entry": "2026-06-16",
+   "holdings": [
+    {
+     "ticker": "IREN",
+     "name": "IREN LIMITED",
+     "daily": -1.8,
+     "rebalance": -1.8,
+     "alltime": -1.8
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": 2.2,
+     "rebalance": 2.2,
+     "alltime": 2.2
+    },
+    {
+     "ticker": "STX",
+     "name": "Seagate Technology Holdings PLC",
+     "daily": 3.4,
+     "rebalance": 3.4,
+     "alltime": 3.4
+    },
+    {
+     "ticker": "VIAV",
+     "name": "Viavi Solutions Inc.",
+     "daily": -2.7,
+     "rebalance": -2.7,
+     "alltime": -2.7
+    },
+    {
+     "ticker": "VSAT",
+     "name": "ViaSat, Inc.",
+     "daily": 3.4,
+     "rebalance": 3.4,
+     "alltime": 3.4
+    }
+   ]
+  }
+ ]
+}
