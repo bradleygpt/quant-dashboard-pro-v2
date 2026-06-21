@@ -84,11 +84,13 @@ function HoldingsTreemap() {
 }
 
 // ─────────────────────── Correlation network (live force sim on canvas) ───────────────────────
-type Node = { t: string; x: number; y: number; s: string[]; c: string; w: number; cur: boolean; shared: boolean };
+type Node = { t: string; x: number; y: number; s: string[]; c: string; w: number; cur: boolean; shared: boolean; bspx: number | null; bndx: number | null };
 type Edge = { a: string; b: string; v: number };
 type StratCorr = { a: string; b: string; corr: number };
+type IndexRef = { id: string; label: string; color: string; median_beta: number | null };
 type Corr = {
   window: string; note: string; nodes: Node[]; edges: Edge[]; avg_abs_corr: number; n_nodes: number; n_edges: number;
+  indices?: IndexRef[];
   strategy_corr: StratCorr[]; strategy_avg_abs_corr: number; strategy_labels: Record<string, string>; strategy_colors: Record<string, string>;
 };
 
@@ -126,7 +128,8 @@ function StrategyCorrMatrix({ d }: { d: Corr }) {
 }
 
 // mutable per-node sim state
-type Sim = { t: string; x: number; y: number; vx: number; vy: number; r: number; c: string; cur: boolean };
+type Sim = { t: string; x: number; y: number; vx: number; vy: number; r: number; c: string; cur: boolean; bspx: number; bndx: number };
+type IdxBody = { id: string; label: string; color: string; x: number; y: number; vx: number; vy: number };
 
 function ForceNetwork({ d }: { d: Corr }) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -158,9 +161,16 @@ function ForceNetwork({ d }: { d: Corr }) {
     const sim: Sim[] = d.nodes.map((n, i) => ({
       t: n.t, ...start(n, i), vx: 0, vy: 0,
       r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: n.c, cur: n.cur,
+      bspx: n.bspx ?? 1, bndx: n.bndx ?? 1,
     }));
     const edges = d.edges.map((e) => ({ i: idx.get(e.a)!, j: idx.get(e.b)!, v: e.v }))
       .filter((e) => e.i != null && e.j != null);
+    // S&P 500 + NASDAQ gravity wells — two heavy bodies the stocks gravitate toward by BETA
+    // (high-beta names pulled close = systematic/"noise"; low-beta names drift to the rim = idiosyncratic).
+    const idxBodies: IdxBody[] = (d.indices ?? []).map((ix, k) => ({
+      id: ix.id, label: ix.label, color: ix.color,
+      x: W / 2 + (k === 0 ? -0.42 : 0.42) * R0, y: H / 2 + (k === 0 ? -0.18 : 0.18) * R0, vx: 0, vy: 0,
+    }));
 
     const resize = () => {
       W = wrap.clientWidth || 720;
@@ -193,14 +203,18 @@ function ForceNetwork({ d }: { d: Corr }) {
             const f = 520 / d2; fx += dx * f; fy += dy * f;
           }
         }
-        // weak centering + a faint coherent shimmer. The shimmer is the perpetual "alive" driver
-        // (springs alone settle to a dead equilibrium); it no longer reads as a swarm because the
-        // inactive names are now dim/hollow, so only the ~19 bright live holdings visibly breathe.
-        fx += (W / 2 - a.x) * 0.0006 + Math.sin(frame * 0.02 + k) * 0.03;
-        fy += (H / 2 - a.y) * 0.0006 + Math.cos(frame * 0.02 + k) * 0.03;
-        a.vx = (a.vx + fx) * 0.86; a.vy = (a.vy + fy) * 0.86;
-        // light cooling: lets the layout find itself fast, then holds a livelier floor than before
-        const cap = Math.max(0.55, 1.4 - frame * 0.0016);
+        // beta gravity: pull toward each index well ∝ this name's beta to that index
+        for (const ix of idxBodies) {
+          const b = ix.id === "SPX" ? a.bspx : a.bndx;
+          fx += (ix.x - a.x) * 0.0013 * b; fy += (ix.y - a.y) * 0.0013 * b;
+        }
+        // weak centering + ORGANIC random jitter (no coherent sine — that read as an "agricultural
+        // grid"). The correlation springs couple the random walks of correlated names, so the motion
+        // reads as correlated drift, not independent noise.
+        fx += (W / 2 - a.x) * 0.0003 + (Math.random() - 0.5) * 0.8;
+        fy += (H / 2 - a.y) * 0.0003 + (Math.random() - 0.5) * 0.8;
+        a.vx = (a.vx + fx) * 0.88; a.vy = (a.vy + fy) * 0.88;
+        const cap = Math.max(0.85, 1.4 - frame * 0.001);
         const sp = Math.hypot(a.vx, a.vy); if (sp > cap) { a.vx *= cap / sp; a.vy *= cap / sp; }
       }
       // springs along correlation edges (higher |corr| -> shorter rest length)
@@ -211,22 +225,32 @@ function ForceNetwork({ d }: { d: Corr }) {
         a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
       }
       const { cx, cy, R } = geo();
-      const SPEED = 0.4; // drift speed — livelier than the over-corrected 0.22
+      const SPEED = 0.55; // drift speed
       for (const a of sim) {
         a.x += a.vx * SPEED; a.y += a.vy * SPEED;
         const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
         if (dd > R) { a.x = cx + (ddx / dd) * R; a.y = cy + (ddy / dd) * R; a.vx *= 0.4; a.vy *= 0.4; }
       }
-      // slow rigid orbit — preserves every pairwise distance, so the cluster layout is untouched and
-      // forces don't fight it; just gives the settled graph a calm, coherent "alive" drift.
-      const ROT = 0.0004, rc = Math.cos(ROT), rs = Math.sin(ROT); // subtle spin only — the shimmer/forces carry the life now
+      // gravity wells orbit the centre (kept opposite each other) so they read as gravitating bodies
+      const ROT = 0.0005, rc = Math.cos(ROT), rs = Math.sin(ROT);
       for (const a of sim) { const dx = a.x - cx, dy = a.y - cy; a.x = cx + dx * rc - dy * rs; a.y = cy + dx * rs + dy * rc; }
+      for (const A of idxBodies) { const dx = A.x - cx, dy = A.y - cy; A.x = cx + dx * rc - dy * rs; A.y = cy + dx * rs + dy * rc; }
       // ── render (deep-space palette mirroring the landing) ──
       const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.35);
       bg.addColorStop(0, "#0B1A30"); bg.addColorStop(0.55, "#070E1C"); bg.addColorStop(1, "#03060C");
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
       for (const s of STARS) { ctx.fillStyle = `rgba(200,222,255,${s.a})`; ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 6.2832); ctx.fill(); }
       ctx.strokeStyle = "rgba(91,168,255,0.14)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+      // index gravity wells — large translucent glowing spheres (drawn under the stock nodes)
+      for (const A of idxBodies) {
+        const gw = ctx.createRadialGradient(A.x, A.y, 0, A.x, A.y, 40);
+        gw.addColorStop(0, A.color + "4D"); gw.addColorStop(0.5, A.color + "22"); gw.addColorStop(1, A.color + "00");
+        ctx.fillStyle = gw; ctx.beginPath(); ctx.arc(A.x, A.y, 40, 0, 6.2832); ctx.fill();
+        ctx.globalAlpha = 0.85; ctx.lineWidth = 1.6; ctx.strokeStyle = A.color;
+        ctx.beginPath(); ctx.arc(A.x, A.y, 15, 0, 6.2832); ctx.stroke(); ctx.globalAlpha = 1;
+        ctx.fillStyle = A.color; ctx.font = "700 12px ui-sans-serif, system-ui"; ctx.textAlign = "center";
+        ctx.fillText(A.label, A.x, A.y - 22);
+      }
       // edges — bright only where they touch a LIVE holding (the book's real correlations);
       // history-only links stay as a faint backdrop so the structure that matters reads clearly.
       const hov = hoverRef.current;
@@ -291,6 +315,7 @@ function CorrelationNetwork() {
             <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
             <ul className="space-y-1 text-[10px] leading-relaxed text-[#9CA7BB]">
               <li><span className="text-[#C7CEDA]">Solid + ringed dots = live holdings</span>; hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
+              <li><span className="text-[#C7CEDA]">The two big spheres are S&amp;P 500 &amp; NASDAQ</span> — each name is pulled toward them by its <em>beta</em>. High-beta (market-driven) names hug the spheres; low-beta (idiosyncratic) names drift to the rim — systematic vs. stock-specific at a glance.</li>
               <li><span className="text-[#C7CEDA]">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
               <li><span className="text-[#C7CEDA]">Bright links</span> are correlations involving a live holding; faint links are history-only. Watch whether the live dots cluster (overlap) or spread (decoupled).</li>
               <li><span className="text-[#C7CEDA]">The drift is decoration</span> — only relative position carries meaning, not the motion.</li>
