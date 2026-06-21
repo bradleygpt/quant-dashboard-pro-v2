@@ -131,7 +131,27 @@ export default function StockDetailTab() {
       } catch { /* fall through to live */ }
     }
     setAi({ kind, status: "loading", period });
-    const qs = new URLSearchParams({ ticker: row.ticker, kind, name: row.name ?? "", sector: row.sector ?? "", score: String(row.composite), rating: row.rating, price: String(usePrice ?? ""), price_live: livePrice != null ? "1" : "0", fv: String(row.fv ?? ""), qbp: String(row.qbp ?? ""), period });
+    // Rich, PRE-FORMATTED data blob — gives the model real substance (pillar grades, multiples,
+    // margins, growth, momentum, the reported-quarter trend) and the valuation relationship already
+    // computed (premium/verdict), so it never garbles price arithmetic or invents earnings figures.
+    const rw = row.raw || {};
+    const pf = (x?: number | null) => (x == null ? "—" : `${x >= 0 ? "+" : ""}${Math.round(x * 100)}%`); // signed — for growth/momentum (changes)
+    const lf = (x?: number | null) => (x == null ? "—" : `${Math.round(x * 100)}%`); // unsigned — for margins/ROE (levels)
+    const nf = (x?: number | null) => (x == null ? "—" : x.toFixed(x >= 100 ? 0 : 1));
+    const prem = row.fvPremium;
+    const blob = {
+      name: row.name ?? "", sector: row.sector ?? "", mcapB: row.marketCapB != null ? row.marketCapB.toFixed(0) : undefined,
+      score: row.composite?.toFixed(2), rating: row.rating, grades: row.grades,
+      val: { fpe: nf(rw.forwardPE), pe: nf(rw.trailingPE), peg: nf(rw.pegRatio), ps: nf(rw.priceToSalesTrailing12Months) },
+      prof: { gross: lf(rw.grossMargins), oper: lf(rw.operatingMargins), net: lf(rw.profitMargins), roe: lf(rw.returnOnEquity) },
+      growth: { rev: pf(rw.revenueGrowth), earn: pf(rw.earningsGrowth) },
+      mom: { m3: pf(rw.momentum_3m), m12: pf(rw.momentum_12m), upside: pf(rw.analyst_mean_target_upside) },
+      fv: row.fv != null ? { value: row.fv.toFixed(0), premium: prem != null ? `${Math.abs(prem).toFixed(1)}%` : undefined, direction: prem != null ? (prem >= 0 ? "above" : "below") : undefined, verdict: row.fvVerdict ?? undefined } : undefined,
+      qbp: row.qbpSignal ?? undefined,
+      surprise: rw.earnings_surprise_pct != null ? `${rw.earnings_surprise_pct >= 0 ? "+" : ""}${rw.earnings_surprise_pct.toFixed(1)}%` : undefined,
+      quarters: qhist.slice(0, 2).map((qq: { date?: string; revenueGrowth?: number | null; earningsGrowth?: number | null; grossMargins?: number | null; operatingMargins?: number | null; netMargins?: number | null }) => ({ date: String(qq.date || "").slice(0, 7), rev: pf(qq.revenueGrowth), earn: pf(qq.earningsGrowth), gross: lf(qq.grossMargins), oper: lf(qq.operatingMargins), net: lf(qq.netMargins) })),
+    };
+    const qs = new URLSearchParams({ ticker: row.ticker, kind, period, d: JSON.stringify(blob) });
     fetch(`/api/ai?${qs}`).then((r) => r.json()).then((d) => {
       const verdict = d.ok && kind === "earnings" ? parseVerdict(d.text || "") : undefined;
       if (d.ok && kind === "earnings" && period) {
