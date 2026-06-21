@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
+import StructuredReview from "../components/StructuredReview";
 import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
 import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
@@ -419,7 +420,7 @@ export default function StockDetailTab() {
                   {ai.cached && <span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] text-[#9CA7BB]">cached for this filing</span>}
                 </div>
               )}
-              <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#C3CAD7]">{ai.text.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim()}</p>
+              <StructuredReview text={ai.text} />
               <span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
             </div>
           : <p className="mt-2 text-xs text-[#FFB454]">{

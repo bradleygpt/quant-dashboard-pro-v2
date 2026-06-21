@@ -53,13 +53,37 @@ export default async function handler(req: Request) {
   ].filter(Boolean).join("\n");
 
   const prompt = kind === "earnings"
-    ? `You are an equity analyst doing a thesis-check on ${ticker}'s most recent reported quarter${period ? ` (~${period})` : ""}.
+    ? `You are an equity analyst reviewing ${ticker}'s most recent reported quarter${period ? ` (~${period})` : ""}.
 
-DATA — these are the ONLY figures you may cite:
+DATA — the ONLY figures you may cite (baked fundamentals; you do NOT have the full 8-K text):
 ${block}
 
-In ~170 words, assess whether the reported revenue/earnings trajectory and the quant signals support the current rating. Reference the specific margins, growth, and pillar grades above. Do NOT invent revenue, EPS, margin, or forward-guidance figures you were not given — if guidance isn't in the data, say the release's guidance wasn't available rather than inventing it. Balanced and specific.
-End on its own final line exactly: "VERDICT: X" where X is one of BUY ON STRENGTH, BUY, HOLD, TRIM, EXIT.`
+Produce a review with EXACTLY these section headers, each on its own line (uppercase), matching this structure:
+
+VERDICT: [BUY ON STRENGTH | BUY | HOLD | TRIM | EXIT]
+[2 sentences: why this verdict, tied to the reported trajectory + valuation.]
+
+HEADLINE
+[1-2 sentences: the single most important fact about this quarter.]
+
+KEY METRICS
+- Revenue: [YoY growth from the data]
+- Earnings: [YoY growth from the data]
+- Margins: [gross / operating / net from the data]
+
+GUIDANCE
+- [Forward guidance is NOT in the baked data — write exactly: "Not available in the baked fundamentals — see the 8-K filing." Do NOT invent guidance numbers.]
+
+THESIS CHECK
+[Compare the latest quarter to the prior quarter shown above — state the revenue and earnings deltas explicitly.]
+
+CALLOUTS
+- [2-3 bullets grounded ONLY in the metrics above: margin trend, growth acceleration/deceleration, and the valuation premium/verdict.]
+
+BOTTOM LINE
+[1-2 sentences: net effect on the thesis.]
+
+Cite only the figures above; never invent revenue, EPS, margin, segment, or guidance numbers. Keep it under ~230 words.`
     : `You are a senior equity analyst. Write a 4-paragraph research note on ${ticker}.
 
 DATA (quant pipeline + filings — use these figures; do not recompute prices or invent numbers):
