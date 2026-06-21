@@ -193,14 +193,14 @@ function ForceNetwork({ d }: { d: Corr }) {
             const f = 520 / d2; fx += dx * f; fy += dy * f;
           }
         }
-        // weak centering only — NO per-node jitter (that read as a swarm). The graph settles into
-        // stable clusters; a slow rigid orbit (below) adds coherent life without scrambling them.
-        fx += (W / 2 - a.x) * 0.0007;
-        fy += (H / 2 - a.y) * 0.0007;
-        a.vx = (a.vx + fx) * 0.85; a.vy = (a.vy + fy) * 0.85;
-        // cooling: full speed while the layout finds itself (~first 9s), then clamp toward stillness
-        // so the settled cloud stops jiggling and only the slow rigid orbit remains.
-        const cap = Math.max(0.16, 1.3 - frame * 0.002);
+        // weak centering + a faint coherent shimmer. The shimmer is the perpetual "alive" driver
+        // (springs alone settle to a dead equilibrium); it no longer reads as a swarm because the
+        // inactive names are now dim/hollow, so only the ~19 bright live holdings visibly breathe.
+        fx += (W / 2 - a.x) * 0.0006 + Math.sin(frame * 0.02 + k) * 0.03;
+        fy += (H / 2 - a.y) * 0.0006 + Math.cos(frame * 0.02 + k) * 0.03;
+        a.vx = (a.vx + fx) * 0.86; a.vy = (a.vy + fy) * 0.86;
+        // light cooling: lets the layout find itself fast, then holds a livelier floor than before
+        const cap = Math.max(0.55, 1.4 - frame * 0.0016);
         const sp = Math.hypot(a.vx, a.vy); if (sp > cap) { a.vx *= cap / sp; a.vy *= cap / sp; }
       }
       // springs along correlation edges (higher |corr| -> shorter rest length)
@@ -211,7 +211,7 @@ function ForceNetwork({ d }: { d: Corr }) {
         a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
       }
       const { cx, cy, R } = geo();
-      const SPEED = 0.22; // overall slowdown of the drift
+      const SPEED = 0.4; // drift speed — livelier than the over-corrected 0.22
       for (const a of sim) {
         a.x += a.vx * SPEED; a.y += a.vy * SPEED;
         const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
@@ -219,7 +219,7 @@ function ForceNetwork({ d }: { d: Corr }) {
       }
       // slow rigid orbit — preserves every pairwise distance, so the cluster layout is untouched and
       // forces don't fight it; just gives the settled graph a calm, coherent "alive" drift.
-      const ROT = 0.0011, rc = Math.cos(ROT), rs = Math.sin(ROT); // ~95s/revolution — calm galactic spin for ~382 nodes
+      const ROT = 0.0004, rc = Math.cos(ROT), rs = Math.sin(ROT); // subtle spin only — the shimmer/forces carry the life now
       for (const a of sim) { const dx = a.x - cx, dy = a.y - cy; a.x = cx + dx * rc - dy * rs; a.y = cy + dx * rs + dy * rc; }
       // ── render (deep-space palette mirroring the landing) ──
       const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.35);
@@ -227,20 +227,28 @@ function ForceNetwork({ d }: { d: Corr }) {
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
       for (const s of STARS) { ctx.fillStyle = `rgba(200,222,255,${s.a})`; ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 6.2832); ctx.fill(); }
       ctx.strokeStyle = "rgba(91,168,255,0.14)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
-      // edges — soft cosmic threads
-      ctx.lineWidth = 0.7;
+      // edges — bright only where they touch a LIVE holding (the book's real correlations);
+      // history-only links stay as a faint backdrop so the structure that matters reads clearly.
+      const hov = hoverRef.current;
       for (const e of edges) {
-        const a = sim[e.i], b = sim[e.j], al = 0.05 + 0.34 * Math.abs(e.v);
+        const a = sim[e.i], b = sim[e.j], live = a.cur || b.cur;
+        const al = live ? 0.2 + 0.5 * Math.abs(e.v) : 0.03 + 0.1 * Math.abs(e.v);
+        ctx.lineWidth = live ? 1 : 0.5;
         ctx.strokeStyle = e.v >= 0 ? `rgba(120,180,255,${al})` : `rgba(190,130,255,${al})`;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
-      // nodes — glowing bodies (cheap two-pass halo, like the landing's planets/suns)
-      const hov = hoverRef.current;
+      // nodes — LIVE holdings glow + white ring; inactive (held only in the backtest) are hollow,
+      // dim, strategy-coloured outlines so the active book pops out of the historical universe.
       for (const a of sim) {
-        ctx.globalAlpha = 0.20; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 2.6, 0, 6.2832); ctx.fill();
-        ctx.globalAlpha = a.cur ? 1 : 0.82; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+        if (a.cur) {
+          ctx.globalAlpha = 0.22; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 2.8, 0, 6.2832); ctx.fill();
+          ctx.globalAlpha = 1; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+          ctx.lineWidth = 1.4; ctx.strokeStyle = "#EAF2FF"; ctx.stroke();
+        } else {
+          ctx.globalAlpha = a.t === hov ? 0.95 : 0.42; ctx.lineWidth = 1.1; ctx.strokeStyle = a.c;
+          ctx.beginPath(); ctx.arc(a.x, a.y, Math.max(1.8, a.r * 0.78), 0, 6.2832); ctx.stroke();
+        }
         ctx.globalAlpha = 1;
-        if (a.cur) { ctx.lineWidth = 1.3; ctx.strokeStyle = "#EAF2FF"; ctx.stroke(); }
       }
       // labels: current holdings always + hovered
       ctx.font = "600 9px ui-sans-serif, system-ui"; ctx.textAlign = "center";
@@ -282,10 +290,10 @@ function CorrelationNetwork() {
           <div className="rounded-md border border-[#1E2632] bg-[#0B1018] px-2.5 py-2">
             <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
             <ul className="space-y-1 text-[10px] leading-relaxed text-[#9CA7BB]">
-              <li><span className="text-[#C7CEDA]">Each dot</span> is a stock the strategies have held; colour = the strategy that held it most.</li>
+              <li><span className="text-[#C7CEDA]">Solid + ringed dots = live holdings</span>; hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
               <li><span className="text-[#C7CEDA]">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
-              <li><span className="text-[#C7CEDA]">Separate colour-clusters = the decoupling</span> — different strategies pick names that don't co-move. That's the whole design.</li>
-              <li><span className="text-[#C7CEDA]">The drift is just decoration</span> — a slow rigid orbit; relative position is the only thing that carries meaning, not the motion.</li>
+              <li><span className="text-[#C7CEDA]">Bright links</span> are correlations involving a live holding; faint links are history-only. Watch whether the live dots cluster (overlap) or spread (decoupled).</li>
+              <li><span className="text-[#C7CEDA]">The drift is decoration</span> — only relative position carries meaning, not the motion.</li>
             </ul>
           </div>
           <div>
