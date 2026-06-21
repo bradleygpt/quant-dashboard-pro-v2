@@ -3,6 +3,7 @@ import { Card, Spinner } from "../components/ui";
 import StrategyTab from "./StrategyTab";
 import PaperTrackTab from "./PaperTrackTab";
 import C78QTab from "./C78QTab";
+import StrategiesViz from "./StrategiesViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -167,6 +168,8 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
           (picks generated the night before). Click any row to open its full page.
         </p>
       </Card>
+
+      <StrategiesViz />
     </div>
   );
 }

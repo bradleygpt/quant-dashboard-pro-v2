@@ -1,0 +1,321 @@
+{
+ "generated_at": "2026-06-17",
+ "window": "trailing 504 trading days, daily returns",
+ "note": "Current combined-book holdings. Nodes laid out by correlation (close = correlated); colour = strategy.",
+ "nodes": [
+  {
+   "ticker": "MU",
+   "name": "Micron Technology, Inc.",
+   "x": -0.795,
+   "y": -0.283,
+   "strategies": [
+    "katalepsis",
+    "prosodos",
+    "pronoia"
+   ],
+   "color": "#00C805",
+   "shared": true
+  },
+  {
+   "ticker": "RKLB",
+   "name": "Rocket Lab Corporation",
+   "x": -0.274,
+   "y": -0.897,
+   "strategies": [
+    "katalepsis"
+   ],
+   "color": "#00C805",
+   "shared": false
+  },
+  {
+   "ticker": "MXL",
+   "name": "MaxLinear, Inc",
+   "x": -0.341,
+   "y": 0.032,
+   "strategies": [
+    "katalepsis"
+   ],
+   "color": "#00C805",
+   "shared": false
+  },
+  {
+   "ticker": "AKAM",
+   "name": "Akamai Technologies, Inc.",
+   "x": 0.019,
+   "y": -0.192,
+   "strategies": [
+    "aristeia"
+   ],
+   "color": "#5BA8FF",
+   "shared": false
+  },
+  {
+   "ticker": "INSW",
+   "name": "International Seaways, Inc.",
+   "x": -0.025,
+   "y": 1.0,
+   "strategies": [
+    "aristeia"
+   ],
+   "color": "#5BA8FF",
+   "shared": false
+  },
+  {
+   "ticker": "MTZ",
+   "name": "MasTec, Inc.",
+   "x": -0.59,
+   "y": -0.518,
+   "strategies": [
+    "aristeia"
+   ],
+   "color": "#5BA8FF",
+   "shared": false
+  },
+  {
+   "ticker": "EIX",
+   "name": "Edison International",
+   "x": 0.444,
+   "y": -0.217,
+   "strategies": [
+    "auxo",
+    "prosodos"
+   ],
+   "color": "#A855F7",
+   "shared": true
+  },
+  {
+   "ticker": "FISV",
+   "name": "Fiserv, Inc.",
+   "x": 1.0,
+   "y": -0.254,
+   "strategies": [
+    "auxo",
+    "prosodos"
+   ],
+   "color": "#A855F7",
+   "shared": true
+  },
+  {
+   "ticker": "MOS",
+   "name": "Mosaic Company (The)",
+   "x": 0.178,
+   "y": 0.208,
+   "strategies": [
+    "auxo"
+   ],
+   "color": "#A855F7",
+   "shared": false
+  },
+  {
+   "ticker": "DECK",
+   "name": "Deckers Outdoor Corporation",
+   "x": 0.28,
+   "y": -0.991,
+   "strategies": [
+    "prosodos"
+   ],
+   "color": "#FBBF24",
+   "shared": false
+  },
+  {
+   "ticker": "TPR",
+   "name": "Tapestry, Inc.",
+   "x": -0.055,
+   "y": -1.0,
+   "strategies": [
+    "prosodos"
+   ],
+   "color": "#FBBF24",
+   "shared": false
+  },
+  {
+   "ticker": "IREN",
+   "name": "IREN LIMITED",
+   "x": -0.404,
+   "y": -0.604,
+   "strategies": [
+    "pronoia"
+   ],
+   "color": "#F97316",
+   "shared": false
+  },
+  {
+   "ticker": "STX",
+   "name": "Seagate Technology Holdings PLC",
+   "x": -1.0,
+   "y": -0.134,
+   "strategies": [
+    "pronoia"
+   ],
+   "color": "#F97316",
+   "shared": false
+  },
+  {
+   "ticker": "VIAV",
+   "name": "Viavi Solutions Inc.",
+   "x": -0.609,
+   "y": 0.029,
+   "strategies": [
+    "pronoia"
+   ],
+   "color": "#F97316",
+   "shared": false
+  },
+  {
+   "ticker": "VSAT",
+   "name": "ViaSat, Inc.",
+   "x": -0.225,
+   "y": -0.759,
+   "strategies": [
+    "pronoia"
+   ],
+   "color": "#F97316",
+   "shared": false
+  }
+ ],
+ "edges": [
+  {
+   "a": "MU",
+   "b": "RKLB",
+   "corr": 0.37
+  },
+  {
+   "a": "MU",
+   "b": "MXL",
+   "corr": 0.38
+  },
+  {
+   "a": "MU",
+   "b": "MTZ",
+   "corr": 0.51
+  },
+  {
+   "a": "MU",
+   "b": "IREN",
+   "corr": 0.4
+  },
+  {
+   "a": "MU",
+   "b": "STX",
+   "corr": 0.6
+  },
+  {
+   "a": "MU",
+   "b": "VIAV",
+   "corr": 0.36
+  },
+  {
+   "a": "RKLB",
+   "b": "MTZ",
+   "corr": 0.41
+  },
+  {
+   "a": "RKLB",
+   "b": "IREN",
+   "corr": 0.36
+  },
+  {
+   "a": "RKLB",
+   "b": "VSAT",
+   "corr": 0.36
+  },
+  {
+   "a": "MTZ",
+   "b": "TPR",
+   "corr": 0.44
+  },
+  {
+   "a": "MTZ",
+   "b": "IREN",
+   "corr": 0.39
+  },
+  {
+   "a": "MTZ",
+   "b": "STX",
+   "corr": 0.45
+  },
+  {
+   "a": "MTZ",
+   "b": "VIAV",
+   "corr": 0.43
+  },
+  {
+   "a": "DECK",
+   "b": "TPR",
+   "corr": 0.48
+  },
+  {
+   "a": "STX",
+   "b": "VIAV",
+   "corr": 0.36
+  }
+ ],
+ "avg_abs_corr": 0.21,
+ "strategy_corr": [
+  {
+   "a": "Katalepsis",
+   "b": "Aristeia",
+   "corr": 0.41
+  },
+  {
+   "a": "Katalepsis",
+   "b": "Auxo",
+   "corr": 0.28
+  },
+  {
+   "a": "Katalepsis",
+   "b": "Prosodos",
+   "corr": 0.47
+  },
+  {
+   "a": "Katalepsis",
+   "b": "Pronoia",
+   "corr": 0.32
+  },
+  {
+   "a": "Aristeia",
+   "b": "Auxo",
+   "corr": 0.29
+  },
+  {
+   "a": "Aristeia",
+   "b": "Prosodos",
+   "corr": 0.43
+  },
+  {
+   "a": "Aristeia",
+   "b": "Pronoia",
+   "corr": 0.32
+  },
+  {
+   "a": "Auxo",
+   "b": "Prosodos",
+   "corr": 0.54
+  },
+  {
+   "a": "Auxo",
+   "b": "Pronoia",
+   "corr": 0.37
+  },
+  {
+   "a": "Prosodos",
+   "b": "Pronoia",
+   "corr": 0.5
+  }
+ ],
+ "strategy_avg_abs_corr": 0.39,
+ "strategy_labels": {
+  "katalepsis": "Katalepsis",
+  "aristeia": "Aristeia",
+  "auxo": "Auxo",
+  "prosodos": "Prosodos",
+  "pronoia": "Pronoia"
+ },
+ "strategy_colors": {
+  "katalepsis": "#00C805",
+  "aristeia": "#5BA8FF",
+  "auxo": "#A855F7",
+  "prosodos": "#FBBF24",
+  "pronoia": "#F97316"
+ }
+}
