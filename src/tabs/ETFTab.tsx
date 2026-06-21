@@ -207,14 +207,44 @@ function Maps({ data }: { data: EtfFile }) {
   return <div className="space-y-4">{tbl("Sector ETFs", "sector", data.sector_map)}{tbl("Thematic ETFs", "theme", data.theme_map)}</div>;
 }
 
+// ETFs live in the main universe scored by the STOCK model, so on stock bands they all land at
+// Hold/Sell. Until proper look-through scoring (constituent baskets) lands, rate each ETF RELATIVE
+// to the ETF cohort by score percentile — so the table actually distinguishes the universe's best
+// ETFs from its worst instead of flat-lining at Hold.
+function relativeRating(pct: number): string {
+  if (pct >= 0.85) return "Strong Buy";
+  if (pct >= 0.60) return "Buy";
+  if (pct >= 0.25) return "Hold";
+  if (pct >= 0.10) return "Sell";
+  return "Strong Sell";
+}
+
 function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: string) => void }) {
+  const relRating = useMemo(() => {
+    const asc = rows.map((r) => r.composite).sort((a, b) => a - b);
+    const n = asc.length;
+    const m = new Map<string, string>();
+    rows.forEach((r) => {
+      const below = asc.filter((s) => s < r.composite).length;
+      const pct = n <= 1 ? 0.5 : below / (n - 1);
+      m.set(r.ticker, relativeRating(pct));
+    });
+    return m;
+  }, [rows]);
   const cols = useMemo<Column<ViewRow>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button> },
     { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[320px] truncate text-[#C3CAD7]">{r.name}</span> },
     { key: "composite", header: "Score", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="font-semibold">{r.composite.toFixed(2)}</span> },
-    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[r.rating] ?? 0, render: (r) => <RatingBadge rating={r.rating} /> },
+    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating] ?? 0, render: (r) => <RatingBadge rating={relRating.get(r.ticker) ?? r.rating} /> },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price, render: (r) => fmtMoney(r.price) },
     { key: "cap", header: "AUM/Cap", align: "right", sortValue: (r) => r.marketCapB, render: (r) => <span className="text-[#9CA7BB]">{fmtCapB(r.marketCapB)}</span> },
-  ], [goToDetail]);
-  return <SortableTable columns={cols} rows={rows} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" />;
+  ], [goToDetail, relRating]);
+  return (
+    <div className="space-y-2">
+      <p className="text-[11px] leading-relaxed text-[#7C879B]">
+        Ratings are <strong className="text-[#9CA7BB]">relative to the ETF universe</strong> (score percentile within ETFs, not the stock bands) — the top ~15% read Strong Buy, the bottom ~10% Strong Sell. Score is still the stock model's composite; proper <em>look-through</em> scoring (each ETF as a weight-weighted basket of its holdings) is the next step.
+      </p>
+      <SortableTable columns={cols} rows={rows} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" />
+    </div>
+  );
 }
