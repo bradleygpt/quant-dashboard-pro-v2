@@ -70,16 +70,33 @@ jobs:
           git add public/data
           if git diff --cached --quiet; then
             echo "No data change - skipping commit."
-          else
-            git commit -m "chore: bake data refresh $(date -u +%Y-%m-%dT%H:%MZ)"
-            # No auto-rebase: public/data has multiple writers (manual strategy
-            # JSON / system_status / c78q commits land on main alongside this bot).
-            # If the remote tip advanced during the bake, this push fails LOUD
-            # (non-fast-forward) and the failure step below surfaces it; the next
-            # scheduled run re-checks-out the new tip and succeeds. Preferred over a
-            # blind rebase that could replay the bake over a concurrent manual edit.
-            git push
+            exit 0
           fi
+          git commit -m "chore: bake data refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Resilient push (fixes #2). The bake runs ~9 min and main has many writers
+          # (manual strategy JSON / system_status / c78q / dev commits), so a bare
+          # `git push` was rejected non-fast-forward on ~1/3 of runs and failed the
+          # whole refresh. Rebase onto the latest tip and retry — but CONFLICT-AWARE,
+          # not a blind rebase: if a concurrent commit touched the SAME file the
+          # rebase fails, we abort and exit loud (the original concern — never replay
+          # the bake over a concurrent manual edit). When the concurrent push touched
+          # DIFFERENT files (the common case: baked data vs code), the rebase is clean
+          # and the retry pushes successfully.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected (attempt ${attempt}); fetch + rebase onto origin/main"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "::error::rebase conflict on public/data — a concurrent commit edited the same file. Not replaying the bake over it; the next run re-bakes from the new tip."
+              exit 1
+            fi
+          done
+          echo "::error::push still failing after 5 rebase-retries"
+          exit 1
 
       - name: Surface failure (anti-silent-break)
         if: failure()
