@@ -58,12 +58,8 @@ export default function MLPredTab() {
 
   const pool = useMemo(() => {
     if (!raw) return [] as string[];
-    const scored = raw.rows.map((r) => {
-      const p = bakedPrice.get(r.ticker) ?? r.price;
-      const p12 = p && r.target_12m != null ? r.target_12m / p - 1 : (r.pred_12m ?? -99);
-      const p3 = p && r.target_3m != null ? r.target_3m / p - 1 : (r.pred_3m ?? -99);
-      return { t: r.ticker, m: Math.max(p12, p3) };
-    });
+    // rank candidates by the model's own predicted returns (not target ÷ price)
+    const scored = raw.rows.map((r) => ({ t: r.ticker, m: Math.max(r.pred_12m ?? -99, r.pred_3m ?? -99) }));
     // top 120 (the /api/quotes cap) so the full 100-row filtered table — not just
     // the top-10/25/50 tables — is covered by live-preferred quotes.
     return scored.sort((a, b) => b.m - a.m).slice(0, 120).map((x) => x.t);
@@ -94,14 +90,21 @@ export default function MLPredTab() {
       const lp = live.get(r.ticker), bp = bakedPrice.get(r.ticker);
       const price = lp ?? bp ?? r.price;
       const price_src: MLRow["price_src"] = lp != null ? "live" : bp != null ? "baked" : "asof";
-      let p3 = price && r.target_3m != null ? r.target_3m / price - 1 : r.pred_3m;
-      let p12 = price && r.target_12m != null ? r.target_12m / price - 1 : r.pred_12m;
+      // PRED RETURN is the MODEL's forecast (pred_3m/pred_12m are clean return outputs), NOT
+      // target ÷ live-price. The old formula conflated the 2-week-old forecast with the price move
+      // since: e.g. ACN forecast +1.4% off its 6-05 basis, then fell 28% — its stale $180 target ÷
+      // live $128 read as "+41%". Using the pred field also sidesteps any stale/split baked price.
+      let p3 = r.pred_3m;
+      let p12 = r.pred_12m;
       const bad3 = p3 != null && Math.abs(p3) > SANE_3M;
       const bad12 = p12 != null && Math.abs(p12) > SANE_12M;
       if (bad3 || bad12) ex.push({ ticker: r.ticker, p3: bad3 ? p3 : null, p12: bad12 ? p12 : null });
       if (bad3) p3 = null;     // exclude from 3-month rankings/screener
       if (bad12) p12 = null;   // exclude from 12-month rankings/screener
-      return { ...r, price, pred_3m: p3, pred_12m: p12, price_src };
+      // rebase the target to the (live) price shown so PRICE × (1+pred) = TARGET stays consistent
+      const target_3m = p3 != null && price ? price * (1 + p3) : null;
+      const target_12m = p12 != null && price ? price * (1 + p12) : null;
+      return { ...r, price, pred_3m: p3, pred_12m: p12, target_3m, target_12m, price_src };
     });
     return { data: { ...raw, rows }, excluded: ex };
   }, [raw, bakedPrice, live]);
