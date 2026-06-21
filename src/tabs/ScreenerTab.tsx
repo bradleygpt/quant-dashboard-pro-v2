@@ -5,6 +5,7 @@ import { SortableTable, RATING_RANK, type Column } from "../components/SortableT
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import IndexBadges from "../components/IndexBadges";
 import { applyScreen, flattenMetrics, type ScreenFilters } from "../lib/screener";
+import { useFcfMap, fcfFlag } from "../lib/fcf";
 
 const RATINGS = ["Strong Buy+", "Strong Buy", "Buy", "Hold", "Sell", "Strong Sell"];
 const FV_VERDICTS = ["Deeply Undervalued", "Undervalued", "Fairly Valued", "Overvalued", "Significantly Overvalued"];
@@ -21,6 +22,7 @@ function toggle(arr: string[], v: string): string[] {
 
 export default function ScreenerTab() {
   const { rows, loadingUniverse, meta, floor, goToDetail } = useStore();
+  const fcf = useFcfMap();
   const cfg = meta.screener;
   const sectors = meta.floor_meta[String(floor)]?.sectors ?? [];
 
@@ -85,8 +87,17 @@ export default function ScreenerTab() {
       { key: "marketCapB", header: "Mkt Cap", align: "right", sortValue: (r) => r.marketCapB, render: (r) => <span className="text-[#9CA7BB]">{fmtCapB(r.marketCapB)}</span> },
     ];
     if (hasMA) cols.push({ key: "ma", header: "M&A", align: "right", sortValue: (r) => r.ma_score ?? null, render: (r) => r.ma_score == null ? "—" : r.ma_score.toFixed(0) });
+    // FCF quality (SBC distortion) — true FCF = OCF-capex-SBC, from the EDGAR engine
+    cols.push(
+      { key: "fcfFlag", header: "FCF", title: () => "FCF quality once stock comp is expensed", sortValue: (r) => fcfFlag(fcf?.get(r.ticker)).rank,
+        render: (r) => { const f = fcfFlag(fcf?.get(r.ticker)); return <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold" style={{ color: f.color, background: f.color + "1F" }}>{f.short}</span>; } },
+      { key: "sbcOcf", header: "SBC/OCF", align: "right", title: () => "Stock comp as a share of operating cash flow", sortValue: (r) => fcf?.get(r.ticker)?.sbc_pct_ocf ?? null,
+        render: (r) => { const v = fcf?.get(r.ticker)?.sbc_pct_ocf; return <span className="text-[#9CA7BB]">{v == null ? "—" : v < 0 ? "n/a" : fmtPct(v * 100, 0)}</span>; } },
+      { key: "trueFcfYld", header: "True FCF yld", align: "right", title: () => "Free-cash-flow yield after expensing SBC", sortValue: (r) => fcf?.get(r.ticker)?.true_fcf_yield ?? null,
+        render: (r) => { const v = fcf?.get(r.ticker)?.true_fcf_yield; return <span className="text-[#9CA7BB]">{v == null ? "—" : fmtPct(v * 100, 1, true)}</span>; } },
+    );
     return cols;
-  }, [goToDetail, hasMA]);
+  }, [goToDetail, hasMA, fcf]);
 
   if (loadingUniverse) return <Spinner label="Scoring universe…" />;
 
