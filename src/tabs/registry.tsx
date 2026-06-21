@@ -9,6 +9,7 @@ import PortfolioTab from "./PortfolioTab";
 import QuantPortfolioTab from "./QuantPortfolioTab";
 import HelpTab from "./HelpTab";
 import MarketRegimeTab from "./MarketRegimeTab";
+import MacroOutlookTab from "./MacroOutlookTab";
 import CryptoTab from "./CryptoTab";
 import PunditViewsTab from "./PunditViewsTab";
 import DoppelgangerTab from "./DoppelgangerTab";
@@ -32,6 +33,7 @@ export const TABS: TabDef[] = [
   // The previous data-dashboard home is preserved here, reachable from the nav bar / landing.
   { id: "overview", label: "📊 Overview", component: HomeTab },
   { id: "regime", label: "📊 Market Regime", component: MarketRegimeTab },
+  { id: "macro", label: "🌐 Macro Outlook", component: MacroOutlookTab },
   { id: "portfolio", label: "💼 Your Portfolio", component: PortfolioTab },
   { id: "quantport", label: "💎 Quant Portfolio", component: QuantPortfolioTab },
   { id: "detail", label: "🔍 Stock Detail", component: StockDetailTab },

@@ -234,5 +234,119 @@
     "2027-09-16",
     "2027-11-04",
     "2027-12-16"
-  ]
+  ],
+  "macro_signals": {
+    "signals": [
+      {
+        "id": "T10Y2Y",
+        "label": "10Y\u20132Y Treasury spread",
+        "unit": "%",
+        "risk_dir": "lower",
+        "value": 0.27,
+        "date": "2026-06-18"
+      },
+      {
+        "id": "T10Y3M",
+        "label": "10Y\u20133M Treasury spread",
+        "unit": "%",
+        "risk_dir": "lower",
+        "value": 0.63,
+        "date": "2026-06-18"
+      },
+      {
+        "id": "DGS10",
+        "label": "10-Year Treasury",
+        "unit": "%",
+        "risk_dir": null,
+        "value": 4.49,
+        "date": "2026-06-17"
+      },
+      {
+        "id": "DGS2",
+        "label": "2-Year Treasury",
+        "unit": "%",
+        "risk_dir": null,
+        "value": 4.2,
+        "date": "2026-06-17"
+      },
+      {
+        "id": "BAMLH0A0HYM2",
+        "label": "High-Yield OAS",
+        "unit": "%",
+        "risk_dir": "higher",
+        "value": 2.63,
+        "date": "2026-06-17"
+      },
+      {
+        "id": "BAMLC0A0CM",
+        "label": "Investment-Grade OAS",
+        "unit": "%",
+        "risk_dir": "higher",
+        "value": 0.74,
+        "date": "2026-06-17"
+      },
+      {
+        "id": "T5YIE",
+        "label": "5Y breakeven inflation",
+        "unit": "%",
+        "risk_dir": null,
+        "value": 2.27,
+        "date": "2026-06-18"
+      },
+      {
+        "id": "T10YIE",
+        "label": "10Y breakeven inflation",
+        "unit": "%",
+        "risk_dir": null,
+        "value": 2.25,
+        "date": "2026-06-18"
+      },
+      {
+        "id": "T5YIFR",
+        "label": "5Y5Y forward inflation",
+        "unit": "%",
+        "risk_dir": null,
+        "value": 2.23,
+        "date": "2026-06-18"
+      },
+      {
+        "id": "ICSA",
+        "label": "Initial jobless claims",
+        "unit": "k",
+        "risk_dir": "higher",
+        "value": 226.0,
+        "date": "2026-06-13"
+      }
+    ],
+    "as_of": "2026-06-18",
+    "source": "FRED (keyless fredgraph)"
+  },
+  "forward_earnings": {
+    "as_of": "2026-06-17",
+    "source": "Fed SEP forward projections (FRED Release 326); ISM held at current level",
+    "note": "Model's inflation term fed with SEP PCE (the Fed's gauge); the Fed does not project ISM, so it is held at the current reading.",
+    "path": [
+      {
+        "year": "2026",
+        "pce_inflation": 3.6,
+        "unemployment": 4.3,
+        "ism_assumed": 53.8,
+        "sp500_earnings_growth": 10.7
+      },
+      {
+        "year": "2027",
+        "pce_inflation": 2.3,
+        "unemployment": 4.3,
+        "ism_assumed": 53.8,
+        "sp500_earnings_growth": 7.4
+      },
+      {
+        "year": "2028",
+        "pce_inflation": 2.0,
+        "unemployment": 4.2,
+        "ism_assumed": 53.8,
+        "sp500_earnings_growth": 7.1
+      }
+    ]
+  }
 }
