@@ -207,10 +207,6 @@ function Maps({ data }: { data: EtfFile }) {
   return <div className="space-y-4">{tbl("Sector ETFs", "sector", data.sector_map)}{tbl("Thematic ETFs", "theme", data.theme_map)}</div>;
 }
 
-// ETFs live in the main universe scored by the STOCK model, so on stock bands they all land at
-// Hold/Sell. Until proper look-through scoring (constituent baskets) lands, rate each ETF RELATIVE
-// to the ETF cohort by score percentile — so the table actually distinguishes the universe's best
-// ETFs from its worst instead of flat-lining at Hold.
 function relativeRating(pct: number): string {
   if (pct >= 0.85) return "Strong Buy";
   if (pct >= 0.60) return "Buy";
@@ -219,32 +215,55 @@ function relativeRating(pct: number): string {
   return "Strong Sell";
 }
 
+// Look-through scoring: each ETF as a weight-weighted basket of its holdings' stock scores
+// (etf_lookthrough.json, built free from yfinance top-holdings). Module-cached.
+type LT = { lt_score: number | null; coverage: number; n_matched: number; equity: boolean; note: string; top?: { t: string; w: number; s: number }[] };
+type LTData = { etfs: Record<string, LT>; n_scored: number; n_etfs: number; source: string };
+let ltCache: LTData | null = null, ltInflight: Promise<LTData | null> | null = null;
+function useLookthrough(): LTData | null {
+  const [d, setD] = useState<LTData | null>(ltCache);
+  useEffect(() => {
+    if (ltCache) return;
+    if (!ltInflight) ltInflight = fetch(`${import.meta.env.BASE_URL}data/etf_lookthrough.json`).then((r) => (r.ok ? r.json() : null)).then((j) => { ltCache = j; return j; }).catch(() => null);
+    ltInflight.then(setD);
+  }, []);
+  return d;
+}
+
 function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: string) => void }) {
+  const lt = useLookthrough();
+  // Rate by look-through score where we have real coverage; the rest (bond/broad-intl) keep a
+  // relative-to-cohort rating off the stock composite. Each pool is ranked within itself.
   const relRating = useMemo(() => {
-    const asc = rows.map((r) => r.composite).sort((a, b) => a - b);
-    const n = asc.length;
     const m = new Map<string, string>();
-    rows.forEach((r) => {
-      const below = asc.filter((s) => s < r.composite).length;
-      const pct = n <= 1 ? 0.5 : below / (n - 1);
-      m.set(r.ticker, relativeRating(pct));
-    });
+    const rank = (pool: ViewRow[], key: (r: ViewRow) => number) => {
+      const asc = pool.map(key).sort((a, b) => a - b); const n = asc.length;
+      pool.forEach((r) => { const below = asc.filter((s) => s < key(r)).length; m.set(r.ticker, relativeRating(n <= 1 ? 0.5 : below / (n - 1))); });
+    };
+    const ltOf = (r: ViewRow) => lt?.etfs?.[r.ticker]?.lt_score;
+    rank(rows.filter((r) => ltOf(r) != null), (r) => ltOf(r)!);
+    rank(rows.filter((r) => ltOf(r) == null), (r) => r.composite);
     return m;
-  }, [rows]);
+  }, [rows, lt]);
   const cols = useMemo<Column<ViewRow>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button> },
-    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[320px] truncate text-[#C3CAD7]">{r.name}</span> },
-    { key: "composite", header: "Score", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="font-semibold">{r.composite.toFixed(2)}</span> },
+    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[300px] truncate text-[#C3CAD7]">{r.name}</span> },
+    { key: "lt", header: "Look-through", align: "right", sortValue: (r) => lt?.etfs?.[r.ticker]?.lt_score ?? -1, render: (r) => {
+        const e = lt?.etfs?.[r.ticker];
+        if (!e || e.lt_score == null) return <span className="text-[#5A6477]" title={e?.note ?? "no look-through"}>—</span>;
+        return <span title={`${e.n_matched} holdings, ${Math.round(e.coverage * 100)}% of weight mapped to scored stocks`}><span className="font-semibold text-[#5BA8FF]">{e.lt_score.toFixed(2)}</span><span className="ml-1 text-[10px] text-[#7C879B]">{Math.round(e.coverage * 100)}%</span></span>;
+      } },
+    { key: "composite", header: "Stock-model", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="text-[#9CA7BB]">{r.composite.toFixed(2)}</span> },
     { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating] ?? 0, render: (r) => <RatingBadge rating={relRating.get(r.ticker) ?? r.rating} /> },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price, render: (r) => fmtMoney(r.price) },
     { key: "cap", header: "AUM/Cap", align: "right", sortValue: (r) => r.marketCapB, render: (r) => <span className="text-[#9CA7BB]">{fmtCapB(r.marketCapB)}</span> },
-  ], [goToDetail, relRating]);
+  ], [goToDetail, relRating, lt]);
   return (
     <div className="space-y-2">
       <p className="text-[11px] leading-relaxed text-[#7C879B]">
-        Ratings are <strong className="text-[#9CA7BB]">relative to the ETF universe</strong> (score percentile within ETFs, not the stock bands) — the top ~15% read Strong Buy, the bottom ~10% Strong Sell. Score is still the stock model's composite; proper <em>look-through</em> scoring (each ETF as a weight-weighted basket of its holdings) is the next step.
+        <strong className="text-[#9CA7BB]">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs, free yfinance top-holdings; % = weight mapped)` : ""}. Ratings are <strong className="text-[#9CA7BB]">relative within the ETF cohort</strong> (top ~15% Strong Buy). ETFs showing “—” (bond / broad-international — holdings outside the scored US-equity universe) fall back to a relative rating off the stock-model score. Fuller weights need a paid holdings feed; the pipeline swaps in unchanged.
       </p>
-      <SortableTable columns={cols} rows={rows} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" />
+      <SortableTable columns={cols} rows={rows} rowKey={(r) => r.ticker} initialSortKey="lt" initialSortDir="desc" />
     </div>
   );
 }
