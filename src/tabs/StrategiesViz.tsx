@@ -10,14 +10,15 @@ type PerfStrat = { slug: string; label: string; color: string; entry?: string; h
 type Perf = { generated_at: string; as_of: string; strategies: PerfStrat[] };
 type Period = "daily" | "rebalance" | "alltime";
 
-// period-aware colour: daily/rebalance linear, all-time log (gains run to +12,000%+ over the backtest)
-const CAP: Record<Period, number> = { daily: 5, rebalance: 25, alltime: 5000 };
+// period-aware colour: small moves still need to read, so caps are tight + the alpha floor is high
+const CAP: Record<Period, number> = { daily: 3, rebalance: 7, alltime: 80 };
 function gainColor(g: number | null, period: Period): string {
-  if (g == null) return "#2A3340";
+  if (g == null) return "#33404F";
   let a: number;
   if (period === "alltime") a = Math.min(1, Math.log10(1 + Math.abs(g)) / Math.log10(1 + CAP.alltime));
   else a = Math.min(1, Math.abs(g) / CAP[period]);
-  return g >= 0 ? `rgba(0,200,5,${0.15 + 0.62 * a})` : `rgba(255,87,34,${0.15 + 0.62 * a})`;
+  a = 0.5 + 0.45 * a; // bright floor so a ±1% move is still clearly green/red
+  return g >= 0 ? `rgba(34,197,94,${a})` : `rgba(239,68,68,${a})`;
 }
 const fmtGain = (g: number | null) => (g == null ? "—" : `${g >= 0 ? "+" : ""}${Math.abs(g) >= 1000 ? g.toLocaleString(undefined, { maximumFractionDigits: 0 }) : g}%`);
 
@@ -26,18 +27,23 @@ function TreeCell(props: any) {
   if (depth === 1) {
     return (
       <g>
-        <rect x={x} y={y} width={width} height={height} fill="none" stroke="#0A0D13" strokeWidth={3} />
-        {width > 46 && height > 14 && <text x={x + 5} y={y + 12} fontSize={9} fontWeight={700} fill={stratColor ?? "#7C879B"}>{name}</text>}
+        <rect x={x} y={y} width={width} height={height} fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth={1.5} />
+        {width > 46 && height > 14 && (
+          <>
+            <rect x={x + 3} y={y + 2.5} width={(name?.length ?? 4) * 6.2 + 8} height={13} rx={2} fill="rgba(3,6,12,0.55)" />
+            <text x={x + 7} y={y + 12.5} fontSize={9.5} fontWeight={800} fill={stratColor ?? "#C7CEDA"}>{name}</text>
+          </>
+        )}
       </g>
     );
   }
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="#0A0D13" strokeWidth={1} />
+      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="rgba(255,255,255,0.14)" strokeWidth={1} />
       {width > 36 && height > 24 && (
         <>
-          <text x={x + width / 2} y={y + height / 2 - 1} textAnchor="middle" fontSize={Math.min(11, width / 4)} fontWeight={700} fill="#fff">{name}</text>
-          <text x={x + width / 2} y={y + height / 2 + 11} textAnchor="middle" fontSize={9} fill="#E6E9EF">{label}</text>
+          <text x={x + width / 2} y={y + height / 2 - 1} textAnchor="middle" fontSize={Math.min(12, width / 4)} fontWeight={800} fill="#fff" style={{ paintOrder: "stroke", stroke: "rgba(0,0,0,0.5)", strokeWidth: 2.4 } as any}>{name}</text>
+          <text x={x + width / 2} y={y + height / 2 + 12} textAnchor="middle" fontSize={10} fontWeight={700} fill="#fff" style={{ paintOrder: "stroke", stroke: "rgba(0,0,0,0.5)", strokeWidth: 2.4 } as any}>{label}</text>
         </>
       )}
     </g>
@@ -141,7 +147,7 @@ function ForceNetwork({ d }: { d: Corr }) {
     const idx = new Map<string, number>(); d.nodes.forEach((n, i) => idx.set(n.t, i));
     const R0 = Math.min(W, H) / 2 - 14;
     const sim: Sim[] = d.nodes.map((n) => ({
-      t: n.t, x: W / 2 + n.x * R0 * 0.82, y: H / 2 + n.y * R0 * 0.82, vx: 0, vy: 0,
+      t: n.t, x: W / 2 + n.x * R0 * 0.92, y: H / 2 + n.y * R0 * 0.92, vx: 0, vy: 0,
       r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: n.c, cur: n.cur,
     }));
     const edges = d.edges.map((e) => ({ i: idx.get(e.a)!, j: idx.get(e.b)!, v: e.v }))
@@ -156,7 +162,7 @@ function ForceNetwork({ d }: { d: Corr }) {
     const ro = new ResizeObserver(resize); ro.observe(wrap);
 
     let raf = 0, frame = 0;
-    const CELL = 46;
+    const CELL = 58;
     const step = () => {
       frame++;
       // spatial-grid repulsion (O(n))
@@ -175,23 +181,24 @@ function ForceNetwork({ d }: { d: Corr }) {
             if (m === k) continue;
             const b = sim[m]; let dx = a.x - b.x, dy = a.y - b.y; let d2 = dx * dx + dy * dy;
             if (d2 < 1) { d2 = 1; dx = (k - m) * 0.5; } if (d2 > CELL * CELL * 4) continue;
-            const f = 240 / d2; fx += dx * f; fy += dy * f;
+            const f = 520 / d2; fx += dx * f; fy += dy * f;
           }
         }
-        // centering + gentle perpetual shimmer (keeps it "alive", slow drift)
-        fx += (W / 2 - a.x) * 0.0016 + Math.sin(frame * 0.018 + k) * 0.022;
-        fy += (H / 2 - a.y) * 0.0016 + Math.cos(frame * 0.018 + k) * 0.022;
-        a.vx = (a.vx + fx) * 0.9; a.vy = (a.vy + fy) * 0.9;
+        // weak centering + faint perpetual shimmer (alive but calm; repulsion does the spreading)
+        fx += (W / 2 - a.x) * 0.0007 + Math.sin(frame * 0.011 + k) * 0.012;
+        fy += (H / 2 - a.y) * 0.0007 + Math.cos(frame * 0.011 + k) * 0.012;
+        a.vx = (a.vx + fx) * 0.88; a.vy = (a.vy + fy) * 0.88;
+        const sp = Math.hypot(a.vx, a.vy); if (sp > 1.6) { a.vx *= 1.6 / sp; a.vy *= 1.6 / sp; } // hard speed cap → always a calm drift
       }
       // springs along correlation edges (higher |corr| -> shorter rest length)
       for (const e of edges) {
         const a = sim[e.i], b = sim[e.j]; let dx = b.x - a.x, dy = b.y - a.y;
-        const dist = Math.sqrt(dx * dx + dy * dy) || 1; const rest = 26 + (1 - Math.abs(e.v)) * 80;
-        const f = (dist - rest) * 0.012; dx /= dist; dy /= dist;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1; const rest = 36 + (1 - Math.abs(e.v)) * 72;
+        const f = (dist - rest) * 0.008; dx /= dist; dy /= dist;
         a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
       }
       const { cx, cy, R } = geo();
-      const SPEED = 0.5; // overall slowdown of the drift
+      const SPEED = 0.22; // overall slowdown of the drift
       for (const a of sim) {
         a.x += a.vx * SPEED; a.y += a.vy * SPEED;
         const ddx = a.x - cx, ddy = a.y - cy, dd = Math.hypot(ddx, ddy) || 1;
