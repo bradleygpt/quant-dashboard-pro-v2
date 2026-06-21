@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
+import FcfQuality from "../components/FcfQuality";
 import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
 import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
@@ -486,6 +487,9 @@ export default function StockDetailTab() {
           ) : <div className="py-4 text-sm text-[#7C879B]">Buy point unavailable (insufficient price history).</div>}
         </Card>
       </div>
+
+      {/* FCF quality / SBC distortion */}
+      <FcfQuality ticker={ticker} />
 
       {/* pillar detail */}
       {td && (
