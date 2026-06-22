@@ -6,16 +6,33 @@
       "forecasters": [
         "Federal Reserve (SEP)",
         "World Bank (GEP)",
-        "IMF (WEO)"
+        "IMF (WEO)",
+        "Wells Fargo Inv. Institute",
+        "Fannie Mae (ESR)",
+        "KPMG Economics",
+        "Guggenheim Investments",
+        "UBS CIO GWM",
+        "Goldman Sachs Research",
+        "Morgan Stanley Research",
+        "Yardeni Research",
+        "Vanguard (VEMO)"
       ],
       "n_live": 3,
       "consumed_by": "Macro Outlook tab (consensus panel + FOMC dot plot)",
       "check_status": "ok"
     },
+    "earnings_reviews": {
+      "source": "ai_earnings_cache.json (ai_earnings_cache.json) \u2014 pre-baked LLM 8-K reviews",
+      "n_cached": 1241,
+      "n_kept": 1189,
+      "n_skipped_empty": 52,
+      "note": "empty/unparsed reviews excluded; keyed {TICKER}_{filing-YYYY-MM} + {TICKER}_LATEST",
+      "check_status": "ok"
+    },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
       "as_of": "2026-06-22",
-      "ppi": "35.7 MODERATE (live c78q PPI, as-of 2026-06-22)",
+      "ppi": "39.8 MODERATE (live c78q PPI, as-of 2026-06-22)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
