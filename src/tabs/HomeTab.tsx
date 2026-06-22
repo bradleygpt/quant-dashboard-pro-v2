@@ -3,6 +3,7 @@ import { useStore, type ViewRow } from "../store";
 import { Card, Metric, RatingBadge, Spinner, Unavailable, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import IndexBadges from "../components/IndexBadges";
+import AnomalyCallouts from "../components/AnomalyCallouts";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
@@ -206,6 +207,9 @@ export default function HomeTab() {
         </div>
         <SortableTable columns={screenerCols} rows={stocks} rowKey={(r) => r.ticker} initialSortKey="composite" initialSortDir="desc" maxHeight="44vh" />
       </Card>
+
+      {/* 7. AI Anomaly Watch (pillar-divergence callouts) */}
+      <AnomalyCallouts />
     </div>
   );
 }
