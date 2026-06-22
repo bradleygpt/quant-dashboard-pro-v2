@@ -33,8 +33,9 @@ export interface FearGreed { score: number; classification: string; color: strin
 export function computeFearGreed(
   vix: { score?: number } | null, breadth: Breadth,
   spDistancePct: number | null, buffett: { score?: number } | null,
+  creditScore: number | null = null,
 ): FearGreed {
-  const components: [number, number][] = [
+  const base: [number, number][] = [
     [vix?.score ?? 50, 0.25],
     [breadth.pct_above_50sma, 0.20],
     [breadth.pct_above_200sma, 0.15],
@@ -42,6 +43,15 @@ export function computeFearGreed(
     [Math.max(0, Math.min(100, 100 + (spDistancePct ?? 0) * 3.33)), 0.15],
     [buffett?.score ?? 50, 0.10],
   ];
+  // Credit-stress (HY OAS): tight spreads = risk-on greed, wide = fear. A genuine
+  // risk-appetite gauge — fold it in when available, renormalizing the existing
+  // weights so the composite still sums to 1 (and stays identical when it's absent).
+  let components = base;
+  if (creditScore != null) {
+    const cw = 0.12;
+    components = base.map(([s, w]) => [s, w * (1 - cw)] as [number, number]);
+    components.push([creditScore, cw]);
+  }
   let composite = components.reduce((a, [s, w]) => a + s * w, 0);
   composite = Math.round(Math.max(0, Math.min(100, composite)) * 10) / 10;
   const [classification, color] =

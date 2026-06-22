@@ -7,16 +7,31 @@ import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const clip = (x: number) => Math.max(0, Math.min(100, x));
-// port of macro.compute_macro_health (static macro + live yield curve)
-function macroHealth(md: Record<string, any>, spread: number | null) {
+// HY OAS (ICE BofA US High-Yield option-adjusted spread) → 0-100 "calm" score:
+// tight spreads (~2.5%) = healthy/risk-on, wide (~8%+) = credit stress. null when absent.
+const creditCalm = (hyOas: number | null): number | null => hyOas == null ? null : clip(100 - (hyOas - 2.5) * 14);
+// port of macro.compute_macro_health. Yield curve now uses the REAL T10Y2Y (baked
+// from FRED) instead of the old ^IRX 13-week-bill proxy; adds a credit-stress
+// component (HY OAS) when available, with weights rebalanced to make room for it.
+function macroHealth(md: Record<string, any>, spread: number | null, hyOas: number | null) {
   const ism = md.ism_composite, unemp = md.unemployment_current, gdp = md.gdp_latest_qoq_annualized, cpi = md.cpi_current;
   const ismS = clip((ism - 45) * 6.67), unS = clip((7.0 - unemp) / 3.5 * 100), gdpS = clip(gdp * 25);
   const cpiS = cpi >= 2.0 && cpi <= 2.5 ? 100 : cpi >= 1.5 && cpi <= 3.0 ? 75 : cpi >= 1.0 && cpi <= 3.5 ? 50 : Math.max(0, 50 - Math.abs(cpi - 2.5) * 20);
   const ycS = spread == null ? 50 : spread > 0.5 ? 80 : spread > 0 ? 60 : spread > -0.5 ? 30 : 10;
-  const score = ismS * 0.25 + unS * 0.25 + gdpS * 0.2 + cpiS * 0.15 + ycS * 0.15;
+  const crS = creditCalm(hyOas);
+  const comps: Record<string, number> = { ISM: Math.round(ismS), Unemployment: Math.round(unS), GDP: Math.round(gdpS), CPI: Math.round(cpiS), "Yield Curve": Math.round(ycS) };
+  // With credit: ism .22 / unemp .22 / gdp .18 / cpi .13 / curve .13 / credit .12.
+  // Without (no OAS baked): fall back to the original 5-factor weights.
+  let score: number;
+  if (crS != null) {
+    score = ismS * 0.22 + unS * 0.22 + gdpS * 0.18 + cpiS * 0.13 + ycS * 0.13 + crS * 0.12;
+    comps["Credit (HY OAS)"] = Math.round(crS);
+  } else {
+    score = ismS * 0.25 + unS * 0.25 + gdpS * 0.2 + cpiS * 0.15 + ycS * 0.15;
+  }
   const [label, color] = score >= 75 ? ["Strong Expansion", "#00C805"] : score >= 55 ? ["Moderate Growth", "#8BC34A"]
     : score >= 40 ? ["Slowing", "#FFC107"] : score >= 25 ? ["Contraction Risk", "#FF5722"] : ["Recession", "#D32F2F"];
-  return { score: Math.round(score), label, color, comps: { ISM: Math.round(ismS), Unemployment: Math.round(unS), GDP: Math.round(gdpS), CPI: Math.round(cpiS), "Yield Curve": Math.round(ycS) } };
+  return { score: Math.round(score), label, color, comps };
 }
 
 const BASE = `${import.meta.env.BASE_URL}data`;
@@ -82,8 +97,9 @@ export default function MarketRegimeTab() {
   const sp = mkt.data?.indices?.find((i) => i.name === "S&P 500");
   const fearGreed = useMemo(() => {
     if (!breadth || mkt.status !== "ok") return null;
-    return computeFearGreed(mkt.data?.vix ?? null, breadth, sp?.distance_from_ath_pct ?? null, mkt.data?.buffett ?? null);
-  }, [breadth, mkt, sp]);
+    const oas = stat.data?.macro_signals?.signals?.find((s) => s.id === "BAMLH0A0HYM2")?.value ?? null;
+    return computeFearGreed(mkt.data?.vix ?? null, breadth, sp?.distance_from_ath_pct ?? null, mkt.data?.buffett ?? null, creditCalm(oas));
+  }, [breadth, mkt, sp, stat.data]);
 
   const nextFomc = useMemo(() => {
     const today = new Date().toISOString().slice(0, 10);
@@ -93,6 +109,11 @@ export default function MarketRegimeTab() {
   if (loadingUniverse) return <Spinner />;
   const md = stat.data?.macro_data ?? {};
   const ef = stat.data?.earnings_forecast;
+  // Real macro signals (baked from FRED) — prefer these over the /api/market ^IRX proxy.
+  const sigVal = (id: string) => stat.data?.macro_signals?.signals?.find((s) => s.id === id)?.value ?? null;
+  const realCurve = sigVal("T10Y2Y");   // true 10Y–2Y spread (vs the 13-week-bill proxy)
+  const real10y = sigVal("DGS10");
+  const hyOas = sigVal("BAMLH0A0HYM2");
 
   return (
     <div className="space-y-4">
@@ -105,13 +126,14 @@ export default function MarketRegimeTab() {
       {mkt.status === "loading" ? <Spinner label="Loading live market data…" /> :
        mkt.status === "unavailable" ? <Unavailable what="Live market data" detail="Market prices/VIX/yields are fetched by the /api/market serverless function on the deployed app. In a static-only preview this is unavailable; baked macro context below still renders." /> :
        (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
           {fearGreed && <Metric label="Fear & Greed" value={<span style={{ color: fearGreed.color }}>{fearGreed.score.toFixed(0)}</span>} hint={fearGreed.classification} />}
           {mkt.data?.vix?.ok && <Metric label="VIX" value={fmtNum(mkt.data.vix.current, 1)} hint={mkt.data.vix.level} />}
-          {mkt.data?.yields?.ok && <Metric label="10Y Treasury" value={`${(mkt.data.yields.y10 ?? 0).toFixed(2)}%`} hint={`10Y–2Y ${(mkt.data.yields.spread ?? 0).toFixed(2)}%`} />}
+          {(real10y != null || mkt.data?.yields?.ok) && <Metric label="10Y Treasury" value={`${(real10y ?? mkt.data?.yields?.y10 ?? 0).toFixed(2)}%`} hint={`10Y–2Y ${(realCurve ?? mkt.data?.yields?.spread ?? 0).toFixed(2)}%`} />}
           {mkt.data?.dxy?.ok && <Metric label="Dollar (DXY)" value={fmtNum(mkt.data.dxy.current, 2)} hint={mkt.data.dxy.ytd_pct != null ? `YTD ${fmtPct(mkt.data.dxy.ytd_pct, 1, true)}` : undefined} />}
           {sp && <Metric label="S&P vs ATH" value={fmtPct(sp.distance_from_ath_pct ?? 0, 1, true)} />}
-          {mkt.data?.yields?.ok && <Metric label="10Y–2Y" value={`${(mkt.data.yields.spread ?? 0).toFixed(2)}%`} hint={(mkt.data.yields.spread ?? 0) < 0 ? "Inverted" : "Normal"} />}
+          {(realCurve != null || mkt.data?.yields?.ok) && (() => { const c = realCurve ?? mkt.data?.yields?.spread ?? 0; return <Metric label="10Y–2Y Curve" value={`${c.toFixed(2)}%`} hint={c < 0 ? "Inverted ⚠" : "Normal"} />; })()}
+          {hyOas != null && <Metric label="HY Credit OAS" value={`${hyOas.toFixed(2)}%`} hint={hyOas > 5 ? "Stress" : hyOas > 4 ? "Elevated" : "Calm"} />}
           {mkt.data?.buffett?.ok && <Metric label="Buffett Ind." value={`${Math.round(mkt.data.buffett.ratio ?? 0)}%`} hint={mkt.data.buffett.level} />}
         </div>
       )}
@@ -170,9 +192,10 @@ export default function MarketRegimeTab() {
       {stat.status === "ok" && (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {(() => {
-            const mh = macroHealth(md, mkt.data?.yields?.spread ?? null);
+            const mh = macroHealth(md, realCurve ?? mkt.data?.yields?.spread ?? null, hyOas);
             return (
-              <Card title="Macro Health" sub="ISM, jobs, GDP, CPI + yield curve">
+              <Card title="Macro Health" sub={`ISM, jobs, GDP, CPI + real yield curve${hyOas != null ? " + HY credit" : ""}`}>
+
                 <div className="flex items-baseline gap-3">
                   <span className="text-3xl font-bold" style={{ color: mh.color }}>{mh.score}<span className="text-base text-[#7C879B]">/100</span></span>
                   <span className="text-sm font-semibold" style={{ color: mh.color }}>{mh.label}</span>
