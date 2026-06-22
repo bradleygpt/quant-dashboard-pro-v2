@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useStore, type ViewRow } from "../store";
 import { Card, RatingBadge, GradePill, Spinner } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
@@ -29,6 +29,11 @@ interface SectorRow {
 export default function SectorTab() {
   const { rows, loadingUniverse, goToDetail, meta } = useStore();
   const [open, setOpen] = useState<string | null>(null);
+  const [narr, setNarr] = useState<Record<string, { narrative: string }> | null>(null);
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/sector_narratives.json`).then((r) => (r.ok ? r.json() : null))
+      .then((j) => setNarr(j?.sectors ?? null)).catch(() => {});
+  }, []);
 
   const gradeFromScore = useMemo(() => {
     const entries = Object.entries(meta.grade_scores ?? {});
@@ -86,6 +91,22 @@ export default function SectorTab() {
   return (
     <div className="space-y-4">
       <h2 className="text-lg font-bold text-white">Sector Overview</h2>
+
+      {/* ── AI Sector Read (Ollama narrative over the quant's sector aggregates) ── */}
+      {narr && Object.values(narr).some((s) => s?.narrative) && (
+        <Card title="AI Sector Read" sub="LLM narrative over the quant's sector aggregates — fed only pre-computed stats, never invented.">
+          <div className="space-y-3">
+            {sectors.filter((s) => narr[s.sector]?.narrative).map((s) => (
+              <div key={s.sector}>
+                <div className="text-sm font-semibold text-[#9CB6E0]">{s.sector}
+                  <span className="ml-1.5 text-[11px] font-normal text-[#7C879B]">avg {s.avgScore.toFixed(1)} · {s.count} names · {s.aRatedPct.toFixed(0)}% Buy-tier</span>
+                </div>
+                <p className="mt-0.5 text-sm leading-relaxed text-[#C3CAD7]">{narr[s.sector].narrative}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
 
       {/* ── Market Cap + Earnings dual-axis combo ── */}
       <Card title="Sector Aggregates: Market Cap & Earnings" sub="Aggregate trailing-12-month earnings (bars, left) and total market cap (line, right) per sector. Earnings ≈ Σ market cap ÷ trailing P/E.">
