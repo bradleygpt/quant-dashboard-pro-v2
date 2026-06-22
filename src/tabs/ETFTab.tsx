@@ -4,6 +4,8 @@ import { Card, Metric, Pill, RatingBadge, Spinner, Unavailable } from "../compon
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
+import FindYourETF from "../components/FindYourETF";
+import IndexAddPanel from "../components/IndexAddPanel";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 const ETF_COLORS = ["#00D4AA", "#00A3FF", "#A855F7", "#FBBF24", "#F97316"];
@@ -14,7 +16,7 @@ interface MapRow { sector?: string; theme?: string; ticker: string; alternative:
 interface EtfData { shortName?: string; industry?: string; expenseRatio?: number | null; totalAssets?: number | null; ytdReturn?: number | null; threeYearReturn?: number | null; fiveYearReturn?: number | null; currentPrice?: number | null; beta3Year?: number | null; yield?: number | null; momentum_1m?: number | null; momentum_3m?: number | null; momentum_6m?: number | null; momentum_12m?: number | null }
 interface EtfFile { templates: Record<string, Template>; sector_map: MapRow[]; theme_map: MapRow[]; etfs: Record<string, EtfData> }
 
-type Section = "builder" | "compare" | "maps" | "universe";
+type Section = "find" | "indexadd" | "builder" | "compare" | "maps" | "universe";
 
 export default function ETFTab() {
   const { rows, loadingUniverse, goToDetail } = useStore();
@@ -35,15 +37,19 @@ export default function ETFTab() {
         <p className="text-xs text-[#7C879B]">Model portfolios, ETF comparison, sector/theme tilts, and the scored ETF universe.</p>
       </div>
       <div className="flex flex-wrap gap-2">
+        <Pill active={section === "find"} onClick={() => setSection("find")}>🧭 Find your ETF</Pill>
+        <Pill active={section === "indexadd"} onClick={() => setSection("indexadd")}>📈 Index-Add</Pill>
         <Pill active={section === "builder"} onClick={() => setSection("builder")}>📊 Portfolio Builder</Pill>
         <Pill active={section === "compare"} onClick={() => setSection("compare")}>🔍 ETF Comparison</Pill>
         <Pill active={section === "maps"} onClick={() => setSection("maps")}>🗺️ Sector & Theme Map</Pill>
         <Pill active={section === "universe"} onClick={() => setSection("universe")}>📋 ETF Universe</Pill>
       </div>
 
-      {err && section !== "universe" && <Unavailable what="ETF reference data" />}
-      {!data && !err && section !== "universe" && <Spinner />}
+      {err && !["universe", "find"].includes(section) && <Unavailable what="ETF reference data" />}
+      {!data && !err && !["universe", "find"].includes(section) && <Spinner />}
 
+      {section === "find" && <FindYourETF />}
+      {section === "indexadd" && <IndexAddPanel />}
       {section === "builder" && data && <PortfolioBuilder data={data} />}
       {section === "compare" && data && <Comparison data={data} />}
       {section === "maps" && data && <Maps data={data} />}
