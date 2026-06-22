@@ -61,9 +61,11 @@ interface Basket { full: { cagr: number; sharpe: number; max_dd: number }; deplo
 function Summary({ onPick }: { onPick: (key: string) => void }) {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [basket, setBasket] = useState<Basket | null>(null);
+  const [rationale, setRationale] = useState<Record<string, { rationale: string }> | null>(null);
 
   useEffect(() => {
     fetch(`${BASE}/basket_summary.json`).then((r) => (r.ok ? r.json() : null)).then(setBasket).catch(() => setBasket(null));
+    fetch(`${BASE}/strategy_rationale.json`).then((r) => (r.ok ? r.json() : null)).then((j) => setRationale(j?.strategies ?? null)).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -106,6 +108,19 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
             </div>
           </div>
         </div>
+      )}
+
+      {rationale && Object.values(rationale).some((s) => s?.rationale) && (
+        <Card title="AI Strategy Read" sub="Why each book holds what it holds — LLM over the holdings' quant characteristics; never invented.">
+          <div className="space-y-3">
+            {STRATS.filter((d) => rationale[d.label]?.rationale).map((d) => (
+              <div key={d.key}>
+                <div className="text-sm font-semibold text-[#9CB6E0]">{d.label} <span className="text-[11px] font-normal text-[#7C879B]">· {d.factor}</span></div>
+                <p className="mt-0.5 text-sm leading-relaxed text-[#C3CAD7]">{rationale[d.label].rationale}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
       )}
 
       <Card title="" sub="">
