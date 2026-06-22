@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useStore, type ViewRow } from "../store";
 import { RatingBadge, GradePill, Spinner, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
+import ThematicExplorer from "../components/ThematicExplorer";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import IndexBadges from "../components/IndexBadges";
 import { applyScreen, flattenMetrics, type ScreenFilters } from "../lib/screener";
@@ -107,6 +108,8 @@ export default function ScreenerTab() {
         <h2 className="text-lg font-bold text-white">Quant Screener</h2>
         <p className="text-xs text-[#7C879B]">Combine rating, fair value, QBP, and custom metric filters. All columns sortable. ETFs excluded.</p>
       </div>
+
+      <ThematicExplorer />
 
       {/* quick screens */}
       <div className="flex flex-wrap items-center gap-2">
