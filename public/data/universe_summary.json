@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-06-22",
+  "model": "qwen2.5:7b",
+  "summary": "The market currently exhibits a cautiously optimistic posture with a slight risk-on bias, as evidenced by the 2% of stocks in the Buy tier and strong sectors like Basic Materials and Energy. However, the overall neutral valuation backdrop, marked by a median fair-value premium of -1.9%, suggests caution is warranted. The strength in certain sectors implies a rotation away from traditionally defensive areas such as Industrials and Healthcare towards more cyclical plays.",
+  "stats": {
+    "n": 1289,
+    "buy_tier_pct": 2,
+    "rating_dist": {
+      "Strong Buy+": 3,
+      "Strong Buy": 14,
+      "Buy": 8,
+      "Hold": 1157,
+      "Sell": 103,
+      "Strong Sell": 4
+    },
+    "median_fv_premium_pct": -1.9,
+    "strongest_sectors": [
+      "Basic Materials (6.97)",
+      "Energy (6.96)",
+      "Utilities (6.95)"
+    ],
+    "weakest_sectors": [
+      "Industrials (6.92)",
+      "Consumer Cyclical (6.92)",
+      "Healthcare (6.93)"
+    ],
+    "momentum_leaders": [
+      "SNDK",
+      "BE",
+      "WDC",
+      "MU",
+      "OPEN"
+    ]
+  }
+}

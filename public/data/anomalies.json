@@ -1,0 +1,313 @@
+{
+  "generated_at": "2026-06-22",
+  "model": "qwen2.5:7b",
+  "note": "AI anomaly callouts \u2014 fed only the stock's pillar grades, never invents figures/events",
+  "anomalies": [
+    {
+      "ticker": "MCW",
+      "name": "MCW",
+      "sector": "Consumer Cyclical",
+      "composite": 8.7,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "F",
+        "Growth": "A-",
+        "Profitability": "A+",
+        "Momentum": "A+",
+        "EPS Revisions": "B"
+      },
+      "rating": "Buy",
+      "warning": "The strong momentum versus weak valuation suggests a potential risk of an impending correction in MCW. The single thing to watch is the earnings report revisions, as they can provide insight into investor sentiment and potential changes in valuation."
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Moderna, Inc.",
+      "sector": "Healthcare",
+      "composite": 6.8,
+      "strong": "Momentum",
+      "weak": "Profitability",
+      "grades": {
+        "Valuation": "C+",
+        "Growth": "A-",
+        "Profitability": "F",
+        "Momentum": "A+",
+        "EPS Revisions": "C+"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests investor enthusiasm despite weak profitability, implying that market confidence may wane if financial performance does not improve. The single thing to watch is EPS growth, as it could validate or challenge current valuation and growth expectations."
+    },
+    {
+      "ticker": "COCO",
+      "name": "The Vita Coco Company, Inc.",
+      "sector": "Consumer Defensive",
+      "composite": 7.5,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "B+",
+        "Profitability": "B+",
+        "Momentum": "A+",
+        "EPS Revisions": "C+"
+      },
+      "rating": "Hold",
+      "warning": "The strong Momentum versus weak Valuation suggests that while the company may be experiencing rapid growth and positive market sentiment, investors are concerned about its valuation levels. The single thing to watch is whether earnings expectations can be met, as EPS Revisions are currently below average."
+    },
+    {
+      "ticker": "EPAM",
+      "name": "EPAM Systems, Inc.",
+      "sector": "Technology",
+      "composite": 6.5,
+      "strong": "Valuation",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "A",
+        "Growth": "C+",
+        "Profitability": "C+",
+        "Momentum": "F",
+        "EPS Revisions": "B+"
+      },
+      "rating": "Hold",
+      "warning": "The strong valuation against weak momentum suggests overvaluation despite positive growth expectations. The key risk is a potential earnings disappointment that could drive down stock price. Investors should closely monitor EPS reports."
+    },
+    {
+      "ticker": "ALAB",
+      "name": "Astera Labs, Inc.",
+      "sector": "Technology",
+      "composite": 7.5,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "B+",
+        "Profitability": "A-",
+        "Momentum": "A+",
+        "EPS Revisions": "C+"
+      },
+      "rating": "Hold",
+      "warning": "The strong Momentum versus weak Valuation suggests a potential disconnect where the stock's performance has been driven by factors other than fundamental value. The single thing to watch is whether earnings revisions improve, as this could bridge the valuation gap."
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings plc",
+      "sector": "Technology",
+      "composite": 7.3,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "B-",
+        "Profitability": "B+",
+        "Momentum": "A+",
+        "EPS Revisions": "B-"
+      },
+      "rating": "Hold",
+      "warning": "The strong Momentum versus weak Valuation suggests a potential overbought condition or recent positive market sentiment outpacing fundamental valuation metrics. The single thing to watch is whether earnings revisions start to reflect more realistic expectations, potentially leading to a correction in the stock price."
+    },
+    {
+      "ticker": "BE",
+      "name": "Bloom Energy Corporation",
+      "sector": "Industrials",
+      "composite": 7.1,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "A-",
+        "Profitability": "C",
+        "Momentum": "A+",
+        "EPS Revisions": "B-"
+      },
+      "rating": "Hold",
+      "warning": "The tension between strong Momentum and weak Valuation suggests that while the company may be experiencing rapid growth, its current valuation does not reflect this positively. The single thing to watch is whether earnings revisions can support a revaluation of the stock."
+    },
+    {
+      "ticker": "ACN",
+      "name": "Accenture plc",
+      "sector": "Technology",
+      "composite": 6.6,
+      "strong": "Valuation",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "A",
+        "Growth": "C",
+        "Profitability": "B",
+        "Momentum": "F",
+        "EPS Revisions": "B+"
+      },
+      "rating": "Hold",
+      "warning": "The strong valuation contrasted with weak momentum suggests overvaluation based on current fundamentals. The key risk is a potential earnings disappointment that could drive down stock price. Watch EPS revisions closely for early signals of trouble."
+    },
+    {
+      "ticker": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "sector": "Financial Services",
+      "composite": 7.1,
+      "strong": "Momentum",
+      "weak": "Profitability",
+      "grades": {
+        "Valuation": "C",
+        "Growth": "B",
+        "Profitability": "D",
+        "Momentum": "A+",
+        "EPS Revisions": "B+"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests ongoing investor optimism, while weak profitability indicates underlying operational challenges. The key risk is whether improved financial performance will align with current market expectations. Investors should closely monitor Q4 earnings reports for signs of improving profitability."
+    },
+    {
+      "ticker": "FISV",
+      "name": "Fiserv, Inc.",
+      "sector": "Technology",
+      "composite": 7.7,
+      "strong": "Profitability",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "C+",
+        "Growth": "A-",
+        "Profitability": "A+",
+        "Momentum": "D+",
+        "EPS Revisions": "B"
+      },
+      "rating": "Hold",
+      "warning": "The strong profitability contrasts with weak momentum, suggesting potential earnings quality concerns. The single thing to watch is FISV's revenue growth trends."
+    },
+    {
+      "ticker": "UCTT",
+      "name": "Ultra Clean Holdings, Inc.",
+      "sector": "Technology",
+      "composite": 7.0,
+      "strong": "Momentum",
+      "weak": "Profitability",
+      "grades": {
+        "Valuation": "C+",
+        "Growth": "B",
+        "Profitability": "D",
+        "Momentum": "A+",
+        "EPS Revisions": "B-"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests investor enthusiasm despite weak profitability, indicating potential overvaluation. The single thing to watch is whether earnings can improve to match the current valuation."
+    },
+    {
+      "ticker": "ACM",
+      "name": "AECOM",
+      "sector": "Industrials",
+      "composite": 6.7,
+      "strong": "Valuation",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "A",
+        "Growth": "B-",
+        "Profitability": "C+",
+        "Momentum": "F",
+        "EPS Revisions": "B+"
+      },
+      "rating": "Hold",
+      "warning": "The strong valuation contrasted with weak momentum suggests overvaluation based on current fundamentals. The key risk is a potential earnings disappointment that could drive the stock price down. Watch EPS reports closely for any signs of weakening performance."
+    },
+    {
+      "ticker": "INTU",
+      "name": "Intuit Inc.",
+      "sector": "Technology",
+      "composite": 7.1,
+      "strong": "Profitability",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "B+",
+        "Growth": "C",
+        "Profitability": "A-",
+        "Momentum": "F",
+        "EPS Revisions": "A-"
+      },
+      "rating": "Hold",
+      "warning": "The strong profitability contrasted with weak momentum suggests a potential risk that Intuit's current financial health may not translate into future growth. The single thing to watch is earnings guidance and any signs of slowing revenue expansion."
+    },
+    {
+      "ticker": "VRSK",
+      "name": "Verisk Analytics, Inc.",
+      "sector": "Industrials",
+      "composite": 6.7,
+      "strong": "Profitability",
+      "weak": "Momentum",
+      "grades": {
+        "Valuation": "C",
+        "Growth": "C+",
+        "Profitability": "A+",
+        "Momentum": "D+",
+        "EPS Revisions": "B"
+      },
+      "rating": "Hold",
+      "warning": "The strong profitability contrasts with weak momentum, suggesting potential earnings stability despite lackluster market performance. The key risk to monitor is whether valuation improves or deteriorates further, as it currently anchors the overall grade."
+    },
+    {
+      "ticker": "WULF",
+      "name": "TeraWulf Inc.",
+      "sector": "Financial Services",
+      "composite": 7.1,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D+",
+        "Growth": "B",
+        "Profitability": "D+",
+        "Momentum": "A+",
+        "EPS Revisions": "A-"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests continued investor interest despite weak valuation metrics, implying potential overbetting by investors. The single thing to watch is whether earnings revisions can sustain or if valuation adjustments will follow."
+    },
+    {
+      "ticker": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services",
+      "composite": 7.5,
+      "strong": "Momentum",
+      "weak": "Profitability",
+      "grades": {
+        "Valuation": "C-",
+        "Growth": "A-",
+        "Profitability": "D+",
+        "Momentum": "A+",
+        "EPS Revisions": "B"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests future growth expectations are high, while weak profitability indicates current financial performance is underperforming. The single thing to watch is whether improving profitability can align with the current growth trajectory."
+    },
+    {
+      "ticker": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "sector": "Technology",
+      "composite": 6.0,
+      "strong": "Momentum",
+      "weak": "Profitability",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "B",
+        "Profitability": "D",
+        "Momentum": "A",
+        "EPS Revisions": "B"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum suggests investor enthusiasm despite weak profitability, indicating potential overvaluation. The key risk is a earnings disappointment that could reverse momentum. Investors should closely watch Q1 earnings reports for signs of deteriorating fundamentals."
+    },
+    {
+      "ticker": "AGX",
+      "name": "Argan, Inc.",
+      "sector": "Industrials",
+      "composite": 7.2,
+      "strong": "Momentum",
+      "weak": "Valuation",
+      "grades": {
+        "Valuation": "D",
+        "Growth": "A-",
+        "Profitability": "B+",
+        "Momentum": "A",
+        "EPS Revisions": "C"
+      },
+      "rating": "Hold",
+      "warning": "The strong momentum versus weak valuation suggests a potential mispricing where the market may be overestimating future growth at the expense of current valuation metrics. The single thing to watch is the earnings report for any signs of deterioration that could validate the low valuation grade."
+    }
+  ]
+}

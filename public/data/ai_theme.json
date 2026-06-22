@@ -1,0 +1,266 @@
+{
+  "generated_at": "2026-06-22",
+  "theme": "AI buildout",
+  "window_days": 300,
+  "proxy_basket": [
+    "NVDA",
+    "AVGO",
+    "AMD",
+    "MU",
+    "MRVL",
+    "ARM",
+    "SMCI",
+    "KLAC",
+    "LRCX",
+    "AMAT"
+  ],
+  "note": "correlation = log-return correlation to the AI-compute proxy; narrative fed only the ranked names",
+  "correlations": [
+    {
+      "ticker": "MPWR",
+      "name": "Monolithic Power Systems, Inc.",
+      "sector": "Technology",
+      "corr": 0.781,
+      "composite": 7.17
+    },
+    {
+      "ticker": "MKSI",
+      "name": "MKS Inc.",
+      "sector": "Technology",
+      "corr": 0.775,
+      "composite": 7.0
+    },
+    {
+      "ticker": "ENTG",
+      "name": "Entegris, Inc.",
+      "sector": "Technology",
+      "corr": 0.719,
+      "composite": 6.62
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corporation, PLC",
+      "sector": "Industrials",
+      "corr": 0.718,
+      "composite": 7.12
+    },
+    {
+      "ticker": "VSH",
+      "name": "Vishay Intertechnology, Inc.",
+      "sector": "Technology",
+      "corr": 0.71,
+      "composite": 6.82
+    },
+    {
+      "ticker": "KN",
+      "name": "Knowles Corporation",
+      "sector": "Technology",
+      "corr": 0.7,
+      "composite": 7.25
+    },
+    {
+      "ticker": "UCTT",
+      "name": "Ultra Clean Holdings, Inc.",
+      "sector": "Technology",
+      "corr": 0.695,
+      "composite": 6.97
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne, Inc.",
+      "sector": "Technology",
+      "corr": 0.692,
+      "composite": 7.88
+    },
+    {
+      "ticker": "COHU",
+      "name": "Cohu, Inc.",
+      "sector": "Technology",
+      "corr": 0.686,
+      "composite": 7.26
+    },
+    {
+      "ticker": "LSCC",
+      "name": "Lattice Semiconductor Corporati",
+      "sector": "Technology",
+      "corr": 0.679,
+      "composite": 6.65
+    },
+    {
+      "ticker": "NVT",
+      "name": "nVent Electric plc",
+      "sector": "Industrials",
+      "corr": 0.678,
+      "composite": 7.18
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent Corp.",
+      "sector": "Technology",
+      "corr": 0.673,
+      "composite": 7.22
+    },
+    {
+      "ticker": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology",
+      "corr": 0.672,
+      "composite": 6.99
+    },
+    {
+      "ticker": "CLS",
+      "name": "Celestica, Inc.",
+      "sector": "Technology",
+      "corr": 0.67,
+      "composite": 7.55
+    },
+    {
+      "ticker": "PDFS",
+      "name": "PDF Solutions, Inc.",
+      "sector": "Technology",
+      "corr": 0.669,
+      "composite": 7.33
+    },
+    {
+      "ticker": "AOSL",
+      "name": "Alpha and Omega Semiconductor L",
+      "sector": "Technology",
+      "corr": 0.662,
+      "composite": 6.02
+    },
+    {
+      "ticker": "PENG",
+      "name": "Penguin Solutions, Inc.",
+      "sector": "Technology",
+      "corr": 0.658,
+      "composite": 6.56
+    },
+    {
+      "ticker": "LFUS",
+      "name": "Littelfuse, Inc.",
+      "sector": "Technology",
+      "corr": 0.654,
+      "composite": 6.33
+    },
+    {
+      "ticker": "KLIC",
+      "name": "Kulicke and Soffa Industries, I",
+      "sector": "Technology",
+      "corr": 0.653,
+      "composite": 7.05
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices, Inc.",
+      "sector": "Technology",
+      "corr": 0.649,
+      "composite": 7.59
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar, Inc.",
+      "sector": "Industrials",
+      "corr": 0.648,
+      "composite": 7.92
+    },
+    {
+      "ticker": "SMTC",
+      "name": "Semtech Corporation",
+      "sector": "Technology",
+      "corr": 0.644,
+      "composite": 6.34
+    },
+    {
+      "ticker": "ST",
+      "name": "Sensata Technologies Holding pl",
+      "sector": "Technology",
+      "corr": 0.643,
+      "composite": 6.72
+    },
+    {
+      "ticker": "ACLS",
+      "name": "Axcelis Technologies, Inc.",
+      "sector": "Technology",
+      "corr": 0.642,
+      "composite": 5.99
+    },
+    {
+      "ticker": "GLW",
+      "name": "Corning Incorporated",
+      "sector": "Technology",
+      "corr": 0.639,
+      "composite": 7.05
+    },
+    {
+      "ticker": "ESI",
+      "name": "Element Solutions Inc.",
+      "sector": "Basic Materials",
+      "corr": 0.638,
+      "composite": 6.52
+    },
+    {
+      "ticker": "FIX",
+      "name": "Comfort Systems USA, Inc.",
+      "sector": "Industrials",
+      "corr": 0.637,
+      "composite": 7.28
+    },
+    {
+      "ticker": "ON",
+      "name": "ON Semiconductor Corporation",
+      "sector": "Technology",
+      "corr": 0.636,
+      "composite": 7.66
+    },
+    {
+      "ticker": "MTZ",
+      "name": "MasTec, Inc.",
+      "sector": "Industrials",
+      "corr": 0.628,
+      "composite": 7.5
+    },
+    {
+      "ticker": "BHE",
+      "name": "Benchmark Electronics, Inc.",
+      "sector": "Technology",
+      "corr": 0.628,
+      "composite": 6.4
+    },
+    {
+      "ticker": "CTS",
+      "name": "CTS Corporation",
+      "sector": "Technology",
+      "corr": 0.627,
+      "composite": 6.74
+    },
+    {
+      "ticker": "CMI",
+      "name": "Cummins Inc.",
+      "sector": "Industrials",
+      "corr": 0.627,
+      "composite": 7.08
+    },
+    {
+      "ticker": "ACMR",
+      "name": "ACM Research, Inc.",
+      "sector": "Technology",
+      "corr": 0.626,
+      "composite": 6.68
+    },
+    {
+      "ticker": "WDC",
+      "name": "Western Digital Corporation",
+      "sector": "Technology",
+      "corr": 0.626,
+      "composite": 8.5
+    },
+    {
+      "ticker": "IBKR",
+      "name": "Interactive Brokers Group, Inc.",
+      "sector": "Financial Services",
+      "corr": 0.626,
+      "composite": 7.76
+    }
+  ],
+  "narrative": "The investment map suggests a strong focus on compute and semiconductor layers with NVIDIA (NVDA) and Avago Technologies (AVGO). For power and electrical components, Maxim Integrated Products (MPWR) and Maxim Integrated Semiconductor Inc. (MKSI) are key. Thermal management is implied through Teradyne (TER) and COHERENT (COHR), indicating a need for cooling solutions in high-performance computing environments. Networking is less directly represented but could be inferred from the broader tech sector inclusion, with Analog Devices (ADI) anchoring some of the foundational electronic components."
+}

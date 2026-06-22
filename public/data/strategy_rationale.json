@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-06-22",
+  "model": "qwen2.5:7b",
+  "note": "AI rationale \u2014 fed only the strategy's holdings + their quant characteristics, never invents",
+  "strategies": {
+    "Katalepsis": {
+      "rationale": "These holdings share a focus on technology with some industrial exposure, reflecting Katalepsis\u2019s sector mix. The common thread is their posterior-ranked conviction based on the c78q signal blend, indicating that despite varying scores, they are selected for their high conviction in the current market conditions.",
+      "holdings": [
+        "MU",
+        "RKLB",
+        "MXL"
+      ],
+      "sector_mix": {
+        "Technology": 2,
+        "Industrials": 1
+      },
+      "thesis": "Posterior-ranked conviction book (c78q signal blend)."
+    },
+    "Aristeia": {
+      "rationale": "These holdings share a common thread of being event-driven stocks with strong post-earnings-drift performance, fitting within Aristeia\u2019s 50% event/PEAD-anchored strategy. The basket remains diverse across Technology, Energy, and Industrials sectors while maintaining tradeability through the diluted approach.",
+      "holdings": [
+        "AKAM",
+        "INSW",
+        "MTZ"
+      ],
+      "sector_mix": {
+        "Technology": 1,
+        "Energy": 1,
+        "Industrials": 1
+      },
+      "thesis": "Event/PEAD-anchored blend (25% ML-prediction / 25% fundamentals / 50% event) over the BROAD universe \u2014 the validated post-earnings-drift core, diluted to stay tradeable."
+    },
+    "Auxo": {
+      "rationale": "These holdings share a focus on high growth potential across different sectors: EIX in Utilities, FISV in Technology, and MOS in Basic Materials. This basket fits Auxo's thesis by emphasizing fast-compounding revenue and earnings, as seen in their composite scores, while maintaining a light value-anchored approach through varied pillar grades.",
+      "holdings": [
+        "EIX",
+        "FISV",
+        "MOS"
+      ],
+      "sector_mix": {
+        "Utilities": 1,
+        "Technology": 1,
+        "Basic Materials": 1
+      },
+      "thesis": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored."
+    },
+    "Prosodos": {
+      "rationale": "These holdings share a focus on high-margin, high-return-on-capital companies across consumer cyclical and technology sectors. MU stands out with its highest score and strong pillar grades, aligning with the thesis of prioritizing quality at scale. The mix includes both defensive utilities and growth-oriented tech names, broadening exposure while maintaining the core strategy.",
+      "holdings": [
+        "DECK",
+        "EIX",
+        "FISV",
+        "MU",
+        "TPR"
+      ],
+      "sector_mix": {
+        "Consumer Cyclical": 2,
+        "Utilities": 1,
+        "Technology": 2
+      },
+      "thesis": "Quality at scale - highest-margin, highest-return-on-capital names, held a touch broader (5)."
+    },
+    "Pronoia": {
+      "rationale": "These holdings share a common thread of being top-5 selections by the model's year-ahead forecast, with scores ranging from 6.1 to 9.1. This basket fits Pronoia's thesis by focusing on validated, decorrelated sectors\u2014primarily Technology and a single Financial Services pick\u2014and holding them for about 105 days based on the 12-month expected-return foresight.",
+      "holdings": [
+        "IREN",
+        "MU",
+        "STX",
+        "VIAV",
+        "VSAT"
+      ],
+      "sector_mix": {
+        "Financial Services": 1,
+        "Technology": 4
+      },
+      "thesis": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve."
+    }
+  }
+}
