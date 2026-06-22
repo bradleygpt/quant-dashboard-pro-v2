@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Card, Pill, Spinner, Unavailable, TH, TD } from "../components/ui";
 import { useLiveData } from "../lib/live";
+import MacroRotation from "../components/MacroRotation";
 import {
   ComposedChart, Area, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
   ReferenceLine, CartesianGrid,
@@ -126,6 +127,8 @@ export default function MacroOutlookTab() {
           <LiveDot /> curated dated snapshot. Missing cells are null, never invented.
         </p>
       </div>
+
+      <MacroRotation />
 
       {/* ── Forecast Consensus ─────────────────────────────────────────── */}
       <Card title="Forecast Consensus" sub="Pick a metric to compare every forecaster side by side.">

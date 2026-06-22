@@ -4,6 +4,7 @@ import { Card, Metric, RatingBadge, Spinner, Unavailable, Pill } from "../compon
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import IndexBadges from "../components/IndexBadges";
 import AnomalyCallouts from "../components/AnomalyCallouts";
+import UniverseSummary from "../components/UniverseSummary";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
@@ -193,6 +194,9 @@ export default function HomeTab() {
         </div>
         <button onClick={() => setActiveTab("screener")} className="mt-2 text-xs text-[#5BA8FF] hover:underline">Open full Quant Screener →</button>
       </Card>
+
+      {/* AI Market Summary (universe in a paragraph) */}
+      <UniverseSummary />
 
       {/* 6. Mini Screener */}
       <Card title="Stock Screener" sub={`Universe rating distribution · ${breadthCount} stocks above quality threshold (${threshold.toFixed(2)})`}>
