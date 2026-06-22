@@ -19,11 +19,13 @@ export default function FindYourETF() {
   const [err, setErr] = useState(false);
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState<string[]>([]);
+  const [descs, setDescs] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (cache) return;
     fetch(`${BASE}/etf_holdings.json`).then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((j) => { cache = j; setData(j); }).catch(() => setErr(true));
+    fetch(`${BASE}/etf_descriptions.json`).then((r) => (r.ok ? r.json() : null)).then((j) => setDescs(j?.descriptions ?? {})).catch(() => {});
   }, []);
 
   const run = (tickers: string[]) => {
@@ -103,7 +105,7 @@ export default function FindYourETF() {
                 {results.map((r) => (
                   <tr key={r.etf} className="border-t border-[#161D29] hover:bg-[#121723]">
                     <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{r.etf}</td>
-                    <td className="px-3 py-1.5 text-[#C3CAD7]">{r.name}</td>
+                    <td className="px-3 py-1.5 text-[#C3CAD7]" title={descs[r.etf] || undefined}>{r.name}{descs[r.etf] && <span className="ml-1 cursor-help text-[10px] text-[#5BA8FF]" title={descs[r.etf]}>ⓘ</span>}</td>
                     <td className="px-3 py-1.5 text-right text-[#C3CAD7]">{r.nMatched}/{submitted.length} <span className="text-[#7C879B]">({Math.round(r.coverage * 100)}%)</span></td>
                     <td className="px-3 py-1.5 text-right text-[#C3CAD7]">{(r.basketWeight * 100).toFixed(1)}%{r.suspect && <span title="yfinance weight flagged suspect" className="ml-1 text-[#E0B870]">⚠</span>}</td>
                     <td className="px-3 py-1.5"><div className="flex flex-wrap gap-1">{r.names.map((n) => <span key={n} className="rounded-sm bg-[#11243B] px-1.5 py-0.5 text-[11px] text-[#9CB6E0]">{n}</span>)}</div></td>
