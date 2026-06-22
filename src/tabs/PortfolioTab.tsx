@@ -5,6 +5,7 @@ import { SortableTable, RATING_RANK, type Column } from "../components/SortableT
 import { fmtMoney, fmtPct } from "../lib/format";
 import { analyzePortfolio, type Holding, type Position } from "../lib/portfolio";
 import { generateSuggestions, sugColor, sugIcon } from "../lib/suggestions";
+import AiNarrative from "../components/AiNarrative";
 import { runMonteCarlo, type Scenario } from "../lib/montecarlo";
 import { loadTickerPrices } from "../lib/data";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, AreaChart, Area, CartesianGrid, ReferenceLine } from "recharts";
@@ -168,6 +169,14 @@ export default function PortfolioTab() {
               </BarChart>
             </ResponsiveContainer>
           </Card>
+
+          {/* AI Portfolio Advisor (runtime /api/ai over tilts + concentrations) */}
+          <AiNarrative kind="portfolio"
+            blob={{ tilts: analysis.factor_tilts,
+              concentration: analysis.positions.filter((p) => p.weight != null).sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0)).slice(0, 5).map((p) => ({ t: p.ticker, sector: p.sector, w: p.weight })),
+              nHoldings: analysis.positions.length }}
+            label="AI Portfolio Advisor"
+            hint="Plain-English rebalance reasoning — where the book is over/under-exposed and which uncorrelated, strong-quant sectors could diversify it." />
 
           {/* Actionable recommendations (suggestions_v2) */}
           <Card title="Actionable Recommendations" sub="Prescriptive, prioritized — position sizing, sector risk, tax-loss, momentum exits, new ideas">

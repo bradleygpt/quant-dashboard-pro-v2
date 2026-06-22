@@ -21,6 +21,11 @@ type Blob = {
   fv?: { value?: string; premium?: string; direction?: string; verdict?: string };
   qbp?: string; surprise?: string;
   quarters?: { date: string; rev: string; earn: string; gross?: string; oper?: string; net?: string }[];
+  // runtime-kind payloads (screener / doppelganger / portfolio / correlation)
+  query?: string;
+  analogs?: unknown; fwd?: unknown;
+  tilts?: unknown; concentration?: unknown; diversifiers?: unknown; nHoldings?: number;
+  corr?: unknown;
 };
 
 export default async function handler(req: Request) {
@@ -28,10 +33,11 @@ export default async function handler(req: Request) {
   const url = new URL(req.url);
   const p = Object.fromEntries(url.searchParams.entries());
   const ticker = (p.ticker || "").toUpperCase();
-  const kind = p.kind === "earnings" ? "earnings" : "research";
+  const TICKER_KINDS = ["earnings", "research", "doppelganger", "correlation"];
+  const kind = [...TICKER_KINDS, "screener", "portfolio"].includes(p.kind) ? p.kind : "research";
   const period = p.period || "";
-  if (!ticker) return json({ ok: false, reason: "no_ticker" });
   if (!key) return json({ ok: false, reason: "no_key", needs: "GEMINI_API_KEY" });
+  if (TICKER_KINDS.includes(kind) && !ticker) return json({ ok: false, reason: "no_ticker" });
 
   let d: Blob = {};
   try { d = p.d ? JSON.parse(p.d) : {}; } catch { d = {}; }
@@ -96,13 +102,30 @@ Write 4 paragraphs (no headers, no bullet points, no em-dashes):
 4) Bottom line — a clear stance with a timeframe.
 ~320 words. Write in a Morgan Stanley analyst voice, not marketing copy. Every claim must trace to the data above.`;
 
+  // runtime kinds override the per-stock prompt above (small payloads — the LLM parses/narrates,
+  // never crunches the universe; integrity: only the provided data is cited).
+  let finalPrompt = prompt;
+  if (kind === "screener") {
+    finalPrompt = `Convert a plain-English stock screen into filter criteria. User query: "${d.query || ""}".
+Return ONLY JSON (no prose): {"filters":{"minComposite":<0-12|null>,"ratingMin":<"Strong Buy+"|"Strong Buy"|"Buy"|"Hold"|null>,"sectors":[<exact sector names>],"fvVerdict":<"Deeply Undervalued"|"Undervalued"|"Fairly Valued"|"Overvalued"|null>,"gradeMin":{"Valuation":<"A".."F"|null>,"Growth":<same|null>,"Profitability":<same|null>,"Momentum":<same|null>}},"explain":"<one sentence>"}
+Hints: cheap/undervalued -> fvVerdict or a low Valuation requirement; growth -> Growth grade ~"B+"; quality/profitable -> Profitability; momentum/leaders -> Momentum; "buy-rated" -> ratingMin. Use null for anything not implied.`;
+  } else if (kind === "doppelganger") {
+    finalPrompt = `Historical analogues for ${ticker} (closest by valuation/growth/momentum fingerprint) and their forward returns: ${JSON.stringify(d.analogs || []).slice(0, 1400)}. Aggregate forward-return stats: ${JSON.stringify(d.fwd || {})}.
+In 2-3 sentences: what the analogues imply for ${ticker} (central tendency + dispersion/risk) and what historically separated winners from losers in this cluster. Use ONLY the analogues/returns given; never invent tickers or figures.`;
+  } else if (kind === "portfolio") {
+    finalPrompt = `Portfolio book: sector tilts ${JSON.stringify(d.tilts || {})}; top concentrations ${JSON.stringify(d.concentration || [])}; ${d.nHoldings ?? "?"} holdings; strongest-rated uncorrelated sectors available: ${JSON.stringify(d.diversifiers || [])}.
+In 2-3 sentences give actionable rebalance reasoning: where the book is over/under-exposed and which uncorrelated, strong-quant sectors could diversify it. Use ONLY the data given; never invent figures.`;
+  } else if (kind === "correlation") {
+    finalPrompt = `Explain in 2 plain-English sentences what ${ticker}'s factor correlations mean for a portfolio: ${JSON.stringify(d.corr || {})}. e.g. "0.7 to gold means it tends to move with gold — a hedge, or redundant if you already hold gold." Use ONLY the values given; never invent numbers.`;
+  }
+
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 22000);
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.45, maxOutputTokens: 900 } }),
+      body: JSON.stringify({ contents: [{ parts: [{ text: finalPrompt }] }], generationConfig: { temperature: kind === "screener" ? 0.1 : 0.45, maxOutputTokens: 900 } }),
       signal: ctrl.signal,
     });
     clearTimeout(t);

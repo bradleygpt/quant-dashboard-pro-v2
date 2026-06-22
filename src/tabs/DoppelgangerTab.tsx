@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import AiNarrative from "../components/AiNarrative";
 import { useStore } from "../store";
 import { Card, Metric, Spinner } from "../components/ui";
 import { fmtPct, fmtCapB } from "../lib/format";
@@ -50,6 +51,13 @@ export default function DoppelgangerTab() {
         <h2 className="text-lg font-bold text-white">Doppelganger</h2>
         <p className="text-xs text-[#7C879B]">Historical analogues by fundamental fingerprint — {db.stats.total_analogs} curated setups across {db.stats.eras_covered.length} eras. What happened next.</p>
       </div>
+
+      {agg && matches.length >= 2 && (
+        <AiNarrative kind="doppelganger" ticker={row.ticker}
+          blob={{ analogs: matches.slice(0, 10), fwd: agg }}
+          label={`AI analogue read — ${row.ticker}`}
+          hint="What the historical analogues imply — central tendency, dispersion, and what split winners from losers." />
+      )}
 
       <div className="flex flex-wrap items-end gap-3">
         <div className="relative">
