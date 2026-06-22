@@ -3,6 +3,7 @@ import { useStore, type ViewRow } from "../store";
 import { RatingBadge, GradePill, Spinner, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import ThematicExplorer from "../components/ThematicExplorer";
+import NlScreener from "../components/NlScreener";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import IndexBadges from "../components/IndexBadges";
 import { applyScreen, flattenMetrics, type ScreenFilters } from "../lib/screener";
@@ -109,6 +110,7 @@ export default function ScreenerTab() {
         <p className="text-xs text-[#7C879B]">Combine rating, fair value, QBP, and custom metric filters. All columns sortable. ETFs excluded.</p>
       </div>
 
+      <NlScreener />
       <ThematicExplorer />
 
       {/* quick screens */}
