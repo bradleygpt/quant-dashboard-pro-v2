@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
 import StructuredReview from "../components/StructuredReview";
+import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
 import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
@@ -72,6 +73,14 @@ export default function StockDetailTab() {
   const [quarterly, setQuarterly] = useState<Record<string, any[]> | null>(null);
   useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/quarterly.json`).then((r) => r.ok ? r.json() : null).then(setQuarterly).catch(() => {}); }, []);
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
+
+  // earnings-quality signal (heuristic over the baked review text — #11)
+  const [eq, setEq] = useState<Record<string, { quality: string; reason: string }>>({});
+  useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/earnings_quality.json`).then((r) => r.ok ? r.json() : null).then((j) => setEq(j?.quality ?? {})).catch(() => {}); }, []);
+
+  // factor correlations (from build_correlations.py — #9; absent until generated → card hides)
+  const [corr, setCorr] = useState<Record<string, unknown> | null>(null);
+  useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/correlations_cache.json`).then((r) => r.ok ? r.json() : null).then(setCorr).catch(() => {}); }, []);
 
   // AI note (Gemini via /api/ai) — on-demand, degrades if no key
   const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean; verdict?: string; cached?: boolean; period?: string }>({ kind: "", status: "idle" });
@@ -404,6 +413,13 @@ export default function StockDetailTab() {
         </Card>
       )}
 
+      {/* AI correlation read (#9) — only when correlation data has been generated */}
+      {corr && corr[row.ticker] != null && (
+        <AiNarrative kind="correlation" ticker={row.ticker} blob={{ corr: corr[row.ticker] }}
+          label={`AI correlation read — ${row.ticker}`}
+          hint="What this name's factor correlations mean for a portfolio (hedge vs redundant risk)." />
+      )}
+
       {/* AI research / earnings review (Gemini, on-demand) */}
       <Card title="AI Analysis" sub="LLM-generated (Gemini). Requires GEMINI_API_KEY in Vercel; otherwise shows a configure note. Earnings Review is a thesis-check against the latest 8-K (Item 2.02) earnings release, cached per reported quarter.">
         <div className="flex flex-wrap gap-2">
@@ -418,6 +434,7 @@ export default function StockDetailTab() {
               {ai.kind === "earnings" && (
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   {ai.verdict && <span className="rounded px-2 py-0.5 text-xs font-bold" style={{ color: VERDICT_COLOR[ai.verdict] ?? "#9CA7BB", background: `${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}22`, border: `1px solid ${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}55` }}>VERDICT: {ai.verdict}</span>}
+                  {(() => { const qm = eq[`${row.ticker}_${ai.period}`] || eq[`${row.ticker}_LATEST`]; if (!qm) return null; const c = qm.quality === "High" ? "#00C805" : qm.quality === "Low" ? "#FF5722" : "#FFC107"; return <span title={qm.reason} className="cursor-help rounded px-2 py-0.5 text-xs font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>Quality: {qm.quality}</span>; })()}
                   {ai.period && <span className="text-[11px] text-[#7C879B]">8-K thesis-check · reported quarter ~{ai.period}</span>}
                   {ai.cached && <span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] text-[#9CA7BB]">cached for this filing</span>}
                 </div>
