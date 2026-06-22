@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore, type ViewRow } from "../store";
 import { Card, Metric, RatingBadge, Spinner, Unavailable, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
+import IndexBadges from "../components/IndexBadges";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
@@ -67,7 +68,7 @@ export default function HomeTab() {
   const topOps = useMemo(() => stocks.filter((r) => r.rating === "Strong Buy+" || r.rating === "Strong Buy").sort((a, b) => b.composite - a.composite).slice(0, 6), [stocks]);
 
   const screenerCols = useMemo<Column<ViewRow>[]>(() => [
-    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button> },
+    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button><IndexBadges ticker={r.ticker} /></> },
     { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[200px] truncate text-[#C3CAD7]">{r.name}</span> },
     { key: "sector", header: "Sector", sortValue: (r) => r.sector ?? "", render: (r) => <span className="text-[#9CA7BB]">{r.sector}</span> },
     { key: "composite", header: "Score", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="font-semibold">{r.composite.toFixed(2)}</span> },

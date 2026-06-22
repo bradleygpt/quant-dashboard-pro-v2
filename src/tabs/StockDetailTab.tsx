@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
 import StructuredReview from "../components/StructuredReview";
+import IndexBadges from "../components/IndexBadges";
 import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
 import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
@@ -257,6 +258,7 @@ export default function StockDetailTab() {
           <div className="text-sm text-[#9CA7BB]">{row.name} · {row.sector} · {row.industry}</div>
         </div>
         <RatingBadge rating={row.rating} />
+        <IndexBadges ticker={row.ticker} />
         <button onClick={() => toggleWatch(row.ticker)} className="rounded-md border border-[#1E2632] px-2 py-1 text-xs text-[#9CA7BB] hover:bg-[#161D29]">
           {watchlist.includes(row.ticker) ? "★ Watching" : "☆ Watch"}
         </button>

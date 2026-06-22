@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, RatingBadge, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
+import IndexBadges from "../components/IndexBadges";
 import { fmtMoney, fmtPct, fmtCapB } from "../lib/format";
 import {
   buildOptimalPortfolio, buildTop25, computeRebalanceDeltas, computeDiversificationStats,
@@ -98,7 +99,7 @@ export default function QuantPortfolioTab() {
   const deployed = port.reduce((a, p) => a + p.dollars, 0);
 
   const columns = useMemo<Column<QpPosition>[]>(() => [
-    { key: "ticker", header: "Ticker", sortValue: (p) => p.ticker, render: (p) => <button onClick={() => goToDetail(p.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{p.ticker}</button> },
+    { key: "ticker", header: "Ticker", sortValue: (p) => p.ticker, render: (p) => <><button onClick={() => goToDetail(p.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{p.ticker}</button><IndexBadges ticker={p.ticker} /></> },
     { key: "sector", header: "Sector", sortValue: (p) => p.sector ?? "", render: (p) => <span className="text-[#9CA7BB]">{p.sector}</span> },
     { key: "rating", header: "Rating", sortValue: (p) => RATING_RANK[p.rating] ?? 0, render: (p) => <RatingBadge rating={p.rating} /> },
     { key: "score", header: "Score", align: "right", sortValue: (p) => p.composite_score, render: (p) => <span className="font-semibold">{p.composite_score.toFixed(2)}</span> },
