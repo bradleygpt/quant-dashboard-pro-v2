@@ -322,7 +322,7 @@
     "source": "FRED (keyless fredgraph)"
   },
   "forward_earnings": {
-    "as_of": "2026-06-17",
+    "as_of": "2026-06",
     "source": "Fed SEP forward projections (FRED Release 326); ISM held at current level",
     "note": "Model's inflation term fed with SEP PCE (the Fed's gauge); the Fed does not project ISM, so it is held at the current reading.",
     "path": [
