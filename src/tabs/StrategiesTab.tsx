@@ -4,6 +4,7 @@ import StrategyTab from "./StrategyTab";
 import PaperTrackTab from "./PaperTrackTab";
 import C78QTab from "./C78QTab";
 import StrategiesViz from "./StrategiesViz";
+import StrategySignatures from "./StrategySignatures";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -109,6 +110,8 @@ function Summary({ onPick }: { onPick: (key: string) => void }) {
           </div>
         </div>
       )}
+
+      <StrategySignatures />
 
       {rationale && Object.values(rationale).some((s) => s?.rationale) && (
         <Card title="AI Strategy Read" sub="Why each book holds what it holds — LLM over the holdings' quant characteristics; never invented.">
