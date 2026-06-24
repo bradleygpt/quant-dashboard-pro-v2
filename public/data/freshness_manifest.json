@@ -2,11 +2,9 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-06-23",
+      "as_of": "2026-06-24",
       "forecasters": [
-        "Federal Reserve (SEP)",
         "World Bank (GEP)",
-        "IMF (WEO)",
         "Wells Fargo Inv. Institute",
         "Fannie Mae (ESR)",
         "KPMG Economics",
@@ -17,7 +15,7 @@
         "Yardeni Research",
         "Vanguard (VEMO)"
       ],
-      "n_live": 3,
+      "n_live": 1,
       "consumed_by": "Macro Outlook tab (consensus panel + FOMC dot plot)",
       "check_status": "ok"
     },
@@ -31,8 +29,8 @@
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-06-23",
-      "ppi": "33.0 MODERATE (live c78q PPI, as-of 2026-06-23)",
+      "as_of": "2026-06-24",
+      "ppi": "32.9 MODERATE (live c78q PPI, as-of 2026-06-24)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"

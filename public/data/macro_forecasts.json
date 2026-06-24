@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T17:38:45",
+  "generated_at": "2026-06-24T08:30:18",
   "consensus": {
     "metrics": [
       "gdp",
@@ -24,47 +24,9 @@
     },
     "years": [
       "2026",
-      "2027",
-      "2028"
+      "2027"
     ],
     "forecasters": [
-      {
-        "id": "fed_sep",
-        "name": "Federal Reserve (SEP)",
-        "kind": "official",
-        "live": true,
-        "as_of": "2026-06",
-        "source": "FRED Release 326 (FOMC SEP)",
-        "url": "https://fred.stlouisfed.org/release?rid=326",
-        "notes": "Inflation = PCE (the Fed's gauge), not CPI. Median dot per year.",
-        "values": {
-          "gdp": {
-            "2026": 2.2,
-            "2027": 2.3,
-            "2028": 2.2,
-            "LR": 2.0
-          },
-          "inflation": {
-            "2026": 3.6,
-            "2027": 2.3,
-            "2028": 2.0,
-            "LR": 2.0
-          },
-          "unemployment": {
-            "2026": 4.3,
-            "2027": 4.3,
-            "2028": 4.2,
-            "LR": 4.2
-          },
-          "fed_funds": {
-            "2026": 3.8,
-            "2027": 3.6,
-            "2028": 3.4,
-            "LR": 3.1
-          },
-          "sp500_target": {}
-        }
-      },
       {
         "id": "worldbank_gep",
         "name": "World Bank (GEP)",
@@ -77,42 +39,6 @@
         "values": {
           "gdp": {
             "2026": 2.0
-          }
-        }
-      },
-      {
-        "id": "imf_weo",
-        "name": "IMF (WEO)",
-        "kind": "official",
-        "live": true,
-        "as_of": "2026-04",
-        "source": "IMF WEO (DataMapper)",
-        "url": "https://www.imf.org/en/Publications/WEO",
-        "notes": "Inflation = CPI. WEO full update Apr/Oct, interim Jan/Jul.",
-        "values": {
-          "gdp": {
-            "2026": 2.3,
-            "2027": 2.1,
-            "2028": 2.1,
-            "2029": 1.9,
-            "2030": 1.8,
-            "2031": 1.8
-          },
-          "inflation": {
-            "2026": 3.2,
-            "2027": 2.1,
-            "2028": 2.2,
-            "2029": 2.2,
-            "2030": 2.2,
-            "2031": 2.2
-          },
-          "unemployment": {
-            "2026": 4.4,
-            "2027": 4.2,
-            "2028": 4.1,
-            "2029": 3.9,
-            "2030": 3.9,
-            "2031": 3.9
           }
         }
       },
@@ -304,64 +230,8 @@
       }
     ]
   },
-  "dot_plot": {
-    "live": true,
-    "as_of": "2026-06",
-    "source": "FRED Release 326 (FOMC SEP)",
-    "url": "https://fred.stlouisfed.org/release?rid=326",
-    "years": [
-      "2026",
-      "2027",
-      "2028",
-      "Longer Run"
-    ],
-    "median": [
-      3.8,
-      3.6,
-      3.4,
-      3.1
-    ],
-    "central_tendency": {
-      "high": [
-        4.1,
-        3.9,
-        3.6,
-        null
-      ],
-      "low": [
-        3.6,
-        3.1,
-        3.1,
-        null
-      ]
-    },
-    "range": {
-      "high": [
-        4.4,
-        4.4,
-        3.9,
-        null
-      ],
-      "low": [
-        3.4,
-        2.9,
-        2.9,
-        null
-      ]
-    },
-    "current_target_range": "3.50%-3.75%",
-    "current_target_mid": 3.625
-  },
+  "dot_plot": null,
   "sources": [
-    {
-      "id": "fed_sep",
-      "name": "Federal Reserve (SEP)",
-      "as_of": "2026-06",
-      "live": true,
-      "source": "FRED Release 326 (FOMC SEP)",
-      "url": "https://fred.stlouisfed.org/release?rid=326",
-      "kind": "official"
-    },
     {
       "id": "worldbank_gep",
       "name": "World Bank (GEP)",
@@ -369,15 +239,6 @@
       "live": true,
       "source": "World Bank Data360 WB_GEP",
       "url": "https://data360.worldbank.org/en/dataset/WB_GEP",
-      "kind": "official"
-    },
-    {
-      "id": "imf_weo",
-      "name": "IMF (WEO)",
-      "as_of": "2026-04",
-      "live": true,
-      "source": "IMF WEO (DataMapper)",
-      "url": "https://www.imf.org/en/Publications/WEO",
       "kind": "official"
     },
     {
