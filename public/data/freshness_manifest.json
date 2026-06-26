@@ -2,7 +2,7 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-06-25",
+      "as_of": "2026-06-26",
       "forecasters": [
         "World Bank (GEP)",
         "Wells Fargo Inv. Institute",
@@ -29,8 +29,8 @@
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-06-25",
-      "ppi": "35.6 MODERATE (live c78q PPI, as-of 2026-06-25)",
+      "as_of": "2026-06-26",
+      "ppi": "40.2 ELEVATED (live c78q PPI, as-of 2026-06-26)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
