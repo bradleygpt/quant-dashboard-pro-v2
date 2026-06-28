@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-06-17",
- "as_of": "2026-06-17",
+ "generated_at": "2026-06-26",
+ "as_of": "2026-06-26",
  "periods": [
   "daily",
   "rebalance",
@@ -11,28 +11,63 @@
    "slug": "katalepsis",
    "label": "Katalepsis",
    "color": "#00C805",
-   "entry": "2026-06-17",
+   "entry": "2026-05-29",
    "holdings": [
-    {
-     "ticker": "MU",
-     "name": "Micron Technology, Inc.",
-     "daily": 2.2,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "RKLB",
-     "name": "Rocket Lab Corporation",
-     "daily": 3.2,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
     {
      "ticker": "MXL",
      "name": "MaxLinear, Inc",
-     "daily": -1.8,
-     "rebalance": 0.0,
-     "alltime": 0.0
+     "daily": 2.3,
+     "rebalance": 3.9,
+     "alltime": 3.9
+    },
+    {
+     "ticker": "VIAV",
+     "name": "Viavi Solutions Inc.",
+     "daily": -5.6,
+     "rebalance": -1.9,
+     "alltime": -1.9
+    },
+    {
+     "ticker": "INTC",
+     "name": "Intel Corporation",
+     "daily": -3.4,
+     "rebalance": 11.9,
+     "alltime": 11.9
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": -6.7,
+     "rebalance": 16.6,
+     "alltime": 16.6
+    },
+    {
+     "ticker": "STX",
+     "name": "Seagate Technology Holdings PLC",
+     "daily": -12.2,
+     "rebalance": 2.4,
+     "alltime": 2.4
+    },
+    {
+     "ticker": "TH",
+     "name": null,
+     "daily": 0.4,
+     "rebalance": 16.8,
+     "alltime": 16.8
+    },
+    {
+     "ticker": "WDC",
+     "name": "Western Digital Corporation",
+     "daily": -13.2,
+     "rebalance": 10.4,
+     "alltime": 10.4
+    },
+    {
+     "ticker": "COHR",
+     "name": "Coherent Corp.",
+     "daily": -6.6,
+     "rebalance": 5.3,
+     "alltime": 5.3
     }
    ]
   },
@@ -43,25 +78,25 @@
    "entry": "2026-06-16",
    "holdings": [
     {
-     "ticker": "AKAM",
-     "name": "Akamai Technologies, Inc.",
-     "daily": -3.4,
-     "rebalance": -3.4,
-     "alltime": 1.8
-    },
-    {
      "ticker": "INSW",
      "name": "International Seaways, Inc.",
-     "daily": -0.6,
-     "rebalance": -0.6,
-     "alltime": 77.7
+     "daily": -2.4,
+     "rebalance": -3.0,
+     "alltime": 73.5
+    },
+    {
+     "ticker": "MRVL",
+     "name": "Marvell Technology, Inc.",
+     "daily": -5.2,
+     "rebalance": -4.3,
+     "alltime": -4.3
     },
     {
      "ticker": "MTZ",
      "name": "MasTec, Inc.",
-     "daily": 1.5,
-     "rebalance": 1.5,
-     "alltime": -0.1
+     "daily": -1.8,
+     "rebalance": 7.3,
+     "alltime": 5.5
     }
    ]
   },
@@ -74,23 +109,23 @@
     {
      "ticker": "EIX",
      "name": "Edison International",
-     "daily": -1.6,
-     "rebalance": -1.6,
-     "alltime": -2.1
-    },
-    {
-     "ticker": "FISV",
-     "name": "Fiserv, Inc.",
-     "daily": -2.1,
-     "rebalance": -2.1,
-     "alltime": -2.1
+     "daily": 1.2,
+     "rebalance": 5.0,
+     "alltime": 4.5
     },
     {
      "ticker": "MOS",
      "name": "Mosaic Company (The)",
-     "daily": 3.8,
-     "rebalance": 3.8,
-     "alltime": -22.2
+     "daily": 3.0,
+     "rebalance": 3.2,
+     "alltime": -22.7
+    },
+    {
+     "ticker": "FISV",
+     "name": "Fiserv, Inc.",
+     "daily": 4.0,
+     "rebalance": -0.8,
+     "alltime": -0.8
     }
    ]
   },
@@ -101,39 +136,39 @@
    "entry": "2026-06-16",
    "holdings": [
     {
-     "ticker": "DECK",
-     "name": "Deckers Outdoor Corporation",
-     "daily": -4.0,
-     "rebalance": -4.0,
-     "alltime": 5.7
-    },
-    {
-     "ticker": "EIX",
-     "name": "Edison International",
-     "daily": -1.6,
-     "rebalance": -1.6,
-     "alltime": -1.6
-    },
-    {
      "ticker": "FISV",
      "name": "Fiserv, Inc.",
-     "daily": -2.1,
-     "rebalance": -2.1,
-     "alltime": -27.7
-    },
-    {
-     "ticker": "MU",
-     "name": "Micron Technology, Inc.",
-     "daily": 2.2,
-     "rebalance": 2.2,
-     "alltime": -12.3
+     "daily": 4.0,
+     "rebalance": -0.8,
+     "alltime": -26.7
     },
     {
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
-     "daily": -2.4,
-     "rebalance": -2.4,
-     "alltime": -2.4
+     "daily": 0.0,
+     "rebalance": -2.3,
+     "alltime": -2.3
+    },
+    {
+     "ticker": "EIX",
+     "name": "Edison International",
+     "daily": 1.2,
+     "rebalance": 5.0,
+     "alltime": 5.0
+    },
+    {
+     "ticker": "DECK",
+     "name": "Deckers Outdoor Corporation",
+     "daily": 1.9,
+     "rebalance": -5.1,
+     "alltime": 4.5
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": -6.7,
+     "rebalance": 10.9,
+     "alltime": -4.8
     }
    ]
   },
@@ -144,39 +179,39 @@
    "entry": "2026-06-16",
    "holdings": [
     {
-     "ticker": "IREN",
-     "name": "IREN LIMITED",
-     "daily": -1.8,
-     "rebalance": -1.8,
-     "alltime": 9.9
+     "ticker": "AAOI",
+     "name": null,
+     "daily": -2.1,
+     "rebalance": -20.6,
+     "alltime": -25.0
     },
     {
-     "ticker": "MU",
-     "name": "Micron Technology, Inc.",
-     "daily": 2.2,
-     "rebalance": 2.2,
-     "alltime": 2.2
-    },
-    {
-     "ticker": "STX",
-     "name": "Seagate Technology Holdings PLC",
-     "daily": 3.4,
-     "rebalance": 3.4,
-     "alltime": 3.4
-    },
-    {
-     "ticker": "VIAV",
-     "name": "Viavi Solutions Inc.",
-     "daily": -2.7,
-     "rebalance": -2.7,
-     "alltime": -2.7
+     "ticker": "INBX",
+     "name": null,
+     "daily": -0.5,
+     "rebalance": 1.8,
+     "alltime": 24.9
     },
     {
      "ticker": "VSAT",
      "name": "ViaSat, Inc.",
-     "daily": 3.4,
-     "rebalance": 3.4,
-     "alltime": 50.7
+     "daily": 3.3,
+     "rebalance": -0.8,
+     "alltime": -0.8
+    },
+    {
+     "ticker": "VIAV",
+     "name": "Viavi Solutions Inc.",
+     "daily": -5.6,
+     "rebalance": -4.9,
+     "alltime": -4.9
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": -6.7,
+     "rebalance": 10.9,
+     "alltime": 10.9
     }
    ]
   }
