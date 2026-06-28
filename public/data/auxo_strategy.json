@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-17",
+ "generated_at": "2026-06-26",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -23,8 +23,8 @@
  },
  "next_rebalance": "2026-07-01",
  "backtest": {
-  "cagr": 30.9,
-  "sharpe": 1.15,
+  "cagr": 31.0,
+  "sharpe": 1.16,
   "max_dd": -42.9,
   "window": "2011-2026",
   "regime_cagr": {
@@ -59,7 +59,7 @@
     },
     {
      "period": "2025-2026",
-     "cagr": 58.3
+     "cagr": 59.8
     }
    ],
    "median": 32.6,
@@ -70,13 +70,13 @@
  },
  "metrics": {
   "in_sample": {
-   "cagr": 30.9,
-   "sharpe": 1.15,
+   "cagr": 31.0,
+   "sharpe": 1.16,
    "max_dd": -42.9
   },
   "oos": {
-   "cagr": 33.2,
-   "sharpe": 1.18,
+   "cagr": 33.6,
+   "sharpe": 1.19,
    "max_dd": -27.2
   },
   "train": {
@@ -993,7 +993,7 @@
   },
   {
    "date": "2023-07-31",
-   "equity": 2409.4,
+   "equity": 2409.5,
    "spy": 356.8,
    "nasdaq": 531.3
   },
@@ -1029,7 +1029,7 @@
   },
   {
    "date": "2024-01-31",
-   "equity": 2503.7,
+   "equity": 2503.8,
    "spy": 376.8,
    "nasdaq": 561.6
   },
@@ -1179,7 +1179,7 @@
   },
   {
    "date": "2026-02-28",
-   "equity": 6345.2,
+   "equity": 6345.3,
    "spy": 534.9,
    "nasdaq": 839.5
   },
@@ -1280,8 +1280,8 @@
   },
   {
    "label": "2026",
-   "strategy": 19.5,
-   "spy": 8.4
+   "strategy": 22.6,
+   "spy": 7.4
   }
  ],
  "holdings": [
@@ -1595,7 +1595,6 @@
   "TRUE daily mark-to-market - the -43% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-3 concentration: high single-name risk. Held 62 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~210%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
-  "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-11-10 (105-day hold)."
- ],
- "rebalance_cadence": "semi-annual (Jan 1 / Jul 1)"
+  "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-07-01 (105-day hold)."
+ ]
 }

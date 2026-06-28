@@ -3,35 +3,55 @@
   "generated_at": "2026-06-01T19:14:46.143937+00:00",
   "spec": {
     "version": "v1.0 LOCKED + Rider A",
-    "config": "top3_h105_full_universe",
+    "config": "top3_monthly_full_universe",
     "capital_default": 25000,
     "basket_size": 3,
     "weight_per_position": 0.3333,
-    "hold_days": 105,
-    "rebalance": "every 105 trading days (~5 months)"
+    "hold_days": 21,
+    "rebalance": "1st of month (~21 trading days)"
   },
   "target": {
-    "as_of": "2026-06-17",
+    "as_of": "2026-06-01",
     "rows": [
       {
         "rank": 1,
-        "ticker": "MU",
-        "posterior_prob": 0.893133,
+        "ticker": "MXL",
+        "posterior_prob": 0.901062,
         "n_streams": null
       },
       {
         "rank": 2,
-        "ticker": "RKLB",
-        "posterior_prob": 0.89272,
+        "ticker": "VIAV",
+        "posterior_prob": 0.893529,
         "n_streams": null
       },
       {
         "rank": 3,
-        "ticker": "MXL",
-        "posterior_prob": 0.890559,
+        "ticker": "INTC",
+        "posterior_prob": 0.891675,
         "n_streams": null
       }
-    ]
+    ],
+    "signal_now": {
+      "as_of": "2026-06-26",
+      "rows": [
+        {
+          "rank": 1,
+          "ticker": "MXL",
+          "posterior_prob": 0.905108
+        },
+        {
+          "rank": 2,
+          "ticker": "RKLB",
+          "posterior_prob": 0.904524
+        },
+        {
+          "rank": 3,
+          "ticker": "MRVL",
+          "posterior_prob": 0.891186
+        }
+      ]
+    }
   },
   "state": {
     "mode": "deployed",
@@ -157,7 +177,7 @@
         "rank": 1,
         "posterior": 0.911779,
         "weight": 0.3333,
-        "forward_return": -0.07699
+        "forward_return": 0.076771
       },
       {
         "date": "2011-01-03",
@@ -165,7 +185,7 @@
         "rank": 2,
         "posterior": 0.896349,
         "weight": 0.3333,
-        "forward_return": 0.04949
+        "forward_return": -0.064754
       },
       {
         "date": "2011-01-03",
@@ -173,39 +193,231 @@
         "rank": 3,
         "posterior": 0.885868,
         "weight": 0.3333,
-        "forward_return": 0.125368
+        "forward_return": -0.010264
       },
       {
-        "date": "2011-06-03",
+        "date": "2011-02-01",
+        "ticker": "FFIV",
+        "rank": 1,
+        "posterior": 0.915046,
+        "weight": 0.3333,
+        "forward_return": 0.031102
+      },
+      {
+        "date": "2011-02-01",
+        "ticker": "BWA",
+        "rank": 2,
+        "posterior": 0.861028,
+        "weight": 0.3333,
+        "forward_return": 0.127378
+      },
+      {
+        "date": "2011-02-01",
+        "ticker": "LULU",
+        "rank": 3,
+        "posterior": 0.858766,
+        "weight": 0.3333,
+        "forward_return": 0.008196
+      },
+      {
+        "date": "2011-03-01",
+        "ticker": "SWKS",
+        "rank": 1,
+        "posterior": 0.849407,
+        "weight": 0.3333,
+        "forward_return": -0.094964
+      },
+      {
+        "date": "2011-03-01",
+        "ticker": "VSH",
+        "rank": 2,
+        "posterior": 0.842939,
+        "weight": 0.3333,
+        "forward_return": 0.039678
+      },
+      {
+        "date": "2011-03-01",
+        "ticker": "TSCO",
+        "rank": 3,
+        "posterior": 0.842565,
+        "weight": 0.3333,
+        "forward_return": 0.206481
+      },
+      {
+        "date": "2011-04-01",
+        "ticker": "DECK",
+        "rank": 1,
+        "posterior": 0.89565,
+        "weight": 0.3333,
+        "forward_return": -0.038127
+      },
+      {
+        "date": "2011-04-01",
+        "ticker": "VSH",
+        "rank": 2,
+        "posterior": 0.877759,
+        "weight": 0.3333,
+        "forward_return": 0.034292
+      },
+      {
+        "date": "2011-04-01",
+        "ticker": "SWKS",
+        "rank": 3,
+        "posterior": 0.793788,
+        "weight": 0.3333,
+        "forward_return": -0.027663
+      },
+      {
+        "date": "2011-05-02",
+        "ticker": "DECK",
+        "rank": 1,
+        "posterior": 0.893691,
+        "weight": 0.3333,
+        "forward_return": 0.053208
+      },
+      {
+        "date": "2011-05-02",
+        "ticker": "VSH",
+        "rank": 2,
+        "posterior": 0.864835,
+        "weight": 0.3333,
+        "forward_return": -0.175936
+      },
+      {
+        "date": "2011-05-02",
+        "ticker": "TSCO",
+        "rank": 3,
+        "posterior": 0.818996,
+        "weight": 0.3333,
+        "forward_return": 0.034757
+      },
+      {
+        "date": "2011-06-01",
         "ticker": "DECK",
         "rank": 1,
         "posterior": 0.880955,
         "weight": 0.3333,
-        "forward_return": 0.310851
+        "forward_return": 0.017518
       },
       {
-        "date": "2011-06-03",
+        "date": "2011-06-01",
         "ticker": "CF",
         "rank": 2,
         "posterior": 0.822665,
         "weight": 0.3333,
-        "forward_return": 0.050495
+        "forward_return": -0.057933
       },
       {
-        "date": "2011-06-03",
+        "date": "2011-06-01",
         "ticker": "SWKS",
         "rank": 3,
         "posterior": 0.805703,
         "weight": 0.3333,
-        "forward_return": -0.171292
+        "forward_return": -0.045603
+      },
+      {
+        "date": "2011-07-01",
+        "ticker": "ULTA",
+        "rank": 1,
+        "posterior": 0.926012,
+        "weight": 0.3333,
+        "forward_return": -0.029917
+      },
+      {
+        "date": "2011-07-01",
+        "ticker": "MCO",
+        "rank": 2,
+        "posterior": 0.869003,
+        "weight": 0.3333,
+        "forward_return": -0.093822
+      },
+      {
+        "date": "2011-07-01",
+        "ticker": "MU",
+        "rank": 3,
+        "posterior": 0.79238,
+        "weight": 0.3333,
+        "forward_return": -0.05364
+      },
+      {
+        "date": "2011-08-01",
+        "ticker": "ULTA",
+        "rank": 1,
+        "posterior": 0.924227,
+        "weight": 0.3333,
+        "forward_return": -0.08904
+      },
+      {
+        "date": "2011-08-01",
+        "ticker": "MNST",
+        "rank": 2,
+        "posterior": 0.807055,
+        "weight": 0.3333,
+        "forward_return": 0.097507
+      },
+      {
+        "date": "2011-08-01",
+        "ticker": "TSCO",
+        "rank": 3,
+        "posterior": 0.802115,
+        "weight": 0.3333,
+        "forward_return": -0.069501
+      },
+      {
+        "date": "2011-09-01",
+        "ticker": "ULTA",
+        "rank": 1,
+        "posterior": 0.885177,
+        "weight": 0.3333,
+        "forward_return": 0.064583
+      },
+      {
+        "date": "2011-09-01",
+        "ticker": "PSMT",
+        "rank": 2,
+        "posterior": 0.844495,
+        "weight": 0.3333,
+        "forward_return": -0.102206
+      },
+      {
+        "date": "2011-09-01",
+        "ticker": "LVS",
+        "rank": 3,
+        "posterior": 0.831492,
+        "weight": 0.3333,
+        "forward_return": -0.208666
+      },
+      {
+        "date": "2011-10-03",
+        "ticker": "ULTA",
+        "rank": 1,
+        "posterior": 0.936846,
+        "weight": 0.3333,
+        "forward_return": 0.146934
+      },
+      {
+        "date": "2011-10-03",
+        "ticker": "CTRA",
+        "rank": 2,
+        "posterior": 0.867464,
+        "weight": 0.3333,
+        "forward_return": 0.325538
+      },
+      {
+        "date": "2011-10-03",
+        "ticker": "CF",
+        "rank": 3,
+        "posterior": 0.865819,
+        "weight": 0.3333,
+        "forward_return": 0.311208
       },
       {
         "date": "2011-11-01",
         "ticker": "ULTA",
         "rank": 1,
-        "posterior": 0.924574,
+        "posterior": 0.923938,
         "weight": 0.3333,
-        "forward_return": 0.366032
+        "forward_return": -0.026163
       },
       {
         "date": "2011-11-01",
@@ -213,7 +425,7 @@
         "rank": 2,
         "posterior": 0.89028,
         "weight": 0.3333,
-        "forward_return": 0.484697
+        "forward_return": 0.07157
       },
       {
         "date": "2011-11-01",
@@ -221,847 +433,4207 @@
         "rank": 3,
         "posterior": 0.880064,
         "weight": 0.3333,
-        "forward_return": -0.015299
+        "forward_return": -0.077058
       },
       {
-        "date": "2012-04-03",
+        "date": "2011-12-01",
+        "ticker": "ULTA",
+        "rank": 1,
+        "posterior": 0.934818,
+        "weight": 0.3333,
+        "forward_return": -0.064097
+      },
+      {
+        "date": "2011-12-01",
+        "ticker": "CTRA",
+        "rank": 2,
+        "posterior": 0.893818,
+        "weight": 0.3333,
+        "forward_return": -0.104687
+      },
+      {
+        "date": "2011-12-01",
+        "ticker": "PSMT",
+        "rank": 3,
+        "posterior": 0.87538,
+        "weight": 0.3333,
+        "forward_return": 0.033515
+      },
+      {
+        "date": "2012-01-03",
+        "ticker": "DECK",
+        "rank": 1,
+        "posterior": 0.931038,
+        "weight": 0.3333,
+        "forward_return": 0.094609
+      },
+      {
+        "date": "2012-01-03",
+        "ticker": "MCO",
+        "rank": 2,
+        "posterior": 0.862061,
+        "weight": 0.3333,
+        "forward_return": 0.069397
+      },
+      {
+        "date": "2012-01-03",
+        "ticker": "CTRA",
+        "rank": 3,
+        "posterior": 0.852806,
+        "weight": 0.3333,
+        "forward_return": -0.151319
+      },
+      {
+        "date": "2012-02-01",
+        "ticker": "PSMT",
+        "rank": 1,
+        "posterior": 0.887185,
+        "weight": 0.3333,
+        "forward_return": -0.018864
+      },
+      {
+        "date": "2012-02-01",
+        "ticker": "DPZ",
+        "rank": 2,
+        "posterior": 0.854133,
+        "weight": 0.3333,
+        "forward_return": 0.167884
+      },
+      {
+        "date": "2012-02-01",
+        "ticker": "LLY",
+        "rank": 3,
+        "posterior": 0.852321,
+        "weight": 0.3333,
+        "forward_return": 0.001173
+      },
+      {
+        "date": "2012-03-01",
+        "ticker": "MCD",
+        "rank": 1,
+        "posterior": 0.930362,
+        "weight": 0.3333,
+        "forward_return": -0.008967
+      },
+      {
+        "date": "2012-03-01",
+        "ticker": "GILD",
+        "rank": 2,
+        "posterior": 0.910673,
+        "weight": 0.3333,
+        "forward_return": 0.046557
+      },
+      {
+        "date": "2012-03-01",
+        "ticker": "NEU",
+        "rank": 3,
+        "posterior": 0.889859,
+        "weight": 0.3333,
+        "forward_return": 0.045168
+      },
+      {
+        "date": "2012-04-02",
         "ticker": "ORLY",
         "rank": 1,
         "posterior": 0.926804,
         "weight": 0.3333,
-        "forward_return": -0.0929
+        "forward_return": 0.137196
       },
       {
-        "date": "2012-04-03",
+        "date": "2012-04-02",
         "ticker": "MCD",
         "rank": 2,
         "posterior": 0.897472,
         "weight": 0.3333,
-        "forward_return": -0.085509
+        "forward_return": -0.011793
       },
       {
-        "date": "2012-04-03",
+        "date": "2012-04-02",
         "ticker": "AAPL",
         "rank": 3,
         "posterior": 0.897334,
         "weight": 0.3333,
-        "forward_return": 0.061616
+        "forward_return": -0.059001
       },
       {
-        "date": "2012-08-31",
+        "date": "2012-05-01",
+        "ticker": "FAST",
+        "rank": 1,
+        "posterior": 0.930413,
+        "weight": 0.3333,
+        "forward_return": -0.081472
+      },
+      {
+        "date": "2012-05-01",
+        "ticker": "ORLY",
+        "rank": 2,
+        "posterior": 0.926804,
+        "weight": 0.3333,
+        "forward_return": -0.118845
+      },
+      {
+        "date": "2012-05-01",
+        "ticker": "AAPL",
+        "rank": 3,
+        "posterior": 0.926781,
+        "weight": 0.3333,
+        "forward_return": -0.036315
+      },
+      {
+        "date": "2012-06-01",
+        "ticker": "SBH",
+        "rank": 1,
+        "posterior": 0.89217,
+        "weight": 0.3333,
+        "forward_return": 0.016336
+      },
+      {
+        "date": "2012-06-01",
+        "ticker": "YUM",
+        "rank": 2,
+        "posterior": 0.882338,
+        "weight": 0.3333,
+        "forward_return": -0.011592
+      },
+      {
+        "date": "2012-06-01",
+        "ticker": "PEP",
+        "rank": 3,
+        "posterior": 0.866195,
+        "weight": 0.3333,
+        "forward_return": 0.048141
+      },
+      {
+        "date": "2012-07-02",
+        "ticker": "LQDT",
+        "rank": 1,
+        "posterior": 0.941678,
+        "weight": 0.3333,
+        "forward_return": 0.090011
+      },
+      {
+        "date": "2012-07-02",
+        "ticker": "ORLY",
+        "rank": 2,
+        "posterior": 0.940165,
+        "weight": 0.3333,
+        "forward_return": -0.000352
+      },
+      {
+        "date": "2012-07-02",
+        "ticker": "MNST",
+        "rank": 3,
+        "posterior": 0.937213,
+        "weight": 0.3333,
+        "forward_return": -0.132656
+      },
+      {
+        "date": "2012-08-01",
+        "ticker": "DG",
+        "rank": 1,
+        "posterior": 0.891602,
+        "weight": 0.3333,
+        "forward_return": -0.007834
+      },
+      {
+        "date": "2012-08-01",
+        "ticker": "ULTA",
+        "rank": 2,
+        "posterior": 0.859082,
+        "weight": 0.3333,
+        "forward_return": 0.124672
+      },
+      {
+        "date": "2012-08-01",
+        "ticker": "AAPL",
+        "rank": 3,
+        "posterior": 0.850003,
+        "weight": 0.3333,
+        "forward_return": 0.117101
+      },
+      {
+        "date": "2012-09-04",
         "ticker": "PMT",
         "rank": 1,
         "posterior": 0.885561,
         "weight": 0.3333,
-        "forward_return": 0.258695
+        "forward_return": 0.081643
       },
       {
-        "date": "2012-08-31",
+        "date": "2012-09-04",
         "ticker": "CHTR",
         "rank": 2,
         "posterior": 0.829493,
         "weight": 0.3333,
-        "forward_return": 0.047943
+        "forward_return": -0.026855
       },
       {
-        "date": "2012-08-31",
+        "date": "2012-09-04",
         "ticker": "CMCSA",
         "rank": 3,
         "posterior": 0.820521,
         "weight": 0.3333,
-        "forward_return": 0.180861
+        "forward_return": 0.060009
       },
       {
-        "date": "2013-02-05",
+        "date": "2012-10-01",
+        "ticker": "ROST",
+        "rank": 1,
+        "posterior": 0.892071,
+        "weight": 0.3333,
+        "forward_return": -0.136356
+      },
+      {
+        "date": "2012-10-01",
+        "ticker": "STX",
+        "rank": 2,
+        "posterior": 0.88186,
+        "weight": 0.3333,
+        "forward_return": -0.061814
+      },
+      {
+        "date": "2012-10-01",
+        "ticker": "PHM",
+        "rank": 3,
+        "posterior": 0.868848,
+        "weight": 0.3333,
+        "forward_return": 0.161332
+      },
+      {
+        "date": "2012-11-01",
+        "ticker": "PHM",
+        "rank": 1,
+        "posterior": 0.916329,
+        "weight": 0.3333,
+        "forward_return": -0.046681
+      },
+      {
+        "date": "2012-11-01",
+        "ticker": "EQIX",
+        "rank": 2,
+        "posterior": 0.884758,
+        "weight": 0.3333,
+        "forward_return": 0.006209
+      },
+      {
+        "date": "2012-11-01",
+        "ticker": "SHW",
+        "rank": 3,
+        "posterior": 0.865132,
+        "weight": 0.3333,
+        "forward_return": 0.062758
+      },
+      {
+        "date": "2012-12-03",
+        "ticker": "EXP",
+        "rank": 1,
+        "posterior": 0.842583,
+        "weight": 0.3333,
+        "forward_return": 0.173746
+      },
+      {
+        "date": "2012-12-03",
+        "ticker": "CHTR",
+        "rank": 2,
+        "posterior": 0.837482,
+        "weight": 0.3333,
+        "forward_return": 0.108587
+      },
+      {
+        "date": "2012-12-03",
+        "ticker": "SHW",
+        "rank": 3,
+        "posterior": 0.830966,
+        "weight": 0.3333,
+        "forward_return": 0.029367
+      },
+      {
+        "date": "2013-01-02",
+        "ticker": "GEO",
+        "rank": 1,
+        "posterior": 0.818653,
+        "weight": 0.3333,
+        "forward_return": 0.141667
+      },
+      {
+        "date": "2013-01-02",
+        "ticker": "GILD",
+        "rank": 2,
+        "posterior": 0.818182,
+        "weight": 0.3333,
+        "forward_return": 0.080736
+      },
+      {
+        "date": "2013-01-02",
+        "ticker": "EXP",
+        "rank": 3,
+        "posterior": 0.81486,
+        "weight": 0.3333,
+        "forward_return": 0.053772
+      },
+      {
+        "date": "2013-02-01",
         "ticker": "PPG",
         "rank": 1,
         "posterior": 0.859587,
         "weight": 0.3333,
-        "forward_return": 0.116675
+        "forward_return": -0.03672
       },
       {
-        "date": "2013-02-05",
+        "date": "2013-02-01",
         "ticker": "MPC",
         "rank": 2,
         "posterior": 0.790306,
         "weight": 0.3333,
-        "forward_return": -0.086408
+        "forward_return": 0.120185
       },
       {
-        "date": "2013-02-05",
+        "date": "2013-02-01",
         "ticker": "CCI",
         "rank": 3,
         "posterior": 0.789307,
         "weight": 0.3333,
-        "forward_return": 0.031805
+        "forward_return": -0.018884
       },
       {
-        "date": "2013-07-08",
+        "date": "2013-03-01",
+        "ticker": "MWA",
+        "rank": 1,
+        "posterior": 0.855831,
+        "weight": 0.3333,
+        "forward_return": 0.025
+      },
+      {
+        "date": "2013-03-01",
+        "ticker": "SRPT",
+        "rank": 2,
+        "posterior": 0.827002,
+        "weight": 0.3333,
+        "forward_return": 0.20953
+      },
+      {
+        "date": "2013-03-01",
+        "ticker": "ACAD",
+        "rank": 3,
+        "posterior": 0.795657,
+        "weight": 0.3333,
+        "forward_return": 0.242139
+      },
+      {
+        "date": "2013-04-01",
+        "ticker": "ACAD",
+        "rank": 1,
+        "posterior": 0.872396,
+        "weight": 0.3333,
+        "forward_return": 0.521519
+      },
+      {
+        "date": "2013-04-01",
+        "ticker": "HRB",
+        "rank": 2,
+        "posterior": 0.837814,
+        "weight": 0.3333,
+        "forward_return": -0.045781
+      },
+      {
+        "date": "2013-04-01",
+        "ticker": "SBRA",
+        "rank": 3,
+        "posterior": 0.836095,
+        "weight": 0.3333,
+        "forward_return": 0.023183
+      },
+      {
+        "date": "2013-05-01",
+        "ticker": "MPC",
+        "rank": 1,
+        "posterior": 0.887671,
+        "weight": 0.3333,
+        "forward_return": 0.121508
+      },
+      {
+        "date": "2013-05-01",
+        "ticker": "HRB",
+        "rank": 2,
+        "posterior": 0.87991,
+        "weight": 0.3333,
+        "forward_return": 0.035087
+      },
+      {
+        "date": "2013-05-01",
+        "ticker": "SBRA",
+        "rank": 3,
+        "posterior": 0.855344,
+        "weight": 0.3333,
+        "forward_return": -0.064795
+      },
+      {
+        "date": "2013-06-03",
         "ticker": "FSLR",
         "rank": 1,
-        "posterior": 0.909244,
+        "posterior": 0.884965,
         "weight": 0.3333,
-        "forward_return": 0.320017
+        "forward_return": -0.131633
       },
       {
-        "date": "2013-07-08",
+        "date": "2013-06-03",
         "ticker": "ACAD",
         "rank": 2,
-        "posterior": 0.904306,
+        "posterior": 0.883102,
         "weight": 0.3333,
-        "forward_return": 0.332419
+        "forward_return": 0.249139
       },
       {
-        "date": "2013-07-08",
+        "date": "2013-06-03",
+        "ticker": "SBRA",
+        "rank": 3,
+        "posterior": 0.866233,
+        "weight": 0.3333,
+        "forward_return": -0.036549
+      },
+      {
+        "date": "2013-07-01",
+        "ticker": "ACAD",
+        "rank": 1,
+        "posterior": 0.909474,
+        "weight": 0.3333,
+        "forward_return": 0.096418
+      },
+      {
+        "date": "2013-07-01",
+        "ticker": "FSLR",
+        "rank": 2,
+        "posterior": 0.909244,
+        "weight": 0.3333,
+        "forward_return": 0.039732
+      },
+      {
+        "date": "2013-07-01",
         "ticker": "GILD",
         "rank": 3,
         "posterior": 0.865213,
         "weight": 0.3333,
-        "forward_return": 0.359152
+        "forward_return": 0.200388
       },
       {
-        "date": "2013-12-04",
+        "date": "2013-08-01",
+        "ticker": "TSLA",
+        "rank": 1,
+        "posterior": 0.904356,
+        "weight": 0.3333,
+        "forward_return": 0.24633
+      },
+      {
+        "date": "2013-08-01",
+        "ticker": "ACAD",
+        "rank": 2,
+        "posterior": 0.866308,
+        "weight": 0.3333,
+        "forward_return": 0.031658
+      },
+      {
+        "date": "2013-08-01",
+        "ticker": "SRPT",
+        "rank": 3,
+        "posterior": 0.853183,
+        "weight": 0.3333,
+        "forward_return": -0.053333
+      },
+      {
+        "date": "2013-09-03",
+        "ticker": "GNW",
+        "rank": 1,
+        "posterior": 0.853161,
+        "weight": 0.3333,
+        "forward_return": 0.081172
+      },
+      {
+        "date": "2013-09-03",
+        "ticker": "ACAD",
+        "rank": 2,
+        "posterior": 0.822986,
+        "weight": 0.3333,
+        "forward_return": 0.368241
+      },
+      {
+        "date": "2013-09-03",
+        "ticker": "GILD",
+        "rank": 3,
+        "posterior": 0.820006,
+        "weight": 0.3333,
+        "forward_return": 0.03086
+      },
+      {
+        "date": "2013-10-01",
+        "ticker": "GNW",
+        "rank": 1,
+        "posterior": 0.825771,
+        "weight": 0.3333,
+        "forward_return": 0.119195
+      },
+      {
+        "date": "2013-10-01",
+        "ticker": "LGND",
+        "rank": 2,
+        "posterior": 0.820356,
+        "weight": 0.3333,
+        "forward_return": 0.145338
+      },
+      {
+        "date": "2013-10-01",
+        "ticker": "TSLA",
+        "rank": 3,
+        "posterior": 0.812167,
+        "weight": 0.3333,
+        "forward_return": -0.159741
+      },
+      {
+        "date": "2013-11-01",
+        "ticker": "ACAD",
+        "rank": 1,
+        "posterior": 0.895905,
+        "weight": 0.3333,
+        "forward_return": 0.111111
+      },
+      {
+        "date": "2013-11-01",
+        "ticker": "TSLA",
+        "rank": 2,
+        "posterior": 0.844917,
+        "weight": 0.3333,
+        "forward_return": -0.234322
+      },
+      {
+        "date": "2013-11-01",
+        "ticker": "YELP",
+        "rank": 3,
+        "posterior": 0.836245,
+        "weight": 0.3333,
+        "forward_return": -0.107074
+      },
+      {
+        "date": "2013-12-02",
         "ticker": "TSLA",
         "rank": 1,
         "posterior": 0.886613,
         "weight": 0.3333,
-        "forward_return": 0.449083
+        "forward_return": 0.208827
       },
       {
-        "date": "2013-12-04",
+        "date": "2013-12-02",
         "ticker": "YELP",
         "rank": 2,
         "posterior": 0.877231,
         "weight": 0.3333,
-        "forward_return": -0.163786
+        "forward_return": 0.132756
       },
       {
-        "date": "2013-12-04",
+        "date": "2013-12-02",
         "ticker": "FANG",
         "rank": 3,
         "posterior": 0.841812,
         "weight": 0.3333,
-        "forward_return": 0.500893
+        "forward_return": 0.015684
       },
       {
-        "date": "2014-05-07",
+        "date": "2014-01-02",
+        "ticker": "MTDR",
+        "rank": 1,
+        "posterior": 0.854319,
+        "weight": 0.3333,
+        "forward_return": -0.003753
+      },
+      {
+        "date": "2014-01-02",
+        "ticker": "CNK",
+        "rank": 2,
+        "posterior": 0.819786,
+        "weight": 0.3333,
+        "forward_return": -0.152003
+      },
+      {
+        "date": "2014-01-02",
+        "ticker": "ACAD",
+        "rank": 3,
+        "posterior": 0.80863,
+        "weight": 0.3333,
+        "forward_return": -0.112923
+      },
+      {
+        "date": "2014-02-03",
+        "ticker": "CNK",
+        "rank": 1,
+        "posterior": 0.876083,
+        "weight": 0.3333,
+        "forward_return": 0.061184
+      },
+      {
+        "date": "2014-02-03",
+        "ticker": "BBY",
+        "rank": 2,
+        "posterior": 0.830184,
+        "weight": 0.3333,
+        "forward_return": 0.133507
+      },
+      {
+        "date": "2014-02-03",
+        "ticker": "LZB",
+        "rank": 3,
+        "posterior": 0.80698,
+        "weight": 0.3333,
+        "forward_return": -0.022264
+      },
+      {
+        "date": "2014-03-03",
+        "ticker": "PEP",
+        "rank": 1,
+        "posterior": 0.829656,
+        "weight": 0.3333,
+        "forward_return": 0.049628
+      },
+      {
+        "date": "2014-03-03",
+        "ticker": "UNH",
+        "rank": 2,
+        "posterior": 0.809825,
+        "weight": 0.3333,
+        "forward_return": 0.065313
+      },
+      {
+        "date": "2014-03-03",
+        "ticker": "CNK",
+        "rank": 3,
+        "posterior": 0.787468,
+        "weight": 0.3333,
+        "forward_return": 0.00102
+      },
+      {
+        "date": "2014-04-01",
+        "ticker": "PEP",
+        "rank": 1,
+        "posterior": 0.844151,
+        "weight": 0.3333,
+        "forward_return": 0.032457
+      },
+      {
+        "date": "2014-04-01",
+        "ticker": "UNH",
+        "rank": 2,
+        "posterior": 0.809825,
+        "weight": 0.3333,
+        "forward_return": -0.084189
+      },
+      {
+        "date": "2014-04-01",
+        "ticker": "AROC",
+        "rank": 3,
+        "posterior": 0.772424,
+        "weight": 0.3333,
+        "forward_return": -0.02646
+      },
+      {
+        "date": "2014-05-01",
         "ticker": "PEP",
         "rank": 1,
         "posterior": 0.899732,
         "weight": 0.3333,
-        "forward_return": 0.091467
+        "forward_return": 0.026879
       },
       {
-        "date": "2014-05-07",
+        "date": "2014-05-01",
         "ticker": "ESS",
         "rank": 2,
-        "posterior": 0.769777,
+        "posterior": 0.778989,
         "weight": 0.3333,
-        "forward_return": 0.0182
+        "forward_return": 0.038468
       },
       {
-        "date": "2014-05-07",
+        "date": "2014-05-01",
         "ticker": "ALNY",
         "rank": 3,
         "posterior": 0.7485,
         "weight": 0.3333,
-        "forward_return": 0.559775
+        "forward_return": 0.06467
       },
       {
-        "date": "2014-10-06",
+        "date": "2014-06-02",
+        "ticker": "SEM",
+        "rank": 1,
+        "posterior": 0.856113,
+        "weight": 0.3333,
+        "forward_return": 0.0415
+      },
+      {
+        "date": "2014-06-02",
+        "ticker": "CTAS",
+        "rank": 2,
+        "posterior": 0.851346,
+        "weight": 0.3333,
+        "forward_return": 0.02909
+      },
+      {
+        "date": "2014-06-02",
+        "ticker": "JOE",
+        "rank": 3,
+        "posterior": 0.826162,
+        "weight": 0.3333,
+        "forward_return": 0.105908
+      },
+      {
+        "date": "2014-07-01",
+        "ticker": "TRGP",
+        "rank": 1,
+        "posterior": 0.793059,
+        "weight": 0.3333,
+        "forward_return": -0.08062
+      },
+      {
+        "date": "2014-07-01",
+        "ticker": "TRN",
+        "rank": 2,
+        "posterior": 0.72577,
+        "weight": 0.3333,
+        "forward_return": 0.005935
+      },
+      {
+        "date": "2014-07-01",
+        "ticker": "GILD",
+        "rank": 3,
+        "posterior": 0.714172,
+        "weight": 0.3333,
+        "forward_return": 0.07281
+      },
+      {
+        "date": "2014-08-01",
+        "ticker": "CMG",
+        "rank": 1,
+        "posterior": 0.814115,
+        "weight": 0.3333,
+        "forward_return": 0.011494
+      },
+      {
+        "date": "2014-08-01",
+        "ticker": "DECK",
+        "rank": 2,
+        "posterior": 0.7985,
+        "weight": 0.3333,
+        "forward_return": 0.053977
+      },
+      {
+        "date": "2014-08-01",
+        "ticker": "GILD",
+        "rank": 3,
+        "posterior": 0.789018,
+        "weight": 0.3333,
+        "forward_return": 0.195191
+      },
+      {
+        "date": "2014-09-02",
         "ticker": "CENX",
         "rank": 1,
-        "posterior": 0.849838,
+        "posterior": 0.784057,
         "weight": 0.3333,
-        "forward_return": -0.372812
+        "forward_return": -0.101595
       },
       {
-        "date": "2014-10-06",
-        "ticker": "MNST",
+        "date": "2014-09-02",
+        "ticker": "TRN",
         "rank": 2,
-        "posterior": 0.848593,
+        "posterior": 0.749814,
         "weight": 0.3333,
-        "forward_return": 0.48544
+        "forward_return": -0.131696
       },
       {
-        "date": "2014-10-06",
+        "date": "2014-09-02",
         "ticker": "CMG",
         "rank": 3,
-        "posterior": 0.818709,
+        "posterior": 0.738887,
         "weight": 0.3333,
-        "forward_return": -0.016077
+        "forward_return": -0.030268
       },
       {
-        "date": "2015-03-09",
+        "date": "2014-10-01",
+        "ticker": "CENX",
+        "rank": 1,
+        "posterior": 0.850263,
+        "weight": 0.3333,
+        "forward_return": 0.213785
+      },
+      {
+        "date": "2014-10-01",
+        "ticker": "MNST",
+        "rank": 2,
+        "posterior": 0.849089,
+        "weight": 0.3333,
+        "forward_return": 0.118193
+      },
+      {
+        "date": "2014-10-01",
+        "ticker": "CMG",
+        "rank": 3,
+        "posterior": 0.819281,
+        "weight": 0.3333,
+        "forward_return": -0.035788
+      },
+      {
+        "date": "2014-11-03",
+        "ticker": "LUV",
+        "rank": 1,
+        "posterior": 0.787514,
+        "weight": 0.3333,
+        "forward_return": 0.146984
+      },
+      {
+        "date": "2014-11-03",
+        "ticker": "GBX",
+        "rank": 2,
+        "posterior": 0.760825,
+        "weight": 0.3333,
+        "forward_return": -0.221262
+      },
+      {
+        "date": "2014-11-03",
+        "ticker": "PTEN",
+        "rank": 3,
+        "posterior": 0.750525,
+        "weight": 0.3333,
+        "forward_return": -0.228721
+      },
+      {
+        "date": "2014-12-01",
+        "ticker": "CNK",
+        "rank": 1,
+        "posterior": 0.861198,
+        "weight": 0.3333,
+        "forward_return": -0.028929
+      },
+      {
+        "date": "2014-12-01",
+        "ticker": "CENX",
+        "rank": 2,
+        "posterior": 0.816627,
+        "weight": 0.3333,
+        "forward_return": -0.107815
+      },
+      {
+        "date": "2014-12-01",
+        "ticker": "ENPH",
+        "rank": 3,
+        "posterior": 0.771444,
+        "weight": 0.3333,
+        "forward_return": 0.353333
+      },
+      {
+        "date": "2015-01-02",
+        "ticker": "CNK",
+        "rank": 1,
+        "posterior": 0.861198,
+        "weight": 0.3333,
+        "forward_return": 0.080779
+      },
+      {
+        "date": "2015-01-02",
+        "ticker": "MNST",
+        "rank": 2,
+        "posterior": 0.747356,
+        "weight": 0.3333,
+        "forward_return": 0.086816
+      },
+      {
+        "date": "2015-01-02",
+        "ticker": "EW",
+        "rank": 3,
+        "posterior": 0.680016,
+        "weight": 0.3333,
+        "forward_return": -0.017539
+      },
+      {
+        "date": "2015-02-02",
+        "ticker": "CNK",
+        "rank": 1,
+        "posterior": 0.886349,
+        "weight": 0.3333,
+        "forward_return": 0.096581
+      },
+      {
+        "date": "2015-02-02",
+        "ticker": "ACAD",
+        "rank": 2,
+        "posterior": 0.849828,
+        "weight": 0.3333,
+        "forward_return": 0.228865
+      },
+      {
+        "date": "2015-02-02",
+        "ticker": "SWKS",
+        "rank": 3,
+        "posterior": 0.75488,
+        "weight": 0.3333,
+        "forward_return": 0.112834
+      },
+      {
+        "date": "2015-03-02",
         "ticker": "KLIC",
         "rank": 1,
-        "posterior": 0.69869,
+        "posterior": 0.702168,
         "weight": 0.3333,
-        "forward_return": -0.35953
+        "forward_return": -0.040416
       },
       {
-        "date": "2015-03-09",
+        "date": "2015-03-02",
         "ticker": "UNH",
         "rank": 2,
         "posterior": 0.69085,
         "weight": 0.3333,
-        "forward_return": 0.070208
+        "forward_return": 0.030096
       },
       {
-        "date": "2015-03-09",
+        "date": "2015-03-02",
         "ticker": "AEP",
         "rank": 3,
         "posterior": 0.679574,
         "weight": 0.3333,
-        "forward_return": 0.039052
+        "forward_return": 0.003918
       },
       {
-        "date": "2015-08-06",
+        "date": "2015-04-01",
+        "ticker": "MNST",
+        "rank": 1,
+        "posterior": 0.757226,
+        "weight": 0.3333,
+        "forward_return": 0.032785
+      },
+      {
+        "date": "2015-04-01",
+        "ticker": "SWKS",
+        "rank": 2,
+        "posterior": 0.715273,
+        "weight": 0.3333,
+        "forward_return": 0.015076
+      },
+      {
+        "date": "2015-04-01",
+        "ticker": "PTCT",
+        "rank": 3,
+        "posterior": 0.713937,
+        "weight": 0.3333,
+        "forward_return": -0.040398
+      },
+      {
+        "date": "2015-05-01",
+        "ticker": "BXMT",
+        "rank": 1,
+        "posterior": 0.887367,
+        "weight": 0.3333,
+        "forward_return": -0.022501
+      },
+      {
+        "date": "2015-05-01",
+        "ticker": "RITM",
+        "rank": 2,
+        "posterior": 0.867976,
+        "weight": 0.3333,
+        "forward_return": 0.035264
+      },
+      {
+        "date": "2015-05-01",
+        "ticker": "JBLU",
+        "rank": 3,
+        "posterior": 0.810357,
+        "weight": 0.3333,
+        "forward_return": -0.039889
+      },
+      {
+        "date": "2015-06-01",
+        "ticker": "INCY",
+        "rank": 1,
+        "posterior": 0.792353,
+        "weight": 0.3333,
+        "forward_return": -0.047684
+      },
+      {
+        "date": "2015-06-01",
+        "ticker": "NBIX",
+        "rank": 2,
+        "posterior": 0.791208,
+        "weight": 0.3333,
+        "forward_return": 0.140737
+      },
+      {
+        "date": "2015-06-01",
+        "ticker": "SWKS",
+        "rank": 3,
+        "posterior": 0.78993,
+        "weight": 0.3333,
+        "forward_return": -0.050617
+      },
+      {
+        "date": "2015-07-01",
+        "ticker": "AMN",
+        "rank": 1,
+        "posterior": 0.844619,
+        "weight": 0.3333,
+        "forward_return": -0.055361
+      },
+      {
+        "date": "2015-07-01",
+        "ticker": "UNH",
+        "rank": 2,
+        "posterior": 0.798983,
+        "weight": 0.3333,
+        "forward_return": -0.020182
+      },
+      {
+        "date": "2015-07-01",
+        "ticker": "CNC",
+        "rank": 3,
+        "posterior": 0.786509,
+        "weight": 0.3333,
+        "forward_return": -0.122744
+      },
+      {
+        "date": "2015-08-03",
         "ticker": "CNC",
         "rank": 1,
         "posterior": 0.788164,
         "weight": 0.3333,
-        "forward_return": -0.064123
+        "forward_return": -0.164154
       },
       {
-        "date": "2015-08-06",
+        "date": "2015-08-03",
         "ticker": "IBKR",
         "rank": 2,
         "posterior": 0.763088,
         "weight": 0.3333,
-        "forward_return": -0.070292
+        "forward_return": -0.092228
       },
       {
-        "date": "2015-08-06",
+        "date": "2015-08-03",
         "ticker": "AMN",
         "rank": 3,
-        "posterior": 0.760744,
+        "posterior": 0.760843,
         "weight": 0.3333,
-        "forward_return": -0.137197
+        "forward_return": 0.108791
       },
       {
-        "date": "2016-01-06",
+        "date": "2015-09-01",
+        "ticker": "CTAS",
+        "rank": 1,
+        "posterior": 0.826798,
+        "weight": 0.3333,
+        "forward_return": 0.029256
+      },
+      {
+        "date": "2015-09-01",
+        "ticker": "NEOG",
+        "rank": 2,
+        "posterior": 0.82407,
+        "weight": 0.3333,
+        "forward_return": -0.133623
+      },
+      {
+        "date": "2015-09-01",
+        "ticker": "SYK",
+        "rank": 3,
+        "posterior": 0.787898,
+        "weight": 0.3333,
+        "forward_return": -0.002209
+      },
+      {
+        "date": "2015-10-01",
+        "ticker": "AMWD",
+        "rank": 1,
+        "posterior": 0.80423,
+        "weight": 0.3333,
+        "forward_return": 0.120877
+      },
+      {
+        "date": "2015-10-01",
+        "ticker": "FIX",
+        "rank": 2,
+        "posterior": 0.784624,
+        "weight": 0.3333,
+        "forward_return": 0.138697
+      },
+      {
+        "date": "2015-10-01",
+        "ticker": "NBIX",
+        "rank": 3,
+        "posterior": 0.781432,
+        "weight": 0.3333,
+        "forward_return": 0.280098
+      },
+      {
+        "date": "2015-11-02",
+        "ticker": "AX",
+        "rank": 1,
+        "posterior": 0.810939,
+        "weight": 0.3333,
+        "forward_return": -0.071196
+      },
+      {
+        "date": "2015-11-02",
+        "ticker": "INCY",
+        "rank": 2,
+        "posterior": 0.802654,
+        "weight": 0.3333,
+        "forward_return": -0.069955
+      },
+      {
+        "date": "2015-11-02",
+        "ticker": "MKTX",
+        "rank": 3,
+        "posterior": 0.801175,
+        "weight": 0.3333,
+        "forward_return": 0.077778
+      },
+      {
+        "date": "2015-12-01",
+        "ticker": "MKTX",
+        "rank": 1,
+        "posterior": 0.819331,
+        "weight": 0.3333,
+        "forward_return": 0.02418
+      },
+      {
+        "date": "2015-12-01",
+        "ticker": "AZO",
+        "rank": 2,
+        "posterior": 0.748655,
+        "weight": 0.3333,
+        "forward_return": -0.056157
+      },
+      {
+        "date": "2015-12-01",
+        "ticker": "AMZN",
+        "rank": 3,
+        "posterior": 0.743846,
+        "weight": 0.3333,
+        "forward_return": -0.061953
+      },
+      {
+        "date": "2016-01-04",
         "ticker": "MNST",
         "rank": 1,
-        "posterior": 0.828172,
+        "posterior": 0.825117,
         "weight": 0.3333,
-        "forward_return": 0.051402
+        "forward_return": -0.047873
       },
       {
-        "date": "2016-01-06",
+        "date": "2016-01-04",
         "ticker": "LGIH",
         "rank": 2,
-        "posterior": 0.799095,
+        "posterior": 0.802246,
         "weight": 0.3333,
-        "forward_return": 0.281084
+        "forward_return": -0.066009
       },
       {
-        "date": "2016-01-06",
+        "date": "2016-01-04",
         "ticker": "ABCB",
         "rank": 3,
-        "posterior": 0.790656,
+        "posterior": 0.78928,
         "weight": 0.3333,
-        "forward_return": -0.011661
+        "forward_return": -0.121352
       },
       {
-        "date": "2016-06-07",
+        "date": "2016-02-01",
+        "ticker": "ABCB",
+        "rank": 1,
+        "posterior": 0.863874,
+        "weight": 0.3333,
+        "forward_return": -0.035315
+      },
+      {
+        "date": "2016-02-01",
+        "ticker": "SYK",
+        "rank": 2,
+        "posterior": 0.825275,
+        "weight": 0.3333,
+        "forward_return": 0.017646
+      },
+      {
+        "date": "2016-02-01",
+        "ticker": "AMZN",
+        "rank": 3,
+        "posterior": 0.804182,
+        "weight": 0.3333,
+        "forward_return": 0.007359
+      },
+      {
+        "date": "2016-03-01",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.876176,
+        "weight": 0.3333,
+        "forward_return": 0.07921
+      },
+      {
+        "date": "2016-03-01",
+        "ticker": "ABCB",
+        "rank": 2,
+        "posterior": 0.848421,
+        "weight": 0.3333,
+        "forward_return": 0.069637
+      },
+      {
+        "date": "2016-03-01",
+        "ticker": "MCD",
+        "rank": 3,
+        "posterior": 0.84195,
+        "weight": 0.3333,
+        "forward_return": 0.068742
+      },
+      {
+        "date": "2016-04-01",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.876176,
+        "weight": 0.3333,
+        "forward_return": 0.013085
+      },
+      {
+        "date": "2016-04-01",
+        "ticker": "DPZ",
+        "rank": 2,
+        "posterior": 0.851523,
+        "weight": 0.3333,
+        "forward_return": -0.098149
+      },
+      {
+        "date": "2016-04-01",
+        "ticker": "TTWO",
+        "rank": 3,
+        "posterior": 0.829056,
+        "weight": 0.3333,
+        "forward_return": -0.067386
+      },
+      {
+        "date": "2016-05-02",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.823218,
+        "weight": 0.3333,
+        "forward_return": 0.015645
+      },
+      {
+        "date": "2016-05-02",
+        "ticker": "SRPT",
+        "rank": 2,
+        "posterior": 0.785619,
+        "weight": 0.3333,
+        "forward_return": 0.194754
+      },
+      {
+        "date": "2016-05-02",
+        "ticker": "AEP",
+        "rank": 3,
+        "posterior": 0.770925,
+        "weight": 0.3333,
+        "forward_return": 0.016977
+      },
+      {
+        "date": "2016-06-01",
         "ticker": "SYK",
         "rank": 1,
         "posterior": 0.80529,
         "weight": 0.3333,
-        "forward_return": 0.033926
+        "forward_return": 0.081944
       },
       {
-        "date": "2016-06-07",
-        "ticker": "DGX",
-        "rank": 2,
-        "posterior": 0.770935,
-        "weight": 0.3333,
-        "forward_return": 0.050339
-      },
-      {
-        "date": "2016-06-07",
+        "date": "2016-06-01",
         "ticker": "UNH",
-        "rank": 3,
+        "rank": 2,
         "posterior": 0.766639,
         "weight": 0.3333,
-        "forward_return": 0.015751
+        "forward_return": 0.051821
       },
       {
-        "date": "2016-11-03",
+        "date": "2016-06-01",
+        "ticker": "EW",
+        "rank": 3,
+        "posterior": 0.76607,
+        "weight": 0.3333,
+        "forward_return": -0.01262
+      },
+      {
+        "date": "2016-07-01",
+        "ticker": "ABCB",
+        "rank": 1,
+        "posterior": 0.781561,
+        "weight": 0.3333,
+        "forward_return": 0.117488
+      },
+      {
+        "date": "2016-07-01",
+        "ticker": "CB",
+        "rank": 2,
+        "posterior": 0.751281,
+        "weight": 0.3333,
+        "forward_return": -0.038751
+      },
+      {
+        "date": "2016-07-01",
+        "ticker": "PM",
+        "rank": 3,
+        "posterior": 0.750158,
+        "weight": 0.3333,
+        "forward_return": -0.011158
+      },
+      {
+        "date": "2016-08-01",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.928033,
+        "weight": 0.3333,
+        "forward_return": -0.015296
+      },
+      {
+        "date": "2016-08-01",
+        "ticker": "ABCB",
+        "rank": 2,
+        "posterior": 0.858776,
+        "weight": 0.3333,
+        "forward_return": 0.063202
+      },
+      {
+        "date": "2016-08-01",
+        "ticker": "FIZZ",
+        "rank": 3,
+        "posterior": 0.841659,
+        "weight": 0.3333,
+        "forward_return": -0.137688
+      },
+      {
+        "date": "2016-09-01",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.884707,
+        "weight": 0.3333,
+        "forward_return": 0.013858
+      },
+      {
+        "date": "2016-09-01",
+        "ticker": "MDU",
+        "rank": 2,
+        "posterior": 0.825551,
+        "weight": 0.3333,
+        "forward_return": 0.082764
+      },
+      {
+        "date": "2016-09-01",
+        "ticker": "ABCB",
+        "rank": 3,
+        "posterior": 0.825382,
+        "weight": 0.3333,
+        "forward_return": 0.003761
+      },
+      {
+        "date": "2016-10-03",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.884707,
+        "weight": 0.3333,
+        "forward_return": -0.014255
+      },
+      {
+        "date": "2016-10-03",
+        "ticker": "ABCB",
+        "rank": 2,
+        "posterior": 0.877404,
+        "weight": 0.3333,
+        "forward_return": 0.035123
+      },
+      {
+        "date": "2016-10-03",
+        "ticker": "AMD",
+        "rank": 3,
+        "posterior": 0.817379,
+        "weight": 0.3333,
+        "forward_return": 0.020144
+      },
+      {
+        "date": "2016-11-01",
         "ticker": "OLED",
         "rank": 1,
-        "posterior": 0.854941,
+        "posterior": 0.867355,
         "weight": 0.3333,
-        "forward_return": 0.620412
+        "forward_return": 0.046511
       },
       {
-        "date": "2016-11-03",
+        "date": "2016-11-01",
         "ticker": "GNW",
         "rank": 2,
-        "posterior": 0.838425,
+        "posterior": 0.816805,
         "weight": 0.3333,
-        "forward_return": -0.014599
+        "forward_return": 0.044776
       },
       {
-        "date": "2016-11-03",
+        "date": "2016-11-01",
         "ticker": "MELI",
         "rank": 3,
-        "posterior": 0.771087,
+        "posterior": 0.769975,
         "weight": 0.3333,
-        "forward_return": 0.314691
+        "forward_return": -0.108899
       },
       {
-        "date": "2017-04-06",
+        "date": "2016-12-01",
+        "ticker": "SYK",
+        "rank": 1,
+        "posterior": 0.764086,
+        "weight": 0.3333,
+        "forward_return": 0.072497
+      },
+      {
+        "date": "2016-12-01",
+        "ticker": "AEP",
+        "rank": 2,
+        "posterior": 0.709337,
+        "weight": 0.3333,
+        "forward_return": 0.079092
+      },
+      {
+        "date": "2016-12-01",
+        "ticker": "DPZ",
+        "rank": 3,
+        "posterior": 0.701339,
+        "weight": 0.3333,
+        "forward_return": -0.059083
+      },
+      {
+        "date": "2017-01-03",
+        "ticker": "CENX",
+        "rank": 1,
+        "posterior": 0.824737,
+        "weight": 0.3333,
+        "forward_return": 0.804906
+      },
+      {
+        "date": "2017-01-03",
+        "ticker": "CC",
+        "rank": 2,
+        "posterior": 0.816437,
+        "weight": 0.3333,
+        "forward_return": 0.262959
+      },
+      {
+        "date": "2017-01-03",
+        "ticker": "ABCB",
+        "rank": 3,
+        "posterior": 0.788203,
+        "weight": 0.3333,
+        "forward_return": 0.030892
+      },
+      {
+        "date": "2017-02-01",
+        "ticker": "AMD",
+        "rank": 1,
+        "posterior": 0.859772,
+        "weight": 0.3333,
+        "forward_return": 0.240464
+      },
+      {
+        "date": "2017-02-01",
+        "ticker": "NSIT",
+        "rank": 2,
+        "posterior": 0.846589,
+        "weight": 0.3333,
+        "forward_return": 0.148802
+      },
+      {
+        "date": "2017-02-01",
+        "ticker": "CC",
+        "rank": 3,
+        "posterior": 0.846442,
+        "weight": 0.3333,
+        "forward_return": 0.296632
+      },
+      {
+        "date": "2017-03-01",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.840294,
+        "weight": 0.3333,
+        "forward_return": 0.054383
+      },
+      {
+        "date": "2017-03-01",
+        "ticker": "FBP",
+        "rank": 2,
+        "posterior": 0.8366,
+        "weight": 0.3333,
+        "forward_return": -0.137615
+      },
+      {
+        "date": "2017-03-01",
+        "ticker": "SM",
+        "rank": 3,
+        "posterior": 0.826782,
+        "weight": 0.3333,
+        "forward_return": -0.072933
+      },
+      {
+        "date": "2017-04-03",
         "ticker": "CC",
         "rank": 1,
-        "posterior": 0.849852,
+        "posterior": 0.848988,
         "weight": 0.3333,
-        "forward_return": 0.273157
+        "forward_return": 0.066527
       },
       {
-        "date": "2017-04-06",
+        "date": "2017-04-03",
         "ticker": "NSIT",
         "rank": 2,
-        "posterior": 0.827839,
+        "posterior": 0.828184,
         "weight": 0.3333,
-        "forward_return": -0.039349
+        "forward_return": 0.02871
       },
       {
-        "date": "2017-04-06",
-        "ticker": "AGX",
+        "date": "2017-04-03",
+        "ticker": "MASI",
         "rank": 3,
-        "posterior": 0.786615,
+        "posterior": 0.778449,
         "weight": 0.3333,
-        "forward_return": -0.014008
+        "forward_return": 0.121417
       },
       {
-        "date": "2017-09-06",
+        "date": "2017-05-01",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.827045,
+        "weight": 0.3333,
+        "forward_return": 0.355139
+      },
+      {
+        "date": "2017-05-01",
+        "ticker": "GKOS",
+        "rank": 2,
+        "posterior": 0.764424,
+        "weight": 0.3333,
+        "forward_return": -0.14345
+      },
+      {
+        "date": "2017-05-01",
+        "ticker": "CC",
+        "rank": 3,
+        "posterior": 0.764103,
+        "weight": 0.3333,
+        "forward_return": 0.0201
+      },
+      {
+        "date": "2017-06-01",
+        "ticker": "ABCB",
+        "rank": 1,
+        "posterior": 0.751381,
+        "weight": 0.3333,
+        "forward_return": 0.121567
+      },
+      {
+        "date": "2017-06-01",
+        "ticker": "SBRA",
+        "rank": 2,
+        "posterior": 0.73552,
+        "weight": 0.3333,
+        "forward_return": 0.042199
+      },
+      {
+        "date": "2017-06-01",
+        "ticker": "CC",
+        "rank": 3,
+        "posterior": 0.733146,
+        "weight": 0.3333,
+        "forward_return": -0.082149
+      },
+      {
+        "date": "2017-07-03",
         "ticker": "EXTR",
         "rank": 1,
-        "posterior": 0.813631,
+        "posterior": 0.917819,
         "weight": 0.3333,
-        "forward_return": 0.221828
+        "forward_return": -0.026316
       },
       {
-        "date": "2017-09-06",
-        "ticker": "NSIT",
+        "date": "2017-07-03",
+        "ticker": "CC",
         "rank": 2,
-        "posterior": 0.774618,
+        "posterior": 0.903425,
         "weight": 0.3333,
-        "forward_return": -0.125917
+        "forward_return": 0.258268
       },
       {
-        "date": "2017-09-06",
+        "date": "2017-07-03",
         "ticker": "SYK",
         "rank": 3,
-        "posterior": 0.768582,
+        "posterior": 0.8713,
         "weight": 0.3333,
-        "forward_return": 0.098884
+        "forward_return": 0.069816
       },
       {
-        "date": "2018-02-06",
+        "date": "2017-08-01",
+        "ticker": "EXTR",
+        "rank": 1,
+        "posterior": 0.882196,
+        "weight": 0.3333,
+        "forward_return": 0.296171
+      },
+      {
+        "date": "2017-08-01",
+        "ticker": "ABCB",
+        "rank": 2,
+        "posterior": 0.855974,
+        "weight": 0.3333,
+        "forward_return": -0.038668
+      },
+      {
+        "date": "2017-08-01",
+        "ticker": "DXPE",
+        "rank": 3,
+        "posterior": 0.836458,
+        "weight": 0.3333,
+        "forward_return": -0.064685
+      },
+      {
+        "date": "2017-09-01",
+        "ticker": "EXTR",
+        "rank": 1,
+        "posterior": 0.795504,
+        "weight": 0.3333,
+        "forward_return": 0.054735
+      },
+      {
+        "date": "2017-09-01",
+        "ticker": "NSIT",
+        "rank": 2,
+        "posterior": 0.774776,
+        "weight": 0.3333,
+        "forward_return": 0.164912
+      },
+      {
+        "date": "2017-09-01",
+        "ticker": "SYK",
+        "rank": 3,
+        "posterior": 0.768935,
+        "weight": 0.3333,
+        "forward_return": 0.020227
+      },
+      {
+        "date": "2017-10-02",
+        "ticker": "TGTX",
+        "rank": 1,
+        "posterior": 0.784597,
+        "weight": 0.3333,
+        "forward_return": -0.35
+      },
+      {
+        "date": "2017-10-02",
+        "ticker": "CENX",
+        "rank": 2,
+        "posterior": 0.776393,
+        "weight": 0.3333,
+        "forward_return": -0.186833
+      },
+      {
+        "date": "2017-10-02",
+        "ticker": "CC",
+        "rank": 3,
+        "posterior": 0.770482,
+        "weight": 0.3333,
+        "forward_return": 0.079999
+      },
+      {
+        "date": "2017-11-01",
+        "ticker": "UCTT",
+        "rank": 1,
+        "posterior": 0.908553,
+        "weight": 0.3333,
+        "forward_return": -0.163182
+      },
+      {
+        "date": "2017-11-01",
+        "ticker": "FIZZ",
+        "rank": 2,
+        "posterior": 0.870551,
+        "weight": 0.3333,
+        "forward_return": 0.113174
+      },
+      {
+        "date": "2017-11-01",
+        "ticker": "TGTX",
+        "rank": 3,
+        "posterior": 0.849887,
+        "weight": 0.3333,
+        "forward_return": 0.067308
+      },
+      {
+        "date": "2017-12-01",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.846671,
+        "weight": 0.3333,
+        "forward_return": 0.008448
+      },
+      {
+        "date": "2017-12-01",
+        "ticker": "CC",
+        "rank": 2,
+        "posterior": 0.82167,
+        "weight": 0.3333,
+        "forward_return": -0.001929
+      },
+      {
+        "date": "2017-12-01",
+        "ticker": "MU",
+        "rank": 3,
+        "posterior": 0.819102,
+        "weight": 0.3333,
+        "forward_return": 0.04001
+      },
+      {
+        "date": "2018-01-02",
+        "ticker": "ALGN",
+        "rank": 1,
+        "posterior": 0.841294,
+        "weight": 0.3333,
+        "forward_return": 0.137788
+      },
+      {
+        "date": "2018-01-02",
+        "ticker": "TREX",
+        "rank": 2,
+        "posterior": 0.796652,
+        "weight": 0.3333,
+        "forward_return": 0.025927
+      },
+      {
+        "date": "2018-01-02",
+        "ticker": "LNTH",
+        "rank": 3,
+        "posterior": 0.794158,
+        "weight": 0.3333,
+        "forward_return": 0.102381
+      },
+      {
+        "date": "2018-02-01",
         "ticker": "OLED",
         "rank": 1,
-        "posterior": 0.824358,
+        "posterior": 0.8309,
         "weight": 0.3333,
-        "forward_return": -0.40785
+        "forward_return": -0.19
       },
       {
-        "date": "2018-02-06",
-        "ticker": "PCRX",
-        "rank": 2,
-        "posterior": 0.784698,
-        "weight": 0.3333,
-        "forward_return": -0.086436
-      },
-      {
-        "date": "2018-02-06",
-        "ticker": "FIX",
-        "rank": 3,
-        "posterior": 0.783911,
-        "weight": 0.3333,
-        "forward_return": 0.170214
-      },
-      {
-        "date": "2018-07-09",
-        "ticker": "NSIT",
-        "rank": 1,
-        "posterior": 0.78269,
-        "weight": 0.3333,
-        "forward_return": -0.124475
-      },
-      {
-        "date": "2018-07-09",
+        "date": "2018-02-01",
         "ticker": "SEDG",
         "rank": 2,
-        "posterior": 0.774943,
+        "posterior": 0.780723,
         "weight": 0.3333,
-        "forward_return": -0.256353
+        "forward_return": 0.40678
       },
       {
-        "date": "2018-07-09",
+        "date": "2018-02-01",
+        "ticker": "PCRX",
+        "rank": 3,
+        "posterior": 0.754459,
+        "weight": 0.3333,
+        "forward_return": -0.160462
+      },
+      {
+        "date": "2018-03-01",
+        "ticker": "PCRX",
+        "rank": 1,
+        "posterior": 0.804052,
+        "weight": 0.3333,
+        "forward_return": -0.159021
+      },
+      {
+        "date": "2018-03-01",
+        "ticker": "LNTH",
+        "rank": 2,
+        "posterior": 0.798683,
+        "weight": 0.3333,
+        "forward_return": 0.070707
+      },
+      {
+        "date": "2018-03-01",
+        "ticker": "TRUP",
+        "rank": 3,
+        "posterior": 0.766893,
+        "weight": 0.3333,
+        "forward_return": -0.047587
+      },
+      {
+        "date": "2018-04-02",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.794727,
+        "weight": 0.3333,
+        "forward_return": 0.02755
+      },
+      {
+        "date": "2018-04-02",
+        "ticker": "CNK",
+        "rank": 2,
+        "posterior": 0.726376,
+        "weight": 0.3333,
+        "forward_return": 0.026897
+      },
+      {
+        "date": "2018-04-02",
+        "ticker": "MNST",
+        "rank": 3,
+        "posterior": 0.72003,
+        "weight": 0.3333,
+        "forward_return": -0.007551
+      },
+      {
+        "date": "2018-05-01",
+        "ticker": "COLL",
+        "rank": 1,
+        "posterior": 0.760758,
+        "weight": 0.3333,
+        "forward_return": 0.015417
+      },
+      {
+        "date": "2018-05-01",
+        "ticker": "ALNY",
+        "rank": 2,
+        "posterior": 0.739606,
+        "weight": 0.3333,
+        "forward_return": 0.091886
+      },
+      {
+        "date": "2018-05-01",
+        "ticker": "CNP",
+        "rank": 3,
+        "posterior": 0.723685,
+        "weight": 0.3333,
+        "forward_return": 0.019524
+      },
+      {
+        "date": "2018-06-01",
+        "ticker": "COLL",
+        "rank": 1,
+        "posterior": 0.759655,
+        "weight": 0.3333,
+        "forward_return": -0.002873
+      },
+      {
+        "date": "2018-06-01",
+        "ticker": "AEP",
+        "rank": 2,
+        "posterior": 0.730153,
+        "weight": 0.3333,
+        "forward_return": 0.05054
+      },
+      {
+        "date": "2018-06-01",
+        "ticker": "VCEL",
+        "rank": 3,
+        "posterior": 0.72959,
+        "weight": 0.3333,
+        "forward_return": -0.305556
+      },
+      {
+        "date": "2018-07-02",
+        "ticker": "NSIT",
+        "rank": 1,
+        "posterior": 0.782313,
+        "weight": 0.3333,
+        "forward_return": -0.02848
+      },
+      {
+        "date": "2018-07-02",
+        "ticker": "SEDG",
+        "rank": 2,
+        "posterior": 0.772572,
+        "weight": 0.3333,
+        "forward_return": 0.107284
+      },
+      {
+        "date": "2018-07-02",
         "ticker": "SFNC",
         "rank": 3,
         "posterior": 0.737278,
         "weight": 0.3333,
-        "forward_return": -0.115673
+        "forward_return": 0.008333
       },
       {
-        "date": "2018-12-06",
+        "date": "2018-08-01",
+        "ticker": "ENPH",
+        "rank": 1,
+        "posterior": 0.889266,
+        "weight": 0.3333,
+        "forward_return": -0.125224
+      },
+      {
+        "date": "2018-08-01",
+        "ticker": "NSIT",
+        "rank": 2,
+        "posterior": 0.801295,
+        "weight": 0.3333,
+        "forward_return": 0.131916
+      },
+      {
+        "date": "2018-08-01",
+        "ticker": "SYK",
+        "rank": 3,
+        "posterior": 0.774908,
+        "weight": 0.3333,
+        "forward_return": 0.021818
+      },
+      {
+        "date": "2018-09-04",
+        "ticker": "ENPH",
+        "rank": 1,
+        "posterior": 0.856751,
+        "weight": 0.3333,
+        "forward_return": 0.014315
+      },
+      {
+        "date": "2018-09-04",
+        "ticker": "MOH",
+        "rank": 2,
+        "posterior": 0.737646,
+        "weight": 0.3333,
+        "forward_return": 0.075661
+      },
+      {
+        "date": "2018-09-04",
+        "ticker": "PSX",
+        "rank": 3,
+        "posterior": 0.721849,
+        "weight": 0.3333,
+        "forward_return": -0.03766
+      },
+      {
+        "date": "2018-10-01",
+        "ticker": "AZZ",
+        "rank": 1,
+        "posterior": 0.801432,
+        "weight": 0.3333,
+        "forward_return": -0.078932
+      },
+      {
+        "date": "2018-10-01",
+        "ticker": "TNDM",
+        "rank": 2,
+        "posterior": 0.794735,
+        "weight": 0.3333,
+        "forward_return": 0.053928
+      },
+      {
+        "date": "2018-10-01",
+        "ticker": "STAA",
+        "rank": 3,
+        "posterior": 0.788792,
+        "weight": 0.3333,
+        "forward_return": -0.094833
+      },
+      {
+        "date": "2018-11-01",
+        "ticker": "VCEL",
+        "rank": 1,
+        "posterior": 0.850324,
+        "weight": 0.3333,
+        "forward_return": 0.545683
+      },
+      {
+        "date": "2018-11-01",
+        "ticker": "MOH",
+        "rank": 2,
+        "posterior": 0.824299,
+        "weight": 0.3333,
+        "forward_return": 0.109544
+      },
+      {
+        "date": "2018-11-01",
+        "ticker": "NOG",
+        "rank": 3,
+        "posterior": 0.820672,
+        "weight": 0.3333,
+        "forward_return": -0.061433
+      },
+      {
+        "date": "2018-12-03",
         "ticker": "SPSC",
         "rank": 1,
-        "posterior": 0.752579,
+        "posterior": 0.752425,
         "weight": 0.3333,
-        "forward_return": 0.244096
+        "forward_return": -0.0436
       },
       {
-        "date": "2018-12-06",
+        "date": "2018-12-03",
         "ticker": "NVDA",
         "rank": 2,
         "posterior": 0.740776,
         "weight": 0.3333,
-        "forward_return": 0.076287
+        "forward_return": -0.198894
       },
       {
-        "date": "2018-12-06",
+        "date": "2018-12-03",
         "ticker": "STAA",
         "rank": 3,
-        "posterior": 0.739451,
+        "posterior": 0.735795,
         "weight": 0.3333,
-        "forward_return": -0.238547
+        "forward_return": -0.211407
       },
       {
-        "date": "2019-05-09",
+        "date": "2019-01-02",
+        "ticker": "ETSY",
+        "rank": 1,
+        "posterior": 0.786407,
+        "weight": 0.3333,
+        "forward_return": 0.157021
+      },
+      {
+        "date": "2019-01-02",
+        "ticker": "SYK",
+        "rank": 2,
+        "posterior": 0.780109,
+        "weight": 0.3333,
+        "forward_return": 0.147637
+      },
+      {
+        "date": "2019-01-02",
+        "ticker": "ENSG",
+        "rank": 3,
+        "posterior": 0.774434,
+        "weight": 0.3333,
+        "forward_return": 0.143679
+      },
+      {
+        "date": "2019-02-01",
+        "ticker": "EVTC",
+        "rank": 1,
+        "posterior": 0.825223,
+        "weight": 0.3333,
+        "forward_return": 0.033622
+      },
+      {
+        "date": "2019-02-01",
+        "ticker": "ORLY",
+        "rank": 2,
+        "posterior": 0.803959,
+        "weight": 0.3333,
+        "forward_return": 0.070194
+      },
+      {
+        "date": "2019-02-01",
+        "ticker": "VCEL",
+        "rank": 3,
+        "posterior": 0.803581,
+        "weight": 0.3333,
+        "forward_return": 0.102798
+      },
+      {
+        "date": "2019-03-01",
+        "ticker": "EVTC",
+        "rank": 1,
+        "posterior": 0.821598,
+        "weight": 0.3333,
+        "forward_return": 0.005263
+      },
+      {
+        "date": "2019-03-01",
+        "ticker": "FOXF",
+        "rank": 2,
+        "posterior": 0.799571,
+        "weight": 0.3333,
+        "forward_return": 0.136413
+      },
+      {
+        "date": "2019-03-01",
+        "ticker": "FBP",
+        "rank": 3,
+        "posterior": 0.783369,
+        "weight": 0.3333,
+        "forward_return": 0.019982
+      },
+      {
+        "date": "2019-04-01",
         "ticker": "TNDM",
         "rank": 1,
-        "posterior": 0.912228,
+        "posterior": 0.883753,
         "weight": 0.3333,
-        "forward_return": -0.175257
+        "forward_return": -0.003842
       },
       {
-        "date": "2019-05-09",
+        "date": "2019-04-01",
+        "ticker": "AEE",
+        "rank": 2,
+        "posterior": 0.78875,
+        "weight": 0.3333,
+        "forward_return": -0.007556
+      },
+      {
+        "date": "2019-04-01",
+        "ticker": "ORLY",
+        "rank": 3,
+        "posterior": 0.788003,
+        "weight": 0.3333,
+        "forward_return": -0.045946
+      },
+      {
+        "date": "2019-05-01",
+        "ticker": "TNDM",
+        "rank": 1,
+        "posterior": 0.910358,
+        "weight": 0.3333,
+        "forward_return": 0.149061
+      },
+      {
+        "date": "2019-05-01",
         "ticker": "VCYT",
         "rank": 2,
-        "posterior": 0.827172,
+        "posterior": 0.827197,
         "weight": 0.3333,
-        "forward_return": 0.030517
+        "forward_return": -0.121971
       },
       {
-        "date": "2019-05-09",
+        "date": "2019-05-01",
         "ticker": "AES",
         "rank": 3,
-        "posterior": 0.817295,
+        "posterior": 0.817321,
         "weight": 0.3333,
-        "forward_return": -0.030093
+        "forward_return": -0.057397
       },
       {
-        "date": "2019-10-08",
+        "date": "2019-06-03",
+        "ticker": "VCYT",
+        "rank": 1,
+        "posterior": 0.825619,
+        "weight": 0.3333,
+        "forward_return": 0.300905
+      },
+      {
+        "date": "2019-06-03",
+        "ticker": "ORLY",
+        "rank": 2,
+        "posterior": 0.805887,
+        "weight": 0.3333,
+        "forward_return": 0.00032
+      },
+      {
+        "date": "2019-06-03",
+        "ticker": "PI",
+        "rank": 3,
+        "posterior": 0.803708,
+        "weight": 0.3333,
+        "forward_return": 0.245384
+      },
+      {
+        "date": "2019-07-01",
+        "ticker": "TNDM",
+        "rank": 1,
+        "posterior": 0.841786,
+        "weight": 0.3333,
+        "forward_return": -0.076793
+      },
+      {
+        "date": "2019-07-01",
+        "ticker": "AEP",
+        "rank": 2,
+        "posterior": 0.809822,
+        "weight": 0.3333,
+        "forward_return": 0.007716
+      },
+      {
+        "date": "2019-07-01",
+        "ticker": "PEP",
+        "rank": 3,
+        "posterior": 0.796457,
+        "weight": 0.3333,
+        "forward_return": -0.035869
+      },
+      {
+        "date": "2019-08-01",
+        "ticker": "IIPR",
+        "rank": 1,
+        "posterior": 0.801695,
+        "weight": 0.3333,
+        "forward_return": -0.108504
+      },
+      {
+        "date": "2019-08-01",
+        "ticker": "AEP",
+        "rank": 2,
+        "posterior": 0.79244,
+        "weight": 0.3333,
+        "forward_return": 0.052561
+      },
+      {
+        "date": "2019-08-01",
+        "ticker": "TSCO",
+        "rank": 3,
+        "posterior": 0.7878,
+        "weight": 0.3333,
+        "forward_return": -0.068758
+      },
+      {
+        "date": "2019-09-03",
+        "ticker": "AEP",
+        "rank": 1,
+        "posterior": 0.802302,
+        "weight": 0.3333,
+        "forward_return": 0.004742
+      },
+      {
+        "date": "2019-09-03",
+        "ticker": "MCD",
+        "rank": 2,
+        "posterior": 0.782885,
+        "weight": 0.3333,
+        "forward_return": -0.037351
+      },
+      {
+        "date": "2019-09-03",
+        "ticker": "BRO",
+        "rank": 3,
+        "posterior": 0.776068,
+        "weight": 0.3333,
+        "forward_return": -0.030386
+      },
+      {
+        "date": "2019-10-01",
         "ticker": "ENPH",
         "rank": 1,
-        "posterior": 0.825491,
+        "posterior": 0.827886,
         "weight": 0.3333,
-        "forward_return": 0.88
+        "forward_return": -0.132658
       },
       {
-        "date": "2019-10-08",
+        "date": "2019-10-01",
         "ticker": "AWR",
         "rank": 2,
-        "posterior": 0.777006,
+        "posterior": 0.778248,
         "weight": 0.3333,
-        "forward_return": -0.073298
+        "forward_return": 0.046
       },
       {
-        "date": "2019-10-08",
+        "date": "2019-10-01",
         "ticker": "AEP",
         "rank": 3,
-        "posterior": 0.773602,
+        "posterior": 0.773505,
         "weight": 0.3333,
-        "forward_return": 0.038292
+        "forward_return": 0.003647
       },
       {
-        "date": "2020-03-10",
+        "date": "2019-11-01",
+        "ticker": "ENPH",
+        "rank": 1,
+        "posterior": 0.783493,
+        "weight": 0.3333,
+        "forward_return": 0.172066
+      },
+      {
+        "date": "2019-11-01",
+        "ticker": "AEP",
+        "rank": 2,
+        "posterior": 0.778269,
+        "weight": 0.3333,
+        "forward_return": -0.027658
+      },
+      {
+        "date": "2019-11-01",
+        "ticker": "PHM",
+        "rank": 3,
+        "posterior": 0.775889,
+        "weight": 0.3333,
+        "forward_return": -0.022233
+      },
+      {
+        "date": "2019-12-02",
+        "ticker": "PHM",
+        "rank": 1,
+        "posterior": 0.805232,
+        "weight": 0.3333,
+        "forward_return": -0.00878
+      },
+      {
+        "date": "2019-12-02",
+        "ticker": "BRO",
+        "rank": 2,
+        "posterior": 0.773744,
+        "weight": 0.3333,
+        "forward_return": 0.052618
+      },
+      {
+        "date": "2019-12-02",
+        "ticker": "SPGI",
+        "rank": 3,
+        "posterior": 0.773296,
+        "weight": 0.3333,
+        "forward_return": 0.05969
+      },
+      {
+        "date": "2020-01-02",
         "ticker": "SPGI",
         "rank": 1,
-        "posterior": 0.862753,
+        "posterior": 0.833413,
         "weight": 0.3333,
-        "forward_return": 0.342816
+        "forward_return": 0.064174
       },
       {
-        "date": "2020-03-10",
+        "date": "2020-01-02",
+        "ticker": "TYL",
+        "rank": 2,
+        "posterior": 0.760845,
+        "weight": 0.3333,
+        "forward_return": 0.075202
+      },
+      {
+        "date": "2020-01-02",
+        "ticker": "CPRT",
+        "rank": 3,
+        "posterior": 0.757158,
+        "weight": 0.3333,
+        "forward_return": 0.078305
+      },
+      {
+        "date": "2020-02-03",
+        "ticker": "CRUS",
+        "rank": 1,
+        "posterior": 0.781455,
+        "weight": 0.3333,
+        "forward_return": -0.078248
+      },
+      {
+        "date": "2020-02-03",
+        "ticker": "CMG",
+        "rank": 2,
+        "posterior": 0.756222,
+        "weight": 0.3333,
+        "forward_return": -0.11359
+      },
+      {
+        "date": "2020-02-03",
+        "ticker": "DOV",
+        "rank": 3,
+        "posterior": 0.732241,
+        "weight": 0.3333,
+        "forward_return": -0.050949
+      },
+      {
+        "date": "2020-03-02",
+        "ticker": "SPGI",
+        "rank": 1,
+        "posterior": 0.86265,
+        "weight": 0.3333,
+        "forward_return": -0.190038
+      },
+      {
+        "date": "2020-03-02",
         "ticker": "PEP",
         "rank": 2,
-        "posterior": 0.771979,
+        "posterior": 0.771832,
         "weight": 0.3333,
-        "forward_return": 0.027294
+        "forward_return": -0.135648
       },
       {
-        "date": "2020-03-10",
+        "date": "2020-03-02",
         "ticker": "AEP",
         "rank": 3,
-        "posterior": 0.761105,
+        "posterior": 0.760954,
         "weight": 0.3333,
-        "forward_return": -0.069908
+        "forward_return": -0.215795
       },
       {
-        "date": "2020-08-07",
+        "date": "2020-04-01",
+        "ticker": "AAPL",
+        "rank": 1,
+        "posterior": 0.776377,
+        "weight": 0.3333,
+        "forward_return": 0.199908
+      },
+      {
+        "date": "2020-04-01",
+        "ticker": "LDOS",
+        "rank": 2,
+        "posterior": 0.770907,
+        "weight": 0.3333,
+        "forward_return": 0.123235
+      },
+      {
+        "date": "2020-04-01",
+        "ticker": "CSGP",
+        "rank": 3,
+        "posterior": 0.768549,
+        "weight": 0.3333,
+        "forward_return": 0.153836
+      },
+      {
+        "date": "2020-05-01",
+        "ticker": "DOCU",
+        "rank": 1,
+        "posterior": 0.822166,
+        "weight": 0.3333,
+        "forward_return": 0.42214
+      },
+      {
+        "date": "2020-05-01",
+        "ticker": "CCOI",
+        "rank": 2,
+        "posterior": 0.804443,
+        "weight": 0.3333,
+        "forward_return": -0.039995
+      },
+      {
+        "date": "2020-05-01",
+        "ticker": "NVDA",
+        "rank": 3,
+        "posterior": 0.799314,
+        "weight": 0.3333,
+        "forward_return": 0.245668
+      },
+      {
+        "date": "2020-06-01",
+        "ticker": "DXCM",
+        "rank": 1,
+        "posterior": 0.872509,
+        "weight": 0.3333,
+        "forward_return": 0.056799
+      },
+      {
+        "date": "2020-06-01",
+        "ticker": "HALO",
+        "rank": 2,
+        "posterior": 0.84608,
+        "weight": 0.3333,
+        "forward_return": 0.132699
+      },
+      {
+        "date": "2020-06-01",
+        "ticker": "NEM",
+        "rank": 3,
+        "posterior": 0.835439,
+        "weight": 0.3333,
+        "forward_return": 0.018738
+      },
+      {
+        "date": "2020-07-01",
+        "ticker": "PZZA",
+        "rank": 1,
+        "posterior": 0.84951,
+        "weight": 0.3333,
+        "forward_return": 0.159594
+      },
+      {
+        "date": "2020-07-01",
+        "ticker": "REGN",
+        "rank": 2,
+        "posterior": 0.837805,
+        "weight": 0.3333,
+        "forward_return": 0.059113
+      },
+      {
+        "date": "2020-07-01",
+        "ticker": "RCUS",
+        "rank": 3,
+        "posterior": 0.837023,
+        "weight": 0.3333,
+        "forward_return": -0.09923
+      },
+      {
+        "date": "2020-08-03",
         "ticker": "NVDA",
         "rank": 1,
-        "posterior": 0.897034,
+        "posterior": 0.896933,
         "weight": 0.3333,
-        "forward_return": 0.192191
+        "forward_return": 0.25566
       },
       {
-        "date": "2020-08-07",
+        "date": "2020-08-03",
         "ticker": "CLX",
         "rank": 2,
-        "posterior": 0.840811,
+        "posterior": 0.840584,
         "weight": 0.3333,
-        "forward_return": -0.16862
+        "forward_return": -0.051173
       },
       {
-        "date": "2020-08-07",
+        "date": "2020-08-03",
         "ticker": "REGN",
         "rank": 3,
-        "posterior": 0.838109,
+        "posterior": 0.837805,
         "weight": 0.3333,
-        "forward_return": -0.224133
+        "forward_return": -0.081373
       },
       {
-        "date": "2021-01-07",
+        "date": "2020-09-01",
+        "ticker": "CLX",
+        "rank": 1,
+        "posterior": 0.844799,
+        "weight": 0.3333,
+        "forward_return": -0.038348
+      },
+      {
+        "date": "2020-09-01",
+        "ticker": "CDNS",
+        "rank": 2,
+        "posterior": 0.839967,
+        "weight": 0.3333,
+        "forward_return": -0.046938
+      },
+      {
+        "date": "2020-09-01",
+        "ticker": "PZZA",
+        "rank": 3,
+        "posterior": 0.837183,
+        "weight": 0.3333,
+        "forward_return": -0.179904
+      },
+      {
+        "date": "2020-10-01",
+        "ticker": "TSLA",
+        "rank": 1,
+        "posterior": 0.845054,
+        "weight": 0.3333,
+        "forward_return": -0.106324
+      },
+      {
+        "date": "2020-10-01",
+        "ticker": "NVDA",
+        "rank": 2,
+        "posterior": 0.820606,
+        "weight": 0.3333,
+        "forward_return": -0.07593
+      },
+      {
+        "date": "2020-10-01",
+        "ticker": "AAPL",
+        "rank": 3,
+        "posterior": 0.815771,
+        "weight": 0.3333,
+        "forward_return": -0.068671
+      },
+      {
+        "date": "2020-11-02",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.825489,
+        "weight": 0.3333,
+        "forward_return": 0.064325
+      },
+      {
+        "date": "2020-11-02",
+        "ticker": "CELH",
+        "rank": 2,
+        "posterior": 0.814422,
+        "weight": 0.3333,
+        "forward_return": 0.702597
+      },
+      {
+        "date": "2020-11-02",
+        "ticker": "PENN",
+        "rank": 3,
+        "posterior": 0.786732,
+        "weight": 0.3333,
+        "forward_return": 0.320573
+      },
+      {
+        "date": "2020-12-01",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.851453,
+        "weight": 0.3333,
+        "forward_return": -0.02036
+      },
+      {
+        "date": "2020-12-01",
+        "ticker": "SPSC",
+        "rank": 2,
+        "posterior": 0.838063,
+        "weight": 0.3333,
+        "forward_return": 0.125954
+      },
+      {
+        "date": "2020-12-01",
+        "ticker": "CDNS",
+        "rank": 3,
+        "posterior": 0.83484,
+        "weight": 0.3333,
+        "forward_return": 0.173886
+      },
+      {
+        "date": "2021-01-04",
         "ticker": "MRNA",
         "rank": 1,
         "posterior": 0.883158,
         "weight": 0.3333,
-        "forward_return": 0.889304
+        "forward_return": 0.40947
       },
       {
-        "date": "2021-01-07",
+        "date": "2021-01-04",
         "ticker": "SAIA",
         "rank": 2,
-        "posterior": 0.857639,
+        "posterior": 0.858095,
         "weight": 0.3333,
-        "forward_return": 0.048688
+        "forward_return": 0.019008
       },
       {
-        "date": "2021-01-07",
+        "date": "2021-01-04",
         "ticker": "HALO",
         "rank": 3,
-        "posterior": 0.853579,
+        "posterior": 0.853871,
         "weight": 0.3333,
-        "forward_return": -0.122157
+        "forward_return": 0.123792
       },
       {
-        "date": "2021-06-09",
+        "date": "2021-02-01",
+        "ticker": "XPEL",
+        "rank": 1,
+        "posterior": 0.886626,
+        "weight": 0.3333,
+        "forward_return": 0.060126
+      },
+      {
+        "date": "2021-02-01",
+        "ticker": "JOE",
+        "rank": 2,
+        "posterior": 0.841635,
+        "weight": 0.3333,
+        "forward_return": 0.097471
+      },
+      {
+        "date": "2021-02-01",
+        "ticker": "INSP",
+        "rank": 3,
+        "posterior": 0.817516,
+        "weight": 0.3333,
+        "forward_return": 0.218111
+      },
+      {
+        "date": "2021-03-01",
+        "ticker": "XPEL",
+        "rank": 1,
+        "posterior": 0.859593,
+        "weight": 0.3333,
+        "forward_return": 0.049243
+      },
+      {
+        "date": "2021-03-01",
+        "ticker": "CELH",
+        "rank": 2,
+        "posterior": 0.848407,
+        "weight": 0.3333,
+        "forward_return": -0.242549
+      },
+      {
+        "date": "2021-03-01",
+        "ticker": "FIZZ",
+        "rank": 3,
+        "posterior": 0.809745,
+        "weight": 0.3333,
+        "forward_return": -0.019392
+      },
+      {
+        "date": "2021-04-01",
+        "ticker": "CELH",
+        "rank": 1,
+        "posterior": 0.855053,
+        "weight": 0.3333,
+        "forward_return": 0.138822
+      },
+      {
+        "date": "2021-04-01",
+        "ticker": "PENN",
+        "rank": 2,
+        "posterior": 0.829077,
+        "weight": 0.3333,
+        "forward_return": -0.158575
+      },
+      {
+        "date": "2021-04-01",
+        "ticker": "XPEL",
+        "rank": 3,
+        "posterior": 0.807344,
+        "weight": 0.3333,
+        "forward_return": 0.196311
+      },
+      {
+        "date": "2021-05-03",
+        "ticker": "RUN",
+        "rank": 1,
+        "posterior": 0.794492,
+        "weight": 0.3333,
+        "forward_return": -0.074027
+      },
+      {
+        "date": "2021-05-03",
+        "ticker": "ARCB",
+        "rank": 2,
+        "posterior": 0.793236,
+        "weight": 0.3333,
+        "forward_return": 0.084899
+      },
+      {
+        "date": "2021-05-03",
+        "ticker": "PENN",
+        "rank": 3,
+        "posterior": 0.769434,
+        "weight": 0.3333,
+        "forward_return": -0.102686
+      },
+      {
+        "date": "2021-06-01",
         "ticker": "CLSK",
         "rank": 1,
         "posterior": 0.8112,
         "weight": 0.3333,
-        "forward_return": 0.084746
+        "forward_return": -0.034503
       },
       {
-        "date": "2021-06-09",
+        "date": "2021-06-01",
         "ticker": "HZO",
         "rank": 2,
-        "posterior": 0.795604,
+        "posterior": 0.795574,
         "weight": 0.3333,
-        "forward_return": 0.174781
+        "forward_return": -0.052836
       },
       {
-        "date": "2021-06-09",
+        "date": "2021-06-01",
         "ticker": "INSP",
         "rank": 3,
-        "posterior": 0.783665,
+        "posterior": 0.783633,
         "weight": 0.3333,
-        "forward_return": 0.652556
+        "forward_return": 0.073447
       },
       {
-        "date": "2021-11-05",
+        "date": "2021-07-01",
+        "ticker": "XPEL",
+        "rank": 1,
+        "posterior": 0.88442,
+        "weight": 0.3333,
+        "forward_return": 0.070482
+      },
+      {
+        "date": "2021-07-01",
+        "ticker": "LQDT",
+        "rank": 2,
+        "posterior": 0.851122,
+        "weight": 0.3333,
+        "forward_return": -0.205502
+      },
+      {
+        "date": "2021-07-01",
+        "ticker": "FCX",
+        "rank": 3,
+        "posterior": 0.828769,
+        "weight": 0.3333,
+        "forward_return": -0.010595
+      },
+      {
+        "date": "2021-08-02",
+        "ticker": "SIG",
+        "rank": 1,
+        "posterior": 0.895708,
+        "weight": 0.3333,
+        "forward_return": 0.233333
+      },
+      {
+        "date": "2021-08-02",
+        "ticker": "LQDT",
+        "rank": 2,
+        "posterior": 0.880133,
+        "weight": 0.3333,
+        "forward_return": 0.343652
+      },
+      {
+        "date": "2021-08-02",
+        "ticker": "SM",
+        "rank": 3,
+        "posterior": 0.878744,
+        "weight": 0.3333,
+        "forward_return": 0.006945
+      },
+      {
+        "date": "2021-09-01",
+        "ticker": "XPEL",
+        "rank": 1,
+        "posterior": 0.866509,
+        "weight": 0.3333,
+        "forward_return": -0.045195
+      },
+      {
+        "date": "2021-09-01",
+        "ticker": "SM",
+        "rank": 2,
+        "posterior": 0.820009,
+        "weight": 0.3333,
+        "forward_return": 0.477984
+      },
+      {
+        "date": "2021-09-01",
+        "ticker": "AEO",
+        "rank": 3,
+        "posterior": 0.805375,
+        "weight": 0.3333,
+        "forward_return": -0.130117
+      },
+      {
+        "date": "2021-10-01",
         "ticker": "BTU",
         "rank": 1,
-        "posterior": 0.924627,
+        "posterior": 0.899751,
         "weight": 0.3333,
-        "forward_return": 1.332474
+        "forward_return": -0.225559
       },
       {
-        "date": "2021-11-05",
-        "ticker": "MRNA",
-        "rank": 2,
-        "posterior": 0.863197,
-        "weight": 0.3333,
-        "forward_return": -0.329085
-      },
-      {
-        "date": "2021-11-05",
+        "date": "2021-10-01",
         "ticker": "KLIC",
-        "rank": 3,
-        "posterior": 0.862725,
+        "rank": 2,
+        "posterior": 0.888095,
         "weight": 0.3333,
-        "forward_return": -0.066957
+        "forward_return": -0.01125
       },
       {
-        "date": "2022-04-07",
+        "date": "2021-10-01",
+        "ticker": "DKS",
+        "rank": 3,
+        "posterior": 0.881281,
+        "weight": 0.3333,
+        "forward_return": -0.007394
+      },
+      {
+        "date": "2021-11-01",
+        "ticker": "BTU",
+        "rank": 1,
+        "posterior": 0.924714,
+        "weight": 0.3333,
+        "forward_return": -0.217822
+      },
+      {
+        "date": "2021-11-01",
+        "ticker": "KLIC",
+        "rank": 2,
+        "posterior": 0.864696,
+        "weight": 0.3333,
+        "forward_return": 0.010516
+      },
+      {
+        "date": "2021-11-01",
+        "ticker": "MRNA",
+        "rank": 3,
+        "posterior": 0.863316,
+        "weight": 0.3333,
+        "forward_return": -0.078773
+      },
+      {
+        "date": "2021-12-01",
+        "ticker": "SM",
+        "rank": 1,
+        "posterior": 0.888155,
+        "weight": 0.3333,
+        "forward_return": 0.164459
+      },
+      {
+        "date": "2021-12-01",
+        "ticker": "BTU",
+        "rank": 2,
+        "posterior": 0.858595,
+        "weight": 0.3333,
+        "forward_return": 0.196203
+      },
+      {
+        "date": "2021-12-01",
+        "ticker": "CNR",
+        "rank": 3,
+        "posterior": 0.852242,
+        "weight": 0.3333,
+        "forward_return": 0.125239
+      },
+      {
+        "date": "2022-01-03",
+        "ticker": "GDYN",
+        "rank": 1,
+        "posterior": 0.913278,
+        "weight": 0.3333,
+        "forward_return": -0.325044
+      },
+      {
+        "date": "2022-01-03",
+        "ticker": "NVDA",
+        "rank": 2,
+        "posterior": 0.894911,
+        "weight": 0.3333,
+        "forward_return": -0.182033
+      },
+      {
+        "date": "2022-01-03",
+        "ticker": "LCID",
+        "rank": 3,
+        "posterior": 0.890359,
+        "weight": 0.3333,
+        "forward_return": -0.268019
+      },
+      {
+        "date": "2022-02-01",
+        "ticker": "GDYN",
+        "rank": 1,
+        "posterior": 0.922808,
+        "weight": 0.3333,
+        "forward_return": -0.601504
+      },
+      {
+        "date": "2022-02-01",
+        "ticker": "CALX",
+        "rank": 2,
+        "posterior": 0.914181,
+        "weight": 0.3333,
+        "forward_return": -0.000961
+      },
+      {
+        "date": "2022-02-01",
+        "ticker": "DFIN",
+        "rank": 3,
+        "posterior": 0.913687,
+        "weight": 0.3333,
+        "forward_return": -0.168429
+      },
+      {
+        "date": "2022-03-01",
+        "ticker": "COKE",
+        "rank": 1,
+        "posterior": 0.888254,
+        "weight": 0.3333,
+        "forward_return": 0.061355
+      },
+      {
+        "date": "2022-03-01",
+        "ticker": "ECPG",
+        "rank": 2,
+        "posterior": 0.864974,
+        "weight": 0.3333,
+        "forward_return": -0.030405
+      },
+      {
+        "date": "2022-03-01",
+        "ticker": "GDYN",
+        "rank": 3,
+        "posterior": 0.850487,
+        "weight": 0.3333,
+        "forward_return": 0.318867
+      },
+      {
+        "date": "2022-04-01",
         "ticker": "LNTH",
         "rank": 1,
-        "posterior": 0.870092,
+        "posterior": 0.869837,
         "weight": 0.3333,
-        "forward_return": 0.418121
+        "forward_return": 0.130226
       },
       {
-        "date": "2022-04-07",
+        "date": "2022-04-01",
         "ticker": "BX",
         "rank": 2,
-        "posterior": 0.861774,
+        "posterior": 0.862327,
         "weight": 0.3333,
-        "forward_return": -0.14107
+        "forward_return": -0.164087
       },
       {
-        "date": "2022-04-07",
+        "date": "2022-04-01",
         "ticker": "CUBI",
         "rank": 3,
         "posterior": 0.831277,
         "weight": 0.3333,
-        "forward_return": -0.270288
+        "forward_return": -0.167318
       },
       {
-        "date": "2022-09-08",
+        "date": "2022-05-02",
+        "ticker": "MATX",
+        "rank": 1,
+        "posterior": 0.889593,
+        "weight": 0.3333,
+        "forward_return": 0.026075
+      },
+      {
+        "date": "2022-05-02",
+        "ticker": "NVDA",
+        "rank": 2,
+        "posterior": 0.882442,
+        "weight": 0.3333,
+        "forward_return": -0.0621
+      },
+      {
+        "date": "2022-05-02",
+        "ticker": "HCC",
+        "rank": 3,
+        "posterior": 0.874007,
+        "weight": 0.3333,
+        "forward_return": 0.06223
+      },
+      {
+        "date": "2022-06-01",
+        "ticker": "HCC",
+        "rank": 1,
+        "posterior": 0.883308,
+        "weight": 0.3333,
+        "forward_return": -0.150458
+      },
+      {
+        "date": "2022-06-01",
+        "ticker": "ANDE",
+        "rank": 2,
+        "posterior": 0.869581,
+        "weight": 0.3333,
+        "forward_return": -0.1124
+      },
+      {
+        "date": "2022-06-01",
+        "ticker": "TRGP",
+        "rank": 3,
+        "posterior": 0.864509,
+        "weight": 0.3333,
+        "forward_return": -0.187425
+      },
+      {
+        "date": "2022-07-01",
+        "ticker": "DVN",
+        "rank": 1,
+        "posterior": 0.903822,
+        "weight": 0.3333,
+        "forward_return": 0.11722
+      },
+      {
+        "date": "2022-07-01",
+        "ticker": "EQT",
+        "rank": 2,
+        "posterior": 0.892168,
+        "weight": 0.3333,
+        "forward_return": 0.234607
+      },
+      {
+        "date": "2022-07-01",
+        "ticker": "CRK",
+        "rank": 3,
+        "posterior": 0.890445,
+        "weight": 0.3333,
+        "forward_return": 0.231975
+      },
+      {
+        "date": "2022-08-01",
+        "ticker": "COKE",
+        "rank": 1,
+        "posterior": 0.898637,
+        "weight": 0.3333,
+        "forward_return": -0.089452
+      },
+      {
+        "date": "2022-08-01",
+        "ticker": "HRMY",
+        "rank": 2,
+        "posterior": 0.897867,
+        "weight": 0.3333,
+        "forward_return": -0.078204
+      },
+      {
+        "date": "2022-08-01",
+        "ticker": "ACI",
+        "rank": 3,
+        "posterior": 0.887096,
+        "weight": 0.3333,
+        "forward_return": 0.029423
+      },
+      {
+        "date": "2022-09-01",
         "ticker": "CVI",
         "rank": 1,
-        "posterior": 0.911209,
+        "posterior": 0.911173,
         "weight": 0.3333,
-        "forward_return": 0.034635
+        "forward_return": -0.027088
       },
       {
-        "date": "2022-09-08",
+        "date": "2022-09-01",
         "ticker": "PLAB",
         "rank": 2,
-        "posterior": 0.901044,
+        "posterior": 0.901005,
         "weight": 0.3333,
-        "forward_return": 0.202955
+        "forward_return": -0.037389
       },
       {
-        "date": "2022-09-08",
+        "date": "2022-09-01",
         "ticker": "CSGS",
         "rank": 3,
-        "posterior": 0.898468,
+        "posterior": 0.898428,
         "weight": 0.3333,
-        "forward_return": 0.09697
+        "forward_return": -0.053324
       },
       {
-        "date": "2023-02-08",
+        "date": "2022-10-03",
+        "ticker": "EQT",
+        "rank": 1,
+        "posterior": 0.938849,
+        "weight": 0.3333,
+        "forward_return": -0.023952
+      },
+      {
+        "date": "2022-10-03",
+        "ticker": "CPRX",
+        "rank": 2,
+        "posterior": 0.91846,
+        "weight": 0.3333,
+        "forward_return": 0.063927
+      },
+      {
+        "date": "2022-10-03",
+        "ticker": "BANF",
+        "rank": 3,
+        "posterior": 0.904241,
+        "weight": 0.3333,
+        "forward_return": 0.064039
+      },
+      {
+        "date": "2022-11-01",
+        "ticker": "LNTH",
+        "rank": 1,
+        "posterior": 0.92553,
+        "weight": 0.3333,
+        "forward_return": -0.157728
+      },
+      {
+        "date": "2022-11-01",
+        "ticker": "INSW",
+        "rank": 2,
+        "posterior": 0.913699,
+        "weight": 0.3333,
+        "forward_return": -0.027119
+      },
+      {
+        "date": "2022-11-01",
+        "ticker": "KNSL",
+        "rank": 3,
+        "posterior": 0.866908,
+        "weight": 0.3333,
+        "forward_return": -0.06514
+      },
+      {
+        "date": "2022-12-01",
+        "ticker": "TDW",
+        "rank": 1,
+        "posterior": 0.955035,
+        "weight": 0.3333,
+        "forward_return": 0.116309
+      },
+      {
+        "date": "2022-12-01",
+        "ticker": "INSW",
+        "rank": 2,
+        "posterior": 0.942474,
+        "weight": 0.3333,
+        "forward_return": -0.159374
+      },
+      {
+        "date": "2022-12-01",
+        "ticker": "KNSL",
+        "rank": 3,
+        "posterior": 0.92503,
+        "weight": 0.3333,
+        "forward_return": -0.137713
+      },
+      {
+        "date": "2023-01-03",
+        "ticker": "TPL",
+        "rank": 1,
+        "posterior": 0.905654,
+        "weight": 0.3333,
+        "forward_return": -0.072262
+      },
+      {
+        "date": "2023-01-03",
+        "ticker": "ADMA",
+        "rank": 2,
+        "posterior": 0.899545,
+        "weight": 0.3333,
+        "forward_return": -0.025839
+      },
+      {
+        "date": "2023-01-03",
+        "ticker": "SMCI",
+        "rank": 3,
+        "posterior": 0.897991,
+        "weight": 0.3333,
+        "forward_return": -0.049129
+      },
+      {
+        "date": "2023-02-01",
         "ticker": "CPRX",
         "rank": 1,
-        "posterior": 0.957923,
+        "posterior": 0.957965,
         "weight": 0.3333,
-        "forward_return": -0.163398
+        "forward_return": 0.009798
       },
       {
-        "date": "2023-02-08",
+        "date": "2023-02-01",
         "ticker": "TMDX",
         "rank": 2,
-        "posterior": 0.931918,
+        "posterior": 0.931818,
         "weight": 0.3333,
-        "forward_return": 0.361711
+        "forward_return": 0.244873
       },
       {
-        "date": "2023-02-08",
+        "date": "2023-02-01",
         "ticker": "SMCI",
         "rank": 3,
-        "posterior": 0.931271,
+        "posterior": 0.931262,
         "weight": 0.3333,
-        "forward_return": 2.246186
+        "forward_return": 0.279157
       },
       {
-        "date": "2023-07-12",
+        "date": "2023-03-01",
+        "ticker": "TMDX",
+        "rank": 1,
+        "posterior": 0.933513,
+        "weight": 0.3333,
+        "forward_return": -0.075731
+      },
+      {
+        "date": "2023-03-01",
+        "ticker": "INSW",
+        "rank": 2,
+        "posterior": 0.925702,
+        "weight": 0.3333,
+        "forward_return": -0.206874
+      },
+      {
+        "date": "2023-03-01",
+        "ticker": "TDW",
+        "rank": 3,
+        "posterior": 0.923959,
+        "weight": 0.3333,
+        "forward_return": -0.052987
+      },
+      {
+        "date": "2023-04-03",
         "ticker": "SMCI",
         "rank": 1,
-        "posterior": 0.955058,
+        "posterior": 0.937711,
         "weight": 0.3333,
-        "forward_return": -0.014422
+        "forward_return": -0.067513
       },
       {
-        "date": "2023-07-12",
+        "date": "2023-04-03",
+        "ticker": "SRPT",
+        "rank": 2,
+        "posterior": 0.93744,
+        "weight": 0.3333,
+        "forward_return": -0.09044
+      },
+      {
+        "date": "2023-04-03",
+        "ticker": "FIX",
+        "rank": 3,
+        "posterior": 0.926963,
+        "weight": 0.3333,
+        "forward_return": 0.006139
+      },
+      {
+        "date": "2023-05-01",
+        "ticker": "PI",
+        "rank": 1,
+        "posterior": 0.94842,
+        "weight": 0.3333,
+        "forward_return": 0.205387
+      },
+      {
+        "date": "2023-05-01",
+        "ticker": "SMCI",
+        "rank": 2,
+        "posterior": 0.938845,
+        "weight": 0.3333,
+        "forward_return": 1.197887
+      },
+      {
+        "date": "2023-05-01",
+        "ticker": "CRUS",
+        "rank": 3,
+        "posterior": 0.936947,
+        "weight": 0.3333,
+        "forward_return": -0.075485
+      },
+      {
+        "date": "2023-06-01",
+        "ticker": "IPAR",
+        "rank": 1,
+        "posterior": 0.936771,
+        "weight": 0.3333,
+        "forward_return": 0.083963
+      },
+      {
+        "date": "2023-06-01",
+        "ticker": "FSLR",
+        "rank": 2,
+        "posterior": 0.92761,
+        "weight": 0.3333,
+        "forward_return": -0.083118
+      },
+      {
+        "date": "2023-06-01",
+        "ticker": "SMCI",
+        "rank": 3,
+        "posterior": 0.921854,
+        "weight": 0.3333,
+        "forward_return": 0.078695
+      },
+      {
+        "date": "2023-07-03",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.955049,
+        "weight": 0.3333,
+        "forward_return": 0.354575
+      },
+      {
+        "date": "2023-07-03",
         "ticker": "COCO",
         "rank": 2,
-        "posterior": 0.937615,
+        "posterior": 0.937896,
         "weight": 0.3333,
-        "forward_return": 0.139983
+        "forward_return": -0.009756
       },
       {
-        "date": "2023-07-12",
+        "date": "2023-07-03",
         "ticker": "IDCC",
         "rank": 3,
-        "posterior": 0.90254,
+        "posterior": 0.902104,
         "weight": 0.3333,
-        "forward_return": 0.110688
+        "forward_return": -0.034856
       },
       {
-        "date": "2023-12-08",
+        "date": "2023-08-01",
         "ticker": "SMCI",
         "rank": 1,
-        "posterior": 0.931477,
+        "posterior": 0.952679,
         "weight": 0.3333,
-        "forward_return": 1.928661
+        "forward_return": -0.164119
       },
       {
-        "date": "2023-12-08",
+        "date": "2023-08-01",
+        "ticker": "COCO",
+        "rank": 2,
+        "posterior": 0.930862,
+        "weight": 0.3333,
+        "forward_return": 0.028041
+      },
+      {
+        "date": "2023-08-01",
+        "ticker": "FTI",
+        "rank": 3,
+        "posterior": 0.911429,
+        "weight": 0.3333,
+        "forward_return": 0.095176
+      },
+      {
+        "date": "2023-09-01",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.967173,
+        "weight": 0.3333,
+        "forward_return": 0.023746
+      },
+      {
+        "date": "2023-09-01",
+        "ticker": "NVDA",
+        "rank": 2,
+        "posterior": 0.937063,
+        "weight": 0.3333,
+        "forward_return": -0.076755
+      },
+      {
+        "date": "2023-09-01",
+        "ticker": "EXTR",
+        "rank": 3,
+        "posterior": 0.922956,
+        "weight": 0.3333,
+        "forward_return": -0.09801
+      },
+      {
+        "date": "2023-10-02",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.947458,
+        "weight": 0.3333,
+        "forward_return": -0.12667
+      },
+      {
+        "date": "2023-10-02",
+        "ticker": "TDW",
+        "rank": 2,
+        "posterior": 0.927435,
+        "weight": 0.3333,
+        "forward_return": 0.025211
+      },
+      {
+        "date": "2023-10-02",
+        "ticker": "NVDA",
+        "rank": 3,
+        "posterior": 0.926403,
+        "weight": 0.3333,
+        "forward_return": -0.054866
+      },
+      {
+        "date": "2023-11-01",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.965056,
+        "weight": 0.3333,
+        "forward_return": 0.068815
+      },
+      {
+        "date": "2023-11-01",
+        "ticker": "POWL",
+        "rank": 2,
+        "posterior": 0.953622,
+        "weight": 0.3333,
+        "forward_return": 0.091822
+      },
+      {
+        "date": "2023-11-01",
+        "ticker": "COCO",
+        "rank": 3,
+        "posterior": 0.893599,
+        "weight": 0.3333,
+        "forward_return": -0.008916
+      },
+      {
+        "date": "2023-12-01",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.931485,
+        "weight": 0.3333,
+        "forward_return": 0.058673
+      },
+      {
+        "date": "2023-12-01",
         "ticker": "LRN",
         "rank": 2,
-        "posterior": 0.896077,
+        "posterior": 0.896787,
         "weight": 0.3333,
-        "forward_return": 0.182076
+        "forward_return": -0.009986
       },
       {
-        "date": "2023-12-08",
+        "date": "2023-12-01",
         "ticker": "POWL",
         "rank": 3,
-        "posterior": 0.885779,
+        "posterior": 0.88668,
         "weight": 0.3333,
-        "forward_return": 0.959109
+        "forward_return": 0.067344
       },
       {
-        "date": "2024-05-10",
+        "date": "2024-01-02",
+        "ticker": "POWL",
+        "rank": 1,
+        "posterior": 0.895676,
+        "weight": 0.3333,
+        "forward_return": 0.284039
+      },
+      {
+        "date": "2024-01-02",
+        "ticker": "HCI",
+        "rank": 2,
+        "posterior": 0.8937,
+        "weight": 0.3333,
+        "forward_return": 0.03019
+      },
+      {
+        "date": "2024-01-02",
+        "ticker": "NVDA",
+        "rank": 3,
+        "posterior": 0.892069,
+        "weight": 0.3333,
+        "forward_return": 0.308483
+      },
+      {
+        "date": "2024-02-01",
+        "ticker": "SMCI",
+        "rank": 1,
+        "posterior": 0.901908,
+        "weight": 0.3333,
+        "forward_return": 0.551808
+      },
+      {
+        "date": "2024-02-01",
+        "ticker": "CLSK",
+        "rank": 2,
+        "posterior": 0.901315,
+        "weight": 0.3333,
+        "forward_return": 1.136364
+      },
+      {
+        "date": "2024-02-01",
+        "ticker": "NEU",
+        "rank": 3,
+        "posterior": 0.897251,
+        "weight": 0.3333,
+        "forward_return": 0.084665
+      },
+      {
+        "date": "2024-03-01",
+        "ticker": "NVDA",
+        "rank": 1,
+        "posterior": 0.927061,
+        "weight": 0.3333,
+        "forward_return": 0.098303
+      },
+      {
+        "date": "2024-03-01",
+        "ticker": "POWL",
+        "rank": 2,
+        "posterior": 0.888963,
+        "weight": 0.3333,
+        "forward_return": -0.24114
+      },
+      {
+        "date": "2024-03-01",
+        "ticker": "PANW",
+        "rank": 3,
+        "posterior": 0.856982,
+        "weight": 0.3333,
+        "forward_return": -0.075992
+      },
+      {
+        "date": "2024-04-01",
+        "ticker": "POWL",
+        "rank": 1,
+        "posterior": 0.968967,
+        "weight": 0.3333,
+        "forward_return": 0.244491
+      },
+      {
+        "date": "2024-04-01",
+        "ticker": "CEG",
+        "rank": 2,
+        "posterior": 0.940372,
+        "weight": 0.3333,
+        "forward_return": -0.007635
+      },
+      {
+        "date": "2024-04-01",
+        "ticker": "ACMR",
+        "rank": 3,
+        "posterior": 0.917216,
+        "weight": 0.3333,
+        "forward_return": -0.1781
+      },
+      {
+        "date": "2024-05-01",
         "ticker": "CEG",
         "rank": 1,
-        "posterior": 0.946957,
+        "posterior": 0.951719,
         "weight": 0.3333,
-        "forward_return": 0.224585
+        "forward_return": 0.130139
       },
       {
-        "date": "2024-05-10",
+        "date": "2024-05-01",
         "ticker": "POWL",
         "rank": 2,
-        "posterior": 0.939659,
+        "posterior": 0.945031,
         "weight": 0.3333,
-        "forward_return": 0.473243
+        "forward_return": 0.009491
       },
       {
-        "date": "2024-05-10",
+        "date": "2024-05-01",
         "ticker": "VST",
         "rank": 3,
-        "posterior": 0.927228,
+        "posterior": 0.927016,
         "weight": 0.3333,
-        "forward_return": 0.335138
+        "forward_return": 0.213244
       },
       {
-        "date": "2024-10-10",
+        "date": "2024-06-03",
+        "ticker": "POWL",
+        "rank": 1,
+        "posterior": 0.929091,
+        "weight": 0.3333,
+        "forward_return": -0.162892
+      },
+      {
+        "date": "2024-06-03",
+        "ticker": "NRG",
+        "rank": 2,
+        "posterior": 0.929073,
+        "weight": 0.3333,
+        "forward_return": -0.006255
+      },
+      {
+        "date": "2024-06-03",
+        "ticker": "APP",
+        "rank": 3,
+        "posterior": 0.92213,
+        "weight": 0.3333,
+        "forward_return": 0.025635
+      },
+      {
+        "date": "2024-07-01",
+        "ticker": "AESI",
+        "rank": 1,
+        "posterior": 0.969846,
+        "weight": 0.3333,
+        "forward_return": 0.023453
+      },
+      {
+        "date": "2024-07-01",
+        "ticker": "POWL",
+        "rank": 2,
+        "posterior": 0.96971,
+        "weight": 0.3333,
+        "forward_return": 0.123266
+      },
+      {
+        "date": "2024-07-01",
+        "ticker": "VST",
+        "rank": 3,
+        "posterior": 0.947421,
+        "weight": 0.3333,
+        "forward_return": -0.12938
+      },
+      {
+        "date": "2024-08-01",
+        "ticker": "VITL",
+        "rank": 1,
+        "posterior": 0.955506,
+        "weight": 0.3333,
+        "forward_return": -0.174199
+      },
+      {
+        "date": "2024-08-01",
+        "ticker": "ADMA",
+        "rank": 2,
+        "posterior": 0.926674,
+        "weight": 0.3333,
+        "forward_return": 0.352101
+      },
+      {
+        "date": "2024-08-01",
+        "ticker": "EAT",
+        "rank": 3,
+        "posterior": 0.913123,
+        "weight": 0.3333,
+        "forward_return": 0.118072
+      },
+      {
+        "date": "2024-09-03",
         "ticker": "ADMA",
         "rank": 1,
-        "posterior": 0.946632,
+        "posterior": 0.941955,
         "weight": 0.3333,
-        "forward_return": 0.08348
+        "forward_return": 0.19312
       },
       {
-        "date": "2024-10-10",
-        "ticker": "AGX",
+        "date": "2024-09-03",
+        "ticker": "VITL",
         "rank": 2,
-        "posterior": 0.894745,
+        "posterior": 0.940054,
         "weight": 0.3333,
-        "forward_return": 0.067124
+        "forward_return": 0.2
       },
       {
-        "date": "2024-10-10",
-        "ticker": "SLVM",
+        "date": "2024-09-03",
+        "ticker": "TPL",
         "rank": 3,
-        "posterior": 0.888084,
+        "posterior": 0.93747,
         "weight": 0.3333,
-        "forward_return": -0.197943
+        "forward_return": 0.121834
       },
       {
-        "date": "2025-03-14",
-        "ticker": "RKLB",
+        "date": "2024-10-01",
+        "ticker": "ADMA",
         "rank": 1,
-        "posterior": 0.943881,
+        "posterior": 0.949172,
         "weight": 0.3333,
-        "forward_return": 1.275917
+        "forward_return": -0.020233
       },
       {
-        "date": "2025-03-14",
+        "date": "2024-10-01",
+        "ticker": "SLVM",
+        "rank": 2,
+        "posterior": 0.888206,
+        "weight": 0.3333,
+        "forward_return": 0.028399
+      },
+      {
+        "date": "2024-10-01",
+        "ticker": "TILE",
+        "rank": 3,
+        "posterior": 0.887306,
+        "weight": 0.3333,
+        "forward_return": 0.242116
+      },
+      {
+        "date": "2024-11-01",
+        "ticker": "ADMA",
+        "rank": 1,
+        "posterior": 0.950645,
+        "weight": 0.3333,
+        "forward_return": 0.01652
+      },
+      {
+        "date": "2024-11-01",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.908071,
+        "weight": 0.3333,
+        "forward_return": 0.280766
+      },
+      {
+        "date": "2024-11-01",
+        "ticker": "EAT",
+        "rank": 3,
+        "posterior": 0.899186,
+        "weight": 0.3333,
+        "forward_return": 0.241041
+      },
+      {
+        "date": "2024-12-02",
+        "ticker": "APP",
+        "rank": 1,
+        "posterior": 0.915197,
+        "weight": 0.3333,
+        "forward_return": 0.003494
+      },
+      {
+        "date": "2024-12-02",
+        "ticker": "LUMN",
+        "rank": 2,
+        "posterior": 0.91513,
+        "weight": 0.3333,
+        "forward_return": -0.197425
+      },
+      {
+        "date": "2024-12-02",
+        "ticker": "SFM",
+        "rank": 3,
+        "posterior": 0.893492,
+        "weight": 0.3333,
+        "forward_return": -0.119003
+      },
+      {
+        "date": "2025-01-02",
+        "ticker": "QTWO",
+        "rank": 1,
+        "posterior": 0.916224,
+        "weight": 0.3333,
+        "forward_return": -0.04993
+      },
+      {
+        "date": "2025-01-02",
+        "ticker": "APP",
+        "rank": 2,
+        "posterior": 0.908507,
+        "weight": 0.3333,
+        "forward_return": 0.069226
+      },
+      {
+        "date": "2025-01-02",
+        "ticker": "RKLB",
+        "rank": 3,
+        "posterior": 0.903359,
+        "weight": 0.3333,
+        "forward_return": 0.137019
+      },
+      {
+        "date": "2025-02-03",
+        "ticker": "TPL",
+        "rank": 1,
+        "posterior": 0.951922,
+        "weight": 0.3333,
+        "forward_return": 0.018834
+      },
+      {
+        "date": "2025-02-03",
+        "ticker": "PLTR",
+        "rank": 2,
+        "posterior": 0.936158,
+        "weight": 0.3333,
+        "forward_return": -0.003821
+      },
+      {
+        "date": "2025-02-03",
+        "ticker": "EAT",
+        "rank": 3,
+        "posterior": 0.933332,
+        "weight": 0.3333,
+        "forward_return": -0.164587
+      },
+      {
+        "date": "2025-03-03",
+        "ticker": "FRPT",
+        "rank": 1,
+        "posterior": 0.981409,
+        "weight": 0.3333,
+        "forward_return": -0.121294
+      },
+      {
+        "date": "2025-03-03",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.9578,
+        "weight": 0.3333,
+        "forward_return": -0.00261
+      },
+      {
+        "date": "2025-03-03",
+        "ticker": "RKLB",
+        "rank": 3,
+        "posterior": 0.941818,
+        "weight": 0.3333,
+        "forward_return": -0.027331
+      },
+      {
+        "date": "2025-04-01",
+        "ticker": "TPL",
+        "rank": 1,
+        "posterior": 0.957277,
+        "weight": 0.3333,
+        "forward_return": -0.034527
+      },
+      {
+        "date": "2025-04-01",
         "ticker": "SNEX",
         "rank": 2,
-        "posterior": 0.934206,
+        "posterior": 0.945117,
         "weight": 0.3333,
-        "forward_return": 0.231515
+        "forward_return": 0.176147
       },
       {
-        "date": "2025-03-14",
-        "ticker": "BROS",
+        "date": "2025-04-01",
+        "ticker": "IBKR",
         "rank": 3,
-        "posterior": 0.925511,
+        "posterior": 0.924862,
         "weight": 0.3333,
-        "forward_return": 0.012484
+        "forward_return": 0.00728
       },
       {
-        "date": "2025-08-14",
-        "ticker": "SEZL",
+        "date": "2025-05-01",
+        "ticker": "TPL",
         "rank": 1,
-        "posterior": 0.843931,
+        "posterior": 0.925778,
         "weight": 0.3333,
-        "forward_return": -0.188477
+        "forward_return": -0.148831
       },
       {
-        "date": "2025-08-14",
-        "ticker": "AGX",
+        "date": "2025-05-01",
+        "ticker": "CORT",
         "rank": 2,
-        "posterior": 0.828934,
+        "posterior": 0.901923,
         "weight": 0.3333,
-        "forward_return": 0.417809
+        "forward_return": 0.002798
       },
       {
-        "date": "2025-08-14",
-        "ticker": "NRG",
+        "date": "2025-05-01",
+        "ticker": "MTDR",
         "rank": 3,
-        "posterior": 0.817779,
+        "posterior": 0.89996,
         "weight": 0.3333,
-        "forward_return": -0.023186
+        "forward_return": 0.082527
       },
       {
-        "date": "2026-01-14",
+        "date": "2025-06-02",
+        "ticker": "VRSN",
+        "rank": 1,
+        "posterior": 0.982272,
+        "weight": 0.3333,
+        "forward_return": 0.049063
+      },
+      {
+        "date": "2025-06-02",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.949687,
+        "weight": 0.3333,
+        "forward_return": -0.037347
+      },
+      {
+        "date": "2025-06-02",
+        "ticker": "SEZL",
+        "rank": 3,
+        "posterior": 0.884407,
+        "weight": 0.3333,
+        "forward_return": 0.489335
+      },
+      {
+        "date": "2025-07-01",
+        "ticker": "PRA",
+        "rank": 1,
+        "posterior": 0.900547,
+        "weight": 0.3333,
+        "forward_return": 0.036356
+      },
+      {
+        "date": "2025-07-01",
+        "ticker": "SEZL",
+        "rank": 2,
+        "posterior": 0.889991,
+        "weight": 0.3333,
+        "forward_return": -0.140709
+      },
+      {
+        "date": "2025-07-01",
+        "ticker": "UNFI",
+        "rank": 3,
+        "posterior": 0.855757,
+        "weight": 0.3333,
+        "forward_return": 0.180507
+      },
+      {
+        "date": "2025-08-01",
+        "ticker": "CHTR",
+        "rank": 1,
+        "posterior": 0.936428,
+        "weight": 0.3333,
+        "forward_return": -0.00102
+      },
+      {
+        "date": "2025-08-01",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.924532,
+        "weight": 0.3333,
+        "forward_return": 0.009775
+      },
+      {
+        "date": "2025-08-01",
+        "ticker": "TBBK",
+        "rank": 3,
+        "posterior": 0.907768,
+        "weight": 0.3333,
+        "forward_return": 0.215875
+      },
+      {
+        "date": "2025-09-02",
+        "ticker": "HTH",
+        "rank": 1,
+        "posterior": 0.913428,
+        "weight": 0.3333,
+        "forward_return": -0.055555
+      },
+      {
+        "date": "2025-09-02",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.888463,
+        "weight": 0.3333,
+        "forward_return": 0.016619
+      },
+      {
+        "date": "2025-09-02",
+        "ticker": "JOBY",
+        "rank": 3,
+        "posterior": 0.880625,
+        "weight": 0.3333,
+        "forward_return": 0.212257
+      },
+      {
+        "date": "2025-10-01",
+        "ticker": "TPL",
+        "rank": 1,
+        "posterior": 0.90357,
+        "weight": 0.3333,
+        "forward_return": -0.034781
+      },
+      {
+        "date": "2025-10-01",
+        "ticker": "APP",
+        "rank": 2,
+        "posterior": 0.832116,
+        "weight": 0.3333,
+        "forward_return": -0.102189
+      },
+      {
+        "date": "2025-10-01",
+        "ticker": "SNEX",
+        "rank": 3,
+        "posterior": 0.826102,
+        "weight": 0.3333,
+        "forward_return": -0.143041
+      },
+      {
+        "date": "2025-11-03",
+        "ticker": "ONDS",
+        "rank": 1,
+        "posterior": 0.931478,
+        "weight": 0.3333,
+        "forward_return": 0.23252
+      },
+      {
+        "date": "2025-11-03",
+        "ticker": "PRA",
+        "rank": 2,
+        "posterior": 0.910986,
+        "weight": 0.3333,
+        "forward_return": 0.001254
+      },
+      {
+        "date": "2025-11-03",
+        "ticker": "INDV",
+        "rank": 3,
+        "posterior": 0.897585,
+        "weight": 0.3333,
+        "forward_return": 0.076923
+      },
+      {
+        "date": "2025-12-01",
         "ticker": "IREN",
         "rank": 1,
-        "posterior": 0.935601,
+        "posterior": 0.93028,
         "weight": 0.3333,
-        "forward_return": 0.119138
+        "forward_return": -0.119406
       },
       {
-        "date": "2026-01-14",
-        "ticker": "INDV",
+        "date": "2025-12-01",
+        "ticker": "TPL",
         "rank": 2,
-        "posterior": 0.91195,
+        "posterior": 0.916559,
         "weight": 0.3333,
-        "forward_return": 0.130241
+        "forward_return": 0.047052
       },
       {
-        "date": "2026-01-14",
-        "ticker": "PARR",
+        "date": "2025-12-01",
+        "ticker": "WDC",
         "rank": 3,
-        "posterior": 0.898205,
+        "posterior": 0.913486,
         "weight": 0.3333,
-        "forward_return": 0.369394
+        "forward_return": 0.148654
       },
       {
-        "date": "2026-06-16",
+        "date": "2026-01-02",
+        "ticker": "IREN",
+        "rank": 1,
+        "posterior": 0.935596,
+        "weight": 0.3333,
+        "forward_return": 0.243091
+      },
+      {
+        "date": "2026-01-02",
+        "ticker": "TPL",
+        "rank": 2,
+        "posterior": 0.912223,
+        "weight": 0.3333,
+        "forward_return": 0.129913
+      },
+      {
+        "date": "2026-01-02",
+        "ticker": "INDV",
+        "rank": 3,
+        "posterior": 0.911747,
+        "weight": 0.3333,
+        "forward_return": -0.020431
+      },
+      {
+        "date": "2026-02-02",
+        "ticker": "EA",
+        "rank": 1,
+        "posterior": 0.899118,
+        "weight": 0.3333,
+        "forward_return": -0.011541
+      },
+      {
+        "date": "2026-02-02",
+        "ticker": "PRA",
+        "rank": 2,
+        "posterior": 0.896815,
+        "weight": 0.3333,
+        "forward_return": 0.003272
+      },
+      {
+        "date": "2026-02-02",
+        "ticker": "MU",
+        "rank": 3,
+        "posterior": 0.891726,
+        "weight": 0.3333,
+        "forward_return": -0.057401
+      },
+      {
+        "date": "2026-03-02",
         "ticker": "MU",
         "rank": 1,
-        "posterior": 0.893133,
+        "posterior": 0.936492,
         "weight": 0.3333,
-        "forward_return": 0.021974
+        "forward_return": -0.108235
       },
       {
-        "date": "2026-06-16",
-        "ticker": "RKLB",
+        "date": "2026-03-02",
+        "ticker": "WDC",
         "rank": 2,
-        "posterior": 0.89272,
+        "posterior": 0.926653,
         "weight": 0.3333,
-        "forward_return": 0.032018
+        "forward_return": 0.102905
       },
       {
-        "date": "2026-06-16",
-        "ticker": "MXL",
+        "date": "2026-03-02",
+        "ticker": "IREN",
         "rank": 3,
-        "posterior": 0.890559,
+        "posterior": 0.922351,
         "weight": 0.3333,
-        "forward_return": -0.018012
+        "forward_return": -0.176371
+      },
+      {
+        "date": "2026-04-01",
+        "ticker": "ONDS",
+        "rank": 1,
+        "posterior": 0.873347,
+        "weight": 0.3333,
+        "forward_return": 0.171396
+      },
+      {
+        "date": "2026-04-01",
+        "ticker": "COHR",
+        "rank": 2,
+        "posterior": 0.869964,
+        "weight": 0.3333,
+        "forward_return": 0.329701
+      },
+      {
+        "date": "2026-04-01",
+        "ticker": "GLW",
+        "rank": 3,
+        "posterior": 0.859063,
+        "weight": 0.3333,
+        "forward_return": 0.111532
+      },
+      {
+        "date": "2026-05-01",
+        "ticker": "PARR",
+        "rank": 1,
+        "posterior": 0.879018,
+        "weight": 0.3333,
+        "forward_return": -0.126243
+      },
+      {
+        "date": "2026-05-01",
+        "ticker": "FORM",
+        "rank": 2,
+        "posterior": 0.874263,
+        "weight": 0.3333,
+        "forward_return": -0.162335
+      },
+      {
+        "date": "2026-05-01",
+        "ticker": "VSAT",
+        "rank": 3,
+        "posterior": 0.863521,
+        "weight": 0.3333,
+        "forward_return": 0.118857
+      },
+      {
+        "date": "2026-06-01",
+        "ticker": "MXL",
+        "rank": 1,
+        "posterior": 0.901062,
+        "weight": 0.3333,
+        "forward_return": 0.120259
+      },
+      {
+        "date": "2026-06-01",
+        "ticker": "VIAV",
+        "rank": 2,
+        "posterior": 0.893529,
+        "weight": 0.3333,
+        "forward_return": 0.002948
+      },
+      {
+        "date": "2026-06-01",
+        "ticker": "INTC",
+        "rank": 3,
+        "posterior": 0.891675,
+        "weight": 0.3333,
+        "forward_return": 0.173694
       }
     ],
     "summary": [
@@ -1077,49 +4649,49 @@
       },
       {
         "date": "2011-02-28",
-        "portfolio_return": 0.073014,
+        "portfolio_return": 0.129655,
         "spy_return": 0.034737,
-        "cum_strat": 4.3258,
+        "cum_strat": 9.8328,
         "cum_spy": 4.8012,
-        "top_ticker": "LVS",
+        "top_ticker": "FFIV",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-03-31",
-        "portfolio_return": -0.05487,
+        "portfolio_return": 0.003099,
         "spy_return": 0.00012,
-        "cum_strat": -1.3986,
+        "cum_strat": 10.1731,
         "cum_spy": 4.8138,
-        "top_ticker": "LVS",
+        "top_ticker": "SWKS",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-04-29",
-        "portfolio_return": 0.083181,
+        "portfolio_return": 0.018417,
         "spy_return": 0.028962,
-        "cum_strat": 6.8031,
+        "cum_strat": 12.2022,
         "cum_spy": 7.8494,
-        "top_ticker": "LVS",
+        "top_ticker": "DECK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-05-31",
-        "portfolio_return": 0.005383,
+        "portfolio_return": -0.024136,
         "spy_return": -0.011215,
-        "cum_strat": 7.3781,
+        "cum_strat": 9.4941,
         "cum_spy": 6.6399,
-        "top_ticker": "LVS",
+        "top_ticker": "DECK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-06-30",
-        "portfolio_return": -0.038493,
+        "portfolio_return": -0.060306,
         "spy_return": -0.01687,
-        "cum_strat": 3.2448,
+        "cum_strat": 2.8909,
         "cum_spy": 4.8409,
         "top_ticker": "DECK",
         "turnover": 0.0,
@@ -1127,49 +4699,49 @@
       },
       {
         "date": "2011-07-29",
-        "portfolio_return": 0.115285,
+        "portfolio_return": -0.050339,
         "spy_return": -0.020004,
-        "cum_strat": 15.1474,
+        "cum_strat": -2.2885,
         "cum_spy": 2.7437,
-        "top_ticker": "DECK",
+        "top_ticker": "ULTA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-08-31",
-        "portfolio_return": -0.043455,
+        "portfolio_return": -0.005383,
         "spy_return": -0.054976,
-        "cum_strat": 10.1436,
+        "cum_strat": -2.8144,
         "cum_spy": -2.9048,
-        "top_ticker": "DECK",
+        "top_ticker": "ULTA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-09-30",
-        "portfolio_return": -0.145337,
+        "portfolio_return": -0.0569,
         "spy_return": -0.06942,
-        "cum_strat": -5.8643,
+        "cum_strat": -8.3443,
         "cum_spy": -9.6452,
-        "top_ticker": "DECK",
+        "top_ticker": "ULTA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-10-31",
-        "portfolio_return": 0.221073,
+        "portfolio_return": 0.201533,
         "spy_return": 0.109147,
-        "cum_strat": 14.9465,
+        "cum_strat": 10.1273,
         "cum_spy": 0.2168,
-        "top_ticker": "DECK",
+        "top_ticker": "ULTA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2011-11-30",
-        "portfolio_return": -0.033611,
+        "portfolio_return": 0.002861,
         "spy_return": -0.004064,
-        "cum_strat": 11.0831,
+        "cum_strat": 10.4424,
         "cum_spy": -0.1905,
         "top_ticker": "ULTA",
         "turnover": 0.0,
@@ -1177,9 +4749,9 @@
       },
       {
         "date": "2011-12-30",
-        "portfolio_return": -0.01269,
+        "portfolio_return": -0.052126,
         "spy_return": 0.010448,
-        "cum_strat": 9.6734,
+        "cum_strat": 4.6854,
         "cum_spy": 0.8524,
         "top_ticker": "ULTA",
         "turnover": 0.0,
@@ -1187,39 +4759,39 @@
       },
       {
         "date": "2012-01-31",
-        "portfolio_return": 0.08867,
+        "portfolio_return": -0.015241,
         "spy_return": 0.046375,
-        "cum_strat": 19.3981,
+        "cum_strat": 3.0899,
         "cum_spy": 5.5293,
-        "top_ticker": "ULTA",
+        "top_ticker": "DECK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-02-29",
-        "portfolio_return": 0.053293,
+        "portfolio_return": 0.072985,
         "spy_return": 0.043405,
-        "cum_strat": 25.7612,
+        "cum_strat": 10.6139,
         "cum_spy": 10.1099,
-        "top_ticker": "ULTA",
+        "top_ticker": "PSMT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-03-30",
-        "portfolio_return": 0.114344,
+        "portfolio_return": 0.018751,
         "spy_return": 0.032164,
-        "cum_strat": 40.1413,
+        "cum_strat": 12.6881,
         "cum_spy": 13.6515,
-        "top_ticker": "ULTA",
+        "top_ticker": "MCD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-04-30",
-        "portfolio_return": 0.024758,
+        "portfolio_return": 0.033045,
         "spy_return": -0.006676,
-        "cum_strat": 43.6109,
+        "cum_strat": 16.4118,
         "cum_spy": 12.8927,
         "top_ticker": "ORLY",
         "turnover": 0.0,
@@ -1227,49 +4799,49 @@
       },
       {
         "date": "2012-05-31",
-        "portfolio_return": -0.05943,
+        "portfolio_return": -0.05444,
         "spy_return": -0.060055,
-        "cum_strat": 35.0762,
+        "cum_strat": 10.0744,
         "cum_spy": 6.113,
-        "top_ticker": "ORLY",
+        "top_ticker": "FAST",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-06-29",
-        "portfolio_return": -0.040201,
+        "portfolio_return": -0.012498,
         "spy_return": 0.040581,
-        "cum_strat": 29.646,
+        "cum_strat": 8.6986,
         "cum_spy": 10.4191,
-        "top_ticker": "ORLY",
+        "top_ticker": "SBH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-07-31",
-        "portfolio_return": 0.027473,
+        "portfolio_return": 0.026973,
         "spy_return": 0.01183,
-        "cum_strat": 33.2078,
+        "cum_strat": 11.6306,
         "cum_spy": 11.7253,
-        "top_ticker": "ORLY",
+        "top_ticker": "LQDT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-08-31",
-        "portfolio_return": 0.031064,
+        "portfolio_return": 0.03365,
         "spy_return": 0.025053,
-        "cum_strat": 37.3457,
+        "cum_strat": 15.387,
         "cum_spy": 14.5243,
-        "top_ticker": "PMT",
+        "top_ticker": "DG",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-09-28",
-        "portfolio_return": 0.037943,
+        "portfolio_return": 0.041845,
         "spy_return": 0.025351,
-        "cum_strat": 42.557,
+        "cum_strat": 20.2154,
         "cum_spy": 17.4276,
         "top_ticker": "PMT",
         "turnover": 0.0,
@@ -1277,49 +4849,49 @@
       },
       {
         "date": "2012-10-31",
-        "portfolio_return": 0.058592,
+        "portfolio_return": -0.016506,
         "spy_return": -0.018198,
-        "cum_strat": 50.9097,
+        "cum_strat": 18.2311,
         "cum_spy": 15.2906,
-        "top_ticker": "PMT",
+        "top_ticker": "ROST",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-11-30",
-        "portfolio_return": -0.032896,
+        "portfolio_return": 0.007211,
         "spy_return": 0.00566,
-        "cum_strat": 45.9454,
+        "cum_strat": 19.0836,
         "cum_spy": 15.9432,
-        "top_ticker": "PMT",
+        "top_ticker": "PHM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2012-12-31",
-        "portfolio_return": 0.037172,
+        "portfolio_return": 0.065679,
         "spy_return": 0.008934,
-        "cum_strat": 51.3705,
+        "cum_strat": 26.905,
         "cum_spy": 16.979,
-        "top_ticker": "PMT",
+        "top_ticker": "EXP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-01-31",
-        "portfolio_return": 0.032257,
+        "portfolio_return": 0.113464,
         "spy_return": 0.05119,
-        "cum_strat": 56.2532,
+        "cum_strat": 41.3041,
         "cum_spy": 22.9672,
-        "top_ticker": "PMT",
+        "top_ticker": "GEO",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-02-28",
-        "portfolio_return": 0.038471,
+        "portfolio_return": 0.026383,
         "spy_return": 0.012759,
-        "cum_strat": 62.2644,
+        "cum_strat": 45.0322,
         "cum_spy": 24.5361,
         "top_ticker": "PPG",
         "turnover": 0.0,
@@ -1327,99 +4899,99 @@
       },
       {
         "date": "2013-03-28",
-        "portfolio_return": 0.024675,
+        "portfolio_return": 0.204522,
         "spy_return": 0.037971,
-        "cum_strat": 66.2683,
+        "cum_strat": 74.6945,
         "cum_spy": 29.2649,
-        "top_ticker": "PPG",
+        "top_ticker": "MWA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-04-30",
-        "portfolio_return": 0.022579,
+        "portfolio_return": 0.178177,
         "spy_return": 0.019212,
-        "cum_strat": 70.0224,
+        "cum_strat": 105.821,
         "cum_spy": 31.7484,
-        "top_ticker": "PPG",
+        "top_ticker": "ACAD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-05-31",
-        "portfolio_return": 0.010193,
+        "portfolio_return": 0.008224,
         "spy_return": 0.02361,
-        "cum_strat": 71.7554,
+        "cum_strat": 107.5137,
         "cum_spy": 34.8589,
-        "top_ticker": "PPG",
+        "top_ticker": "MPC",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-06-28",
-        "portfolio_return": -0.057712,
+        "portfolio_return": 0.005617,
         "spy_return": -0.013345,
-        "cum_strat": 61.8431,
+        "cum_strat": 108.6794,
         "cum_spy": 33.0593,
-        "top_ticker": "PPG",
+        "top_ticker": "FSLR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-07-31",
-        "portfolio_return": 0.115725,
+        "portfolio_return": 0.130007,
         "spy_return": 0.051677,
-        "cum_strat": 80.5724,
+        "cum_strat": 135.8092,
         "cum_spy": 39.9354,
-        "top_ticker": "FSLR",
+        "top_ticker": "ACAD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-08-30",
-        "portfolio_return": -0.091169,
+        "portfolio_return": 0.050637,
         "spy_return": -0.029992,
-        "cum_strat": 64.1098,
+        "cum_strat": 147.7498,
         "cum_spy": 35.7384,
-        "top_ticker": "FSLR",
+        "top_ticker": "TSLA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-09-30",
-        "portfolio_return": 0.16503,
+        "portfolio_return": 0.167089,
         "spy_return": 0.031647,
-        "cum_strat": 91.1929,
+        "cum_strat": 189.1461,
         "cum_spy": 40.0341,
-        "top_ticker": "FSLR",
+        "top_ticker": "GNW",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-10-31",
-        "portfolio_return": 0.067636,
+        "portfolio_return": 0.035621,
         "spy_return": 0.046306,
-        "cum_strat": 104.1244,
+        "cum_strat": 199.4459,
         "cum_spy": 46.5185,
-        "top_ticker": "FSLR",
+        "top_ticker": "GNW",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-11-29",
-        "portfolio_return": 0.092796,
+        "portfolio_return": -0.087675,
         "spy_return": 0.029638,
-        "cum_strat": 123.0664,
+        "cum_strat": 173.1921,
         "cum_spy": 50.8611,
-        "top_ticker": "FSLR",
+        "top_ticker": "ACAD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2013-12-31",
-        "portfolio_return": 0.088899,
+        "portfolio_return": 0.157064,
         "spy_return": 0.025926,
-        "cum_strat": 142.8968,
+        "cum_strat": 216.1007,
         "cum_spy": 54.7723,
         "top_ticker": "TSLA",
         "turnover": 0.0,
@@ -1427,49 +4999,49 @@
       },
       {
         "date": "2014-01-31",
-        "portfolio_return": 0.097392,
+        "portfolio_return": -0.063305,
         "spy_return": -0.035248,
-        "cum_strat": 166.5531,
+        "cum_strat": 196.0899,
         "cum_spy": 49.3168,
-        "top_ticker": "TSLA",
+        "top_ticker": "MTDR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-02-28",
-        "portfolio_return": 0.284644,
+        "portfolio_return": 0.018658,
         "spy_return": 0.045515,
-        "cum_strat": 242.426,
+        "cum_strat": 201.6142,
         "cum_spy": 56.1131,
-        "top_ticker": "TSLA",
+        "top_ticker": "CNK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-03-31",
-        "portfolio_return": -0.099075,
+        "portfolio_return": 0.028593,
         "spy_return": 0.008296,
-        "cum_strat": 208.5001,
+        "cum_strat": 210.2383,
         "cum_spy": 57.4082,
-        "top_ticker": "TSLA",
+        "top_ticker": "PEP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-04-30",
-        "portfolio_return": -0.063286,
+        "portfolio_return": -0.020554,
         "spy_return": 0.006951,
-        "cum_strat": 188.9765,
+        "cum_strat": 203.8618,
         "cum_spy": 58.5024,
-        "top_ticker": "TSLA",
+        "top_ticker": "PEP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-05-30",
-        "portfolio_return": 0.035353,
+        "portfolio_return": 0.051171,
         "spy_return": 0.023207,
-        "cum_strat": 199.1927,
+        "cum_strat": 219.4107,
         "cum_spy": 62.1807,
         "top_ticker": "PEP",
         "turnover": 0.0,
@@ -1477,49 +5049,49 @@
       },
       {
         "date": "2014-06-30",
-        "portfolio_return": 0.039723,
+        "portfolio_return": 0.037729,
         "spy_return": 0.020645,
-        "cum_strat": 211.0777,
+        "cum_strat": 231.4619,
         "cum_spy": 65.5289,
-        "top_ticker": "PEP",
+        "top_ticker": "SEM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-07-31",
-        "portfolio_return": -0.044033,
+        "portfolio_return": 0.002965,
         "spy_return": -0.013437,
-        "cum_strat": 197.38,
+        "cum_strat": 232.4445,
         "cum_spy": 63.3046,
-        "top_ticker": "PEP",
+        "top_ticker": "TRGP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-08-29",
-        "portfolio_return": 0.114668,
+        "portfolio_return": 0.079512,
         "spy_return": 0.039463,
-        "cum_strat": 231.48,
+        "cum_strat": 258.8777,
         "cum_spy": 69.7491,
-        "top_ticker": "PEP",
+        "top_ticker": "CMG",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-09-30",
-        "portfolio_return": 0.020673,
+        "portfolio_return": -0.025674,
         "spy_return": -0.013796,
-        "cum_strat": 238.3327,
+        "cum_strat": 249.664,
         "cum_spy": 67.4073,
-        "top_ticker": "PEP",
+        "top_ticker": "CENX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-10-31",
-        "portfolio_return": 0.092899,
+        "portfolio_return": 0.039997,
         "spy_return": 0.023551,
-        "cum_strat": 269.7636,
+        "cum_strat": 263.6496,
         "cum_spy": 71.3499,
         "top_ticker": "CENX",
         "turnover": 0.0,
@@ -1527,49 +5099,49 @@
       },
       {
         "date": "2014-11-28",
-        "portfolio_return": 0.03412,
+        "portfolio_return": -0.048798,
         "spy_return": 0.027472,
-        "cum_strat": 282.3798,
+        "cum_strat": 245.9041,
         "cum_spy": 76.0572,
-        "top_ticker": "CENX",
+        "top_ticker": "LUV",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2014-12-31",
-        "portfolio_return": -0.039665,
+        "portfolio_return": 0.001695,
         "spy_return": -0.002537,
-        "cum_strat": 267.2126,
+        "cum_strat": 246.4905,
         "cum_spy": 75.6106,
-        "top_ticker": "CENX",
+        "top_ticker": "CNK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-01-30",
-        "portfolio_return": 0.023856,
+        "portfolio_return": 0.038221,
         "spy_return": -0.029629,
-        "cum_strat": 275.9727,
+        "cum_strat": 259.7338,
         "cum_spy": 70.4073,
-        "top_ticker": "CENX",
+        "top_ticker": "CNK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-02-27",
-        "portfolio_return": -0.01683,
+        "portfolio_return": 0.130845,
         "spy_return": 0.056205,
-        "cum_strat": 269.6452,
+        "cum_strat": 306.8032,
         "cum_spy": 79.985,
-        "top_ticker": "CENX",
+        "top_ticker": "CNK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-03-31",
-        "portfolio_return": -0.06819,
+        "portfolio_return": 0.019352,
         "spy_return": -0.015705,
-        "cum_strat": 244.439,
+        "cum_strat": 314.6758,
         "cum_spy": 77.1583,
         "top_ticker": "KLIC",
         "turnover": 0.0,
@@ -1577,49 +5149,49 @@
       },
       {
         "date": "2015-04-30",
-        "portfolio_return": -0.026495,
+        "portfolio_return": -0.032761,
         "spy_return": 0.009833,
-        "cum_strat": 235.313,
+        "cum_strat": 301.0906,
         "cum_spy": 78.9004,
-        "top_ticker": "KLIC",
+        "top_ticker": "MNST",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-05-29",
-        "portfolio_return": -0.016099,
+        "portfolio_return": 0.017409,
         "spy_return": 0.012856,
-        "cum_strat": 229.9149,
+        "cum_strat": 308.0731,
         "cum_spy": 81.2004,
-        "top_ticker": "KLIC",
+        "top_ticker": "BXMT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-06-30",
-        "portfolio_return": -0.053066,
+        "portfolio_return": 0.025319,
         "spy_return": -0.020312,
-        "cum_strat": 212.4077,
+        "cum_strat": 318.4052,
         "cum_spy": 77.5198,
-        "top_ticker": "KLIC",
+        "top_ticker": "INCY",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-07-31",
-        "portfolio_return": -0.01748,
+        "portfolio_return": -0.070802,
         "spy_return": 0.022589,
-        "cum_strat": 206.9469,
+        "cum_strat": 288.7812,
         "cum_spy": 81.5299,
-        "top_ticker": "KLIC",
+        "top_ticker": "AMN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-08-31",
-        "portfolio_return": -0.065383,
+        "portfolio_return": -0.016157,
         "spy_return": -0.06095,
-        "cum_strat": 186.878,
+        "cum_strat": 282.4997,
         "cum_spy": 70.4656,
         "top_ticker": "CNC",
         "turnover": 0.0,
@@ -1627,49 +5199,49 @@
       },
       {
         "date": "2015-09-30",
-        "portfolio_return": -0.079367,
+        "portfolio_return": -0.061118,
         "spy_return": -0.025516,
-        "cum_strat": 164.1094,
+        "cum_strat": 259.1221,
         "cum_spy": 66.116,
-        "top_ticker": "CNC",
+        "top_ticker": "CTAS",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-10-30",
-        "portfolio_return": 0.039663,
+        "portfolio_return": 0.157428,
         "spy_return": 0.08506,
-        "cum_strat": 174.5847,
+        "cum_strat": 315.6579,
         "cum_spy": 80.2458,
-        "top_ticker": "CNC",
+        "top_ticker": "AMWD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-11-30",
-        "portfolio_return": 0.0235,
+        "portfolio_return": 0.011332,
         "spy_return": 0.003655,
-        "cum_strat": 181.0376,
+        "cum_strat": 320.3681,
         "cum_spy": 80.9045,
-        "top_ticker": "CNC",
+        "top_ticker": "AX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2015-12-31",
-        "portfolio_return": 0.06635,
+        "portfolio_return": -0.008952,
         "spy_return": -0.017282,
-        "cum_strat": 199.6845,
+        "cum_strat": 316.6049,
         "cum_spy": 77.7781,
-        "top_ticker": "CNC",
+        "top_ticker": "MKTX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-01-29",
-        "portfolio_return": -0.110286,
+        "portfolio_return": -0.101563,
         "spy_return": -0.049787,
-        "cum_strat": 166.6335,
+        "cum_strat": 274.2933,
         "cum_spy": 68.9271,
         "top_ticker": "MNST",
         "turnover": 0.0,
@@ -1677,49 +5249,49 @@
       },
       {
         "date": "2016-02-29",
-        "portfolio_return": -0.01857,
+        "portfolio_return": -0.028565,
         "spy_return": -0.000826,
-        "cum_strat": 161.6821,
+        "cum_strat": 263.6017,
         "cum_spy": 68.7876,
-        "top_ticker": "MNST",
+        "top_ticker": "ABCB",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-03-31",
-        "portfolio_return": 0.063427,
+        "portfolio_return": 0.095466,
         "spy_return": 0.067266,
-        "cum_strat": 178.2798,
+        "cum_strat": 298.3134,
         "cum_spy": 80.1412,
-        "top_ticker": "MNST",
+        "top_ticker": "SYK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-04-29",
-        "portfolio_return": 0.104757,
+        "portfolio_return": -0.057356,
         "spy_return": 0.003942,
-        "cum_strat": 207.4316,
+        "cum_strat": 275.4678,
         "cum_spy": 80.8513,
-        "top_ticker": "MNST",
+        "top_ticker": "SYK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-05-31",
-        "portfolio_return": 0.008089,
+        "portfolio_return": 0.088332,
         "spy_return": 0.017012,
-        "cum_strat": 209.9184,
+        "cum_strat": 308.6336,
         "cum_spy": 83.9278,
-        "top_ticker": "MNST",
+        "top_ticker": "SYK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-06-30",
-        "portfolio_return": 0.079776,
+        "portfolio_return": 0.053576,
         "spy_return": 0.003476,
-        "cum_strat": 234.6424,
+        "cum_strat": 330.5267,
         "cum_spy": 84.5671,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -1727,19 +5299,19 @@
       },
       {
         "date": "2016-07-29",
-        "portfolio_return": 0.016601,
+        "portfolio_return": 0.020908,
         "spy_return": 0.036471,
-        "cum_strat": 240.1979,
+        "cum_strat": 339.5282,
         "cum_spy": 91.2985,
-        "top_ticker": "SYK",
+        "top_ticker": "ABCB",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2016-08-31",
-        "portfolio_return": -0.032096,
+        "portfolio_return": -0.028776,
         "spy_return": 0.001197,
-        "cum_strat": 229.2791,
+        "cum_strat": 326.8803,
         "cum_spy": 91.5276,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -1747,9 +5319,9 @@
       },
       {
         "date": "2016-09-30",
-        "portfolio_return": 0.023667,
+        "portfolio_return": 0.02886,
         "spy_return": 5.8e-05,
-        "cum_strat": 237.072,
+        "cum_strat": 339.1999,
         "cum_spy": 91.5387,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -1757,9 +5329,9 @@
       },
       {
         "date": "2016-10-31",
-        "portfolio_return": -0.011802,
+        "portfolio_return": 0.024114,
         "spy_return": -0.017337,
-        "cum_strat": 233.0937,
+        "cum_strat": 349.7906,
         "cum_spy": 88.218,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -1767,9 +5339,9 @@
       },
       {
         "date": "2016-11-30",
-        "portfolio_return": 0.009905,
+        "portfolio_return": 0.011796,
         "spy_return": 0.036838,
-        "cum_strat": 236.3929,
+        "cum_strat": 355.0961,
         "cum_spy": 95.1516,
         "top_ticker": "OLED",
         "turnover": 0.0,
@@ -1777,49 +5349,49 @@
       },
       {
         "date": "2016-12-30",
-        "portfolio_return": -0.027318,
+        "portfolio_return": 0.008681,
         "spy_return": 0.020272,
-        "cum_strat": 227.2032,
+        "cum_strat": 359.0469,
         "cum_spy": 99.1077,
-        "top_ticker": "OLED",
+        "top_ticker": "SYK",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-01-31",
-        "portfolio_return": 0.074657,
+        "portfolio_return": 0.327727,
         "spy_return": 0.017895,
-        "cum_strat": 251.6313,
+        "cum_strat": 509.489,
         "cum_spy": 102.6708,
-        "top_ticker": "OLED",
+        "top_ticker": "CENX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-02-28",
-        "portfolio_return": 0.21867,
+        "portfolio_return": 0.207041,
         "spy_return": 0.039291,
-        "cum_strat": 328.5225,
+        "cum_strat": 635.6781,
         "cum_spy": 110.6339,
-        "top_ticker": "OLED",
+        "top_ticker": "AMD",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-03-31",
-        "portfolio_return": 0.010046,
+        "portfolio_return": -0.015927,
         "spy_return": 0.00125,
-        "cum_strat": 332.8275,
+        "cum_strat": 623.9611,
         "cum_spy": 110.8972,
-        "top_ticker": "OLED",
+        "top_ticker": "NVDA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-04-28",
-        "portfolio_return": 0.042052,
+        "portfolio_return": 0.054827,
         "spy_return": 0.009926,
-        "cum_strat": 351.0286,
+        "cum_strat": 663.6539,
         "cum_spy": 112.9906,
         "top_ticker": "CC",
         "turnover": 0.0,
@@ -1827,49 +5399,49 @@
       },
       {
         "date": "2017-05-31",
-        "portfolio_return": -0.044027,
+        "portfolio_return": 0.058285,
         "spy_return": 0.014113,
-        "cum_strat": 331.171,
+        "cum_strat": 708.1635,
         "cum_spy": 115.9965,
-        "top_ticker": "CC",
+        "top_ticker": "NVDA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-06-30",
-        "portfolio_return": -0.02068,
+        "portfolio_return": 0.030381,
         "spy_return": 0.006375,
-        "cum_strat": 322.2542,
+        "cum_strat": 732.7166,
         "cum_spy": 117.3735,
-        "top_ticker": "CC",
+        "top_ticker": "ABCB",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-07-31",
-        "portfolio_return": 0.110912,
+        "portfolio_return": 0.102743,
         "spy_return": 0.020554,
-        "cum_strat": 369.0871,
+        "cum_strat": 818.2726,
         "cum_spy": 121.8414,
-        "top_ticker": "CC",
+        "top_ticker": "EXTR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-08-31",
-        "portfolio_return": 0.005104,
+        "portfolio_return": 0.060999,
         "spy_return": 0.002918,
-        "cum_strat": 371.4813,
+        "cum_strat": 874.2859,
         "cum_spy": 122.4887,
-        "top_ticker": "CC",
+        "top_ticker": "EXTR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-09-29",
-        "portfolio_return": 0.061641,
+        "portfolio_return": 0.067513,
         "spy_return": 0.020149,
-        "cum_strat": 400.5438,
+        "cum_strat": 940.0624,
         "cum_spy": 126.9717,
         "top_ticker": "EXTR",
         "turnover": 0.0,
@@ -1877,49 +5449,49 @@
       },
       {
         "date": "2017-10-31",
-        "portfolio_return": 0.027494,
+        "portfolio_return": -0.132471,
         "spy_return": 0.023564,
-        "cum_strat": 414.3055,
+        "cum_strat": 802.2842,
         "cum_spy": 132.32,
-        "top_ticker": "EXTR",
+        "top_ticker": "TGTX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-11-30",
-        "portfolio_return": -0.018927,
+        "portfolio_return": 0.014809,
         "spy_return": 0.030566,
-        "cum_strat": 404.5711,
+        "cum_strat": 815.6465,
         "cum_spy": 139.4212,
-        "top_ticker": "EXTR",
+        "top_ticker": "UCTT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2017-12-29",
-        "portfolio_return": -0.014675,
+        "portfolio_return": -0.050181,
         "spy_return": 0.012128,
-        "cum_strat": 397.1668,
+        "cum_strat": 769.6985,
         "cum_spy": 142.3249,
-        "top_ticker": "EXTR",
+        "top_ticker": "NVDA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-01-31",
-        "portfolio_return": 0.075658,
+        "portfolio_return": 0.143671,
         "spy_return": 0.056359,
-        "cum_strat": 434.7817,
+        "cum_strat": 894.6492,
         "cum_spy": 155.9821,
-        "top_ticker": "EXTR",
+        "top_ticker": "ALGN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-02-28",
-        "portfolio_return": -0.169791,
+        "portfolio_return": -0.005877,
         "spy_return": -0.03636,
-        "cum_strat": 343.9806,
+        "cum_strat": 888.8031,
         "cum_spy": 146.6745,
         "top_ticker": "OLED",
         "turnover": 0.0,
@@ -1927,49 +5499,49 @@
       },
       {
         "date": "2018-03-29",
-        "portfolio_return": -0.074625,
+        "portfolio_return": 0.012728,
         "spy_return": -0.027411,
-        "cum_strat": 310.8486,
+        "cum_strat": 901.3891,
         "cum_spy": 139.9129,
-        "top_ticker": "OLED",
+        "top_ticker": "PCRX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-04-30",
-        "portfolio_return": -0.011621,
+        "portfolio_return": -0.036287,
         "spy_return": 0.005169,
-        "cum_strat": 306.0739,
+        "cum_strat": 865.0521,
         "cum_spy": 141.153,
-        "top_ticker": "OLED",
+        "top_ticker": "NVDA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-05-31",
-        "portfolio_return": 0.094448,
+        "portfolio_return": 0.020646,
         "spy_return": 0.024309,
-        "cum_strat": 344.4269,
+        "cum_strat": 884.9765,
         "cum_spy": 147.0151,
-        "top_ticker": "OLED",
+        "top_ticker": "COLL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-06-29",
-        "portfolio_return": -0.069338,
+        "portfolio_return": -0.091814,
         "spy_return": 0.005751,
-        "cum_strat": 313.6113,
+        "cum_strat": 794.5415,
         "cum_spy": 148.4357,
-        "top_ticker": "OLED",
+        "top_ticker": "COLL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-07-31",
-        "portfolio_return": 0.046083,
+        "portfolio_return": 0.039927,
         "spy_return": 0.037046,
-        "cum_strat": 332.6716,
+        "cum_strat": 830.2581,
         "cum_spy": 157.6393,
         "top_ticker": "NSIT",
         "turnover": 0.0,
@@ -1977,49 +5549,49 @@
       },
       {
         "date": "2018-08-31",
-        "portfolio_return": 0.02172,
+        "portfolio_return": 0.024872,
         "spy_return": 0.03192,
-        "cum_strat": 342.0692,
+        "cum_strat": 853.3954,
         "cum_spy": 165.8632,
-        "top_ticker": "NSIT",
+        "top_ticker": "ENPH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-09-28",
-        "portfolio_return": -0.101382,
+        "portfolio_return": 0.00724,
         "spy_return": 0.005946,
-        "cum_strat": 297.2513,
+        "cum_strat": 860.2977,
         "cum_spy": 167.4439,
-        "top_ticker": "NSIT",
+        "top_ticker": "ENPH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-10-31",
-        "portfolio_return": -0.032739,
+        "portfolio_return": -0.078383,
         "spy_return": -0.069104,
-        "cum_strat": 284.2457,
+        "cum_strat": 785.0266,
         "cum_spy": 148.9624,
-        "top_ticker": "NSIT",
+        "top_ticker": "AZZ",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-11-30",
-        "portfolio_return": -0.01071,
+        "portfolio_return": 0.217771,
         "spy_return": 0.018549,
-        "cum_strat": 280.1302,
+        "cum_strat": 977.7597,
         "cum_spy": 153.5804,
-        "top_ticker": "NSIT",
+        "top_ticker": "VCEL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2018-12-31",
-        "portfolio_return": -0.107459,
+        "portfolio_return": -0.113411,
         "spy_return": -0.088048,
-        "cum_strat": 239.282,
+        "cum_strat": 855.5299,
         "cum_spy": 131.2531,
         "top_ticker": "SPSC",
         "turnover": 0.0,
@@ -2027,49 +5599,49 @@
       },
       {
         "date": "2019-01-31",
-        "portfolio_return": 0.096291,
+        "portfolio_return": 0.14992,
         "spy_return": 0.080066,
-        "cum_strat": 271.9519,
+        "cum_strat": 998.7834,
         "cum_spy": 149.7685,
-        "top_ticker": "SPSC",
+        "top_ticker": "ETSY",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-02-28",
-        "portfolio_return": 0.103576,
+        "portfolio_return": 0.061243,
         "spy_return": 0.032416,
-        "cum_strat": 310.4773,
+        "cum_strat": 1066.0767,
         "cum_spy": 157.8649,
-        "top_ticker": "SPSC",
+        "top_ticker": "EVTC",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-03-29",
-        "portfolio_return": 0.02722,
+        "portfolio_return": 0.027043,
         "spy_return": 0.018101,
-        "cum_strat": 321.6507,
+        "cum_strat": 1097.611,
         "cum_spy": 162.5324,
-        "top_ticker": "SPSC",
+        "top_ticker": "EVTC",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-04-30",
-        "portfolio_return": -0.018067,
+        "portfolio_return": 0.034663,
         "spy_return": 0.040852,
-        "cum_strat": 314.0328,
+        "cum_strat": 1139.1233,
         "cum_spy": 173.2574,
-        "top_ticker": "SPSC",
+        "top_ticker": "TNDM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-05-31",
-        "portfolio_return": -0.056043,
+        "portfolio_return": -0.022404,
         "spy_return": -0.063771,
-        "cum_strat": 290.8292,
+        "cum_strat": 1111.3622,
         "cum_spy": 155.8315,
         "top_ticker": "TNDM",
         "turnover": 0.0,
@@ -2077,19 +5649,19 @@
       },
       {
         "date": "2019-06-28",
-        "portfolio_return": 0.082884,
+        "portfolio_return": 0.140198,
         "spy_return": 0.069587,
-        "cum_strat": 323.2226,
+        "cum_strat": 1281.1929,
         "cum_spy": 173.634,
-        "top_ticker": "TNDM",
+        "top_ticker": "VCYT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-07-31",
-        "portfolio_return": -0.001551,
+        "portfolio_return": 0.007725,
         "spy_return": 0.01512,
-        "cum_strat": 322.5661,
+        "cum_strat": 1291.8625,
         "cum_spy": 177.7712,
         "top_ticker": "TNDM",
         "turnover": 0.0,
@@ -2097,29 +5669,29 @@
       },
       {
         "date": "2019-08-30",
-        "portfolio_return": -0.00198,
+        "portfolio_return": -0.060176,
         "spy_return": -0.016743,
-        "cum_strat": 321.7294,
+        "cum_strat": 1208.1053,
         "cum_spy": 173.1204,
-        "top_ticker": "TNDM",
+        "top_ticker": "IIPR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-09-30",
-        "portfolio_return": -0.074369,
+        "portfolio_return": 0.002099,
         "spy_return": 0.019458,
-        "cum_strat": 290.3659,
+        "cum_strat": 1210.851,
         "cum_spy": 178.4347,
-        "top_ticker": "TNDM",
+        "top_ticker": "AEP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2019-10-31",
-        "portfolio_return": -0.095939,
+        "portfolio_return": -0.018377,
         "spy_return": 0.022105,
-        "cum_strat": 252.9146,
+        "cum_strat": 1186.7614,
         "cum_spy": 184.5894,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -2127,9 +5699,9 @@
       },
       {
         "date": "2019-11-29",
-        "portfolio_return": -0.000252,
+        "portfolio_return": 0.02855,
         "spy_return": 0.036198,
-        "cum_strat": 252.8257,
+        "cum_strat": 1223.499,
         "cum_spy": 194.8909,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -2137,39 +5709,39 @@
       },
       {
         "date": "2019-12-31",
-        "portfolio_return": 0.081189,
+        "portfolio_return": 0.023215,
         "spy_return": 0.029056,
-        "cum_strat": 281.4712,
+        "cum_strat": 1254.2239,
         "cum_spy": 203.4592,
-        "top_ticker": "ENPH",
+        "top_ticker": "PHM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-01-31",
-        "portfolio_return": 0.112403,
+        "portfolio_return": 0.073007,
         "spy_return": -0.000404,
-        "cum_strat": 324.3498,
+        "cum_strat": 1353.0917,
         "cum_spy": 203.3367,
-        "top_ticker": "ENPH",
+        "top_ticker": "SPGI",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-02-28",
-        "portfolio_return": 0.072483,
+        "portfolio_return": -0.096643,
         "spy_return": -0.079166,
-        "cum_strat": 355.1078,
+        "cum_strat": 1212.6612,
         "cum_spy": 179.3227,
-        "top_ticker": "ENPH",
+        "top_ticker": "CRUS",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-03-31",
-        "portfolio_return": -0.070315,
+        "portfolio_return": -0.112716,
         "spy_return": -0.124871,
-        "cum_strat": 323.1068,
+        "cum_strat": 1064.703,
         "cum_spy": 144.4434,
         "top_ticker": "SPGI",
         "turnover": 0.0,
@@ -2177,49 +5749,49 @@
       },
       {
         "date": "2020-04-30",
-        "portfolio_return": 0.112382,
+        "portfolio_return": 0.136646,
         "spy_return": 0.126983,
-        "cum_strat": 370.6566,
+        "cum_strat": 1223.8555,
         "cum_spy": 175.4836,
-        "top_ticker": "SPGI",
+        "top_ticker": "AAPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-05-29",
-        "portfolio_return": 0.047035,
+        "portfolio_return": 0.148689,
         "spy_return": 0.047646,
-        "cum_strat": 392.7941,
+        "cum_strat": 1420.6985,
         "cum_spy": 188.6092,
-        "top_ticker": "SPGI",
+        "top_ticker": "DOCU",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-06-30",
-        "portfolio_return": -0.012762,
+        "portfolio_return": 0.094621,
         "spy_return": 0.017734,
-        "cum_strat": 386.505,
+        "cum_strat": 1564.5879,
         "cum_spy": 193.7274,
-        "top_ticker": "SPGI",
+        "top_ticker": "DXCM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-07-31",
-        "portfolio_return": 0.066344,
+        "portfolio_return": 0.004048,
         "spy_return": 0.058892,
-        "cum_strat": 418.7819,
+        "cum_strat": 1571.3266,
         "cum_spy": 211.0257,
-        "top_ticker": "SPGI",
+        "top_ticker": "PZZA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-08-31",
-        "portfolio_return": 0.037971,
+        "portfolio_return": 0.078052,
         "spy_return": 0.069797,
-        "cum_strat": 438.4805,
+        "cum_strat": 1701.7769,
         "cum_spy": 232.7343,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -2227,29 +5799,29 @@
       },
       {
         "date": "2020-09-30",
-        "portfolio_return": -0.046402,
+        "portfolio_return": -0.107015,
         "spy_return": -0.037444,
-        "cum_strat": 413.4941,
+        "cum_strat": 1508.9599,
         "cum_spy": 220.2755,
-        "top_ticker": "NVDA",
+        "top_ticker": "CLX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-10-30",
-        "portfolio_return": -0.037167,
+        "portfolio_return": -0.081317,
         "spy_return": -0.024933,
-        "cum_strat": 394.409,
+        "cum_strat": 1378.1238,
         "cum_spy": 212.2899,
-        "top_ticker": "NVDA",
+        "top_ticker": "TSLA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2020-11-30",
-        "portfolio_return": 0.002882,
+        "portfolio_return": 0.337728,
         "spy_return": 0.108777,
-        "cum_strat": 395.8338,
+        "cum_strat": 1877.3277,
         "cum_spy": 246.2597,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -2257,9 +5829,9 @@
       },
       {
         "date": "2020-12-31",
-        "portfolio_return": -0.031059,
+        "portfolio_return": 0.107212,
         "spy_return": 0.037048,
-        "cum_strat": 380.4335,
+        "cum_strat": 2089.3211,
         "cum_spy": 259.0881,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -2267,9 +5839,9 @@
       },
       {
         "date": "2021-01-29",
-        "portfolio_return": 0.137466,
+        "portfolio_return": 0.216713,
         "spy_return": -0.01019,
-        "cum_strat": 446.4768,
+        "cum_strat": 2563.7746,
         "cum_spy": 255.4289,
         "top_ticker": "MRNA",
         "turnover": 0.0,
@@ -2277,49 +5849,49 @@
       },
       {
         "date": "2021-02-26",
-        "portfolio_return": -0.004737,
+        "portfolio_return": 0.053952,
         "spy_return": 0.027806,
-        "cum_strat": 443.8881,
+        "cum_strat": 2707.4897,
         "cum_spy": 265.3118,
-        "top_ticker": "MRNA",
+        "top_ticker": "XPEL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-03-31",
-        "portfolio_return": -0.026554,
+        "portfolio_return": -0.031575,
         "spy_return": 0.045399,
-        "cum_strat": 429.4457,
+        "cum_strat": 2618.8437,
         "cum_spy": 281.8967,
-        "top_ticker": "MRNA",
+        "top_ticker": "XPEL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-04-30",
-        "portfolio_return": 0.189457,
+        "portfolio_return": 0.066789,
         "spy_return": 0.05291,
-        "cum_strat": 529.7528,
+        "cum_strat": 2800.4314,
         "cum_spy": 302.103,
-        "top_ticker": "MRNA",
+        "top_ticker": "CELH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-05-28",
-        "portfolio_return": -0.052071,
+        "portfolio_return": -0.023135,
         "spy_return": 0.006566,
-        "cum_strat": 496.961,
+        "cum_strat": 2733.3304,
         "cum_spy": 304.7432,
-        "top_ticker": "MRNA",
+        "top_ticker": "RUN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-06-30",
-        "portfolio_return": 0.021965,
+        "portfolio_return": 0.007336,
         "spy_return": 0.022428,
-        "cum_strat": 510.0729,
+        "cum_strat": 2754.1164,
         "cum_spy": 313.8206,
         "top_ticker": "CLSK",
         "turnover": 0.0,
@@ -2327,49 +5899,49 @@
       },
       {
         "date": "2021-07-30",
-        "portfolio_return": -0.046451,
+        "portfolio_return": -0.02621,
         "spy_return": 0.024413,
-        "cum_strat": 481.7343,
+        "cum_strat": 2679.3088,
         "cum_spy": 323.923,
-        "top_ticker": "CLSK",
+        "top_ticker": "XPEL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-08-31",
-        "portfolio_return": 0.056817,
+        "portfolio_return": 0.142072,
         "spy_return": 0.02976,
-        "cum_strat": 514.7866,
+        "cum_strat": 3074.1714,
         "cum_spy": 336.5389,
-        "top_ticker": "CLSK",
+        "top_ticker": "SIG",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-09-30",
-        "portfolio_return": -0.038416,
+        "portfolio_return": 0.085582,
         "spy_return": -0.046606,
-        "cum_strat": 491.1688,
+        "cum_strat": 3345.8222,
         "cum_spy": 316.1938,
-        "top_ticker": "CLSK",
+        "top_ticker": "XPEL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-10-29",
-        "portfolio_return": 0.303203,
+        "portfolio_return": -0.062602,
         "spy_return": 0.070164,
-        "cum_strat": 670.4127,
+        "cum_strat": 3130.1085,
         "cum_spy": 345.3954,
-        "top_ticker": "CLSK",
+        "top_ticker": "BTU",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2021-11-30",
-        "portfolio_return": 0.140981,
+        "portfolio_return": -0.0251,
         "spy_return": -0.008035,
-        "cum_strat": 779.0259,
+        "cum_strat": 3049.034,
         "cum_spy": 341.8167,
         "top_ticker": "BTU",
         "turnover": 0.0,
@@ -2377,49 +5949,49 @@
       },
       {
         "date": "2021-12-31",
-        "portfolio_return": -0.072765,
+        "portfolio_return": 0.027677,
         "spy_return": 0.046248,
-        "cum_strat": 715.0637,
+        "cum_strat": 3136.1891,
         "cum_spy": 362.2497,
-        "top_ticker": "BTU",
+        "top_ticker": "SM",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-01-31",
-        "portfolio_return": -0.124835,
+        "portfolio_return": -0.202454,
         "spy_return": -0.052741,
-        "cum_strat": 613.3152,
+        "cum_strat": 2481.0085,
         "cum_spy": 337.8701,
-        "top_ticker": "BTU",
+        "top_ticker": "GDYN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-02-28",
-        "portfolio_return": 0.150167,
+        "portfolio_return": -0.238786,
         "spy_return": -0.029517,
-        "cum_strat": 720.4315,
+        "cum_strat": 1864.6999,
         "cum_spy": 324.9455,
-        "top_ticker": "BTU",
+        "top_ticker": "GDYN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-03-31",
-        "portfolio_return": 0.230775,
+        "portfolio_return": 0.037187,
         "spy_return": 0.03759,
-        "cum_strat": 909.7668,
+        "cum_strat": 1937.7614,
         "cum_spy": 340.9194,
-        "top_ticker": "BTU",
+        "top_ticker": "COKE",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-04-29",
-        "portfolio_return": -0.033072,
+        "portfolio_return": -0.076137,
         "spy_return": -0.087769,
-        "cum_strat": 876.3722,
+        "cum_strat": 1782.612,
         "cum_spy": 302.2202,
         "top_ticker": "LNTH",
         "turnover": 0.0,
@@ -2427,49 +5999,49 @@
       },
       {
         "date": "2022-05-31",
-        "portfolio_return": 0.059888,
+        "portfolio_return": 0.019968,
         "spy_return": 0.002257,
-        "cum_strat": 934.8448,
+        "cum_strat": 1820.2045,
         "cum_spy": 303.1282,
-        "top_ticker": "LNTH",
+        "top_ticker": "MATX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-06-30",
-        "portfolio_return": -0.148185,
+        "portfolio_return": -0.138171,
         "spy_return": -0.08246,
-        "cum_strat": 781.4961,
+        "cum_strat": 1554.8884,
         "cum_spy": 269.8861,
-        "top_ticker": "LNTH",
+        "top_ticker": "HCC",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-07-29",
-        "portfolio_return": 0.145464,
+        "portfolio_return": 0.223734,
         "spy_return": 0.092088,
-        "cum_strat": 909.7223,
+        "cum_strat": 1925.144,
         "cum_spy": 303.948,
-        "top_ticker": "LNTH",
+        "top_ticker": "DVN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-08-31",
-        "portfolio_return": -0.046373,
+        "portfolio_return": -0.077648,
         "spy_return": -0.040802,
-        "cum_strat": 862.8988,
+        "cum_strat": 1767.8963,
         "cum_spy": 287.4661,
-        "top_ticker": "LNTH",
+        "top_ticker": "COKE",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-09-30",
-        "portfolio_return": -0.052662,
+        "portfolio_return": -0.056063,
         "spy_return": -0.092446,
-        "cum_strat": 812.1903,
+        "cum_strat": 1663.1755,
         "cum_spy": 251.6465,
         "top_ticker": "CVI",
         "turnover": 0.0,
@@ -2477,49 +6049,49 @@
       },
       {
         "date": "2022-10-31",
-        "portfolio_return": 0.226047,
+        "portfolio_return": 0.082301,
         "spy_return": 0.081275,
-        "cum_strat": 1018.3886,
+        "cum_strat": 1808.2865,
         "cum_spy": 280.2266,
-        "top_ticker": "CVI",
+        "top_ticker": "EQT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-11-30",
-        "portfolio_return": 0.030926,
+        "portfolio_return": -0.067573,
         "spy_return": 0.055592,
-        "cum_strat": 1052.9756,
+        "cum_strat": 1679.3376,
         "cum_spy": 301.3641,
-        "top_ticker": "CVI",
+        "top_ticker": "LNTH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2022-12-30",
-        "portfolio_return": -0.105655,
+        "portfolio_return": -0.035315,
         "spy_return": -0.057628,
-        "cum_strat": 931.1581,
+        "cum_strat": 1616.501,
         "cum_spy": 278.2342,
-        "top_ticker": "CVI",
+        "top_ticker": "TDW",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-01-31",
-        "portfolio_return": 0.062163,
+        "portfolio_return": -0.114215,
         "spy_return": 0.062887,
-        "cum_strat": 995.2583,
+        "cum_strat": 1420.4514,
         "cum_spy": 302.0204,
-        "top_ticker": "CVI",
+        "top_ticker": "TPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-02-28",
-        "portfolio_return": 0.137987,
+        "portfolio_return": 0.191238,
         "spy_return": -0.025143,
-        "cum_strat": 1146.39,
+        "cum_strat": 1711.2201,
         "cum_spy": 291.9125,
         "top_ticker": "CPRX",
         "turnover": 0.0,
@@ -2527,49 +6099,49 @@
       },
       {
         "date": "2023-03-31",
-        "portfolio_return": 0.041975,
+        "portfolio_return": -0.082143,
         "spy_return": 0.037078,
-        "cum_strat": 1198.7077,
+        "cum_strat": 1562.4412,
         "cum_spy": 306.4437,
-        "top_ticker": "CPRX",
+        "top_ticker": "TMDX",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-04-28",
-        "portfolio_return": 0.006516,
+        "portfolio_return": -0.053293,
         "spy_return": 0.015975,
-        "cum_strat": 1207.1698,
+        "cum_strat": 1473.8443,
         "cum_spy": 312.9367,
-        "top_ticker": "CPRX",
+        "top_ticker": "SMCI",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-05-31",
-        "portfolio_return": 0.149939,
+        "portfolio_return": 0.344426,
         "spy_return": 0.004616,
-        "cum_strat": 1403.1652,
+        "cum_strat": 2015.9174,
         "cum_spy": 314.8429,
-        "top_ticker": "CPRX",
+        "top_ticker": "PI",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-06-30",
-        "portfolio_return": 0.149317,
+        "portfolio_return": 0.040389,
         "spy_return": 0.0648,
-        "cum_strat": 1627.6138,
+        "cum_strat": 2101.3778,
         "cum_spy": 341.7246,
-        "top_ticker": "CPRX",
+        "top_ticker": "IPAR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2023-07-31",
-        "portfolio_return": 0.126666,
+        "portfolio_return": 0.094075,
         "spy_return": 0.032733,
-        "cum_strat": 1846.4443,
+        "cum_strat": 2308.4714,
         "cum_spy": 356.1836,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2577,9 +6149,9 @@
       },
       {
         "date": "2023-08-31",
-        "portfolio_return": -0.047141,
+        "portfolio_return": -0.004692,
         "spy_return": -0.016252,
-        "cum_strat": 1754.6877,
+        "cum_strat": 2297.1703,
         "cum_spy": 348.7698,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2587,9 +6159,9 @@
       },
       {
         "date": "2023-09-29",
-        "portfolio_return": -0.047676,
+        "portfolio_return": -0.074934,
         "spy_return": -0.047435,
-        "cum_strat": 1666.2638,
+        "cum_strat": 2117.541,
         "cum_spy": 327.4826,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2597,9 +6169,9 @@
       },
       {
         "date": "2023-10-31",
-        "portfolio_return": -0.044444,
+        "portfolio_return": -0.050992,
         "spy_return": -0.021709,
-        "cum_strat": 1587.7643,
+        "cum_strat": 2004.465,
         "cum_spy": 318.2025,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2607,9 +6179,9 @@
       },
       {
         "date": "2023-11-30",
-        "portfolio_return": 0.168264,
+        "portfolio_return": 0.092807,
         "spy_return": 0.091344,
-        "cum_strat": 1871.7536,
+        "cum_strat": 2199.7741,
         "cum_spy": 356.4027,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2617,9 +6189,9 @@
       },
       {
         "date": "2023-12-29",
-        "portfolio_return": 0.033368,
+        "portfolio_return": 0.026044,
         "spy_return": 0.045655,
-        "cum_strat": 1937.5478,
+        "cum_strat": 2259.6701,
         "cum_spy": 377.24,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2627,19 +6199,19 @@
       },
       {
         "date": "2024-01-31",
-        "portfolio_return": 0.403036,
+        "portfolio_return": 0.237887,
         "spy_return": 0.015926,
-        "cum_strat": 2758.7527,
+        "cum_strat": 2821.0051,
         "cum_spy": 384.8407,
-        "top_ticker": "SMCI",
+        "top_ticker": "POWL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-02-29",
-        "portfolio_return": 0.400825,
+        "portfolio_return": 0.551027,
         "spy_return": 0.052187,
-        "cum_strat": 3904.6126,
+        "cum_strat": 4430.5578,
         "cum_spy": 410.143,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -2647,29 +6219,29 @@
       },
       {
         "date": "2024-03-28",
-        "portfolio_return": -0.008643,
+        "portfolio_return": -0.024088,
         "spy_return": 0.032702,
-        "cum_strat": 3870.0012,
+        "cum_strat": 4321.424,
         "cum_spy": 426.8256,
-        "top_ticker": "SMCI",
+        "top_ticker": "NVDA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-04-30",
-        "portfolio_return": -0.020124,
+        "portfolio_return": -0.056122,
         "spy_return": -0.040319,
-        "cum_strat": 3790.1102,
+        "cum_strat": 4073.285,
         "cum_spy": 405.5843,
-        "top_ticker": "SMCI",
+        "top_ticker": "POWL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-05-31",
-        "portfolio_return": 0.11923,
+        "portfolio_return": 0.241015,
         "spy_return": 0.05058,
-        "cum_strat": 4253.928,
+        "cum_strat": 5079.108,
         "cum_spy": 431.1566,
         "top_ticker": "CEG",
         "turnover": 0.0,
@@ -2677,49 +6249,49 @@
       },
       {
         "date": "2024-06-28",
-        "portfolio_return": -0.135218,
+        "portfolio_return": -0.099816,
         "spy_return": 0.03528,
-        "cum_strat": 3665.199,
+        "cum_strat": 4562.1502,
         "cum_spy": 449.8959,
-        "top_ticker": "CEG",
+        "top_ticker": "POWL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-07-31",
-        "portfolio_return": 0.044788,
+        "portfolio_return": 0.092686,
         "spy_return": 0.012109,
-        "cum_strat": 3833.8343,
+        "cum_strat": 4994.2647,
         "cum_spy": 456.5546,
-        "top_ticker": "CEG",
+        "top_ticker": "AESI",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-08-30",
-        "portfolio_return": 0.011352,
+        "portfolio_return": 0.054009,
         "spy_return": 0.023366,
-        "cum_strat": 3878.4901,
+        "cum_strat": 5269.3998,
         "cum_spy": 469.5589,
-        "top_ticker": "CEG",
+        "top_ticker": "VITL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-09-30",
-        "portfolio_return": 0.351083,
+        "portfolio_return": 0.121227,
         "spy_return": 0.021005,
-        "cum_strat": 5275.2689,
+        "cum_strat": 5920.3169,
         "cum_spy": 481.5223,
-        "top_ticker": "CEG",
+        "top_ticker": "ADMA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2024-10-31",
-        "portfolio_return": 0.11423,
+        "portfolio_return": -0.052924,
         "spy_return": -0.008924,
-        "cum_strat": 5889.2862,
+        "cum_strat": 5601.6947,
         "cum_spy": 476.333,
         "top_ticker": "ADMA",
         "turnover": 0.0,
@@ -2727,9 +6299,9 @@
       },
       {
         "date": "2024-11-29",
-        "portfolio_return": 0.176275,
+        "portfolio_return": 0.433578,
         "spy_return": 0.059633,
-        "cum_strat": 6945.0456,
+        "cum_strat": 8073.8234,
         "cum_spy": 510.7017,
         "top_ticker": "ADMA",
         "turnover": 0.0,
@@ -2737,139 +6309,139 @@
       },
       {
         "date": "2024-12-31",
-        "portfolio_return": -0.135638,
+        "portfolio_return": -0.174648,
         "spy_return": -0.02406,
-        "cum_strat": 5989.4677,
+        "cum_strat": 6646.2849,
         "cum_spy": 496.0081,
-        "top_ticker": "ADMA",
+        "top_ticker": "APP",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-01-31",
-        "portfolio_return": -0.004565,
+        "portfolio_return": 0.137292,
         "spy_return": 0.026856,
-        "cum_strat": 5961.6671,
+        "cum_strat": 7572.4982,
         "cum_spy": 512.0148,
-        "top_ticker": "ADMA",
+        "top_ticker": "QTWO",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-02-28",
-        "portfolio_return": -0.044658,
+        "portfolio_return": -0.018469,
         "spy_return": -0.012695,
-        "cum_strat": 5690.9654,
+        "cum_strat": 7430.7954,
         "cum_spy": 504.2453,
-        "top_ticker": "ADMA",
+        "top_ticker": "TPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-03-31",
-        "portfolio_return": -0.021301,
+        "portfolio_return": -0.096584,
         "spy_return": -0.055719,
-        "cum_strat": 5567.6142,
+        "cum_strat": 6703.4422,
         "cum_spy": 470.5773,
-        "top_ticker": "RKLB",
+        "top_ticker": "FRPT",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-04-30",
-        "portfolio_return": 0.115039,
+        "portfolio_return": 0.052654,
         "spy_return": -0.00867,
-        "cum_strat": 6219.6134,
+        "cum_strat": 7061.6728,
         "cum_spy": 465.6302,
-        "top_ticker": "RKLB",
+        "top_ticker": "TPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-05-30",
-        "portfolio_return": 0.133977,
+        "portfolio_return": 0.015295,
         "spy_return": 0.062845,
-        "cum_strat": 7066.2947,
+        "cum_strat": 7171.2114,
         "cum_spy": 501.1772,
-        "top_ticker": "RKLB",
+        "top_ticker": "TPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-06-30",
-        "portfolio_return": 0.114533,
+        "portfolio_return": 0.148204,
         "spy_return": 0.051386,
-        "cum_strat": 7887.0743,
+        "cum_strat": 8248.8365,
         "cum_spy": 532.0694,
-        "top_ticker": "RKLB",
+        "top_ticker": "VRSN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-07-31",
-        "portfolio_return": 0.065447,
+        "portfolio_return": 0.04024,
         "spy_return": 0.023032,
-        "cum_strat": 8409.8045,
+        "cum_strat": 8584.7962,
         "cum_spy": 546.627,
-        "top_ticker": "RKLB",
+        "top_ticker": "PRA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-08-29",
-        "portfolio_return": -0.015163,
+        "portfolio_return": 0.037476,
         "spy_return": 0.02052,
-        "cum_strat": 8280.7708,
+        "cum_strat": 8910.2649,
         "cum_spy": 559.8954,
-        "top_ticker": "SEZL",
+        "top_ticker": "CHTR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-09-30",
-        "portfolio_return": 0.040704,
+        "portfolio_return": 0.052588,
         "spy_return": 0.03562,
-        "cum_strat": 8621.9008,
+        "cum_strat": 9384.0983,
         "cum_spy": 583.4012,
-        "top_ticker": "SEZL",
+        "top_ticker": "HTH",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-10-31",
-        "portfolio_return": 0.004893,
+        "portfolio_return": -0.056275,
         "spy_return": 0.023837,
-        "cum_strat": 8664.5747,
+        "cum_strat": 8850.3829,
         "cum_spy": 599.6916,
-        "top_ticker": "SEZL",
+        "top_ticker": "TPL",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-11-28",
-        "portfolio_return": 0.070979,
+        "portfolio_return": 0.11536,
         "spy_return": 0.00195,
-        "cum_strat": 9286.6772,
+        "cum_strat": 9882.9019,
         "cum_spy": 601.0561,
-        "top_ticker": "SEZL",
+        "top_ticker": "ONDS",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2025-12-31",
-        "portfolio_return": -0.079705,
+        "portfolio_return": -0.062964,
         "spy_return": 0.000798,
-        "cum_strat": 8538.5138,
+        "cum_strat": 9254.3393,
         "cum_spy": 601.6152,
-        "top_ticker": "SEZL",
+        "top_ticker": "IREN",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2026-01-30",
-        "portfolio_return": 0.06811,
+        "portfolio_return": 0.245636,
         "spy_return": 0.014738,
-        "cum_strat": 9126.8804,
+        "cum_strat": 11552.0991,
         "cum_spy": 611.9554,
         "top_ticker": "IREN",
         "turnover": 0.0,
@@ -2877,51 +6449,51 @@
       },
       {
         "date": "2026-02-27",
-        "portfolio_return": -0.060133,
+        "portfolio_return": -0.038411,
         "spy_return": -0.008642,
-        "cum_strat": 8572.0408,
+        "cum_strat": 11104.5247,
         "cum_spy": 605.8027,
-        "top_ticker": "IREN",
+        "top_ticker": "EA",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2026-03-31",
-        "portfolio_return": 0.062415,
+        "portfolio_return": -0.114044,
         "spy_return": -0.04938,
-        "cum_strat": 9113.3081,
+        "cum_strat": 9826.7192,
         "cum_spy": 570.9505,
-        "top_ticker": "IREN",
+        "top_ticker": "MU",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2026-04-30",
-        "portfolio_return": 0.203303,
+        "portfolio_return": 0.275416,
         "spy_return": 0.105053,
-        "cum_strat": 10986.4013,
+        "cum_strat": 12560.7013,
         "cum_spy": 641.4356,
-        "top_ticker": "IREN",
+        "top_ticker": "ONDS",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
         "date": "2026-05-29",
-        "portfolio_return": 0.070196,
+        "portfolio_return": 0.005608,
         "spy_return": 0.026382,
-        "cum_strat": 11764.6217,
+        "cum_strat": 12631.6979,
         "cum_spy": 660.9965,
-        "top_ticker": "IREN",
+        "top_ticker": "PARR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
-        "date": "2026-06-17",
-        "portfolio_return": -0.007166,
+        "date": "2026-06-26",
+        "portfolio_return": 0.048063,
         "spy_return": 0.0,
-        "cum_strat": 11679.5963,
+        "cum_strat": 13243.6158,
         "cum_spy": 660.9965,
-        "top_ticker": "MU",
+        "top_ticker": "MXL",
         "turnover": 0.0,
         "regime": "neutral"
       }
@@ -3003,13 +6575,13 @@
   "attribution": [],
   "metrics": {
     "backtest": {
-      "net_cagr": 0.3624,
-      "sharpe": 1.04,
-      "max_drawdown": -0.4178,
-      "spy_cagr": 0.1407,
-      "hit_rate": 0.5337,
+      "net_cagr": 0.3728,
+      "sharpe": 1.017,
+      "max_drawdown": -0.5996,
+      "spy_cagr": 0.1404,
+      "hit_rate": 0.5306,
       "n_months": 186,
-      "config": "top-3 / 105-day hold, full universe",
+      "config": "top-3 / 1st-of-month, full universe",
       "source": "_c78q_top3_rebake.py (current streams)"
     },
     "live": {
@@ -3017,5 +6589,5 @@
       "available": false
     }
   },
-  "recompute_note": "Featured config = top-3 / 105-day hold on the full (broad) universe, current streams = 36% basis. Headline + curve + baskets all describe this config."
+  "recompute_note": "Config = top-3 / 1st-of-month (~21-day hold), full universe. target.rows = LOCKED current book (last month-start rebalance); target.signal_now = top-3 the posterior favors today (drift indicator, NOT held)."
 }
