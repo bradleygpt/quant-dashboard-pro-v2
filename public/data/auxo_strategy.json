@@ -17,11 +17,151 @@
   "as_of": "2026-06-16",
   "tickers": [
    "EIX",
-   "FISV",
-   "MOS"
-  ]
+   "MOS",
+   "FISV"
+  ],
+  "n": 3
  },
  "next_rebalance": "2026-07-01",
+ "rebalance_ledger": [
+  {
+   "as_of": "2026-06-16",
+   "held_n": 3,
+   "held_tickers": [
+    "EIX",
+    "MOS",
+    "FISV"
+   ],
+   "top25": [
+    {
+     "rank": 1,
+     "ticker": "EIX",
+     "score": 9.995
+    },
+    {
+     "rank": 2,
+     "ticker": "MOS",
+     "score": 9.863334
+    },
+    {
+     "rank": 3,
+     "ticker": "FISV",
+     "score": 9.799999
+    },
+    {
+     "rank": 4,
+     "ticker": "RL",
+     "score": 9.74
+    },
+    {
+     "rank": 5,
+     "ticker": "DECK",
+     "score": 9.706666
+    },
+    {
+     "rank": 6,
+     "ticker": "TPR",
+     "score": 9.655
+    },
+    {
+     "rank": 7,
+     "ticker": "ED",
+     "score": 9.451667
+    },
+    {
+     "rank": 8,
+     "ticker": "F",
+     "score": 9.445001
+    },
+    {
+     "rank": 9,
+     "ticker": "FSLR",
+     "score": 9.440001
+    },
+    {
+     "rank": 10,
+     "ticker": "SJM",
+     "score": 9.413334
+    },
+    {
+     "rank": 11,
+     "ticker": "COF",
+     "score": 9.396667
+    },
+    {
+     "rank": 12,
+     "ticker": "SMCI",
+     "score": 9.384999
+    },
+    {
+     "rank": 13,
+     "ticker": "STLD",
+     "score": 9.374999
+    },
+    {
+     "rank": 14,
+     "ticker": "BKNG",
+     "score": 9.335
+    },
+    {
+     "rank": 15,
+     "ticker": "AFL",
+     "score": 9.315001
+    },
+    {
+     "rank": 16,
+     "ticker": "ATO",
+     "score": 9.313333
+    },
+    {
+     "rank": 17,
+     "ticker": "IVZ",
+     "score": 9.296667
+    },
+    {
+     "rank": 18,
+     "ticker": "MU",
+     "score": 9.293333
+    },
+    {
+     "rank": 19,
+     "ticker": "FDX",
+     "score": 9.233333
+    },
+    {
+     "rank": 20,
+     "ticker": "APO",
+     "score": 9.228333
+    },
+    {
+     "rank": 21,
+     "ticker": "TTWO",
+     "score": 9.21
+    },
+    {
+     "rank": 22,
+     "ticker": "FIX",
+     "score": 9.21
+    },
+    {
+     "rank": 23,
+     "ticker": "AEE",
+     "score": 9.168333
+    },
+    {
+     "rank": 24,
+     "ticker": "IRM",
+     "score": 9.086666
+    },
+    {
+     "rank": 25,
+     "ticker": "AAPL",
+     "score": 9.073333
+    }
+   ],
+   "source": "factor-builder"
+  }
+ ],
  "backtest": {
   "cagr": 31.0,
   "sharpe": 1.16,
@@ -987,7 +1127,7 @@
   },
   {
    "date": "2023-06-30",
-   "equity": 2381.0,
+   "equity": 2381.1,
    "spy": 346.0,
    "nasdaq": 510.6
   },
@@ -1077,7 +1217,7 @@
   },
   {
    "date": "2024-09-30",
-   "equity": 3211.6,
+   "equity": 3211.7,
    "spy": 448.1,
    "nasdaq": 673.7
   },
@@ -1591,6 +1731,7 @@
   }
  ],
  "caveats": [
+  "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
   "Backtested 2011-2026, NOT a forward projection. Walk-forward tests show realized returns ~40% of backtest CAGR; per-2yr regime CAGR ranged 2% to 61% (median 33%).",
   "TRUE daily mark-to-market - the -43% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-3 concentration: high single-name risk. Held 62 distinct names over the backtest, rotating ~3 at a time.",
