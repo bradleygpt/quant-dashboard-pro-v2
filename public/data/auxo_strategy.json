@@ -22,7 +22,7 @@
   ],
   "n": 3
  },
- "next_rebalance": "2026-07-01",
+ "next_rebalance": "2026-11-10",
  "rebalance_ledger": [
   {
    "as_of": "2026-06-16",
@@ -1736,6 +1736,6 @@
   "TRUE daily mark-to-market - the -43% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-3 concentration: high single-name risk. Held 62 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~210%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
-  "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-07-01 (105-day hold)."
+  "Current holdings = live position as of 2026-06-16; next rebalance projected 2026-11-10 (105-day hold)."
  ]
 }

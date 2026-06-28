@@ -21,9 +21,9 @@ interface TargetRow { rank: number; ticker: string; posterior_prob: number; n_st
 interface Position { ticker: string; entry_price: number; current_price: number; shares: number; stale_mark?: boolean }
 interface SummaryRow { date: string; cum_strat: number; cum_spy: number; portfolio_return: number; spy_return: number; top_ticker: string; turnover: number; regime: string }
 interface C78q {
-  ok?: boolean; generated_at?: string;
+  ok?: boolean; generated_at?: string; data_caveat?: string;
   spec?: { version: string; config: string; capital_default: number; basket_size: number; weight_per_position: number };
-  target?: { as_of: string; rows: TargetRow[] } | null;
+  target?: { as_of: string; rows: TargetRow[]; n?: number; source?: string; signal_now?: { as_of: string; rows: { rank: number; ticker: string; posterior_prob: number }[] } } | null;
   state?: { mode: string; deployed_date?: string; scale_in_pct?: number; cash_reserve?: number; capital?: number; next_rebalance?: string; positions?: Position[] } | null;
   ppi?: { as_of: string; score: number; level: string; band_deploy_pct: number; components: { name: string; weight: number; score: number | null; detail: string }[] } | null;
   backtest?: { summary?: SummaryRow[]; regime_periods?: { start: string; end: string; regime: string }[] };
@@ -55,7 +55,8 @@ export default function C78QTab() {
       <div>
         <h2 className="text-lg font-bold text-white">Project Katalepsis (c78q) Strategy</h2>
         <p className="text-xs text-[#7C879B]">
-          The validated c78q strategy (config {data?.spec?.config ?? "A_top8"} · {data?.spec?.basket_size ?? 8} US stocks, equal-weight {(data?.spec?.weight_per_position ?? 0.125) * 100}%).
+          Currently holding {data?.target?.n ?? data?.spec?.basket_size ?? 8} stocks
+          {data?.target?.n && data?.spec?.basket_size && data.target.n !== data.spec.basket_size ? ` (transitioning to top-${data.spec.basket_size})` : ""}, equal-weight {((data?.target?.n ? 1 / data.target.n : (data?.spec?.weight_per_position ?? 0.125)) * 100).toFixed(1)}%.
           Backtest / picks / state from the quant-historical ETL ({data?.generated_at ? new Date(data.generated_at).toLocaleDateString() : "daily"}); PPI computed live from SPY/VIX/VVIX + baked-universe breadth.
         </p>
       </div>
@@ -178,7 +179,8 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
 
 // ── (b) Current monthly deployed assets ──────────────────────────────────────
 function DeployedBlock({ data }: { data: C78q }) {
-  const t = data.target, s = data.state, wpp = data.spec?.weight_per_position ?? 0.125;
+  const t = data.target, s = data.state;
+  const wpp = t?.n ? 1 / t.n : (data.spec?.weight_per_position ?? 0.125); // current-book weight (target.n), not the go-forward spec
   const cap = s?.capital ?? data.spec?.capital_default ?? 25000;
   // Live-preferred deployment prices: the c78q ledger's current_price is a static
   // ETL snapshot frozen at the deploy date (stale_mark), so "current"/gains read 0%.
@@ -217,6 +219,14 @@ function DeployedBlock({ data }: { data: C78q }) {
           </div>
         )}
       </Card>
+
+      {t?.signal_now?.rows?.length ? (
+        <Card title="Current Signal — NOT held (drift indicator)" sub={`Top-${data.spec?.basket_size ?? 3} the posterior favors as of ${t.signal_now.as_of}. What the model would pick TODAY vs the held book above — a turnover/drift gauge, not a trade list.`}>
+          <div className="flex flex-wrap gap-2">
+            {t.signal_now.rows.map((r) => <Pill key={r.ticker} active={false}>{r.rank}. {r.ticker} · {(r.posterior_prob * 100).toFixed(1)}%</Pill>)}
+          </div>
+        </Card>
+      ) : null}
 
       {s?.mode === "deployed" ? (
         <Card title="Live Deployment State" sub={`Deployed ${s.deployed_date} · scale-in ${s.scale_in_pct}% · next rebalance ${s.next_rebalance}. Current = live intraday quote when available (else baked snapshot, labeled).`}>
@@ -323,6 +333,12 @@ function BacktestBlock({ data }: { data: C78q }) {
           <Metric label="Months" value={bt.n_months ?? summary.length} />
         </div>
       </Card>
+
+      {data.data_caveat && (
+        <div className="rounded-lg border border-[#3A2A14] bg-[#1A1308] px-4 py-3 text-[11px] text-[#D9A441]">
+          ⚠️ {data.data_caveat}
+        </div>
+      )}
 
       {summary.length > 0 && (
         <div className="rounded-lg border border-[#1E2632] bg-[#0C0F16] px-4 py-3 text-[11px] text-[#7C879B]">
