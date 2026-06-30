@@ -242,32 +242,32 @@
         "label": "10Y\u20132Y Treasury spread",
         "unit": "%",
         "risk_dir": "lower",
-        "value": 0.31,
-        "date": "2026-06-26"
+        "value": 0.28,
+        "date": "2026-06-29"
       },
       {
         "id": "T10Y3M",
         "label": "10Y\u20133M Treasury spread",
         "unit": "%",
         "risk_dir": "lower",
-        "value": 0.55,
-        "date": "2026-06-26"
+        "value": 0.51,
+        "date": "2026-06-29"
       },
       {
         "id": "DGS10",
         "label": "10-Year Treasury",
         "unit": "%",
         "risk_dir": null,
-        "value": 4.4,
-        "date": "2026-06-25"
+        "value": 4.38,
+        "date": "2026-06-26"
       },
       {
         "id": "DGS2",
         "label": "2-Year Treasury",
         "unit": "%",
         "risk_dir": null,
-        "value": 4.09,
-        "date": "2026-06-25"
+        "value": 4.07,
+        "date": "2026-06-26"
       },
       {
         "id": "BAMLH0A0HYM2",
@@ -290,24 +290,24 @@
         "label": "5Y breakeven inflation",
         "unit": "%",
         "risk_dir": null,
-        "value": 2.21,
-        "date": "2026-06-26"
+        "value": 2.24,
+        "date": "2026-06-29"
       },
       {
         "id": "T10YIE",
         "label": "10Y breakeven inflation",
         "unit": "%",
         "risk_dir": null,
-        "value": 2.2,
-        "date": "2026-06-26"
+        "value": 2.22,
+        "date": "2026-06-29"
       },
       {
         "id": "T5YIFR",
         "label": "5Y5Y forward inflation",
         "unit": "%",
         "risk_dir": null,
-        "value": 2.19,
-        "date": "2026-06-26"
+        "value": 2.2,
+        "date": "2026-06-29"
       },
       {
         "id": "ICSA",
@@ -318,7 +318,7 @@
         "date": "2026-06-20"
       }
     ],
-    "as_of": "2026-06-26",
+    "as_of": "2026-06-29",
     "source": "FRED (keyless fredgraph)"
   },
   "forward_earnings": {
