@@ -274,8 +274,8 @@
         "label": "High-Yield OAS",
         "unit": "%",
         "risk_dir": "higher",
-        "value": 2.8,
-        "date": "2026-06-29"
+        "value": 2.75,
+        "date": "2026-06-30"
       },
       {
         "id": "BAMLC0A0CM",
@@ -283,7 +283,7 @@
         "unit": "%",
         "risk_dir": "higher",
         "value": 0.76,
-        "date": "2026-06-29"
+        "date": "2026-06-30"
       },
       {
         "id": "T5YIE",
