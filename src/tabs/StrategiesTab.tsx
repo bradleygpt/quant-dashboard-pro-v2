@@ -44,7 +44,7 @@ export function BookTypePill({ bookType, asOf }: { bookType: BookType; asOf?: st
   return bookType === "live" ? (
     <span
       title={`LIVE — broker-confirmed positions${asOf ? ` (as of ${asOf})` : ""}`}
-      className="rounded-full bg-pos/10 px-2 py-0.5 text-[10px] font-semibold text-pos ring-1 ring-pos/35"
+      className="rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold text-brass-hi ring-1 ring-brass/40"
     >
       ● LIVE · broker
     </span>
@@ -186,7 +186,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           <div className="space-y-3">
             {STRATS.filter((d) => rationale[d.label]?.rationale).map((d) => (
               <div key={d.key}>
-                <div className="text-sm font-semibold text-[#9CB6E0]">{d.label} <span className="text-[11px] font-normal text-mute">· {d.factor}</span></div>
+                <div className="text-sm font-semibold text-link/75">{d.label} <span className="text-[11px] font-normal text-mute">· {d.factor}</span></div>
                 <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{rationale[d.label].rationale}</p>
               </div>
             ))}
@@ -246,7 +246,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           </table>
         </div>
         <p className="mt-3 text-[10px] text-dim">
-          <span className="text-pos">● LIVE</span> = broker-confirmed positions;{" "}
+          <span className="text-brass-hi">● LIVE</span> = broker-confirmed positions;{" "}
           <span className="text-paper">◌ PAPER</span> = signal-derived research book, never held at a broker.
           Quant strategies rebalance every fixed hold-window; live sleeves rebalance the first trading day of each month. Click any row to open its full page.
           {scouts.length > 0 && (
@@ -301,7 +301,7 @@ export default function StrategiesTab() {
               it.key === active ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"
             }`}
           >
-            {statusMap[it.key]?.book_type === "live" && it.key !== active ? <span className="mr-1 text-pos">●</span> : null}
+            {statusMap[it.key]?.book_type === "live" && it.key !== active ? <span className="mr-1 text-brass-hi">●</span> : null}
             {it.label}
           </button>
         ))}

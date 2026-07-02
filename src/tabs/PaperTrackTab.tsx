@@ -64,11 +64,11 @@ export default function PaperTrackTab() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-pos/35 bg-pos/8 p-3 text-xs text-[#A7E0B8]">
+      <div className="rounded-lg border border-pos/35 bg-pos/8 p-3 text-xs text-pos-soft">
         <span className="font-semibold text-pos">Next rebalance: {d.next_rebalance_date}.</span>{" "}
         Picks are generated the night before so they can be researched before deploying on the first trading day of the month.
         {d.pending_rebalance && (d.pending_rebalance.buy.length > 0 || d.pending_rebalance.sell.length > 0) && (
-          <span className="ml-1 text-[#D7C9A0]">
+          <span className="ml-1 text-paper">
             Pending — BUY {d.pending_rebalance.buy.join(", ") || "—"} · SELL {d.pending_rebalance.sell.join(", ") || "—"}.
           </span>
         )}
@@ -156,7 +156,7 @@ export default function PaperTrackTab() {
         )}
       </Card>
 
-      <div className="rounded-lg border border-paper/35 bg-warn/5 p-4 text-xs text-[#D7C9A0]">
+      <div className="rounded-lg border border-paper/35 bg-warn/5 p-4 text-xs text-paper">
         <div className="text-sm font-semibold text-warn">⚠ How to read this</div>
         <ul className="mt-2 space-y-1.5">
           <li className="flex gap-2"><span className="text-warn">•</span><span>The {disp?.backtest_cagr.toFixed(0)}% figure is a backtest. The honest forward expectation is {disp?.realistic_forward} after survivorship and 3-name concentration — this live track exists to settle the true number.</span></li>

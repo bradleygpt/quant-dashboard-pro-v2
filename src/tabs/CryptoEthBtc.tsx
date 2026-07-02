@@ -4,7 +4,7 @@ import { Card, Metric } from "../components/ui";
 import { fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from "recharts";
 import { ethBtcRatio } from "../lib/cycle";
-import { INK, SEM, SURFACE } from "../theme";
+import { ENTITY, INK, SEM, SURFACE } from "../theme";
 
 type Series = { dates: string[]; close: number[] } | null | undefined;
 
@@ -14,7 +14,7 @@ export default function CryptoEthBtc({ ethDaily, btcDaily }: { ethDaily: Series;
 
   const interp = r?.change_1y_pct == null ? null
     : r.change_1y_pct > 20 ? { tone: SEM.pos, txt: "🟢 ETH is meaningfully outperforming BTC over the past year." }
-      : r.change_1y_pct > 0 ? { tone: "#7FB8E0", txt: "🟡 ETH is modestly outperforming BTC over the past year." }
+      : r.change_1y_pct > 0 ? { tone: SEM.link, txt: "🟡 ETH is modestly outperforming BTC over the past year." }
         : r.change_1y_pct > -20 ? { tone: SEM.warnHot, txt: "🟠 ETH is underperforming BTC over the past year." }
           : { tone: SEM.neg, txt: "🔴 ETH is significantly underperforming BTC over the past year." };
 
@@ -45,7 +45,7 @@ export default function CryptoEthBtc({ ethDaily, btcDaily }: { ethDaily: Series;
                 labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number) => [v.toFixed(5), "ETH/BTC"]} />
               <ReferenceLine y={0.08} stroke={SEM.warnHot} strokeDasharray="4 3" opacity={0.6} label={{ value: "Resistance ~0.08", fill: SEM.warnHot, fontSize: 9, position: "insideTopRight" }} />
               <ReferenceLine y={0.05} stroke={SEM.pos} strokeDasharray="4 3" opacity={0.6} label={{ value: "Floor ~0.05", fill: SEM.pos, fontSize: 9, position: "insideBottomRight" }} />
-              <Line type="monotone" dataKey="ratio" stroke="#9B59B6" dot={false} strokeWidth={1.6} />
+              <Line type="monotone" dataKey="ratio" stroke={ENTITY.auxo} dot={false} strokeWidth={1.6} />
             </LineChart>
           </ResponsiveContainer>
         ) : <div className="py-8 text-center text-sm text-mute">Ratio history loading / unavailable.</div>}

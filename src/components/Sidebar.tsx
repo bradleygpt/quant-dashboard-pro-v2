@@ -80,7 +80,7 @@ export default function Sidebar({ mobileOpen = false, onClose }: { mobileOpen?: 
               key={f}
               onClick={() => { setFloor(f as Floor); onClose?.(); }}
               className={`flex-1 rounded-md px-2 py-1.5 text-xs transition ${
-                floor === f ? "bg-link font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"
+                floor === f ? "bg-cta font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"
               }`}
             >
               {FLOOR_LABELS[f] ?? `$${f}B+`}

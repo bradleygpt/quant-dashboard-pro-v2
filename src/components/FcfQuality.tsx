@@ -37,7 +37,7 @@ function verdict(r: Row): { label: string; color: string } {
   if (p < 0) return { label: "Operating cash flow is negative", color: SEM.neg };
   if (p < 0.10) return { label: "Clean — SBC is a small slice of cash flow", color: SEM.pos };
   if (p < 0.30) return { label: "Moderate — SBC flatters FCF", color: SEM.warn };
-  if (p < 0.70) return { label: "Heavy — SBC inflates FCF materially", color: "#FF8A3D" };
+  if (p < 0.70) return { label: "Heavy — SBC inflates FCF materially", color: SEM.warnHot };
   return { label: "Reported FCF is mostly the SBC add-back", color: SEM.neg };
 }
 
@@ -65,7 +65,7 @@ export default function FcfQuality({ ticker }: { ticker: string | null }) {
       {/* the bridge: reported -> -SBC -> true */}
       <div className="mb-3 grid grid-cols-3 gap-2 text-center">
         <div className="rounded-md bg-head py-2"><div className="text-[10px] uppercase tracking-wide text-mute">Reported FCF</div><div className="font-mono text-base font-semibold text-ink-2">{b(r.fcf_reported)}</div></div>
-        <div className="rounded-md bg-[#1A1012] py-2"><div className="text-[10px] uppercase tracking-wide text-mute">− Stock comp</div><div className="font-mono text-base font-semibold text-[#FF8A3D]">{b(r.sbc)}</div></div>
+        <div className="rounded-md bg-neg/10 py-2"><div className="text-[10px] uppercase tracking-wide text-mute">− Stock comp</div><div className="font-mono text-base font-semibold text-[#FF8A3D]">{b(r.sbc)}</div></div>
         <div className="rounded-md bg-head py-2 ring-1 ring-line"><div className="text-[10px] uppercase tracking-wide text-mute">True FCF</div><div className="font-mono text-base font-bold" style={{ color: v.color }}>{b(r.fcf_fully_adjusted)}</div></div>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">

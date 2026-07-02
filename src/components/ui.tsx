@@ -77,7 +77,7 @@ export function Pill({ active, onClick, children }: { active?: boolean; onClick?
     <button
       onClick={onClick}
       className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-        active ? "bg-link text-white" : "bg-raised text-ink-3 hover:bg-active"
+        active ? "bg-cta text-white" : "bg-raised text-ink-3 hover:bg-active"
       }`}
     >
       {children}

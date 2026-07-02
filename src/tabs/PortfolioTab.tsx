@@ -10,7 +10,7 @@ import AiNarrative from "../components/AiNarrative";
 import { runMonteCarlo, type Scenario } from "../lib/montecarlo";
 import { loadTickerPrices } from "../lib/data";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, AreaChart, Area, CartesianGrid, ReferenceLine } from "recharts";
-import { ASSET, INK, SEM, SURFACE } from "../theme";
+import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
 
 // Generic Fidelity-style CSV → holdings (Symbol/Ticker, Quantity/Shares, Cost Basis Per Share)
 function parseHoldingsCsv(text: string): Holding[] {
@@ -100,7 +100,7 @@ export default function PortfolioTab() {
           <label className="text-xs text-ink-3">Ticker<input value={tk} onChange={(e) => setTk(e.target.value)} className="mt-1 block w-28 rounded-md border border-line bg-head px-2 py-1.5 text-sm text-white" /></label>
           <label className="text-xs text-ink-3">Shares<input value={sh} onChange={(e) => setSh(e.target.value)} className="mt-1 block w-24 rounded-md border border-line bg-head px-2 py-1.5 text-sm text-white" /></label>
           <label className="text-xs text-ink-3">Cost basis<input value={cb} onChange={(e) => setCb(e.target.value)} placeholder="opt." className="mt-1 block w-24 rounded-md border border-line bg-head px-2 py-1.5 text-sm text-white" /></label>
-          <button onClick={add} className="rounded-md bg-link px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Add</button>
+          <button onClick={add} className="rounded-md bg-cta px-3 py-1.5 text-sm font-medium text-white hover:brightness-110">Add</button>
           <label className="cursor-pointer rounded-md border border-line px-3 py-1.5 text-sm text-ink-3 hover:bg-hover">
             Upload CSV
             <input type="file" accept=".csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onCsv(f); e.target.value = ""; }} />
@@ -167,7 +167,7 @@ export default function PortfolioTab() {
                 <Tooltip {...tooltipProps} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
                 <Bar dataKey="Portfolio" fill={SEM.link} radius={[3, 3, 0, 0]} />
-                <Bar dataKey="Universe" fill="#3A4254" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="Universe" fill={LINE.strong} radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -185,7 +185,7 @@ export default function PortfolioTab() {
             {suggestions.length === 0 ? <div className="text-sm text-mute">No flags — portfolio looks balanced.</div> : (
               <div className="space-y-2">
                 {suggestions.map((s, i) => (
-                  <div key={i} className="rounded-md p-3" style={{ background: "#141B27", borderLeft: `4px solid ${sugColor(s.type)}` }}>
+                  <div key={i} className="rounded-md p-3" style={{ background: SURFACE.hoverRow, borderLeft: `4px solid ${sugColor(s.type)}` }}>
                     <div className="text-sm font-semibold" style={{ color: sugColor(s.type) }}>{sugIcon(s.type)} {s.title}</div>
                     <div className="text-sm text-white">→ {s.action}</div>
                     <div className="text-xs text-ink-3">{s.reasoning}</div>
@@ -232,7 +232,7 @@ export default function PortfolioTab() {
                     <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={64} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} domain={["auto", "auto"]} />
                     <Tooltip {...tooltipProps} labelFormatter={(d) => `Day ${d}`}
                       formatter={(v: number, n: string) => n === "p50" ? [fmtMoney(v, 0), "Median"] : [null, null]} />
-                    <ReferenceLine y={mc.totalValue} stroke="#666" strokeDasharray="4 4" label={{ value: "Start", fill: INK.ink3, fontSize: 10, position: "insideLeft" }} />
+                    <ReferenceLine y={mc.totalValue} stroke={INK.dim} strokeDasharray="4 4" label={{ value: "Start", fill: INK.ink3, fontSize: 10, position: "insideLeft" }} />
                     {/* 5–95 band (transparent base + filled span), then 25–75 band, then median */}
                     <Area type="monotone" dataKey="base" stackId="o" stroke="none" fill="transparent" isAnimationActive={false} legendType="none" />
                     <Area type="monotone" dataKey="outer" stackId="o" stroke="none" fill={ASSET.eth} fillOpacity={0.10} isAnimationActive={false} name="5–95th" />

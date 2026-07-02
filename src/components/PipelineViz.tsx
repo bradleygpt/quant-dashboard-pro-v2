@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { BRASS, ENTITY, INK, LINE, SEM, STREAM, alpha } from "../theme";
 
-// ── palette (matches the c78q alchemist reference) ───────────────────────────
-const C = { ground: "#070A0C", panel: "#0D1116", panel2: "#0F141A", line: "#1A222A",
-  text: "#E9E7E1", dim: "#7E8A95", faint: "#3C4651",
-  green: "#3FB984", amber: "#D4A24E", red: "#C25A5A", blue: "#5B8BC4", violet: "#9B7FC9" };
+// ── palette (the c78q alchemist reference) ───────────────────────────────────
+// Semantic members come from the token layer (P&L green/red, brass accent,
+// stream-family hues). ground/panel/panel2 stay local: the crucible is a framed
+// art object rendered on a deliberately deeper ground than any app surface.
+const C = { ground: "#070A0C", panel: "#0D1116", panel2: "#0F141A", line: LINE.line,
+  text: INK.ink, dim: INK.mute, faint: INK.dim,
+  green: STREAM.price, amber: BRASS.bright, red: ENTITY.krasis, blue: STREAM.fundamental, violet: STREAM.event };
 const DISP = "'Space Grotesk', sans-serif"; const MONO = "'IBM Plex Mono', monospace";
 
 export interface VizStream { id: string; col: string }
@@ -118,15 +122,15 @@ export default function PipelineViz(props: PipelineVizProps) {
       // logo render (streams pour in, basket precipitates from its base; nothing else changes).
       function renderVessel(c: CanvasRenderingContext2D, vx: number, vy: number) {
         const rw = Math.min(52, w * 0.12);
-        c.strokeStyle = "rgba(155,127,201,0.55)"; c.lineWidth = 1.6;
+        c.strokeStyle = alpha(STREAM.event, 0.55); c.lineWidth = 1.6;
         c.beginPath(); c.arc(vx, vy, rw, 0.15 * Math.PI, 0.85 * Math.PI, false); c.stroke();
         c.beginPath(); c.moveTo(vx - rw + 6, vy + 8); c.lineTo(vx - rw - 6, vy + 8); c.moveTo(vx + rw - 6, vy + 8); c.lineTo(vx + rw + 6, vy + 8); c.stroke();
         const gl = c.createRadialGradient(vx, vy + 10, 2, vx, vy + 10, rw * 0.9);
-        gl.addColorStop(0, "rgba(155,127,201,0.5)"); gl.addColorStop(0.6, "rgba(63,185,132,0.25)"); gl.addColorStop(1, "rgba(0,0,0,0)");
+        gl.addColorStop(0, alpha(STREAM.event, 0.5)); gl.addColorStop(0.6, alpha(SEM.pos, 0.25)); gl.addColorStop(1, "rgba(0,0,0,0)");
         c.fillStyle = gl; c.beginPath(); c.arc(vx, vy + 10, rw * 0.85, 0, 7); c.fill();
         for (let k = 0; k < 7; k++) { const ph = swirl * 1.4 + k * 0.9; const bx = vx + Math.sin(ph) * rw * 0.5;
           const by = vy + 18 - ((swirl * 20 + k * 30) % 48); const al = Math.max(0, 1 - ((swirl * 20 + k * 30) % 48) / 48);
-          c.fillStyle = `rgba(63,185,132,${0.5 * al})`; c.beginPath(); c.arc(bx, by, 2 + al * 2, 0, 7); c.fill(); }
+          c.fillStyle = alpha(SEM.pos, 0.5 * al); c.beginPath(); c.arc(bx, by, 2 + al * 2, 0, 7); c.fill(); }
         swirl += 0.05;
       }
       function pourParticles() {

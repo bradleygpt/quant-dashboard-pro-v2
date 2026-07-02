@@ -8,14 +8,14 @@ import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
-import { INK, SEM, SURFACE } from "../theme";
+import { INK, SEM, STREAM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 // the 15 c78q signal streams: Pr1-6 (price/momentum, green), F1-6 (fundamentals, blue), P1/E3/N1 (insider/PEAD/8-K, violet)
 const C78_STREAMS: VizStream[] = [
-  ...Array.from({ length: 6 }, (_, i) => ({ id: `Pr${i + 1}`, col: "#3FB984" })),
-  ...Array.from({ length: 6 }, (_, i) => ({ id: `F${i + 1}`, col: "#5B8BC4" })),
-  { id: "P1", col: "#9B7FC9" }, { id: "E3", col: "#9B7FC9" }, { id: "N1", col: "#9B7FC9" },
+  ...Array.from({ length: 6 }, (_, i) => ({ id: `Pr${i + 1}`, col: STREAM.price })),
+  ...Array.from({ length: 6 }, (_, i) => ({ id: `F${i + 1}`, col: STREAM.fundamental })),
+  { id: "P1", col: STREAM.event }, { id: "E3", col: STREAM.event }, { id: "N1", col: STREAM.event },
 ];
 
 interface PpiFeed { ok?: boolean; spy?: { dates: string[]; close: number[] }; vix?: { close: number[] }; vvix?: { close: number[] } }
@@ -338,7 +338,7 @@ function BacktestBlock({ data }: { data: C78q }) {
       </Card>
 
       {data.data_caveat && (
-        <div className="rounded-lg border border-warn/25 bg-warn/5 px-4 py-3 text-[11px] text-[#D9A441]">
+        <div className="rounded-lg border border-warn/25 bg-warn/5 px-4 py-3 text-[11px] text-brass-hi">
           ⚠️ {data.data_caveat}
         </div>
       )}

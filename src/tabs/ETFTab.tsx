@@ -7,10 +7,10 @@ import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import FindYourETF from "../components/FindYourETF";
 import IndexAddPanel from "../components/IndexAddPanel";
-import { ASSET, INK, SEM, SURFACE } from "../theme";
+import { ASSET, ENTITY, INK, SEM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
-const ETF_COLORS = [ASSET.eth, "#00A3FF", "#A855F7", SEM.warn, "#F97316"];
+const ETF_COLORS = [ASSET.eth, SEM.link, ENTITY.auxo, SEM.warn, SEM.warnHot];
 
 interface Alloc { category: string; etf: string; alt: string; weight: number; purpose: string }
 interface Template { description: string; risk_score: number; expected_annual_return: string; max_drawdown_estimate: string; allocations: Alloc[] }
@@ -66,7 +66,7 @@ function EtfTicker({ t }: { t: string }) {
   const { byTicker, goToDetail } = useStore();
   return byTicker.get(t)
     ? <button onClick={() => goToDetail(t)} className="font-semibold text-link hover:underline" title={`Open ${t} stock detail`}>{t}</button>
-    : <span className="font-semibold text-[#8FA8D0]" title="expanded coverage — no stock-detail page">{t}</span>;
+    : <span className="font-semibold text-ink-3" title="expanded coverage — no stock-detail page">{t}</span>;
 }
 
 function PortfolioBuilder({ data }: { data: EtfFile }) {
@@ -284,7 +284,7 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
   const cols = useMemo<Column<EtfRow>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => r.inUniverse
         ? <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-link hover:underline">{r.ticker}</button>
-        : <span className="font-semibold text-[#8FA8D0]" title="expanded coverage — no stock-detail page">{r.ticker}</span> },
+        : <span className="font-semibold text-ink-3" title="expanded coverage — no stock-detail page">{r.ticker}</span> },
     { key: "name", header: "Name", sortValue: (r) => r.name, render: (r) => <span className="block max-w-[280px] truncate text-ink-2">{r.name}</span> },
     { key: "lt", header: "Look-through", align: "right", sortValue: (r) => r.lt_score ?? -1, render: (r) => r.lt_score == null
         ? <span className="text-dim" title="low coverage (bond / broad-intl)">—</span>

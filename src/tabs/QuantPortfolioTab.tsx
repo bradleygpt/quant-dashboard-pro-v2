@@ -1,5 +1,5 @@
 import { tooltipProps } from "../components/ChartFrame";
-import { ASSET, INK, SEM, SURFACE } from "../theme";
+import { ASSET, ENTITY, INK, PAPER, SEM, SURFACE, alpha } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import type { PresetName } from "../lib/types";
@@ -25,7 +25,7 @@ const BASE = `${import.meta.env.BASE_URL}data`;
 type Level = Aggressiveness | "Validated TOP-25";
 const LEVELS: Level[] = ["Validated TOP-25", "Conservative", "Balanced", "Aggressive"];
 const POS_BY_LEVEL: Record<Level, number> = { "Validated TOP-25": 25, Conservative: 30, Balanced: 20, Aggressive: 12 };
-const DONUT = [SEM.link, SEM.pos, ASSET.btc, "#9B59B6", SEM.warnHot, "#5DADE2", SEM.neg, SEM.warn, "#1ABC9C", "#E91E63", SEM.posSoft];
+const DONUT = [SEM.link, SEM.pos, ASSET.btc, ENTITY.auxo, SEM.warnHot, SEM.link, SEM.neg, SEM.warn, ENTITY.prosodos, ENTITY.pronoia, SEM.posSoft];
 
 interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; caveat?: string | null; source_meta?: string | null; coverage?: { first_date?: string; last_date?: string; min_n?: number; max_n?: number } | null; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
 
@@ -36,7 +36,7 @@ interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_po
 // The old 15y/5y PER-PRESET cells had no baked source and are not displayed anymore.
 const PRESET_ROWS: { key: string; color: string }[] = [
   { key: "m_heavy", color: SEM.pos },
-  { key: "v_heavy", color: "#5DADE2" },
+  { key: "v_heavy", color: SEM.link },
   { key: "equal", color: INK.ink2 },
 ];
 
@@ -194,8 +194,8 @@ export default function QuantPortfolioTab() {
               <tbody>
                 {(periodCagrs ?? []).map((r) => (
                   <tr key={r.label} className="border-t border-line-faint">
-                    <td className="px-3 py-1.5 font-medium" style={{ color: r.biased ? "#9C8A5E" : INK.ink2 }}>{r.biased ? "⚠ " : ""}{r.label}{r.biased ? " · biased" : ""}</td>
-                    <td className="px-3 py-1.5 font-semibold" style={{ color: r.biased ? "#6E6A5A" : SEM.pos }}>+{r.q.toFixed(1)}%</td>
+                    <td className="px-3 py-1.5 font-medium" style={{ color: r.biased ? alpha(PAPER, 0.85) : INK.ink2 }}>{r.biased ? "⚠ " : ""}{r.label}{r.biased ? " · biased" : ""}</td>
+                    <td className="px-3 py-1.5 font-semibold" style={{ color: r.biased ? INK.dim : SEM.pos }}>+{r.q.toFixed(1)}%</td>
                     <td className="px-3 py-1.5 text-mute">{r.s != null ? `+${r.s.toFixed(1)}%` : "—"}</td>
                   </tr>
                 ))}
@@ -205,7 +205,7 @@ export default function QuantPortfolioTab() {
           </div>
         </div>
         <div className="mt-2 text-[11px] leading-relaxed text-mute">
-          <strong className="text-ink-2">Read the 2011+ / 2020+ rows</strong> — the robust, survivorship-clean window. The dimmed <span className="text-[#9C8A5E]">1996+ row is survivorship-biased upward</span> (pre-2010 scores only names that survived to today) and is kept only for context, not as the headline.
+          <strong className="text-ink-2">Read the 2011+ / 2020+ rows</strong> — the robust, survivorship-clean window. The dimmed <span className="text-paper/70">1996+ row is survivorship-biased upward</span> (pre-2010 scores only names that survived to today) and is kept only for context, not as the headline.
           Per-preset period splits are no longer shown: only the full-period preset CAGRs are baked, and this panel does not display numbers it cannot trace to data. ⚠️ Past performance ≠ future; realized after-cost alpha is typically 2–4% below backtest CAGR.
         </div>
       </Card>
@@ -241,7 +241,7 @@ export default function QuantPortfolioTab() {
           </div>
           {/* pre-2011 record, shown SEPARATELY and flagged */}
           {h?.quant_total_pct != null && (
-            <div className="mt-4 rounded-md border border-warn/25 bg-[#140F06] px-3 py-2 text-[11px] leading-relaxed text-[#9C8A5E]">
+            <div className="mt-4 rounded-md border border-warn/25 bg-warn/5 px-3 py-2 text-[11px] leading-relaxed text-paper/70">
               <span className="font-semibold text-paper">⚠️ Extended record (1996+) — survivorship-biased, shown separately:</span> over the full 1996 → 2026 span the same strategy reads <span className="text-ink-2">+{h.quant_total_pct.toLocaleString(undefined, { maximumFractionDigits: 0 })}% / {h.quant_cagr_pct?.toFixed(1)}% CAGR</span>. But pre-2010 scores the CURRENT survivors back in time (delisted losers are absent), so it is biased upward and is <strong>not</strong> the headline — use the {robust.startYear}+ figure above. The survivorship-free Era-2 rebuild is a separate project.
             </div>
           )}
@@ -307,14 +307,14 @@ export default function QuantPortfolioTab() {
           <div className="flex flex-wrap gap-1">
             {LEVELS.map((l) => (
               <button key={l} onClick={() => setLevel(l)}
-                className={`rounded-md px-3 py-1.5 text-xs ${level === l ? "bg-link font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"}`}>{l} ({POS_BY_LEVEL[l]})</button>
+                className={`rounded-md px-3 py-1.5 text-xs ${level === l ? "bg-cta font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"}`}>{l} ({POS_BY_LEVEL[l]})</button>
             ))}
           </div>
         </div>
 
         {deployPct < 100 && (
           <label className="mt-3 flex cursor-pointer items-center gap-2 text-xs text-ink-3">
-            <input type="checkbox" checked={applyPhased} onChange={(e) => setApplyPhased(e.target.checked)} className="accent-[#F7931A]" />
+            <input type="checkbox" checked={applyPhased} onChange={(e) => setApplyPhased(e.target.checked)} className="accent-btc" />
             🌡️ Apply suggested phased deployment ({deployPct}% now, hold {100 - deployPct}% for a pullback)
           </label>
         )}

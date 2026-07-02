@@ -35,7 +35,7 @@ function Table({ rows, index }: { rows: Cand[]; index: string }) {
             return (
               <tr key={c.ticker} className="border-t border-line-faint hover:bg-panel">
                 <td className="px-3 py-1.5 font-semibold">
-                  {known ? <button onClick={() => goToDetail(c.ticker)} className="text-link hover:underline">{c.ticker}</button> : <span className="text-[#9CB6E0]">{c.ticker}</span>}
+                  {known ? <button onClick={() => goToDetail(c.ticker)} className="text-link hover:underline">{c.ticker}</button> : <span className="text-link/75">{c.ticker}</span>}
                   {BASKET_71.has(c.ticker) && <span title="In your 7/1 strategy book" className="ml-1.5 rounded-sm bg-pos/10 px-1 py-0.5 text-[9px] font-semibold uppercase text-pos-soft ring-1 ring-pos/35">book</span>}
                 </td>
                 <td className="px-3 py-1.5 text-ink-2">{c.name}</td>
@@ -77,11 +77,11 @@ export default function IndexAddPanel() {
       </Card>
 
       <div>
-        <div className="mb-1.5 text-sm font-semibold text-[#9CB6E0]">S&P 500 — {data.sp500_candidates.length} candidates <span className="text-[11px] font-normal text-mute">(~${data.assumptions.sp_indexed_aum_t}T indexed)</span></div>
+        <div className="mb-1.5 text-sm font-semibold text-link/75">S&P 500 — {data.sp500_candidates.length} candidates <span className="text-[11px] font-normal text-mute">(~${data.assumptions.sp_indexed_aum_t}T indexed)</span></div>
         <Table rows={data.sp500_candidates} index="S&P 500" />
       </div>
       <div>
-        <div className="mb-1.5 text-sm font-semibold text-[#9CB6E0]">Nasdaq-100 — {data.ndx_candidates.length} candidates <span className="text-[11px] font-normal text-mute">(~${data.assumptions.ndx_indexed_aum_t}T indexed)</span></div>
+        <div className="mb-1.5 text-sm font-semibold text-link/75">Nasdaq-100 — {data.ndx_candidates.length} candidates <span className="text-[11px] font-normal text-mute">(~${data.assumptions.ndx_indexed_aum_t}T indexed)</span></div>
         <Table rows={data.ndx_candidates} index="Nasdaq-100" />
       </div>
     </div>

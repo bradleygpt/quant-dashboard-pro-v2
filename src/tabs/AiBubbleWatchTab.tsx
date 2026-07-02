@@ -1,4 +1,4 @@
-import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
+import { ASSET, ENTITY, INK, LINE, SEM, SURFACE, alpha } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { Card, Spinner, Unavailable } from "../components/ui";
 import {
@@ -73,7 +73,7 @@ export default function AiBubbleWatchTab() {
       </div>
 
       {/* top disclaimer */}
-      <div className="rounded-md border border-warn/25 bg-warn/5 px-3 py-2 text-[11px] leading-relaxed text-[#E0C07F]">
+      <div className="rounded-md border border-warn/25 bg-warn/5 px-3 py-2 text-[11px] leading-relaxed text-paper">
         ⚠ Illustrative · figures are analyst tallies &amp; point-in-time estimates · as of ~mid-2026 · not a live feed.
       </div>
 
@@ -128,7 +128,7 @@ export default function AiBubbleWatchTab() {
               const lit = edgeLit(d);
               const isCycle = showCycles && cycleIds.has(d.id);
               const dim = !lit;
-              const color = dim ? "#222A38" : isCycle ? SEM.warn : TYPE_META[d.type].color;
+              const color = dim ? LINE.line : isCycle ? SEM.warn : TYPE_META[d.type].color;
               const marker = dim ? "url(#arr-dim)" : isCycle ? "url(#arr-cycle)" : `url(#arr-${d.type})`;
               return (
                 <path key={d.id} d={`M${g.sx},${g.sy} Q${g.mxp},${g.myp} ${g.ex},${g.ey}`}
@@ -146,8 +146,8 @@ export default function AiBubbleWatchTab() {
               return (
                 <g key={n.id} style={{ cursor: "pointer" }} opacity={lit ? 1 : 0.25}
                   onMouseEnter={() => setHoverNode(n.id)} onMouseLeave={() => setHoverNode(null)}>
-                  <circle cx={n.x} cy={n.y} r={n.r} fill={SURFACE.head} stroke={inCycle ? SEM.warn : "#3A4660"} strokeWidth={inCycle ? 2.5 : 1.5} />
-                  <circle cx={n.x} cy={n.y} r={n.r} fill={hoverNode === n.id ? "#5BA8FF22" : "#5BA8FF11"} />
+                  <circle cx={n.x} cy={n.y} r={n.r} fill={SURFACE.head} stroke={inCycle ? SEM.warn : LINE.strong} strokeWidth={inCycle ? 2.5 : 1.5} />
+                  <circle cx={n.x} cy={n.y} r={n.r} fill={hoverNode === n.id ? alpha(SEM.link, 0.13) : alpha(SEM.link, 0.07)} />
                   <text x={n.x} y={n.y - 1} textAnchor="middle" fontSize={Math.max(10, Math.min(13, n.r / 2.6))} fontWeight={700} fill={INK.ink}>{n.id}</text>
                   <text x={n.x} y={n.y + 12} textAnchor="middle" fontSize={9} fill={INK.mute}>{n.mv >= 1000 ? `~$${(n.mv / 1000).toFixed(1)}T` : `~$${n.mv}bn`}</text>
                 </g>
@@ -194,7 +194,7 @@ export default function AiBubbleWatchTab() {
       <Findings />
 
       {/* synthesis banner */}
-      <div className="rounded-lg border border-line-2 bg-[#10151F] p-4">
+      <div className="rounded-lg border border-line-2 bg-head p-4">
         <div className="text-sm font-bold text-white">Honest synthesis</div>
         <p className="mt-1 text-xs leading-relaxed text-ink-2">
           Equity-valuation risk looks <strong>moderate</strong> — the index is concentrated and richly priced, but the leaders are
@@ -213,7 +213,7 @@ export default function AiBubbleWatchTab() {
 }
 
 // ── Findings (7 research lenses) ─────────────────────────────────────────────
-const VERDICT: Record<string, string> = { Divergence: SEM.pos, Rhyme: SEM.warnHot, Novel: "#A855F7", "Mixed signal": SEM.warn };
+const VERDICT: Record<string, string> = { Divergence: SEM.pos, Rhyme: SEM.warnHot, Novel: ENTITY.auxo, "Mixed signal": SEM.warn };
 function Tag({ kind, label }: { kind: keyof typeof VERDICT | string; label: string }) {
   const c = VERDICT[kind] ?? INK.ink3;
   return <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>{kind} · {label}</span>;
@@ -351,8 +351,8 @@ function Findings() {
       <FindingCard title="Power & the grid" tagKind="Novel" tagLabel="no clean historical analog"
         source="Illustrative: US grid-interconnection queues running 5–7+ years; data centers projected at ~6.7–12% of US electricity by 2030 (range; 'up to' ceiling). Point-in-time estimates.">
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">5–7+ yr</div><div className="text-[11px] text-ink-3">grid interconnection queues</div></div>
-          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">6.7–12%</div><div className="text-[11px] text-ink-3">projected US electricity from data centers by 2030</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold" style={{ color: ENTITY.auxo }}>5–7+ yr</div><div className="text-[11px] text-ink-3">grid interconnection queues</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold" style={{ color: ENTITY.auxo }}>6.7–12%</div><div className="text-[11px] text-ink-3">projected US electricity from data centers by 2030</div></div>
         </div>
       </FindingCard>
     </div>

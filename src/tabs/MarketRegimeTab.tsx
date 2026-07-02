@@ -153,7 +153,7 @@ export default function MarketRegimeTab() {
               {pgiView.pct == null && pgiView.mmT != null ? " · % needs live total market cap" : ""}
             </div>
             {pgiView.src === "estimate" && (
-              <div className="mt-2 rounded-md border border-[#5A1F1F] bg-[#1F0E0E] px-2 py-1 text-[11px] text-[#FF8A80]">
+              <div className="mt-2 rounded-md border border-neg/35 bg-neg/10 px-2 py-1 text-[11px] text-neg">
                 ⚠️ Hardcoded estimate — both live and baked FRED sources are unavailable. Do not rely on this value.
               </div>
             )}

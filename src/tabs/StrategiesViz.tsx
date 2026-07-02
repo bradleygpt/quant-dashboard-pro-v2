@@ -2,7 +2,7 @@ import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Treemap, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { Card, Spinner } from "../components/ui";
-import { ENTITY, INK, SEM, SURFACE } from "../theme";
+import { DIVERGING, ENTITY, INK, LINE, SEM, SURFACE, alpha, entityColor } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -26,12 +26,12 @@ type Period = "daily" | "rebalance" | "alltime";
 // period-aware colour: small moves still need to read, so caps are tight + the alpha floor is high
 const CAP: Record<Period, number> = { daily: 3, rebalance: 7, alltime: 80 };
 function gainColor(g: number | null, period: Period): string {
-  if (g == null) return "#33404F";
+  if (g == null) return LINE.strong;
   let a: number;
   if (period === "alltime") a = Math.min(1, Math.log10(1 + Math.abs(g)) / Math.log10(1 + CAP.alltime));
   else a = Math.min(1, Math.abs(g) / CAP[period]);
   a = 0.5 + 0.45 * a; // bright floor so a ±1% move is still clearly green/red
-  return g >= 0 ? `rgba(34,197,94,${a})` : `rgba(239,68,68,${a})`;
+  return g >= 0 ? alpha(SEM.pos, a) : alpha(SEM.neg, a);
 }
 const fmtGain = (g: number | null) => (g == null ? "—" : `${g >= 0 ? "+" : ""}${Math.abs(g) >= 1000 ? g.toLocaleString(undefined, { maximumFractionDigits: 0 }) : g}%`);
 
@@ -72,8 +72,8 @@ function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
     return perf.strategies.map((s) => {
       const bt = bookTypeOf(s.slug, statusMap, s.book_type);
       return {
-        name: bt === "paper" ? `${s.label} · PAPER` : `${s.label} · LIVE`, stratColor: s.color,
-        children: s.holdings.map((h) => ({ name: h.ticker, size: 1, fill: gainColor(h[period], period), label: fmtGain(h[period]), stratColor: s.color })),
+        name: bt === "paper" ? `${s.label} · PAPER` : `${s.label} · LIVE`, stratColor: entityColor(s.slug),
+        children: s.holdings.map((h) => ({ name: h.ticker, size: 1, fill: gainColor(h[period], period), label: fmtGain(h[period]), stratColor: entityColor(s.slug) })),
       };
     });
   }, [perf, period, statusMap]);
@@ -93,7 +93,7 @@ function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
         </span>
       </div>
       <ResponsiveContainer width="100%" height={340}>
-        <Treemap data={data} dataKey="size" aspectRatio={4 / 3} stroke="#0A0D13" isAnimationActive={false} content={<TreeCell />} />
+        <Treemap data={data} dataKey="size" aspectRatio={4 / 3} stroke={SURFACE.page} isAnimationActive={false} content={<TreeCell />} />
       </ResponsiveContainer>
     </Card>
   );
@@ -115,8 +115,8 @@ type Corr = {
 // Warm amber = positive co-movement, cool blue = negative; |corr|<0.05 reads neutral.
 function corrFill(c: number): string {
   const a = Math.max(0, Math.min(1, Math.abs(c)));
-  if (a < 0.05) return "#1B222E";
-  return c >= 0 ? `rgba(230,180,80,${0.10 + 0.62 * a})` : `rgba(91,168,255,${0.10 + 0.62 * a})`;
+  if (a < 0.05) return DIVERGING.mid;
+  return c >= 0 ? alpha(DIVERGING.warm, 0.10 + 0.62 * a) : alpha(DIVERGING.cool, 0.10 + 0.62 * a);
 }
 function StrategyCorrMatrix({ d }: { d: Corr }) {
   const slugs = Object.keys(d.strategy_labels);
@@ -131,16 +131,16 @@ function StrategyCorrMatrix({ d }: { d: Corr }) {
   }, [d]);
   return (
     <table className="border-collapse text-center text-[10px]">
-      <thead><tr><th className="p-1"></th>{slugs.map((s) => <th key={s} className="p-1 font-medium" style={{ color: d.strategy_colors[s] }}>{d.strategy_labels[s].slice(0, 4)}</th>)}</tr></thead>
+      <thead><tr><th className="p-1"></th>{slugs.map((s) => <th key={s} className="p-1 font-medium" style={{ color: entityColor(s) }}>{d.strategy_labels[s].slice(0, 4)}</th>)}</tr></thead>
       <tbody>
         {slugs.map((a) => (
           <tr key={a}>
-            <td className="p-1 text-right font-medium" style={{ color: d.strategy_colors[a] }}>{d.strategy_labels[a].slice(0, 4)}</td>
+            <td className="p-1 text-right font-medium" style={{ color: entityColor(a) }}>{d.strategy_labels[a].slice(0, 4)}</td>
             {slugs.map((b) => {
               const v = m[a][b];
               const tip = a === b ? undefined
                 : `${d.strategy_labels[a]} × ${d.strategy_labels[b]}: ${isNaN(v) ? "insufficient overlap" : (v >= 0 ? "+" : "") + v.toFixed(2)} — monthly returns, full backtest. Amber = co-move, blue = offset, gray ≈ decoupled.`;
-              return <td key={b} title={tip} className="p-1 font-mono" style={{ background: a === b ? "#11161F" : corrFill(v), color: a === b ? INK.dim : INK.ink }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
+              return <td key={b} title={tip} className="p-1 font-mono" style={{ background: a === b ? SURFACE.head : corrFill(v), color: a === b ? INK.dim : INK.ink }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
             })}
           </tr>
         ))}
@@ -170,6 +170,9 @@ function ForceNetwork({ d }: { d: Corr }) {
     const geo = () => { const cx = W / 2, cy = H / 2; return { cx, cy, R: Math.min(W, H) / 2 - 14 }; };
 
     const idx = new Map<string, number>(); d.nodes.forEach((n, i) => idx.set(n.t, i));
+    // baked node colors carry the OLD per-strategy hues — remap them onto the entity tokens
+    const entityOf = new Map(Object.entries(d.strategy_colors ?? {}).map(([slug, c]) => [c.toLowerCase(), entityColor(slug)]));
+    const nodeColor = (c: string) => entityOf.get(c.toLowerCase()) ?? c;
     const R0 = Math.min(W, H) / 2 - 14;
     // ── FORMATION SEAM (Akribeia logo, not yet made) ──────────────────────────────────────────
     // Nodes START here and the force sim then disperses them into the correlation layout. Today
@@ -182,7 +185,7 @@ function ForceNetwork({ d }: { d: Corr }) {
       : { x: W / 2 + n.x * R0 * 0.92, y: H / 2 + n.y * R0 * 0.92 };
     const sim: Sim[] = d.nodes.map((n, i) => ({
       t: n.t, ...start(n, i), vx: 0, vy: 0,
-      r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: n.c, cur: n.cur,
+      r: 2.6 + Math.min(5.5, Math.sqrt(n.w)), c: nodeColor(n.c), cur: n.cur,
       bspx: n.bspx ?? 1, bndx: n.bndx ?? 1,
     }));
     const edges = d.edges.map((e) => ({ i: idx.get(e.a)!, j: idx.get(e.b)!, v: e.v }))
@@ -280,7 +283,7 @@ function ForceNetwork({ d }: { d: Corr }) {
         const a = sim[e.i], b = sim[e.j], live = a.cur || b.cur;
         const al = live ? 0.2 + 0.5 * Math.abs(e.v) : 0.03 + 0.1 * Math.abs(e.v);
         ctx.lineWidth = live ? 1 : 0.5;
-        ctx.strokeStyle = e.v >= 0 ? `rgba(120,180,255,${al})` : `rgba(190,130,255,${al})`;
+        ctx.strokeStyle = e.v >= 0 ? alpha(DIVERGING.warm, al) : alpha(DIVERGING.cool, al);
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
       // nodes — LIVE holdings glow + white ring; inactive (held only in the backtest) are hollow,
@@ -289,7 +292,7 @@ function ForceNetwork({ d }: { d: Corr }) {
         if (a.cur) {
           ctx.globalAlpha = 0.22; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 2.8, 0, 6.2832); ctx.fill();
           ctx.globalAlpha = 1; ctx.fillStyle = a.c; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
-          ctx.lineWidth = 1.4; ctx.strokeStyle = "#EAF2FF"; ctx.stroke();
+          ctx.lineWidth = 1.4; ctx.strokeStyle = INK.ink; ctx.stroke();
         } else {
           ctx.globalAlpha = a.t === hov ? 0.95 : 0.42; ctx.lineWidth = 1.1; ctx.strokeStyle = a.c;
           ctx.beginPath(); ctx.arc(a.x, a.y, Math.max(1.8, a.r * 0.78), 0, 6.2832); ctx.stroke();
@@ -333,8 +336,8 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
       <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
         <ForceNetwork d={d} />
         <div className="space-y-3 text-xs">
-          <div className="rounded-md border border-line bg-[#0B1018] px-2.5 py-2">
-            <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
+          <div className="rounded-md border border-line bg-inset px-2.5 py-2">
+            <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-link/75">How to read this</div>
             <ul className="space-y-1 text-[10px] leading-relaxed text-ink-3">
               <li><span className="text-ink-2">Solid + ringed dots = current holdings</span> (of live OR paper books — see the legend tags); hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
               <li><span className="text-ink-2">The two big spheres are S&amp;P 500 &amp; NASDAQ</span> — each name is pulled toward them by its <em>beta</em>. High-beta (market-driven) names hug the spheres; low-beta (idiosyncratic) names drift to the rim — systematic vs. stock-specific at a glance.</li>
@@ -350,8 +353,8 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
                 const bt = bookTypeOf(s, statusMap);
                 return (
                   <span key={s} className="inline-flex items-center gap-1.5 text-ink-2">
-                    <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: d.strategy_colors[s] }} />{d.strategy_labels[s]}
-                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-pos" : "text-paper"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
+                    <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: entityColor(s) }} />{d.strategy_labels[s]}
+                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-brass-hi" : "text-paper"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
                   </span>
                 );
               })}
@@ -377,11 +380,11 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
 // hues as the treemap/network); LIVE books solid, PAPER books dashed + tagged in the
 // legend (secondary encoding, ties into truth-in-labeling). SPY = neutral gray reference.
 const CMP_SERIES = [
-  { slug: "katalepsis", label: "Katalepsis", color: SEM.pos, file: "c78q.json", kind: "c78q" as const },
-  { slug: "aristeia", label: "Aristeia", color: SEM.link, file: "aristeia_strategy.json", kind: "strategy" as const },
-  { slug: "auxo", label: "Auxo", color: "#A855F7", file: "auxo_strategy.json", kind: "strategy" as const },
-  { slug: "prosodos", label: "Prosodos", color: SEM.warn, file: "prosodos_strategy.json", kind: "strategy" as const },
-  { slug: "pronoia", label: "Pronoia", color: "#F97316", file: "pronoia_strategy.json", kind: "strategy" as const },
+  { slug: "katalepsis", label: "Katalepsis", color: ENTITY.katalepsis, file: "c78q.json", kind: "c78q" as const },
+  { slug: "aristeia", label: "Aristeia", color: ENTITY.aristeia, file: "aristeia_strategy.json", kind: "strategy" as const },
+  { slug: "auxo", label: "Auxo", color: ENTITY.auxo, file: "auxo_strategy.json", kind: "strategy" as const },
+  { slug: "prosodos", label: "Prosodos", color: ENTITY.prosodos, file: "prosodos_strategy.json", kind: "strategy" as const },
+  { slug: "pronoia", label: "Pronoia", color: ENTITY.pronoia, file: "pronoia_strategy.json", kind: "strategy" as const },
 ];
 
 function StrategyComparison({ statusMap }: { statusMap?: StatusMap }) {

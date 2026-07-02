@@ -66,12 +66,12 @@ export default function FindYourETF() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") run(input.split(/[\s,]+/)); }}
             placeholder="e.g. MU, NVDA, AMD, AVGO"
-            className="min-w-[260px] flex-1 rounded-md border border-line bg-head px-3 py-1.5 text-sm text-white placeholder:text-[#5A6678] focus:border-active focus:outline-none"
+            className="min-w-[260px] flex-1 rounded-md border border-line bg-head px-3 py-1.5 text-sm text-white placeholder:text-dim focus:border-active focus:outline-none"
           />
           <button onClick={() => run(input.split(/[\s,]+/))}
-            className="rounded-md bg-[#1D4ED8] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#2563EB]">Find ETFs</button>
+            className="rounded-md bg-cta px-3 py-1.5 text-sm font-semibold text-white hover:brightness-110">Find ETFs</button>
           <button onClick={() => { setInput(BASKET_71.join(", ")); run(BASKET_71); }}
-            className="rounded-md border border-line px-3 py-1.5 text-sm text-[#9CB6E0] hover:bg-hover">Load 7/1 basket</button>
+            className="rounded-md border border-line px-3 py-1.5 text-sm text-link/75 hover:bg-hover">Load 7/1 basket</button>
         </div>
         {submitted.length > 0 && (
           <div className="mt-2 text-xs text-mute">Query ({submitted.length}): {submitted.join(", ")}</div>
@@ -79,7 +79,7 @@ export default function FindYourETF() {
       </Card>
 
       {submitted.length > 0 && orthogonal && (
-        <div className="rounded-lg border border-[#3A2E1E] bg-[#1A140A] px-3 py-2 text-sm text-[#E0B870]">
+        <div className="rounded-lg border border-warn/25 bg-warn/5 px-3 py-2 text-sm text-paper">
           ⚑ <b>Orthogonal set</b> — no ETF holds more than {maxMatched} of your {submitted.length} names. This set isn’t replicated by any ETF (a novelty / non-consensus signal).
         </div>
       )}
@@ -107,8 +107,8 @@ export default function FindYourETF() {
                     <td className="px-3 py-1.5 font-semibold text-link">{r.etf}</td>
                     <td className="px-3 py-1.5 text-ink-2" title={descs[r.etf] || undefined}>{r.name}{descs[r.etf] && <span className="ml-1 cursor-help text-[10px] text-link" title={descs[r.etf]}>ⓘ</span>}</td>
                     <td className="px-3 py-1.5 text-right text-ink-2">{r.nMatched}/{submitted.length} <span className="text-mute">({Math.round(r.coverage * 100)}%)</span></td>
-                    <td className="px-3 py-1.5 text-right text-ink-2">{(r.basketWeight * 100).toFixed(1)}%{r.suspect && <span title="yfinance weight flagged suspect" className="ml-1 text-[#E0B870]">⚠</span>}</td>
-                    <td className="px-3 py-1.5"><div className="flex flex-wrap gap-1">{r.names.map((n) => <span key={n} className="rounded-sm bg-link/15 px-1.5 py-0.5 text-[11px] text-[#9CB6E0]">{n}</span>)}</div></td>
+                    <td className="px-3 py-1.5 text-right text-ink-2">{(r.basketWeight * 100).toFixed(1)}%{r.suspect && <span title="yfinance weight flagged suspect" className="ml-1 text-paper">⚠</span>}</td>
+                    <td className="px-3 py-1.5"><div className="flex flex-wrap gap-1">{r.names.map((n) => <span key={n} className="rounded-sm bg-link/15 px-1.5 py-0.5 text-[11px] text-link/75">{n}</span>)}</div></td>
                     <td className="px-3 py-1.5 text-right text-[11px] text-mute">{r.asof}</td>
                   </tr>
                 ))}

@@ -1,5 +1,5 @@
 import { tooltipProps } from "../components/ChartFrame";
-import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
+import { ASSET, ENTITY, INK, LINE, SEM, SURFACE } from "../theme";
 import { useMemo, useState } from "react";
 import { Card, Metric } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
@@ -18,7 +18,7 @@ interface Coin { price?: number; market_cap?: number; ath?: number; ath_change_p
 
 const TONE: Record<string, string> = { red: SEM.neg, orange: SEM.warnHot, yellow: SEM.warn, green: SEM.pos };
 const TONE_DOT: Record<string, string> = { red: "🔴", orange: "🟠", yellow: "🟡", green: "🟢" };
-const MARKER_COLOR: Record<string, string> = { halving: "#9B59B6", takeoff: "#3498DB", peak: SEM.pos, bottom: SEM.neg };
+const MARKER_COLOR: Record<string, string> = { halving: ENTITY.auxo, takeoff: SEM.link, peak: SEM.pos, bottom: SEM.neg };
 const MARKER_SHAPE: Record<string, "triangle" | "diamond" | "star" | "wye"> = { halving: "triangle", takeoff: "diamond", peak: "star", bottom: "wye" };
 
 const TL_LABELS: Record<string, string> = {
@@ -83,7 +83,7 @@ export default function CryptoBitcoin({ btcDaily, btc, blockHeight }: { btcDaily
             <div className="text-xs text-mute">{phase.description}</div>
             {progressPct != null && (
               <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-raised">
-                <div className="h-full rounded-full bg-[#F7931A]" style={{ width: `${Math.min(progressPct, 100)}%` }} />
+                <div className="h-full rounded-full bg-btc" style={{ width: `${Math.min(progressPct, 100)}%` }} />
               </div>
             )}
           </div>
@@ -158,7 +158,7 @@ function CycleCountdown({ cd, milestones, include2012, setInclude2012, nextHalvi
   return (
     <Card title="📅 Cycle Countdown" sub={`Phase: ${cd.phase ? cd.phase[2] : "—"} · Averages from ${cd.avg.n} completed cycle${cd.avg.n !== 1 ? "s" : ""}: ${cd.avg.cycles_used.join(", ")}`}>
       <label className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-ink-3">
-        <input type="checkbox" checked={include2012} onChange={(e) => setInclude2012(e.target.checked)} className="accent-[#F7931A]" />
+        <input type="checkbox" checked={include2012} onChange={(e) => setInclude2012(e.target.checked)} className="accent-btc" />
         Include 2012 cycle in averages
         <span className="text-dim">(Cycle 1 peaked faster — 367d vs 526–547d later; adds a 3rd point but pulls averages earlier.)</span>
       </label>
@@ -263,9 +263,9 @@ function CycleTimelineChart({ btcDaily, include2012, show2012, setShow2012, show
         </div>
       </details>
       <div className="mb-2 flex flex-wrap gap-4 text-xs text-ink-3">
-        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={show2012} onChange={(e) => setShow2012(e.target.checked)} className="accent-[#F7931A]" />Show 2012 cycle</label>
-        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={showEtf} onChange={(e) => setShowEtf(e.target.checked)} className="accent-[#9B59B6]" />Show ETF events</label>
-        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={include2012} onChange={(e) => setInclude2012(e.target.checked)} className="accent-[#3498DB]" />Include 2012 in averages</label>
+        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={show2012} onChange={(e) => setShow2012(e.target.checked)} className="accent-btc" />Show 2012 cycle</label>
+        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={showEtf} onChange={(e) => setShowEtf(e.target.checked)} style={{ accentColor: ENTITY.auxo }} />Show ETF events</label>
+        <label className="flex cursor-pointer items-center gap-1.5"><input type="checkbox" checked={include2012} onChange={(e) => setInclude2012(e.target.checked)} style={{ accentColor: SEM.link }} />Include 2012 in averages</label>
       </div>
       {bg.length > 0 ? (
         <ResponsiveContainer width="100%" height={460}>
@@ -276,7 +276,7 @@ function CycleTimelineChart({ btcDaily, include2012, show2012, setShow2012, show
             <YAxis scale="log" domain={[pMin, pMax]} allowDataOverflow tick={{ fill: INK.mute, fontSize: 11 }} width={56} tickFormatter={k} />
             <Tooltip content={<TimelineTooltip />} />
             {/* projected next-cycle window */}
-            <ReferenceArea x1={tl.nextWindow.x0} x2={tl.nextWindow.x1} fill="#9B59B6" fillOpacity={0.08} ifOverflow="extendDomain" />
+            <ReferenceArea x1={tl.nextWindow.x0} x2={tl.nextWindow.x1} fill={ENTITY.auxo} fillOpacity={0.08} ifOverflow="extendDomain" />
             {/* background BTC price */}
             <Line dataKey="price" stroke={ASSET.btc} dot={false} strokeWidth={1.3} name="BTC price" isAnimationActive={false} connectNulls />
             {/* trendlines */}
@@ -344,9 +344,9 @@ function OverlayBand({ btcDaily, daysSinceHalving }: { btcDaily: Series; daysSin
             <ReferenceLine y={0} stroke={LINE.strong} />
             <ReferenceArea x1={520} x2={550} fill={SEM.pos} fillOpacity={0.15} label={{ value: "Peak window", fill: SEM.pos, fontSize: 9, position: "insideTop" }} />
             <ReferenceLine x={daysSinceHalving} stroke="#fff" strokeDasharray="3 3" label={{ value: "TODAY", fill: "#fff", fontSize: 10, position: "top" }} />
-            <Line type="monotone" dataKey="proj_high" stroke="#3A4254" dot={false} strokeWidth={1} name="historical high (2016)" connectNulls />
+            <Line type="monotone" dataKey="proj_high" stroke={LINE.strong} dot={false} strokeWidth={1} name="historical high (2016)" connectNulls />
             <Line type="monotone" dataKey="proj_median" stroke={INK.mute} dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="median of cycles" connectNulls />
-            <Line type="monotone" dataKey="proj_low" stroke="#3A4254" dot={false} strokeWidth={1} name="historical low (2020)" connectNulls />
+            <Line type="monotone" dataKey="proj_low" stroke={LINE.strong} dot={false} strokeWidth={1} name="historical low (2020)" connectNulls />
             <Line type="monotone" dataKey="current" stroke={ASSET.btc} dot={false} strokeWidth={2.4} name="current cycle" connectNulls />
           </LineChart>
         </ResponsiveContainer>
@@ -401,7 +401,7 @@ function LongTermPrice({ btcDaily }: { btcDaily: Series }) {
             <Line type="monotone" dataKey="close" stroke={ASSET.btc} dot={false} strokeWidth={1.4} name="BTC" />
             <Line type="monotone" dataKey="ma21" stroke={SEM.posSoft} dot={false} strokeWidth={1.2} strokeDasharray="2 2" name="21w MA" connectNulls />
             <Line type="monotone" dataKey="ma50" stroke={SEM.warn} dot={false} strokeWidth={1.2} strokeDasharray="3 2" name="50w MA" connectNulls />
-            <Line type="monotone" dataKey="ma200" stroke="#5DADE2" dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="200w MA" connectNulls />
+            <Line type="monotone" dataKey="ma200" stroke={SEM.link} dot={false} strokeWidth={1.6} strokeDasharray="4 2" name="200w MA" connectNulls />
           </LineChart>
         </ResponsiveContainer>
       ) : <div className="py-8 text-center text-sm text-mute">Price history loading / unavailable.</div>}

@@ -1,10 +1,11 @@
+import { BRASS, ENTITY, STREAM } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
-const STREAM_COLS = ["#3FB984", "#5B8BC4", "#D4A24E", "#9B7FC9", "#C25A5A"];
+const STREAM_COLS = [STREAM.price, STREAM.fundamental, BRASS.bright, STREAM.event, ENTITY.krasis];
 
 interface Holding { date: string; tickers: string[] }
 interface YearRow { label: string; strategy: number; spy: number }
@@ -104,7 +105,7 @@ export default function StrategyTab({ slug }: { slug: string }) {
 
       <div className="rounded-lg border border-paper/35 bg-warn/5 p-4">
         <div className="text-sm font-semibold text-warn">⚠ Read this before the numbers</div>
-        <ul className="mt-2 space-y-1.5 text-xs text-[#D7C9A0]">
+        <ul className="mt-2 space-y-1.5 text-xs text-paper">
           {d.caveats.map((c, i) => (
             <li key={i} className="flex gap-2"><span className="text-warn">•</span><span>{c}</span></li>
           ))}

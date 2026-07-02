@@ -1,3 +1,4 @@
+import { ENTITY, INK, alpha, type EntitySlug } from "../theme";
 import { useEffect, useRef, useState } from "react";
 import { Card, Spinner } from "../components/ui";
 
@@ -25,12 +26,22 @@ interface Theme {
   key: string; label: string; greek: string; meaning: string;
   accent: string; bright: string; rgb: [number, number, number]; file: string; kind: "c78q" | "quant"; motif: Motif;
 }
+// Each card wears its strategy's ENTITY hue (color follows the entity — the
+// old per-card fantasy palette violated that); bright = the same hue lifted
+// toward white for highlights.
+const rgbOf = (h: string): [number, number, number] =>
+  [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const brighten = (h: string, f = 0.55): string => {
+  const [r, g, b] = rgbOf(h); const m = (x: number) => Math.round(x + (255 - x) * f);
+  return `rgb(${m(r)},${m(g)},${m(b)})`;
+};
+const sig = (key: EntitySlug) => ({ accent: ENTITY[key], bright: brighten(ENTITY[key]), rgb: rgbOf(ENTITY[key]) });
 const THEMES: Theme[] = [
-  { key: "katalepsis", label: "Katalepsis", greek: "κατάληψις", meaning: "the certain grasp", accent: "#6FD6E8", bright: "#BFF0FF", rgb: [111, 214, 232], file: "c78q.json", kind: "c78q", motif: "focus" },
-  { key: "aristeia", label: "Aristeia", greek: "ἀριστεία", meaning: "the heroic peak", accent: "#F0C46A", bright: "#FFE3A6", rgb: [240, 196, 106], file: "aristeia_strategy.json", kind: "quant", motif: "ridge" },
-  { key: "auxo", label: "Auxo", greek: "Αὐξώ", meaning: "growth, increase", accent: "#5FD38A", bright: "#A6F0C4", rgb: [95, 211, 138], file: "auxo_strategy.json", kind: "quant", motif: "living" },
-  { key: "prosodos", label: "Prosodos", greek: "πρόσοδος", meaning: "the inflow", accent: "#46C7B8", bright: "#86E6D8", rgb: [70, 199, 184], file: "prosodos_strategy.json", kind: "quant", motif: "inflow" },
-  { key: "pronoia", label: "Pronoia", greek: "πρόνοια", meaning: "foresight", accent: "#9B8CFF", bright: "#C7BCFF", rgb: [155, 140, 255], file: "pronoia_strategy.json", kind: "quant", motif: "foresight" },
+  { key: "katalepsis", label: "Katalepsis", greek: "κατάληψις", meaning: "the certain grasp", ...sig("katalepsis"), file: "c78q.json", kind: "c78q", motif: "focus" },
+  { key: "aristeia", label: "Aristeia", greek: "ἀριστεία", meaning: "the heroic peak", ...sig("aristeia"), file: "aristeia_strategy.json", kind: "quant", motif: "ridge" },
+  { key: "auxo", label: "Auxo", greek: "Αὐξώ", meaning: "growth, increase", ...sig("auxo"), file: "auxo_strategy.json", kind: "quant", motif: "living" },
+  { key: "prosodos", label: "Prosodos", greek: "πρόσοδος", meaning: "the inflow", ...sig("prosodos"), file: "prosodos_strategy.json", kind: "quant", motif: "inflow" },
+  { key: "pronoia", label: "Pronoia", greek: "πρόνοια", meaning: "foresight", ...sig("pronoia"), file: "pronoia_strategy.json", kind: "quant", motif: "foresight" },
 ];
 
 interface SData { values: number[]; holdings: { t: string; w: number }[]; cagr: number; sharpe: number }
@@ -136,7 +147,7 @@ function AnimatedSignature({ theme, data }: { theme: Theme; data: SData }) {
           const near = 1 - Math.min(1, Math.abs(pr - Math.hypot(x - cx, y - cy)) / 9);
           const sz = 2.2 + conv * 2.4;
           glow(x, y, 7, 0.22 * near); ctx.fillStyle = A(0.55 + 0.45 * near); ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.2832); ctx.fill();
-          if (i < 3) { ctx.fillStyle = `rgba(230,234,240,${0.55 + 0.4 * near})`; ctx.font = "600 9px ui-sans-serif,system-ui"; ctx.textAlign = "left"; ctx.fillText(h.t, x + sz + 3, y + 3); }
+          if (i < 3) { ctx.fillStyle = alpha(INK.ink, 0.55 + 0.4 * near); ctx.font = "600 9px ui-sans-serif,system-ui"; ctx.textAlign = "left"; ctx.fillText(h.t, x + sz + 3, y + 3); }
         });
         ctx.fillStyle = theme.bright; ctx.beginPath(); ctx.arc(cx, cy, 2.4, 0, 6.2832); ctx.fill();
       } else if (theme.motif === "inflow") {
@@ -148,7 +159,7 @@ function AnimatedSignature({ theme, data }: { theme: Theme; data: SData }) {
           const y0 = sy(i);
           ctx.strokeStyle = A(0.2); ctx.lineWidth = 1.8; ctx.beginPath(); ctx.moveTo(PAD.l + 2, y0); ctx.bezierCurveTo(W * 0.42, y0, W * 0.5, by, bx, by); ctx.stroke();
           for (let k = 0; k < 3; k++) { const u = ((t * 0.4) + i * 0.13 + k / 3) % 1; const p = bez(PAD.l + 2, y0, W * 0.42, y0, W * 0.5, by, bx, by, u); ctx.fillStyle = A(0.4 + 0.5 * (1 - Math.abs(u - 0.5) * 2)); ctx.beginPath(); ctx.arc(p.x, p.y, 1.7, 0, 6.2832); ctx.fill(); }
-          ctx.fillStyle = "rgba(200,207,218,0.65)"; ctx.font = "600 8px ui-sans-serif,system-ui"; ctx.textAlign = "left"; ctx.fillText(h.t, PAD.l + 2, y0 - 3);
+          ctx.fillStyle = alpha(INK.ink2, 0.65); ctx.font = "600 8px ui-sans-serif,system-ui"; ctx.textAlign = "left"; ctx.fillText(h.t, PAD.l + 2, y0 - 3);
         });
         const pulse = 0.5 + 0.5 * Math.sin(t * 3);
         glow(bx, by, 14 + pulse * 3, 0.4); ctx.strokeStyle = A(0.85); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(bx, by, 7, 0, 6.2832); ctx.stroke();
@@ -190,10 +201,10 @@ function SignatureCard({ theme, data }: { theme: Theme; data: SData }) {
   const cagr = isNaN(data.cagr) ? "—" : `${data.cagr.toFixed(1)}%`;
   const sharpe = isNaN(data.sharpe) ? "—" : data.sharpe.toFixed(2);
   return (
-    <div className="overflow-hidden rounded-lg border bg-[#0A0E16] p-3" style={{ borderColor: `${theme.accent}40` }}>
+    <div className="overflow-hidden rounded-lg border bg-inset p-3" style={{ borderColor: alpha(theme.accent, 0.25) }}>
       <div className="flex items-start justify-between">
         <div>
-          <div className="text-sm font-semibold text-[#E6EAF0]">{theme.label} <span className="ml-1 text-[11px] font-normal" style={{ color: theme.accent }}>{theme.greek}</span></div>
+          <div className="text-sm font-semibold text-ink">{theme.label} <span className="ml-1 text-[11px] font-normal" style={{ color: theme.accent }}>{theme.greek}</span></div>
           <div className="text-[10px]" style={{ color: theme.accent }}>{theme.meaning}</div>
         </div>
         <div className="text-right">

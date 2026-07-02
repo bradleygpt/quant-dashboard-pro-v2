@@ -12,7 +12,7 @@ import type { TickerDetail, PriceSeries } from "../lib/types";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, Radar, BarChart, Bar, Cell, ComposedChart } from "recharts";
 import { computeRisk } from "../lib/risk";
 import { useLiveData } from "../lib/live";
-import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
+import { ASSET, BRASS, ENTITY, INK, LINE, SEM, SURFACE, alpha } from "../theme";
 
 interface Quote {
   ok?: boolean; price?: number | null; prevClose?: number | null; change?: number | null; changePct?: number | null;
@@ -310,7 +310,7 @@ export default function StockDetailTab() {
         sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${hasFvHistory ? "Modeled FV history — point-in-time SEC filings (dim-gold dotted), a distinct methodology that differs from the live FV card (Live FV marker). Buy Point is a daily line." : usingTimeseries ? "Buy Point is a genuine daily line; Fair Value shown at today's value (history pending)." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
         <div className="mb-2 flex gap-1">
           {PERIODS.map((p) => (
-            <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-link font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"}`}>{p}</button>
+            <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-cta font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"}`}>{p}</button>
           ))}
         </div>
         {chartData.length > 0 ? (
@@ -332,7 +332,7 @@ export default function StockDetailTab() {
                         ? <>
                             {/* Modeled PIT FV (point-in-time SEC filings) — distinct dim-gold dotted
                                 line; visually separated from the authoritative live "Live FV" marker. */}
-                            <Line type="stepAfter" dataKey="mfv" stroke="#B8902B" dot={false} strokeWidth={1.2} strokeDasharray="1 3" name="Modeled FV (PIT filings)" connectNulls activeDot={false} />
+                            <Line type="stepAfter" dataKey="mfv" stroke={BRASS.brass} dot={false} strokeWidth={1.2} strokeDasharray="1 3" name="Modeled FV (PIT filings)" connectNulls activeDot={false} />
                             {row.fv && <ReferenceLine y={row.fv} stroke={SEM.warn} strokeDasharray="6 3" label={{ value: "Live FV", fill: SEM.warn, fontSize: 10 }} />}
                           </>
                         : <Line type="stepAfter" dataKey="fv" stroke={SEM.warn} dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />}
@@ -342,7 +342,7 @@ export default function StockDetailTab() {
                       {row.fv && <Line type="monotone" dataKey="fv" stroke={SEM.warn} dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
                       {row.qbp && <Line type="monotone" dataKey="qbp" stroke={SEM.pos} dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
                     </>}
-                {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke="#E8A33D" dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
+                {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke={BRASS.bright} dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
                 {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke={SEM.neg} dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
               </LineChart>
             </ResponsiveContainer>
@@ -350,7 +350,7 @@ export default function StockDetailTab() {
               <ResponsiveContainer width="100%" height={90}>
                 <BarChart data={chartData} margin={{ top: 0, right: 10, bottom: 0, left: 0 }} syncId="sd">
                   <XAxis dataKey="date" hide /><YAxis hide /><Tooltip {...tooltipProps} formatter={(v: number) => [`${(v / 1e6).toFixed(1)}M`, "Vol"]} />
-                  <Bar dataKey="volume">{chartData.map((d, i) => <Cell key={i} fill={i > 0 && d.close >= chartData[i - 1].close ? "#1f6f43" : "#7a2e2e"} />)}</Bar>
+                  <Bar dataKey="volume">{chartData.map((d, i) => <Cell key={i} fill={i > 0 && d.close >= chartData[i - 1].close ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
                 </BarChart>
               </ResponsiveContainer>
             )}
@@ -361,9 +361,9 @@ export default function StockDetailTab() {
                 <LineChart data={chartData} margin={{ top: 4, right: 10, bottom: 0, left: 0 }} syncId="sd">
                   <CartesianGrid stroke={SURFACE.raised} vertical={false} />
                   <XAxis dataKey="date" hide /><YAxis domain={[0, 100]} ticks={[30, 70]} tick={{ fill: INK.mute, fontSize: 10 }} width={56} />
-                  <ReferenceLine y={70} stroke="#FF572255" strokeDasharray="2 2" /><ReferenceLine y={30} stroke="#00C80555" strokeDasharray="2 2" />
+                  <ReferenceLine y={70} stroke={alpha(SEM.neg, 0.33)} strokeDasharray="2 2" /><ReferenceLine y={30} stroke={alpha(SEM.pos, 0.33)} strokeDasharray="2 2" />
                   <Tooltip {...tooltipProps} formatter={(v: number) => [v.toFixed(0), "RSI"]} />
-                  <Line type="monotone" dataKey="rsi" stroke="#A855F7" dot={false} strokeWidth={1.4} connectNulls />
+                  <Line type="monotone" dataKey="rsi" stroke={ENTITY.auxo} dot={false} strokeWidth={1.4} connectNulls />
                 </LineChart>
               </ResponsiveContainer>
               </>
@@ -416,7 +416,7 @@ export default function StockDetailTab() {
               <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} />
               <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
               <Tooltip {...tooltipProps} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
-              <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={(q.earningsGrowth ?? 0) >= 0 ? "#1f6f43" : "#7a2e2e"} />)}</Bar>
+              <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={(q.earningsGrowth ?? 0) >= 0 ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
               <Line type="monotone" dataKey="rev" stroke={SEM.warn} dot={false} strokeWidth={1.6} />
             </ComposedChart>
           </ResponsiveContainer>
@@ -433,7 +433,7 @@ export default function StockDetailTab() {
       {/* AI research / earnings review (Gemini, on-demand) */}
       <Card title="AI Analysis" sub="LLM-generated (Gemini). Requires GEMINI_API_KEY in Vercel; otherwise shows a configure note. Earnings Review is a thesis-check against the latest 8-K (Item 2.02) earnings release, cached per reported quarter.">
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => runAi("research")} className="rounded-md bg-link px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Research Note</button>
+          <button onClick={() => runAi("research")} className="rounded-md bg-cta px-3 py-1.5 text-sm font-medium text-white hover:brightness-110">Research Note</button>
           <button onClick={() => runAi("earnings")} className="rounded-md border border-line px-3 py-1.5 text-sm text-ink-2 hover:bg-hover">AI Earnings Review</button>
           <a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${encodeURIComponent(row.ticker)}&type=8-K&dateb=&owner=include&count=20`} target="_blank" rel="noreferrer"
             className="rounded-md border border-line px-3 py-1.5 text-sm text-link hover:bg-hover">SEC 8-K filings ↗</a>
@@ -480,7 +480,7 @@ export default function StockDetailTab() {
                   <Tooltip {...tooltipProps} formatter={(v: number) => [fmtMoney(v), "Fair value"]} />
                   <ReferenceLine y={td.fv.current_price} stroke={SEM.neg} strokeDasharray="4 3" label={{ value: `Current ${fmtMoney(td.fv.current_price, 0)}`, fill: SEM.neg, fontSize: 9, position: "insideTopRight" }} />
                   <ReferenceLine y={td.fv.composite_fair_value} stroke={ASSET.eth} strokeDasharray="4 3" label={{ value: `Fair ${fmtMoney(td.fv.composite_fair_value, 0)}`, fill: ASSET.eth, fontSize: 9, position: "insideBottomRight" }} />
-                  <Bar dataKey="fv" fill="#4ECDC4" />
+                  <Bar dataKey="fv" fill={ENTITY.prosodos} />
                 </BarChart>
               </ResponsiveContainer>
               <table className="mt-2 w-full text-sm">

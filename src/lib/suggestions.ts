@@ -11,7 +11,7 @@ export interface Suggestion {
   type: "critical" | "warning" | "info" | "opportunity";
   priority: number; category: string; title: string; action: string; reasoning: string;
 }
-const TYPE_COLOR: Record<string, string> = { critical: "#DC2626", warning: "#F97316", info: "#EAB308", opportunity: SEM.pos };
+const TYPE_COLOR: Record<string, string> = { critical: SEM.negDeep, warning: SEM.warnHot, info: SEM.warn, opportunity: SEM.pos };
 const TYPE_ICON: Record<string, string> = { critical: "⚠", warning: "▲", info: "ℹ", opportunity: "✚" };
 export const sugColor = (t: string) => TYPE_COLOR[t] ?? INK.ink3;
 export const sugIcon = (t: string) => TYPE_ICON[t] ?? "•";

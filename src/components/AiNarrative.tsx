@@ -22,9 +22,9 @@ export default function AiNarrative({ kind, ticker, blob, label = "AI take", hin
   return (
     <div className="rounded-lg border border-line bg-head p-3">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-semibold text-[#9CB6E0]">🧠 {label}</span>
+        <span className="text-sm font-semibold text-link/75">🧠 {label}</span>
         <button onClick={run} disabled={st.loading}
-          className="rounded-md bg-[#1D4ED8] px-2.5 py-1 text-xs font-medium text-white hover:bg-[#2563EB] disabled:opacity-50">
+          className="rounded-md bg-cta px-2.5 py-1 text-xs font-medium text-white hover:brightness-110 disabled:opacity-50">
           {st.loading ? "Thinking…" : st.text ? "Regenerate" : "Generate"}
         </button>
       </div>

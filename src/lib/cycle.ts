@@ -1,4 +1,4 @@
-import { ASSET } from "../theme";
+import { ASSET, ENTITY, INK, SEM } from "../theme";
 // Bitcoin cycle analysis — faithful port of crypto.py / cycle_timeline.py
 // constants + computations. Static constants copied verbatim; price-derived
 // pieces (200-week MA, cycle overlay) computed from /api/crypto btc_daily_max.
@@ -22,17 +22,17 @@ export const CYCLE_PHASES: [number, number, string, string][] = [
 
 export interface Cycle { label: string; halving: string; halving_price: number; takeoff: string | null; takeoff_price: number | null; peak: string | null; peak_price: number | null; bottom: string | null; bottom_price: number | null; color: string }
 export const HISTORICAL_CYCLES: Cycle[] = [
-  { label: "Cycle 1 (2012–2015)", halving: "2012-11-28", halving_price: 12, takeoff: "2013-03-01", takeoff_price: 50, peak: "2013-11-30", peak_price: 1163, bottom: "2015-01-14", bottom_price: 178, color: "#666666" },
-  { label: "Cycle 2 (2016–2018)", halving: "2016-07-09", halving_price: 650, takeoff: "2017-03-01", takeoff_price: 1200, peak: "2017-12-17", peak_price: 19783, bottom: "2018-12-15", bottom_price: 3200, color: "#888888" },
-  { label: "Cycle 3 (2020–2022)", halving: "2020-05-11", halving_price: 8800, takeoff: "2020-10-01", takeoff_price: 11000, peak: "2021-11-09", peak_price: 68789, bottom: "2022-11-21", bottom_price: 15500, color: "#5DADE2" },
+  { label: "Cycle 1 (2012–2015)", halving: "2012-11-28", halving_price: 12, takeoff: "2013-03-01", takeoff_price: 50, peak: "2013-11-30", peak_price: 1163, bottom: "2015-01-14", bottom_price: 178, color: INK.dim },
+  { label: "Cycle 2 (2016–2018)", halving: "2016-07-09", halving_price: 650, takeoff: "2017-03-01", takeoff_price: 1200, peak: "2017-12-17", peak_price: 19783, bottom: "2018-12-15", bottom_price: 3200, color: INK.mute },
+  { label: "Cycle 3 (2020–2022)", halving: "2020-05-11", halving_price: 8800, takeoff: "2020-10-01", takeoff_price: 11000, peak: "2021-11-09", peak_price: 68789, bottom: "2022-11-21", bottom_price: 15500, color: SEM.link },
   { label: "Cycle 4 (2024–current)", halving: "2024-04-19", halving_price: 64000, takeoff: "2024-10-01", takeoff_price: 65000, peak: "2025-10-06", peak_price: 126198, bottom: null, bottom_price: null, color: ASSET.btc },
 ];
 
 export interface EtfEvent { date: string; label: string; short_label: string; description: string; impact: string; color: string }
 export const ETF_EVENTS: EtfEvent[] = [
-  { date: "2024-01-11", label: "BTC Spot ETF launch", short_label: "BTC ETF", description: "First US spot Bitcoin ETFs began trading (IBIT, FBTC, etc.)", impact: "Pre-halving institutional bid changed cycle dynamics fundamentally", color: "#9B59B6" },
-  { date: "2024-07-23", label: "ETH Spot ETF launch", short_label: "ETH ETF", description: "First US spot Ethereum ETFs began trading", impact: "Brought institutional access to ETH (no staking allowed in ETFs)", color: "#627EEA" },
-  { date: "2024-09-20", label: "BTC ETF options approved", short_label: "IBIT options", description: "SEC approved options trading on BTC ETFs", impact: "Deepened institutional access; enabled hedging and leverage", color: "#9B59B6" },
+  { date: "2024-01-11", label: "BTC Spot ETF launch", short_label: "BTC ETF", description: "First US spot Bitcoin ETFs began trading (IBIT, FBTC, etc.)", impact: "Pre-halving institutional bid changed cycle dynamics fundamentally", color: ENTITY.auxo },
+  { date: "2024-07-23", label: "ETH Spot ETF launch", short_label: "ETH ETF", description: "First US spot Ethereum ETFs began trading", impact: "Brought institutional access to ETH (no staking allowed in ETFs)", color: ASSET.eth },
+  { date: "2024-09-20", label: "BTC ETF options approved", short_label: "IBIT options", description: "SEC approved options trading on BTC ETFs", impact: "Deepened institutional access; enabled hedging and leverage", color: ENTITY.auxo },
 ];
 
 // ETH supply reference points (crypto.py ETH_SUPPLY_REFERENCES)

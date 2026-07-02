@@ -35,9 +35,9 @@ export function fcfFlag(r?: FcfRow | null): { short: string; color: string; rank
     return { short: "Neg", color: SEM.neg, rank: 5 };
   const p = r.sbc_pct_ocf;
   if (p == null) return { short: "—", color: INK.dim, rank: -1 };
-  if (p < 0) return { short: "OCF<0", color: "#FF8A3D", rank: 4 };
+  if (p < 0) return { short: "OCF<0", color: SEM.warnHot, rank: 4 };
   if (p < 0.10) return { short: "Clean", color: SEM.pos, rank: 1 };
   if (p < 0.30) return { short: "Mod", color: SEM.warn, rank: 2 };
-  if (p < 0.70) return { short: "Heavy", color: "#FF8A3D", rank: 3 };
+  if (p < 0.70) return { short: "Heavy", color: SEM.warnHot, rank: 3 };
   return { short: "SBC-fed", color: SEM.neg, rank: 4 };
 }

@@ -27,7 +27,7 @@ export default function AnomalyCallouts() {
             <div className="flex flex-wrap items-center gap-2 text-sm">
               <button onClick={() => goToDetail(a.ticker)} className="font-semibold text-link hover:underline">{a.ticker}</button>
               <span className="text-ink-3">{a.name}</span>
-              <span className="rounded-sm bg-link/15 px-1.5 py-0.5 text-[10px] font-medium text-[#9CB6E0]">↑ {a.strong} · ↓ {a.weak}</span>
+              <span className="rounded-sm bg-link/15 px-1.5 py-0.5 text-[10px] font-medium text-link/75">↑ {a.strong} · ↓ {a.weak}</span>
               <span className="text-[11px] text-mute">score {a.composite}</span>
             </div>
             <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{a.warning}</p>

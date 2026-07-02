@@ -43,11 +43,11 @@ export default function NlScreener() {
       <div className="flex flex-wrap items-center gap-2">
         <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") run(); }}
           placeholder="e.g. cheap profitable industrials with momentum"
-          className="min-w-[280px] flex-1 rounded-md border border-line bg-head px-3 py-1.5 text-sm text-white placeholder:text-[#5A6678] focus:border-active focus:outline-none" />
-        <button onClick={run} disabled={st.loading} className="rounded-md bg-[#1D4ED8] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#2563EB] disabled:opacity-50">{st.loading ? "Thinking…" : "Screen"}</button>
+          className="min-w-[280px] flex-1 rounded-md border border-line bg-head px-3 py-1.5 text-sm text-white placeholder:text-dim focus:border-active focus:outline-none" />
+        <button onClick={run} disabled={st.loading} className="rounded-md bg-cta px-3 py-1.5 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-50">{st.loading ? "Thinking…" : "Screen"}</button>
       </div>
       {st.err && <p className="mt-2 text-xs text-mute">AI unavailable ({st.err}) — runs on the deployed app with GEMINI_API_KEY.</p>}
-      {st.explain && <p className="mt-2 text-sm text-[#9CB6E0]">{st.explain} — <span className="text-mute">{st.results?.length ?? 0} matches</span></p>}
+      {st.explain && <p className="mt-2 text-sm text-link/75">{st.explain} — <span className="text-mute">{st.results?.length ?? 0} matches</span></p>}
       {st.results && st.results.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {st.results.map((r) => (

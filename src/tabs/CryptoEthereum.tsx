@@ -4,7 +4,7 @@ import { Card, Metric } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from "recharts";
 import { ethSupplyMetrics, ETH_SUPPLY_REFERENCES } from "../lib/cycle";
-import { INK, SEM, SURFACE } from "../theme";
+import { ASSET, INK, PAPER, SEM, SURFACE, alpha } from "../theme";
 
 type Series = { dates: string[]; close: number[] } | null | undefined;
 interface Coin { price?: number; market_cap?: number; circulating_supply?: number; ath?: number; ath_change_pct?: number; change_24h_pct?: number; change_1y_pct?: number }
@@ -70,9 +70,9 @@ export default function CryptoEthereum({ eth, ethDaily }: { eth?: Coin; ethDaily
               <Metric label="Approx. staked" value={`~${supply.staking_ratio_pct}%`} hint="of supply locked" />
             </div>
             <div className="mt-3 rounded-lg border px-3 py-2 text-xs" style={
-              supply.is_deflationary ? { borderColor: "#1F4D2E", background: "#0E1F14", color: "#7FE0A0" }
-                : supply.is_disinflationary ? { borderColor: "#1E3A4D", background: "#0E1A22", color: "#7FB8E0" }
-                  : { borderColor: "#4D3A1E", background: "#221A0E", color: "#E0C07F" }
+              supply.is_deflationary ? { borderColor: alpha(SEM.pos, 0.35), background: alpha(SEM.pos, 0.08), color: SEM.posSoft }
+                : supply.is_disinflationary ? { borderColor: alpha(SEM.link, 0.3), background: alpha(SEM.link, 0.08), color: SEM.link }
+                  : { borderColor: alpha(SEM.warn, 0.3), background: alpha(SEM.warn, 0.08), color: PAPER }
             }>
               {supply.is_deflationary
                 ? `📉 ETH supply has DECLINED by ${Math.abs(supply.net_change_pct).toFixed(3)}% since The Merge — the "ultrasound money" thesis: gas burns exceed issuance during high activity.`
@@ -94,8 +94,8 @@ export default function CryptoEthereum({ eth, ethDaily }: { eth?: Coin; ethDaily
               <Tooltip {...tooltipProps}
                 labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}`, n === "ma" ? "200d MA" : "ETH"]} />
               <ReferenceLine x={mergeTs} stroke={SEM.pos} strokeDasharray="4 3" opacity={0.7} label={{ value: "The Merge (PoS)", fill: SEM.pos, fontSize: 10, position: "top" }} />
-              <Line type="monotone" dataKey="close" stroke="#627EEA" dot={false} strokeWidth={1.6} name="ETH" />
-              <Line type="monotone" dataKey="ma" stroke="#888" dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="ma" connectNulls />
+              <Line type="monotone" dataKey="close" stroke={ASSET.eth} dot={false} strokeWidth={1.6} name="ETH" />
+              <Line type="monotone" dataKey="ma" stroke={INK.mute} dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="ma" connectNulls />
             </LineChart>
           </ResponsiveContainer>
         ) : <div className="py-8 text-center text-sm text-mute">Price history loading / unavailable.</div>}

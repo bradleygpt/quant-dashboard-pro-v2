@@ -53,7 +53,7 @@ export default function StructuredReview({ text }: { text: string }) {
     <div className="space-y-2.5 text-sm">
       {sections.map((s, i) => (
         <div key={i}>
-          {s.header && <div className="mb-0.5 text-[11px] font-bold uppercase tracking-wide text-[#9CB6E0]">{s.header}</div>}
+          {s.header && <div className="mb-0.5 text-[11px] font-bold uppercase tracking-wide text-link/75">{s.header}</div>}
           <Body text={s.body} />
         </div>
       ))}

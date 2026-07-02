@@ -100,7 +100,7 @@ export default function SectorTab() {
           <div className="space-y-3">
             {sectors.filter((s) => narr[s.sector]?.narrative).map((s) => (
               <div key={s.sector}>
-                <div className="text-sm font-semibold text-[#9CB6E0]">{s.sector}
+                <div className="text-sm font-semibold text-link/75">{s.sector}
                   <span className="ml-1.5 text-[11px] font-normal text-mute">avg {s.avgScore.toFixed(1)} · {s.count} names · {s.aRatedPct.toFixed(0)}% Buy-tier</span>
                 </div>
                 <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{narr[s.sector].narrative}</p>

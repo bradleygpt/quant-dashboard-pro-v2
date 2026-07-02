@@ -135,7 +135,7 @@ export default function MLPredTab() {
       ) : <Spinner label="Loading predictions…" />) : (
         <>
           {excluded.length > 0 && (
-            <div className="rounded-md border border-neg/35 bg-neg/10 px-3 py-2 text-[11px] leading-relaxed text-[#FF8A80]">
+            <div className="rounded-md border border-neg/35 bg-neg/10 px-3 py-2 text-[11px] leading-relaxed text-neg">
               ⚠ {excluded.length} row{excluded.length > 1 ? "s" : ""} excluded — corrupt target / price-basis mismatch (likely a stock-split or share-basis error):{" "}
               {excluded.map((e) => `${e.ticker}${e.p3 != null ? ` 3M ${(e.p3 * 100).toFixed(0)}%` : ""}${e.p12 != null ? ` 12M ${(e.p12 * 100).toFixed(0)}%` : ""}`).join("; ")}.
               An implied return (target ÷ price) beyond ±150% (3M) / ±300% (12M) is treated as corrupt and dropped from the rankings/screener rather than surfaced as a top pick.
