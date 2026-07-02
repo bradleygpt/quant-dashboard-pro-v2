@@ -40,11 +40,15 @@ function staleDays(asOf?: string): number | null {
   if (!isFinite(t)) return null;
   return Math.floor((Date.now() - t) / 86_400_000);
 }
+interface MacroSignal { id: string; label: string; unit: string; risk_dir: "higher" | "lower" | null; value: number; date: string }
+interface ForwardEarnings { as_of?: string | null; source?: string; note?: string; path?: { year: string; pce_inflation: number; unemployment: number; ism_assumed: number; sp500_earnings_growth: number }[] }
 interface MarketStatic {
   ok?: boolean;
   macro_data?: Record<string, any>; earnings_forecast?: any; fed_outlook?: any;
   economic_calendar?: { name?: string; date?: string; description?: string; [k: string]: any }[];
   fomc_meetings?: string[]; us_gdp_trillions?: number;
+  macro_signals?: { signals?: MacroSignal[]; as_of?: string | null; source?: string };
+  forward_earnings?: ForwardEarnings;
 }
 
 export default function MarketRegimeTab() {
@@ -210,6 +214,37 @@ export default function MarketRegimeTab() {
           )}
         </div>
       )}
+
+      {/* Forward earnings path (Fed SEP forward projections) + macro signals */}
+      {stat.status === "ok" && stat.data?.forward_earnings?.path?.length ? (
+        <Card title="Forward Earnings Path" sub={`S&P 500 modeled earnings growth on the Fed SEP's forward macro projections · as-of ${stat.data.forward_earnings.as_of ?? "?"}`}>
+          <div className="grid grid-cols-3 gap-3">
+            {stat.data.forward_earnings.path.map((p) => (
+              <Metric key={p.year} label={p.year}
+                value={<span style={{ color: p.sp500_earnings_growth >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(p.sp500_earnings_growth, 1, true)}</span>}
+                hint={`PCE ${p.pce_inflation}% · U ${p.unemployment}%`} />
+            ))}
+          </div>
+          <div className="mt-2 text-[10px] leading-relaxed text-[#5C6678]">{stat.data.forward_earnings.note} · {stat.data.forward_earnings.source}</div>
+        </Card>
+      ) : null}
+
+      {stat.status === "ok" && stat.data?.macro_signals?.signals?.length ? (
+        <Card title="Macro Signals" sub={`Yield curve, credit spreads, inflation expectations & labor — free FRED series, refreshed each bake · as-of ${stat.data.macro_signals.as_of ?? "?"}`}>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {stat.data.macro_signals.signals.map((s) => {
+              const inverted = s.risk_dir === "lower" && s.value < 0;
+              const val = s.unit === "k" ? `${s.value}k` : `${s.value}%`;
+              return (
+                <Metric key={s.id} label={s.label}
+                  value={<span style={inverted ? { color: "#FF5722" } : undefined}>{val}</span>}
+                  hint={inverted ? "Inverted ⚠" : (s.date ? `as-of ${s.date.slice(0, 10)}` : undefined)} />
+              );
+            })}
+          </div>
+          <div className="mt-2 text-[10px] text-[#5C6678]">Curve inversion (negative 10Y–2Y / 10Y–3M) is the classic recession lead; widening HY OAS = credit stress; rising initial claims = labor softening.</div>
+        </Card>
+      ) : null}
 
       {/* Sector earnings forecast chart */}
       {stat.status === "ok" && ef?.sector_forecasts && (

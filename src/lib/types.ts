@@ -26,7 +26,11 @@ export interface Meta {
   default_floor: Floor;
   floors: Floor[];
   presets: Record<PresetName, PresetInfo>;
-  absolute_thresholds: Record<PresetName, number>;
+  // Research-prior presets (e.g. research_vq / Axia) carry NO validated absolute threshold,
+  // so this map is intentionally partial — consumers MUST handle a missing key (fall back to
+  // the default preset). A non-partial type here is what let the screener silently compare
+  // composites against `undefined` and report "0 stocks above quality threshold".
+  absolute_thresholds: Partial<Record<PresetName, number>>;
   absolute_threshold_stats: Record<string, Record<string, number | null>>;
   pillars: string[];
   pillar_metrics: Record<string, { key: string; name: string; higher_is_better: boolean }[]>;

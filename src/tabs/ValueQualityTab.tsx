@@ -8,11 +8,14 @@ interface YearHoldRow { label: string; [hold: string]: number | string | null }
 interface Holding { date: string; tickers: string[] }
 interface VQData {
   generated_at: string;
+  engine?: string;
+  character?: string;
   config: { weights: Record<string, number>; top_n: number; hold_days: number };
   metrics: {
-    oos: { cagr: number; sharpe: number; max_dd: number };
-    in_sample: { cagr: number; sharpe: number; max_dd: number };
+    cagr: number; sharpe: number; max_dd: number;
+    half_sharpe_1: number; half_sharpe_2: number;
     spy_cagr: number; n_rebalances: number;
+    conservative_cagr_low: number; conservative_cagr_high: number; conservative_sharpe: number;
   };
   equity_curve: { date: string; equity: number }[];
   year_hold: { holds: string[]; rows: YearHoldRow[] };
@@ -48,8 +51,8 @@ export default function ValueQualityTab() {
     return showAll ? sorted : sorted.slice(0, 12);
   }, [d, showAll]);
 
-  if (err) return <Unavailable what="Project Axia (Value+Quality) research" detail="value_quality_strategy.json failed to load." />;
-  if (!d) return <Spinner label="Loading Project Axia (Value+Quality)…" />;
+  if (err) return <Unavailable what="Project Axia (Quality + Momentum) research" detail="value_quality_strategy.json failed to load." />;
+  if (!d) return <Spinner label="Loading Project Axia (Quality + Momentum)…" />;
 
   const w = d.config.weights;
   const yh = d.year_hold;
@@ -57,11 +60,13 @@ export default function ValueQualityTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">Project Axia (Value+Quality)</h2>
+        <h2 className="text-lg font-bold text-white">Project Axia — Quality + Momentum</h2>
         <p className="text-xs text-[#7C879B]">
-          A standalone presentation of the validated 42-day value+quality research — a composite that overweights
-          Valuation and Profitability with light Growth and Momentum, holding the top {d.config.top_n} names for
-          ~{d.config.hold_days} trading days. Walk-forward out-of-sample over the EDGAR era (2011–2026).{" "}
+          A standalone presentation of the validated Axia research. After the contamination audit the Valuation pillar
+          was found to be a split-adjustment lookahead artifact and pinned to zero — so this is a <span className="text-[#C7CEDA]">quality + momentum</span>{" "}
+          composite (Profitability-led, with Momentum and light Growth), holding the top {d.config.top_n} names for
+          ~{d.config.hold_days} trading days on the split-corrected EDGAR-era panel (2011–2026). The config was selected on
+          worst-half Sharpe (stability across both sub-periods), not in-sample max.{" "}
           <span className="text-[#7C879B]">Research record, not a live recommendation — read the caveats first.</span>
         </p>
       </div>
@@ -76,12 +81,12 @@ export default function ValueQualityTab() {
         </ul>
       </div>
 
-      {/* headline metrics — OOS realizable up front, in-sample shown as contrast */}
+      {/* headline metrics — fixed both-halves-stable config; survivor-only upper bound */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Metric label="OOS CAGR (realizable)" value={`${d.metrics.oos.cagr.toFixed(1)}%`} hint={`walk-forward · vs SPY ${d.metrics.spy_cagr.toFixed(1)}%`} />
-        <Metric label="OOS Sharpe" value={d.metrics.oos.sharpe.toFixed(2)} hint="walk-forward, by-Sharpe" />
-        <Metric label="OOS Max Drawdown" value={`${d.metrics.oos.max_dd.toFixed(1)}%`} hint="walk-forward path" />
-        <Metric label="Rebalances logged" value={d.metrics.n_rebalances} hint={`${yh.rows.length}-year window`} />
+        <Metric label="CAGR" value={`${d.metrics.cagr.toFixed(1)}%`} hint={`fixed config · vs SPY ${d.metrics.spy_cagr.toFixed(1)}%`} />
+        <Metric label="Sharpe" value={d.metrics.sharpe.toFixed(2)} hint={`halves ${d.metrics.half_sharpe_1.toFixed(2)} / ${d.metrics.half_sharpe_2.toFixed(2)}`} />
+        <Metric label="Max Drawdown" value={`${d.metrics.max_dd.toFixed(1)}%`} hint="fixed-config path" />
+        <Metric label="Rebalances" value={d.metrics.n_rebalances} hint={`${d.config.hold_days}d hold · survivor-only`} />
       </div>
 
       {/* config */}
@@ -103,8 +108,8 @@ export default function ValueQualityTab() {
 
       {/* equity curve */}
       <Card
-        title="Equity curve — fixed-config, in-sample path (2011–2026)"
-        sub={`Compounding the frozen config at a ${d.config.hold_days}-day hold traces a ${d.metrics.in_sample.cagr.toFixed(1)}% in-sample CAGR (Sharpe ${d.metrics.in_sample.sharpe.toFixed(2)}, MaxDD ${d.metrics.in_sample.max_dd.toFixed(1)}%). This curve is the OPTIMISTIC bound — the realizable walk-forward figure is the ${d.metrics.oos.cagr.toFixed(1)}% headline above.`}
+        title="Equity curve — fixed config (2011–2026)"
+        sub={`Compounding the frozen quality+momentum config at a ${d.config.hold_days}-day hold traces ${d.metrics.cagr.toFixed(1)}% CAGR (Sharpe ${d.metrics.sharpe.toFixed(2)}, MaxDD ${d.metrics.max_dd.toFixed(1)}%) vs SPY ${d.metrics.spy_cagr.toFixed(1)}% over the same window; both half-samples hold Sharpe ~${d.metrics.half_sharpe_1.toFixed(1)}. This is SURVIVOR-ONLY — an upper bound. For live sizing prefer the conservative ${d.metrics.conservative_cagr_low}–${d.metrics.conservative_cagr_high}% / Sharpe ~${d.metrics.conservative_sharpe.toFixed(1)} (well-sampled 42-day) figure.`}
       >
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
@@ -134,7 +139,7 @@ export default function ValueQualityTab() {
               <tr className="text-[#7C879B]">
                 <th className="px-2 py-1 text-left font-medium">Year</th>
                 {yh.holds.map((h) => (
-                  <th key={h} className="px-2 py-1 font-medium">{h}d</th>
+                  <th key={h} className="px-2 py-1 font-medium">{h === "SPY" ? "SPY" : `${h}d`}</th>
                 ))}
               </tr>
             </thead>
@@ -184,8 +189,8 @@ export default function ValueQualityTab() {
       </Card>
 
       <p className="text-[10px] text-[#5A6477]">
-        Source: frozen research artifacts (q_sweep holdings, yh_PRIMARY year×hold sweep) + PIT-restricted EDGAR panel,
-        generated {d.generated_at}. Presentation only — see caveats.
+        Source: split-corrected, filing-lag-buffered EDGAR panel (2011–2026), recomputed for the clean
+        quality+momentum config by build_value_quality_tab_data.py, generated {d.generated_at}. Survivor-only upper bound — presentation only, see caveats.
       </p>
     </div>
   );

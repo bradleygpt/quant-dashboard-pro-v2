@@ -9,6 +9,7 @@ import PortfolioTab from "./PortfolioTab";
 import QuantPortfolioTab from "./QuantPortfolioTab";
 import HelpTab from "./HelpTab";
 import MarketRegimeTab from "./MarketRegimeTab";
+import MacroOutlookTab from "./MacroOutlookTab";
 import CryptoTab from "./CryptoTab";
 import PunditViewsTab from "./PunditViewsTab";
 import DoppelgangerTab from "./DoppelgangerTab";
@@ -17,6 +18,7 @@ import MLPredTab from "./MLPredTab";
 import AiBubbleWatchTab from "./AiBubbleWatchTab";
 import LandingDemoTab from "./LandingDemoTab";
 import ValueQualityTab from "./ValueQualityTab";
+import ThesisEngineTab from "./ThesisEngineTab";
 
 export interface TabDef {
   id: string;
@@ -33,6 +35,7 @@ export const TABS: TabDef[] = [
   // The previous data-dashboard home is preserved here, reachable from the nav bar / landing.
   { id: "overview", label: "📊 Overview", component: HomeTab },
   { id: "regime", label: "📊 Market Regime", component: MarketRegimeTab },
+  { id: "macro", label: "🌐 Macro Outlook", component: MacroOutlookTab },
   { id: "portfolio", label: "💼 Your Portfolio", component: PortfolioTab },
   { id: "quantport", label: "💎 Quant Portfolio", component: QuantPortfolioTab },
   { id: "valqual", label: "🎯 Project Axia (Value+Quality)", component: ValueQualityTab },
@@ -46,5 +49,6 @@ export const TABS: TabDef[] = [
   { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
   { id: "etfs", label: "ETF Center", component: ETFTab },
   { id: "voices", label: "🎤 Pundit Views", component: PunditViewsTab },
+  { id: "thesis", label: "📝 Thesis Engine", component: ThesisEngineTab },
   { id: "help", label: "📖 Help", component: HelpTab },
 ];
