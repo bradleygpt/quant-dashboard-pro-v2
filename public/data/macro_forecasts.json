@@ -1,9 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "generated_at": "2026-07-02T17:22:51",
-=======
   "generated_at": "2026-07-02T16:47:27",
->>>>>>> Stashed changes
   "consensus": {
     "metrics": [
       "gdp",
@@ -37,7 +33,7 @@
         "name": "Federal Reserve (SEP)",
         "kind": "official",
         "live": true,
-        "as_of": "2026-06",
+        "as_of": "2026-06-17",
         "source": "FRED Release 326 (FOMC SEP)",
         "url": "https://fred.stlouisfed.org/release?rid=326",
         "notes": "Inflation = PCE (the Fed's gauge), not CPI. Median dot per year.",
@@ -310,7 +306,7 @@
   },
   "dot_plot": {
     "live": true,
-    "as_of": "2026-06",
+    "as_of": "2026-06-17",
     "source": "FRED Release 326 (FOMC SEP)",
     "url": "https://fred.stlouisfed.org/release?rid=326",
     "years": [
@@ -360,7 +356,7 @@
     {
       "id": "fed_sep",
       "name": "Federal Reserve (SEP)",
-      "as_of": "2026-06",
+      "as_of": "2026-06-17",
       "live": true,
       "source": "FRED Release 326 (FOMC SEP)",
       "url": "https://fred.stlouisfed.org/release?rid=326",

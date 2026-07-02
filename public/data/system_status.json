@@ -1,35 +1,52 @@
 {
   "bake": {
     "fresh": true,
-<<<<<<< Updated upstream
-    "at": "2026-07-02T17:23:11"
-=======
     "at": "2026-07-02T16:47:30"
->>>>>>> Stashed changes
   },
   "engines": {
     "binary": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-07-01"
     },
     "return": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-06-30"
     }
   },
   "ppi": {
-<<<<<<< Updated upstream
-    "score": 32.3,
-=======
     "score": 30.9,
->>>>>>> Stashed changes
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null
+    "nextRebalance": "2026-08-03"
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-01"
+    },
+    "aristeia": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-01"
+    },
+    "auxo": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-05-15"
+    },
+    "pronoia": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
     "axia": {
       "book_type": "paper",
       "status": "research-scout, holdings-redundant"
@@ -43,21 +60,17 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-<<<<<<< Updated upstream
-  "watchdog": null,
-=======
   "watchdog": {
     "ok": true,
     "alerts": [],
     "checked_at": "2026-07-02T12:36:05.498201"
   },
->>>>>>> Stashed changes
   "market": {
     "state": "after"
   },
   "_meta": {
     "ppi_as_of": "2026-07-02",
-    "ppi_breadth_pct": 68.1,
+    "ppi_breadth_pct": 67.4,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }

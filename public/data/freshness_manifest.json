@@ -24,21 +24,13 @@
     "earnings_reviews": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "ppi": "32.3 MODERATE (live c78q PPI, as-of 2026-07-02)",
-=======
       "ppi": "30.9 MODERATE (live c78q PPI, as-of 2026-07-02)",
->>>>>>> Stashed changes
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
@@ -46,103 +38,60 @@
     "universe_floor0": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-=======
       "generated_at": "2026-07-02T16:47:30",
->>>>>>> Stashed changes
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
       "as_of": "2026-07-02",
-<<<<<<< Updated upstream
-      "generated_at": "2026-07-02T17:23:12",
-      "check_status": "ok"
-    }
-  },
-  "generated_at": "2026-07-02T17:23:12"
-=======
       "generated_at": "2026-07-02T16:47:30",
       "check_status": "ok"
     },
@@ -160,5 +109,4 @@
     }
   },
   "generated_at": "2026-07-02T16:47:30"
->>>>>>> Stashed changes
 }
