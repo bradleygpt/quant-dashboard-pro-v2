@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-01T22:34:44"
+    "at": "2026-07-02T00:54:48"
   },
   "engines": {
     "binary": {
@@ -9,8 +9,8 @@
       "asOf": "2026-07-01"
     },
     "return": {
-      "current": false,
-      "asOf": "2026-05-29"
+      "current": true,
+      "asOf": "2026-06-30"
     }
   },
   "ppi": {
@@ -60,12 +60,26 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": false,
+    "alerts": [
+      {
+        "kind": "stuck_lock_silent",
+        "pid": 43048,
+        "run_id": "20260701T220008",
+        "holder_pid_dead": true,
+        "stalled_hours": 0.5,
+        "last_step": "ohlcv",
+        "self_cleared": true
+      }
+    ],
+    "checked_at": "2026-07-01T22:36:21.627939"
+  },
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-07-01",
+    "ppi_as_of": "2026-07-02",
     "ppi_breadth_pct": 70.0,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
