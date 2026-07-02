@@ -1,22 +1,28 @@
-import type { ComponentType } from "react";
+import { lazy, type ComponentType } from "react";
 import ComingSoon from "./ComingSoon";
-import HomeTab from "./HomeTab";
-import ScreenerTab from "./ScreenerTab";
-import StockDetailTab from "./StockDetailTab";
-import SectorTab from "./SectorTab";
-import ETFTab from "./ETFTab";
-import PortfolioTab from "./PortfolioTab";
-import QuantPortfolioTab from "./QuantPortfolioTab";
-import HelpTab from "./HelpTab";
-import MarketRegimeTab from "./MarketRegimeTab";
-import MacroOutlookTab from "./MacroOutlookTab";
-import CryptoTab from "./CryptoTab";
-import PunditViewsTab from "./PunditViewsTab";
-import DoppelgangerTab from "./DoppelgangerTab";
-import MLPredTab from "./MLPredTab";
-import AiBubbleWatchTab from "./AiBubbleWatchTab";
 import LandingDemoTab from "./LandingDemoTab";
-import StrategiesTab from "./StrategiesTab";
+
+// Code-split every tab except the default landing (audit §4: all tabs were eagerly
+// bundled into an ~888 KB main chunk; only the three.js Scene was lazy). The landing
+// stays eager — it is the boot view and already lazy-loads its heavy Scene internally.
+// Mechanical change only: same ids, same labels, same order. The render site (App.tsx)
+// wraps the active tab in <Suspense>.
+const HomeTab = lazy(() => import("./HomeTab"));
+const ScreenerTab = lazy(() => import("./ScreenerTab"));
+const StockDetailTab = lazy(() => import("./StockDetailTab"));
+const SectorTab = lazy(() => import("./SectorTab"));
+const ETFTab = lazy(() => import("./ETFTab"));
+const PortfolioTab = lazy(() => import("./PortfolioTab"));
+const QuantPortfolioTab = lazy(() => import("./QuantPortfolioTab"));
+const HelpTab = lazy(() => import("./HelpTab"));
+const MarketRegimeTab = lazy(() => import("./MarketRegimeTab"));
+const MacroOutlookTab = lazy(() => import("./MacroOutlookTab"));
+const CryptoTab = lazy(() => import("./CryptoTab"));
+const PunditViewsTab = lazy(() => import("./PunditViewsTab"));
+const DoppelgangerTab = lazy(() => import("./DoppelgangerTab"));
+const MLPredTab = lazy(() => import("./MLPredTab"));
+const AiBubbleWatchTab = lazy(() => import("./AiBubbleWatchTab"));
+const StrategiesTab = lazy(() => import("./StrategiesTab"));
 
 export interface TabDef {
   id: string;

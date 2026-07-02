@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import type { PresetName } from "../lib/types";
-import { Card, Metric, RatingBadge, Pill } from "../components/ui";
+import { Card, Metric, RatingBadge, Pill, Unavailable } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import IndexBadges from "../components/IndexBadges";
 import { fmtMoney, fmtPct, fmtCapB } from "../lib/format";
@@ -42,7 +42,13 @@ export default function QuantPortfolioTab() {
   const { rows, byTicker, preset, meta, goToDetail } = useStore();
   const mkt = useLiveData<any>("/api/market");
   const [bt, setBt] = useState<QBT | null>(null);
-  useEffect(() => { fetch(`${BASE}/quant_backtest.json`).then((r) => r.ok ? r.json() : null).then(setBt).catch(() => {}); }, []);
+  const [btErr, setBtErr] = useState(false);
+  useEffect(() => {
+    fetch(`${BASE}/quant_backtest.json`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then(setBt)
+      .catch(() => setBtErr(true));   // visible error state below — never a silent gap (audit §4)
+  }, []);
 
   const [level, setLevel] = useState<Level>("Validated TOP-25");
   const [mode, setMode] = useState<"fresh" | "rebalance">("fresh");
@@ -201,6 +207,8 @@ export default function QuantPortfolioTab() {
           Per-preset period splits are no longer shown: only the full-period preset CAGRs are baked, and this panel does not display numbers it cannot trace to data. ⚠️ Past performance ≠ future; realized after-cost alpha is typically 2–4% below backtest CAGR.
         </div>
       </Card>
+
+      {btErr && <Unavailable what="Validated backtest data" detail="quant_backtest.json failed to load — the equity curve and period splits are hidden rather than silently absent." />}
 
       {/* ── ROBUST (2011+) equity curve leads; the pre-2011 survivorship-biased record is shown SEPARATELY below ── */}
       {bt && robust && (() => {

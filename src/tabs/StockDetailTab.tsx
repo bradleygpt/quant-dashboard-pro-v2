@@ -4,7 +4,7 @@ import FcfQuality from "../components/FcfQuality";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
-import { Card, GradePill, RatingBadge, Spinner, Metric } from "../components/ui";
+import { Card, GradePill, RatingBadge, Spinner, Metric, Unavailable } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
 import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
 import type { TickerDetail, PriceSeries } from "../lib/types";
@@ -69,9 +69,16 @@ export default function StockDetailTab() {
   const quote = useLiveData<Quote>(ticker ? `/api/quote?ticker=${encodeURIComponent(ticker)}&range=${fetchRange}` : `/api/quote?ticker=`);
   const liveHist = quote.status === "ok" ? quote.data?.history ?? null : null;
 
-  // quarterly earnings/margins history (baked)
+  // quarterly earnings/margins history (baked) — load failure renders a visible
+  // Unavailable state in the quarterly card, never a silently empty chart (audit §4)
   const [quarterly, setQuarterly] = useState<Record<string, any[]> | null>(null);
-  useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/quarterly.json`).then((r) => r.ok ? r.json() : null).then(setQuarterly).catch(() => {}); }, []);
+  const [quarterlyErr, setQuarterlyErr] = useState(false);
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/quarterly.json`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then(setQuarterly)
+      .catch(() => setQuarterlyErr(true));
+  }, []);
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
 
   // earnings-quality signal (heuristic over the baked review text — #11)
@@ -398,6 +405,7 @@ export default function StockDetailTab() {
       </Card>
 
       {/* Quarterly earnings & revenue growth (YoY) */}
+      {quarterlyErr && <Unavailable what="Quarterly fundamentals" detail="quarterly.json failed to load — the earnings/revenue growth chart is hidden rather than silently absent." />}
       {qhist.length > 0 && (
         <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
           <ResponsiveContainer width="100%" height={220}>

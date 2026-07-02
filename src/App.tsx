@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import type { Meta } from "./lib/types";
 import { loadMeta } from "./lib/data";
 import { StoreProvider, useStore } from "./store";
@@ -50,7 +50,9 @@ function Shell() {
           ))}
         </nav>
         <main className="min-w-0 flex-1 overflow-x-hidden p-4 max-md:p-3">
-          <Active />
+          <Suspense fallback={<Spinner label="Loading tab…" />}>
+            <Active />
+          </Suspense>
         </main>
       </div>
     </div>

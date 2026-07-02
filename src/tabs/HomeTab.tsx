@@ -32,7 +32,9 @@ export default function HomeTab() {
   const mkt = useLiveData<Market>("/api/market", 25000); // ~11s chain (FRED CSV slow) — avoid racing the 12s default abort
   const cal = useLiveData<Cal>("/api/calendar");
   const [snap, setSnap] = useState<SnapshotsFile | null>(null);
-  useEffect(() => { fetch(`${BASE}/snapshots.json`).then((r) => r.ok ? r.json() : null).then(setSnap).catch(() => {}); }, []);
+  // snapshots feed only the Δwk/Δmo deltas — failure degrades to delta-less metrics
+  // (visible: the deltas simply don't render), never a broken panel.
+  useEffect(() => { fetch(`${BASE}/snapshots.json`).then((r) => r.ok ? r.json() : null).then(setSnap).catch(() => setSnap(null)); }, []);
   const [holdings] = useState<Holding[]>(() => { try { return JSON.parse(localStorage.getItem("qd_holdings") || "[]"); } catch { return []; } });
 
   const presetKey = preset === "Custom" ? meta.default_preset : preset;
