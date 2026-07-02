@@ -4,9 +4,20 @@ import { Card, Spinner } from "../components/ui";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
+// live = broker-confirmed positions; paper = signal-derived research book (2026-07-01 directive:
+// a paper book must always be visibly labeled wherever holdings are shown).
+type BookType = "live" | "paper";
+type StatusMap = Record<string, { book_type?: BookType; status?: string; as_of?: string }>;
+function bookTypeOf(slug: string, statusMap: StatusMap | undefined, jsonBookType?: unknown): BookType {
+  const s = statusMap?.[slug]?.book_type;
+  if (s === "live" || s === "paper") return s;
+  if (jsonBookType === "live" || jsonBookType === "paper") return jsonBookType;
+  return "paper";
+}
+
 // ───────────────────────── Holdings TreeMap ─────────────────────────
 type Hold = { ticker: string; name?: string | null; daily: number | null; rebalance: number | null; alltime: number | null };
-type PerfStrat = { slug: string; label: string; color: string; entry?: string; holdings: Hold[] };
+type PerfStrat = { slug: string; label: string; color: string; entry?: string; book_type?: BookType; holdings: Hold[] };
 type Perf = { generated_at: string; as_of: string; strategies: PerfStrat[] };
 type Period = "daily" | "rebalance" | "alltime";
 
@@ -50,21 +61,24 @@ function TreeCell(props: any) {
   );
 }
 
-function HoldingsTreemap() {
+function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
   const [perf, setPerf] = useState<Perf | null | "err">(null);
   const [period, setPeriod] = useState<Period>("rebalance");
   useEffect(() => { fetch(`${BASE}/strategies_holdings_perf.json`).then((r) => (r.ok ? r.json() : null)).then((d) => setPerf(d ?? "err")).catch(() => setPerf("err")); }, []);
   const data = useMemo(() => {
     if (!perf || perf === "err") return [];
-    return perf.strategies.map((s) => ({
-      name: s.label, stratColor: s.color,
-      children: s.holdings.map((h) => ({ name: h.ticker, size: 1, fill: gainColor(h[period], period), label: fmtGain(h[period]), stratColor: s.color })),
-    }));
-  }, [perf, period]);
+    return perf.strategies.map((s) => {
+      const bt = bookTypeOf(s.slug, statusMap, s.book_type);
+      return {
+        name: bt === "paper" ? `${s.label} · PAPER` : `${s.label} · LIVE`, stratColor: s.color,
+        children: s.holdings.map((h) => ({ name: h.ticker, size: 1, fill: gainColor(h[period], period), label: fmtGain(h[period]), stratColor: s.color })),
+      };
+    });
+  }, [perf, period, statusMap]);
   if (perf === "err") return null;
   if (!perf) return <Card title="Holdings performance map" sub=""><Spinner /></Card>;
   return (
-    <Card title="🗺️ Holdings performance map" sub={`Every live position across the 5 strategies, coloured by gain (green up / red down). As-of ${perf.as_of}.`}>
+    <Card title="🗺️ Holdings performance map" sub={`Current book of each strategy, coloured by gain (green up / red down) — LIVE = broker-confirmed positions, PAPER = research book (never held at a broker). As-of ${perf.as_of}.`}>
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {(["daily", "rebalance", "alltime"] as Period[]).map((p) => (
           <button key={p} onClick={() => setPeriod(p)}
@@ -299,7 +313,7 @@ function ForceNetwork({ d }: { d: Corr }) {
   return <div ref={wrapRef} className="overflow-hidden rounded-lg border border-[#1A2130]"><canvas ref={canvasRef} /></div>;
 }
 
-function CorrelationNetwork() {
+function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
   const [d, setD] = useState<Corr | null | "err">(null);
   useEffect(() => { fetch(`${BASE}/strategies_correlation.json`).then((r) => (r.ok ? r.json() : null)).then((x) => setD(x ?? "err")).catch(() => setD("err")); }, []);
   if (d === "err") return null;
@@ -314,23 +328,27 @@ function CorrelationNetwork() {
           <div className="rounded-md border border-[#1E2632] bg-[#0B1018] px-2.5 py-2">
             <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
             <ul className="space-y-1 text-[10px] leading-relaxed text-[#9CA7BB]">
-              <li><span className="text-[#C7CEDA]">Solid + ringed dots = live holdings</span>; hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
+              <li><span className="text-[#C7CEDA]">Solid + ringed dots = current holdings</span> (of live OR paper books — see the legend tags); hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
               <li><span className="text-[#C7CEDA]">The two big spheres are S&amp;P 500 &amp; NASDAQ</span> — each name is pulled toward them by its <em>beta</em>. High-beta (market-driven) names hug the spheres; low-beta (idiosyncratic) names drift to the rim — systematic vs. stock-specific at a glance.</li>
               <li><span className="text-[#C7CEDA]">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
-              <li><span className="text-[#C7CEDA]">Bright links</span> are correlations involving a live holding; faint links are history-only. Watch whether the live dots cluster (overlap) or spread (decoupled).</li>
+              <li><span className="text-[#C7CEDA]">Bright links</span> are correlations involving a current holding; faint links are history-only. Watch whether the current-book dots cluster (overlap) or spread (decoupled).</li>
               <li><span className="text-[#C7CEDA]">The drift is decoration</span> — only relative position carries meaning, not the motion.</li>
             </ul>
           </div>
           <div>
             <div className="mb-1 text-[10px] uppercase tracking-wide text-[#7C879B]">Strategy (dominant)</div>
             <div className="flex flex-col gap-1">
-              {slugs.map((s) => (
-                <span key={s} className="inline-flex items-center gap-1.5 text-[#C7CEDA]">
-                  <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: d.strategy_colors[s] }} />{d.strategy_labels[s]}
-                </span>
-              ))}
+              {slugs.map((s) => {
+                const bt = bookTypeOf(s, statusMap);
+                return (
+                  <span key={s} className="inline-flex items-center gap-1.5 text-[#C7CEDA]">
+                    <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: d.strategy_colors[s] }} />{d.strategy_labels[s]}
+                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-[#00C805]" : "text-[#D8B878]"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
+                  </span>
+                );
+              })}
             </div>
-            <div className="mt-1 text-[10px] text-[#5A6477]">White-ringed = current holding. Node size = times held. Hover for ticker. Edges: top correlations, |corr| ≥ 0.45.</div>
+            <div className="mt-1 text-[10px] text-[#5A6477]">White-ringed = current holding (live or paper book per the tag above). Node size = times held. Hover for ticker. Edges: top correlations, |corr| ≥ 0.45.</div>
           </div>
           <div>
             <div className="mb-1 text-[10px] uppercase tracking-wide text-[#7C879B]">Strategy-level corr · full backtest</div>
@@ -345,6 +363,6 @@ function CorrelationNetwork() {
   );
 }
 
-export default function StrategiesViz() {
-  return <><HoldingsTreemap /><CorrelationNetwork /></>;
+export default function StrategiesViz({ statusMap }: { statusMap?: StatusMap }) {
+  return <><HoldingsTreemap statusMap={statusMap} /><CorrelationNetwork statusMap={statusMap} /></>;
 }

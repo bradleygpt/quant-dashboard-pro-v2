@@ -55,7 +55,7 @@ export default function PaperTrackTab() {
         <div>
           <h2 className="text-lg font-bold text-white">
             {disp?.engine ?? "Aristeia"} · {disp?.character ?? "Event-Balanced"}
-            <span className="ml-2 rounded-full bg-[#0E2A14] px-2 py-0.5 text-[11px] font-semibold text-[#00C805] ring-1 ring-[#1C5C2E]">● LIVE PAPER-TRACK</span>
+            <span className="ml-2 rounded-full bg-[#231C10] px-2 py-0.5 text-[11px] font-semibold text-[#D8B878] ring-1 ring-[#4A3B1D]" title="Paper track: signal-derived research book accruing forward out-of-sample — not broker positions. The broker-confirmed Aristeia book lives on the Strategies summary.">◌ PAPER-TRACK · forward accrual</span>
           </h2>
           <p className="text-xs text-[#7C879B]">
             Event/PEAD-anchored blend ({blend.map(([k, v]) => `${(v * 100).toFixed(0)}% ${k}`).join(" · ")}), top-{d.config.N} equal-weight,
