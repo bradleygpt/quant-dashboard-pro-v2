@@ -22,20 +22,79 @@
       "check_status": "ok"
     },
     "earnings_reviews": {
-      "source": "ai_earnings_cache.json (ai_earnings_cache.json) \u2014 pre-baked LLM 8-K reviews",
-      "n_cached": 1241,
-      "n_kept": 1189,
-      "n_skipped_empty": 52,
-      "note": "empty/unparsed reviews excluded; keyed {TICKER}_{filing-YYYY-MM} + {TICKER}_LATEST",
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
       "as_of": "2026-07-02",
-      "ppi": "39.5 MODERATE (live c78q PPI, as-of 2026-07-02)",
+      "ppi": "37.3 MODERATE (live c78q PPI, as-of 2026-07-02)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
+    },
+    "universe_floor0": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "universe_floor1": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "universe_floor10": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "quarterly": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "snapshots": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "doppelganger": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "etf": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "market_static": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "pundits": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
+    },
+    "help": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-02",
+      "generated_at": "2026-07-02T10:52:59",
+      "check_status": "ok"
     }
-  }
+  },
+  "generated_at": "2026-07-02T10:52:59"
 }
