@@ -1,4 +1,5 @@
 import { LIGHTING, MARKET_ORDER, isDaylight, type MarketStateKey, type PlanetDef, type SunDef, type SystemStatus } from "./mockData";
+import { tierOf } from "../components/AsOf";
 
 interface HoverState {
   def: PlanetDef;
@@ -63,7 +64,14 @@ export default function Hud(props: Props) {
       {/* ---------- status strip (top-right): pipeline/PPI/c78q ---------- */}
       <div className={`absolute right-6 top-5 text-right ${scrim}`}>
         <div className="flex justify-end gap-6 tabular-nums">
-          <Stat label="PIPELINE" value={s.bake.fresh ? "FRESH" : "STALE"} tone={s.bake.fresh ? "#00C805" : "#FF5722"} />
+          {/* pipeline freshness from the shared AsOf thresholds (bake vintage age), not the
+              bake's own self-reported flag — a stale deploy must read STALE here. */}
+          {(() => {
+            const { tier } = tierOf(s.bake.at);
+            const v = tier === "fresh" ? "✓ FRESH" : tier === "amber" ? "⚠ AGING" : tier === "stale" ? "✕ STALE" : "◌ UNKNOWN";
+            const tone = tier === "fresh" ? "#00C805" : tier === "amber" ? "#FFB454" : tier === "stale" ? "#FF5252" : "#7C879B";
+            return <Stat label="PIPELINE" value={v} tone={tone} />;
+          })()}
           <Stat label="PPI" value={`${s.ppi.score} ${s.ppi.level}`} tone="#FF9800" />
           {pnl == null ? (
             <Stat label="KATALEPSIS" value="DEPLOYED" tone="#9CA7BB" />

@@ -199,7 +199,7 @@ function DeployedBlock({ data }: { data: C78q }) {
   }, [posTickers]);
   return (
     <div className="space-y-4">
-      <Card title="Current Target" sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
+      <Card title="Current Target" asOfDate={t?.as_of} sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
         {!t?.rows?.length ? <div className="text-sm text-[#7C879B]">No current target available.</div> : (
           <div className="overflow-auto rounded-lg border border-[#1E2632]">
             <table className="w-full text-sm">

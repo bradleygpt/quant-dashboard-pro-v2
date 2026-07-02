@@ -85,7 +85,7 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
         <Metric label="Expected Return" value={t.expected_annual_return} />
         <Metric label="Max Drawdown" value={t.max_drawdown_estimate} />
       </div>
-      <Card title={name} sub={t.description}>
+      <Card title={name} asOfSource="etf" sub={t.description}>
         <table className="w-full text-sm">
           <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Category</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">ETF</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Alt</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Weight</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Amount</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Purpose</th></tr></thead>
           <tbody>

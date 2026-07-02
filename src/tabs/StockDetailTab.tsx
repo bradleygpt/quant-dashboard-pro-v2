@@ -399,7 +399,7 @@ export default function StockDetailTab() {
 
       {/* Quarterly earnings & revenue growth (YoY) */}
       {qhist.length > 0 && (
-        <Card title="Quarterly Earnings & Revenue Growth (YoY)" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
+        <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={[...qhist].reverse().map((q) => ({ date: (q.date || "").slice(0, 7), eps: (q.earningsGrowth ?? 0) * 100, rev: (q.revenueGrowth ?? 0) * 100, _g: (q.earningsGrowth ?? 0) >= 0 }))} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
               <CartesianGrid stroke="#1A2130" vertical={false} />

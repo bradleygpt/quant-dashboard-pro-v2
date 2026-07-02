@@ -78,7 +78,7 @@ function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
   if (perf === "err") return null;
   if (!perf) return <Card title="Holdings performance map" sub=""><Spinner /></Card>;
   return (
-    <Card title="🗺️ Holdings performance map" sub={`Current book of each strategy, coloured by gain (green up / red down) — LIVE = broker-confirmed positions, PAPER = research book (never held at a broker). As-of ${perf.as_of}.`}>
+    <Card title="🗺️ Holdings performance map" asOfDate={perf.as_of} sub={`Current book of each strategy, coloured by gain (green up / red down) — LIVE = broker-confirmed positions, PAPER = research book (never held at a broker).`}>
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {(["daily", "rebalance", "alltime"] as Period[]).map((p) => (
           <button key={p} onClick={() => setPeriod(p)}

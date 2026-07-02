@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import IndexBadges from "../components/IndexBadges";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
+import AsOf from "../components/AsOf";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ScatterChart, Scatter, ZAxis } from "recharts";
 
@@ -114,7 +115,7 @@ export default function MLPredTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-white">Project Prolepsis (ML Predictions)</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold text-white">Project Prolepsis (ML Predictions) <AsOf date={data?.effective_date} /></h2>
         <p className="text-xs text-[#7C879B]">
           Project Prolepsis — MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run

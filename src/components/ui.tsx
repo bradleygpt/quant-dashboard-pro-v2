@@ -1,11 +1,22 @@
 import React from "react";
+import AsOf from "./AsOf";
 
-export function Card({ title, sub, children, className = "" }: {
+export function Card({ title, sub, children, className = "", asOfSource, asOfDate }: {
   title?: string; sub?: string; children: React.ReactNode; className?: string;
+  /** freshness_manifest key (e.g. "universe_floor0") — renders the global AsOf badge top-right */
+  asOfSource?: string;
+  /** explicit vintage for panels that carry their own as_of/generated_at */
+  asOfDate?: string | null;
 }) {
+  const badge = asOfSource || asOfDate ? <AsOf source={asOfSource} date={asOfDate} /> : null;
   return (
     <div className={`rounded-lg border border-[#1E2632] bg-[#121723] p-4 ${className}`}>
-      {title && <div className="text-sm font-semibold text-[#E6E9EF]">{title}</div>}
+      {(title || badge) && (
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-sm font-semibold text-[#E6E9EF]">{title}</div>
+          {badge}
+        </div>
+      )}
       {sub && <div className="mb-2 text-xs text-[#7C879B]">{sub}</div>}
       {children}
     </div>

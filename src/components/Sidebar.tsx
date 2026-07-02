@@ -1,6 +1,7 @@
 import { useStore, type PresetSel } from "../store";
 import type { Floor, PresetName } from "../lib/types";
 import { fmtPct } from "../lib/format";
+import AsOf from "./AsOf";
 
 const FLOOR_LABELS: Record<number, string> = { 0: "No floor", 1: "$1B+", 10: "$10B+" };
 
@@ -94,6 +95,7 @@ export default function Sidebar({ mobileOpen = false, onClose }: { mobileOpen?: 
       </div>
 
       <div className="mt-auto border-t border-[#1E2632] pt-3 text-[10px] leading-relaxed text-[#5C6678]">
+        <div className="mb-1"><AsOf date={meta.generated_at} /></div>
         <div>Data baked {meta.generated_at}</div>
         <div>Source commit {meta.source_commit}</div>
         <div className="mt-1 text-[#4B5563]">Static snapshot · not investment advice</div>
