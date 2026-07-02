@@ -8,6 +8,7 @@ import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
+import RegimeRibbon from "../components/RegimeRibbon";
 import { INK, SEM, STREAM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
@@ -325,6 +326,15 @@ function BacktestBlock({ data }: { data: C78q }) {
           streams={C78_STREAMS}
           footer="dump_78q_holdings.py · illustrative top-down pipeline · HEADLINE NOT CERTIFIED — broad rank-IC ≈ 0, thin top-bucket edge, recently t<2 · candidate-grade"
         />
+      )}
+      {vizData.rebalances.length > 0 && summary.length > 1 && (
+        <div className="-mt-2">
+          {/* regime strip aligned to the crucible's curve band (x: 12%…88% of the frame) */}
+          <RegimeRibbon
+            domain={[summary[0].date, summary[summary.length - 1].date]}
+            leftInset="12%" rightInset="12%" legend
+          />
+        </div>
       )}
       <Card title="Validated Backtest" sub={`c78q ${data.spec?.version ?? ""} · ${bt.n_months ?? summary.length} months · TOP-${data.spec?.basket_size ?? 8}, ${(data.spec as any)?.rebalance ?? "monthly"}, equal-weight`}>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
