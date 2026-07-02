@@ -1,6 +1,11 @@
 {
+<<<<<<< Updated upstream
   "generated_at": "2026-07-02T17:18:03",
   "source_commit": "06f3f54",
+=======
+  "generated_at": "2026-07-02T16:46:43",
+  "source_commit": "2083414",
+>>>>>>> Stashed changes
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -18,11 +23,14 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.2
       },
-      "backtest_cagr": 26.27,
-      "backtest_sharpe": 1.21,
-      "backtest_max_dd": -35.67,
+      "backtest_cagr": 16.72,
+      "backtest_sharpe": 0.86,
+      "backtest_max_dd": -36.2,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
-      "validated_at_floor": true
+      "validated_at_floor": true,
+      "backtest_provenance": "recomputed",
+      "backtest_recomputed_at": "2026-07-02T20:36:24.696812+00:00",
+      "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "m_heavy": {
       "label": "Growth/Momentum (no-floor optimal)",
@@ -33,11 +41,14 @@
         "Momentum": 0.8,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 30.12,
-      "backtest_sharpe": 1.3,
-      "backtest_max_dd": -32.04,
+      "backtest_cagr": 27.07,
+      "backtest_sharpe": 1.03,
+      "backtest_max_dd": -29.55,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
-      "validated_at_floor": true
+      "validated_at_floor": true,
+      "backtest_provenance": "recomputed",
+      "backtest_recomputed_at": "2026-07-02T20:36:24.696812+00:00",
+      "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "v_heavy": {
       "label": "Value/Quality (no-floor only)",
@@ -48,11 +59,14 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 28.18,
-      "backtest_sharpe": 1.35,
-      "backtest_max_dd": -37.39,
+      "backtest_cagr": 17.33,
+      "backtest_sharpe": 0.94,
+      "backtest_max_dd": -37.32,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
-      "validated_at_floor": true
+      "validated_at_floor": true,
+      "backtest_provenance": "recomputed",
+      "backtest_recomputed_at": "2026-07-02T20:36:24.696812+00:00",
+      "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "research_vq": {
       "label": "\u2697 Project Axia \u00b7 Research Prior \u00b7 Value+Quality (2011-26 OOS)",
@@ -72,7 +86,8 @@
       "top_n": 7,
       "hold_days": 42,
       "in_sample_cagr": 32.0,
-      "caveat": "Research prior, not a validated record. Walk-forward OOS on EDGAR-era 2011-2026 (NOT the 1996-2026 TOP-25 record): ~26.7% OOS vs ~32% in-sample. Survivorship-biased (current-universe scores). Top-7, ~42-day hold."
+      "caveat": "Research prior, not a validated record. Walk-forward OOS on EDGAR-era 2011-2026 (NOT the 1996-2026 TOP-25 record): ~26.7% OOS vs ~32% in-sample. Survivorship-biased (current-universe scores). Top-7, ~42-day hold.",
+      "backtest_provenance": "config-literal"
     }
   },
   "absolute_thresholds": {

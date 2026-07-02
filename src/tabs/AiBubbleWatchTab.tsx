@@ -1,3 +1,4 @@
+import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { Card, Spinner, Unavailable } from "../components/ui";
 import {
@@ -64,7 +65,7 @@ export default function AiBubbleWatchTab() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">🫧 AI Bubble Watch</h2>
-        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-[#9CA7BB]">
+        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-ink-3">
           The AI buildout's financing rhymes with late-1990s telecom <em>vendor financing</em>: a small set of interdependent
           companies commit capital to one another in circles, so headline deal totals may overstate how much <em>independent</em>
           money is really flowing in. The graph below makes that circularity visible — follow the loops.
@@ -72,39 +73,39 @@ export default function AiBubbleWatchTab() {
       </div>
 
       {/* top disclaimer */}
-      <div className="rounded-md border border-[#3A2A20] bg-[#1A140E] px-3 py-2 text-[11px] leading-relaxed text-[#E0C07F]">
+      <div className="rounded-md border border-warn/25 bg-warn/5 px-3 py-2 text-[11px] leading-relaxed text-[#E0C07F]">
         ⚠ Illustrative · figures are analyst tallies &amp; point-in-time estimates · as of ~mid-2026 · not a live feed.
       </div>
 
       {/* headline */}
-      <div className="flex flex-wrap items-center gap-4 rounded-lg border border-[#1E2632] bg-[#121723] px-4 py-3">
+      <div className="flex flex-wrap items-center gap-4 rounded-lg border border-line bg-panel px-4 py-3">
         <div>
           <div className="text-2xl font-bold text-white">{fmtBn(Math.round(total))}</div>
-          <div className="text-xs text-[#7C879B]">in announced deals across the {deals.length} largest AI transactions tracked</div>
+          <div className="text-xs text-mute">in announced deals across the {deals.length} largest AI transactions tracked</div>
         </div>
-        <div className="flex-1 text-xs leading-relaxed text-[#9CA7BB]">
+        <div className="flex-1 text-xs leading-relaxed text-ink-3">
           Note how value circulates between interdependent parties — the same dollars appear in multiple headline figures
-          (e.g. <span className="text-[#C3CAD7]">Nvidia → OpenAI → Oracle → Nvidia</span>). The structure is shown; no
-          "net-of-circularity" figure is asserted — that's unprovable. <span className="text-[#7C879B]">Nvidia disputes the
+          (e.g. <span className="text-ink-2">Nvidia → OpenAI → Oracle → Nvidia</span>). The structure is shown; no
+          "net-of-circularity" figure is asserted — that's unprovable. <span className="text-mute">Nvidia disputes the
           "circular" framing, arguing the commitments reflect genuine end-demand for compute.</span>
         </div>
       </div>
 
       {/* controls + legend */}
       <div className="flex flex-wrap items-center gap-3">
-        <label className="flex cursor-pointer items-center gap-1.5 text-xs text-[#9CA7BB]">
-          <input type="checkbox" checked={showCycles} onChange={(e) => setShowCycles(e.target.checked)} className="accent-[#FFD54A]" />
+        <label className="flex cursor-pointer items-center gap-1.5 text-xs text-ink-3">
+          <input type="checkbox" checked={showCycles} onChange={(e) => setShowCycles(e.target.checked)} className="accent-warn" />
           Highlight circular paths
         </label>
-        <span className="text-[#2A3242]">|</span>
+        <span className="text-line-2">|</span>
         {TYPES.map((t) => (
           <button key={t} onClick={() => toggleType(t)}
-            className={`flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs ${active.has(t) ? "border-[#2A3242] text-[#C3CAD7]" : "border-transparent text-[#5C6678] line-through"}`}>
+            className={`flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs ${active.has(t) ? "border-line-2 text-ink-2" : "border-transparent text-dim line-through"}`}>
             <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: TYPE_META[t].color, opacity: active.has(t) ? 1 : 0.3 }} />
             {TYPE_META[t].label}
           </button>
         ))}
-        <span className="text-[10px] text-[#5C6678]">Hover a company to focus its deals · hover/click an edge for the source.</span>
+        <span className="text-[10px] text-dim">Hover a company to focus its deals · hover/click an edge for the source.</span>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
@@ -117,8 +118,8 @@ export default function AiBubbleWatchTab() {
                   <path d="M0,0 L10,5 L0,10 z" fill={TYPE_META[t].color} />
                 </marker>
               ))}
-              <marker id="arr-cycle" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFD54A" /></marker>
-              <marker id="arr-dim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2A3242" /></marker>
+              <marker id="arr-cycle" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill={SEM.warn} /></marker>
+              <marker id="arr-dim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill={LINE.strong} /></marker>
             </defs>
 
             {/* edges */}
@@ -127,7 +128,7 @@ export default function AiBubbleWatchTab() {
               const lit = edgeLit(d);
               const isCycle = showCycles && cycleIds.has(d.id);
               const dim = !lit;
-              const color = dim ? "#222A38" : isCycle ? "#FFD54A" : TYPE_META[d.type].color;
+              const color = dim ? "#222A38" : isCycle ? SEM.warn : TYPE_META[d.type].color;
               const marker = dim ? "url(#arr-dim)" : isCycle ? "url(#arr-cycle)" : `url(#arr-${d.type})`;
               return (
                 <path key={d.id} d={`M${g.sx},${g.sy} Q${g.mxp},${g.myp} ${g.ex},${g.ey}`}
@@ -145,10 +146,10 @@ export default function AiBubbleWatchTab() {
               return (
                 <g key={n.id} style={{ cursor: "pointer" }} opacity={lit ? 1 : 0.25}
                   onMouseEnter={() => setHoverNode(n.id)} onMouseLeave={() => setHoverNode(null)}>
-                  <circle cx={n.x} cy={n.y} r={n.r} fill="#0F1420" stroke={inCycle ? "#FFD54A" : "#3A4660"} strokeWidth={inCycle ? 2.5 : 1.5} />
+                  <circle cx={n.x} cy={n.y} r={n.r} fill={SURFACE.head} stroke={inCycle ? SEM.warn : "#3A4660"} strokeWidth={inCycle ? 2.5 : 1.5} />
                   <circle cx={n.x} cy={n.y} r={n.r} fill={hoverNode === n.id ? "#5BA8FF22" : "#5BA8FF11"} />
-                  <text x={n.x} y={n.y - 1} textAnchor="middle" fontSize={Math.max(10, Math.min(13, n.r / 2.6))} fontWeight={700} fill="#E6E9EF">{n.id}</text>
-                  <text x={n.x} y={n.y + 12} textAnchor="middle" fontSize={9} fill="#7C879B">{n.mv >= 1000 ? `~$${(n.mv / 1000).toFixed(1)}T` : `~$${n.mv}bn`}</text>
+                  <text x={n.x} y={n.y - 1} textAnchor="middle" fontSize={Math.max(10, Math.min(13, n.r / 2.6))} fontWeight={700} fill={INK.ink}>{n.id}</text>
+                  <text x={n.x} y={n.y + 12} textAnchor="middle" fontSize={9} fill={INK.mute}>{n.mv >= 1000 ? `~$${(n.mv / 1000).toFixed(1)}T` : `~$${n.mv}bn`}</text>
                 </g>
               );
             })}
@@ -160,27 +161,27 @@ export default function AiBubbleWatchTab() {
           <Card title="Deal detail">
             {selEdge ? (
               <div className="space-y-2 text-sm">
-                <div className="text-base font-semibold text-white">{selEdge.from} <span className="text-[#7C879B]">→</span> {selEdge.to}</div>
+                <div className="text-base font-semibold text-white">{selEdge.from} <span className="text-mute">→</span> {selEdge.to}</div>
                 <span className="inline-block rounded px-2 py-0.5 text-xs font-semibold" style={{ color: TYPE_META[selEdge.type].color, background: `${TYPE_META[selEdge.type].color}22` }}>{TYPE_META[selEdge.type].label}</span>
                 <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
-                  <div><span className="text-[#7C879B]">Value: </span><span className="font-semibold text-[#E6E9EF]">{fmtBn(selEdge.value_usd_bn)}{selEdge.value_approx ? " (approx.)" : ""}</span></div>
-                  <div><span className="text-[#7C879B]">Reported: </span><span className="text-[#C3CAD7]">{selEdge.date}</span></div>
+                  <div><span className="text-mute">Value: </span><span className="font-semibold text-ink">{fmtBn(selEdge.value_usd_bn)}{selEdge.value_approx ? " (approx.)" : ""}</span></div>
+                  <div><span className="text-mute">Reported: </span><span className="text-ink-2">{selEdge.date}</span></div>
                 </div>
-                <p className="text-xs leading-relaxed text-[#9CA7BB]">{selEdge.note}</p>
-                <a href={selEdge.source_url} target="_blank" rel="noreferrer" className="inline-block break-all text-xs text-[#5BA8FF] hover:underline">Source ↗ {selEdge.source_url}</a>
-                {cycleIds.has(selEdge.id) && <div className="text-[11px] text-[#FFD54A]">◆ This deal is part of a circular path.</div>}
+                <p className="text-xs leading-relaxed text-ink-3">{selEdge.note}</p>
+                <a href={selEdge.source_url} target="_blank" rel="noreferrer" className="inline-block break-all text-xs text-link hover:underline">Source ↗ {selEdge.source_url}</a>
+                {cycleIds.has(selEdge.id) && <div className="text-[11px] text-warn">◆ This deal is part of a circular path.</div>}
               </div>
-            ) : <div className="text-sm text-[#7C879B]">Hover or click an edge to see the deal — value, date, type, and the (clickable) source link. Every edge is reported/announced, not verified-paid.</div>}
+            ) : <div className="text-sm text-mute">Hover or click an edge to see the deal — value, date, type, and the (clickable) source link. Every edge is reported/announced, not verified-paid.</div>}
           </Card>
 
           <Card title={`Circular paths found (${cycles.length})`} sub="Directed loops where money returns to its source.">
             {cycles.length ? (
               <ul className="space-y-1 text-sm">
                 {cycles.map((c, i) => (
-                  <li key={i} className="text-[#C3CAD7]"><span className="text-[#FFD54A]">↻</span> {c.join(" → ")} → {c[0]}</li>
+                  <li key={i} className="text-ink-2"><span className="text-warn">↻</span> {c.join(" → ")} → {c[0]}</li>
                 ))}
               </ul>
-            ) : <div className="text-sm text-[#7C879B]">No directed cycles in the current dataset.</div>}
+            ) : <div className="text-sm text-mute">No directed cycles in the current dataset.</div>}
           </Card>
         </div>
       </div>
@@ -188,14 +189,14 @@ export default function AiBubbleWatchTab() {
       {/* ── The other 7 research findings ── */}
       <div className="pt-2">
         <h3 className="text-base font-bold text-white">Is it a bubble? Seven more lenses</h3>
-        <p className="text-xs text-[#7C879B]">Each lens is tagged by whether it <em>rhymes</em> with a past bubble, <em>diverges</em> from one, is <em>novel</em>, or is a <em>mixed signal</em>. All figures illustrative / as-of ~mid-2026.</p>
+        <p className="text-xs text-mute">Each lens is tagged by whether it <em>rhymes</em> with a past bubble, <em>diverges</em> from one, is <em>novel</em>, or is a <em>mixed signal</em>. All figures illustrative / as-of ~mid-2026.</p>
       </div>
       <Findings />
 
       {/* synthesis banner */}
-      <div className="rounded-lg border border-[#2A3242] bg-[#10151F] p-4">
+      <div className="rounded-lg border border-line-2 bg-[#10151F] p-4">
         <div className="text-sm font-bold text-white">Honest synthesis</div>
-        <p className="mt-1 text-xs leading-relaxed text-[#C3CAD7]">
+        <p className="mt-1 text-xs leading-relaxed text-ink-2">
           Equity-valuation risk looks <strong>moderate</strong> — the index is concentrated and richly priced, but the leaders are
           cheaper and more cash-generative than 2000's. The sharper risk is in the <strong>financing structure</strong>: genuine
           end-demand, but increasingly <strong>circular and concentrated</strong> commitments (see the network above) plus an
@@ -204,7 +205,7 @@ export default function AiBubbleWatchTab() {
         </p>
       </div>
 
-      <p className="text-[10px] leading-relaxed text-[#5C6678]">
+      <p className="text-[10px] leading-relaxed text-dim">
         Every deal figure is the <em>reported / announced</em> amount, not verified-paid; multi-year commitments and options are included at their headline value. Market-value node sizes are approximate (public market cap or last reported private valuation, mixed as-of). Findings figures are analyst tallies / point-in-time estimates as of ~mid-2026, not a live feed. The contested GPU-depreciation thesis is intentionally excluded as unresolved. Dataset is curated in <code>ai_deals.json</code>; proposed additions are staged in <code>ai_deals_proposed.json</code> for human review and never rendered automatically.
       </p>
     </div>
@@ -212,25 +213,25 @@ export default function AiBubbleWatchTab() {
 }
 
 // ── Findings (7 research lenses) ─────────────────────────────────────────────
-const VERDICT: Record<string, string> = { Divergence: "#00C805", Rhyme: "#FF9800", Novel: "#A855F7", "Mixed signal": "#FFC107" };
+const VERDICT: Record<string, string> = { Divergence: SEM.pos, Rhyme: SEM.warnHot, Novel: "#A855F7", "Mixed signal": SEM.warn };
 function Tag({ kind, label }: { kind: keyof typeof VERDICT | string; label: string }) {
-  const c = VERDICT[kind] ?? "#9CA7BB";
+  const c = VERDICT[kind] ?? INK.ink3;
   return <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>{kind} · {label}</span>;
 }
 function FindingCard({ title, tagKind, tagLabel, source, children, wide }: { title: string; tagKind: string; tagLabel: string; source: string; children: React.ReactNode; wide?: boolean }) {
   return (
-    <div className={`rounded-lg border border-[#1E2632] bg-[#121723] p-4 ${wide ? "lg:col-span-2" : ""}`}>
+    <div className={`rounded-lg border border-line bg-panel p-4 ${wide ? "lg:col-span-2" : ""}`}>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <div className="text-sm font-semibold text-[#E6E9EF]">{title}</div>
+        <div className="text-sm font-semibold text-ink">{title}</div>
         <Tag kind={tagKind} label={tagLabel} />
       </div>
       {children}
-      <div className="mt-2 text-[10px] text-[#5C6678]">{source}</div>
+      <div className="mt-2 text-[10px] text-dim">{source}</div>
     </div>
   );
 }
-const AX = { fill: "#7C879B", fontSize: 11 };
-const TT = { background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 };
+const AX = { fill: INK.mute, fontSize: 11 };
+const TT = { background: SURFACE.head, border: `1px solid ${LINE.line}`, borderRadius: 8 };
 
 function Findings() {
   // All figures illustrative analyst tallies / point-in-time estimates, as-of ~mid-2026.
@@ -259,15 +260,15 @@ function Findings() {
         source="Illustrative: top-10 S&P forward P/E now ~31× vs dot-com peak ~43×; lead chipmaker Nvidia ~22× sales vs Cisco 2000 ~31×. Analyst estimates, as-of ~mid-2026.">
         <ResponsiveContainer width="100%" height={230}>
           <BarChart data={valuations} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <CartesianGrid stroke={SURFACE.raised} vertical={false} />
             <XAxis dataKey="label" tick={AX} /><YAxis tick={AX} width={36} />
             <RTooltip contentStyle={TT} formatter={(v: number, n) => [`${v}×`, n === "now" ? "Now (~2026)" : "2000 peak"]} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Bar dataKey="now" name="Now (~2026)" fill="#5BA8FF" />
-            <Bar dataKey="then" name="2000 peak" fill="#7C879B" />
+            <Bar dataKey="now" name="Now (~2026)" fill={SEM.link} />
+            <Bar dataKey="then" name="2000 peak" fill={INK.mute} />
           </BarChart>
         </ResponsiveContainer>
-        <p className="mt-1 text-[11px] text-[#9CA7BB]">The most decision-relevant chart: today's AI leaders are richly valued but <strong>cheaper and far more cash-generative</strong> than the 2000 peak — valuation risk is real but not 2000-extreme.</p>
+        <p className="mt-1 text-[11px] text-ink-3">The most decision-relevant chart: today's AI leaders are richly valued but <strong>cheaper and far more cash-generative</strong> than the 2000 peak — valuation risk is real but not 2000-extreme.</p>
       </FindingCard>
 
       {/* 1. Capex */}
@@ -275,12 +276,12 @@ function Findings() {
         source="Illustrative analyst tallies / company guidance, capex $bn, as-of ~mid-2026. Funded largely from operating cash flow (not vendor debt / IPO equity as in 2000).">
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={capex} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <CartesianGrid stroke={SURFACE.raised} vertical={false} />
             <XAxis dataKey="co" tick={AX} interval={0} /><YAxis tick={AX} width={40} tickFormatter={(v) => `$${v}b`} />
             <RTooltip contentStyle={TT} formatter={(v: number, n) => [`$${v}bn`, n === "y2025" ? "2025" : "2026 (est.)"]} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Bar dataKey="y2025" name="2025" fill="#7C879B" />
-            <Bar dataKey="y2026" name="2026 (est.)" fill="#F7931A" />
+            <Bar dataKey="y2025" name="2025" fill={INK.mute} />
+            <Bar dataKey="y2026" name="2026 (est.)" fill={ASSET.btc} />
           </BarChart>
         </ResponsiveContainer>
       </FindingCard>
@@ -290,11 +291,11 @@ function Findings() {
         source="Illustrative: Magnificent-7 ≈ 12% (2015) → ~34.5% (2025); dashed line = 2000 top-cohort peak ~27%. A half-century concentration extreme.">
         <ResponsiveContainer width="100%" height={220}>
           <LineChart data={concentration} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <CartesianGrid stroke={SURFACE.raised} vertical={false} />
             <XAxis dataKey="year" tick={AX} /><YAxis tick={AX} width={36} tickFormatter={(v) => `${v}%`} domain={[0, 40]} />
             <RTooltip contentStyle={TT} formatter={(v: number) => [`${v}%`, "Mag-7 share"]} />
-            <ReferenceLine y={27} stroke="#FF9800" strokeDasharray="4 3" label={{ value: "2000 peak ~27%", fill: "#FF9800", fontSize: 9, position: "insideTopRight" }} />
-            <Line type="monotone" dataKey="pct" stroke="#5BA8FF" strokeWidth={2} dot={{ r: 2 }} name="Mag-7 share" />
+            <ReferenceLine y={27} stroke={SEM.warnHot} strokeDasharray="4 3" label={{ value: "2000 peak ~27%", fill: SEM.warnHot, fontSize: 9, position: "insideTopRight" }} />
+            <Line type="monotone" dataKey="pct" stroke={SEM.link} strokeWidth={2} dot={{ r: 2 }} name="Mag-7 share" />
           </LineChart>
         </ResponsiveContainer>
       </FindingCard>
@@ -304,12 +305,12 @@ function Findings() {
         source="Illustrative Fed funds paths from each cycle's start: AI-era easing toward ~3.6% vs dot-com tightening to 6.5%. Schematic, monthly, as-of ~mid-2026.">
         <ResponsiveContainer width="100%" height={220}>
           <LineChart data={rates} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-            <CartesianGrid stroke="#1A2130" vertical={false} />
+            <CartesianGrid stroke={SURFACE.raised} vertical={false} />
             <XAxis dataKey="m" tick={AX} tickFormatter={(v) => `${v}mo`} /><YAxis tick={AX} width={40} tickFormatter={(v) => `${v}%`} domain={[3, 7]} />
             <RTooltip contentStyle={TT} formatter={(v: number, n) => [`${v}%`, n === "ai" ? "AI era (2024→)" : "Dot-com (1999→)"]} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Line type="monotone" dataKey="ai" name="AI era (2024→)" stroke="#00C805" strokeWidth={2} dot={false} />
-            <Line type="monotone" dataKey="dot" name="Dot-com (1999→)" stroke="#FF5722" strokeWidth={2} strokeDasharray="4 2" dot={false} />
+            <Line type="monotone" dataKey="ai" name="AI era (2024→)" stroke={SEM.pos} strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="dot" name="Dot-com (1999→)" stroke={SEM.neg} strokeWidth={2} strokeDasharray="4 2" dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </FindingCard>
@@ -318,8 +319,8 @@ function Findings() {
       <FindingCard title="Macro reliance on the buildout" tagKind="Rhyme" tagLabel="railway-scale dependence"
         source="Illustrative: ~92% of H1-2025 US GDP growth attributed to information-processing investment; AI capex ~2% of GDP ≈ ~20% of the late-1800s railway peak. Point-in-time estimates.">
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#FF9800]">~92%</div><div className="text-[11px] text-[#9CA7BB]">of H1-2025 US GDP growth from info-processing investment</div></div>
-          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#FF9800]">~2%</div><div className="text-[11px] text-[#9CA7BB]">AI capex as share of GDP — ≈20% of the railway-era peak</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-warn-hot">~92%</div><div className="text-[11px] text-ink-3">of H1-2025 US GDP growth from info-processing investment</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-warn-hot">~2%</div><div className="text-[11px] text-ink-3">AI capex as share of GDP — ≈20% of the railway-era peak</div></div>
         </div>
       </FindingCard>
 
@@ -328,16 +329,16 @@ function Findings() {
         source="Illustrative, as-of ~mid-2026. Run-rates annualized from short windows are caveated. The contested GPU-depreciation thesis is excluded as unresolved.">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
-            <div className="mb-1 text-xs font-semibold text-[#00C805]">🟢 Bull</div>
-            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">
+            <div className="mb-1 text-xs font-semibold text-pos">🟢 Bull</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-ink-3">
               <li>Nvidia record Q3 revenue ~$57bn, +66% YoY.</li>
               <li>Anthropic run-rate reportedly ~$1bn → ~$30bn.</li>
               <li>Generative-AI adoption ~54.6% faster than the PC or internet at the same stage.</li>
             </ul>
           </div>
           <div>
-            <div className="mb-1 text-xs font-semibold text-[#FF5722]">🔴 Bear</div>
-            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">
+            <div className="mb-1 text-xs font-semibold text-neg">🔴 Bear</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-ink-3">
               <li>MIT: ~95% of enterprise AI pilots show no measurable P&L impact.</li>
               <li>OpenAI reportedly burning ~$17bn/yr.</li>
               <li>Many headline run-rates are <em>annualized from a single month</em> — treat with caution.</li>
@@ -350,8 +351,8 @@ function Findings() {
       <FindingCard title="Power & the grid" tagKind="Novel" tagLabel="no clean historical analog"
         source="Illustrative: US grid-interconnection queues running 5–7+ years; data centers projected at ~6.7–12% of US electricity by 2030 (range; 'up to' ceiling). Point-in-time estimates.">
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">5–7+ yr</div><div className="text-[11px] text-[#9CA7BB]">grid interconnection queues</div></div>
-          <div className="rounded-md border border-[#1E2632] bg-[#0F1420] p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">6.7–12%</div><div className="text-[11px] text-[#9CA7BB]">projected US electricity from data centers by 2030</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">5–7+ yr</div><div className="text-[11px] text-ink-3">grid interconnection queues</div></div>
+          <div className="rounded-md border border-line bg-head p-3 text-center"><div className="text-3xl font-bold text-[#A855F7]">6.7–12%</div><div className="text-[11px] text-ink-3">projected US electricity from data centers by 2030</div></div>
         </div>
       </FindingCard>
     </div>

@@ -5,6 +5,7 @@ import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import AsOf from "../components/AsOf";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ScatterChart, Scatter, ZAxis } from "recharts";
+import { INK, SEM } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -116,13 +117,13 @@ export default function MLPredTab() {
     <div className="space-y-4">
       <div>
         <h2 className="flex items-center gap-2 text-lg font-bold text-white">Project Prolepsis (ML Predictions) <AsOf date={data?.effective_date} /></h2>
-        <p className="text-xs text-[#7C879B]">
+        <p className="text-xs text-mute">
           Project Prolepsis — MLPred v7.2 ensemble return forecasts (3-month and 12-month horizons) across {data?.n ?? "~1,180"} US equities,
           as of {data?.effective_date ?? "latest"}. {data?.streams_present?.length ?? 0} streams active this run
           ({(data?.streams_present ?? []).filter((s) => s !== "n_streams").join(", ") || "loading"}). Two engines: P(beat) is the binary classifier's probability of outperforming over 12 months (c78q posterior); targets
           are the return engine's monthly outputs (as-of prediction date). Predicted returns recompute as target/price − 1; the
-          top tables prefer the LIVE intraday quote (labeled <span className="text-[#00C805]">live</span>) over the
-          baked daily price (<span className="text-[#FF9800]">bkd</span>) so a stale denominator can't manufacture fake upside. Isotonic per-stream calibration
+          top tables prefer the LIVE intraday quote (labeled <span className="text-pos">live</span>) over the
+          baked daily price (<span className="text-warn-hot">bkd</span>) so a stale denominator can't manufacture fake upside. Isotonic per-stream calibration
           on actual forward returns; 1-month horizon intentionally excluded (never validated as signal).
         </p>
       </div>
@@ -134,7 +135,7 @@ export default function MLPredTab() {
       ) : <Spinner label="Loading predictions…" />) : (
         <>
           {excluded.length > 0 && (
-            <div className="rounded-md border border-[#5a2a2a] bg-[#1f0d0d] px-3 py-2 text-[11px] leading-relaxed text-[#FF8A80]">
+            <div className="rounded-md border border-neg/35 bg-neg/10 px-3 py-2 text-[11px] leading-relaxed text-[#FF8A80]">
               ⚠ {excluded.length} row{excluded.length > 1 ? "s" : ""} excluded — corrupt target / price-basis mismatch (likely a stock-split or share-basis error):{" "}
               {excluded.map((e) => `${e.ticker}${e.p3 != null ? ` 3M ${(e.p3 * 100).toFixed(0)}%` : ""}${e.p12 != null ? ` 12M ${(e.p12 * 100).toFixed(0)}%` : ""}`).join("; ")}.
               An implied return (target ÷ price) beyond ±150% (3M) / ±300% (12M) is treated as corrupt and dropped from the rankings/screener rather than surfaced as a top pick.
@@ -165,10 +166,10 @@ function RankingsBlock({ data }: { data: MLPred }) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-[#7C879B]">Horizon:</span>
+        <span className="text-xs text-mute">Horizon:</span>
         <Pill active={horizon === "pred_3m"} onClick={() => setHorizon("pred_3m")}>3-Month</Pill>
         <Pill active={horizon === "pred_12m"} onClick={() => setHorizon("pred_12m")}>12-Month</Pill>
-        <span className="ml-4 text-xs text-[#7C879B]">Show:</span>
+        <span className="ml-4 text-xs text-mute">Show:</span>
         {[10, 25, 50].map((v) => <Pill key={v} active={n === v} onClick={() => setN(v)}>{v}</Pill>)}
       </div>
 
@@ -188,34 +189,34 @@ function RankingsBlock({ data }: { data: MLPred }) {
 function PredTable({ rows, horizon }: { rows: MLRow[]; horizon: Horizon }) {
   const { byTicker, goToDetail } = useStore();
   const target = horizon === "pred_3m" ? "target_3m" : "target_12m";
-  if (!rows.length) return <div className="text-sm text-[#7C879B]">No rows.</div>;
+  if (!rows.length) return <div className="text-sm text-mute">No rows.</div>;
   return (
-    <div className="overflow-auto rounded-lg border border-[#1E2632]">
+    <div className="overflow-auto rounded-lg border border-line">
       <table className="w-full text-sm">
         <thead><tr>{["#", "Ticker", "Sector", "Price", "Pred Return", "Target", "P(beat)", "Bull/Bear", "RSI14"].map((h) =>
-          <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+          <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
         <tbody>
           {rows.map((r, i) => (
-            <tr key={r.ticker} className="border-t border-[#161D29]">
-              <td className="px-3 py-1.5 text-[#7C879B]">{i + 1}</td>
+            <tr key={r.ticker} className="border-t border-line-faint">
+              <td className="px-3 py-1.5 text-mute">{i + 1}</td>
               <td className="px-3 py-1.5">
                 <button onClick={() => goToDetail(r.ticker)} className="text-left" title={`Open ${r.ticker} stock detail`}>
-                  <span className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</span><IndexBadges ticker={r.ticker} />
+                  <span className="font-semibold text-link hover:underline">{r.ticker}</span><IndexBadges ticker={r.ticker} />
                   {(byTicker.get(r.ticker) as any)?.name && (
-                    <span className="block max-w-[180px] truncate text-[10px] text-[#7C879B]">{(byTicker.get(r.ticker) as any).name}</span>
+                    <span className="block max-w-[180px] truncate text-[10px] text-mute">{(byTicker.get(r.ticker) as any).name}</span>
                   )}
                 </button>
               </td>
-              <td className="px-3 py-1.5 text-xs text-[#9CA7BB]">{r.sector ?? "—"}</td>
+              <td className="px-3 py-1.5 text-xs text-ink-3">{r.sector ?? "—"}</td>
               <td className="px-3 py-1.5">{r.price != null ? fmtMoney(r.price) : "—"}
-                {r.price_src && <span title={r.price_src === "live" ? "live intraday quote" : r.price_src === "baked" ? "baked daily price" : "as-of prediction date"} className="ml-1 text-[9px] uppercase" style={{ color: r.price_src === "live" ? "#00C805" : r.price_src === "baked" ? "#FF9800" : "#7C879B" }}>{r.price_src === "live" ? "live" : r.price_src === "baked" ? "bkd" : "asof"}</span>}</td>
-              <td className="px-3 py-1.5 font-semibold" style={{ color: (r[horizon] ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>
+                {r.price_src && <span title={r.price_src === "live" ? "live intraday quote" : r.price_src === "baked" ? "baked daily price" : "as-of prediction date"} className="ml-1 text-[9px] uppercase" style={{ color: r.price_src === "live" ? SEM.pos : r.price_src === "baked" ? SEM.warnHot : INK.mute }}>{r.price_src === "live" ? "live" : r.price_src === "baked" ? "bkd" : "asof"}</span>}</td>
+              <td className="px-3 py-1.5 font-semibold" style={{ color: (r[horizon] ?? 0) >= 0 ? SEM.pos : SEM.neg }}>
                 {r[horizon] != null ? fmtPct(r[horizon]! * 100, 1, true) : "—"}
               </td>
-              <td className="px-3 py-1.5 text-[#C3CAD7]">{r[target] != null ? fmtMoney(r[target]!) : "—"}</td>
-              <td className="px-3 py-1.5 font-semibold" style={{ color: (r.c78q_post ?? 0) >= 0.6 ? "#00C805" : (r.c78q_post ?? 0) >= 0.4 ? "#FFC107" : "#9CA7BB" }}>{r.c78q_post != null ? `${(r.c78q_post * 100).toFixed(0)}%` : "—"}</td>
-              <td className="px-3 py-1.5 text-xs"><span className="text-[#00C805]">{r.n_bull}</span> / <span className="text-[#FF5722]">{r.n_bear}</span></td>
-              <td className="px-3 py-1.5 text-[#9CA7BB]">{r.rsi14 != null ? r.rsi14.toFixed(0) : "—"}</td>
+              <td className="px-3 py-1.5 text-ink-2">{r[target] != null ? fmtMoney(r[target]!) : "—"}</td>
+              <td className="px-3 py-1.5 font-semibold" style={{ color: (r.c78q_post ?? 0) >= 0.6 ? SEM.pos : (r.c78q_post ?? 0) >= 0.4 ? SEM.warn : INK.ink3 }}>{r.c78q_post != null ? `${(r.c78q_post * 100).toFixed(0)}%` : "—"}</td>
+              <td className="px-3 py-1.5 text-xs"><span className="text-pos">{r.n_bull}</span> / <span className="text-neg">{r.n_bear}</span></td>
+              <td className="px-3 py-1.5 text-ink-3">{r.rsi14 != null ? r.rsi14.toFixed(0) : "—"}</td>
             </tr>
           ))}
         </tbody>
@@ -243,21 +244,21 @@ function ScreenerBlock({ data }: { data: MLPred }) {
       <Card title="Prediction Screener" sub="Filter the universe by sector and minimum predicted return.">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <label className="block text-[10px] uppercase text-[#7C879B]">Sector</label>
+            <label className="block text-[10px] uppercase text-mute">Sector</label>
             <select value={sector} onChange={(e) => setSector(e.target.value)}
-                    className="rounded border border-[#1E2632] bg-[#0F1420] px-2 py-1 text-sm text-[#C3CAD7]">
+                    className="rounded border border-line bg-head px-2 py-1 text-sm text-ink-2">
               {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-[10px] uppercase text-[#7C879B]">Horizon</label>
+            <label className="block text-[10px] uppercase text-mute">Horizon</label>
             <div className="flex gap-1">
               <Pill active={horizon === "pred_3m"} onClick={() => setHorizon("pred_3m")}>3M</Pill>
               <Pill active={horizon === "pred_12m"} onClick={() => setHorizon("pred_12m")}>12M</Pill>
             </div>
           </div>
           <div>
-            <label className="block text-[10px] uppercase text-[#7C879B]">Min Pred Return: {minPred}%</label>
+            <label className="block text-[10px] uppercase text-mute">Min Pred Return: {minPred}%</label>
             <input type="range" min={-10} max={30} step={1} value={minPred}
                    onChange={(e) => setMinPred(Number(e.target.value))} className="w-40" />
           </div>
@@ -267,7 +268,7 @@ function ScreenerBlock({ data }: { data: MLPred }) {
 
       <Card title={`${filtered.length} Matches`} sub={`${sector} · predicted ${horizon === "pred_3m" ? "3M" : "12M"} ≥ ${minPred}%`}>
         <PredTable rows={filtered.slice(0, 100)} horizon={horizon} />
-        {filtered.length > 100 && <div className="mt-2 text-[11px] text-[#7C879B]">Showing top 100 of {filtered.length}.</div>}
+        {filtered.length > 100 && <div className="mt-2 text-[11px] text-mute">Showing top 100 of {filtered.length}.</div>}
       </Card>
     </div>
   );
@@ -289,35 +290,35 @@ function DetailBlock({ data }: { data: MLPred }) {
     <div className="space-y-4">
       <Card title="Per-Stream Breakdown" sub="Each active stream's z-scored signal and its isotonic-calibrated return forecast for this ticker.">
         <div className="mb-3">
-          <label className="block text-[10px] uppercase text-[#7C879B]">Ticker</label>
+          <label className="block text-[10px] uppercase text-mute">Ticker</label>
           <input list="mlpred-tickers" value={ticker} onChange={(e) => setTicker(e.target.value.toUpperCase())}
-                 className="rounded border border-[#1E2632] bg-[#0F1420] px-2 py-1 text-sm text-[#C3CAD7]" placeholder="e.g. AAPL" />
+                 className="rounded border border-line bg-head px-2 py-1 text-sm text-ink-2" placeholder="e.g. AAPL" />
           <datalist id="mlpred-tickers">{data.rows.map((r) => <option key={r.ticker} value={r.ticker} />)}</datalist>
         </div>
 
-        {!row ? <div className="text-sm text-[#7C879B]">Ticker not in universe.</div> : (
+        {!row ? <div className="text-sm text-mute">Ticker not in universe.</div> : (
           <>
             <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
               <Metric label="Price" value={row.price != null ? fmtMoney(row.price) : "—"} />
-              <Metric label="Pred 3M" value={<span style={{ color: (row.pred_3m ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{row.pred_3m != null ? fmtPct(row.pred_3m * 100, 1, true) : "—"}</span>} />
-              <Metric label="Pred 12M" value={<span style={{ color: (row.pred_12m ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{row.pred_12m != null ? fmtPct(row.pred_12m * 100, 1, true) : "—"}</span>} />
+              <Metric label="Pred 3M" value={<span style={{ color: (row.pred_3m ?? 0) >= 0 ? SEM.pos : SEM.neg }}>{row.pred_3m != null ? fmtPct(row.pred_3m * 100, 1, true) : "—"}</span>} />
+              <Metric label="Pred 12M" value={<span style={{ color: (row.pred_12m ?? 0) >= 0 ? SEM.pos : SEM.neg }}>{row.pred_12m != null ? fmtPct(row.pred_12m * 100, 1, true) : "—"}</span>} />
               <Metric label="P(beat, 12m)" value={row.c78q_post != null ? `${(row.c78q_post * 100).toFixed(1)}%` : "—"} hint={row.c78q_rank != null ? `rank ${row.c78q_rank}` : undefined} />
               <Metric label="Streams active" value={row.n_active} />
               <Metric label="Bull / Bear" value={`${row.n_bull} / ${row.n_bear}`} />
               <Metric label="RSI14" value={row.rsi14 != null ? row.rsi14.toFixed(0) : "—"} />
             </div>
 
-            <div className="overflow-auto rounded-lg border border-[#1E2632]">
+            <div className="overflow-auto rounded-lg border border-line">
               <table className="w-full text-sm">
                 <thead><tr>{["Stream", "Signal (z)", "Pred 3M", "Pred 12M"].map((h) =>
-                  <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+                  <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
                 <tbody>
                   {streamRows.map((s) => (
-                    <tr key={s.stream} className="border-t border-[#161D29]">
-                      <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{s.stream}</td>
-                      <td className="px-3 py-1.5" style={{ color: s.signal >= 0 ? "#00C805" : "#FF5722" }}>{s.signal.toFixed(3)}</td>
-                      <td className="px-3 py-1.5" style={{ color: s.p3m >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(s.p3m * 100, 1, true)}</td>
-                      <td className="px-3 py-1.5" style={{ color: s.p12m >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(s.p12m * 100, 1, true)}</td>
+                    <tr key={s.stream} className="border-t border-line-faint">
+                      <td className="px-3 py-1.5 font-semibold text-link">{s.stream}</td>
+                      <td className="px-3 py-1.5" style={{ color: s.signal >= 0 ? SEM.pos : SEM.neg }}>{s.signal.toFixed(3)}</td>
+                      <td className="px-3 py-1.5" style={{ color: s.p3m >= 0 ? SEM.pos : SEM.neg }}>{fmtPct(s.p3m * 100, 1, true)}</td>
+                      <td className="px-3 py-1.5" style={{ color: s.p12m >= 0 ? SEM.pos : SEM.neg }}>{fmtPct(s.p12m * 100, 1, true)}</td>
                     </tr>
                   ))}
                 </tbody>

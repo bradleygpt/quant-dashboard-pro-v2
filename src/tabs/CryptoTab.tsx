@@ -5,6 +5,7 @@ import CryptoBitcoin from "./CryptoBitcoin";
 import CryptoEthereum from "./CryptoEthereum";
 import CryptoEthBtc from "./CryptoEthBtc";
 import CryptoOnChain from "./CryptoOnChain";
+import { INK, SEM } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -23,12 +24,12 @@ interface Pundits { ok?: boolean; crypto?: { commentators?: Commentator[]; synth
 
 function stanceColor(s = ""): string {
   const l = s.toLowerCase();
-  if (l.includes("very bull") || l.includes("bullish")) return "#00C805";
-  if (l.includes("cautiously bull")) return "#8BC34A";
-  if (l.includes("neutral")) return "#FFC107";
-  if (l.includes("caution")) return "#FF9800";
-  if (l.includes("bear")) return "#FF5722";
-  return "#9CA7BB";
+  if (l.includes("very bull") || l.includes("bullish")) return SEM.pos;
+  if (l.includes("cautiously bull")) return SEM.posSoft;
+  if (l.includes("neutral")) return SEM.warn;
+  if (l.includes("caution")) return SEM.warnHot;
+  if (l.includes("bear")) return SEM.neg;
+  return INK.ink3;
 }
 
 function CryptoPundits() {
@@ -39,22 +40,22 @@ function CryptoPundits() {
     return <Unavailable what="Crypto commentary" detail="Crypto-commentator views are AI-summarized daily with web grounding and baked into pundits.json by the refresh job." />;
   return (
     <div className="space-y-3">
-      <p className="text-xs text-[#7C879B]">Crypto-commentator outlook — refreshed daily, AI-summarized with web grounding.{p.data?.last_updated_human ? ` As of ${p.data.last_updated_human}.` : ""}</p>
+      <p className="text-xs text-mute">Crypto-commentator outlook — refreshed daily, AI-summarized with web grounding.{p.data?.last_updated_human ? ` As of ${p.data.last_updated_human}.` : ""}</p>
       {sec.synthesis && (
         <Card title="Synthesis">
-          <p className="text-sm leading-relaxed text-[#C3CAD7]">{sec.synthesis}</p>
-          {sec.themes && <div className="mt-2 flex flex-wrap gap-1">{sec.themes.map((t, i) => <span key={i} className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[11px] text-[#9CA7BB]">{t}</span>)}</div>}
+          <p className="text-sm leading-relaxed text-ink-2">{sec.synthesis}</p>
+          {sec.themes && <div className="mt-2 flex flex-wrap gap-1">{sec.themes.map((t, i) => <span key={i} className="rounded-full bg-raised px-2 py-0.5 text-[11px] text-ink-3">{t}</span>)}</div>}
         </Card>
       )}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {sec.commentators.map((c, i) => (
           <Card key={i} title={c.name} sub={[c.firm, c.quote_date].filter(Boolean).join(" · ")}>
             {c.stance && <span className="inline-block rounded px-2 py-0.5 text-xs font-semibold" style={{ color: stanceColor(c.stance), background: `${stanceColor(c.stance)}22` }}>{c.stance}</span>}
-            {c.key_quote && <p className="mt-2 border-l-2 border-[#2A3242] pl-2 text-sm italic text-[#C3CAD7]">“{c.key_quote}”{c.quote_source ? <span className="not-italic text-[#7C879B]"> — {c.quote_source}</span> : null}</p>}
-            {c.btc_view && <div className="mt-2 text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">BTC:</strong> {c.btc_view}</div>}
-            {c.eth_view && <div className="text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">ETH:</strong> {c.eth_view}</div>}
-            {c.price_target_or_view && <div className="text-xs text-[#9CA7BB]"><strong className="text-[#C3CAD7]">Target/View:</strong> {c.price_target_or_view}</div>}
-            {c.key_views?.length ? <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-[#9CA7BB]">{c.key_views.map((v, j) => <li key={j}>{v}</li>)}</ul> : null}
+            {c.key_quote && <p className="mt-2 border-l-2 border-line-2 pl-2 text-sm italic text-ink-2">“{c.key_quote}”{c.quote_source ? <span className="not-italic text-mute"> — {c.quote_source}</span> : null}</p>}
+            {c.btc_view && <div className="mt-2 text-xs text-ink-3"><strong className="text-ink-2">BTC:</strong> {c.btc_view}</div>}
+            {c.eth_view && <div className="text-xs text-ink-3"><strong className="text-ink-2">ETH:</strong> {c.eth_view}</div>}
+            {c.price_target_or_view && <div className="text-xs text-ink-3"><strong className="text-ink-2">Target/View:</strong> {c.price_target_or_view}</div>}
+            {c.key_views?.length ? <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-ink-3">{c.key_views.map((v, j) => <li key={j}>{v}</li>)}</ul> : null}
           </Card>
         ))}
       </div>
@@ -84,7 +85,7 @@ export default function CryptoTab() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">₿ Crypto Analysis</h2>
-        <p className="text-xs text-[#7C879B]">Bitcoin cycle position, Ethereum supply dynamics, on-chain metrics, and commentator outlook. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
+        <p className="text-xs text-mute">Bitcoin cycle position, Ethereum supply dynamics, on-chain metrics, and commentator outlook. Live keyless feeds (CoinGecko, Yahoo, mempool.space).</p>
       </div>
       <div className="flex flex-wrap gap-2">
         {tabs.map(([key, label]) => <Pill key={key} active={sub === key} onClick={() => setSub(key)}>{label}</Pill>)}

@@ -16,7 +16,7 @@ export default function CryptoOnChain({ oc }: { oc?: OnChain }) {
       <Card title="On-Chain Metrics" sub="Best-effort on-chain data from free keyless APIs (mempool.space). For MVRV/NUPL/exchange flows, professional tools (Glassnode, CryptoQuant) offer paid tiers.">
         {oc.block_height != null && (
           <>
-            <div className="text-xs font-semibold uppercase text-[#7C879B]">Bitcoin Network State</div>
+            <div className="text-xs font-semibold uppercase text-mute">Bitcoin Network State</div>
             <div className="mt-1 grid grid-cols-1 gap-3 sm:grid-cols-3">
               <Metric label="Current block height" value={oc.block_height.toLocaleString()} />
               {est && <Metric label="Blocks until next halving" value={est.blocks_remaining.toLocaleString()} hint={`~${est.days_remaining} days`} />}
@@ -26,7 +26,7 @@ export default function CryptoOnChain({ oc }: { oc?: OnChain }) {
         )}
         {(oc.hashrate_ehs != null || oc.fees) && (
           <>
-            <div className="mt-3 text-xs font-semibold uppercase text-[#7C879B]">Bitcoin Mining &amp; Mempool</div>
+            <div className="mt-3 text-xs font-semibold uppercase text-mute">Bitcoin Mining &amp; Mempool</div>
             <div className="mt-1 grid grid-cols-1 gap-3 sm:grid-cols-3">
               {oc.hashrate_ehs != null && <Metric label="Network hash rate" value={`${oc.hashrate_ehs.toFixed(2)} EH/s`} />}
               {oc.fees?.fastest != null && <Metric label="Fast fee" value={`${oc.fees.fastest} sat/vB`} />}
@@ -37,12 +37,12 @@ export default function CryptoOnChain({ oc }: { oc?: OnChain }) {
       </Card>
 
       <Card title="What These Metrics Mean">
-        <div className="space-y-2 text-xs text-[#9CA7BB]">
-          <div><span className="font-semibold text-[#C3CAD7]">Hash rate (EH/s):</span> higher = more security and miner commitment; trending up = healthy network growth; sharp drops = miner capitulation (often a bear signal).</div>
-          <div><span className="font-semibold text-[#C3CAD7]">Mempool fees (sat/vB):</span> higher = more demand for block space; sustained high fees = active usage and value accrual to miners; very low fees may suggest bear-market low activity.</div>
-          <div><span className="font-semibold text-[#C3CAD7]">Block height:</span> increases by 1 every ~10 minutes; used to precisely calculate the next halving (block 1,050,000 = next halving).</div>
+        <div className="space-y-2 text-xs text-ink-3">
+          <div><span className="font-semibold text-ink-2">Hash rate (EH/s):</span> higher = more security and miner commitment; trending up = healthy network growth; sharp drops = miner capitulation (often a bear signal).</div>
+          <div><span className="font-semibold text-ink-2">Mempool fees (sat/vB):</span> higher = more demand for block space; sustained high fees = active usage and value accrual to miners; very low fees may suggest bear-market low activity.</div>
+          <div><span className="font-semibold text-ink-2">Block height:</span> increases by 1 every ~10 minutes; used to precisely calculate the next halving (block 1,050,000 = next halving).</div>
         </div>
-        <div className="mt-3 text-[10px] text-[#5C6678]">💡 For deeper on-chain analytics — wallet cohort analysis, exchange flows, holder behavior — consider professional tools (Glassnode, CryptoQuant, IntoTheBlock) which offer limited free tiers.</div>
+        <div className="mt-3 text-[10px] text-dim">💡 For deeper on-chain analytics — wallet cohort analysis, exchange flows, holder behavior — consider professional tools (Glassnode, CryptoQuant, IntoTheBlock) which offer limited free tiers.</div>
       </Card>
     </div>
   );

@@ -2,6 +2,7 @@
 // Breadth is computed from the baked scored universe (client-side); fear & greed
 // composites the live market payload (/api/market) with that breadth.
 import type { ViewRow } from "../store";
+import { SEM } from "../theme";
 
 export interface Breadth {
   pct_above_50sma: number; pct_above_200sma: number;
@@ -55,9 +56,9 @@ export function computeFearGreed(
   let composite = components.reduce((a, [s, w]) => a + s * w, 0);
   composite = Math.round(Math.max(0, Math.min(100, composite)) * 10) / 10;
   const [classification, color] =
-    composite >= 80 ? ["Extreme Greed", "#00C805"] :
-    composite >= 60 ? ["Greed", "#8BC34A"] :
-    composite >= 45 ? ["Neutral", "#FFC107"] :
-    composite >= 25 ? ["Fear", "#FF5722"] : ["Extreme Fear", "#D32F2F"];
+    composite >= 80 ? ["Extreme Greed", SEM.pos] :
+    composite >= 60 ? ["Greed", SEM.posSoft] :
+    composite >= 45 ? ["Neutral", SEM.warn] :
+    composite >= 25 ? ["Fear", SEM.neg] : ["Extreme Fear", SEM.negDeep];
   return { score: composite, classification, color };
 }

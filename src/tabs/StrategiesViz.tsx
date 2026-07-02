@@ -1,6 +1,8 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Treemap, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { Card, Spinner } from "../components/ui";
+import { ENTITY, INK, SEM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -42,7 +44,7 @@ function TreeCell(props: any) {
         {width > 46 && height > 14 && (
           <>
             <rect x={x + 3} y={y + 2.5} width={(name?.length ?? 4) * 6.2 + 8} height={13} rx={2} fill="rgba(3,6,12,0.55)" />
-            <text x={x + 7} y={y + 12.5} fontSize={9.5} fontWeight={800} fill={stratColor ?? "#C7CEDA"}>{name}</text>
+            <text x={x + 7} y={y + 12.5} fontSize={9.5} fontWeight={800} fill={stratColor ?? INK.ink2}>{name}</text>
           </>
         )}
       </g>
@@ -82,11 +84,11 @@ function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {(["daily", "rebalance", "alltime"] as Period[]).map((p) => (
           <button key={p} onClick={() => setPeriod(p)}
-            className={`rounded-md px-3 py-1.5 text-xs transition ${period === p ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"}`}>
+            className={`rounded-md px-3 py-1.5 text-xs transition ${period === p ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"}`}>
             {p === "daily" ? "Daily" : p === "rebalance" ? "Since rebalance" : "All-time"}
           </button>
         ))}
-        <span className="ml-auto text-[10px] text-[#5A6477]">
+        <span className="ml-auto text-[10px] text-dim">
           {period === "daily" ? "1-day move" : period === "rebalance" ? "since the current rebalance entry" : "full-backtest price history (log-scaled colour)"}
         </span>
       </div>
@@ -138,7 +140,7 @@ function StrategyCorrMatrix({ d }: { d: Corr }) {
               const v = m[a][b];
               const tip = a === b ? undefined
                 : `${d.strategy_labels[a]} × ${d.strategy_labels[b]}: ${isNaN(v) ? "insufficient overlap" : (v >= 0 ? "+" : "") + v.toFixed(2)} — monthly returns, full backtest. Amber = co-move, blue = offset, gray ≈ decoupled.`;
-              return <td key={b} title={tip} className="p-1 font-mono" style={{ background: a === b ? "#11161F" : corrFill(v), color: a === b ? "#5A6477" : "#E6E9EF" }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
+              return <td key={b} title={tip} className="p-1 font-mono" style={{ background: a === b ? "#11161F" : corrFill(v), color: a === b ? INK.dim : INK.ink }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
             })}
           </tr>
         ))}
@@ -298,7 +300,7 @@ function ForceNetwork({ d }: { d: Corr }) {
       ctx.font = "600 9px ui-sans-serif, system-ui"; ctx.textAlign = "center";
       for (const a of sim) {
         if (a.cur || a.t === hov) {
-          ctx.fillStyle = a.t === hov ? "#fff" : "#C7CEDA";
+          ctx.fillStyle = a.t === hov ? "#fff" : INK.ink2;
           ctx.fillText(a.t, a.x, a.y - a.r - 3);
         }
       }
@@ -316,7 +318,7 @@ function ForceNetwork({ d }: { d: Corr }) {
     return () => { cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener("mousemove", onMove); };
   }, [d]);
 
-  return <div ref={wrapRef} className="overflow-hidden rounded-lg border border-[#1A2130]"><canvas ref={canvasRef} /></div>;
+  return <div ref={wrapRef} className="overflow-hidden rounded-lg border border-raised"><canvas ref={canvasRef} /></div>;
 }
 
 function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
@@ -331,36 +333,36 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
       <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
         <ForceNetwork d={d} />
         <div className="space-y-3 text-xs">
-          <div className="rounded-md border border-[#1E2632] bg-[#0B1018] px-2.5 py-2">
+          <div className="rounded-md border border-line bg-[#0B1018] px-2.5 py-2">
             <div className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[#9CB6E0]">How to read this</div>
-            <ul className="space-y-1 text-[10px] leading-relaxed text-[#9CA7BB]">
-              <li><span className="text-[#C7CEDA]">Solid + ringed dots = current holdings</span> (of live OR paper books — see the legend tags); hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
-              <li><span className="text-[#C7CEDA]">The two big spheres are S&amp;P 500 &amp; NASDAQ</span> — each name is pulled toward them by its <em>beta</em>. High-beta (market-driven) names hug the spheres; low-beta (idiosyncratic) names drift to the rim — systematic vs. stock-specific at a glance.</li>
-              <li><span className="text-[#C7CEDA]">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
-              <li><span className="text-[#C7CEDA]">Bright links</span> are correlations involving a current holding; faint links are history-only. Watch whether the current-book dots cluster (overlap) or spread (decoupled).</li>
-              <li><span className="text-[#C7CEDA]">The drift is decoration</span> — only relative position carries meaning, not the motion.</li>
+            <ul className="space-y-1 text-[10px] leading-relaxed text-ink-3">
+              <li><span className="text-ink-2">Solid + ringed dots = current holdings</span> (of live OR paper books — see the legend tags); hollow dim outlines are names held only in the backtest. Colour = the strategy that held it most.</li>
+              <li><span className="text-ink-2">The two big spheres are S&amp;P 500 &amp; NASDAQ</span> — each name is pulled toward them by its <em>beta</em>. High-beta (market-driven) names hug the spheres; low-beta (idiosyncratic) names drift to the rim — systematic vs. stock-specific at a glance.</li>
+              <li><span className="text-ink-2">Closeness = correlation.</span> Two dots sit near each other when their returns move together, far apart when they don't.</li>
+              <li><span className="text-ink-2">Bright links</span> are correlations involving a current holding; faint links are history-only. Watch whether the current-book dots cluster (overlap) or spread (decoupled).</li>
+              <li><span className="text-ink-2">The drift is decoration</span> — only relative position carries meaning, not the motion.</li>
             </ul>
           </div>
           <div>
-            <div className="mb-1 text-[10px] uppercase tracking-wide text-[#7C879B]">Strategy (dominant)</div>
+            <div className="mb-1 text-[10px] uppercase tracking-wide text-mute">Strategy (dominant)</div>
             <div className="flex flex-col gap-1">
               {slugs.map((s) => {
                 const bt = bookTypeOf(s, statusMap);
                 return (
-                  <span key={s} className="inline-flex items-center gap-1.5 text-[#C7CEDA]">
+                  <span key={s} className="inline-flex items-center gap-1.5 text-ink-2">
                     <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: d.strategy_colors[s] }} />{d.strategy_labels[s]}
-                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-[#00C805]" : "text-[#D8B878]"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
+                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-pos" : "text-paper"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
                   </span>
                 );
               })}
             </div>
-            <div className="mt-1 text-[10px] text-[#5A6477]">White-ringed = current holding (live or paper book per the tag above). Node size = times held. Hover for ticker. Edges: top correlations, |corr| ≥ 0.45.</div>
+            <div className="mt-1 text-[10px] text-dim">White-ringed = current holding (live or paper book per the tag above). Node size = times held. Hover for ticker. Edges: top correlations, |corr| ≥ 0.45.</div>
           </div>
           <div>
-            <div className="mb-1 text-[10px] uppercase tracking-wide text-[#7C879B]">Strategy-level corr · full backtest</div>
+            <div className="mb-1 text-[10px] uppercase tracking-wide text-mute">Strategy-level corr · full backtest</div>
             <StrategyCorrMatrix d={d} />
-            <div className="mt-1 text-[10px] leading-relaxed text-[#5A6477]">
-              Avg |corr| <span className="text-[#9CA7BB]">{d.strategy_avg_abs_corr}</span> on monthly returns. All long-only equity (a ~0.3–0.5 beta floor is unavoidable); the distinct bets (Katalepsis / Aristeia / Pronoia) sit lowest, the quant-factor sleeves co-move more.
+            <div className="mt-1 text-[10px] leading-relaxed text-dim">
+              Avg |corr| <span className="text-ink-3">{d.strategy_avg_abs_corr}</span> on monthly returns. All long-only equity (a ~0.3–0.5 beta floor is unavoidable); the distinct bets (Katalepsis / Aristeia / Pronoia) sit lowest, the quant-factor sleeves co-move more.
             </div>
           </div>
         </div>
@@ -375,10 +377,10 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
 // hues as the treemap/network); LIVE books solid, PAPER books dashed + tagged in the
 // legend (secondary encoding, ties into truth-in-labeling). SPY = neutral gray reference.
 const CMP_SERIES = [
-  { slug: "katalepsis", label: "Katalepsis", color: "#00C805", file: "c78q.json", kind: "c78q" as const },
-  { slug: "aristeia", label: "Aristeia", color: "#5BA8FF", file: "aristeia_strategy.json", kind: "strategy" as const },
+  { slug: "katalepsis", label: "Katalepsis", color: SEM.pos, file: "c78q.json", kind: "c78q" as const },
+  { slug: "aristeia", label: "Aristeia", color: SEM.link, file: "aristeia_strategy.json", kind: "strategy" as const },
   { slug: "auxo", label: "Auxo", color: "#A855F7", file: "auxo_strategy.json", kind: "strategy" as const },
-  { slug: "prosodos", label: "Prosodos", color: "#FBBF24", file: "prosodos_strategy.json", kind: "strategy" as const },
+  { slug: "prosodos", label: "Prosodos", color: SEM.warn, file: "prosodos_strategy.json", kind: "strategy" as const },
   { slug: "pronoia", label: "Pronoia", color: "#F97316", file: "pronoia_strategy.json", kind: "strategy" as const },
 ];
 
@@ -439,11 +441,11 @@ function StrategyComparison({ statusMap }: { statusMap?: StatusMap }) {
     <Card title="📈 Strategy comparison — growth of 100" sub={`All backtest equity curves indexed to 100 at ${t0} on ONE log axis. Solid = LIVE broker book today; dashed = PAPER research book. SPY = gray reference. Hover for every series at a date.`}>
       <ResponsiveContainer width="100%" height={360}>
         <LineChart data={rows} margin={{ top: 8, right: 16, bottom: 0, left: 4 }}>
-          <CartesianGrid stroke="#1A2130" vertical={false} />
-          <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={60} />
-          <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56}
+          <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+          <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} minTickGap={60} />
+          <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: INK.mute, fontSize: 11 }} width={56}
             tickFormatter={(v) => (v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(Math.round(v)))} />
-          <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8, fontSize: 12 }}
+          <Tooltip {...tooltipProps}
             formatter={(v: number, n) => [v != null ? Math.round(v).toLocaleString() : "—", n]} />
           <Legend wrapperStyle={{ fontSize: 11 }} />
           {CMP_SERIES.filter((s) => series[s.slug]).map((s) => {
@@ -451,10 +453,10 @@ function StrategyComparison({ statusMap }: { statusMap?: StatusMap }) {
             return <Line key={s.slug} type="monotone" dataKey={s.slug} name={`${s.label}${bt === "paper" ? " · paper" : " · live"}`}
               stroke={s.color} strokeWidth={2} strokeDasharray={bt === "paper" ? "6 3" : undefined} dot={false} connectNulls />;
           })}
-          <Line type="monotone" dataKey="SPY" name="SPY" stroke="#8A93A6" strokeWidth={1.4} strokeDasharray="2 3" dot={false} connectNulls />
+          <Line type="monotone" dataKey="SPY" name="SPY" stroke={ENTITY.benchmark} strokeWidth={1.4} strokeDasharray="2 3" dot={false} connectNulls />
         </LineChart>
       </ResponsiveContainer>
-      <p className="mt-2 text-[10px] leading-relaxed text-[#5A6477]">
+      <p className="mt-2 text-[10px] leading-relaxed text-dim">
         Backtest research records (survivor-biased upper bounds), not forward guarantees — see each strategy page's caveats.
         Indexed to a common base on a single axis; per the chart rules, no second y-scale is ever used.
       </p>

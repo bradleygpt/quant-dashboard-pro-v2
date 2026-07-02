@@ -43,17 +43,17 @@ export default function NlScreener() {
       <div className="flex flex-wrap items-center gap-2">
         <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") run(); }}
           placeholder="e.g. cheap profitable industrials with momentum"
-          className="min-w-[280px] flex-1 rounded-md border border-[#1E2632] bg-[#0F1420] px-3 py-1.5 text-sm text-white placeholder:text-[#5A6678] focus:border-[#2A3550] focus:outline-none" />
+          className="min-w-[280px] flex-1 rounded-md border border-line bg-head px-3 py-1.5 text-sm text-white placeholder:text-[#5A6678] focus:border-active focus:outline-none" />
         <button onClick={run} disabled={st.loading} className="rounded-md bg-[#1D4ED8] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#2563EB] disabled:opacity-50">{st.loading ? "Thinking…" : "Screen"}</button>
       </div>
-      {st.err && <p className="mt-2 text-xs text-[#7C879B]">AI unavailable ({st.err}) — runs on the deployed app with GEMINI_API_KEY.</p>}
-      {st.explain && <p className="mt-2 text-sm text-[#9CB6E0]">{st.explain} — <span className="text-[#7C879B]">{st.results?.length ?? 0} matches</span></p>}
+      {st.err && <p className="mt-2 text-xs text-mute">AI unavailable ({st.err}) — runs on the deployed app with GEMINI_API_KEY.</p>}
+      {st.explain && <p className="mt-2 text-sm text-[#9CB6E0]">{st.explain} — <span className="text-mute">{st.results?.length ?? 0} matches</span></p>}
       {st.results && st.results.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {st.results.map((r) => (
             <button key={r.ticker} onClick={() => goToDetail(r.ticker)}
-              className="rounded-md border border-[#1E2632] bg-[#121723] px-2 py-1 text-xs hover:border-[#2A3550]">
-              <span className="font-semibold text-[#5BA8FF]">{r.ticker}</span> <span className="text-[#7C879B]">{(r.composite ?? 0).toFixed(1)}</span>
+              className="rounded-md border border-line bg-panel px-2 py-1 text-xs hover:border-active">
+              <span className="font-semibold text-link">{r.ticker}</span> <span className="text-mute">{(r.composite ?? 0).toFixed(1)}</span>
             </button>
           ))}
         </div>

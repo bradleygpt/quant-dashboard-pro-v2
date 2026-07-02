@@ -1,8 +1,10 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useMemo } from "react";
 import { Card, Metric } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from "recharts";
 import { ethSupplyMetrics, ETH_SUPPLY_REFERENCES } from "../lib/cycle";
+import { INK, SEM, SURFACE } from "../theme";
 
 type Series = { dates: string[]; close: number[] } | null | undefined;
 interface Coin { price?: number; market_cap?: number; circulating_supply?: number; ath?: number; ath_change_pct?: number; change_24h_pct?: number; change_1y_pct?: number }
@@ -79,35 +81,35 @@ export default function CryptoEthereum({ eth, ethDaily }: { eth?: Coin; ethDaily
                   : `📈 ETH supply is growing at ${supply.annualized_change_pct >= 0 ? "+" : ""}${supply.annualized_change_pct.toFixed(3)}%/yr — faster than recent history. Could indicate lower activity (less burning) or staking changes.`}
             </div>
           </>
-        ) : <div className="py-4 text-center text-sm text-[#7C879B]">Supply metrics unavailable.</div>}
+        ) : <div className="py-4 text-center text-sm text-mute">Supply metrics unavailable.</div>}
       </Card>
 
       <Card title="Price Chart with Key Milestones" sub="Log scale · The Merge (Sept 2022) · 200-day MA">
         {chart.length > 0 ? (
           <ResponsiveContainer width="100%" height={360}>
             <LineChart data={chart} margin={{ top: 16, right: 12, bottom: 0, left: 4 }}>
-              <CartesianGrid stroke="#1A2130" vertical={false} />
-              <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={50} />
-              <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={52} tickFormatter={k} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }}
+              <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+              <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} scale="time" tickFormatter={(t) => new Date(t).getFullYear().toString()} tick={{ fill: INK.mute, fontSize: 11 }} minTickGap={50} />
+              <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: INK.mute, fontSize: 11 }} width={52} tickFormatter={k} />
+              <Tooltip {...tooltipProps}
                 labelFormatter={(t) => new Date(t).toLocaleDateString()} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}`, n === "ma" ? "200d MA" : "ETH"]} />
-              <ReferenceLine x={mergeTs} stroke="#27AE60" strokeDasharray="4 3" opacity={0.7} label={{ value: "The Merge (PoS)", fill: "#27AE60", fontSize: 10, position: "top" }} />
+              <ReferenceLine x={mergeTs} stroke={SEM.pos} strokeDasharray="4 3" opacity={0.7} label={{ value: "The Merge (PoS)", fill: SEM.pos, fontSize: 10, position: "top" }} />
               <Line type="monotone" dataKey="close" stroke="#627EEA" dot={false} strokeWidth={1.6} name="ETH" />
               <Line type="monotone" dataKey="ma" stroke="#888" dot={false} strokeWidth={1.2} strokeDasharray="3 3" name="ma" connectNulls />
             </LineChart>
           </ResponsiveContainer>
-        ) : <div className="py-8 text-center text-sm text-[#7C879B]">Price history loading / unavailable.</div>}
+        ) : <div className="py-8 text-center text-sm text-mute">Price history loading / unavailable.</div>}
       </Card>
 
       <Card title="The Honest Bull and Bear Cases">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div>
-            <div className="mb-1 text-sm font-semibold text-[#00C805]">🟢 Bull Case</div>
-            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">{BULL.map((b, i) => <li key={i}>{b}</li>)}</ul>
+            <div className="mb-1 text-sm font-semibold text-pos">🟢 Bull Case</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-ink-3">{BULL.map((b, i) => <li key={i}>{b}</li>)}</ul>
           </div>
           <div>
-            <div className="mb-1 text-sm font-semibold text-[#FF5722]">🔴 Bear Case</div>
-            <ul className="list-disc space-y-1 pl-4 text-xs text-[#9CA7BB]">{BEAR.map((b, i) => <li key={i}>{b}</li>)}</ul>
+            <div className="mb-1 text-sm font-semibold text-neg">🔴 Bear Case</div>
+            <ul className="list-disc space-y-1 pl-4 text-xs text-ink-3">{BEAR.map((b, i) => <li key={i}>{b}</li>)}</ul>
           </div>
         </div>
       </Card>

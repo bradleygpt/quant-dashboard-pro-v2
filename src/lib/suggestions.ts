@@ -3,6 +3,7 @@
 // output + the scored universe. Deterministic.
 import type { ViewRow } from "../store";
 import type { PortfolioAnalysis } from "./portfolio";
+import { INK, SEM } from "../theme";
 
 const CONC_WARN = 15, CONC_CRIT = 25, DEAD = 1.0, SEC_WARN = 40, SEC_CRIT = 60, TAX = -10, MOM_EXIT = -15;
 
@@ -10,9 +11,9 @@ export interface Suggestion {
   type: "critical" | "warning" | "info" | "opportunity";
   priority: number; category: string; title: string; action: string; reasoning: string;
 }
-const TYPE_COLOR: Record<string, string> = { critical: "#DC2626", warning: "#F97316", info: "#EAB308", opportunity: "#22C55E" };
+const TYPE_COLOR: Record<string, string> = { critical: "#DC2626", warning: "#F97316", info: "#EAB308", opportunity: SEM.pos };
 const TYPE_ICON: Record<string, string> = { critical: "⚠", warning: "▲", info: "ℹ", opportunity: "✚" };
-export const sugColor = (t: string) => TYPE_COLOR[t] ?? "#9CA7BB";
+export const sugColor = (t: string) => TYPE_COLOR[t] ?? INK.ink3;
 export const sugIcon = (t: string) => TYPE_ICON[t] ?? "•";
 
 const money = (v: number) => `$${Math.round(v).toLocaleString()}`;

@@ -1,5 +1,6 @@
 import React from "react";
 import AsOf from "./AsOf";
+import { GRADE_COLORS, INK, RATING_COLORS, alpha } from "../theme";
 
 export function Card({ title, sub, children, className = "", asOfSource, asOfDate }: {
   title?: string; sub?: string; children: React.ReactNode; className?: string;
@@ -10,14 +11,14 @@ export function Card({ title, sub, children, className = "", asOfSource, asOfDat
 }) {
   const badge = asOfSource || asOfDate ? <AsOf source={asOfSource} date={asOfDate} /> : null;
   return (
-    <div className={`rounded-lg border border-[#1E2632] bg-[#121723] p-4 ${className}`}>
+    <div className={`rounded-lg border border-line bg-panel p-4 ${className}`}>
       {(title || badge) && (
         <div className="flex items-start justify-between gap-2">
-          <div className="text-sm font-semibold text-[#E6E9EF]">{title}</div>
+          <div className="text-sm font-semibold text-ink">{title}</div>
           {badge}
         </div>
       )}
-      {sub && <div className="mb-2 text-xs text-[#7C879B]">{sub}</div>}
+      {sub && <div className="mb-2 text-xs text-mute">{sub}</div>}
       {children}
     </div>
   );
@@ -25,52 +26,36 @@ export function Card({ title, sub, children, className = "", asOfSource, asOfDat
 
 export function Metric({ label, value, hint }: { label: string; value: React.ReactNode; hint?: string }) {
   return (
-    <div className="rounded-lg border border-[#1E2632] bg-[#121723] px-4 py-3">
-      <div className="text-xs uppercase tracking-wide text-[#7C879B]">{label}</div>
-      <div className="mt-1 text-xl font-semibold text-[#E6E9EF]">{value}</div>
-      {hint && <div className="text-xs text-[#7C879B]">{hint}</div>}
+    <div className="rounded-lg border border-line bg-panel px-4 py-3">
+      <div className="text-xs uppercase tracking-wide text-mute">{label}</div>
+      <div className="mt-1 text-xl font-semibold text-ink">{value}</div>
+      {hint && <div className="text-xs text-mute">{hint}</div>}
     </div>
   );
 }
 
-const RATING_COLORS: Record<string, string> = {
-  "Strong Buy+": "#00FF00",
-  "Strong Buy": "#00C805",
-  Buy: "#8BC34A",
-  Hold: "#FFC107",
-  Sell: "#FF5722",
-  "Strong Sell": "#D32F2F",
-};
-
 export function RatingBadge({ rating }: { rating: string }) {
-  const c = RATING_COLORS[rating] ?? "#7C879B";
+  const c = RATING_COLORS[rating] ?? INK.mute;
   return (
     <span
       className="inline-block whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold"
-      style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}
+      style={{ color: c, background: alpha(c, 0.13), border: `1px solid ${alpha(c, 0.33)}` }}
     >
       {rating}
     </span>
   );
 }
 
-const GRADE_COLORS: Record<string, string> = {
-  "A+": "#00C805", A: "#00C805", "A-": "#4CAF50",
-  "B+": "#8BC34A", B: "#8BC34A", "B-": "#CDDC39",
-  "C+": "#FFC107", C: "#FFC107", "C-": "#FF9800",
-  "D+": "#FF5722", D: "#FF5722", F: "#D32F2F",
-};
-
 export function GradePill({ grade }: { grade: string | null | undefined }) {
-  if (!grade || grade === "N/A" || grade === "---") return <span className="text-[#7C879B]">—</span>;
-  const c = GRADE_COLORS[grade] ?? "#7C879B";
+  if (!grade || grade === "N/A" || grade === "---") return <span className="text-mute">—</span>;
+  const c = GRADE_COLORS[grade] ?? INK.mute;
   return <span className="font-semibold" style={{ color: c }}>{grade}</span>;
 }
 
 export function Spinner({ label = "Loading…" }: { label?: string }) {
   return (
-    <div className="flex items-center gap-3 p-8 text-[#7C879B]">
-      <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#2A3242] border-t-[#3B82F6]" />
+    <div className="flex items-center gap-3 p-8 text-mute">
+      <div className="h-4 w-4 animate-spin rounded-full border-2 border-line-2 border-t-link" />
       {label}
     </div>
   );
@@ -78,9 +63,9 @@ export function Spinner({ label = "Loading…" }: { label?: string }) {
 
 export function Unavailable({ what, detail }: { what: string; detail?: string }) {
   return (
-    <div className="rounded-lg border border-[#3A2A20] bg-[#1A140E] p-5">
-      <div className="text-sm font-semibold text-[#FFB454]">⚠ {what} temporarily unavailable</div>
-      <p className="mt-1 text-xs leading-relaxed text-[#9CA7BB]">
+    <div className="rounded-lg border border-warn/25 bg-warn/5 p-5">
+      <div className="text-sm font-semibold text-warn">⚠ {what} temporarily unavailable</div>
+      <p className="mt-1 text-xs leading-relaxed text-ink-3">
         {detail ?? "The live data source didn’t respond. This is a transient condition — other tabs are unaffected. Try again shortly."}
       </p>
     </div>
@@ -92,7 +77,7 @@ export function Pill({ active, onClick, children }: { active?: boolean; onClick?
     <button
       onClick={onClick}
       className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-        active ? "bg-[#3B82F6] text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"
+        active ? "bg-link text-white" : "bg-raised text-ink-3 hover:bg-active"
       }`}
     >
       {children}
@@ -101,7 +86,7 @@ export function Pill({ active, onClick, children }: { active?: boolean; onClick?
 }
 
 export const TH = ({ children, className = "", ...p }: React.ThHTMLAttributes<HTMLTableCellElement>) => (
-  <th {...p} className={`sticky top-0 z-10 bg-[#0F1420] px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-[#7C879B] ${className}`}>
+  <th {...p} className={`sticky top-0 z-10 bg-head px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-mute ${className}`}>
     {children}
   </th>
 );

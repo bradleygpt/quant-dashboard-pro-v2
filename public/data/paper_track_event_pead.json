@@ -65,5 +65,6 @@
     }
   ],
   "next_rebalance_date": "2026-07-01",
-  "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance."
+  "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance.",
+  "generated_at": "2026-06-30T18:03:28"
 }

@@ -85,7 +85,7 @@ export function SortableTable<T>({
   return (
     <div
       ref={scrollRef}
-      className="overflow-auto rounded-lg border border-[#1E2632]"
+      className="overflow-auto rounded-lg border border-line"
       style={{ maxHeight }}
       onScroll={(e) => {
         if (!virtual) return;
@@ -105,9 +105,9 @@ export function SortableTable<T>({
                   key={col.key}
                   onClick={() => onHeader(col)}
                   style={col.width ? { width: col.width } : undefined}
-                  className={`sticky top-0 bg-[#0F1420] px-3 py-2 text-xs font-semibold uppercase tracking-wide ${alignCls(col.align)} ${
-                    frozen ? "left-0 z-30 border-r border-[#1E2632]" : "z-10"
-                  } ${canSort ? "cursor-pointer select-none hover:text-[#C3CAD7]" : ""} ${active ? "text-[#5BA8FF]" : "text-[#7C879B]"}`}
+                  className={`sticky top-0 bg-head px-3 py-2 text-xs font-semibold uppercase tracking-wide ${alignCls(col.align)} ${
+                    frozen ? "left-0 z-30 border-r border-line" : "z-10"
+                  } ${canSort ? "cursor-pointer select-none hover:text-ink-2" : ""} ${active ? "text-link" : "text-mute"}`}
                   title={canSort ? "Click to sort" : undefined}
                 >
                   {col.header}
@@ -120,14 +120,14 @@ export function SortableTable<T>({
         <tbody>
           {topPad > 0 && <tr style={{ height: topPad }}><td colSpan={columns.length} /></tr>}
           {visible.map((row) => (
-            <tr key={rowKey(row)} className="border-t border-[#161D29] hover:bg-[#141B27]" style={virtual ? { height: ROW_H } : undefined}>
+            <tr key={rowKey(row)} className="border-t border-line-faint hover:bg-hover-row" style={virtual ? { height: ROW_H } : undefined}>
               {columns.map((col, ci) => {
                 const frozen = freezeFirst && ci === 0;
                 // Tooltip for truncating cells: explicit col.title, else a string sortValue.
                 const sv = col.sortValue?.(row);
                 const cellTitle = col.title?.(row) ?? (typeof sv === "string" ? sv : undefined);
                 return (
-                  <td key={col.key} title={cellTitle} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${frozen ? "sticky left-0 z-20 border-r border-[#1E2632] bg-[#0F1420]" : ""} ${col.className ?? ""}`}>
+                  <td key={col.key} title={cellTitle} className={`overflow-hidden px-3 py-1.5 ${alignCls(col.align)} ${virtual ? "truncate" : "whitespace-nowrap"} ${frozen ? "sticky left-0 z-20 border-r border-line bg-head" : ""} ${col.className ?? ""}`}>
                     {col.render(row)}
                   </td>
                 );

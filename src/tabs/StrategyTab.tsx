@@ -82,11 +82,11 @@ export default function StrategyTab({ slug }: { slug: string }) {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">{d.engine} · {d.character}</h2>
-        <p className="text-xs text-[#7C879B]">
+        <p className="text-xs text-mute">
           {d.tagline} Holding the top {d.config.top_n} names for ~{d.config.hold_days} trading days,
           rebalanced over the de-contaminated EDGAR-era panel (2011–2026), point-in-time S&P membership,
           true daily marks.{" "}
-          <span className="text-[#7C879B]">Research record, not a live recommendation — read the caveats first.</span>
+          <span className="text-mute">Research record, not a live recommendation — read the caveats first.</span>
         </p>
       </div>
 
@@ -102,11 +102,11 @@ export default function StrategyTab({ slug }: { slug: string }) {
         />
       )}
 
-      <div className="rounded-lg border border-[#5A4A1E] bg-[#1E1A0E] p-4">
-        <div className="text-sm font-semibold text-[#FFC107]">⚠ Read this before the numbers</div>
+      <div className="rounded-lg border border-paper/35 bg-warn/5 p-4">
+        <div className="text-sm font-semibold text-warn">⚠ Read this before the numbers</div>
         <ul className="mt-2 space-y-1.5 text-xs text-[#D7C9A0]">
           {d.caveats.map((c, i) => (
-            <li key={i} className="flex gap-2"><span className="text-[#FFC107]">•</span><span>{c}</span></li>
+            <li key={i} className="flex gap-2"><span className="text-warn">•</span><span>{c}</span></li>
           ))}
         </ul>
       </div>
@@ -123,7 +123,7 @@ export default function StrategyTab({ slug }: { slug: string }) {
       </div>
 
       {d.backtest && (
-        <div className="rounded-lg border border-[#5A4A1E] bg-[#1E1A0E] px-3 py-2 text-xs text-[#FFC107]">
+        <div className="rounded-lg border border-paper/35 bg-warn/5 px-3 py-2 text-xs text-warn">
           ⚠ {d.backtest.forward_note}
         </div>
       )}
@@ -131,25 +131,25 @@ export default function StrategyTab({ slug }: { slug: string }) {
       <Card title="Configuration" sub="Frozen config — the same weights/hold used across every panel below.">
         <div className="flex flex-wrap gap-2">
           {Object.entries(w).map(([k, v]) => (
-            <span key={k} className="rounded-md border border-[#1E2632] bg-[#0C0F16] px-2.5 py-1 text-xs text-[#E6E9EF]">
-              {k} <span className="font-semibold text-[#00C805]">{(v * 100).toFixed(0)}%</span>
+            <span key={k} className="rounded-md border border-line bg-inset px-2.5 py-1 text-xs text-ink">
+              {k} <span className="font-semibold text-pos">{(v * 100).toFixed(0)}%</span>
             </span>
           ))}
-          <span className="rounded-md border border-[#1E2632] bg-[#0C0F16] px-2.5 py-1 text-xs text-[#E6E9EF]">
+          <span className="rounded-md border border-line bg-inset px-2.5 py-1 text-xs text-ink">
             Top-N <span className="font-semibold text-white">{d.config.top_n}</span>
           </span>
-          <span className="rounded-md border border-[#1E2632] bg-[#0C0F16] px-2.5 py-1 text-xs text-[#E6E9EF]">
+          <span className="rounded-md border border-line bg-inset px-2.5 py-1 text-xs text-ink">
             Hold <span className="font-semibold text-white">{d.config.hold_days}d</span>
           </span>
-          <span className="rounded-md border border-[#1E2632] bg-[#0C0F16] px-2.5 py-1 text-xs text-[#E6E9EF]">
+          <span className="rounded-md border border-line bg-inset px-2.5 py-1 text-xs text-ink">
             Turnover <span className="font-semibold text-white">{m.annual_turnover_pct}%/yr</span>
           </span>
         </div>
       </Card>
 
-      <div className="rounded-lg border border-[#1E2632] bg-[#0C0F16] px-4 py-3 text-[11px] text-[#7C879B]">
-        The animated pipeline above plots the <span className="text-[#C7CEDA]">actual</span> daily-marked backtest path and real per-rebalance baskets:
-        $1 compounds to <span className="font-semibold text-[#00C805]">${m.final_multiple.toFixed(0)}</span> ({m.final_multiple.toFixed(0)}×) over {d.backtest?.window ?? "2011–2026"},
+      <div className="rounded-lg border border-line bg-inset px-4 py-3 text-[11px] text-mute">
+        The animated pipeline above plots the <span className="text-ink-2">actual</span> daily-marked backtest path and real per-rebalance baskets:
+        $1 compounds to <span className="font-semibold text-pos">${m.final_multiple.toFixed(0)}</span> ({m.final_multiple.toFixed(0)}×) over {d.backtest?.window ?? "2011–2026"},
         vs S&P 500 {m.spy_cagr.toFixed(1)}%/yr and Nasdaq {m.nasdaq_cagr.toFixed(1)}%/yr. The visible dip is the real −{Math.abs(m.in_sample.max_dd).toFixed(0)}% COVID drawdown.
       </div>
 
@@ -160,7 +160,7 @@ export default function StrategyTab({ slug }: { slug: string }) {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-right text-xs">
             <thead>
-              <tr className="text-[#7C879B]">
+              <tr className="text-mute">
                 <th className="px-2 py-1 text-left font-medium">Year</th>
                 <th className="px-2 py-1 font-medium">{d.engine}</th>
                 <th className="px-2 py-1 font-medium">S&P 500</th>
@@ -169,11 +169,11 @@ export default function StrategyTab({ slug }: { slug: string }) {
             </thead>
             <tbody>
               {d.yearly.map((row) => (
-                <tr key={row.label} className="text-[#C7CEDA]">
+                <tr key={row.label} className="text-ink-2">
                   <td className="px-2 py-1 text-left">{row.label}</td>
                   <td className="px-2 py-1" style={{ background: heat(row.strategy) }}>{row.strategy.toFixed(0)}%</td>
-                  <td className="px-2 py-1 text-[#7C879B]">{row.spy.toFixed(0)}%</td>
-                  <td className={`px-2 py-1 ${row.strategy - row.spy >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}`}>
+                  <td className="px-2 py-1 text-mute">{row.spy.toFixed(0)}%</td>
+                  <td className={`px-2 py-1 ${row.strategy - row.spy >= 0 ? "text-pos" : "text-neg"}`}>
                     {(row.strategy - row.spy >= 0 ? "+" : "")}{(row.strategy - row.spy).toFixed(0)}%
                   </td>
                 </tr>
@@ -190,11 +190,11 @@ export default function StrategyTab({ slug }: { slug: string }) {
         <div className="space-y-1.5">
           {holdings.map((h) => (
             <div key={h.date} className="flex items-center gap-3 text-xs">
-              <span className="w-20 shrink-0 font-mono text-[#7C879B]">{h.date}</span>
+              <span className="w-20 shrink-0 font-mono text-mute">{h.date}</span>
               <div className="flex flex-wrap gap-1.5">
                 {h.tickers.map((t) => (
                   <button key={t} onClick={() => goToDetail(t)} title={`Open ${t} stock detail`}
-                    className="rounded border border-[#1E2632] bg-[#0C0F16] px-1.5 py-0.5 font-mono text-[#E6E9EF] hover:border-[#2A3550] hover:text-[#5BA8FF]">{t}</button>
+                    className="rounded border border-line bg-inset px-1.5 py-0.5 font-mono text-ink hover:border-active hover:text-link">{t}</button>
                 ))}
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function StrategyTab({ slug }: { slug: string }) {
         )}
       </Card>
 
-      <p className="text-[10px] text-[#5A6477]">
+      <p className="text-[10px] text-dim">
         Source: clean PIT EDGAR panel (authoritative-split de-contaminated valuation) + frozen {d.engine} config,
         generated {d.generated_at}. True daily mark-to-market. Presentation only — see caveats.
       </p>

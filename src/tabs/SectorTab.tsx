@@ -1,9 +1,11 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore, type ViewRow } from "../store";
 import { Card, RatingBadge, GradePill, Spinner } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney } from "../lib/format";
 import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, Cell } from "recharts";
+import { ASSET, INK, SEM, SURFACE } from "../theme";
 
 const PILLAR_ABBR: Record<string, string> = { Valuation: "Val", Growth: "Grw", Profitability: "Prof", Momentum: "Mom", "EPS Revisions": "EPS" };
 const RATING_COLS = ["Strong Buy+", "Strong Buy", "Buy", "Hold", "Sell", "Strong Sell"];
@@ -77,8 +79,8 @@ export default function SectorTab() {
   const comboData = useMemo(() => [...sectors].sort((a, b) => b.totalMcap - a.totalMcap).map((s) => ({ sector: s.sector, earnings: s.estEarnings, mcap: s.totalMcap })), [sectors]);
 
   const stockCols = useMemo<Column<ViewRow>[]>(() => [
-    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button> },
-    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[240px] truncate text-[#C3CAD7]">{r.name}</span> },
+    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-link hover:underline">{r.ticker}</button> },
+    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[240px] truncate text-ink-2">{r.name}</span> },
     { key: "composite", header: "Score", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="font-semibold">{r.composite.toFixed(2)}</span> },
     { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[r.rating] ?? 0, render: (r) => <RatingBadge rating={r.rating} /> },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price, render: (r) => fmtMoney(r.price) },
@@ -99,9 +101,9 @@ export default function SectorTab() {
             {sectors.filter((s) => narr[s.sector]?.narrative).map((s) => (
               <div key={s.sector}>
                 <div className="text-sm font-semibold text-[#9CB6E0]">{s.sector}
-                  <span className="ml-1.5 text-[11px] font-normal text-[#7C879B]">avg {s.avgScore.toFixed(1)} · {s.count} names · {s.aRatedPct.toFixed(0)}% Buy-tier</span>
+                  <span className="ml-1.5 text-[11px] font-normal text-mute">avg {s.avgScore.toFixed(1)} · {s.count} names · {s.aRatedPct.toFixed(0)}% Buy-tier</span>
                 </div>
-                <p className="mt-0.5 text-sm leading-relaxed text-[#C3CAD7]">{narr[s.sector].narrative}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{narr[s.sector].narrative}</p>
               </div>
             ))}
           </div>
@@ -112,27 +114,27 @@ export default function SectorTab() {
       <Card title="Sector Aggregates: Market Cap & Earnings" sub="Aggregate trailing-12-month earnings (bars, left) and total market cap (line, right) per sector. Earnings ≈ Σ market cap ÷ trailing P/E.">
         <ResponsiveContainer width="100%" height={400}>
           <ComposedChart data={comboData} margin={{ top: 12, right: 20, bottom: 56, left: 8 }}>
-            <CartesianGrid stroke="#1A2130" vertical={false} />
-            <XAxis dataKey="sector" tick={{ fill: "#7C879B", fontSize: 10 }} angle={-30} textAnchor="end" interval={0} height={60} />
-            <YAxis yAxisId="e" tick={{ fill: "#7C879B", fontSize: 11 }} width={60} tickFormatter={(v) => `$${v.toFixed(0)}B`} />
-            <YAxis yAxisId="m" orientation="right" tick={{ fill: "#7C879B", fontSize: 11 }} width={64} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}T`} />
-            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}B`, n]} />
+            <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+            <XAxis dataKey="sector" tick={{ fill: INK.mute, fontSize: 10 }} angle={-30} textAnchor="end" interval={0} height={60} />
+            <YAxis yAxisId="e" tick={{ fill: INK.mute, fontSize: 11 }} width={60} tickFormatter={(v) => `$${v.toFixed(0)}B`} />
+            <YAxis yAxisId="m" orientation="right" tick={{ fill: INK.mute, fontSize: 11 }} width={64} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}T`} />
+            <Tooltip {...tooltipProps} formatter={(v: number, n) => [`$${Math.round(v).toLocaleString()}B`, n]} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Bar yAxisId="e" dataKey="earnings" fill="#FFC107" fillOpacity={0.7} name="Aggregate TTM Earnings ($B)" />
-            <Line yAxisId="m" type="monotone" dataKey="mcap" stroke="#00D4AA" strokeWidth={3} dot={{ r: 3 }} name="Total Market Cap ($B)" />
+            <Bar yAxisId="e" dataKey="earnings" fill={SEM.warn} fillOpacity={0.7} name="Aggregate TTM Earnings ($B)" />
+            <Line yAxisId="m" type="monotone" dataKey="mcap" stroke={ASSET.eth} strokeWidth={3} dot={{ r: 3 }} name="Total Market Cap ($B)" />
           </ComposedChart>
         </ResponsiveContainer>
       </Card>
 
       {/* ── Valuation snapshot ── */}
       <Card title="Sector Valuation Snapshot" sub="Aggregate P/E = total market cap ÷ total earnings across the sector population.">
-        <div className="overflow-auto rounded-lg border border-[#1E2632]">
+        <div className="overflow-auto rounded-lg border border-line">
           <table className="w-full text-sm">
-            <thead><tr>{["Sector", "Stocks", "Mkt Cap", "Earnings", "Agg P/E", "Avg Score", "Score Dispersion"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+            <thead><tr>{["Sector", "Stocks", "Mkt Cap", "Earnings", "Agg P/E", "Avg Score", "Score Dispersion"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
             <tbody>
               {[...sectors].sort((a, b) => b.totalMcap - a.totalMcap).map((s) => (
-                <tr key={s.sector} className="border-t border-[#161D29]">
-                  <td className="px-3 py-1.5 font-medium text-[#C3CAD7]">{s.sector}</td>
+                <tr key={s.sector} className="border-t border-line-faint">
+                  <td className="px-3 py-1.5 font-medium text-ink-2">{s.sector}</td>
                   <td className="px-3 py-1.5">{s.count}</td>
                   <td className="px-3 py-1.5">${Math.round(s.totalMcap).toLocaleString()}B</td>
                   <td className="px-3 py-1.5">${Math.round(s.estEarnings).toLocaleString()}B</td>
@@ -150,12 +152,12 @@ export default function SectorTab() {
       <Card title="Sector Quality Distribution" sub="% of stocks rated Buy-tier (Strong Buy+ / Strong Buy / Buy) — where the highest-conviction opportunities concentrate.">
         <ResponsiveContainer width="100%" height={Math.max(220, sectors.length * 26)}>
           <ComposedChart layout="vertical" data={[...sectors].sort((a, b) => b.aRatedPct - a.aRatedPct)} margin={{ left: 50, right: 30 }}>
-            <CartesianGrid stroke="#1A2130" horizontal={false} />
-            <XAxis type="number" domain={[0, 100]} tick={{ fill: "#7C879B", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
-            <YAxis type="category" dataKey="sector" width={140} tick={{ fill: "#9CA7BB", fontSize: 11 }} />
-            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`${v.toFixed(0)}%`, "A-rated"]} />
+            <CartesianGrid stroke={SURFACE.raised} horizontal={false} />
+            <XAxis type="number" domain={[0, 100]} tick={{ fill: INK.mute, fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+            <YAxis type="category" dataKey="sector" width={140} tick={{ fill: INK.ink3, fontSize: 11 }} />
+            <Tooltip {...tooltipProps} formatter={(v: number) => [`${v.toFixed(0)}%`, "A-rated"]} />
             <Bar dataKey="aRatedPct" radius={[0, 3, 3, 0]}>
-              {[...sectors].sort((a, b) => b.aRatedPct - a.aRatedPct).map((s) => <Cell key={s.sector} fill={s.aRatedPct >= 40 ? "#00C805" : s.aRatedPct >= 20 ? "#FFC107" : "#D32F2F"} />)}
+              {[...sectors].sort((a, b) => b.aRatedPct - a.aRatedPct).map((s) => <Cell key={s.sector} fill={s.aRatedPct >= 40 ? SEM.pos : s.aRatedPct >= 20 ? SEM.warn : SEM.negDeep} />)}
             </Bar>
           </ComposedChart>
         </ResponsiveContainer>
@@ -163,27 +165,27 @@ export default function SectorTab() {
 
       {/* ── Full sector detail: rank + rating distribution + pillar grades ── */}
       <Card title="Full Sector Detail" sub="Rank by avg score, rating distribution, and aggregate pillar grades. Click a sector to drill into its stocks.">
-        <div className="overflow-auto rounded-lg border border-[#1E2632]">
+        <div className="overflow-auto rounded-lg border border-line">
           <table className="w-full text-sm">
             <thead>
               <tr>
-                {["#", "Sector", "Stocks", "Avg"].map((h) => <th key={h} className="bg-[#0F1420] px-2 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}
-                {RATING_COLS.map((h) => <th key={h} className="bg-[#0F1420] px-2 py-2 text-right text-xs uppercase text-[#7C879B]">{h.replace("Strong Buy+", "SB+").replace("Strong Buy", "SB").replace("Strong Sell", "SS")}</th>)}
-                {(meta.pillars ?? []).map((p) => <th key={p} className="bg-[#0F1420] px-2 py-2 text-center text-xs uppercase text-[#7C879B]">{PILLAR_ABBR[p] ?? p}</th>)}
-                {["Best", "Worst"].map((h) => <th key={h} className="bg-[#0F1420] px-2 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}
+                {["#", "Sector", "Stocks", "Avg"].map((h) => <th key={h} className="bg-head px-2 py-2 text-left text-xs uppercase text-mute">{h}</th>)}
+                {RATING_COLS.map((h) => <th key={h} className="bg-head px-2 py-2 text-right text-xs uppercase text-mute">{h.replace("Strong Buy+", "SB+").replace("Strong Buy", "SB").replace("Strong Sell", "SS")}</th>)}
+                {(meta.pillars ?? []).map((p) => <th key={p} className="bg-head px-2 py-2 text-center text-xs uppercase text-mute">{PILLAR_ABBR[p] ?? p}</th>)}
+                {["Best", "Worst"].map((h) => <th key={h} className="bg-head px-2 py-2 text-left text-xs uppercase text-mute">{h}</th>)}
               </tr>
             </thead>
             <tbody>
               {sectors.map((s) => (
-                <tr key={s.sector} className="border-t border-[#161D29]">
-                  <td className="px-2 py-1.5 text-[#7C879B]">{s.rank}</td>
-                  <td className="px-2 py-1.5"><button onClick={() => setOpen(open === s.sector ? null : s.sector)} className="font-medium text-white hover:text-[#5BA8FF]">{s.sector} {open === s.sector ? "▲" : "▾"}</button></td>
+                <tr key={s.sector} className="border-t border-line-faint">
+                  <td className="px-2 py-1.5 text-mute">{s.rank}</td>
+                  <td className="px-2 py-1.5"><button onClick={() => setOpen(open === s.sector ? null : s.sector)} className="font-medium text-white hover:text-link">{s.sector} {open === s.sector ? "▲" : "▾"}</button></td>
                   <td className="px-2 py-1.5">{s.count}</td>
                   <td className="px-2 py-1.5 font-semibold">{s.avgScore.toFixed(1)}</td>
-                  {RATING_COLS.map((c) => <td key={c} className="px-2 py-1.5 text-right text-[#9CA7BB]">{s.ratingCounts[c] || 0}</td>)}
+                  {RATING_COLS.map((c) => <td key={c} className="px-2 py-1.5 text-right text-ink-3">{s.ratingCounts[c] || 0}</td>)}
                   {(meta.pillars ?? []).map((p) => <td key={p} className="px-2 py-1.5 text-center"><GradePill grade={s.pillarGrades[p]} /></td>)}
-                  <td className="px-2 py-1.5"><button onClick={() => goToDetail(s.best)} className="text-[#5BA8FF] hover:underline">{s.best}</button></td>
-                  <td className="px-2 py-1.5"><button onClick={() => goToDetail(s.worst)} className="text-[#5BA8FF] hover:underline">{s.worst}</button></td>
+                  <td className="px-2 py-1.5"><button onClick={() => goToDetail(s.best)} className="text-link hover:underline">{s.best}</button></td>
+                  <td className="px-2 py-1.5"><button onClick={() => goToDetail(s.worst)} className="text-link hover:underline">{s.worst}</button></td>
                 </tr>
               ))}
             </tbody>

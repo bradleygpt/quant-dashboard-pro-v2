@@ -31,12 +31,12 @@ function Body({ text }: { text: string }) {
     return (
       <ul className="mt-0.5 space-y-1">
         {lines.map((l, i) => (
-          <li key={i} className="flex gap-1.5 text-[#C3CAD7]"><span className="mt-0.5 text-[#5BA8FF]">•</span><span>{l.replace(/^[-•*]\s*/, "")}</span></li>
+          <li key={i} className="flex gap-1.5 text-ink-2"><span className="mt-0.5 text-link">•</span><span>{l.replace(/^[-•*]\s*/, "")}</span></li>
         ))}
       </ul>
     );
   }
-  return <p className="mt-0.5 leading-relaxed text-[#C3CAD7]">{text}</p>;
+  return <p className="mt-0.5 leading-relaxed text-ink-2">{text}</p>;
 }
 
 export default function StructuredReview({ text }: { text: string }) {
@@ -45,7 +45,7 @@ export default function StructuredReview({ text }: { text: string }) {
   if (!sections.length) {
     return (
       <div className="space-y-2 text-sm">
-        {clean.split(/\n\n+/).map((p, i) => <p key={i} className="leading-relaxed text-[#C3CAD7]">{p}</p>)}
+        {clean.split(/\n\n+/).map((p, i) => <p key={i} className="leading-relaxed text-ink-2">{p}</p>)}
       </div>
     );
   }

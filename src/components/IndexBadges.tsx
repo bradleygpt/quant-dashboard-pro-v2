@@ -34,8 +34,8 @@ export default function IndexBadges({ ticker }: { ticker: string }) {
   if (!sp && !nd) return null;
   return (
     <span className="ml-1.5 inline-flex gap-1 align-middle">
-      {sp && <span title="S&P 500 member" className="rounded-sm bg-[#11243B] px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-[#5BA8FF] ring-1 ring-[#1E3A5F]">S&amp;P</span>}
-      {nd && <span title="Nasdaq-100 member" className="rounded-sm bg-[#10261C] px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-[#3FB984] ring-1 ring-[#1C5C2E]">NDX</span>}
+      {sp && <span title="S&P 500 member" className="rounded-sm bg-link/15 px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-link ring-1 ring-link/30">S&amp;P</span>}
+      {nd && <span title="Nasdaq-100 member" className="rounded-sm bg-pos/10 px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-pos-soft ring-1 ring-pos/35">NDX</span>}
     </span>
   );
 }

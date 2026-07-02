@@ -22,30 +22,30 @@ export default function ThematicExplorer() {
   return (
     <Card title={`🧠 Thematic Explorer — ${data.theme}`}
       sub={`Stocks ranked by ${data.window_days}-day return-correlation to an AI-compute proxy (${data.proxy_basket.slice(0, 5).join(" / ")}…) — the picks-and-shovels of the AI buildout.`}>
-      {data.narrative && <p className="mb-3 text-sm leading-relaxed text-[#C3CAD7]">{data.narrative}</p>}
-      <div className="overflow-auto rounded-lg border border-[#1E2632]">
+      {data.narrative && <p className="mb-3 text-sm leading-relaxed text-ink-2">{data.narrative}</p>}
+      <div className="overflow-auto rounded-lg border border-line">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-[#121723] text-left text-[11px] uppercase tracking-wide text-[#7C879B]">
+            <tr className="bg-panel text-left text-[11px] uppercase tracking-wide text-mute">
               <th className="px-3 py-2">Ticker</th><th className="px-3 py-2">Name</th><th className="px-3 py-2">Sector</th>
               <th className="px-3 py-2 text-right">Corr to AI</th><th className="px-3 py-2 text-right">Quant score</th>
             </tr>
           </thead>
           <tbody>
             {data.correlations.slice(0, show ? 35 : 12).map((c) => (
-              <tr key={c.ticker} className="border-t border-[#161D29] hover:bg-[#121723]">
-                <td className="px-3 py-1.5 font-semibold"><button onClick={() => goToDetail(c.ticker)} className="text-[#5BA8FF] hover:underline">{c.ticker}</button></td>
-                <td className="px-3 py-1.5 text-[#C3CAD7]">{c.name}</td>
-                <td className="px-3 py-1.5 text-[#9CA7BB]">{c.sector}</td>
-                <td className="px-3 py-1.5 text-right font-mono text-[#3FB984]">{c.corr.toFixed(2)}</td>
-                <td className="px-3 py-1.5 text-right text-[#C3CAD7]">{c.composite != null ? c.composite.toFixed(1) : "—"}</td>
+              <tr key={c.ticker} className="border-t border-line-faint hover:bg-panel">
+                <td className="px-3 py-1.5 font-semibold"><button onClick={() => goToDetail(c.ticker)} className="text-link hover:underline">{c.ticker}</button></td>
+                <td className="px-3 py-1.5 text-ink-2">{c.name}</td>
+                <td className="px-3 py-1.5 text-ink-3">{c.sector}</td>
+                <td className="px-3 py-1.5 text-right font-mono text-pos-soft">{c.corr.toFixed(2)}</td>
+                <td className="px-3 py-1.5 text-right text-ink-2">{c.composite != null ? c.composite.toFixed(1) : "—"}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {data.correlations.length > 12 && (
-        <button onClick={() => setShow((s) => !s)} className="mt-2 text-xs text-[#5BA8FF] hover:underline">
+        <button onClick={() => setShow((s) => !s)} className="mt-2 text-xs text-link hover:underline">
           {show ? "Show fewer" : `Show all ${Math.min(35, data.correlations.length)}`}
         </button>
       )}

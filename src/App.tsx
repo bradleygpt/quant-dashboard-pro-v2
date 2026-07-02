@@ -20,11 +20,11 @@ function Shell() {
       <Sidebar mobileOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
       <div className="flex min-w-0 flex-1 flex-col">
         {/* mobile top bar: hamburger + brand (sidebar is hidden off-canvas below md) */}
-        <div className="flex items-center gap-3 border-b border-[#1E2632] bg-[#0B0E14] px-3 py-2 md:hidden">
+        <div className="flex items-center gap-3 border-b border-line bg-page px-3 py-2 md:hidden">
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open menu"
-            className="rounded-md p-1.5 text-[#9CA7BB] transition hover:bg-[#161D29]"
+            className="rounded-md p-1.5 text-ink-3 transition hover:bg-hover"
           >
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
               <path d="M3 6h16M3 11h16M3 16h16" strokeLinecap="round" />
@@ -33,7 +33,7 @@ function Shell() {
           <span className="text-base font-bold text-white">Akribeia</span>
         </div>
         {/* tab bar: horizontal scroll strip on mobile, wraps on desktop */}
-        <nav className="flex gap-1 overflow-x-auto border-b border-[#1E2632] bg-[#0B0E14] px-3 py-2 md:flex-wrap [scrollbar-width:thin]">
+        <nav className="flex gap-1 overflow-x-auto border-b border-line bg-page px-3 py-2 md:flex-wrap [scrollbar-width:thin]">
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -42,7 +42,7 @@ function Shell() {
                 setDrawerOpen(false);
               }}
               className={`shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition ${
-                t.id === activeTab ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
+                t.id === activeTab ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"
               }`}
             >
               {t.label}

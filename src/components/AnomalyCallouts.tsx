@@ -23,14 +23,14 @@ export default function AnomalyCallouts() {
     <Card title="AI Anomaly Watch" sub="Names whose quant pillars most diverge — the “is this sustainable / value trap?” tensions, with the risk to watch. Fed only pillar grades.">
       <div className="space-y-2.5">
         {list.slice(0, 12).map((a) => (
-          <div key={a.ticker} className="border-b border-[#161D29] pb-2 last:border-0 last:pb-0">
+          <div key={a.ticker} className="border-b border-line-faint pb-2 last:border-0 last:pb-0">
             <div className="flex flex-wrap items-center gap-2 text-sm">
-              <button onClick={() => goToDetail(a.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{a.ticker}</button>
-              <span className="text-[#9CA7BB]">{a.name}</span>
-              <span className="rounded-sm bg-[#11243B] px-1.5 py-0.5 text-[10px] font-medium text-[#9CB6E0]">↑ {a.strong} · ↓ {a.weak}</span>
-              <span className="text-[11px] text-[#7C879B]">score {a.composite}</span>
+              <button onClick={() => goToDetail(a.ticker)} className="font-semibold text-link hover:underline">{a.ticker}</button>
+              <span className="text-ink-3">{a.name}</span>
+              <span className="rounded-sm bg-link/15 px-1.5 py-0.5 text-[10px] font-medium text-[#9CB6E0]">↑ {a.strong} · ↓ {a.weak}</span>
+              <span className="text-[11px] text-mute">score {a.composite}</span>
             </div>
-            <p className="mt-0.5 text-sm leading-relaxed text-[#C3CAD7]">{a.warning}</p>
+            <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{a.warning}</p>
           </div>
         ))}
       </div>

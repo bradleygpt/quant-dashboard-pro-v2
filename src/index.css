@@ -1,5 +1,41 @@
 @import "tailwindcss";
 
+/* ── Design tokens (class-facing mirror of src/theme.ts) ─────────────────────
+   These values MUST match theme.ts exactly — theme.ts is canonical and its
+   dev-mode checkThemeSync guard console.errors on any drift. Charts and canvas
+   code import from theme.ts; JSX classes use these utilities
+   (bg-panel, text-mute, border-line, …). */
+@theme {
+  --color-page: #0B0E14;
+  --color-inset: #0C0F16;
+  --color-head: #0F1420;
+  --color-panel: #121723;
+  --color-hover-row: #141B27;
+  --color-hover: #161D29;
+  --color-raised: #1A2130;
+  --color-active: #1B2433;
+
+  --color-line-faint: #161D29;
+  --color-line: #1E2632;
+  --color-line-2: #2A3242;
+
+  --color-ink: #E6E9EF;
+  --color-ink-2: #C3CAD7;
+  --color-ink-3: #9CA7BB;
+  --color-mute: #7C879B;
+  --color-dim: #5A6477;
+
+  --color-pos: #00C805;
+  --color-pos-soft: #8BC34A;
+  --color-neg: #F0565A;
+  --color-warn: #FFC107;
+  --color-warn-hot: #FF9800;
+  --color-link: #5BA8FF;
+  --color-brass: #BA7517;
+  --color-brass-hi: #D19A3A;
+  --color-paper: #D8B878;
+}
+
 :root {
   color-scheme: dark;
 }
@@ -10,8 +46,8 @@ html, body, #root {
 
 body {
   margin: 0;
-  background: #0B0E14;
-  color: #E6E9EF;
+  background: var(--color-page);
+  color: var(--color-ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
@@ -19,7 +55,7 @@ body {
 /* thin scrollbars for dense tables */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2A3242 transparent;
+  scrollbar-color: var(--color-line-2) transparent;
 }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-thumb { background: #2A3242; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-line-2); border-radius: 4px; }

@@ -29,10 +29,10 @@ export function tierOf(iso?: string | null): { tier: FreshTier; ageDays: number 
 }
 
 const STYLE: Record<FreshTier, { icon: string; cls: string; label: string }> = {
-  fresh: { icon: "✓", cls: "text-[#00C805] border-[#1C5C2E] bg-[#0E2A14]", label: "fresh" },
-  amber: { icon: "⚠", cls: "text-[#FFB454] border-[#4A3B1D] bg-[#231C10]", label: "aging" },
-  stale: { icon: "✕", cls: "text-[#FF5252] border-[#5C2020] bg-[#200D0D]", label: "STALE" },
-  unknown: { icon: "◌", cls: "text-[#7C879B] border-[#1E2632] bg-[#121723]", label: "vintage unknown" },
+  fresh: { icon: "✓", cls: "text-pos border-pos/35 bg-pos/10", label: "fresh" },
+  amber: { icon: "⚠", cls: "text-warn border-paper/30 bg-paper/10", label: "aging" },
+  stale: { icon: "✕", cls: "text-neg border-neg/35 bg-neg/10", label: "STALE" },
+  unknown: { icon: "◌", cls: "text-mute border-line bg-panel", label: "vintage unknown" },
 };
 
 /** Resolve a panel's data vintage: an explicit ISO date wins; otherwise the

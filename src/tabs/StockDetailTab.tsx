@@ -1,3 +1,4 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
@@ -11,6 +12,7 @@ import type { TickerDetail, PriceSeries } from "../lib/types";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, Radar, BarChart, Bar, Cell, ComposedChart } from "recharts";
 import { computeRisk } from "../lib/risk";
 import { useLiveData } from "../lib/live";
+import { ASSET, INK, LINE, SEM, SURFACE } from "../theme";
 
 interface Quote {
   ok?: boolean; price?: number | null; prevClose?: number | null; change?: number | null; changePct?: number | null;
@@ -178,7 +180,7 @@ export default function StockDetailTab() {
       setAi({ kind, status: "done", text: d.ok ? d.text : undefined, reason: d.reason, price: usePrice ?? undefined, live: livePrice != null, verdict, period, cached: false });
     }).catch(() => setAi({ kind, status: "done", reason: "error" }));
   };
-  const VERDICT_COLOR: Record<string, string> = { "BUY ON STRENGTH": "#00C805", BUY: "#8BC34A", HOLD: "#FFC107", TRIM: "#FF9800", EXIT: "#FF5722" };
+  const VERDICT_COLOR: Record<string, string> = { "BUY ON STRENGTH": SEM.pos, BUY: SEM.posSoft, HOLD: SEM.warn, TRIM: SEM.warnHot, EXIT: SEM.neg };
 
   useEffect(() => {
     if (!ticker) return;
@@ -229,7 +231,7 @@ export default function StockDetailTab() {
   // shards currently ship close + a genuine daily QBP only, with fair_value nulled.
   const hasFvHistory = !!ts?.series?.some((p) => p.fair_value != null);
   const curRsi = useMemo(() => { for (let i = chartData.length - 1; i >= 0; i--) if (chartData[i].rsi != null) return chartData[i].rsi; return null; }, [chartData]);
-  const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: "#FF5722" } : curRsi <= 30 ? { t: "Oversold", c: "#00C805" } : { t: "Neutral", c: "#FFC107" };
+  const rsiLabel = curRsi == null ? null : curRsi >= 70 ? { t: "Overbought", c: SEM.neg } : curRsi <= 30 ? { t: "Oversold", c: SEM.pos } : { t: "Neutral", c: SEM.warn };
 
   // y-domain ALWAYS includes FV and QBP so neither reference line clips off-scale
   const yDomain = useMemo<[number, number] | undefined>(() => {
@@ -243,7 +245,7 @@ export default function StockDetailTab() {
   }, [chartData, row?.fv, row?.qbp]);
   const priceAsOf = chartData.length ? chartData[chartData.length - 1].date : null;
 
-  if (!row) return <div className="p-4 text-[#9CA7BB]">Select a ticker.</div>;
+  if (!row) return <div className="p-4 text-ink-3">Select a ticker.</div>;
 
   return (
     <div className="space-y-4">
@@ -253,14 +255,14 @@ export default function StockDetailTab() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Search ticker (current: ${row.ticker})`}
-          className="w-full rounded-md border border-[#1E2632] bg-[#121723] px-3 py-2 text-sm text-white"
+          className="w-full rounded-md border border-line bg-panel px-3 py-2 text-sm text-white"
         />
         {suggestions.length > 0 && (
-          <div className="absolute z-20 mt-1 w-full overflow-hidden rounded-md border border-[#1E2632] bg-[#0F1420] shadow-xl">
+          <div className="absolute z-20 mt-1 w-full overflow-hidden rounded-md border border-line bg-head shadow-xl">
             {suggestions.map((s) => (
               <button key={s.ticker} onClick={() => { selectTicker(s.ticker); setQuery(""); }}
-                className="block w-full px-3 py-1.5 text-left text-sm hover:bg-[#1B2433]">
-                <span className="font-semibold text-[#5BA8FF]">{s.ticker}</span> <span className="text-[#9CA7BB]">{s.name}</span>
+                className="block w-full px-3 py-1.5 text-left text-sm hover:bg-active">
+                <span className="font-semibold text-link">{s.ticker}</span> <span className="text-ink-3">{s.name}</span>
               </button>
             ))}
           </div>
@@ -271,11 +273,11 @@ export default function StockDetailTab() {
       <div className="flex flex-wrap items-center gap-3">
         <div>
           <div className="text-2xl font-bold text-white">{row.ticker}</div>
-          <div className="text-sm text-[#9CA7BB]">{row.name} · {row.sector} · {row.industry}</div>
+          <div className="text-sm text-ink-3">{row.name} · {row.sector} · {row.industry}</div>
         </div>
         <RatingBadge rating={row.rating} />
         <IndexBadges ticker={row.ticker} />
-        <button onClick={() => toggleWatch(row.ticker)} className="rounded-md border border-[#1E2632] px-2 py-1 text-xs text-[#9CA7BB] hover:bg-[#161D29]">
+        <button onClick={() => toggleWatch(row.ticker)} className="rounded-md border border-line px-2 py-1 text-xs text-ink-3 hover:bg-hover">
           {watchlist.includes(row.ticker) ? "★ Watching" : "☆ Watch"}
         </button>
       </div>
@@ -308,22 +310,22 @@ export default function StockDetailTab() {
         sub={chartData.length ? `${usingLive ? "Live" : "Baked"} daily close through ${priceAsOf}${usingLive ? "" : " (baked price cache; live unavailable in preview)"}. ${hasFvHistory ? "Modeled FV history — point-in-time SEC filings (dim-gold dotted), a distinct methodology that differs from the live FV card (Live FV marker). Buy Point is a daily line." : usingTimeseries ? "Buy Point is a genuine daily line; Fair Value shown at today's value (history pending)." : "FV/QBP shown as today's values across the window."}` : (quote.status === "loading" ? "Loading price history…" : undefined)}>
         <div className="mb-2 flex gap-1">
           {PERIODS.map((p) => (
-            <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-[#3B82F6] font-semibold text-white" : "bg-[#1A2130] text-[#9CA7BB] hover:bg-[#222B3C]"}`}>{p}</button>
+            <button key={p} onClick={() => setPeriod(p)} className={`rounded px-2 py-1 text-xs ${period === p ? "bg-link font-semibold text-white" : "bg-raised text-ink-3 hover:bg-active"}`}>{p}</button>
           ))}
         </div>
         {chartData.length > 0 ? (
           <>
             <ResponsiveContainer width="100%" height={240}>
               <LineChart data={chartData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }} syncId="sd">
-                <CartesianGrid stroke="#1A2130" vertical={false} />
-                <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={48} />
-                <YAxis domain={yDomain ?? ["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56} tickFormatter={(v) => `$${Math.round(v)}`} />
-                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} labelStyle={{ color: "#9CA7BB" }} formatter={(v: number, n) => [`$${v.toFixed(2)}`, n]} />
+                <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+                <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} minTickGap={48} />
+                <YAxis domain={yDomain ?? ["auto", "auto"]} allowDataOverflow tick={{ fill: INK.mute, fontSize: 11 }} width={56} tickFormatter={(v) => `$${Math.round(v)}`} />
+                <Tooltip {...tooltipProps} labelStyle={{ color: INK.ink3 }} formatter={(v: number, n) => [`$${v.toFixed(2)}`, n]} />
                 {/* Timeseries: visible stepped FV + daily QBP lines. Flat fallback: a single
                     horizontal ReferenceLine at today's value (with an invisible line for the tooltip). */}
-                {!usingTimeseries && row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="4 4" label={{ value: "FV", fill: "#FFC107", fontSize: 11 }} />}
-                {!usingTimeseries && row.qbp && <ReferenceLine y={row.qbp} stroke="#00C805" strokeDasharray="4 4" label={{ value: "QBP", fill: "#00C805", fontSize: 11 }} />}
-                <Line type="monotone" dataKey="close" stroke="#5BA8FF" dot={false} strokeWidth={1.6} name="Close" />
+                {!usingTimeseries && row.fv && <ReferenceLine y={row.fv} stroke={SEM.warn} strokeDasharray="4 4" label={{ value: "FV", fill: SEM.warn, fontSize: 11 }} />}
+                {!usingTimeseries && row.qbp && <ReferenceLine y={row.qbp} stroke={SEM.pos} strokeDasharray="4 4" label={{ value: "QBP", fill: SEM.pos, fontSize: 11 }} />}
+                <Line type="monotone" dataKey="close" stroke={SEM.link} dot={false} strokeWidth={1.6} name="Close" />
                 {usingTimeseries
                   ? <>
                       {hasFvHistory
@@ -331,36 +333,36 @@ export default function StockDetailTab() {
                             {/* Modeled PIT FV (point-in-time SEC filings) — distinct dim-gold dotted
                                 line; visually separated from the authoritative live "Live FV" marker. */}
                             <Line type="stepAfter" dataKey="mfv" stroke="#B8902B" dot={false} strokeWidth={1.2} strokeDasharray="1 3" name="Modeled FV (PIT filings)" connectNulls activeDot={false} />
-                            {row.fv && <ReferenceLine y={row.fv} stroke="#FFC107" strokeDasharray="6 3" label={{ value: "Live FV", fill: "#FFC107", fontSize: 10 }} />}
+                            {row.fv && <ReferenceLine y={row.fv} stroke={SEM.warn} strokeDasharray="6 3" label={{ value: "Live FV", fill: SEM.warn, fontSize: 10 }} />}
                           </>
-                        : <Line type="stepAfter" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />}
-                      <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={1.3} name="Buy Point" connectNulls activeDot={false} />
+                        : <Line type="stepAfter" dataKey="fv" stroke={SEM.warn} dot={false} strokeWidth={1.5} strokeDasharray="5 3" name="Fair Value" connectNulls activeDot={false} />}
+                      <Line type="monotone" dataKey="qbp" stroke={SEM.pos} dot={false} strokeWidth={1.3} name="Buy Point" connectNulls activeDot={false} />
                     </>
                   : <>
-                      {row.fv && <Line type="monotone" dataKey="fv" stroke="#FFC107" dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
-                      {row.qbp && <Line type="monotone" dataKey="qbp" stroke="#00C805" dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
+                      {row.fv && <Line type="monotone" dataKey="fv" stroke={SEM.warn} dot={false} strokeWidth={0} name="Fair Value" legendType="none" connectNulls activeDot={false} />}
+                      {row.qbp && <Line type="monotone" dataKey="qbp" stroke={SEM.pos} dot={false} strokeWidth={0} name="Buy Point" legendType="none" connectNulls activeDot={false} />}
                     </>}
                 {chartData.some((d) => d.sma50 != null) && <Line type="monotone" dataKey="sma50" stroke="#E8A33D" dot={false} strokeWidth={1} strokeDasharray="2 2" name="50-SMA" connectNulls />}
-                {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke="#FF6B6B" dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
+                {chartData.some((d) => d.sma200 != null) && <Line type="monotone" dataKey="sma200" stroke={SEM.neg} dot={false} strokeWidth={1} strokeDasharray="2 2" name="200-SMA" connectNulls />}
               </LineChart>
             </ResponsiveContainer>
             {usingLive && chartData.some((d) => d.volume > 0) && (
               <ResponsiveContainer width="100%" height={90}>
                 <BarChart data={chartData} margin={{ top: 0, right: 10, bottom: 0, left: 0 }} syncId="sd">
-                  <XAxis dataKey="date" hide /><YAxis hide /><Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`${(v / 1e6).toFixed(1)}M`, "Vol"]} />
+                  <XAxis dataKey="date" hide /><YAxis hide /><Tooltip {...tooltipProps} formatter={(v: number) => [`${(v / 1e6).toFixed(1)}M`, "Vol"]} />
                   <Bar dataKey="volume">{chartData.map((d, i) => <Cell key={i} fill={i > 0 && d.close >= chartData[i - 1].close ? "#1f6f43" : "#7a2e2e"} />)}</Bar>
                 </BarChart>
               </ResponsiveContainer>
             )}
             {chartData.some((d) => d.rsi != null) && (
               <>
-              {rsiLabel && <div className="mt-1 text-[11px] text-[#7C879B]">RSI(14): <span className="font-semibold" style={{ color: rsiLabel.c }}>{curRsi!.toFixed(0)} · {rsiLabel.t}</span> <span className="text-[#5C6678]">(&gt;70 overbought · &lt;30 oversold)</span></div>}
+              {rsiLabel && <div className="mt-1 text-[11px] text-mute">RSI(14): <span className="font-semibold" style={{ color: rsiLabel.c }}>{curRsi!.toFixed(0)} · {rsiLabel.t}</span> <span className="text-dim">(&gt;70 overbought · &lt;30 oversold)</span></div>}
               <ResponsiveContainer width="100%" height={90}>
                 <LineChart data={chartData} margin={{ top: 4, right: 10, bottom: 0, left: 0 }} syncId="sd">
-                  <CartesianGrid stroke="#1A2130" vertical={false} />
-                  <XAxis dataKey="date" hide /><YAxis domain={[0, 100]} ticks={[30, 70]} tick={{ fill: "#7C879B", fontSize: 10 }} width={56} />
+                  <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+                  <XAxis dataKey="date" hide /><YAxis domain={[0, 100]} ticks={[30, 70]} tick={{ fill: INK.mute, fontSize: 10 }} width={56} />
                   <ReferenceLine y={70} stroke="#FF572255" strokeDasharray="2 2" /><ReferenceLine y={30} stroke="#00C80555" strokeDasharray="2 2" />
-                  <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [v.toFixed(0), "RSI"]} />
+                  <Tooltip {...tooltipProps} formatter={(v: number) => [v.toFixed(0), "RSI"]} />
                   <Line type="monotone" dataKey="rsi" stroke="#A855F7" dot={false} strokeWidth={1.4} connectNulls />
                 </LineChart>
               </ResponsiveContainer>
@@ -368,7 +370,7 @@ export default function StockDetailTab() {
             )}
           </>
         ) : (
-          <div className="py-8 text-center text-sm text-[#7C879B]">{quote.status === "loading" ? "Loading…" : "No price history available for this ticker."}</div>
+          <div className="py-8 text-center text-sm text-mute">{quote.status === "loading" ? "Loading…" : "No price history available for this ticker."}</div>
         )}
       </Card>
 
@@ -396,10 +398,10 @@ export default function StockDetailTab() {
       <Card title="Pillar Profile" sub="Sector-relative pillar scores (0–12)">
         <ResponsiveContainer width="100%" height={240}>
           <RadarChart data={Object.entries(row.pillars).map(([k, v]) => ({ pillar: k.replace(" Revisions", " Rev"), score: v ?? 0 }))}>
-            <PolarGrid stroke="#1E2632" />
-            <PolarAngleAxis dataKey="pillar" tick={{ fill: "#9CA7BB", fontSize: 11 }} />
-            <Radar dataKey="score" stroke="#5BA8FF" fill="#5BA8FF" fillOpacity={0.3} />
-            <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [v.toFixed(2), "Score"]} />
+            <PolarGrid stroke={LINE.line} />
+            <PolarAngleAxis dataKey="pillar" tick={{ fill: INK.ink3, fontSize: 11 }} />
+            <Radar dataKey="score" stroke={SEM.link} fill={SEM.link} fillOpacity={0.3} />
+            <Tooltip {...tooltipProps} formatter={(v: number) => [v.toFixed(2), "Score"]} />
           </RadarChart>
         </ResponsiveContainer>
       </Card>
@@ -410,12 +412,12 @@ export default function StockDetailTab() {
         <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={[...qhist].reverse().map((q) => ({ date: (q.date || "").slice(0, 7), eps: (q.earningsGrowth ?? 0) * 100, rev: (q.revenueGrowth ?? 0) * 100, _g: (q.earningsGrowth ?? 0) >= 0 }))} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-              <CartesianGrid stroke="#1A2130" vertical={false} />
-              <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} />
-              <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
+              <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+              <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} />
+              <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
+              <Tooltip {...tooltipProps} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
               <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={(q.earningsGrowth ?? 0) >= 0 ? "#1f6f43" : "#7a2e2e"} />)}</Bar>
-              <Line type="monotone" dataKey="rev" stroke="#FFC107" dot={false} strokeWidth={1.6} />
+              <Line type="monotone" dataKey="rev" stroke={SEM.warn} dot={false} strokeWidth={1.6} />
             </ComposedChart>
           </ResponsiveContainer>
         </Card>
@@ -431,26 +433,26 @@ export default function StockDetailTab() {
       {/* AI research / earnings review (Gemini, on-demand) */}
       <Card title="AI Analysis" sub="LLM-generated (Gemini). Requires GEMINI_API_KEY in Vercel; otherwise shows a configure note. Earnings Review is a thesis-check against the latest 8-K (Item 2.02) earnings release, cached per reported quarter.">
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => runAi("research")} className="rounded-md bg-[#3B82F6] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Research Note</button>
-          <button onClick={() => runAi("earnings")} className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#C3CAD7] hover:bg-[#161D29]">AI Earnings Review</button>
+          <button onClick={() => runAi("research")} className="rounded-md bg-link px-3 py-1.5 text-sm font-medium text-white hover:bg-[#2f6fd6]">Research Note</button>
+          <button onClick={() => runAi("earnings")} className="rounded-md border border-line px-3 py-1.5 text-sm text-ink-2 hover:bg-hover">AI Earnings Review</button>
           <a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${encodeURIComponent(row.ticker)}&type=8-K&dateb=&owner=include&count=20`} target="_blank" rel="noreferrer"
-            className="rounded-md border border-[#1E2632] px-3 py-1.5 text-sm text-[#5BA8FF] hover:bg-[#161D29]">SEC 8-K filings ↗</a>
+            className="rounded-md border border-line px-3 py-1.5 text-sm text-link hover:bg-hover">SEC 8-K filings ↗</a>
         </div>
         {ai.status === "loading" && <div className="mt-2"><Spinner label="Generating…" /></div>}
         {ai.status === "done" && (ai.text
           ? <div className="mt-2">
               {ai.kind === "earnings" && (
                 <div className="mb-2 flex flex-wrap items-center gap-2">
-                  {ai.verdict && <span className="rounded px-2 py-0.5 text-xs font-bold" style={{ color: VERDICT_COLOR[ai.verdict] ?? "#9CA7BB", background: `${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}22`, border: `1px solid ${VERDICT_COLOR[ai.verdict] ?? "#9CA7BB"}55` }}>VERDICT: {ai.verdict}</span>}
-                  {(() => { const qm = eq[`${row.ticker}_${ai.period}`] || eq[`${row.ticker}_LATEST`]; if (!qm) return null; const c = qm.quality === "High" ? "#00C805" : qm.quality === "Low" ? "#FF5722" : "#FFC107"; return <span title={qm.reason} className="cursor-help rounded px-2 py-0.5 text-xs font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>Quality: {qm.quality}</span>; })()}
-                  {ai.period && <span className="text-[11px] text-[#7C879B]">8-K thesis-check · reported quarter ~{ai.period}</span>}
-                  {ai.cached && <span className="rounded-full bg-[#1A2130] px-2 py-0.5 text-[10px] text-[#9CA7BB]">cached for this filing</span>}
+                  {ai.verdict && <span className="rounded px-2 py-0.5 text-xs font-bold" style={{ color: VERDICT_COLOR[ai.verdict] ?? INK.ink3, background: `${VERDICT_COLOR[ai.verdict] ?? INK.ink3}22`, border: `1px solid ${VERDICT_COLOR[ai.verdict] ?? INK.ink3}55` }}>VERDICT: {ai.verdict}</span>}
+                  {(() => { const qm = eq[`${row.ticker}_${ai.period}`] || eq[`${row.ticker}_LATEST`]; if (!qm) return null; const c = qm.quality === "High" ? SEM.pos : qm.quality === "Low" ? SEM.neg : SEM.warn; return <span title={qm.reason} className="cursor-help rounded px-2 py-0.5 text-xs font-semibold" style={{ color: c, background: `${c}22`, border: `1px solid ${c}55` }}>Quality: {qm.quality}</span>; })()}
+                  {ai.period && <span className="text-[11px] text-mute">8-K thesis-check · reported quarter ~{ai.period}</span>}
+                  {ai.cached && <span className="rounded-full bg-raised px-2 py-0.5 text-[10px] text-ink-3">cached for this filing</span>}
                 </div>
               )}
               <StructuredReview text={ai.text} />
-              <span className="mt-1 block text-[10px] text-[#5C6678]">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
+              <span className="mt-1 block text-[10px] text-dim">Gemini · {ai.kind} · priced at {ai.live ? "LIVE" : "baked"} {fmtMoney(ai.price)} · composite/FV/QBP baked{ai.kind === "earnings" ? " · source: SEC EDGAR 8-K (linked above)" : ""}</span>
             </div>
-          : <p className="mt-2 text-xs text-[#FFB454]">{
+          : <p className="mt-2 text-xs text-warn">{
               ai.reason === "empty_filing"
                 ? "8-K format not parsed for this quarter — review unavailable (the filing's figures weren't machine-extractable)."
               : ai.reason === "no_key"
@@ -472,29 +474,29 @@ export default function StockDetailTab() {
               {/* FV-by-method bar chart vs current price (source parity) */}
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={Object.entries(td.fv.methods).map(([name, m]) => ({ name, fv: m.fair_value }))} margin={{ top: 16, right: 8, bottom: 0, left: 0 }}>
-                  <CartesianGrid stroke="#1A2130" vertical={false} />
-                  <XAxis dataKey="name" tick={{ fill: "#7C879B", fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={48} />
-                  <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={48} tickFormatter={(v) => `$${Math.round(v)}`} />
-                  <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [fmtMoney(v), "Fair value"]} />
-                  <ReferenceLine y={td.fv.current_price} stroke="#FF6B6B" strokeDasharray="4 3" label={{ value: `Current ${fmtMoney(td.fv.current_price, 0)}`, fill: "#FF6B6B", fontSize: 9, position: "insideTopRight" }} />
-                  <ReferenceLine y={td.fv.composite_fair_value} stroke="#00D4AA" strokeDasharray="4 3" label={{ value: `Fair ${fmtMoney(td.fv.composite_fair_value, 0)}`, fill: "#00D4AA", fontSize: 9, position: "insideBottomRight" }} />
+                  <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+                  <XAxis dataKey="name" tick={{ fill: INK.mute, fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={48} />
+                  <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={48} tickFormatter={(v) => `$${Math.round(v)}`} />
+                  <Tooltip {...tooltipProps} formatter={(v: number) => [fmtMoney(v), "Fair value"]} />
+                  <ReferenceLine y={td.fv.current_price} stroke={SEM.neg} strokeDasharray="4 3" label={{ value: `Current ${fmtMoney(td.fv.current_price, 0)}`, fill: SEM.neg, fontSize: 9, position: "insideTopRight" }} />
+                  <ReferenceLine y={td.fv.composite_fair_value} stroke={ASSET.eth} strokeDasharray="4 3" label={{ value: `Fair ${fmtMoney(td.fv.composite_fair_value, 0)}`, fill: ASSET.eth, fontSize: 9, position: "insideBottomRight" }} />
                   <Bar dataKey="fv" fill="#4ECDC4" />
                 </BarChart>
               </ResponsiveContainer>
               <table className="mt-2 w-full text-sm">
                 <tbody>
                   {Object.entries(td.fv.methods).map(([name, m]) => (
-                    <tr key={name} className="border-t border-[#161D29]">
-                      <td className="py-1.5 text-[#C3CAD7]">{name}</td>
+                    <tr key={name} className="border-t border-line-faint">
+                      <td className="py-1.5 text-ink-2">{name}</td>
                       <td className="py-1.5 text-right font-medium">{fmtMoney(m.fair_value)}</td>
-                      <td className="py-1.5 text-right text-[#7C879B]">{fmtPct(m.premium_discount_pct, 1, true)}</td>
+                      <td className="py-1.5 text-right text-mute">{fmtPct(m.premium_discount_pct, 1, true)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <div className="mt-2 text-xs text-[#7C879B]">North star: {td.fv.north_star_metric}</div>
+              <div className="mt-2 text-xs text-mute">North star: {td.fv.north_star_metric}</div>
             </div>
-          ) : <div className="py-4 text-sm text-[#7C879B]">Fair value unavailable (insufficient data).</div>}
+          ) : <div className="py-4 text-sm text-mute">Fair value unavailable (insufficient data).</div>}
         </Card>
 
         <Card title="Quant Buy Point" sub={td?.qbp ? `${td.qbp.signal} · ${fmtPct(td.qbp.distance_pct, 1, true)} from buy point` : undefined}>
@@ -510,17 +512,17 @@ export default function StockDetailTab() {
                 const strength = d <= 0 ? 100 : d < 3 ? 85 : d < 8 ? 60 : d < 15 ? 35 : 12;
                 return (
                   <div className="mb-3">
-                    <div className="flex justify-between text-[11px] text-[#7C879B]"><span>Signal strength</span><span style={{ color: td.qbp.signal_color }}>{strength}/100 · {fmtPct(d, 1, true)} from buy point</span></div>
-                    <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-[#1A2130]"><div className="h-full rounded-full" style={{ width: `${strength}%`, background: td.qbp.signal_color }} /></div>
+                    <div className="flex justify-between text-[11px] text-mute"><span>Signal strength</span><span style={{ color: td.qbp.signal_color }}>{strength}/100 · {fmtPct(d, 1, true)} from buy point</span></div>
+                    <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-raised"><div className="h-full rounded-full" style={{ width: `${strength}%`, background: td.qbp.signal_color }} /></div>
                   </div>
                 );
               })()}
               <table className="w-full text-sm">
                 <tbody>
                   {Object.entries(td.qbp.components).map(([name, c]) => (
-                    <tr key={name} className="border-t border-[#161D29]">
-                      <td className="py-1.5 text-[#C3CAD7]">{name}</td>
-                      <td className="py-1.5 text-right text-[#7C879B]">{(c.weight * 100).toFixed(0)}%</td>
+                    <tr key={name} className="border-t border-line-faint">
+                      <td className="py-1.5 text-ink-2">{name}</td>
+                      <td className="py-1.5 text-right text-mute">{(c.weight * 100).toFixed(0)}%</td>
                       <td className="py-1.5 text-right font-medium">{fmtMoney(c.price)}</td>
                     </tr>
                   ))}
@@ -528,11 +530,11 @@ export default function StockDetailTab() {
               </table>
               <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
                 {Object.entries(td.qbp.technicals).map(([k, v]) => (
-                  <div key={k} className="flex justify-between"><span className="text-[#7C879B]">{k}</span><span className="text-[#C3CAD7]">{v}</span></div>
+                  <div key={k} className="flex justify-between"><span className="text-mute">{k}</span><span className="text-ink-2">{v}</span></div>
                 ))}
               </div>
             </div>
-          ) : <div className="py-4 text-sm text-[#7C879B]">Buy point unavailable (insufficient price history).</div>}
+          ) : <div className="py-4 text-sm text-mute">Buy point unavailable (insufficient price history).</div>}
         </Card>
       </div>
 
@@ -546,7 +548,7 @@ export default function StockDetailTab() {
             <Card key={pillar} title={pillar} sub={`Pillar grade ${pd.pillar_grade} · score ${pd.pillar_score?.toFixed?.(2) ?? pd.pillar_score}`}>
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-xs uppercase text-[#7C879B]">
+                  <tr className="text-xs uppercase text-mute">
                     <th className="py-1 text-left font-medium">Metric</th>
                     <th className="py-1 text-right font-medium">Value</th>
                     <th className="py-1 text-center font-medium">Grade</th>
@@ -556,12 +558,12 @@ export default function StockDetailTab() {
                 </thead>
                 <tbody>
                   {pd.metrics.map((m) => (
-                    <tr key={m.metric} className="border-t border-[#161D29]">
-                      <td className="py-1.5 text-[#C3CAD7]">{m.metric}</td>
+                    <tr key={m.metric} className="border-t border-line-faint">
+                      <td className="py-1.5 text-ink-2">{m.metric}</td>
                       <td className="py-1.5 text-right">{m.value}</td>
                       <td className="py-1.5 text-center"><GradePill grade={m.grade} /></td>
-                      <td className="py-1.5 text-right text-[#7C879B]">{m.percentile}</td>
-                      <td className="py-1.5 text-right text-[#7C879B]">{m.sector_avg}</td>
+                      <td className="py-1.5 text-right text-mute">{m.percentile}</td>
+                      <td className="py-1.5 text-right text-mute">{m.sector_avg}</td>
                     </tr>
                   ))}
                 </tbody>

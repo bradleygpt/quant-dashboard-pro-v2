@@ -55,17 +55,17 @@ export default function PaperTrackTab() {
         <div>
           <h2 className="text-lg font-bold text-white">
             {disp?.engine ?? "Aristeia"} · {disp?.character ?? "Event-Balanced"}
-            <span className="ml-2 rounded-full bg-[#231C10] px-2 py-0.5 text-[11px] font-semibold text-[#D8B878] ring-1 ring-[#4A3B1D]" title="Paper track: signal-derived research book accruing forward out-of-sample — not broker positions. The broker-confirmed Aristeia book lives on the Strategies summary.">◌ PAPER-TRACK · forward accrual</span>
+            <span className="ml-2 rounded-full bg-paper/10 px-2 py-0.5 text-[11px] font-semibold text-paper ring-1 ring-paper/30" title="Paper track: signal-derived research book accruing forward out-of-sample — not broker positions. The broker-confirmed Aristeia book lives on the Strategies summary.">◌ PAPER-TRACK · forward accrual</span>
           </h2>
-          <p className="text-xs text-[#7C879B]">
+          <p className="text-xs text-mute">
             Event/PEAD-anchored blend ({blend.map(([k, v]) => `${(v * 100).toFixed(0)}% ${k}`).join(" · ")}), top-{d.config.N} equal-weight,
             {" "}{d.config.universe}. Rebalanced {d.config.rebalance}. Forward out-of-sample — picks use as-of signal at each rebalance, returns accrue purely forward vs SPY.
           </p>
         </div>
       </div>
 
-      <div className="rounded-lg border border-[#1C5C2E] bg-[#0B1A0F] p-3 text-xs text-[#A7E0B8]">
-        <span className="font-semibold text-[#00C805]">Next rebalance: {d.next_rebalance_date}.</span>{" "}
+      <div className="rounded-lg border border-pos/35 bg-pos/8 p-3 text-xs text-[#A7E0B8]">
+        <span className="font-semibold text-pos">Next rebalance: {d.next_rebalance_date}.</span>{" "}
         Picks are generated the night before so they can be researched before deploying on the first trading day of the month.
         {d.pending_rebalance && (d.pending_rebalance.buy.length > 0 || d.pending_rebalance.sell.length > 0) && (
           <span className="ml-1 text-[#D7C9A0]">
@@ -87,7 +87,7 @@ export default function PaperTrackTab() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-right text-xs">
             <thead>
-              <tr className="text-[#7C879B]">
+              <tr className="text-mute">
                 <th className="px-2 py-1 text-left font-medium">Ticker</th>
                 <th className="px-2 py-1 font-medium">Weight</th>
                 <th className="px-2 py-1 font-medium">Entry</th>
@@ -100,12 +100,12 @@ export default function PaperTrackTab() {
             </thead>
             <tbody>
               {holds.map((h) => (
-                <tr key={h.ticker} className="text-[#C7CEDA]">
-                  <td className="px-2 py-1 text-left font-mono font-semibold text-[#E6E9EF]">{h.ticker}</td>
+                <tr key={h.ticker} className="text-ink-2">
+                  <td className="px-2 py-1 text-left font-mono font-semibold text-ink">{h.ticker}</td>
                   <td className="px-2 py-1">{(h.weight * 100).toFixed(0)}%</td>
                   <td className="px-2 py-1">${h.entry_adj_close.toFixed(2)}</td>
-                  <td className="px-2 py-1 text-[#7C879B]">{h.adv_usd_m.toFixed(0)}</td>
-                  <td className="px-2 py-1 font-semibold text-[#00C805]">{h.blend_score.toFixed(2)}</td>
+                  <td className="px-2 py-1 text-mute">{h.adv_usd_m.toFixed(0)}</td>
+                  <td className="px-2 py-1 font-semibold text-pos">{h.blend_score.toFixed(2)}</td>
                   <td className="px-2 py-1">{h.event.toFixed(2)}</td>
                   <td className="px-2 py-1">{h.fund.toFixed(2)}</td>
                   <td className="px-2 py-1">{h.ml.toFixed(2)}</td>
@@ -114,12 +114,12 @@ export default function PaperTrackTab() {
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-[10px] text-[#5A6477]">Benchmark anchor: SPY ${d.spy_entry_adj_close.toFixed(2)} ({d.spy_entry_date}).</p>
+        <p className="mt-2 text-[10px] text-dim">Benchmark anchor: SPY ${d.spy_entry_adj_close.toFixed(2)} ({d.spy_entry_date}).</p>
       </Card>
 
       <Card title="Realized record vs S&P 500" sub={hist.length ? `${hist.length} completed rebalance period(s), newest first. Sum of period returns.` : "No completed periods yet — the track begins at inception."}>
         {hist.length === 0 ? (
-          <p className="text-xs text-[#7C879B]">
+          <p className="text-xs text-mute">
             Track started {d.inception_date}. The first realized period closes at the {d.next_rebalance_date} rebalance,
             at which point this fills in with book vs SPY for the period.
           </p>
@@ -133,7 +133,7 @@ export default function PaperTrackTab() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-right text-xs">
                 <thead>
-                  <tr className="text-[#7C879B]">
+                  <tr className="text-mute">
                     <th className="px-2 py-1 text-left font-medium">Period</th>
                     <th className="px-2 py-1 font-medium">Book</th>
                     <th className="px-2 py-1 font-medium">SPY</th>
@@ -142,11 +142,11 @@ export default function PaperTrackTab() {
                 </thead>
                 <tbody>
                   {[...hist].reverse().map((h) => (
-                    <tr key={h.closed_on} className="text-[#C7CEDA]">
-                      <td className="px-2 py-1 text-left font-mono text-[#7C879B]">{h.from_date} → {h.closed_on}</td>
-                      <td className={`px-2 py-1 ${h.book_return_pct >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}`}>{h.book_return_pct >= 0 ? "+" : ""}{h.book_return_pct.toFixed(1)}%</td>
-                      <td className="px-2 py-1 text-[#7C879B]">{h.spy_return_pct >= 0 ? "+" : ""}{h.spy_return_pct.toFixed(1)}%</td>
-                      <td className={`px-2 py-1 ${h.relative_pct >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}`}>{h.relative_pct >= 0 ? "+" : ""}{h.relative_pct.toFixed(1)}%</td>
+                    <tr key={h.closed_on} className="text-ink-2">
+                      <td className="px-2 py-1 text-left font-mono text-mute">{h.from_date} → {h.closed_on}</td>
+                      <td className={`px-2 py-1 ${h.book_return_pct >= 0 ? "text-pos" : "text-neg"}`}>{h.book_return_pct >= 0 ? "+" : ""}{h.book_return_pct.toFixed(1)}%</td>
+                      <td className="px-2 py-1 text-mute">{h.spy_return_pct >= 0 ? "+" : ""}{h.spy_return_pct.toFixed(1)}%</td>
+                      <td className={`px-2 py-1 ${h.relative_pct >= 0 ? "text-pos" : "text-neg"}`}>{h.relative_pct >= 0 ? "+" : ""}{h.relative_pct.toFixed(1)}%</td>
                     </tr>
                   ))}
                 </tbody>
@@ -156,12 +156,12 @@ export default function PaperTrackTab() {
         )}
       </Card>
 
-      <div className="rounded-lg border border-[#5A4A1E] bg-[#1E1A0E] p-4 text-xs text-[#D7C9A0]">
-        <div className="text-sm font-semibold text-[#FFC107]">⚠ How to read this</div>
+      <div className="rounded-lg border border-paper/35 bg-warn/5 p-4 text-xs text-[#D7C9A0]">
+        <div className="text-sm font-semibold text-warn">⚠ How to read this</div>
         <ul className="mt-2 space-y-1.5">
-          <li className="flex gap-2"><span className="text-[#FFC107]">•</span><span>The {disp?.backtest_cagr.toFixed(0)}% figure is a backtest. The honest forward expectation is {disp?.realistic_forward} after survivorship and 3-name concentration — this live track exists to settle the true number.</span></li>
-          <li className="flex gap-2"><span className="text-[#FFC107]">•</span><span>E3/PEAD is the validated core (real post-earnings drift, not the announcement jump). Liquidity-survival {disp ? (disp.liquidity_survival * 100).toFixed(0) : "96"}% — the edge is tradeable, not a microcap artifact.</span></li>
-          <li className="flex gap-2"><span className="text-[#FFC107]">•</span><span>Research record, not a live recommendation. A 3-stock book is concentrated and can have deep drawdowns ({disp?.max_dd.toFixed(0)}% in backtest).</span></li>
+          <li className="flex gap-2"><span className="text-warn">•</span><span>The {disp?.backtest_cagr.toFixed(0)}% figure is a backtest. The honest forward expectation is {disp?.realistic_forward} after survivorship and 3-name concentration — this live track exists to settle the true number.</span></li>
+          <li className="flex gap-2"><span className="text-warn">•</span><span>E3/PEAD is the validated core (real post-earnings drift, not the announcement jump). Liquidity-survival {disp ? (disp.liquidity_survival * 100).toFixed(0) : "96"}% — the edge is tradeable, not a microcap artifact.</span></li>
+          <li className="flex gap-2"><span className="text-warn">•</span><span>Research record, not a live recommendation. A 3-stock book is concentrated and can have deep drawdowns ({disp?.max_dd.toFixed(0)}% in backtest).</span></li>
         </ul>
       </div>
     </div>

@@ -1,7 +1,11 @@
 {
   "bake": {
     "fresh": true,
+<<<<<<< Updated upstream
     "at": "2026-07-02T17:23:11"
+=======
+    "at": "2026-07-02T16:47:30"
+>>>>>>> Stashed changes
   },
   "engines": {
     "binary": {
@@ -14,7 +18,11 @@
     }
   },
   "ppi": {
+<<<<<<< Updated upstream
     "score": 32.3,
+=======
+    "score": 30.9,
+>>>>>>> Stashed changes
     "level": "MODERATE"
   },
   "c78q": {
@@ -35,9 +43,17 @@
       "status": "research-scout, holdings-redundant"
     }
   },
+<<<<<<< Updated upstream
   "watchdog": null,
+=======
+  "watchdog": {
+    "ok": true,
+    "alerts": [],
+    "checked_at": "2026-07-02T12:36:05.498201"
+  },
+>>>>>>> Stashed changes
   "market": {
-    "state": "rth"
+    "state": "after"
   },
   "_meta": {
     "ppi_as_of": "2026-07-02",

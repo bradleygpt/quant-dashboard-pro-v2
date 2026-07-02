@@ -1,3 +1,4 @@
+import { SEM } from "../theme";
 // Faithful TS port of quant-historical/mlpred_v7/scripts/pullback_pressure_index.py
 // (the c78q PPI). 7 weighted components, thresholds copied verbatim. Each component
 // returns the neutral-50 fallback on insufficient/missing data, exactly as the Python
@@ -137,11 +138,11 @@ export function computePpi(
   const score = keys.reduce((a, k) => a + raw[k].score * PPI_WEIGHTS[k], 0);
 
   let level: string, color: string, action: string, band: number;
-  if (score < 20) { level = "LOW"; color = "#00C805"; action = "Market healthy. Deploy normally."; band = 100; }
-  else if (score < 40) { level = "MODERATE"; color = "#8BC34A"; action = "Normal fluctuation. No timing concern."; band = 100; }
-  else if (score < 60) { level = "ELEVATED"; color = "#FF9800"; action = "Consider scaling in vs full deployment."; band = 50; }
-  else if (score < 80) { level = "HIGH"; color = "#FF5722"; action = "Delay new deployment. Pullback likely."; band = 25; }
-  else { level = "EXTREME"; color = "#D32F2F"; action = "Active correction. Wait for resolution."; band = 0; }
+  if (score < 20) { level = "LOW"; color = SEM.pos; action = "Market healthy. Deploy normally."; band = 100; }
+  else if (score < 40) { level = "MODERATE"; color = SEM.posSoft; action = "Normal fluctuation. No timing concern."; band = 100; }
+  else if (score < 60) { level = "ELEVATED"; color = SEM.warnHot; action = "Consider scaling in vs full deployment."; band = 50; }
+  else if (score < 80) { level = "HIGH"; color = SEM.neg; action = "Delay new deployment. Pullback likely."; band = 25; }
+  else { level = "EXTREME"; color = SEM.negDeep; action = "Active correction. Wait for resolution."; band = 0; }
 
   const components: PpiComponent[] = keys.map((k) => ({
     key: k, name: NICE[k], weight: PPI_WEIGHTS[k], score: Math.round(raw[k].score), detail: raw[k].detail,

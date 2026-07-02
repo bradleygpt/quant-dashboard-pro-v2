@@ -15,7 +15,7 @@ export default function MacroRotation() {
   if (!d?.rotation) return null;
   return (
     <Card title="AI Sector Rotation" sub="Which sectors the macro setup favors / pressures — synthesized over the risk radar + consensus forecasts.">
-      <p className="text-sm leading-relaxed text-[#C3CAD7]">{d.rotation}</p>
+      <p className="text-sm leading-relaxed text-ink-2">{d.rotation}</p>
     </Card>
   );
 }

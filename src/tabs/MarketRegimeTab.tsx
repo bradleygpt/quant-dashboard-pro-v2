@@ -1,3 +1,4 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useMemo } from "react";
 import { useStore } from "../store";
 import { Card, Metric, Spinner, Unavailable } from "../components/ui";
@@ -5,6 +6,7 @@ import { fmtPct, fmtNum } from "../lib/format";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { INK, SEM, SURFACE } from "../theme";
 
 const clip = (x: number) => Math.max(0, Math.min(100, x));
 // HY OAS (ICE BofA US High-Yield option-adjusted spread) → 0-100 "calm" score:
@@ -29,8 +31,8 @@ function macroHealth(md: Record<string, any>, spread: number | null, hyOas: numb
   } else {
     score = ismS * 0.25 + unS * 0.25 + gdpS * 0.2 + cpiS * 0.15 + ycS * 0.15;
   }
-  const [label, color] = score >= 75 ? ["Strong Expansion", "#00C805"] : score >= 55 ? ["Moderate Growth", "#8BC34A"]
-    : score >= 40 ? ["Slowing", "#FFC107"] : score >= 25 ? ["Contraction Risk", "#FF5722"] : ["Recession", "#D32F2F"];
+  const [label, color] = score >= 75 ? ["Strong Expansion", SEM.pos] : score >= 55 ? ["Moderate Growth", SEM.posSoft]
+    : score >= 40 ? ["Slowing", SEM.warn] : score >= 25 ? ["Contraction Risk", SEM.neg] : ["Recession", SEM.negDeep];
   return { score: Math.round(score), label, color, comps };
 }
 
@@ -119,7 +121,7 @@ export default function MarketRegimeTab() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">Market Regime</h2>
-        <p className="text-xs text-[#7C879B]">Live market gauges + macro context. Breadth is computed from the scored universe; market prices/yields are fetched server-side (keyless).</p>
+        <p className="text-xs text-mute">Live market gauges + macro context. Breadth is computed from the scored universe; market prices/yields are fetched server-side (keyless).</p>
       </div>
 
       {/* live gauges */}
@@ -144,9 +146,9 @@ export default function MarketRegimeTab() {
           <Card title="Potential Growth Indicator (PGI)" sub={`Money-market AUM vs total market cap · ${pgiView.asOf}`}>
             <div className="flex items-baseline gap-3">
               <span className="text-2xl font-bold text-white">{pgiView.pct != null ? `${pgiView.pct.toFixed(1)}%` : "—"}</span>
-              <span className="text-sm text-[#9CA7BB]">{pgiView.level}</span>
+              <span className="text-sm text-ink-3">{pgiView.level}</span>
             </div>
-            <div className="mt-1 text-xs text-[#7C879B]">
+            <div className="mt-1 text-xs text-mute">
               Money market: {pgiView.mmT != null ? `$${pgiView.mmT.toFixed(2)}T` : "—"} dry powder
               {pgiView.pct == null && pgiView.mmT != null ? " · % needs live total market cap" : ""}
             </div>
@@ -156,7 +158,7 @@ export default function MarketRegimeTab() {
               </div>
             )}
             {pgiView.src === "baked" && pgiView.stale && (
-              <div className="mt-2 rounded-md border border-[#3A2A12] bg-[#1C1407] px-2 py-1 text-[11px] text-[#D8B878]">
+              <div className="mt-2 rounded-md border border-warn/25 bg-warn/5 px-2 py-1 text-[11px] text-paper">
                 ⚠️ Stale: latest published FRED observation is {pgiView.asOf.replace("FRED MMMFFAQ027S · as-of ", "")}. Quarterly series — a publish lag is normal, but this is older than expected.
               </div>
             )}
@@ -165,10 +167,10 @@ export default function MarketRegimeTab() {
         {breadth && (
           <Card title="Market Breadth" sub="Computed from the scored universe">
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <div className="flex justify-between"><span className="text-[#7C879B]">% above 50-SMA</span><span>{breadth.pct_above_50sma.toFixed(0)}%</span></div>
-              <div className="flex justify-between"><span className="text-[#7C879B]">% above 200-SMA</span><span>{breadth.pct_above_200sma.toFixed(0)}%</span></div>
-              <div className="flex justify-between"><span className="text-[#7C879B]">% positive 1M</span><span>{breadth.pct_positive_1m.toFixed(0)}%</span></div>
-              <div className="flex justify-between"><span className="text-[#7C879B]">Breadth score</span><span className="font-semibold">{breadth.breadth_score.toFixed(0)}</span></div>
+              <div className="flex justify-between"><span className="text-mute">% above 50-SMA</span><span>{breadth.pct_above_50sma.toFixed(0)}%</span></div>
+              <div className="flex justify-between"><span className="text-mute">% above 200-SMA</span><span>{breadth.pct_above_200sma.toFixed(0)}%</span></div>
+              <div className="flex justify-between"><span className="text-mute">% positive 1M</span><span>{breadth.pct_positive_1m.toFixed(0)}%</span></div>
+              <div className="flex justify-between"><span className="text-mute">Breadth score</span><span className="font-semibold">{breadth.breadth_score.toFixed(0)}</span></div>
             </div>
           </Card>
         )}
@@ -197,15 +199,15 @@ export default function MarketRegimeTab() {
               <Card title="Macro Health" sub={`ISM, jobs, GDP, CPI + real yield curve${hyOas != null ? " + HY credit" : ""}`}>
 
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl font-bold" style={{ color: mh.color }}>{mh.score}<span className="text-base text-[#7C879B]">/100</span></span>
+                  <span className="text-3xl font-bold" style={{ color: mh.color }}>{mh.score}<span className="text-base text-mute">/100</span></span>
                   <span className="text-sm font-semibold" style={{ color: mh.color }}>{mh.label}</span>
                 </div>
                 <div className="mt-2 space-y-1 text-xs">
                   {Object.entries(mh.comps).map(([k, v]) => (
                     <div key={k} className="flex items-center gap-2">
-                      <span className="w-24 text-[#7C879B]">{k}</span>
-                      <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1A2130]"><div className="h-full rounded bg-[#5BA8FF]" style={{ width: `${v}%` }} /></div>
-                      <span className="w-8 text-right text-[#9CA7BB]">{v}</span>
+                      <span className="w-24 text-mute">{k}</span>
+                      <div className="h-1.5 flex-1 overflow-hidden rounded bg-raised"><div className="h-full rounded bg-link" style={{ width: `${v}%` }} /></div>
+                      <span className="w-8 text-right text-ink-3">{v}</span>
                     </div>
                   ))}
                 </div>
@@ -215,19 +217,19 @@ export default function MarketRegimeTab() {
           {ef && (
             <Card title="S&P 500 Earnings Forecast" sub="3-factor model (CPI + Unemployment + ISM)">
               <div className="text-2xl font-bold text-white">{fmtPct(ef.sp500_earnings_growth, 1, true)}</div>
-              <div className="text-xs text-[#7C879B]">modeled YoY earnings growth</div>
-              <div className="mt-1 text-[10px] leading-relaxed text-[#5C6678]">
+              <div className="text-xs text-mute">modeled YoY earnings growth</div>
+              <div className="mt-1 text-[10px] leading-relaxed text-dim">
                 Inputs: CPI {md.cpi_current ?? "—"}% {md.cpi_source?.startsWith("FRED") ? `(FRED, as-of ${md.cpi_asof?.slice(0, 7) ?? "?"})` : "(static)"} · Unemp {md.unemployment_current ?? "—"}% {md.unemployment_source?.startsWith("FRED") ? `(FRED, as-of ${md.unemployment_asof?.slice(0, 7) ?? "?"})` : "(static)"} · ISM {md.ism_composite ?? "—"} (manual, as-of {md.ism_asof ?? "?"})
               </div>
               {ef.scenarios && (
                 <table className="mt-2 w-full text-xs">
-                  <thead><tr><th className="py-1 text-left text-[#7C879B]">Scenario</th><th className="py-1 text-right text-[#7C879B]">Growth</th><th className="py-1 text-left text-[#7C879B]">CPI/Unemp/ISM</th></tr></thead>
+                  <thead><tr><th className="py-1 text-left text-mute">Scenario</th><th className="py-1 text-right text-mute">Growth</th><th className="py-1 text-left text-mute">CPI/Unemp/ISM</th></tr></thead>
                   <tbody>
                     {Object.entries<any>(ef.scenarios).map(([name, s]) => (
-                      <tr key={name} className="border-t border-[#161D29]">
-                        <td className="py-1 text-[#C3CAD7]">{name}</td>
-                        <td className="py-1 text-right font-semibold" style={{ color: s.earnings_growth >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(s.earnings_growth, 1, true)}</td>
-                        <td className="py-1 text-[#7C879B]">{s.cpi?.toFixed(1)} / {s.unemployment?.toFixed(1)} / {s.ism?.toFixed(0)}</td>
+                      <tr key={name} className="border-t border-line-faint">
+                        <td className="py-1 text-ink-2">{name}</td>
+                        <td className="py-1 text-right font-semibold" style={{ color: s.earnings_growth >= 0 ? SEM.pos : SEM.neg }}>{fmtPct(s.earnings_growth, 1, true)}</td>
+                        <td className="py-1 text-mute">{s.cpi?.toFixed(1)} / {s.unemployment?.toFixed(1)} / {s.ism?.toFixed(0)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -244,11 +246,11 @@ export default function MarketRegimeTab() {
           <div className="grid grid-cols-3 gap-3">
             {stat.data.forward_earnings.path.map((p) => (
               <Metric key={p.year} label={p.year}
-                value={<span style={{ color: p.sp500_earnings_growth >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(p.sp500_earnings_growth, 1, true)}</span>}
+                value={<span style={{ color: p.sp500_earnings_growth >= 0 ? SEM.pos : SEM.neg }}>{fmtPct(p.sp500_earnings_growth, 1, true)}</span>}
                 hint={`PCE ${p.pce_inflation}% · U ${p.unemployment}%`} />
             ))}
           </div>
-          <div className="mt-2 text-[10px] leading-relaxed text-[#5C6678]">{stat.data.forward_earnings.note} · {stat.data.forward_earnings.source}</div>
+          <div className="mt-2 text-[10px] leading-relaxed text-dim">{stat.data.forward_earnings.note} · {stat.data.forward_earnings.source}</div>
         </Card>
       ) : null}
 
@@ -260,12 +262,12 @@ export default function MarketRegimeTab() {
               const val = s.unit === "k" ? `${s.value}k` : `${s.value}%`;
               return (
                 <Metric key={s.id} label={s.label}
-                  value={<span style={inverted ? { color: "#FF5722" } : undefined}>{val}</span>}
+                  value={<span style={inverted ? { color: SEM.neg } : undefined}>{val}</span>}
                   hint={inverted ? "Inverted ⚠" : (s.date ? `as-of ${s.date.slice(0, 10)}` : undefined)} />
               );
             })}
           </div>
-          <div className="mt-2 text-[10px] text-[#5C6678]">Curve inversion (negative 10Y–2Y / 10Y–3M) is the classic recession lead; widening HY OAS = credit stress; rising initial claims = labor softening.</div>
+          <div className="mt-2 text-[10px] text-dim">Curve inversion (negative 10Y–2Y / 10Y–3M) is the classic recession lead; widening HY OAS = credit stress; rising initial claims = labor softening.</div>
         </Card>
       ) : null}
 
@@ -274,11 +276,11 @@ export default function MarketRegimeTab() {
         <Card title="Sector Earnings Forecast" sub="Modeled YoY earnings growth by sector">
           <ResponsiveContainer width="100%" height={Math.max(220, Object.keys(ef.sector_forecasts).length * 26)}>
             <BarChart layout="vertical" data={Object.entries<number>(ef.sector_forecasts).map(([s, v]) => ({ sector: s, growth: v })).sort((a, b) => b.growth - a.growth)} margin={{ left: 40, right: 20 }}>
-              <XAxis type="number" tick={{ fill: "#7C879B", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
-              <YAxis type="category" dataKey="sector" width={140} tick={{ fill: "#9CA7BB", fontSize: 11 }} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number) => [`${v.toFixed(1)}%`, "Growth"]} />
+              <XAxis type="number" tick={{ fill: INK.mute, fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+              <YAxis type="category" dataKey="sector" width={140} tick={{ fill: INK.ink3, fontSize: 11 }} />
+              <Tooltip {...tooltipProps} formatter={(v: number) => [`${v.toFixed(1)}%`, "Growth"]} />
               <Bar dataKey="growth" radius={[0, 3, 3, 0]}>
-                {Object.entries<number>(ef.sector_forecasts).sort((a, b) => b[1] - a[1]).map(([s, v]) => <Cell key={s} fill={v >= 0 ? "#00C805" : "#FF5722"} />)}
+                {Object.entries<number>(ef.sector_forecasts).sort((a, b) => b[1] - a[1]).map(([s, v]) => <Cell key={s} fill={v >= 0 ? SEM.pos : SEM.neg} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
@@ -290,16 +292,16 @@ export default function MarketRegimeTab() {
         {stat.data?.fed_outlook && (
           <Card title="Fed Rate Outlook" sub={nextFomc ? `Next FOMC: ${nextFomc}` : undefined}>
             <div className="space-y-1 text-sm">
-              {stat.data.fed_outlook.bias && <div><span className="text-[#7C879B]">Bias: </span><span className="text-[#C3CAD7]">{stat.data.fed_outlook.bias}</span></div>}
+              {stat.data.fed_outlook.bias && <div><span className="text-mute">Bias: </span><span className="text-ink-2">{stat.data.fed_outlook.bias}</span></div>}
               {["cut_probability", "hold_probability", "hike_probability"].map((k) => stat.data!.fed_outlook[k] != null && (
-                <div key={k} className="flex justify-between"><span className="capitalize text-[#7C879B]">{k.replace("_probability", "")}</span><span>{stat.data!.fed_outlook[k]}%</span></div>
+                <div key={k} className="flex justify-between"><span className="capitalize text-mute">{k.replace("_probability", "")}</span><span>{stat.data!.fed_outlook[k]}%</span></div>
               ))}
               {mkt.data?.dots?.ok && (
-                <div className="mt-2 border-t border-[#1E2632] pt-2">
-                  <div className="text-[10px] uppercase text-[#7C879B]">SEP median projection (FRED)</div>
-                  <div className="flex justify-between"><span className="text-[#9CA7BB]">Current year</span><span>{mkt.data.dots.median_current_year != null ? `${mkt.data.dots.median_current_year.toFixed(2)}%` : "—"}</span></div>
-                  <div className="flex justify-between"><span className="text-[#9CA7BB]">Longer run</span><span>{mkt.data.dots.median_longer_run != null ? `${mkt.data.dots.median_longer_run.toFixed(2)}%` : "—"}</span></div>
-                  <div className="text-[10px] text-[#5C6678]">Full per-participant dot matrix is only in the FOMC SEP release (not in keyless FRED); median path shown.</div>
+                <div className="mt-2 border-t border-line pt-2">
+                  <div className="text-[10px] uppercase text-mute">SEP median projection (FRED)</div>
+                  <div className="flex justify-between"><span className="text-ink-3">Current year</span><span>{mkt.data.dots.median_current_year != null ? `${mkt.data.dots.median_current_year.toFixed(2)}%` : "—"}</span></div>
+                  <div className="flex justify-between"><span className="text-ink-3">Longer run</span><span>{mkt.data.dots.median_longer_run != null ? `${mkt.data.dots.median_longer_run.toFixed(2)}%` : "—"}</span></div>
+                  <div className="text-[10px] text-dim">Full per-participant dot matrix is only in the FOMC SEP release (not in keyless FRED); median path shown.</div>
                 </div>
               )}
             </div>
@@ -322,11 +324,11 @@ export default function MarketRegimeTab() {
                 <div className="space-y-2">
                   {months.map(([k, items]) => (
                     <div key={k}>
-                      <div className="text-[11px] font-semibold uppercase text-[#7C879B]">{monthLabel(k)}</div>
+                      <div className="text-[11px] font-semibold uppercase text-mute">{monthLabel(k)}</div>
                       <ul className="text-sm">
                         {items.map((e, i) => (
-                          <li key={i} className="flex justify-between border-t border-[#161D29] py-1">
-                            <span className="text-[#C3CAD7]">{e.name}</span><span className="text-[#7C879B]">{e.date}</span>
+                          <li key={i} className="flex justify-between border-t border-line-faint py-1">
+                            <span className="text-ink-2">{e.name}</span><span className="text-mute">{e.date}</span>
                           </li>
                         ))}
                       </ul>
@@ -335,7 +337,7 @@ export default function MarketRegimeTab() {
                 </div>
               );
             })()}
-            <div className="mt-2 text-[10px] text-[#5C6678]">Bellwether (S&P 100) earnings dates require a live earnings-date feed (Finnhub) — deferred, pending the same API-wiring decision as the EPS beat/miss feature.</div>
+            <div className="mt-2 text-[10px] text-dim">Bellwether (S&P 100) earnings dates require a live earnings-date feed (Finnhub) — deferred, pending the same API-wiring decision as the EPS beat/miss feature.</div>
           </Card>
         ) : null}
       </div>
@@ -344,23 +346,23 @@ export default function MarketRegimeTab() {
       {mkt.status === "ok" && mkt.data?.indices?.some((i) => i.ok) && (
         <Card title="Major Indices">
           <table className="w-full text-sm">
-            <thead><tr>{["Index", "Price", "1D", "5D", "1M", "3M", "YTD", "vs ATH"].map((h) => <th key={h} className={`py-1 text-xs uppercase text-[#7C879B] ${h === "Index" ? "text-left" : "text-right"}`}>{h}</th>)}</tr></thead>
+            <thead><tr>{["Index", "Price", "1D", "5D", "1M", "3M", "YTD", "vs ATH"].map((h) => <th key={h} className={`py-1 text-xs uppercase text-mute ${h === "Index" ? "text-left" : "text-right"}`}>{h}</th>)}</tr></thead>
             <tbody>
               {mkt.data.indices.filter((i) => i.ok).map((i) => (
-                <tr key={i.name} className="border-t border-[#161D29]">
-                  <td className="py-1.5 text-[#C3CAD7]">{i.name}</td>
+                <tr key={i.name} className="border-t border-line-faint">
+                  <td className="py-1.5 text-ink-2">{i.name}</td>
                   <td className="py-1.5 text-right">{fmtNum(i.price, 0)}</td>
                   {[i.change_1d_pct, i.change_5d_pct, i.change_1m_pct, i.change_3m_pct, i.ytd_pct].map((v, j) => (
-                    <td key={j} className="py-1.5 text-right" style={{ color: (v ?? 0) >= 0 ? "#00C805" : "#FF5722" }}>{v == null ? "—" : fmtPct(v, 1, true)}</td>
+                    <td key={j} className="py-1.5 text-right" style={{ color: (v ?? 0) >= 0 ? SEM.pos : SEM.neg }}>{v == null ? "—" : fmtPct(v, 1, true)}</td>
                   ))}
-                  <td className="py-1.5 text-right" style={{ color: (i.distance_from_ath_pct ?? 0) >= -1 ? "#00C805" : "#FF9800" }}>{fmtPct(i.distance_from_ath_pct ?? 0, 1, true)}</td>
+                  <td className="py-1.5 text-right" style={{ color: (i.distance_from_ath_pct ?? 0) >= -1 ? SEM.pos : SEM.warnHot }}>{fmtPct(i.distance_from_ath_pct ?? 0, 1, true)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </Card>
       )}
-      <p className="text-[10px] text-[#5C6678]">Live market data via keyless Yahoo Finance + FRED endpoints, fetched server-side. Macro indicators refreshed each bake.</p>
+      <p className="text-[10px] text-dim">Live market data via keyless Yahoo Finance + FRED endpoints, fetched server-side. Macro indicators refreshed each bake.</p>
     </div>
   );
 }

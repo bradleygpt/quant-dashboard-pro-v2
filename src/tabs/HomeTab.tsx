@@ -11,6 +11,7 @@ import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { computePpi } from "../lib/ppiIndex";
 import { getDeltas, type SnapshotsFile } from "../lib/snapshots";
 import { analyzePortfolio, type Holding } from "../lib/portfolio";
+import { INK, SEM } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -18,9 +19,9 @@ interface Market { ok?: boolean; spy?: any; vix?: any; buffett?: any; indices?: 
 interface Cal { ok?: boolean; reason?: string; earnings?: { symbol: string; date: string; hour?: string }[]; ipos?: { symbol: string; name?: string; date: string; exchange?: string }[] }
 
 function Delta({ wk, mo }: { wk: number | null; mo: number | null }) {
-  const c = (v: number | null) => (v == null ? "#7C879B" : v >= 0 ? "#00C805" : "#FF5722");
+  const c = (v: number | null) => (v == null ? INK.mute : v >= 0 ? SEM.pos : SEM.neg);
   return (
-    <div className="text-[10px] text-[#7C879B]">
+    <div className="text-[10px] text-mute">
       1W <span style={{ color: c(wk) }}>{wk == null ? "—" : fmtPct(wk, 1, true)}</span>
       {"  ·  "}1M <span style={{ color: c(mo) }}>{mo == null ? "—" : fmtPct(mo, 1, true)}</span>
     </div>
@@ -72,9 +73,9 @@ export default function HomeTab() {
   const topOps = useMemo(() => stocks.filter((r) => r.rating === "Strong Buy+" || r.rating === "Strong Buy").sort((a, b) => b.composite - a.composite).slice(0, 6), [stocks]);
 
   const screenerCols = useMemo<Column<ViewRow>[]>(() => [
-    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button><IndexBadges ticker={r.ticker} /></> },
-    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[200px] truncate text-[#C3CAD7]">{r.name}</span> },
-    { key: "sector", header: "Sector", sortValue: (r) => r.sector ?? "", render: (r) => <span className="text-[#9CA7BB]">{r.sector}</span> },
+    { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => <><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-link hover:underline">{r.ticker}</button><IndexBadges ticker={r.ticker} /></> },
+    { key: "name", header: "Name", sortValue: (r) => r.name ?? "", render: (r) => <span className="block max-w-[200px] truncate text-ink-2">{r.name}</span> },
+    { key: "sector", header: "Sector", sortValue: (r) => r.sector ?? "", render: (r) => <span className="text-ink-3">{r.sector}</span> },
     { key: "composite", header: "Score", align: "right", sortValue: (r) => r.composite, render: (r) => <span className="font-semibold">{r.composite.toFixed(2)}</span> },
     { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[r.rating] ?? 0, render: (r) => <RatingBadge rating={r.rating} /> },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price, render: (r) => fmtMoney(r.price) },
@@ -89,7 +90,7 @@ export default function HomeTab() {
 
   return (
     <div className="space-y-4">
-      <div><h2 className="text-lg font-bold text-white">Dashboard Overview</h2><p className="text-xs text-[#7C879B]">Your universe and market at a glance.</p></div>
+      <div><h2 className="text-lg font-bold text-white">Dashboard Overview</h2><p className="text-xs text-mute">Your universe and market at a glance.</p></div>
 
       {/* 1. Pullback Pressure Index (c78q — faithful port of pullback_pressure_index.py) */}
       <Card title="Pullback Pressure Index (PPI)" sub="Market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown in Strategies → Katalepsis.">
@@ -97,22 +98,22 @@ export default function HomeTab() {
          !ppi ? <Unavailable what="PPI inputs" detail="Needs live SPY/VIX/VVIX from /api/ppi (deployed app only)." /> : (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <div>
-              <div className="text-3xl font-bold" style={{ color: ppi.color }}>{ppi.score.toFixed(1)}<span className="text-base text-[#7C879B]">/100</span></div>
+              <div className="text-3xl font-bold" style={{ color: ppi.color }}>{ppi.score.toFixed(1)}<span className="text-base text-mute">/100</span></div>
               <div className="text-sm font-semibold" style={{ color: ppi.color }}>{ppi.level}</div>
             </div>
-            <div className="rounded-md border border-[#1E2632] bg-[#121723] p-3">
-              <div className="text-xs uppercase text-[#7C879B]">Suggested deployment</div>
+            <div className="rounded-md border border-line bg-panel p-3">
+              <div className="text-xs uppercase text-mute">Suggested deployment</div>
               <div className="text-2xl font-bold text-white">{ppi.band_deploy_pct}%</div>
-              <div className="mt-1 text-xs leading-relaxed text-[#9CA7BB]">{ppi.action}</div>
+              <div className="mt-1 text-xs leading-relaxed text-ink-3">{ppi.action}</div>
             </div>
             <div className="lg:col-span-1">
-              <div className="mb-1 text-xs font-semibold uppercase text-[#7C879B]">Components</div>
+              <div className="mb-1 text-xs font-semibold uppercase text-mute">Components</div>
               <div className="space-y-1 text-xs">
                 {ppi.components.map((c) => (
                   <div key={c.key} className="flex items-center justify-between gap-2">
-                    <span className="text-[#C3CAD7]">{c.name}</span>
-                    <span className="w-10 text-right" style={{ color: c.score < 30 ? "#00C805" : c.score < 50 ? "#FFC107" : c.score < 70 ? "#FF9800" : "#FF5722" }}>{c.score}</span>
-                    <span className="w-40 truncate text-right text-[#7C879B]">{c.detail}</span>
+                    <span className="text-ink-2">{c.name}</span>
+                    <span className="w-10 text-right" style={{ color: c.score < 30 ? SEM.pos : c.score < 50 ? SEM.warn : c.score < 70 ? SEM.warnHot : SEM.neg }}>{c.score}</span>
+                    <span className="w-40 truncate text-right text-mute">{c.detail}</span>
                   </div>
                 ))}
               </div>
@@ -125,30 +126,30 @@ export default function HomeTab() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Earnings This Week" sub="Tracked universe · next 7 days">
           {cal.status === "loading" ? <Spinner /> :
-           cal.data?.reason === "no_key" ? <div className="text-xs text-[#9CA7BB]">Add <code className="text-[#5BA8FF]">FINNHUB_API_KEY</code> in Vercel to enable the earnings calendar.</div> :
+           cal.data?.reason === "no_key" ? <div className="text-xs text-ink-3">Add <code className="text-link">FINNHUB_API_KEY</code> in Vercel to enable the earnings calendar.</div> :
            cal.status === "unavailable" ? <Unavailable what="Earnings calendar" /> :
-           earningsThisWeek.length === 0 ? <div className="text-sm text-[#7C879B]">No tracked-universe earnings in the next 7 days.</div> : (
+           earningsThisWeek.length === 0 ? <div className="text-sm text-mute">No tracked-universe earnings in the next 7 days.</div> : (
             <div>
-              <div className="text-sm text-[#C3CAD7]">{earningsThisWeek.length} companies reporting</div>
+              <div className="text-sm text-ink-2">{earningsThisWeek.length} companies reporting</div>
               <div className="mt-1 flex flex-wrap gap-1">
                 {[...new Set(earningsThisWeek.map((e) => e.date))].sort().map((d) => (
-                  <span key={d} className="rounded bg-[#1A2130] px-2 py-0.5 text-xs text-[#9CA7BB]">{d.slice(5)}: {earningsThisWeek.filter((e) => e.date === d).length}</span>
+                  <span key={d} className="rounded bg-raised px-2 py-0.5 text-xs text-ink-3">{d.slice(5)}: {earningsThisWeek.filter((e) => e.date === d).length}</span>
                 ))}
               </div>
-              <details className="mt-2"><summary className="cursor-pointer text-xs text-[#5BA8FF]">View all {earningsThisWeek.length} earnings</summary>
-                <div className="mt-1 max-h-40 overflow-auto text-xs">{earningsThisWeek.sort((a, b) => a.date.localeCompare(b.date)).map((e, i) => <div key={i} className="flex justify-between border-t border-[#161D29] py-0.5"><button onClick={() => goToDetail(e.symbol)} className="font-medium text-[#5BA8FF] hover:underline" title={`Open ${e.symbol} stock detail`}>{e.symbol}</button><span className="text-[#7C879B]">{e.date} {e.hour ?? ""}</span></div>)}</div>
+              <details className="mt-2"><summary className="cursor-pointer text-xs text-link">View all {earningsThisWeek.length} earnings</summary>
+                <div className="mt-1 max-h-40 overflow-auto text-xs">{earningsThisWeek.sort((a, b) => a.date.localeCompare(b.date)).map((e, i) => <div key={i} className="flex justify-between border-t border-line-faint py-0.5"><button onClick={() => goToDetail(e.symbol)} className="font-medium text-link hover:underline" title={`Open ${e.symbol} stock detail`}>{e.symbol}</button><span className="text-mute">{e.date} {e.hour ?? ""}</span></div>)}</div>
               </details>
             </div>
           )}
         </Card>
         <Card title="Upcoming IPOs" sub="Next 14 days">
           {cal.status === "loading" ? <Spinner /> :
-           cal.data?.reason === "no_key" ? <div className="text-xs text-[#9CA7BB]">Requires <code className="text-[#5BA8FF]">FINNHUB_API_KEY</code>.</div> :
-           ipos14.length === 0 ? <div className="text-sm text-[#7C879B]">No IPOs scheduled in the next 14 days.</div> : (
+           cal.data?.reason === "no_key" ? <div className="text-xs text-ink-3">Requires <code className="text-link">FINNHUB_API_KEY</code>.</div> :
+           ipos14.length === 0 ? <div className="text-sm text-mute">No IPOs scheduled in the next 14 days.</div> : (
             <div>
-              <div className="text-sm text-[#C3CAD7]">{ipos14.length} upcoming</div>
-              <details className="mt-1" open><summary className="cursor-pointer text-xs text-[#5BA8FF]">View all {ipos14.length}</summary>
-                <div className="mt-1 max-h-40 overflow-auto text-xs">{ipos14.map((i, k) => <div key={k} className="flex justify-between border-t border-[#161D29] py-0.5"><span><span className="font-medium text-[#5BA8FF]">{i.symbol}</span> <span className="text-[#9CA7BB]">{i.name}</span></span><span className="text-[#7C879B]">{i.date}</span></div>)}</div>
+              <div className="text-sm text-ink-2">{ipos14.length} upcoming</div>
+              <details className="mt-1" open><summary className="cursor-pointer text-xs text-link">View all {ipos14.length}</summary>
+                <div className="mt-1 max-h-40 overflow-auto text-xs">{ipos14.map((i, k) => <div key={k} className="flex justify-between border-t border-line-faint py-0.5"><span><span className="font-medium text-link">{i.symbol}</span> <span className="text-ink-3">{i.name}</span></span><span className="text-mute">{i.date}</span></div>)}</div>
               </details>
             </div>
           )}
@@ -178,7 +179,7 @@ export default function HomeTab() {
             <Metric label="Score" value={`${analysis.weighted_composite.toFixed(1)}/12`} />
             <Metric label="Concentration" value={analysis.concentration_level} />
           </div>
-          <button onClick={() => setActiveTab("portfolio")} className="mt-2 text-xs text-[#5BA8FF] hover:underline">Open Your Portfolio →</button>
+          <button onClick={() => setActiveTab("portfolio")} className="mt-2 text-xs text-link hover:underline">Open Your Portfolio →</button>
         </Card>
       )}
 
@@ -186,15 +187,15 @@ export default function HomeTab() {
       <Card title="Top Rated Opportunities" sub="Highlights — open the Quant Screener for the full universe">
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
           {topOps.map((r) => (
-            <button key={r.ticker} onClick={() => goToDetail(r.ticker)} className="rounded-md border border-[#1E2632] bg-[#121723] p-2 text-left hover:border-[#2A3550]">
-              <div className="font-semibold text-[#5BA8FF]">{r.ticker}</div>
-              <div className="truncate text-[10px] text-[#7C879B]">{r.name}</div>
+            <button key={r.ticker} onClick={() => goToDetail(r.ticker)} className="rounded-md border border-line bg-panel p-2 text-left hover:border-active">
+              <div className="font-semibold text-link">{r.ticker}</div>
+              <div className="truncate text-[10px] text-mute">{r.name}</div>
               <div className="mt-1 text-sm font-semibold">{r.composite.toFixed(1)}</div>
               <RatingBadge rating={r.rating} />
             </button>
           ))}
         </div>
-        <button onClick={() => setActiveTab("screener")} className="mt-2 text-xs text-[#5BA8FF] hover:underline">Open full Quant Screener →</button>
+        <button onClick={() => setActiveTab("screener")} className="mt-2 text-xs text-link hover:underline">Open full Quant Screener →</button>
       </Card>
 
       {/* AI Market Summary (universe in a paragraph) */}

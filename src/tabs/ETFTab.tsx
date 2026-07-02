@@ -1,3 +1,4 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore, type ViewRow } from "../store";
 import { Card, Metric, Pill, RatingBadge, Spinner, Unavailable } from "../components/ui";
@@ -6,9 +7,10 @@ import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import FindYourETF from "../components/FindYourETF";
 import IndexAddPanel from "../components/IndexAddPanel";
+import { ASSET, INK, SEM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
-const ETF_COLORS = ["#00D4AA", "#00A3FF", "#A855F7", "#FBBF24", "#F97316"];
+const ETF_COLORS = [ASSET.eth, "#00A3FF", "#A855F7", SEM.warn, "#F97316"];
 
 interface Alloc { category: string; etf: string; alt: string; weight: number; purpose: string }
 interface Template { description: string; risk_score: number; expected_annual_return: string; max_drawdown_estimate: string; allocations: Alloc[] }
@@ -34,7 +36,7 @@ export default function ETFTab() {
     <div className="space-y-3">
       <div>
         <h2 className="text-lg font-bold text-white">ETF Center</h2>
-        <p className="text-xs text-[#7C879B]">Model portfolios, ETF comparison, sector/theme tilts, and the scored ETF universe.</p>
+        <p className="text-xs text-mute">Model portfolios, ETF comparison, sector/theme tilts, and the scored ETF universe.</p>
       </div>
       <div className="flex flex-wrap gap-2">
         <Pill active={section === "find"} onClick={() => setSection("find")}>🧭 Find your ETF</Pill>
@@ -63,7 +65,7 @@ export default function ETFTab() {
 function EtfTicker({ t }: { t: string }) {
   const { byTicker, goToDetail } = useStore();
   return byTicker.get(t)
-    ? <button onClick={() => goToDetail(t)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${t} stock detail`}>{t}</button>
+    ? <button onClick={() => goToDetail(t)} className="font-semibold text-link hover:underline" title={`Open ${t} stock detail`}>{t}</button>
     : <span className="font-semibold text-[#8FA8D0]" title="expanded coverage — no stock-detail page">{t}</span>;
 }
 
@@ -76,8 +78,8 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
     <div className="space-y-3">
       <div className="flex flex-wrap items-end gap-3">
         <div className="flex flex-wrap gap-1">{names.map((n) => <Pill key={n} active={n === name} onClick={() => setName(n)}>{n}</Pill>)}</div>
-        <label className="text-xs text-[#9CA7BB]">Capital
-          <input type="number" value={capital} onChange={(e) => setCapital(Math.max(0, parseFloat(e.target.value) || 0))} className="mt-1 block w-36 rounded-md border border-[#1E2632] bg-[#121723] px-2 py-1.5 text-sm text-white" />
+        <label className="text-xs text-ink-3">Capital
+          <input type="number" value={capital} onChange={(e) => setCapital(Math.max(0, parseFloat(e.target.value) || 0))} className="mt-1 block w-36 rounded-md border border-line bg-panel px-2 py-1.5 text-sm text-white" />
         </label>
       </div>
       <div className="grid grid-cols-3 gap-3">
@@ -87,26 +89,26 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
       </div>
       <Card title={name} asOfSource="etf" sub={t.description}>
         <table className="w-full text-sm">
-          <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Category</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">ETF</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Alt</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Weight</th><th className="py-1 text-right text-xs uppercase text-[#7C879B]">Amount</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Purpose</th></tr></thead>
+          <thead><tr><th className="py-1 text-left text-xs uppercase text-mute">Category</th><th className="py-1 text-left text-xs uppercase text-mute">ETF</th><th className="py-1 text-left text-xs uppercase text-mute">Alt</th><th className="py-1 text-right text-xs uppercase text-mute">Weight</th><th className="py-1 text-right text-xs uppercase text-mute">Amount</th><th className="py-1 text-left text-xs uppercase text-mute">Purpose</th></tr></thead>
           <tbody>
             {t.allocations.map((a, i) => (
-              <tr key={i} className="border-t border-[#161D29]">
-                <td className="py-1.5 text-[#C3CAD7]">{a.category}</td>
+              <tr key={i} className="border-t border-line-faint">
+                <td className="py-1.5 text-ink-2">{a.category}</td>
                 <td className="py-1.5"><EtfTicker t={a.etf} /></td>
-                <td className="py-1.5 text-[#9CA7BB]">{a.alt}</td>
+                <td className="py-1.5 text-ink-3">{a.alt}</td>
                 <td className="py-1.5 text-right">{a.weight}%</td>
                 <td className="py-1.5 text-right">{fmtMoney(capital * (a.weight / 100), 0)}</td>
-                <td className="py-1.5 text-xs text-[#9CA7BB]">{a.purpose}</td>
+                <td className="py-1.5 text-xs text-ink-3">{a.purpose}</td>
               </tr>
             ))}
           </tbody>
-          <tfoot><tr className="border-t border-[#2A3242]"><td className="py-1.5 font-semibold text-[#C3CAD7]" colSpan={3}>Total</td><td className="py-1.5 text-right font-semibold">{t.allocations.reduce((a, x) => a + x.weight, 0)}%</td><td className="py-1.5 text-right font-semibold">{fmtMoney(capital, 0)}</td><td /></tr></tfoot>
+          <tfoot><tr className="border-t border-line-2"><td className="py-1.5 font-semibold text-ink-2" colSpan={3}>Total</td><td className="py-1.5 text-right font-semibold">{t.allocations.reduce((a, x) => a + x.weight, 0)}%</td><td className="py-1.5 text-right font-semibold">{fmtMoney(capital, 0)}</td><td /></tr></tfoot>
         </table>
         <details className="mt-3 text-xs">
-          <summary className="cursor-pointer text-[#7C879B]">How to use this allocation</summary>
-          <div className="mt-2 space-y-2 text-[#9CA7BB]">
+          <summary className="cursor-pointer text-mute">How to use this allocation</summary>
+          <div className="mt-2 space-y-2 text-ink-3">
             <div>
-              <div className="font-semibold text-[#C3CAD7]">Implementation steps:</div>
+              <div className="font-semibold text-ink-2">Implementation steps:</div>
               <ol className="list-decimal space-y-0.5 pl-4">
                 <li>Open a brokerage account if you don't have one (Fidelity, Schwab, Vanguard recommended for low fees).</li>
                 <li>For each row above, place a buy order for the listed ETF using the dollar amount shown.</li>
@@ -115,7 +117,7 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
               </ol>
             </div>
             <div>
-              <div className="font-semibold text-[#C3CAD7]">Notes:</div>
+              <div className="font-semibold text-ink-2">Notes:</div>
               <ul className="list-disc space-y-0.5 pl-4">
                 <li>Expected returns are based on historical averages and are not guaranteed.</li>
                 <li>Max drawdown estimates reflect what historically happens in market crashes.</li>
@@ -138,19 +140,19 @@ function Comparison({ data }: { data: EtfFile }) {
   return (
     <div className="space-y-3">
       <div>
-        <div className="mb-1 text-[10px] uppercase text-[#7C879B]">Select 2–5 ETFs</div>
+        <div className="mb-1 text-[10px] uppercase text-mute">Select 2–5 ETFs</div>
         <div className="flex max-h-28 flex-wrap gap-1 overflow-auto">
           {universe.map((t) => <Pill key={t} active={sel.includes(t)} onClick={() => toggle(t)}>{t}</Pill>)}
         </div>
       </div>
-      <div className="overflow-auto rounded-lg border border-[#1E2632]">
+      <div className="overflow-auto rounded-lg border border-line">
         <table className="w-full text-sm">
-          <thead><tr>{["Ticker", "Name", "Expense", "AUM", "Yield", "1M", "3M", "6M", "12M", "YTD", "3Y", "Price"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+          <thead><tr>{["Ticker", "Name", "Expense", "AUM", "Yield", "1M", "3M", "6M", "12M", "YTD", "3Y", "Price"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
           <tbody>
             {sel.map((t) => { const d = data.etfs[t] || {}; return (
-              <tr key={t} className="border-t border-[#161D29]">
+              <tr key={t} className="border-t border-line-faint">
                 <td className="px-3 py-1.5"><EtfTicker t={t} /></td>
-                <td className="max-w-[200px] truncate px-3 py-1.5 text-[#C3CAD7]">{d.shortName}</td>
+                <td className="max-w-[200px] truncate px-3 py-1.5 text-ink-2">{d.shortName}</td>
                 <td className="px-3 py-1.5">{d.expenseRatio == null ? "—" : `${(d.expenseRatio * 100).toFixed(2)}%`}</td>
                 <td className="px-3 py-1.5">{d.totalAssets ? `$${(d.totalAssets / 1e9).toFixed(1)}B` : "—"}</td>
                 <td className="px-3 py-1.5">{d.yield == null ? "N/A" : `${(d.yield * 100).toFixed(1)}%`}</td>
@@ -175,10 +177,10 @@ function Comparison({ data }: { data: EtfFile }) {
           <Card title="Returns Comparison" sub="Trailing returns by period across the selected ETFs.">
             <ResponsiveContainer width="100%" height={320}>
               <BarChart data={chart} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-                <CartesianGrid stroke="#1A2130" vertical={false} />
-                <XAxis dataKey="period" tick={{ fill: "#7C879B", fontSize: 11 }} />
-                <YAxis tick={{ fill: "#7C879B", fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
-                <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n]} />
+                <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+                <XAxis dataKey="period" tick={{ fill: INK.mute, fontSize: 11 }} />
+                <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
+                <Tooltip {...tooltipProps} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n]} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
                 {sel.map((t, i) => <Bar key={t} dataKey={t} fill={ETF_COLORS[i % ETF_COLORS.length]} />)}
               </BarChart>
@@ -187,16 +189,16 @@ function Comparison({ data }: { data: EtfFile }) {
         );
       })()}
       <details className="text-xs">
-        <summary className="cursor-pointer text-[#7C879B]">Comparison guide</summary>
-        <ul className="mt-2 list-disc space-y-0.5 pl-4 text-[#9CA7BB]">
-          <li><strong className="text-[#C3CAD7]">Lower expense ratio</strong> is better (saves money long-term).</li>
-          <li><strong className="text-[#C3CAD7]">Higher AUM</strong> means more liquidity, tighter bid/ask spreads.</li>
-          <li><strong className="text-[#C3CAD7]">Yield</strong> matters for income-focused investors.</li>
-          <li><strong className="text-[#C3CAD7]">Returns</strong> show recent performance, but past performance doesn't predict future.</li>
-          <li><strong className="text-[#C3CAD7]">Beta</strong> measures volatility vs the market (1.0 = market, &gt;1 more volatile).</li>
+        <summary className="cursor-pointer text-mute">Comparison guide</summary>
+        <ul className="mt-2 list-disc space-y-0.5 pl-4 text-ink-3">
+          <li><strong className="text-ink-2">Lower expense ratio</strong> is better (saves money long-term).</li>
+          <li><strong className="text-ink-2">Higher AUM</strong> means more liquidity, tighter bid/ask spreads.</li>
+          <li><strong className="text-ink-2">Yield</strong> matters for income-focused investors.</li>
+          <li><strong className="text-ink-2">Returns</strong> show recent performance, but past performance doesn't predict future.</li>
+          <li><strong className="text-ink-2">Beta</strong> measures volatility vs the market (1.0 = market, &gt;1 more volatile).</li>
         </ul>
       </details>
-      <p className="text-[10px] text-[#5C6678]">Yield & 3Y beta are not in the source ETF cache (shown N/A), matching the Streamlit app.</p>
+      <p className="text-[10px] text-dim">Yield & 3Y beta are not in the source ETF cache (shown N/A), matching the Streamlit app.</p>
     </div>
   );
 }
@@ -205,14 +207,14 @@ function Maps({ data }: { data: EtfFile }) {
   const tbl = (title: string, key: "sector" | "theme", map: MapRow[]) => (
     <Card title={title}>
       <table className="w-full text-sm">
-        <thead><tr><th className="py-1 text-left text-xs uppercase text-[#7C879B]">{key}</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">ETF</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Alt</th><th className="py-1 text-left text-xs uppercase text-[#7C879B]">Use case</th></tr></thead>
+        <thead><tr><th className="py-1 text-left text-xs uppercase text-mute">{key}</th><th className="py-1 text-left text-xs uppercase text-mute">ETF</th><th className="py-1 text-left text-xs uppercase text-mute">Alt</th><th className="py-1 text-left text-xs uppercase text-mute">Use case</th></tr></thead>
         <tbody>
           {map.map((m, i) => (
-            <tr key={i} className="border-t border-[#161D29]">
+            <tr key={i} className="border-t border-line-faint">
               <td className="py-1.5 font-medium text-white">{m[key]}</td>
               <td className="py-1.5"><EtfTicker t={m.ticker} /></td>
-              <td className="py-1.5 text-[#9CA7BB]">{m.alternative ?? "—"}</td>
-              <td className="py-1.5 text-xs text-[#9CA7BB]">{m.use_case}</td>
+              <td className="py-1.5 text-ink-3">{m.alternative ?? "—"}</td>
+              <td className="py-1.5 text-xs text-ink-3">{m.use_case}</td>
             </tr>
           ))}
         </tbody>
@@ -281,22 +283,22 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
 
   const cols = useMemo<Column<EtfRow>[]>(() => [
     { key: "ticker", header: "Ticker", sortValue: (r) => r.ticker, render: (r) => r.inUniverse
-        ? <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline">{r.ticker}</button>
+        ? <button onClick={() => goToDetail(r.ticker)} className="font-semibold text-link hover:underline">{r.ticker}</button>
         : <span className="font-semibold text-[#8FA8D0]" title="expanded coverage — no stock-detail page">{r.ticker}</span> },
-    { key: "name", header: "Name", sortValue: (r) => r.name, render: (r) => <span className="block max-w-[280px] truncate text-[#C3CAD7]">{r.name}</span> },
+    { key: "name", header: "Name", sortValue: (r) => r.name, render: (r) => <span className="block max-w-[280px] truncate text-ink-2">{r.name}</span> },
     { key: "lt", header: "Look-through", align: "right", sortValue: (r) => r.lt_score ?? -1, render: (r) => r.lt_score == null
-        ? <span className="text-[#5A6477]" title="low coverage (bond / broad-intl)">—</span>
-        : <span title={`${Math.round(r.coverage * 100)}% of weight mapped to scored stocks`}><span className="font-semibold text-[#5BA8FF]">{r.lt_score.toFixed(2)}</span><span className="ml-1 text-[10px] text-[#7C879B]">{Math.round(r.coverage * 100)}%</span></span> },
-    { key: "composite", header: "Stock-model", align: "right", sortValue: (r) => r.composite ?? -1, render: (r) => r.composite == null ? <span className="text-[#5A6477]">—</span> : <span className="text-[#9CA7BB]">{r.composite.toFixed(2)}</span> },
-    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating ?? ""] ?? 0, render: (r) => { const rt = relRating.get(r.ticker) ?? r.rating; return rt ? <RatingBadge rating={rt} /> : <span className="text-[#5A6477]">—</span>; } },
+        ? <span className="text-dim" title="low coverage (bond / broad-intl)">—</span>
+        : <span title={`${Math.round(r.coverage * 100)}% of weight mapped to scored stocks`}><span className="font-semibold text-link">{r.lt_score.toFixed(2)}</span><span className="ml-1 text-[10px] text-mute">{Math.round(r.coverage * 100)}%</span></span> },
+    { key: "composite", header: "Stock-model", align: "right", sortValue: (r) => r.composite ?? -1, render: (r) => r.composite == null ? <span className="text-dim">—</span> : <span className="text-ink-3">{r.composite.toFixed(2)}</span> },
+    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating ?? ""] ?? 0, render: (r) => { const rt = relRating.get(r.ticker) ?? r.rating; return rt ? <RatingBadge rating={rt} /> : <span className="text-dim">—</span>; } },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price ?? -1, render: (r) => r.price == null ? "—" : fmtMoney(r.price) },
-    { key: "cap", header: "AUM", align: "right", sortValue: (r) => r.aumB ?? -1, render: (r) => <span className="text-[#9CA7BB]">{r.aumB == null ? "—" : fmtCapB(r.aumB)}</span> },
+    { key: "cap", header: "AUM", align: "right", sortValue: (r) => r.aumB ?? -1, render: (r) => <span className="text-ink-3">{r.aumB == null ? "—" : fmtCapB(r.aumB)}</span> },
   ], [goToDetail, relRating]);
 
   return (
     <div className="space-y-2">
-      <p className="text-[11px] leading-relaxed text-[#7C879B]">
-        <strong className="text-[#9CA7BB]">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-[#9CA7BB]">within the ETF cohort</strong> (top ~15% Strong Buy). “—” = bond / broad-international (holdings outside the scored US-equity universe). Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need a paid holdings feed; the pipeline swaps in unchanged.
+      <p className="text-[11px] leading-relaxed text-mute">
+        <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy). “—” = bond / broad-international (holdings outside the scored US-equity universe). Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need a paid holdings feed; the pipeline swaps in unchanged.
       </p>
       <SortableTable columns={cols} rows={display} rowKey={(r) => r.ticker} initialSortKey="lt" initialSortDir="desc" />
     </div>

@@ -44,14 +44,14 @@ export function BookTypePill({ bookType, asOf }: { bookType: BookType; asOf?: st
   return bookType === "live" ? (
     <span
       title={`LIVE — broker-confirmed positions${asOf ? ` (as of ${asOf})` : ""}`}
-      className="rounded-full bg-[#0E2A14] px-2 py-0.5 text-[10px] font-semibold text-[#00C805] ring-1 ring-[#1C5C2E]"
+      className="rounded-full bg-pos/10 px-2 py-0.5 text-[10px] font-semibold text-pos ring-1 ring-pos/35"
     >
       ● LIVE · broker
     </span>
   ) : (
     <span
       title={`PAPER — signal-derived research book, never held at a broker${asOf ? ` (as of ${asOf})` : ""}`}
-      className="rounded-full bg-[#231C10] px-2 py-0.5 text-[10px] font-semibold text-[#D8B878] ring-1 ring-[#4A3B1D]"
+      className="rounded-full bg-paper/10 px-2 py-0.5 text-[10px] font-semibold text-paper ring-1 ring-paper/30"
     >
       ◌ PAPER · research
     </span>
@@ -155,25 +155,25 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">Strategies — consolidated portfolio</h2>
-        <p className="text-xs text-[#7C879B]">
-          Five strategies run as one pooled book: <span className="text-[#C7CEDA]">Katalepsis</span> (ML posterior),
-          <span className="text-[#C7CEDA]"> Aristeia</span> (event/PEAD) and <span className="text-[#C7CEDA]">Pronoia</span> (ML
+        <p className="text-xs text-mute">
+          Five strategies run as one pooled book: <span className="text-ink-2">Katalepsis</span> (ML posterior),
+          <span className="text-ink-2"> Aristeia</span> (event/PEAD) and <span className="text-ink-2">Pronoia</span> (ML
           12-month foresight) are the three distinct, decorrelated bets; Auxo and Prosodos are the surviving quant factors.
           Axia/Krasis/Horme were retired as redundant per the combined-book audit. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
 
       {basket && (
-        <div className="rounded-lg border border-[#1C5C2E] bg-[#0B1A0F] p-4">
+        <div className="rounded-lg border border-pos/35 bg-pos/8 p-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-sm font-semibold text-[#00C805]">▣ Total basket — all {basket.n} strategies, equal-weight pooled</div>
-              <div className="text-[11px] text-[#7C879B]">The consolidated book (2011–2026 backtest). Deployable = excluding &gt;10% SPY drawdowns (PPI takes the book to cash there).</div>
+              <div className="text-sm font-semibold text-pos">▣ Total basket — all {basket.n} strategies, equal-weight pooled</div>
+              <div className="text-[11px] text-mute">The consolidated book (2011–2026 backtest). Deployable = excluding &gt;10% SPY drawdowns (PPI takes the book to cash there).</div>
             </div>
             <div className="flex flex-wrap gap-5">
-              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Basket CAGR</div><div className="font-mono text-xl font-bold text-[#00C805]">{basket.full.cagr.toFixed(1)}%</div><div className="text-[10px] text-[#7C879B]">vs SPY {basket.spy_cagr.toFixed(1)}%</div></div>
-              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Sharpe</div><div className="font-mono text-xl font-bold text-white">{basket.full.sharpe.toFixed(2)}</div><div className="text-[10px] text-[#7C879B]">{basket.deployable.sharpe.toFixed(2)} deployable</div></div>
-              <div><div className="text-[10px] uppercase tracking-wide text-[#7C879B]">Max DD</div><div className="font-mono text-xl font-bold text-[#FF8A65]">{basket.full.max_dd.toFixed(1)}%</div><div className="text-[10px] text-[#7C879B]">true daily</div></div>
+              <div><div className="text-[10px] uppercase tracking-wide text-mute">Basket CAGR</div><div className="font-mono text-xl font-bold text-pos">{basket.full.cagr.toFixed(1)}%</div><div className="text-[10px] text-mute">vs SPY {basket.spy_cagr.toFixed(1)}%</div></div>
+              <div><div className="text-[10px] uppercase tracking-wide text-mute">Sharpe</div><div className="font-mono text-xl font-bold text-white">{basket.full.sharpe.toFixed(2)}</div><div className="text-[10px] text-mute">{basket.deployable.sharpe.toFixed(2)} deployable</div></div>
+              <div><div className="text-[10px] uppercase tracking-wide text-mute">Max DD</div><div className="font-mono text-xl font-bold text-neg">{basket.full.max_dd.toFixed(1)}%</div><div className="text-[10px] text-mute">true daily</div></div>
             </div>
           </div>
         </div>
@@ -186,8 +186,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           <div className="space-y-3">
             {STRATS.filter((d) => rationale[d.label]?.rationale).map((d) => (
               <div key={d.key}>
-                <div className="text-sm font-semibold text-[#9CB6E0]">{d.label} <span className="text-[11px] font-normal text-[#7C879B]">· {d.factor}</span></div>
-                <p className="mt-0.5 text-sm leading-relaxed text-[#C3CAD7]">{rationale[d.label].rationale}</p>
+                <div className="text-sm font-semibold text-[#9CB6E0]">{d.label} <span className="text-[11px] font-normal text-mute">· {d.factor}</span></div>
+                <p className="mt-0.5 text-sm leading-relaxed text-ink-2">{rationale[d.label].rationale}</p>
               </div>
             ))}
           </div>
@@ -198,7 +198,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-right text-xs">
             <thead>
-              <tr className="text-[#7C879B]">
+              <tr className="text-mute">
                 <th className="px-2 py-1.5 text-left font-medium">Strategy</th>
                 <th className="px-2 py-1.5 text-left font-medium">Book</th>
                 <th className="px-2 py-1.5 font-medium">Backtest CAGR</th>
@@ -216,38 +216,38 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
                   <tr
                     key={r.def.key}
                     onClick={() => onPick(r.def.key)}
-                    className="cursor-pointer border-t border-[#161D29] text-[#C7CEDA] hover:bg-[#141B27]"
+                    className="cursor-pointer border-t border-line-faint text-ink-2 hover:bg-hover-row"
                   >
                     <td className="px-2 py-2 text-left">
-                      <span className="font-semibold text-[#E6E9EF]">{r.engine}</span>
-                      <span className="ml-1.5 text-[#7C879B]">{r.def.factor}</span>
+                      <span className="font-semibold text-ink">{r.engine}</span>
+                      <span className="ml-1.5 text-mute">{r.def.factor}</span>
                     </td>
                     <td className="px-2 py-2 text-left">
                       <BookTypePill bookType={r.bookType} asOf={r.asOf} />
                     </td>
-                    <td className="px-2 py-2 font-semibold text-[#E6E9EF]">{isNaN(r.cagr) ? "—" : `${r.cagr.toFixed(1)}%`}</td>
-                    <td className={`px-2 py-2 ${isNaN(excess) ? "text-[#7C879B]" : excess >= 0 ? "text-[#00C805]" : "text-[#FF5722]"}`}>
+                    <td className="px-2 py-2 font-semibold text-ink">{isNaN(r.cagr) ? "—" : `${r.cagr.toFixed(1)}%`}</td>
+                    <td className={`px-2 py-2 ${isNaN(excess) ? "text-mute" : excess >= 0 ? "text-pos" : "text-neg"}`}>
                       {isNaN(excess) ? "—" : `${excess >= 0 ? "+" : ""}${excess.toFixed(1)}%`}
                     </td>
-                    <td className="px-2 py-2 text-[#C7CEDA]">{isNaN(r.sharpe) ? "—" : r.sharpe.toFixed(2)}</td>
-                    <td className="px-2 py-2 text-[#FF8A65]">{isNaN(r.maxdd) ? "—" : `${r.maxdd.toFixed(0)}%`}</td>
+                    <td className="px-2 py-2 text-ink-2">{isNaN(r.sharpe) ? "—" : r.sharpe.toFixed(2)}</td>
+                    <td className="px-2 py-2 text-neg">{isNaN(r.maxdd) ? "—" : `${r.maxdd.toFixed(0)}%`}</td>
                     <td className="px-2 py-2 text-left">
                       <div className="flex flex-wrap justify-start gap-1">
                         {r.tickers.slice(0, 8).map((t) => (
-                          <span key={t} className="rounded border border-[#1E2632] bg-[#0C0F16] px-1.5 py-0.5 font-mono text-[10px] text-[#E6E9EF]">{t}</span>
+                          <span key={t} className="rounded border border-line bg-inset px-1.5 py-0.5 font-mono text-[10px] text-ink">{t}</span>
                         ))}
                       </div>
                     </td>
-                    <td className="px-2 py-2 font-mono text-[#9CA7BB]">{r.next}</td>
+                    <td className="px-2 py-2 font-mono text-ink-3">{r.next}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-[10px] text-[#5A6477]">
-          <span className="text-[#00C805]">● LIVE</span> = broker-confirmed positions;{" "}
-          <span className="text-[#D8B878]">◌ PAPER</span> = signal-derived research book, never held at a broker.
+        <p className="mt-3 text-[10px] text-dim">
+          <span className="text-pos">● LIVE</span> = broker-confirmed positions;{" "}
+          <span className="text-paper">◌ PAPER</span> = signal-derived research book, never held at a broker.
           Quant strategies rebalance every fixed hold-window; live sleeves rebalance the first trading day of each month. Click any row to open its full page.
           {scouts.length > 0 && (
             <> {" "}Research scouts (paper, holdings-redundant — excluded from the book): {scouts.join(" · ")}.</>
@@ -272,7 +272,7 @@ function PaperStrategyView({ def }: { def: StratDef }) {
             key={v}
             onClick={() => setView(v)}
             className={`rounded-md px-3 py-1.5 text-xs transition ${
-              view === v ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
+              view === v ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"
             }`}
           >
             {v === "backtest" ? "📈 Backtest history" : "● Live paper-track (from 2026-07-01)"}
@@ -292,16 +292,16 @@ export default function StrategiesTab() {
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap gap-1 border-b border-[#1E2632] pb-2">
+      <div className="flex flex-wrap gap-1 border-b border-line pb-2">
         {items.map((it) => (
           <button
             key={it.key}
             onClick={() => setActive(it.key)}
             className={`rounded-md px-3 py-1.5 text-sm transition ${
-              it.key === active ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"
+              it.key === active ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"
             }`}
           >
-            {statusMap[it.key]?.book_type === "live" && it.key !== active ? <span className="mr-1 text-[#00C805]">●</span> : null}
+            {statusMap[it.key]?.book_type === "live" && it.key !== active ? <span className="mr-1 text-pos">●</span> : null}
             {it.label}
           </button>
         ))}

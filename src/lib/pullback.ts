@@ -1,3 +1,4 @@
+import { SEM } from "../theme";
 // Faithful port of pullback_pressure.py — the "Why?" breakdown. Composite =
 // weighted blend of VIX (40%), SPY vs 50-SMA (20%), SPY vs 200-SMA (20%),
 // universe breadth (10%), SPY 3-month return (10%). Inputs come from /api/market
@@ -58,8 +59,8 @@ export function computePullback(
   composite = Math.round(composite * 10) / 10;
 
   const [level, level_color] =
-    composite >= 75 ? ["Extreme", "#D32F2F"] : composite >= 60 ? ["Elevated", "#FF9800"] :
-    composite >= 40 ? ["Moderate", "#FFC107"] : composite >= 25 ? ["Low", "#8BC34A"] : ["Very Low", "#00C805"];
+    composite >= 75 ? ["Extreme", SEM.negDeep] : composite >= 60 ? ["Elevated", SEM.warnHot] :
+    composite >= 40 ? ["Moderate", SEM.warn] : composite >= 25 ? ["Low", SEM.posSoft] : ["Very Low", SEM.pos];
 
   let deploy_pct: number, deploy_strategy: string;
   if (composite >= 80) { deploy_pct = 25; deploy_strategy = "Conditions stretched. Deploy 25% now, hold 75% for a pullback or DCA over 8–12 weeks."; }

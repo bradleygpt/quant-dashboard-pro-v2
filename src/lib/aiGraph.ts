@@ -1,3 +1,4 @@
+import { ASSET, SEM } from "../theme";
 // AI Bubble Watch graph engine — dependency-free. Deterministic force-directed
 // layout + directed-cycle detection over the curated deal set. Renders ONLY from
 // ai_deals.json; an edge without source_url AND date is rejected upstream.
@@ -12,9 +13,9 @@ export interface AiDealsFile {
 }
 
 export const TYPE_META: Record<DealType, { label: string; color: string }> = {
-  hardware_software: { label: "Hardware / Software", color: "#F7931A" },
-  investment: { label: "Investment", color: "#00C805" },
-  services: { label: "Services (cloud)", color: "#5BA8FF" },
+  hardware_software: { label: "Hardware / Software", color: ASSET.btc },
+  investment: { label: "Investment", color: SEM.pos },
+  services: { label: "Services (cloud)", color: SEM.link },
   venture_capital: { label: "Venture Capital", color: "#A855F7" },
 };
 

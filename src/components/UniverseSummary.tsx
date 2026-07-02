@@ -14,7 +14,7 @@ export default function UniverseSummary() {
   if (!d?.summary) return null;
   return (
     <Card title="AI Market Summary" sub={`The universe in a paragraph · ${d.generated_at ?? ""}`}>
-      <p className="text-sm leading-relaxed text-[#C3CAD7]">{d.summary}</p>
+      <p className="text-sm leading-relaxed text-ink-2">{d.summary}</p>
     </Card>
   );
 }

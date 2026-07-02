@@ -1,3 +1,4 @@
+import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
@@ -7,6 +8,7 @@ import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
+import { INK, SEM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 // the 15 c78q signal streams: Pr1-6 (price/momentum, green), F1-6 (fundamentals, blue), P1/E3/N1 (insider/PEAD/8-K, violet)
@@ -54,7 +56,7 @@ export default function C78QTab() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-bold text-white">Project Katalepsis (c78q) Strategy</h2>
-        <p className="text-xs text-[#7C879B]">
+        <p className="text-xs text-mute">
           Currently holding {data?.target?.n ?? data?.spec?.basket_size ?? 8} stocks
           {data?.target?.n && data?.spec?.basket_size && data.target.n !== data.spec.basket_size ? ` (transitioning to top-${data.spec.basket_size})` : ""}, equal-weight {((data?.target?.n ? 1 / data.target.n : (data?.spec?.weight_per_position ?? 0.125)) * 100).toFixed(1)}%.
           Backtest / picks / state from the quant-historical ETL ({data?.generated_at ? new Date(data.generated_at).toLocaleDateString() : "daily"}); PPI computed live from SPY/VIX/VVIX + baked-universe breadth.
@@ -72,11 +74,11 @@ export default function C78QTab() {
 
 // ── (d) PPI ─────────────────────────────────────────────────────────────────
 const BANDS = [
-  { lo: 0, hi: 20, label: "LOW", color: "#00C805", note: "Market healthy. Deploy normally." },
-  { lo: 20, hi: 40, label: "MODERATE", color: "#8BC34A", note: "Normal fluctuation." },
-  { lo: 40, hi: 60, label: "ELEVATED", color: "#FF9800", note: "Consider scaling in vs full deployment." },
-  { lo: 60, hi: 80, label: "HIGH", color: "#FF5722", note: "Delay new deployment. Pullback likely." },
-  { lo: 80, hi: 100, label: "EXTREME", color: "#D32F2F", note: "Active correction. Wait for resolution." },
+  { lo: 0, hi: 20, label: "LOW", color: SEM.pos, note: "Market healthy. Deploy normally." },
+  { lo: 20, hi: 40, label: "MODERATE", color: SEM.posSoft, note: "Normal fluctuation." },
+  { lo: 40, hi: 60, label: "ELEVATED", color: SEM.warnHot, note: "Consider scaling in vs full deployment." },
+  { lo: 60, hi: 80, label: "HIGH", color: SEM.neg, note: "Delay new deployment. Pullback likely." },
+  { lo: 80, hi: 100, label: "EXTREME", color: SEM.negDeep, note: "Active correction. Wait for resolution." },
 ];
 
 function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
@@ -90,10 +92,10 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
           <>
             <div className="flex flex-wrap items-end gap-4">
               <div>
-                <div className="text-4xl font-bold" style={{ color: live.color }}>{live.score.toFixed(1)}<span className="text-lg text-[#7C879B]">/100</span></div>
+                <div className="text-4xl font-bold" style={{ color: live.color }}>{live.score.toFixed(1)}<span className="text-lg text-mute">/100</span></div>
                 <div className="text-sm font-semibold" style={{ color: live.color }}>{live.level}</div>
               </div>
-              <div className="flex-1 text-sm text-[#9CA7BB]">{live.action}<div className="mt-1 text-xs text-[#7C879B]">Suggested deployment: <span className="font-semibold text-[#C3CAD7]">{live.band_deploy_pct}%</span> now.</div></div>
+              <div className="flex-1 text-sm text-ink-3">{live.action}<div className="mt-1 text-xs text-mute">Suggested deployment: <span className="font-semibold text-ink-2">{live.band_deploy_pct}%</span> now.</div></div>
             </div>
             {/* gradient band scale with marker */}
             <div className="mt-3">
@@ -103,33 +105,33 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
               <div className="relative h-4">
                 <div className="absolute -mt-3 h-4 w-0.5 bg-white" style={{ left: `${Math.min(100, live.score)}%` }} />
               </div>
-              <div className="flex justify-between text-[9px] text-[#5C6678]">{BANDS.map((b) => <span key={b.label}>{b.lo}</span>)}<span>100</span></div>
+              <div className="flex justify-between text-[9px] text-dim">{BANDS.map((b) => <span key={b.label}>{b.lo}</span>)}<span>100</span></div>
             </div>
 
-            <div className="mt-4 overflow-auto rounded-lg border border-[#1E2632]">
+            <div className="mt-4 overflow-auto rounded-lg border border-line">
               <table className="w-full text-sm">
-                <thead><tr>{["Component", "Score", "Weight", "Contribution", "Detail"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+                <thead><tr>{["Component", "Score", "Weight", "Contribution", "Detail"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
                 <tbody>
                   {live.components.map((c) => (
-                    <tr key={c.key} className="border-t border-[#161D29]">
-                      <td className="px-3 py-1.5 font-medium text-[#C3CAD7]">{c.name}</td>
-                      <td className="px-3 py-1.5 font-semibold" style={{ color: c.score < 30 ? "#00C805" : c.score < 50 ? "#FFC107" : c.score < 70 ? "#FF9800" : "#FF5722" }}>{c.score}</td>
-                      <td className="px-3 py-1.5 text-[#9CA7BB]">{(c.weight * 100).toFixed(0)}%</td>
-                      <td className="px-3 py-1.5 text-[#9CA7BB]">{(c.score * c.weight).toFixed(1)}</td>
-                      <td className="px-3 py-1.5 text-xs text-[#7C879B]">{c.detail}</td>
+                    <tr key={c.key} className="border-t border-line-faint">
+                      <td className="px-3 py-1.5 font-medium text-ink-2">{c.name}</td>
+                      <td className="px-3 py-1.5 font-semibold" style={{ color: c.score < 30 ? SEM.pos : c.score < 50 ? SEM.warn : c.score < 70 ? SEM.warnHot : SEM.neg }}>{c.score}</td>
+                      <td className="px-3 py-1.5 text-ink-3">{(c.weight * 100).toFixed(0)}%</td>
+                      <td className="px-3 py-1.5 text-ink-3">{(c.score * c.weight).toFixed(1)}</td>
+                      <td className="px-3 py-1.5 text-xs text-mute">{c.detail}</td>
                     </tr>
                   ))}
-                  <tr className="border-t border-[#2A3242] bg-[#0F1420]/40 font-semibold">
-                    <td className="px-3 py-1.5 text-[#E6E9EF]">PPI</td>
+                  <tr className="border-t border-line-2 bg-head/40 font-semibold">
+                    <td className="px-3 py-1.5 text-ink">PPI</td>
                     <td className="px-3 py-1.5" style={{ color: live.color }}>{live.score.toFixed(1)}</td>
-                    <td className="px-3 py-1.5 text-[#9CA7BB]">100%</td>
-                    <td className="px-3 py-1.5 text-[#C3CAD7]">{live.score.toFixed(1)}</td>
-                    <td className="px-3 py-1.5 text-xs text-[#7C879B]">{live.level}</td>
+                    <td className="px-3 py-1.5 text-ink-3">100%</td>
+                    <td className="px-3 py-1.5 text-ink-2">{live.score.toFixed(1)}</td>
+                    <td className="px-3 py-1.5 text-xs text-mute">{live.level}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div className="mt-2 text-[10px] text-[#5C6678]">
+            <div className="mt-2 text-[10px] text-dim">
               Breadth is computed from the app's baked universe ({breadthPct != null ? `${breadthPct.toFixed(0)}% above 50-SMA` : "unavailable"}), not the ~1,747 per-stock parquets the Python scans — the expected source of any small drift vs the Python's PPI.
             </div>
           </>
@@ -141,9 +143,9 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
         <div className="space-y-1 text-sm">
           {BANDS.map((b) => (
             <div key={b.label} className="flex items-center gap-2">
-              <span className="w-16 text-right text-xs text-[#7C879B]">{b.lo}–{b.hi}</span>
+              <span className="w-16 text-right text-xs text-mute">{b.lo}–{b.hi}</span>
               <span className="w-24 font-semibold" style={{ color: b.color }}>{b.label}</span>
-              <span className="text-[#9CA7BB]">{b.note}</span>
+              <span className="text-ink-3">{b.note}</span>
             </div>
           ))}
         </div>
@@ -154,11 +156,11 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
         <Card title="PPI Trend" sub="Historical PPI series from the ETL.">
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={history} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-              <CartesianGrid stroke="#1A2130" vertical={false} />
-              <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={40} />
-              <YAxis domain={[0, 100]} tick={{ fill: "#7C879B", fontSize: 11 }} width={32} />
-              <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8 }} />
-              <Line type="monotone" dataKey="score" stroke="#FF9800" dot={false} strokeWidth={1.8} />
+              <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+              <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} minTickGap={40} />
+              <YAxis domain={[0, 100]} tick={{ fill: INK.mute, fontSize: 11 }} width={32} />
+              <Tooltip {...tooltipProps} />
+              <Line type="monotone" dataKey="score" stroke={SEM.warnHot} dot={false} strokeWidth={1.8} />
             </LineChart>
           </ResponsiveContainer>
         </Card>
@@ -169,7 +171,7 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
         <Card title="ETL cross-reference" sub={`The daily Python ETL's last computed PPI (as of ${baked.as_of}) — uses real per-stock parquet breadth.`}>
           <div className="flex flex-wrap items-center gap-4">
             <Metric label="ETL PPI" value={`${baked.score.toFixed(1)} · ${baked.level}`} hint={`deploy ${baked.band_deploy_pct}%`} />
-            <div className="text-xs text-[#7C879B]">{live ? `Live recompute: ${live.score.toFixed(1)} · ${live.level}. Differences come from data recency + breadth source (baked universe vs parquets).` : "Live recompute unavailable in preview."}</div>
+            <div className="text-xs text-mute">{live ? `Live recompute: ${live.score.toFixed(1)} · ${live.level}. Differences come from data recency + breadth source (baked universe vs parquets).` : "Live recompute unavailable in preview."}</div>
           </div>
         </Card>
       )}
@@ -200,18 +202,18 @@ function DeployedBlock({ data }: { data: C78q }) {
   return (
     <div className="space-y-4">
       <Card title="Current Target" asOfDate={t?.as_of} sub={t ? `c78q picks as of ${t.as_of} · ${t.rows.length} stocks · equal-weight ${(wpp * 100).toFixed(1)}% each` : undefined}>
-        {!t?.rows?.length ? <div className="text-sm text-[#7C879B]">No current target available.</div> : (
-          <div className="overflow-auto rounded-lg border border-[#1E2632]">
+        {!t?.rows?.length ? <div className="text-sm text-mute">No current target available.</div> : (
+          <div className="overflow-auto rounded-lg border border-line">
             <table className="w-full text-sm">
-              <thead><tr>{["#", "Ticker", "Weight", "Posterior", "Streams", "Allocation"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+              <thead><tr>{["#", "Ticker", "Weight", "Posterior", "Streams", "Allocation"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
               <tbody>
                 {t.rows.map((r) => (
-                  <tr key={r.ticker} className="border-t border-[#161D29]">
-                    <td className="px-3 py-1.5 text-[#7C879B]">{r.rank}</td>
-                    <td className="px-3 py-1.5"><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${r.ticker} stock detail`}>{r.ticker}</button></td>
+                  <tr key={r.ticker} className="border-t border-line-faint">
+                    <td className="px-3 py-1.5 text-mute">{r.rank}</td>
+                    <td className="px-3 py-1.5"><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-link hover:underline" title={`Open ${r.ticker} stock detail`}>{r.ticker}</button></td>
                     <td className="px-3 py-1.5">{(wpp * 100).toFixed(1)}%</td>
                     <td className="px-3 py-1.5">{(r.posterior_prob * 100).toFixed(1)}%</td>
-                    <td className="px-3 py-1.5 text-[#9CA7BB]">{r.n_streams}</td>
+                    <td className="px-3 py-1.5 text-ink-3">{r.n_streams}</td>
                     <td className="px-3 py-1.5">{fmtMoney(cap * wpp, 0)}</td>
                   </tr>
                 ))}
@@ -238,9 +240,9 @@ function DeployedBlock({ data }: { data: C78q }) {
             <Metric label="Next rebalance" value={s.next_rebalance ?? "—"} />
           </div>
           {s.positions?.length ? (
-            <div className="overflow-auto rounded-lg border border-[#1E2632]">
+            <div className="overflow-auto rounded-lg border border-line">
               <table className="w-full text-sm">
-                <thead><tr>{["Ticker", "Shares", "Entry", "Current", "Gain", "Value"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+                <thead><tr>{["Ticker", "Shares", "Entry", "Current", "Gain", "Value"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
                 <tbody>
                   {s.positions.map((p) => {
                     const lq = livePx.get(p.ticker);
@@ -248,14 +250,14 @@ function DeployedBlock({ data }: { data: C78q }) {
                     const isLive = lq != null;
                     const gain = p.entry_price > 0 ? (cur / p.entry_price - 1) * 100 : 0;
                     return (
-                      <tr key={p.ticker} className="border-t border-[#161D29]">
-                        <td className="px-3 py-1.5"><button onClick={() => goToDetail(p.ticker)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${p.ticker} stock detail`}>{p.ticker}</button></td>
+                      <tr key={p.ticker} className="border-t border-line-faint">
+                        <td className="px-3 py-1.5"><button onClick={() => goToDetail(p.ticker)} className="font-semibold text-link hover:underline" title={`Open ${p.ticker} stock detail`}>{p.ticker}</button></td>
                         <td className="px-3 py-1.5">{p.shares}</td>
                         <td className="px-3 py-1.5">{fmtMoney(p.entry_price)}</td>
                         <td className="px-3 py-1.5">{fmtMoney(cur)}
-                          <span className={`ml-1 text-[10px] ${isLive ? "text-[#00C805]" : "text-[#7C879B]"}`}>{isLive ? "live" : "stale"}</span>
+                          <span className={`ml-1 text-[10px] ${isLive ? "text-pos" : "text-mute"}`}>{isLive ? "live" : "stale"}</span>
                         </td>
-                        <td className="px-3 py-1.5 font-semibold" style={{ color: gain >= 0 ? "#00C805" : "#FF5722" }}>{fmtPct(gain, 1, true)}</td>
+                        <td className="px-3 py-1.5 font-semibold" style={{ color: gain >= 0 ? SEM.pos : SEM.neg }}>{fmtPct(gain, 1, true)}</td>
                         <td className="px-3 py-1.5">{fmtMoney(p.shares * cur, 0)}</td>
                       </tr>
                     );
@@ -263,10 +265,10 @@ function DeployedBlock({ data }: { data: C78q }) {
                 </tbody>
               </table>
             </div>
-          ) : <div className="text-sm text-[#7C879B]">No open positions recorded.</div>}
+          ) : <div className="text-sm text-mute">No open positions recorded.</div>}
         </Card>
       ) : (
-        <Card title="Live Deployment State"><div className="text-sm text-[#7C879B]">Mode: {s?.mode ?? "pre-deploy"} — no positions deployed yet.</div></Card>
+        <Card title="Live Deployment State"><div className="text-sm text-mute">Mode: {s?.mode ?? "pre-deploy"} — no positions deployed yet.</div></Card>
       )}
     </div>
   );
@@ -326,9 +328,9 @@ function BacktestBlock({ data }: { data: C78q }) {
       )}
       <Card title="Validated Backtest" sub={`c78q ${data.spec?.version ?? ""} · ${bt.n_months ?? summary.length} months · TOP-${data.spec?.basket_size ?? 8}, ${(data.spec as any)?.rebalance ?? "monthly"}, equal-weight`}>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          <Metric label="Net CAGR" value={<span className="text-[#00C805]">{bt.net_cagr != null ? fmtPct(bt.net_cagr * 100, 1) : "—"}</span>} />
+          <Metric label="Net CAGR" value={<span className="text-pos">{bt.net_cagr != null ? fmtPct(bt.net_cagr * 100, 1) : "—"}</span>} />
           <Metric label="Sharpe" value={bt.sharpe != null ? bt.sharpe.toFixed(2) : "—"} />
-          <Metric label="Max Drawdown" value={<span className="text-[#FF5722]">{bt.max_drawdown != null ? fmtPct(bt.max_drawdown * 100, 1) : "—"}</span>} />
+          <Metric label="Max Drawdown" value={<span className="text-neg">{bt.max_drawdown != null ? fmtPct(bt.max_drawdown * 100, 1) : "—"}</span>} />
           <Metric label="Hit Rate" value={bt.hit_rate != null ? fmtPct(bt.hit_rate * 100, 1) : "—"} />
           <Metric label="Turnover" value={bt.turnover != null ? `${(bt.turnover * 100).toFixed(0)}%` : "—"} />
           <Metric label="Months" value={bt.n_months ?? summary.length} />
@@ -336,16 +338,16 @@ function BacktestBlock({ data }: { data: C78q }) {
       </Card>
 
       {data.data_caveat && (
-        <div className="rounded-lg border border-[#3A2A14] bg-[#1A1308] px-4 py-3 text-[11px] text-[#D9A441]">
+        <div className="rounded-lg border border-warn/25 bg-warn/5 px-4 py-3 text-[11px] text-[#D9A441]">
           ⚠️ {data.data_caveat}
         </div>
       )}
 
       {summary.length > 0 && (
-        <div className="rounded-lg border border-[#1E2632] bg-[#0C0F16] px-4 py-3 text-[11px] text-[#7C879B]">
-          The animated pipeline above plots the <span className="text-[#C3CAD7]">actual</span> backtest path — real cum_strat over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}), real per-rebalance baskets, each name's realized return as its candle.
-          Terminal per $1: c78q <span className="font-semibold text-[#00C805]">${stratEnd != null ? stratEnd.toFixed(0) : "—"}</span>
-          {" vs SPY "}<span className="font-semibold text-[#C3CAD7]">{spyLive ? `$${spyEnd!.toFixed(1)}` : "—"}</span>
+        <div className="rounded-lg border border-line bg-inset px-4 py-3 text-[11px] text-mute">
+          The animated pipeline above plots the <span className="text-ink-2">actual</span> backtest path — real cum_strat over {summary.length} months ({summary[0].date} → {summary[summary.length - 1].date}), real per-rebalance baskets, each name's realized return as its candle.
+          Terminal per $1: c78q <span className="font-semibold text-pos">${stratEnd != null ? stratEnd.toFixed(0) : "—"}</span>
+          {" vs SPY "}<span className="font-semibold text-ink-2">{spyLive ? `$${spyEnd!.toFixed(1)}` : "—"}</span>
           {spyLive ? " (real buy-and-hold)." : ""}
         </div>
       )}
@@ -369,26 +371,26 @@ function AnalysisBlock({ data }: { data: C78q }) {
       </Card>
 
       <Card title="Live vs Backtest" sub="Realized live metrics accrue once ≥3 months are traded; until then only the validated backtest record is shown.">
-        <div className="overflow-auto rounded-lg border border-[#1E2632]">
+        <div className="overflow-auto rounded-lg border border-line">
           <table className="w-full text-sm">
-            <thead><tr>{["Metric", "Backtest", "Live"].map((h) => <th key={h} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{h}</th>)}</tr></thead>
+            <thead><tr>{["Metric", "Backtest", "Live"].map((h) => <th key={h} className="bg-head px-3 py-2 text-left text-xs uppercase text-mute">{h}</th>)}</tr></thead>
             <tbody>
               {([["Net CAGR", bt.net_cagr != null ? fmtPct(bt.net_cagr * 100, 1) : "—", live?.available ? fmtPct((live.net_cagr ?? 0) * 100, 1) : "—"],
                  ["Sharpe", bt.sharpe?.toFixed?.(2) ?? "—", live?.available ? live.sharpe?.toFixed?.(2) ?? "—" : "—"],
                  ["Hit rate", bt.hit_rate != null ? fmtPct(bt.hit_rate * 100, 1) : "—", live?.available ? fmtPct((live.hit_rate ?? 0) * 100, 1) : "—"],
                  ["Months", String(bt.n_months ?? "—"), String(live?.n_months ?? 0)]] as const).map((r) => (
-                <tr key={r[0]} className="border-t border-[#161D29]"><td className="px-3 py-1.5 text-[#C3CAD7]">{r[0]}</td><td className="px-3 py-1.5">{r[1]}</td><td className="px-3 py-1.5 text-[#9CA7BB]">{r[2]}</td></tr>
+                <tr key={r[0]} className="border-t border-line-faint"><td className="px-3 py-1.5 text-ink-2">{r[0]}</td><td className="px-3 py-1.5">{r[1]}</td><td className="px-3 py-1.5 text-ink-3">{r[2]}</td></tr>
               ))}
             </tbody>
           </table>
         </div>
-        {!live?.available && <div className="mt-2 text-[11px] text-[#7C879B]">Live track record: {live?.n_months ?? 0} months traded — needs ≥3 for realized metrics.</div>}
+        {!live?.available && <div className="mt-2 text-[11px] text-mute">Live track record: {live?.n_months ?? 0} months traded — needs ≥3 for realized metrics.</div>}
       </Card>
 
       <Card title="Per-stream attribution">
         {data.attribution && data.attribution.length ? (
-          <div className="text-sm text-[#9CA7BB]">{data.attribution.length} attribution rows available in the ETL output.</div>
-        ) : <div className="text-sm text-[#7C879B]">No per-stream attribution in the current ETL output (populated by a separate stream-walk script).</div>}
+          <div className="text-sm text-ink-3">{data.attribution.length} attribution rows available in the ETL output.</div>
+        ) : <div className="text-sm text-mute">No per-stream attribution in the current ETL output (populated by a separate stream-walk script).</div>}
       </Card>
     </div>
   );

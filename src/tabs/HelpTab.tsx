@@ -25,7 +25,7 @@ function Markdown({ text }: { text: string }) {
   let list: string[] = [];
   const flush = () => {
     if (list.length) {
-      out.push(<ul key={out.length} className="my-2 list-disc space-y-1 pl-5 text-[#C3CAD7]">{list.map((li, i) => <li key={i}>{inline(li)}</li>)}</ul>);
+      out.push(<ul key={out.length} className="my-2 list-disc space-y-1 pl-5 text-ink-2">{list.map((li, i) => <li key={i}>{inline(li)}</li>)}</ul>);
       list = [];
     }
   };
@@ -36,12 +36,12 @@ function Markdown({ text }: { text: string }) {
   };
   for (const raw of lines) {
     const l = raw.trimEnd();
-    if (/^###\s/.test(l)) { flush(); out.push(<h4 key={out.length} className="mt-3 text-sm font-semibold text-[#E6E9EF]">{l.replace(/^###\s/, "")}</h4>); }
+    if (/^###\s/.test(l)) { flush(); out.push(<h4 key={out.length} className="mt-3 text-sm font-semibold text-ink">{l.replace(/^###\s/, "")}</h4>); }
     else if (/^##\s/.test(l)) { flush(); out.push(<h3 key={out.length} className="mt-4 text-base font-bold text-white">{l.replace(/^##\s/, "")}</h3>); }
     else if (/^#\s/.test(l)) { flush(); out.push(<h2 key={out.length} className="mt-4 text-lg font-bold text-white">{l.replace(/^#\s/, "")}</h2>); }
     else if (/^[-*]\s/.test(l)) { list.push(l.replace(/^[-*]\s/, "")); }
     else if (l.trim() === "") { flush(); }
-    else { flush(); out.push(<p key={out.length} className="my-1.5 leading-relaxed text-[#C3CAD7]">{inline(l)}</p>); }
+    else { flush(); out.push(<p key={out.length} className="my-1.5 leading-relaxed text-ink-2">{inline(l)}</p>); }
   }
   flush();
   return <div>{out}</div>;
@@ -59,16 +59,16 @@ function Glossary({ terms }: { terms: GlossaryTerm[] }) {
     <div>
       <h2 className="mb-1 text-lg font-bold text-white">Glossary</h2>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search glossary (e.g. PEG, ROE, RSI…)"
-        className="mb-3 w-full max-w-md rounded-md border border-[#1E2632] bg-[#0F1420] px-3 py-2 text-sm text-white" />
-      <div className="text-[11px] text-[#7C879B]">{filtered.length} of {terms.length} terms</div>
+        className="mb-3 w-full max-w-md rounded-md border border-line bg-head px-3 py-2 text-sm text-white" />
+      <div className="text-[11px] text-mute">{filtered.length} of {terms.length} terms</div>
       <dl className="mt-2 space-y-2">
         {filtered.map((t) => (
-          <div key={t.term} className="border-t border-[#161D29] pt-2">
-            <dt className="text-sm font-semibold text-[#E6E9EF]">{t.term}</dt>
-            <dd className="text-sm leading-relaxed text-[#C3CAD7]">{t.definition}</dd>
+          <div key={t.term} className="border-t border-line-faint pt-2">
+            <dt className="text-sm font-semibold text-ink">{t.term}</dt>
+            <dd className="text-sm leading-relaxed text-ink-2">{t.definition}</dd>
           </div>
         ))}
-        {filtered.length === 0 && <div className="text-sm text-[#7C879B]">No terms match “{q}”.</div>}
+        {filtered.length === 0 && <div className="text-sm text-mute">No terms match “{q}”.</div>}
       </dl>
     </div>
   );
@@ -87,14 +87,14 @@ export default function HelpTab() {
       <div className="w-48 shrink-0">
         {avail.map((s) => (
           <button key={s.key} onClick={() => setActive(s.key)}
-            className={`block w-full rounded-md px-3 py-1.5 text-left text-sm ${active === s.key ? "bg-[#1B2433] font-semibold text-white" : "text-[#9CA7BB] hover:bg-[#161D29]"}`}>
+            className={`block w-full rounded-md px-3 py-1.5 text-left text-sm ${active === s.key ? "bg-active font-semibold text-white" : "text-ink-3 hover:bg-hover"}`}>
             {s.label}
           </button>
         ))}
       </div>
-      <div className="min-w-0 flex-1 rounded-lg border border-[#1E2632] bg-[#121723] p-5">
+      <div className="min-w-0 flex-1 rounded-lg border border-line bg-panel p-5">
         {active === "_glossary" ? <Glossary terms={content._glossary ?? []} />
-          : content[active] ? <Markdown text={content[active]} /> : <div className="text-[#7C879B]">Section unavailable.</div>}
+          : content[active] ? <Markdown text={content[active]} /> : <div className="text-mute">Section unavailable.</div>}
       </div>
     </div>
   );

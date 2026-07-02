@@ -1,3 +1,4 @@
+import { ASSET } from "../theme";
 // Bitcoin cycle analysis — faithful port of crypto.py / cycle_timeline.py
 // constants + computations. Static constants copied verbatim; price-derived
 // pieces (200-week MA, cycle overlay) computed from /api/crypto btc_daily_max.
@@ -24,7 +25,7 @@ export const HISTORICAL_CYCLES: Cycle[] = [
   { label: "Cycle 1 (2012–2015)", halving: "2012-11-28", halving_price: 12, takeoff: "2013-03-01", takeoff_price: 50, peak: "2013-11-30", peak_price: 1163, bottom: "2015-01-14", bottom_price: 178, color: "#666666" },
   { label: "Cycle 2 (2016–2018)", halving: "2016-07-09", halving_price: 650, takeoff: "2017-03-01", takeoff_price: 1200, peak: "2017-12-17", peak_price: 19783, bottom: "2018-12-15", bottom_price: 3200, color: "#888888" },
   { label: "Cycle 3 (2020–2022)", halving: "2020-05-11", halving_price: 8800, takeoff: "2020-10-01", takeoff_price: 11000, peak: "2021-11-09", peak_price: 68789, bottom: "2022-11-21", bottom_price: 15500, color: "#5DADE2" },
-  { label: "Cycle 4 (2024–current)", halving: "2024-04-19", halving_price: 64000, takeoff: "2024-10-01", takeoff_price: 65000, peak: "2025-10-06", peak_price: 126198, bottom: null, bottom_price: null, color: "#F7931A" },
+  { label: "Cycle 4 (2024–current)", halving: "2024-04-19", halving_price: 64000, takeoff: "2024-10-01", takeoff_price: 65000, peak: "2025-10-06", peak_price: 126198, bottom: null, bottom_price: null, color: ASSET.btc },
 ];
 
 export interface EtfEvent { date: string; label: string; short_label: string; description: string; impact: string; color: string }

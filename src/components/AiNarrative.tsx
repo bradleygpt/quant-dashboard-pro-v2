@@ -20,7 +20,7 @@ export default function AiNarrative({ kind, ticker, blob, label = "AI take", hin
   };
 
   return (
-    <div className="rounded-lg border border-[#1E2632] bg-[#0F1420] p-3">
+    <div className="rounded-lg border border-line bg-head p-3">
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-semibold text-[#9CB6E0]">🧠 {label}</span>
         <button onClick={run} disabled={st.loading}
@@ -28,9 +28,9 @@ export default function AiNarrative({ kind, ticker, blob, label = "AI take", hin
           {st.loading ? "Thinking…" : st.text ? "Regenerate" : "Generate"}
         </button>
       </div>
-      {st.text && <p className="mt-2 text-sm leading-relaxed text-[#C3CAD7]">{st.text}</p>}
-      {st.err && <p className="mt-2 text-xs text-[#7C879B]">AI unavailable ({st.err}) — runs on the deployed app with GEMINI_API_KEY.</p>}
-      {!st.text && !st.err && !st.loading && hint && <p className="mt-1.5 text-xs text-[#7C879B]">{hint}</p>}
+      {st.text && <p className="mt-2 text-sm leading-relaxed text-ink-2">{st.text}</p>}
+      {st.err && <p className="mt-2 text-xs text-mute">AI unavailable ({st.err}) — runs on the deployed app with GEMINI_API_KEY.</p>}
+      {!st.text && !st.err && !st.loading && hint && <p className="mt-1.5 text-xs text-mute">{hint}</p>}
     </div>
   );
 }

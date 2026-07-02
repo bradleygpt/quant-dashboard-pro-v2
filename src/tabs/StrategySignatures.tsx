@@ -198,7 +198,7 @@ function SignatureCard({ theme, data }: { theme: Theme; data: SData }) {
         </div>
         <div className="text-right">
           <div className="font-mono text-base font-bold" style={{ color: theme.accent }}>{cagr}</div>
-          <div className="text-[10px] text-[#7C879B]">Sharpe {sharpe}</div>
+          <div className="text-[10px] text-mute">Sharpe {sharpe}</div>
         </div>
       </div>
       <AnimatedSignature theme={theme} data={data} />
