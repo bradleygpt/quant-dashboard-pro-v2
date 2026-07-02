@@ -1,52 +1,52 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-01T19:14:46.143937+00:00",
+  "generated_at": "2026-07-02T02:22:14.968430+00:00",
   "spec": {
     "version": "v1.0 LOCKED + Rider A",
-    "config": "top3_monthly_full_universe",
+    "config": "live book n=8 (deployed 2026-07-01); research recompute = top3_monthly_full_universe",
     "capital_default": 25000,
-    "basket_size": 3,
-    "weight_per_position": 0.3333,
+    "basket_size": 8,
+    "weight_per_position": 0.125,
     "hold_days": 21,
     "rebalance": "1st of month (~21 trading days)"
   },
   "target": {
-    "as_of": "2026-05-29",
+    "as_of": "2026-07-01",
     "rows": [
       {
         "rank": 1,
-        "ticker": "MXL",
-        "posterior_prob": 0.901062,
+        "ticker": "COHR",
+        "posterior_prob": 0.814996,
         "n_streams": null
       },
       {
         "rank": 2,
-        "ticker": "VIAV",
-        "posterior_prob": 0.893529,
-        "n_streams": null
-      },
-      {
-        "rank": 3,
         "ticker": "INTC",
         "posterior_prob": 0.891675,
         "n_streams": null
       },
       {
-        "rank": 4,
-        "ticker": "MU",
-        "posterior_prob": 0.890034,
-        "n_streams": null
-      },
-      {
-        "rank": 5,
+        "rank": 3,
         "ticker": "STX",
         "posterior_prob": 0.88588,
         "n_streams": null
       },
       {
+        "rank": 4,
+        "ticker": "MXL",
+        "posterior_prob": 0.901062,
+        "n_streams": null
+      },
+      {
+        "rank": 5,
+        "ticker": "VIAV",
+        "posterior_prob": 0.893529,
+        "n_streams": null
+      },
+      {
         "rank": 6,
-        "ticker": "TH",
-        "posterior_prob": 0.871387,
+        "ticker": "MU",
+        "posterior_prob": 0.890034,
         "n_streams": null
       },
       {
@@ -57,158 +57,139 @@
       },
       {
         "rank": 8,
-        "ticker": "COHR",
-        "posterior_prob": 0.814996,
+        "ticker": "LRCX",
+        "posterior_prob": 0.819599,
         "n_streams": null
       }
     ],
-    "signal_now": {
-      "as_of": "2026-06-26",
-      "rows": [
-        {
-          "rank": 1,
-          "ticker": "MXL",
-          "posterior_prob": 0.905108
-        },
-        {
-          "rank": 2,
-          "ticker": "RKLB",
-          "posterior_prob": 0.904524
-        },
-        {
-          "rank": 3,
-          "ticker": "MRVL",
-          "posterior_prob": 0.891186
-        }
-      ]
-    },
     "n": 8,
-    "source": "manual-seed (legacy n=8, broker holdings as of 5/29)",
+    "source": "manual-seed (broker positions confirmed 2026-07-01; TH exited, LRCX new, INTC/MXL adds; partial rebalance - remaining July legs paused on drawdown)",
+    "book_type": "live",
     "top25": [
       {
         "rank": 1,
-        "ticker": "MXL",
-        "score": 0.901062
+        "ticker": "INTC",
+        "score": 0.898199
       },
       {
         "rank": 2,
-        "ticker": "VIAV",
-        "score": 0.893529
+        "ticker": "LRCX",
+        "score": 0.897714
       },
       {
         "rank": 3,
-        "ticker": "INTC",
-        "score": 0.891675
+        "ticker": "MXL",
+        "score": 0.895655
       },
       {
         "rank": 4,
-        "ticker": "MU",
-        "score": 0.890034
+        "ticker": "RKLB",
+        "score": 0.89249
       },
       {
         "rank": 5,
-        "ticker": "STX",
-        "score": 0.88588
+        "ticker": "VIAV",
+        "score": 0.888404
       },
       {
         "rank": 6,
-        "ticker": "TH",
-        "score": 0.871387
+        "ticker": "STX",
+        "score": 0.880694
       },
       {
         "rank": 7,
-        "ticker": "GLW",
-        "score": 0.862519
+        "ticker": "MRVL",
+        "score": 0.87927
       },
       {
         "rank": 8,
-        "ticker": "WDC",
-        "score": 0.857543
+        "ticker": "POWL",
+        "score": 0.878836
       },
       {
         "rank": 9,
-        "ticker": "AAOI",
-        "score": 0.84947
+        "ticker": "KLIC",
+        "score": 0.876579
       },
       {
         "rank": 10,
-        "ticker": "REX",
-        "score": 0.848984
+        "ticker": "VSAT",
+        "score": 0.875137
       },
       {
         "rank": 11,
-        "ticker": "MTZ",
-        "score": 0.847669
+        "ticker": "VSH",
+        "score": 0.873405
       },
       {
         "rank": 12,
-        "ticker": "VSAT",
-        "score": 0.846222
+        "ticker": "MU",
+        "score": 0.871683
       },
       {
         "rank": 13,
-        "ticker": "NOK",
-        "score": 0.842405
+        "ticker": "TH",
+        "score": 0.867441
       },
       {
         "rank": 14,
-        "ticker": "AGX",
-        "score": 0.837974
+        "ticker": "WDC",
+        "score": 0.857944
       },
       {
         "rank": 15,
-        "ticker": "POWL",
-        "score": 0.83683
+        "ticker": "MYRG",
+        "score": 0.847296
       },
       {
         "rank": 16,
-        "ticker": "KLIC",
-        "score": 0.836184
+        "ticker": "IREN",
+        "score": 0.84368
       },
       {
         "rank": 17,
-        "ticker": "ADEA",
-        "score": 0.830084
+        "ticker": "AMD",
+        "score": 0.843107
       },
       {
         "rank": 18,
-        "ticker": "INDV",
-        "score": 0.828817
+        "ticker": "PENG",
+        "score": 0.842051
       },
       {
         "rank": 19,
-        "ticker": "MYRG",
-        "score": 0.827978
+        "ticker": "SMTC",
+        "score": 0.840474
       },
       {
         "rank": 20,
-        "ticker": "INBX",
-        "score": 0.826411
+        "ticker": "AAOI",
+        "score": 0.832181
       },
       {
         "rank": 21,
-        "ticker": "FIX",
-        "score": 0.824311
+        "ticker": "CENX",
+        "score": 0.831818
       },
       {
         "rank": 22,
-        "ticker": "LRCX",
-        "score": 0.819599
+        "ticker": "KLAC",
+        "score": 0.830931
       },
       {
         "rank": 23,
-        "ticker": "FORM",
-        "score": 0.817183
+        "ticker": "TER",
+        "score": 0.82983
       },
       {
         "rank": 24,
-        "ticker": "COCO",
-        "score": 0.816714
+        "ticker": "COHU",
+        "score": 0.829315
       },
       {
         "rank": 25,
-        "ticker": "COHR",
-        "score": 0.814996
+        "ticker": "ACMR",
+        "score": 0.827275
       }
     ],
     "rebalance_history": [
@@ -352,123 +333,565 @@
             "score": 0.814996
           }
         ],
-        "source": "manual-seed (legacy n=8, broker holdings as of 5/29)"
+        "source": "manual-seed (legacy n=8, broker holdings as of 5/29)",
+        "signal_as_of": "2026-06-30",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.898199
+          },
+          {
+            "rank": 2,
+            "ticker": "LRCX",
+            "score": 0.897714
+          },
+          {
+            "rank": 3,
+            "ticker": "MXL",
+            "score": 0.895655
+          },
+          {
+            "rank": 4,
+            "ticker": "RKLB",
+            "score": 0.89249
+          },
+          {
+            "rank": 5,
+            "ticker": "VIAV",
+            "score": 0.888404
+          },
+          {
+            "rank": 6,
+            "ticker": "STX",
+            "score": 0.880694
+          },
+          {
+            "rank": 7,
+            "ticker": "MRVL",
+            "score": 0.87927
+          },
+          {
+            "rank": 8,
+            "ticker": "POWL",
+            "score": 0.878836
+          },
+          {
+            "rank": 9,
+            "ticker": "KLIC",
+            "score": 0.876579
+          },
+          {
+            "rank": 10,
+            "ticker": "VSAT",
+            "score": 0.875137
+          },
+          {
+            "rank": 11,
+            "ticker": "VSH",
+            "score": 0.873405
+          },
+          {
+            "rank": 12,
+            "ticker": "MU",
+            "score": 0.871683
+          },
+          {
+            "rank": 13,
+            "ticker": "TH",
+            "score": 0.867441
+          },
+          {
+            "rank": 14,
+            "ticker": "WDC",
+            "score": 0.857944
+          },
+          {
+            "rank": 15,
+            "ticker": "MYRG",
+            "score": 0.847296
+          },
+          {
+            "rank": 16,
+            "ticker": "IREN",
+            "score": 0.84368
+          },
+          {
+            "rank": 17,
+            "ticker": "AMD",
+            "score": 0.843107
+          },
+          {
+            "rank": 18,
+            "ticker": "PENG",
+            "score": 0.842051
+          },
+          {
+            "rank": 19,
+            "ticker": "SMTC",
+            "score": 0.840474
+          },
+          {
+            "rank": 20,
+            "ticker": "AAOI",
+            "score": 0.832181
+          },
+          {
+            "rank": 21,
+            "ticker": "CENX",
+            "score": 0.831818
+          },
+          {
+            "rank": 22,
+            "ticker": "KLAC",
+            "score": 0.830931
+          },
+          {
+            "rank": 23,
+            "ticker": "TER",
+            "score": 0.82983
+          },
+          {
+            "rank": 24,
+            "ticker": "COHU",
+            "score": 0.829315
+          },
+          {
+            "rank": 25,
+            "ticker": "ACMR",
+            "score": 0.827275
+          }
+        ],
+        "book_type": "live"
+      },
+      {
+        "as_of": "2026-07-01",
+        "held_n": 8,
+        "held_tickers": [
+          "COHR",
+          "INTC",
+          "STX",
+          "MXL",
+          "VIAV",
+          "MU",
+          "WDC",
+          "LRCX"
+        ],
+        "top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.898199
+          },
+          {
+            "rank": 2,
+            "ticker": "LRCX",
+            "score": 0.897714
+          },
+          {
+            "rank": 3,
+            "ticker": "MXL",
+            "score": 0.895655
+          },
+          {
+            "rank": 4,
+            "ticker": "RKLB",
+            "score": 0.89249
+          },
+          {
+            "rank": 5,
+            "ticker": "VIAV",
+            "score": 0.888404
+          },
+          {
+            "rank": 6,
+            "ticker": "STX",
+            "score": 0.880694
+          },
+          {
+            "rank": 7,
+            "ticker": "MRVL",
+            "score": 0.87927
+          },
+          {
+            "rank": 8,
+            "ticker": "POWL",
+            "score": 0.878836
+          },
+          {
+            "rank": 9,
+            "ticker": "KLIC",
+            "score": 0.876579
+          },
+          {
+            "rank": 10,
+            "ticker": "VSAT",
+            "score": 0.875137
+          },
+          {
+            "rank": 11,
+            "ticker": "VSH",
+            "score": 0.873405
+          },
+          {
+            "rank": 12,
+            "ticker": "MU",
+            "score": 0.871683
+          },
+          {
+            "rank": 13,
+            "ticker": "TH",
+            "score": 0.867441
+          },
+          {
+            "rank": 14,
+            "ticker": "WDC",
+            "score": 0.857944
+          },
+          {
+            "rank": 15,
+            "ticker": "MYRG",
+            "score": 0.847296
+          },
+          {
+            "rank": 16,
+            "ticker": "IREN",
+            "score": 0.84368
+          },
+          {
+            "rank": 17,
+            "ticker": "AMD",
+            "score": 0.843107
+          },
+          {
+            "rank": 18,
+            "ticker": "PENG",
+            "score": 0.842051
+          },
+          {
+            "rank": 19,
+            "ticker": "SMTC",
+            "score": 0.840474
+          },
+          {
+            "rank": 20,
+            "ticker": "AAOI",
+            "score": 0.832181
+          },
+          {
+            "rank": 21,
+            "ticker": "CENX",
+            "score": 0.831818
+          },
+          {
+            "rank": 22,
+            "ticker": "KLAC",
+            "score": 0.830931
+          },
+          {
+            "rank": 23,
+            "ticker": "TER",
+            "score": 0.82983
+          },
+          {
+            "rank": 24,
+            "ticker": "COHU",
+            "score": 0.829315
+          },
+          {
+            "rank": 25,
+            "ticker": "ACMR",
+            "score": 0.827275
+          }
+        ],
+        "book_type": "live",
+        "signal_as_of": "2026-06-30",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.898199
+          },
+          {
+            "rank": 2,
+            "ticker": "LRCX",
+            "score": 0.897714
+          },
+          {
+            "rank": 3,
+            "ticker": "MXL",
+            "score": 0.895655
+          },
+          {
+            "rank": 4,
+            "ticker": "RKLB",
+            "score": 0.89249
+          },
+          {
+            "rank": 5,
+            "ticker": "VIAV",
+            "score": 0.888404
+          },
+          {
+            "rank": 6,
+            "ticker": "STX",
+            "score": 0.880694
+          },
+          {
+            "rank": 7,
+            "ticker": "MRVL",
+            "score": 0.87927
+          },
+          {
+            "rank": 8,
+            "ticker": "POWL",
+            "score": 0.878836
+          },
+          {
+            "rank": 9,
+            "ticker": "KLIC",
+            "score": 0.876579
+          },
+          {
+            "rank": 10,
+            "ticker": "VSAT",
+            "score": 0.875137
+          },
+          {
+            "rank": 11,
+            "ticker": "VSH",
+            "score": 0.873405
+          },
+          {
+            "rank": 12,
+            "ticker": "MU",
+            "score": 0.871683
+          },
+          {
+            "rank": 13,
+            "ticker": "TH",
+            "score": 0.867441
+          },
+          {
+            "rank": 14,
+            "ticker": "WDC",
+            "score": 0.857944
+          },
+          {
+            "rank": 15,
+            "ticker": "MYRG",
+            "score": 0.847296
+          },
+          {
+            "rank": 16,
+            "ticker": "IREN",
+            "score": 0.84368
+          },
+          {
+            "rank": 17,
+            "ticker": "AMD",
+            "score": 0.843107
+          },
+          {
+            "rank": 18,
+            "ticker": "PENG",
+            "score": 0.842051
+          },
+          {
+            "rank": 19,
+            "ticker": "SMTC",
+            "score": 0.840474
+          },
+          {
+            "rank": 20,
+            "ticker": "AAOI",
+            "score": 0.832181
+          },
+          {
+            "rank": 21,
+            "ticker": "CENX",
+            "score": 0.831818
+          },
+          {
+            "rank": 22,
+            "ticker": "KLAC",
+            "score": 0.830931
+          },
+          {
+            "rank": 23,
+            "ticker": "TER",
+            "score": 0.82983
+          },
+          {
+            "rank": 24,
+            "ticker": "COHU",
+            "score": 0.829315
+          },
+          {
+            "rank": 25,
+            "ticker": "ACMR",
+            "score": 0.827275
+          }
+        ],
+        "fills": {
+          "TH": {
+            "action": "exit_all",
+            "shares": -72.578
+          },
+          "MXL": {
+            "action": "add",
+            "shares": 3,
+            "price": 119.3226
+          },
+          "INTC": {
+            "action": "add",
+            "shares": 3.7,
+            "price": 135.2
+          },
+          "LRCX": {
+            "action": "buy",
+            "shares": 5,
+            "price": 406.445,
+            "note": "$400 limit canceled, replaced by market fill - one position"
+          }
+        },
+        "source": "manual-seed (broker positions confirmed 2026-07-01; TH exited, LRCX new, INTC/MXL adds; partial rebalance - remaining July legs paused on drawdown)"
       }
-    ]
+    ],
+    "signal_now": {
+      "as_of": "2026-06-30",
+      "rows": [
+        {
+          "rank": 1,
+          "ticker": "INTC",
+          "posterior_prob": 0.898199
+        },
+        {
+          "rank": 2,
+          "ticker": "LRCX",
+          "posterior_prob": 0.897714
+        },
+        {
+          "rank": 3,
+          "ticker": "MXL",
+          "posterior_prob": 0.895655
+        }
+      ]
+    }
   },
   "state": {
     "mode": "deployed",
-    "deployed_date": "2026-06-01",
-    "scale_in_pct": 50,
+    "deployed_date": "2026-07-01",
+    "scale_in_pct": 58,
     "cash_reserve": 0.0,
     "capital": 20000.0,
-    "next_rebalance": "2026-07-01",
+    "next_rebalance": "2026-08-03",
     "positions": [
       {
         "ticker": "COHR",
         "entry_price": 358.49,
-        "current_price": 358.49,
+        "current_price": 368.65,
         "shares": 3,
-        "stale_mark": true
+        "stale_mark": false
       },
       {
         "ticker": "INTC",
-        "entry_price": 110.51,
-        "current_price": 110.51,
-        "shares": 11,
-        "stale_mark": true
+        "entry_price": 116.5961,
+        "current_price": 127.02,
+        "shares": 15,
+        "stale_mark": false
       },
       {
         "ticker": "STX",
         "entry_price": 918.81,
-        "current_price": 918.81,
+        "current_price": 915.19,
         "shares": 1,
-        "stale_mark": true
+        "stale_mark": false
       },
       {
         "ticker": "MXL",
-        "entry_price": 90.34,
-        "current_price": 90.34,
-        "shares": 13,
-        "stale_mark": true
+        "entry_price": 95.5044,
+        "current_price": 112.39,
+        "shares": 16,
+        "stale_mark": false
       },
       {
         "ticker": "VIAV",
         "entry_price": 47.59,
-        "current_price": 47.59,
+        "current_price": 47.07,
         "shares": 26,
-        "stale_mark": true
+        "stale_mark": false
       },
       {
         "ticker": "MU",
         "entry_price": 1034.84,
-        "current_price": 1034.84,
+        "current_price": 1032.28,
         "shares": 1,
-        "stale_mark": true
-      },
-      {
-        "ticker": "TH",
-        "entry_price": 17.22,
-        "current_price": 17.22,
-        "shares": 72,
-        "stale_mark": true
+        "stale_mark": false
       },
       {
         "ticker": "WDC",
         "entry_price": 557.06,
-        "current_price": 557.06,
+        "current_price": 598.37,
         "shares": 2,
-        "stale_mark": true
+        "stale_mark": false
+      },
+      {
+        "ticker": "LRCX",
+        "entry_price": 406.445,
+        "current_price": 391.26,
+        "shares": 5,
+        "stale_mark": false
       }
     ]
   },
   "ppi": {
-    "as_of": "2026-06-01",
-    "score": 50.8,
-    "level": "ELEVATED",
-    "band_deploy_pct": 50,
+    "as_of": "2026-07-02",
+    "score": 39.5,
+    "level": "MODERATE",
+    "band_deploy_pct": 100,
     "components": [
       {
         "name": "MRI",
         "weight": 0.2,
-        "score": 60,
-        "detail": "12m +30.4%, MRI +0.52"
+        "score": 55,
+        "detail": "12m +22.1%, MRI +0.24"
       },
       {
         "name": "RSI-14 sustained",
         "weight": 0.15,
-        "score": 40,
-        "detail": "RSI14 69.7, days>70: 4/10"
+        "score": 0,
+        "detail": "RSI14 62.4, days>70: 0/10"
       },
       {
         "name": "RSI-2 extreme",
         "weight": 0.1,
-        "score": 97,
-        "detail": "RSI2 97.0"
+        "score": 85,
+        "detail": "RSI2 85.1"
       },
       {
         "name": "VIX structure",
         "weight": 0.15,
         "score": 30,
-        "detail": "VIX 15.7, 5d -7.5%"
+        "detail": "VIX 16.6, 5d -12.2%"
       },
       {
         "name": "VVIX spike",
         "weight": 0.1,
         "score": 35,
-        "detail": "VVIX 89.1"
+        "detail": "VVIX 89.0"
       },
       {
         "name": "Breadth",
         "weight": 0.15,
-        "score": 55,
-        "detail": "54% above 50-SMA"
+        "score": 35,
+        "detail": "59% above 50-SMA"
       },
       {
         "name": "Drawdown from peak",
         "weight": 0.15,
         "score": 45,
-        "detail": "+0.0% from 52w high"
+        "detail": "-1.6% from 52w high"
       }
     ]
   },
@@ -496,7 +919,7 @@
         "rank": 3,
         "posterior": 0.885868,
         "weight": 0.3333,
-        "forward_return": -0.010265
+        "forward_return": -0.010264
       },
       {
         "date": "2011-02-01",
@@ -544,7 +967,7 @@
         "rank": 3,
         "posterior": 0.842565,
         "weight": 0.3333,
-        "forward_return": 0.206481
+        "forward_return": 0.206482
       },
       {
         "date": "2011-04-01",
@@ -608,7 +1031,7 @@
         "rank": 2,
         "posterior": 0.822665,
         "weight": 0.3333,
-        "forward_return": -0.057934
+        "forward_return": -0.057933
       },
       {
         "date": "2011-06-01",
@@ -632,7 +1055,7 @@
         "rank": 2,
         "posterior": 0.869003,
         "weight": 0.3333,
-        "forward_return": -0.093822
+        "forward_return": -0.093823
       },
       {
         "date": "2011-07-01",
@@ -704,7 +1127,7 @@
         "rank": 2,
         "posterior": 0.867464,
         "weight": 0.3333,
-        "forward_return": 0.325537
+        "forward_return": 0.325538
       },
       {
         "date": "2011-10-03",
@@ -712,7 +1135,7 @@
         "rank": 3,
         "posterior": 0.865819,
         "weight": 0.3333,
-        "forward_return": 0.311209
+        "forward_return": 0.31121
       },
       {
         "date": "2011-11-01",
@@ -792,7 +1215,7 @@
         "rank": 1,
         "posterior": 0.887185,
         "weight": 0.3333,
-        "forward_return": -0.018864
+        "forward_return": -0.018865
       },
       {
         "date": "2012-02-01",
@@ -816,7 +1239,7 @@
         "rank": 1,
         "posterior": 0.930362,
         "weight": 0.3333,
-        "forward_return": -0.008968
+        "forward_return": -0.008967
       },
       {
         "date": "2012-03-01",
@@ -848,7 +1271,7 @@
         "rank": 2,
         "posterior": 0.897472,
         "weight": 0.3333,
-        "forward_return": -0.011793
+        "forward_return": -0.011794
       },
       {
         "date": "2012-04-02",
@@ -896,7 +1319,7 @@
         "rank": 2,
         "posterior": 0.882338,
         "weight": 0.3333,
-        "forward_return": -0.011593
+        "forward_return": -0.011592
       },
       {
         "date": "2012-06-01",
@@ -1000,7 +1423,7 @@
         "rank": 3,
         "posterior": 0.88186,
         "weight": 0.3333,
-        "forward_return": -0.061814
+        "forward_return": -0.061815
       },
       {
         "date": "2012-11-01",
@@ -1056,7 +1479,7 @@
         "rank": 1,
         "posterior": 0.818653,
         "weight": 0.3333,
-        "forward_return": 0.141666
+        "forward_return": 0.141667
       },
       {
         "date": "2013-01-02",
@@ -1064,7 +1487,7 @@
         "rank": 2,
         "posterior": 0.818182,
         "weight": 0.3333,
-        "forward_return": 0.080735
+        "forward_return": 0.080736
       },
       {
         "date": "2013-01-02",
@@ -1136,7 +1559,7 @@
         "rank": 2,
         "posterior": 0.837814,
         "weight": 0.3333,
-        "forward_return": -0.04578
+        "forward_return": -0.045781
       },
       {
         "date": "2013-04-01",
@@ -1144,7 +1567,7 @@
         "rank": 3,
         "posterior": 0.836095,
         "weight": 0.3333,
-        "forward_return": 0.023184
+        "forward_return": 0.023183
       },
       {
         "date": "2013-05-01",
@@ -1192,7 +1615,7 @@
         "rank": 3,
         "posterior": 0.866233,
         "weight": 0.3333,
-        "forward_return": -0.036549
+        "forward_return": -0.03655
       },
       {
         "date": "2013-07-01",
@@ -1352,7 +1775,7 @@
         "rank": 2,
         "posterior": 0.819786,
         "weight": 0.3333,
-        "forward_return": -0.152002
+        "forward_return": -0.152003
       },
       {
         "date": "2014-01-02",
@@ -1368,7 +1791,7 @@
         "rank": 1,
         "posterior": 0.876083,
         "weight": 0.3333,
-        "forward_return": 0.061184
+        "forward_return": 0.061183
       },
       {
         "date": "2014-02-03",
@@ -1424,7 +1847,7 @@
         "rank": 2,
         "posterior": 0.809825,
         "weight": 0.3333,
-        "forward_return": -0.084188
+        "forward_return": -0.084189
       },
       {
         "date": "2014-04-01",
@@ -1440,7 +1863,7 @@
         "rank": 1,
         "posterior": 0.899732,
         "weight": 0.3333,
-        "forward_return": 0.026879
+        "forward_return": 0.026878
       },
       {
         "date": "2014-05-01",
@@ -1456,7 +1879,7 @@
         "rank": 3,
         "posterior": 0.778989,
         "weight": 0.3333,
-        "forward_return": 0.038468
+        "forward_return": 0.038469
       },
       {
         "date": "2014-06-02",
@@ -1504,7 +1927,7 @@
         "rank": 3,
         "posterior": 0.714172,
         "weight": 0.3333,
-        "forward_return": 0.07281
+        "forward_return": 0.072811
       },
       {
         "date": "2014-08-01",
@@ -1544,7 +1967,7 @@
         "rank": 2,
         "posterior": 0.749814,
         "weight": 0.3333,
-        "forward_return": -0.131696
+        "forward_return": -0.131695
       },
       {
         "date": "2014-09-02",
@@ -1672,7 +2095,7 @@
         "rank": 3,
         "posterior": 0.75488,
         "weight": 0.3333,
-        "forward_return": 0.112834
+        "forward_return": 0.112835
       },
       {
         "date": "2015-03-02",
@@ -1856,7 +2279,7 @@
         "rank": 2,
         "posterior": 0.784624,
         "weight": 0.3333,
-        "forward_return": 0.138697
+        "forward_return": 0.138696
       },
       {
         "date": "2015-10-01",
@@ -1888,7 +2311,7 @@
         "rank": 3,
         "posterior": 0.801175,
         "weight": 0.3333,
-        "forward_return": 0.077778
+        "forward_return": 0.077777
       },
       {
         "date": "2015-12-01",
@@ -1896,7 +2319,7 @@
         "rank": 1,
         "posterior": 0.819331,
         "weight": 0.3333,
-        "forward_return": 0.024179
+        "forward_return": 0.02418
       },
       {
         "date": "2015-12-01",
@@ -1936,7 +2359,7 @@
         "rank": 3,
         "posterior": 0.78928,
         "weight": 0.3333,
-        "forward_return": -0.121352
+        "forward_return": -0.121351
       },
       {
         "date": "2016-02-01",
@@ -1952,7 +2375,7 @@
         "rank": 2,
         "posterior": 0.825275,
         "weight": 0.3333,
-        "forward_return": 0.017646
+        "forward_return": 0.017647
       },
       {
         "date": "2016-02-01",
@@ -2032,7 +2455,7 @@
         "rank": 3,
         "posterior": 0.770925,
         "weight": 0.3333,
-        "forward_return": 0.016977
+        "forward_return": 0.016976
       },
       {
         "date": "2016-06-01",
@@ -2072,7 +2495,7 @@
         "rank": 2,
         "posterior": 0.751281,
         "weight": 0.3333,
-        "forward_return": -0.03875
+        "forward_return": -0.038751
       },
       {
         "date": "2016-07-01",
@@ -2104,7 +2527,7 @@
         "rank": 3,
         "posterior": 0.841659,
         "weight": 0.3333,
-        "forward_return": -0.137688
+        "forward_return": -0.137687
       },
       {
         "date": "2016-09-01",
@@ -2248,7 +2671,7 @@
         "rank": 3,
         "posterior": 0.846442,
         "weight": 0.3333,
-        "forward_return": 0.296632
+        "forward_return": 0.296631
       },
       {
         "date": "2017-03-01",
@@ -2312,7 +2735,7 @@
         "rank": 2,
         "posterior": 0.827045,
         "weight": 0.3333,
-        "forward_return": 0.35514
+        "forward_return": 0.355139
       },
       {
         "date": "2017-05-01",
@@ -2336,7 +2759,7 @@
         "rank": 2,
         "posterior": 0.73552,
         "weight": 0.3333,
-        "forward_return": 0.042199
+        "forward_return": 0.0422
       },
       {
         "date": "2017-06-01",
@@ -2440,7 +2863,7 @@
         "rank": 3,
         "posterior": 0.770482,
         "weight": 0.3333,
-        "forward_return": 0.08
+        "forward_return": 0.080001
       },
       {
         "date": "2017-11-01",
@@ -2568,7 +2991,7 @@
         "rank": 1,
         "posterior": 0.794727,
         "weight": 0.3333,
-        "forward_return": 0.027551
+        "forward_return": 0.02755
       },
       {
         "date": "2018-04-02",
@@ -2704,7 +3127,7 @@
         "rank": 3,
         "posterior": 0.721849,
         "weight": 0.3333,
-        "forward_return": -0.03766
+        "forward_return": -0.037659
       },
       {
         "date": "2018-10-01",
@@ -2768,7 +3191,7 @@
         "rank": 2,
         "posterior": 0.740776,
         "weight": 0.3333,
-        "forward_return": -0.198895
+        "forward_return": -0.198894
       },
       {
         "date": "2018-12-03",
@@ -2800,7 +3223,7 @@
         "rank": 3,
         "posterior": 0.774434,
         "weight": 0.3333,
-        "forward_return": 0.14368
+        "forward_return": 0.143679
       },
       {
         "date": "2019-02-01",
@@ -2848,7 +3271,7 @@
         "rank": 3,
         "posterior": 0.783369,
         "weight": 0.3333,
-        "forward_return": 0.019982
+        "forward_return": 0.019983
       },
       {
         "date": "2019-04-01",
@@ -2976,7 +3399,7 @@
         "rank": 1,
         "posterior": 0.802302,
         "weight": 0.3333,
-        "forward_return": 0.004742
+        "forward_return": 0.004743
       },
       {
         "date": "2019-09-03",
@@ -3048,7 +3471,7 @@
         "rank": 1,
         "posterior": 0.805232,
         "weight": 0.3333,
-        "forward_return": -0.008781
+        "forward_return": -0.00878
       },
       {
         "date": "2019-12-02",
@@ -3056,7 +3479,7 @@
         "rank": 2,
         "posterior": 0.773744,
         "weight": 0.3333,
-        "forward_return": 0.052618
+        "forward_return": 0.052617
       },
       {
         "date": "2019-12-02",
@@ -3064,7 +3487,7 @@
         "rank": 3,
         "posterior": 0.773296,
         "weight": 0.3333,
-        "forward_return": 0.059689
+        "forward_return": 0.05969
       },
       {
         "date": "2020-01-02",
@@ -3112,7 +3535,7 @@
         "rank": 3,
         "posterior": 0.732241,
         "weight": 0.3333,
-        "forward_return": -0.050949
+        "forward_return": -0.050948
       },
       {
         "date": "2020-03-02",
@@ -3176,7 +3599,7 @@
         "rank": 2,
         "posterior": 0.804443,
         "weight": 0.3333,
-        "forward_return": -0.039994
+        "forward_return": -0.039995
       },
       {
         "date": "2020-05-01",
@@ -3240,7 +3663,7 @@
         "rank": 1,
         "posterior": 0.896933,
         "weight": 0.3333,
-        "forward_return": 0.255661
+        "forward_return": 0.25566
       },
       {
         "date": "2020-08-03",
@@ -3248,7 +3671,7 @@
         "rank": 2,
         "posterior": 0.840584,
         "weight": 0.3333,
-        "forward_return": -0.051173
+        "forward_return": -0.051172
       },
       {
         "date": "2020-08-03",
@@ -3392,7 +3815,7 @@
         "rank": 2,
         "posterior": 0.841635,
         "weight": 0.3333,
-        "forward_return": 0.097471
+        "forward_return": 0.097472
       },
       {
         "date": "2021-02-01",
@@ -3464,7 +3887,7 @@
         "rank": 2,
         "posterior": 0.793236,
         "weight": 0.3333,
-        "forward_return": 0.084899
+        "forward_return": 0.0849
       },
       {
         "date": "2021-05-03",
@@ -3528,7 +3951,7 @@
         "rank": 1,
         "posterior": 0.895708,
         "weight": 0.3333,
-        "forward_return": 0.233333
+        "forward_return": 0.233334
       },
       {
         "date": "2021-08-02",
@@ -3544,7 +3967,7 @@
         "rank": 3,
         "posterior": 0.878744,
         "weight": 0.3333,
-        "forward_return": 0.006945
+        "forward_return": 0.006944
       },
       {
         "date": "2021-09-01",
@@ -3568,7 +3991,7 @@
         "rank": 3,
         "posterior": 0.805375,
         "weight": 0.3333,
-        "forward_return": -0.130116
+        "forward_return": -0.130117
       },
       {
         "date": "2021-10-01",
@@ -3608,7 +4031,7 @@
         "rank": 2,
         "posterior": 0.864696,
         "weight": 0.3333,
-        "forward_return": 0.010516
+        "forward_return": 0.010515
       },
       {
         "date": "2021-11-01",
@@ -3624,7 +4047,7 @@
         "rank": 1,
         "posterior": 0.888155,
         "weight": 0.3333,
-        "forward_return": 0.164459
+        "forward_return": 0.16446
       },
       {
         "date": "2021-12-01",
@@ -3776,7 +4199,7 @@
         "rank": 2,
         "posterior": 0.869581,
         "weight": 0.3333,
-        "forward_return": -0.112399
+        "forward_return": -0.1124
       },
       {
         "date": "2022-06-01",
@@ -3856,7 +4279,7 @@
         "rank": 3,
         "posterior": 0.898428,
         "weight": 0.3333,
-        "forward_return": -0.053324
+        "forward_return": -0.053323
       },
       {
         "date": "2022-10-03",
@@ -3896,7 +4319,7 @@
         "rank": 2,
         "posterior": 0.913699,
         "weight": 0.3333,
-        "forward_return": -0.027119
+        "forward_return": -0.02712
       },
       {
         "date": "2022-11-01",
@@ -4168,7 +4591,7 @@
         "rank": 3,
         "posterior": 0.926403,
         "weight": 0.3333,
-        "forward_return": -0.054866
+        "forward_return": -0.054865
       },
       {
         "date": "2023-11-01",
@@ -4216,7 +4639,7 @@
         "rank": 3,
         "posterior": 0.88668,
         "weight": 0.3333,
-        "forward_return": 0.067345
+        "forward_return": 0.067344
       },
       {
         "date": "2024-01-02",
@@ -4432,7 +4855,7 @@
         "rank": 3,
         "posterior": 0.93747,
         "weight": 0.3333,
-        "forward_return": 0.121834
+        "forward_return": 0.121835
       },
       {
         "date": "2024-10-01",
@@ -4472,7 +4895,7 @@
         "rank": 2,
         "posterior": 0.911134,
         "weight": 0.3333,
-        "forward_return": 0.14078
+        "forward_return": 0.140781
       },
       {
         "date": "2024-11-01",
@@ -4536,7 +4959,7 @@
         "rank": 1,
         "posterior": 0.951922,
         "weight": 0.3333,
-        "forward_return": 0.018833
+        "forward_return": 0.018834
       },
       {
         "date": "2025-02-03",
@@ -4728,7 +5151,7 @@
         "rank": 1,
         "posterior": 0.90357,
         "weight": 0.3333,
-        "forward_return": -0.034781
+        "forward_return": -0.034782
       },
       {
         "date": "2025-10-01",
@@ -4822,7 +5245,7 @@
         "date": "2026-02-02",
         "ticker": "EA",
         "rank": 1,
-        "posterior": 0.899118,
+        "posterior": 0.899297,
         "weight": 0.3333,
         "forward_return": -0.011541
       },
@@ -4830,17 +5253,17 @@
         "date": "2026-02-02",
         "ticker": "PRA",
         "rank": 2,
-        "posterior": 0.896815,
+        "posterior": 0.898574,
         "weight": 0.3333,
         "forward_return": 0.003272
       },
       {
         "date": "2026-02-02",
-        "ticker": "MU",
+        "ticker": "WDC",
         "rank": 3,
-        "posterior": 0.891726,
+        "posterior": 0.88973,
         "weight": 0.3333,
-        "forward_return": -0.057401
+        "forward_return": -0.000555
       },
       {
         "date": "2026-03-02",
@@ -4920,7 +5343,7 @@
         "rank": 1,
         "posterior": 0.901062,
         "weight": 0.3333,
-        "forward_return": 0.120259
+        "forward_return": 0.48475
       },
       {
         "date": "2026-06-01",
@@ -4928,7 +5351,7 @@
         "rank": 2,
         "posterior": 0.893529,
         "weight": 0.3333,
-        "forward_return": 0.002948
+        "forward_return": 0.005475
       },
       {
         "date": "2026-06-01",
@@ -4936,7 +5359,7 @@
         "rank": 3,
         "posterior": 0.891675,
         "weight": 0.3333,
-        "forward_return": 0.173694
+        "forward_return": 0.277142
       }
     ],
     "summary": [
@@ -4992,7 +5415,7 @@
       },
       {
         "date": "2011-06-30",
-        "portfolio_return": -0.060306,
+        "portfolio_return": -0.060307,
         "spy_return": -0.01687,
         "cum_strat": 2.8909,
         "cum_spy": 4.8409,
@@ -5034,7 +5457,7 @@
         "date": "2011-10-31",
         "portfolio_return": 0.201533,
         "spy_return": 0.109147,
-        "cum_strat": 10.1272,
+        "cum_strat": 10.1273,
         "cum_spy": 0.2168,
         "top_ticker": "ULTA",
         "turnover": 0.0,
@@ -5064,7 +5487,7 @@
         "date": "2012-01-31",
         "portfolio_return": -0.015241,
         "spy_return": 0.046375,
-        "cum_strat": 3.0898,
+        "cum_strat": 3.0899,
         "cum_spy": 5.5293,
         "top_ticker": "DECK",
         "turnover": 0.0,
@@ -5074,7 +5497,7 @@
         "date": "2012-02-29",
         "portfolio_return": 0.072985,
         "spy_return": 0.043405,
-        "cum_strat": 10.6138,
+        "cum_strat": 10.6139,
         "cum_spy": 10.1099,
         "top_ticker": "PSMT",
         "turnover": 0.0,
@@ -5082,7 +5505,7 @@
       },
       {
         "date": "2012-03-30",
-        "portfolio_return": 0.01875,
+        "portfolio_return": 0.018751,
         "spy_return": 0.032164,
         "cum_strat": 12.6879,
         "cum_spy": 13.6515,
@@ -5094,7 +5517,7 @@
         "date": "2012-04-30",
         "portfolio_return": 0.033045,
         "spy_return": -0.006676,
-        "cum_strat": 16.4116,
+        "cum_strat": 16.4117,
         "cum_spy": 12.8927,
         "top_ticker": "ORLY",
         "turnover": 0.0,
@@ -5104,7 +5527,7 @@
         "date": "2012-05-31",
         "portfolio_return": -0.05444,
         "spy_return": -0.060055,
-        "cum_strat": 10.0742,
+        "cum_strat": 10.0743,
         "cum_spy": 6.113,
         "top_ticker": "FAST",
         "turnover": 0.0,
@@ -5124,7 +5547,7 @@
         "date": "2012-07-31",
         "portfolio_return": 0.026973,
         "spy_return": 0.01183,
-        "cum_strat": 11.6304,
+        "cum_strat": 11.6305,
         "cum_spy": 11.7253,
         "top_ticker": "LQDT",
         "turnover": 0.0,
@@ -5154,7 +5577,7 @@
         "date": "2012-10-31",
         "portfolio_return": -0.080793,
         "spy_return": -0.018198,
-        "cum_strat": 10.5026,
+        "cum_strat": 10.5027,
         "cum_spy": 15.2906,
         "top_ticker": "CRBC",
         "turnover": 0.0,
@@ -5174,7 +5597,7 @@
         "date": "2012-12-31",
         "portfolio_return": 0.067347,
         "spy_return": 0.008934,
-        "cum_strat": 16.5635,
+        "cum_strat": 16.5636,
         "cum_spy": 16.979,
         "top_ticker": "EXP",
         "turnover": 0.0,
@@ -5184,7 +5607,7 @@
         "date": "2013-01-31",
         "portfolio_return": 0.113464,
         "spy_return": 0.05119,
-        "cum_strat": 29.7892,
+        "cum_strat": 29.7893,
         "cum_spy": 22.9672,
         "top_ticker": "GEO",
         "turnover": 0.0,
@@ -5192,9 +5615,9 @@
       },
       {
         "date": "2013-02-28",
-        "portfolio_return": 0.026383,
+        "portfolio_return": 0.026384,
         "spy_return": 0.012759,
-        "cum_strat": 33.2135,
+        "cum_strat": 33.2136,
         "cum_spy": 24.5361,
         "top_ticker": "PPG",
         "turnover": 0.0,
@@ -5204,7 +5627,7 @@
         "date": "2013-03-28",
         "portfolio_return": 0.204522,
         "spy_return": 0.037971,
-        "cum_strat": 60.4586,
+        "cum_strat": 60.4587,
         "cum_spy": 29.2649,
         "top_ticker": "MWA",
         "turnover": 0.0,
@@ -5224,7 +5647,7 @@
         "date": "2013-05-31",
         "portfolio_return": 0.008224,
         "spy_return": 0.02361,
-        "cum_strat": 90.6034,
+        "cum_strat": 90.6035,
         "cum_spy": 34.8589,
         "top_ticker": "MPC",
         "turnover": 0.0,
@@ -5304,7 +5727,7 @@
         "date": "2014-01-31",
         "portfolio_return": -0.063305,
         "spy_return": -0.035248,
-        "cum_strat": 161.6399,
+        "cum_strat": 161.6398,
         "cum_spy": 49.3168,
         "top_ticker": "MTDR",
         "turnover": 0.0,
@@ -5312,9 +5735,9 @@
       },
       {
         "date": "2014-02-28",
-        "portfolio_return": 0.17259,
+        "portfolio_return": 0.172589,
         "spy_return": 0.045515,
-        "cum_strat": 206.7962,
+        "cum_strat": 206.7961,
         "cum_spy": 56.1131,
         "top_ticker": "CNK",
         "turnover": 0.0,
@@ -5322,7 +5745,7 @@
       },
       {
         "date": "2014-03-31",
-        "portfolio_return": 0.044152,
+        "portfolio_return": 0.044153,
         "spy_return": 0.008296,
         "cum_strat": 220.342,
         "cum_spy": 57.4082,
@@ -5332,7 +5755,7 @@
       },
       {
         "date": "2014-04-30",
-        "portfolio_return": -0.020553,
+        "portfolio_return": -0.020554,
         "spy_return": 0.006951,
         "cum_strat": 213.7578,
         "cum_spy": 58.5024,
@@ -5344,7 +5767,7 @@
         "date": "2014-05-30",
         "portfolio_return": 0.050133,
         "spy_return": 0.023207,
-        "cum_strat": 229.4874,
+        "cum_strat": 229.4873,
         "cum_spy": 62.1807,
         "top_ticker": "PEP",
         "turnover": 0.0,
@@ -5354,7 +5777,7 @@
         "date": "2014-06-30",
         "portfolio_return": 0.031922,
         "spy_return": 0.020645,
-        "cum_strat": 240.0052,
+        "cum_strat": 240.0051,
         "cum_spy": 65.5289,
         "top_ticker": "SEM",
         "turnover": 0.0,
@@ -5364,7 +5787,7 @@
         "date": "2014-07-31",
         "portfolio_return": 0.002965,
         "spy_return": -0.013437,
-        "cum_strat": 241.0132,
+        "cum_strat": 241.0131,
         "cum_spy": 63.3046,
         "top_ticker": "TRGP",
         "turnover": 0.0,
@@ -5392,7 +5815,7 @@
       },
       {
         "date": "2014-10-31",
-        "portfolio_return": 0.039997,
+        "portfolio_return": 0.039998,
         "spy_return": 0.023551,
         "cum_strat": 273.0226,
         "cum_spy": 71.3499,
@@ -5402,9 +5825,9 @@
       },
       {
         "date": "2014-11-28",
-        "portfolio_return": -0.048798,
+        "portfolio_return": -0.048799,
         "spy_return": 0.027472,
-        "cum_strat": 254.8198,
+        "cum_strat": 254.8197,
         "cum_spy": 76.0572,
         "top_ticker": "LUV",
         "turnover": 0.0,
@@ -5414,7 +5837,7 @@
         "date": "2014-12-31",
         "portfolio_return": 0.001695,
         "spy_return": -0.002537,
-        "cum_strat": 255.4212,
+        "cum_strat": 255.4211,
         "cum_spy": 75.6106,
         "top_ticker": "CNK",
         "turnover": 0.0,
@@ -5422,9 +5845,9 @@
       },
       {
         "date": "2015-01-30",
-        "portfolio_return": 0.038222,
+        "portfolio_return": 0.038221,
         "spy_return": -0.029629,
-        "cum_strat": 269.0059,
+        "cum_strat": 269.0058,
         "cum_spy": 70.4073,
         "top_ticker": "CNK",
         "turnover": 0.0,
@@ -5442,9 +5865,9 @@
       },
       {
         "date": "2015-03-31",
-        "portfolio_return": 0.019352,
+        "portfolio_return": 0.019353,
         "spy_return": -0.015705,
-        "cum_strat": 325.364,
+        "cum_strat": 325.3641,
         "cum_spy": 77.1583,
         "top_ticker": "KLIC",
         "turnover": 0.0,
@@ -5454,7 +5877,7 @@
         "date": "2015-04-30",
         "portfolio_return": -0.032761,
         "spy_return": 0.009833,
-        "cum_strat": 311.4287,
+        "cum_strat": 311.4288,
         "cum_spy": 78.9004,
         "top_ticker": "MNST",
         "turnover": 0.0,
@@ -5464,7 +5887,7 @@
         "date": "2015-05-29",
         "portfolio_return": 0.030556,
         "spy_return": 0.012856,
-        "cum_strat": 324.0002,
+        "cum_strat": 324.0003,
         "cum_spy": 81.2004,
         "top_ticker": "BXMT",
         "turnover": 0.0,
@@ -5472,7 +5895,7 @@
       },
       {
         "date": "2015-06-30",
-        "portfolio_return": 0.020909,
+        "portfolio_return": 0.020908,
         "spy_return": -0.020312,
         "cum_strat": 332.8655,
         "cum_spy": 77.5198,
@@ -5482,9 +5905,9 @@
       },
       {
         "date": "2015-07-31",
-        "portfolio_return": -0.062407,
+        "portfolio_return": -0.062406,
         "spy_return": 0.022589,
-        "cum_strat": 305.8519,
+        "cum_strat": 305.852,
         "cum_spy": 81.5299,
         "top_ticker": "AMN",
         "turnover": 0.0,
@@ -5494,7 +5917,7 @@
         "date": "2015-08-31",
         "portfolio_return": -0.016157,
         "spy_return": -0.06095,
-        "cum_strat": 299.2946,
+        "cum_strat": 299.2947,
         "cum_spy": 70.4656,
         "top_ticker": "CNC",
         "turnover": 0.0,
@@ -5504,7 +5927,7 @@
         "date": "2015-09-30",
         "portfolio_return": -0.061118,
         "spy_return": -0.025516,
-        "cum_strat": 274.8906,
+        "cum_strat": 274.8907,
         "cum_spy": 66.116,
         "top_ticker": "CTAS",
         "turnover": 0.0,
@@ -5514,7 +5937,7 @@
         "date": "2015-10-30",
         "portfolio_return": 0.157428,
         "spy_return": 0.08506,
-        "cum_strat": 333.9088,
+        "cum_strat": 333.9089,
         "cum_spy": 80.2458,
         "top_ticker": "AMWD",
         "turnover": 0.0,
@@ -5544,7 +5967,7 @@
         "date": "2016-01-29",
         "portfolio_return": -0.099449,
         "spy_return": -0.049787,
-        "cum_strat": 280.505,
+        "cum_strat": 280.5051,
         "cum_spy": 68.9271,
         "top_ticker": "MNST",
         "turnover": 0.0,
@@ -5554,7 +5977,7 @@
         "date": "2016-02-29",
         "portfolio_return": -0.028565,
         "spy_return": -0.000826,
-        "cum_strat": 269.636,
+        "cum_strat": 269.6361,
         "cum_spy": 68.7876,
         "top_ticker": "ABCB",
         "turnover": 0.0,
@@ -5564,7 +5987,7 @@
         "date": "2016-03-31",
         "portfolio_return": 0.095466,
         "spy_return": 0.067266,
-        "cum_strat": 304.9238,
+        "cum_strat": 304.9239,
         "cum_spy": 80.1412,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -5574,7 +5997,7 @@
         "date": "2016-04-29",
         "portfolio_return": -0.057356,
         "spy_return": 0.003942,
-        "cum_strat": 281.6989,
+        "cum_strat": 281.6991,
         "cum_spy": 80.8513,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -5584,7 +6007,7 @@
         "date": "2016-05-31",
         "portfolio_return": 0.088332,
         "spy_return": 0.017012,
-        "cum_strat": 315.4152,
+        "cum_strat": 315.4153,
         "cum_spy": 83.9278,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -5592,7 +6015,7 @@
       },
       {
         "date": "2016-06-30",
-        "portfolio_return": 0.053577,
+        "portfolio_return": 0.053576,
         "spy_return": 0.003476,
         "cum_strat": 337.6717,
         "cum_spy": 84.5671,
@@ -5624,7 +6047,7 @@
         "date": "2016-09-30",
         "portfolio_return": -0.002832,
         "spy_return": 5.8e-05,
-        "cum_strat": 332.7358,
+        "cum_strat": 332.7357,
         "cum_spy": 91.5387,
         "top_ticker": "SYK",
         "turnover": 0.0,
@@ -5654,7 +6077,7 @@
         "date": "2016-12-30",
         "portfolio_return": 0.007876,
         "spy_return": 0.020272,
-        "cum_strat": 341.3547,
+        "cum_strat": 341.3546,
         "cum_spy": 99.1077,
         "top_ticker": "CDE",
         "turnover": 0.0,
@@ -5664,7 +6087,7 @@
         "date": "2017-01-31",
         "portfolio_return": 0.374768,
         "spy_return": 0.017895,
-        "cum_strat": 506.7601,
+        "cum_strat": 506.76,
         "cum_spy": 102.6708,
         "top_ticker": "CENX",
         "turnover": 0.0,
@@ -5684,7 +6107,7 @@
         "date": "2017-03-31",
         "portfolio_return": -0.01887,
         "spy_return": 0.00125,
-        "cum_strat": 618.5644,
+        "cum_strat": 618.5645,
         "cum_spy": 110.8972,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -5694,7 +6117,7 @@
         "date": "2017-04-28",
         "portfolio_return": 0.029657,
         "spy_return": 0.009926,
-        "cum_strat": 639.8747,
+        "cum_strat": 639.8748,
         "cum_spy": 112.9906,
         "top_ticker": "CC",
         "turnover": 0.0,
@@ -5702,9 +6125,9 @@
       },
       {
         "date": "2017-05-31",
-        "portfolio_return": 0.197217,
+        "portfolio_return": 0.197216,
         "spy_return": 0.014113,
-        "cum_strat": 785.7902,
+        "cum_strat": 785.7901,
         "cum_spy": 115.9965,
         "top_ticker": "AAOI",
         "turnover": 0.0,
@@ -5714,7 +6137,7 @@
         "date": "2017-06-30",
         "portfolio_return": 0.018466,
         "spy_return": 0.006375,
-        "cum_strat": 802.1472,
+        "cum_strat": 802.1473,
         "cum_spy": 117.3735,
         "top_ticker": "ABCB",
         "turnover": 0.0,
@@ -5724,7 +6147,7 @@
         "date": "2017-07-31",
         "portfolio_return": 0.263489,
         "spy_return": 0.020554,
-        "cum_strat": 1039.8528,
+        "cum_strat": 1039.8531,
         "cum_spy": 121.8414,
         "top_ticker": "EXTR",
         "turnover": 0.0,
@@ -5734,7 +6157,7 @@
         "date": "2017-08-31",
         "portfolio_return": 0.066795,
         "spy_return": 0.002918,
-        "cum_strat": 1115.9892,
+        "cum_strat": 1115.9896,
         "cum_spy": 122.4887,
         "top_ticker": "EXTR",
         "turnover": 0.0,
@@ -5742,9 +6165,9 @@
       },
       {
         "date": "2017-09-29",
-        "portfolio_return": 0.099901,
+        "portfolio_return": 0.0999,
         "spy_return": 0.020149,
-        "cum_strat": 1237.4671,
+        "cum_strat": 1237.4675,
         "cum_spy": 126.9717,
         "top_ticker": "AAOI",
         "turnover": 0.0,
@@ -5754,7 +6177,7 @@
         "date": "2017-10-31",
         "portfolio_return": -0.136122,
         "spy_return": 0.023564,
-        "cum_strat": 1055.4079,
+        "cum_strat": 1055.4084,
         "cum_spy": 132.32,
         "top_ticker": "TGTX",
         "turnover": 0.0,
@@ -5762,9 +6185,9 @@
       },
       {
         "date": "2017-11-30",
-        "portfolio_return": 0.014809,
+        "portfolio_return": 0.01481,
         "spy_return": 0.030566,
-        "cum_strat": 1072.5189,
+        "cum_strat": 1072.5195,
         "cum_spy": 139.4212,
         "top_ticker": "UCTT",
         "turnover": 0.0,
@@ -5774,7 +6197,7 @@
         "date": "2017-12-29",
         "portfolio_return": -0.050181,
         "spy_return": 0.012128,
-        "cum_strat": 1013.6805,
+        "cum_strat": 1013.6814,
         "cum_spy": 142.3249,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -5784,7 +6207,7 @@
         "date": "2018-01-31",
         "portfolio_return": 0.143671,
         "spy_return": 0.056359,
-        "cum_strat": 1173.6843,
+        "cum_strat": 1173.6853,
         "cum_spy": 155.9821,
         "top_ticker": "ALGN",
         "turnover": 0.0,
@@ -5794,7 +6217,7 @@
         "date": "2018-02-28",
         "portfolio_return": -0.005877,
         "spy_return": -0.03636,
-        "cum_strat": 1166.1985,
+        "cum_strat": 1166.1995,
         "cum_spy": 146.6745,
         "top_ticker": "OLED",
         "turnover": 0.0,
@@ -5804,7 +6227,7 @@
         "date": "2018-03-29",
         "portfolio_return": -0.128416,
         "spy_return": -0.027411,
-        "cum_strat": 1003.5982,
+        "cum_strat": 1003.599,
         "cum_spy": 139.9129,
         "top_ticker": "BBBY",
         "turnover": 0.0,
@@ -5814,7 +6237,7 @@
         "date": "2018-04-30",
         "portfolio_return": -0.012935,
         "spy_return": 0.005169,
-        "cum_strat": 989.3227,
+        "cum_strat": 989.3235,
         "cum_spy": 141.153,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -5824,7 +6247,7 @@
         "date": "2018-05-31",
         "portfolio_return": 0.041576,
         "spy_return": 0.024309,
-        "cum_strat": 1034.6125,
+        "cum_strat": 1034.6132,
         "cum_spy": 147.0151,
         "top_ticker": "XPO",
         "turnover": 0.0,
@@ -5834,7 +6257,7 @@
         "date": "2018-06-29",
         "portfolio_return": -0.082506,
         "spy_return": 0.005751,
-        "cum_strat": 941.0,
+        "cum_strat": 941.0007,
         "cum_spy": 148.4357,
         "top_ticker": "COLL",
         "turnover": 0.0,
@@ -5844,7 +6267,7 @@
         "date": "2018-07-31",
         "portfolio_return": 0.037487,
         "spy_return": 0.037046,
-        "cum_strat": 980.0244,
+        "cum_strat": 980.0251,
         "cum_spy": 157.6393,
         "top_ticker": "NSIT",
         "turnover": 0.0,
@@ -5854,7 +6277,7 @@
         "date": "2018-08-31",
         "portfolio_return": 0.02045,
         "spy_return": 0.03192,
-        "cum_strat": 1002.111,
+        "cum_strat": 1002.1117,
         "cum_spy": 165.8632,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -5864,7 +6287,7 @@
         "date": "2018-09-28",
         "portfolio_return": 0.00724,
         "spy_return": 0.005946,
-        "cum_strat": 1010.09,
+        "cum_strat": 1010.0907,
         "cum_spy": 167.4439,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -5874,7 +6297,7 @@
         "date": "2018-10-31",
         "portfolio_return": -0.078383,
         "spy_return": -0.069104,
-        "cum_strat": 923.0776,
+        "cum_strat": 923.0784,
         "cum_spy": 148.9624,
         "top_ticker": "AZZ",
         "turnover": 0.0,
@@ -5884,7 +6307,7 @@
         "date": "2018-11-30",
         "portfolio_return": 0.217771,
         "spy_return": 0.018549,
-        "cum_strat": 1145.8744,
+        "cum_strat": 1145.8755,
         "cum_spy": 153.5804,
         "top_ticker": "VCEL",
         "turnover": 0.0,
@@ -5894,7 +6317,7 @@
         "date": "2018-12-31",
         "portfolio_return": -0.124957,
         "spy_return": -0.088048,
-        "cum_strat": 990.1936,
+        "cum_strat": 990.1944,
         "cum_spy": 131.2531,
         "top_ticker": "SPSC",
         "turnover": 0.0,
@@ -5904,7 +6327,7 @@
         "date": "2019-01-31",
         "portfolio_return": 0.16841,
         "spy_return": 0.080066,
-        "cum_strat": 1173.793,
+        "cum_strat": 1173.7941,
         "cum_spy": 149.7685,
         "top_ticker": "ETSY",
         "turnover": 0.0,
@@ -5914,7 +6337,7 @@
         "date": "2019-02-28",
         "portfolio_return": 0.061244,
         "spy_return": 0.032416,
-        "cum_strat": 1251.8048,
+        "cum_strat": 1251.8058,
         "cum_spy": 157.8649,
         "top_ticker": "EVTC",
         "turnover": 0.0,
@@ -5924,7 +6347,7 @@
         "date": "2019-03-29",
         "portfolio_return": 0.027043,
         "spy_return": 0.018101,
-        "cum_strat": 1288.362,
+        "cum_strat": 1288.363,
         "cum_spy": 162.5324,
         "top_ticker": "EVTC",
         "turnover": 0.0,
@@ -5932,9 +6355,9 @@
       },
       {
         "date": "2019-04-30",
-        "portfolio_return": 0.034662,
+        "portfolio_return": 0.034663,
         "spy_return": 0.040852,
-        "cum_strat": 1336.4858,
+        "cum_strat": 1336.4872,
         "cum_spy": 173.2574,
         "top_ticker": "TNDM",
         "turnover": 0.0,
@@ -5944,7 +6367,7 @@
         "date": "2019-05-31",
         "portfolio_return": -0.022404,
         "spy_return": -0.063771,
-        "cum_strat": 1304.3032,
+        "cum_strat": 1304.3044,
         "cum_spy": 155.8315,
         "top_ticker": "TNDM",
         "turnover": 0.0,
@@ -5954,7 +6377,7 @@
         "date": "2019-06-28",
         "portfolio_return": 0.140198,
         "spy_return": 0.069587,
-        "cum_strat": 1501.1838,
+        "cum_strat": 1501.1853,
         "cum_spy": 173.634,
         "top_ticker": "VCYT",
         "turnover": 0.0,
@@ -5964,7 +6387,7 @@
         "date": "2019-07-31",
         "portfolio_return": 0.007725,
         "spy_return": 0.01512,
-        "cum_strat": 1513.5532,
+        "cum_strat": 1513.5544,
         "cum_spy": 177.7712,
         "top_ticker": "TNDM",
         "turnover": 0.0,
@@ -5972,9 +6395,9 @@
       },
       {
         "date": "2019-08-30",
-        "portfolio_return": -0.060177,
+        "portfolio_return": -0.060176,
         "spy_return": -0.016743,
-        "cum_strat": 1416.455,
+        "cum_strat": 1416.4564,
         "cum_spy": 173.1204,
         "top_ticker": "IIPR",
         "turnover": 0.0,
@@ -5984,7 +6407,7 @@
         "date": "2019-09-30",
         "portfolio_return": 0.002099,
         "spy_return": 0.019458,
-        "cum_strat": 1419.6384,
+        "cum_strat": 1419.6398,
         "cum_spy": 178.4347,
         "top_ticker": "AEP",
         "turnover": 0.0,
@@ -5994,7 +6417,7 @@
         "date": "2019-10-31",
         "portfolio_return": -0.018377,
         "spy_return": 0.022105,
-        "cum_strat": 1391.712,
+        "cum_strat": 1391.7133,
         "cum_spy": 184.5894,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -6004,7 +6427,7 @@
         "date": "2019-11-29",
         "portfolio_return": 0.02855,
         "spy_return": 0.036198,
-        "cum_strat": 1434.301,
+        "cum_strat": 1434.302,
         "cum_spy": 194.8909,
         "top_ticker": "ENPH",
         "turnover": 0.0,
@@ -6014,7 +6437,7 @@
         "date": "2019-12-31",
         "portfolio_return": 0.023215,
         "spy_return": 0.029056,
-        "cum_strat": 1469.9196,
+        "cum_strat": 1469.9213,
         "cum_spy": 203.4592,
         "top_ticker": "PHM",
         "turnover": 0.0,
@@ -6024,7 +6447,7 @@
         "date": "2020-01-31",
         "portfolio_return": 0.073007,
         "spy_return": -0.000404,
-        "cum_strat": 1584.5344,
+        "cum_strat": 1584.5363,
         "cum_spy": 203.3367,
         "top_ticker": "SPGI",
         "turnover": 0.0,
@@ -6034,7 +6457,7 @@
         "date": "2020-02-28",
         "portfolio_return": -0.096643,
         "spy_return": -0.079166,
-        "cum_strat": 1421.7366,
+        "cum_strat": 1421.7385,
         "cum_spy": 179.3227,
         "top_ticker": "CRUS",
         "turnover": 0.0,
@@ -6044,7 +6467,7 @@
         "date": "2020-03-31",
         "portfolio_return": -0.112716,
         "spy_return": -0.124871,
-        "cum_strat": 1250.2122,
+        "cum_strat": 1250.2137,
         "cum_spy": 144.4434,
         "top_ticker": "SPGI",
         "turnover": 0.0,
@@ -6054,7 +6477,7 @@
         "date": "2020-04-30",
         "portfolio_return": 0.136646,
         "spy_return": 0.126983,
-        "cum_strat": 1434.7135,
+        "cum_strat": 1434.7154,
         "cum_spy": 175.4836,
         "top_ticker": "AAPL",
         "turnover": 0.0,
@@ -6064,7 +6487,7 @@
         "date": "2020-05-29",
         "portfolio_return": 0.14869,
         "spy_return": 0.047646,
-        "cum_strat": 1662.9095,
+        "cum_strat": 1662.9115,
         "cum_spy": 188.6092,
         "top_ticker": "DOCU",
         "turnover": 0.0,
@@ -6072,9 +6495,9 @@
       },
       {
         "date": "2020-06-30",
-        "portfolio_return": 0.116222,
+        "portfolio_return": 0.116221,
         "spy_return": 0.017734,
-        "cum_strat": 1867.7976,
+        "cum_strat": 1867.7996,
         "cum_spy": 193.7274,
         "top_ticker": "DXCM",
         "turnover": 0.0,
@@ -6084,7 +6507,7 @@
         "date": "2020-07-31",
         "portfolio_return": 0.004493,
         "spy_return": 0.058892,
-        "cum_strat": 1876.6385,
+        "cum_strat": 1876.6409,
         "cum_spy": 211.0257,
         "top_ticker": "PZZA",
         "turnover": 0.0,
@@ -6094,7 +6517,7 @@
         "date": "2020-08-31",
         "portfolio_return": 0.078052,
         "spy_return": 0.069797,
-        "cum_strat": 2030.9191,
+        "cum_strat": 2030.9212,
         "cum_spy": 232.7343,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -6104,7 +6527,7 @@
         "date": "2020-09-30",
         "portfolio_return": -0.107015,
         "spy_return": -0.037444,
-        "cum_strat": 1802.8792,
+        "cum_strat": 1802.8811,
         "cum_spy": 220.2755,
         "top_ticker": "CLX",
         "turnover": 0.0,
@@ -6114,7 +6537,7 @@
         "date": "2020-10-30",
         "portfolio_return": -0.081317,
         "spy_return": -0.024933,
-        "cum_strat": 1648.1424,
+        "cum_strat": 1648.1444,
         "cum_spy": 212.2899,
         "top_ticker": "TSLA",
         "turnover": 0.0,
@@ -6124,7 +6547,7 @@
         "date": "2020-11-30",
         "portfolio_return": 0.415974,
         "spy_return": 0.108777,
-        "cum_strat": 2375.3245,
+        "cum_strat": 2375.3275,
         "cum_spy": 246.2597,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -6134,7 +6557,7 @@
         "date": "2020-12-31",
         "portfolio_return": 0.140309,
         "spy_return": 0.037048,
-        "cum_strat": 2722.6347,
+        "cum_strat": 2722.6382,
         "cum_spy": 259.0881,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -6144,7 +6567,7 @@
         "date": "2021-01-29",
         "portfolio_return": 0.216713,
         "spy_return": -0.01019,
-        "cum_strat": 3334.3356,
+        "cum_strat": 3334.3397,
         "cum_spy": 255.4289,
         "top_ticker": "MRNA",
         "turnover": 0.0,
@@ -6154,7 +6577,7 @@
         "date": "2021-02-26",
         "portfolio_return": 0.053952,
         "spy_return": 0.027806,
-        "cum_strat": 3519.6237,
+        "cum_strat": 3519.6285,
         "cum_spy": 265.3118,
         "top_ticker": "XPEL",
         "turnover": 0.0,
@@ -6164,7 +6587,7 @@
         "date": "2021-03-31",
         "portfolio_return": -0.104881,
         "spy_return": 0.045399,
-        "cum_strat": 3139.9933,
+        "cum_strat": 3139.9975,
         "cum_spy": 281.8967,
         "top_ticker": "XPEL",
         "turnover": 0.0,
@@ -6174,7 +6597,7 @@
         "date": "2021-04-30",
         "portfolio_return": 0.079039,
         "spy_return": 0.05291,
-        "cum_strat": 3396.0789,
+        "cum_strat": 3396.0834,
         "cum_spy": 302.103,
         "top_ticker": "CELH",
         "turnover": 0.0,
@@ -6184,7 +6607,7 @@
         "date": "2021-05-28",
         "portfolio_return": -0.023135,
         "spy_return": 0.006566,
-        "cum_strat": 3315.198,
+        "cum_strat": 3315.2021,
         "cum_spy": 304.7432,
         "top_ticker": "RUN",
         "turnover": 0.0,
@@ -6194,7 +6617,7 @@
         "date": "2021-06-30",
         "portfolio_return": 0.071523,
         "spy_return": 0.022428,
-        "cum_strat": 3559.4639,
+        "cum_strat": 3559.4686,
         "cum_spy": 313.8206,
         "top_ticker": "NIO",
         "turnover": 0.0,
@@ -6204,7 +6627,7 @@
         "date": "2021-07-30",
         "portfolio_return": -0.048744,
         "spy_return": 0.024413,
-        "cum_strat": 3381.0865,
+        "cum_strat": 3381.0908,
         "cum_spy": 323.923,
         "top_ticker": "XPEL",
         "turnover": 0.0,
@@ -6214,7 +6637,7 @@
         "date": "2021-08-31",
         "portfolio_return": 0.142072,
         "spy_return": 0.02976,
-        "cum_strat": 3875.6524,
+        "cum_strat": 3875.6574,
         "cum_spy": 336.5389,
         "top_ticker": "SIG",
         "turnover": 0.0,
@@ -6222,9 +6645,9 @@
       },
       {
         "date": "2021-09-30",
-        "portfolio_return": 0.085581,
+        "portfolio_return": 0.085582,
         "spy_return": -0.046606,
-        "cum_strat": 4215.8943,
+        "cum_strat": 4215.9005,
         "cum_spy": 316.1938,
         "top_ticker": "XPEL",
         "turnover": 0.0,
@@ -6234,7 +6657,7 @@
         "date": "2021-10-29",
         "portfolio_return": -0.062601,
         "spy_return": 0.070164,
-        "cum_strat": 3945.7151,
+        "cum_strat": 3945.719,
         "cum_spy": 345.3954,
         "top_ticker": "BTU",
         "turnover": 0.0,
@@ -6244,7 +6667,7 @@
         "date": "2021-11-30",
         "portfolio_return": -0.0251,
         "spy_return": -0.008035,
-        "cum_strat": 3844.1674,
+        "cum_strat": 3844.1725,
         "cum_spy": 341.8167,
         "top_ticker": "BTU",
         "turnover": 0.0,
@@ -6254,7 +6677,7 @@
         "date": "2021-12-31",
         "portfolio_return": 0.027677,
         "spy_return": 0.046248,
-        "cum_strat": 3953.3296,
+        "cum_strat": 3953.3349,
         "cum_spy": 362.2497,
         "top_ticker": "SM",
         "turnover": 0.0,
@@ -6264,7 +6687,7 @@
         "date": "2022-01-31",
         "portfolio_return": -0.202454,
         "spy_return": -0.052741,
-        "cum_strat": 3132.7152,
+        "cum_strat": 3132.7194,
         "cum_spy": 337.8701,
         "top_ticker": "GDYN",
         "turnover": 0.0,
@@ -6274,7 +6697,7 @@
         "date": "2022-02-28",
         "portfolio_return": -0.238786,
         "spy_return": -0.029517,
-        "cum_strat": 2360.7882,
+        "cum_strat": 2360.7915,
         "cum_spy": 324.9455,
         "top_ticker": "GDYN",
         "turnover": 0.0,
@@ -6284,7 +6707,7 @@
         "date": "2022-03-31",
         "portfolio_return": 0.037187,
         "spy_return": 0.03759,
-        "cum_strat": 2452.2975,
+        "cum_strat": 2452.3013,
         "cum_spy": 340.9194,
         "top_ticker": "COKE",
         "turnover": 0.0,
@@ -6294,7 +6717,7 @@
         "date": "2022-04-29",
         "portfolio_return": -0.076137,
         "spy_return": -0.087769,
-        "cum_strat": 2257.9727,
+        "cum_strat": 2257.9756,
         "cum_spy": 302.2202,
         "top_ticker": "LNTH",
         "turnover": 0.0,
@@ -6304,7 +6727,7 @@
         "date": "2022-05-31",
         "portfolio_return": 0.019968,
         "spy_return": 0.002257,
-        "cum_strat": 2305.0568,
+        "cum_strat": 2305.0601,
         "cum_spy": 303.1282,
         "top_ticker": "MATX",
         "turnover": 0.0,
@@ -6314,7 +6737,7 @@
         "date": "2022-06-30",
         "portfolio_return": -0.138171,
         "spy_return": -0.08246,
-        "cum_strat": 1972.7484,
+        "cum_strat": 1972.751,
         "cum_spy": 269.8861,
         "top_ticker": "HCC",
         "turnover": 0.0,
@@ -6324,7 +6747,7 @@
         "date": "2022-07-29",
         "portfolio_return": 0.223735,
         "spy_return": 0.092088,
-        "cum_strat": 2436.4939,
+        "cum_strat": 2436.4973,
         "cum_spy": 303.948,
         "top_ticker": "DVN",
         "turnover": 0.0,
@@ -6334,7 +6757,7 @@
         "date": "2022-08-31",
         "portfolio_return": -0.077648,
         "spy_return": -0.040802,
-        "cum_strat": 2239.5411,
+        "cum_strat": 2239.5439,
         "cum_spy": 287.4661,
         "top_ticker": "COKE",
         "turnover": 0.0,
@@ -6344,7 +6767,7 @@
         "date": "2022-09-30",
         "portfolio_return": -0.056063,
         "spy_return": -0.092446,
-        "cum_strat": 2108.3783,
+        "cum_strat": 2108.3817,
         "cum_spy": 251.6465,
         "top_ticker": "CVI",
         "turnover": 0.0,
@@ -6354,7 +6777,7 @@
         "date": "2022-10-31",
         "portfolio_return": 0.082301,
         "spy_return": 0.081275,
-        "cum_strat": 2290.1302,
+        "cum_strat": 2290.1335,
         "cum_spy": 280.2266,
         "top_ticker": "EQT",
         "turnover": 0.0,
@@ -6364,7 +6787,7 @@
         "date": "2022-11-30",
         "portfolio_return": -0.067573,
         "spy_return": 0.055592,
-        "cum_strat": 2128.6213,
+        "cum_strat": 2128.6241,
         "cum_spy": 301.3641,
         "top_ticker": "LNTH",
         "turnover": 0.0,
@@ -6372,9 +6795,9 @@
       },
       {
         "date": "2022-12-30",
-        "portfolio_return": -0.035315,
+        "portfolio_return": -0.035314,
         "spy_return": -0.057628,
-        "cum_strat": 2049.9184,
+        "cum_strat": 2049.9214,
         "cum_spy": 278.2342,
         "top_ticker": "TDW",
         "turnover": 0.0,
@@ -6384,7 +6807,7 @@
         "date": "2023-01-31",
         "portfolio_return": -0.114215,
         "spy_return": 0.062887,
-        "cum_strat": 1804.3659,
+        "cum_strat": 1804.3687,
         "cum_spy": 302.0204,
         "top_ticker": "TPL",
         "turnover": 0.0,
@@ -6394,7 +6817,7 @@
         "date": "2023-02-28",
         "portfolio_return": 0.191238,
         "spy_return": -0.025143,
-        "cum_strat": 2168.5537,
+        "cum_strat": 2168.5571,
         "cum_spy": 291.9125,
         "top_ticker": "CPRX",
         "turnover": 0.0,
@@ -6404,7 +6827,7 @@
         "date": "2023-03-31",
         "portfolio_return": -0.082143,
         "spy_return": 0.037078,
-        "cum_strat": 1982.2082,
+        "cum_strat": 1982.2114,
         "cum_spy": 306.4437,
         "top_ticker": "TMDX",
         "turnover": 0.0,
@@ -6414,7 +6837,7 @@
         "date": "2023-04-28",
         "portfolio_return": -0.053293,
         "spy_return": 0.015975,
-        "cum_strat": 1871.2404,
+        "cum_strat": 1871.2431,
         "cum_spy": 312.9367,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6424,7 +6847,7 @@
         "date": "2023-05-31",
         "portfolio_return": 0.344426,
         "spy_return": 0.004616,
-        "cum_strat": 2550.1872,
+        "cum_strat": 2550.191,
         "cum_spy": 314.8429,
         "top_ticker": "PI",
         "turnover": 0.0,
@@ -6434,7 +6857,7 @@
         "date": "2023-06-30",
         "portfolio_return": 0.040389,
         "spy_return": 0.0648,
-        "cum_strat": 2657.2263,
+        "cum_strat": 2657.2303,
         "cum_spy": 341.7246,
         "top_ticker": "IPAR",
         "turnover": 0.0,
@@ -6444,7 +6867,7 @@
         "date": "2023-07-31",
         "portfolio_return": 0.094075,
         "spy_return": 0.032733,
-        "cum_strat": 2916.6115,
+        "cum_strat": 2916.6157,
         "cum_spy": 356.1836,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6454,7 +6877,7 @@
         "date": "2023-08-31",
         "portfolio_return": -0.004692,
         "spy_return": -0.016252,
-        "cum_strat": 2902.4569,
+        "cum_strat": 2902.4609,
         "cum_spy": 348.7698,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6464,7 +6887,7 @@
         "date": "2023-09-29",
         "portfolio_return": -0.074934,
         "spy_return": -0.047435,
-        "cum_strat": 2677.4708,
+        "cum_strat": 2677.4747,
         "cum_spy": 327.4826,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6474,7 +6897,7 @@
         "date": "2023-10-31",
         "portfolio_return": -0.050992,
         "spy_return": -0.021709,
-        "cum_strat": 2535.8426,
+        "cum_strat": 2535.8467,
         "cum_spy": 318.2025,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6484,7 +6907,7 @@
         "date": "2023-11-30",
         "portfolio_return": 0.128982,
         "spy_return": 0.091344,
-        "cum_strat": 2875.8198,
+        "cum_strat": 2875.8243,
         "cum_spy": 356.4027,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6494,7 +6917,7 @@
         "date": "2023-12-29",
         "portfolio_return": 0.045348,
         "spy_return": 0.045655,
-        "cum_strat": 3010.7674,
+        "cum_strat": 3010.7721,
         "cum_spy": 377.24,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6504,7 +6927,7 @@
         "date": "2024-01-31",
         "portfolio_return": 0.237887,
         "spy_return": 0.015926,
-        "cum_strat": 3750.7782,
+        "cum_strat": 3750.7841,
         "cum_spy": 384.8407,
         "top_ticker": "POWL",
         "turnover": 0.0,
@@ -6514,7 +6937,7 @@
         "date": "2024-02-29",
         "portfolio_return": 0.551027,
         "spy_return": 0.052187,
-        "cum_strat": 5872.6604,
+        "cum_strat": 5872.6703,
         "cum_spy": 410.143,
         "top_ticker": "SMCI",
         "turnover": 0.0,
@@ -6524,7 +6947,7 @@
         "date": "2024-03-28",
         "portfolio_return": -0.036302,
         "spy_return": 0.032702,
-        "cum_strat": 5655.839,
+        "cum_strat": 5655.8486,
         "cum_spy": 426.8256,
         "top_ticker": "NVDA",
         "turnover": 0.0,
@@ -6534,7 +6957,7 @@
         "date": "2024-04-30",
         "portfolio_return": -0.049418,
         "spy_return": -0.040319,
-        "cum_strat": 5371.3965,
+        "cum_strat": 5371.4041,
         "cum_spy": 405.5843,
         "top_ticker": "POWL",
         "turnover": 0.0,
@@ -6544,7 +6967,7 @@
         "date": "2024-05-31",
         "portfolio_return": 0.096913,
         "spy_return": 0.05058,
-        "cum_strat": 5901.6459,
+        "cum_strat": 5901.6544,
         "cum_spy": 431.1566,
         "top_ticker": "BHVN",
         "turnover": 0.0,
@@ -6554,7 +6977,7 @@
         "date": "2024-06-28",
         "portfolio_return": -0.087685,
         "spy_return": 0.03528,
-        "cum_strat": 5375.3912,
+        "cum_strat": 5375.3993,
         "cum_spy": 449.8959,
         "top_ticker": "BHVN",
         "turnover": 0.0,
@@ -6564,7 +6987,7 @@
         "date": "2024-07-31",
         "portfolio_return": 0.091984,
         "spy_return": 0.012109,
-        "cum_strat": 5879.0387,
+        "cum_strat": 5879.0473,
         "cum_spy": 456.5546,
         "top_ticker": "AESI",
         "turnover": 0.0,
@@ -6574,7 +6997,7 @@
         "date": "2024-08-30",
         "portfolio_return": 0.033074,
         "spy_return": 0.023366,
-        "cum_strat": 6076.7911,
+        "cum_strat": 6076.7997,
         "cum_spy": 469.5589,
         "top_ticker": "VITL",
         "turnover": 0.0,
@@ -6584,7 +7007,7 @@
         "date": "2024-09-30",
         "portfolio_return": 0.090219,
         "spy_return": 0.021005,
-        "cum_strat": 6634.0522,
+        "cum_strat": 6634.0627,
         "cum_spy": 481.5223,
         "top_ticker": "ADMA",
         "turnover": 0.0,
@@ -6594,7 +7017,7 @@
         "date": "2024-10-31",
         "portfolio_return": 0.062099,
         "spy_return": -0.008924,
-        "cum_strat": 7052.2324,
+        "cum_strat": 7052.2418,
         "cum_spy": 476.333,
         "top_ticker": "ADMA",
         "turnover": 0.0,
@@ -6604,7 +7027,7 @@
         "date": "2024-11-29",
         "portfolio_return": 0.270956,
         "spy_return": 0.059633,
-        "cum_strat": 8990.1696,
+        "cum_strat": 8990.1823,
         "cum_spy": 510.7017,
         "top_ticker": "ADMA",
         "turnover": 0.0,
@@ -6614,7 +7037,7 @@
         "date": "2024-12-31",
         "portfolio_return": -0.094622,
         "spy_return": -0.02406,
-        "cum_strat": 8130.0388,
+        "cum_strat": 8130.0506,
         "cum_spy": 496.0081,
         "top_ticker": "VISN",
         "turnover": 0.0,
@@ -6624,7 +7047,7 @@
         "date": "2025-01-31",
         "portfolio_return": 0.117145,
         "spy_return": 0.026856,
-        "cum_strat": 9094.1467,
+        "cum_strat": 9094.1598,
         "cum_spy": 512.0148,
         "top_ticker": "QTWO",
         "turnover": 0.0,
@@ -6634,7 +7057,7 @@
         "date": "2025-02-28",
         "portfolio_return": -0.018469,
         "spy_return": -0.012695,
-        "cum_strat": 8924.3398,
+        "cum_strat": 8924.3534,
         "cum_spy": 504.2453,
         "top_ticker": "TPL",
         "turnover": 0.0,
@@ -6644,7 +7067,7 @@
         "date": "2025-03-31",
         "portfolio_return": -0.096584,
         "spy_return": -0.055719,
-        "cum_strat": 8052.7342,
+        "cum_strat": 8052.7466,
         "cum_spy": 470.5773,
         "top_ticker": "FRPT",
         "turnover": 0.0,
@@ -6654,7 +7077,7 @@
         "date": "2025-04-30",
         "portfolio_return": 0.052654,
         "spy_return": -0.00867,
-        "cum_strat": 8482.0118,
+        "cum_strat": 8482.0243,
         "cum_spy": 465.6302,
         "top_ticker": "TPL",
         "turnover": 0.0,
@@ -6664,7 +7087,7 @@
         "date": "2025-05-30",
         "portfolio_return": -0.008102,
         "spy_return": 0.062845,
-        "cum_strat": 8412.4836,
+        "cum_strat": 8412.4962,
         "cum_spy": 501.1772,
         "top_ticker": "TPL",
         "turnover": 0.0,
@@ -6674,7 +7097,7 @@
         "date": "2025-06-30",
         "portfolio_return": 0.143615,
         "spy_return": 0.051386,
-        "cum_strat": 9635.0028,
+        "cum_strat": 9635.017,
         "cum_spy": 532.0694,
         "top_ticker": "VRSN",
         "turnover": 0.0,
@@ -6684,7 +7107,7 @@
         "date": "2025-07-31",
         "portfolio_return": 0.04024,
         "spy_return": 0.023032,
-        "cum_strat": 10026.7427,
+        "cum_strat": 10026.7571,
         "cum_spy": 546.627,
         "top_ticker": "PRA",
         "turnover": 0.0,
@@ -6694,7 +7117,7 @@
         "date": "2025-08-29",
         "portfolio_return": 0.037476,
         "spy_return": 0.02052,
-        "cum_strat": 10406.25,
+        "cum_strat": 10406.2647,
         "cum_spy": 559.8954,
         "top_ticker": "CHTR",
         "turnover": 0.0,
@@ -6704,7 +7127,7 @@
         "date": "2025-09-30",
         "portfolio_return": 0.052588,
         "spy_return": 0.03562,
-        "cum_strat": 10958.754,
+        "cum_strat": 10958.7697,
         "cum_spy": 583.4012,
         "top_ticker": "HTH",
         "turnover": 0.0,
@@ -6714,7 +7137,7 @@
         "date": "2025-10-31",
         "portfolio_return": 0.103251,
         "spy_return": 0.023837,
-        "cum_strat": 12100.5826,
+        "cum_strat": 12100.5993,
         "cum_spy": 599.6916,
         "top_ticker": "TPL",
         "turnover": 0.0,
@@ -6724,7 +7147,7 @@
         "date": "2025-11-28",
         "portfolio_return": 0.16571,
         "spy_return": 0.00195,
-        "cum_strat": 14122.3413,
+        "cum_strat": 14122.3604,
         "cum_spy": 601.0561,
         "top_ticker": "ONDS",
         "turnover": 0.0,
@@ -6734,7 +7157,7 @@
         "date": "2025-12-31",
         "portfolio_return": -0.062964,
         "spy_return": 0.000798,
-        "cum_strat": 13226.847,
+        "cum_strat": 13226.8643,
         "cum_spy": 601.6152,
         "top_ticker": "IREN",
         "turnover": 0.0,
@@ -6744,7 +7167,7 @@
         "date": "2026-01-30",
         "portfolio_return": 0.258355,
         "spy_return": 0.014738,
-        "cum_strat": 16669.906,
+        "cum_strat": 16669.9284,
         "cum_spy": 611.9554,
         "top_ticker": "IREN",
         "turnover": 0.0,
@@ -6752,9 +7175,9 @@
       },
       {
         "date": "2026-02-27",
-        "portfolio_return": -0.009374,
+        "portfolio_return": 0.023795,
         "spy_return": -0.008642,
-        "cum_strat": 16512.7015,
+        "cum_strat": 17068.9729,
         "cum_spy": 605.8027,
         "top_ticker": "EA",
         "turnover": 0.0,
@@ -6762,9 +7185,9 @@
       },
       {
         "date": "2026-03-31",
-        "portfolio_return": -0.114044,
+        "portfolio_return": -0.124408,
         "spy_return": -0.04938,
-        "cum_strat": 14618.1276,
+        "cum_strat": 14933.021,
         "cum_spy": 570.9505,
         "top_ticker": "MU",
         "turnover": 0.0,
@@ -6774,7 +7197,7 @@
         "date": "2026-04-30",
         "portfolio_return": 0.282095,
         "spy_return": 0.105053,
-        "cum_strat": 18770.0343,
+        "cum_strat": 19173.7575,
         "cum_spy": 641.4356,
         "top_ticker": "ONDS",
         "turnover": 0.0,
@@ -6784,17 +7207,17 @@
         "date": "2026-05-29",
         "portfolio_return": 0.03376,
         "spy_return": 0.026382,
-        "cum_strat": 19407.0926,
+        "cum_strat": 19824.4457,
         "cum_spy": 660.9965,
         "top_ticker": "PARR",
         "turnover": 0.0,
         "regime": "neutral"
       },
       {
-        "date": "2026-06-26",
-        "portfolio_return": 0.048063,
+        "date": "2026-06-30",
+        "portfolio_return": 0.189289,
         "spy_return": 0.0,
-        "cum_strat": 20344.6532,
+        "cum_strat": 23595.9187,
         "cum_spy": 660.9965,
         "top_ticker": "MXL",
         "turnover": 0.0,
@@ -6878,11 +7301,11 @@
   "attribution": [],
   "metrics": {
     "backtest": {
-      "net_cagr": 0.4113,
-      "sharpe": 1.078,
+      "net_cagr": 0.4245,
+      "sharpe": 1.1,
       "max_drawdown": -0.5996,
       "spy_cagr": 0.1404,
-      "hit_rate": 0.5308,
+      "hit_rate": 0.5313,
       "n_months": 186,
       "config": "top-3 / 1st-of-month, full universe",
       "source": "_c78q_top3_rebake.py (current streams)"

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-26",
+ "generated_at": "2026-06-30",
  "engine": "Aristeia",
  "character": "Event-Balanced",
  "tagline": "Event/PEAD-anchored blend (25% ML-prediction / 25% fundamentals / 50% event) over the BROAD universe \u2014 the validated post-earnings-drift core, diluted to stay tradeable.",
@@ -13,13 +13,14 @@
   "hold_days": 21
  },
  "current_holdings": {
-  "as_of": "2026-06-16",
+  "as_of": "2026-07-01",
   "tickers": [
    "INSW",
    "MRVL",
-   "MTZ"
+   "AKAM"
   ],
-  "n": 3
+  "n": 3,
+  "book_type": "live"
  },
  "next_rebalance": "2026-07-15",
  "rebalance_ledger": [
@@ -35,135 +36,551 @@
     {
      "rank": 1,
      "ticker": "INSW",
-     "score": 10.310724
+     "score": 10.30913
     },
     {
      "rank": 2,
      "ticker": "MRVL",
-     "score": 10.005762
+     "score": 10.00536
     },
     {
      "rank": 3,
      "ticker": "MTZ",
-     "score": 9.929674
+     "score": 9.929735
     },
     {
      "rank": 4,
      "ticker": "POWL",
-     "score": 9.748831
+     "score": 9.746827
     },
     {
      "rank": 5,
      "ticker": "AKAM",
-     "score": 9.736614
+     "score": 9.737845
     },
     {
      "rank": 6,
      "ticker": "MTDR",
-     "score": 9.661245
+     "score": 9.660879
     },
     {
      "rank": 7,
      "ticker": "TRN",
-     "score": 9.429843
+     "score": 9.427644
     },
     {
      "rank": 8,
      "ticker": "AMAT",
-     "score": 9.34993
+     "score": 9.350576
     },
     {
      "rank": 9,
      "ticker": "NVT",
-     "score": 9.338181
+     "score": 9.337584
     },
     {
      "rank": 10,
      "ticker": "AESI",
-     "score": 9.326139
+     "score": 9.326373
     },
     {
      "rank": 11,
      "ticker": "KSS",
-     "score": 9.314257
+     "score": 9.314983
     },
     {
      "rank": 12,
      "ticker": "DVA",
-     "score": 9.284455
+     "score": 9.282477
     },
     {
      "rank": 13,
      "ticker": "TH",
-     "score": 9.235196
+     "score": 9.236649
     },
     {
      "rank": 14,
      "ticker": "ICHR",
-     "score": 9.228474
+     "score": 9.227648
     },
     {
      "rank": 15,
      "ticker": "UNP",
-     "score": 9.183897
+     "score": 9.183107
     },
     {
      "rank": 16,
      "ticker": "PRG",
-     "score": 9.072273
+     "score": 9.069773
     },
     {
      "rank": 17,
      "ticker": "IVZ",
-     "score": 9.067633
+     "score": 9.064854
     },
     {
      "rank": 18,
      "ticker": "DVN",
-     "score": 9.05931
+     "score": 9.059719
     },
     {
      "rank": 19,
      "ticker": "LFUS",
-     "score": 9.041761
+     "score": 9.04243
     },
     {
      "rank": 20,
      "ticker": "VLO",
-     "score": 8.999401
+     "score": 9.001224
     },
     {
      "rank": 21,
      "ticker": "ALLY",
-     "score": 8.990534
+     "score": 8.989246
     },
     {
      "rank": 22,
      "ticker": "CTRA",
-     "score": 8.988984
+     "score": 8.986478
     },
     {
      "rank": 23,
      "ticker": "BEN",
-     "score": 8.953136
+     "score": 8.9505
     },
     {
      "rank": 24,
      "ticker": "ARW",
-     "score": 8.946284
+     "score": 8.945507
     },
     {
      "rank": 25,
      "ticker": "UCTT",
-     "score": 8.942613
+     "score": 8.943067
     }
    ],
-   "source": "aristeia-builder"
+   "source": "aristeia-builder",
+   "signal_as_of": "2026-06-30",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "INSW",
+     "score": 10.286825
+    },
+    {
+     "rank": 2,
+     "ticker": "AKAM",
+     "score": 10.153475
+    },
+    {
+     "rank": 3,
+     "ticker": "MRVL",
+     "score": 9.986867
+    },
+    {
+     "rank": 4,
+     "ticker": "MTZ",
+     "score": 9.903635
+    },
+    {
+     "rank": 5,
+     "ticker": "POWL",
+     "score": 9.69577
+    },
+    {
+     "rank": 6,
+     "ticker": "MTDR",
+     "score": 9.63311
+    },
+    {
+     "rank": 7,
+     "ticker": "TRN",
+     "score": 9.602763
+    },
+    {
+     "rank": 8,
+     "ticker": "KSS",
+     "score": 9.322615
+    },
+    {
+     "rank": 9,
+     "ticker": "DVA",
+     "score": 9.24654
+    },
+    {
+     "rank": 10,
+     "ticker": "ICHR",
+     "score": 9.207964
+    },
+    {
+     "rank": 11,
+     "ticker": "TH",
+     "score": 9.201468
+    },
+    {
+     "rank": 12,
+     "ticker": "AESI",
+     "score": 9.199736
+    },
+    {
+     "rank": 13,
+     "ticker": "UNP",
+     "score": 9.128853
+    },
+    {
+     "rank": 14,
+     "ticker": "AMAT",
+     "score": 9.116487
+    },
+    {
+     "rank": 15,
+     "ticker": "PRG",
+     "score": 9.10622
+    },
+    {
+     "rank": 16,
+     "ticker": "LFUS",
+     "score": 9.012468
+    },
+    {
+     "rank": 17,
+     "ticker": "CTRA",
+     "score": 8.971544
+    },
+    {
+     "rank": 18,
+     "ticker": "ARW",
+     "score": 8.969263
+    },
+    {
+     "rank": 19,
+     "ticker": "DVN",
+     "score": 8.966486
+    },
+    {
+     "rank": 20,
+     "ticker": "VLO",
+     "score": 8.963187
+    },
+    {
+     "rank": 21,
+     "ticker": "ALLY",
+     "score": 8.960523
+    },
+    {
+     "rank": 22,
+     "ticker": "UCTT",
+     "score": 8.957455
+    },
+    {
+     "rank": 23,
+     "ticker": "TRGP",
+     "score": 8.943505
+    },
+    {
+     "rank": 24,
+     "ticker": "AEP",
+     "score": 8.922995
+    },
+    {
+     "rank": 25,
+     "ticker": "WRLD",
+     "score": 8.910836
+    }
+   ],
+   "book_type": "paper"
+  },
+  {
+   "as_of": "2026-07-01",
+   "held_n": 3,
+   "held_tickers": [
+    "INSW",
+    "MRVL",
+    "AKAM"
+   ],
+   "top25": [
+    {
+     "rank": 1,
+     "ticker": "INSW",
+     "score": 10.286825
+    },
+    {
+     "rank": 2,
+     "ticker": "AKAM",
+     "score": 10.153475
+    },
+    {
+     "rank": 3,
+     "ticker": "MRVL",
+     "score": 9.986867
+    },
+    {
+     "rank": 4,
+     "ticker": "MTZ",
+     "score": 9.903635
+    },
+    {
+     "rank": 5,
+     "ticker": "POWL",
+     "score": 9.69577
+    },
+    {
+     "rank": 6,
+     "ticker": "MTDR",
+     "score": 9.63311
+    },
+    {
+     "rank": 7,
+     "ticker": "TRN",
+     "score": 9.602763
+    },
+    {
+     "rank": 8,
+     "ticker": "KSS",
+     "score": 9.322615
+    },
+    {
+     "rank": 9,
+     "ticker": "DVA",
+     "score": 9.24654
+    },
+    {
+     "rank": 10,
+     "ticker": "ICHR",
+     "score": 9.207964
+    },
+    {
+     "rank": 11,
+     "ticker": "TH",
+     "score": 9.201468
+    },
+    {
+     "rank": 12,
+     "ticker": "AESI",
+     "score": 9.199736
+    },
+    {
+     "rank": 13,
+     "ticker": "UNP",
+     "score": 9.128853
+    },
+    {
+     "rank": 14,
+     "ticker": "AMAT",
+     "score": 9.116487
+    },
+    {
+     "rank": 15,
+     "ticker": "PRG",
+     "score": 9.10622
+    },
+    {
+     "rank": 16,
+     "ticker": "LFUS",
+     "score": 9.012468
+    },
+    {
+     "rank": 17,
+     "ticker": "CTRA",
+     "score": 8.971544
+    },
+    {
+     "rank": 18,
+     "ticker": "ARW",
+     "score": 8.969263
+    },
+    {
+     "rank": 19,
+     "ticker": "DVN",
+     "score": 8.966486
+    },
+    {
+     "rank": 20,
+     "ticker": "VLO",
+     "score": 8.963187
+    },
+    {
+     "rank": 21,
+     "ticker": "ALLY",
+     "score": 8.960523
+    },
+    {
+     "rank": 22,
+     "ticker": "UCTT",
+     "score": 8.957455
+    },
+    {
+     "rank": 23,
+     "ticker": "TRGP",
+     "score": 8.943505
+    },
+    {
+     "rank": 24,
+     "ticker": "AEP",
+     "score": 8.922995
+    },
+    {
+     "rank": 25,
+     "ticker": "WRLD",
+     "score": 8.910836
+    }
+   ],
+   "book_type": "live",
+   "signal_as_of": "2026-06-30",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "INSW",
+     "score": 10.286825
+    },
+    {
+     "rank": 2,
+     "ticker": "AKAM",
+     "score": 10.153475
+    },
+    {
+     "rank": 3,
+     "ticker": "MRVL",
+     "score": 9.986867
+    },
+    {
+     "rank": 4,
+     "ticker": "MTZ",
+     "score": 9.903635
+    },
+    {
+     "rank": 5,
+     "ticker": "POWL",
+     "score": 9.69577
+    },
+    {
+     "rank": 6,
+     "ticker": "MTDR",
+     "score": 9.63311
+    },
+    {
+     "rank": 7,
+     "ticker": "TRN",
+     "score": 9.602763
+    },
+    {
+     "rank": 8,
+     "ticker": "KSS",
+     "score": 9.322615
+    },
+    {
+     "rank": 9,
+     "ticker": "DVA",
+     "score": 9.24654
+    },
+    {
+     "rank": 10,
+     "ticker": "ICHR",
+     "score": 9.207964
+    },
+    {
+     "rank": 11,
+     "ticker": "TH",
+     "score": 9.201468
+    },
+    {
+     "rank": 12,
+     "ticker": "AESI",
+     "score": 9.199736
+    },
+    {
+     "rank": 13,
+     "ticker": "UNP",
+     "score": 9.128853
+    },
+    {
+     "rank": 14,
+     "ticker": "AMAT",
+     "score": 9.116487
+    },
+    {
+     "rank": 15,
+     "ticker": "PRG",
+     "score": 9.10622
+    },
+    {
+     "rank": 16,
+     "ticker": "LFUS",
+     "score": 9.012468
+    },
+    {
+     "rank": 17,
+     "ticker": "CTRA",
+     "score": 8.971544
+    },
+    {
+     "rank": 18,
+     "ticker": "ARW",
+     "score": 8.969263
+    },
+    {
+     "rank": 19,
+     "ticker": "DVN",
+     "score": 8.966486
+    },
+    {
+     "rank": 20,
+     "ticker": "VLO",
+     "score": 8.963187
+    },
+    {
+     "rank": 21,
+     "ticker": "ALLY",
+     "score": 8.960523
+    },
+    {
+     "rank": 22,
+     "ticker": "UCTT",
+     "score": 8.957455
+    },
+    {
+     "rank": 23,
+     "ticker": "TRGP",
+     "score": 8.943505
+    },
+    {
+     "rank": 24,
+     "ticker": "AEP",
+     "score": 8.922995
+    },
+    {
+     "rank": 25,
+     "ticker": "WRLD",
+     "score": 8.910836
+    }
+   ],
+   "fills": {
+    "INSW": {
+     "action": "buy",
+     "shares": 25.95,
+     "price": 77.0682,
+     "notional": 2000.0,
+     "note": "shares approx, derived from $2,000 notional"
+    },
+    "MRVL": {
+     "action": "buy",
+     "shares": 7,
+     "price": 283.74
+    },
+    "AKAM": {
+     "action": "buy",
+     "shares": 17.45,
+     "price": 114.5974,
+     "notional": 2000.0,
+     "note": "shares approx, derived from $2,000 notional"
+    }
+   },
+   "source": "manual-seed (broker positions confirmed 2026-07-01; FIRST LIVE ENTRY for this sleeve - all prior aristeia entries are paper; MTZ was never held)"
   }
  ],
  "backtest": {
-  "cagr": 29.2,
-  "sharpe": 0.93,
+  "cagr": 30.0,
+  "sharpe": 0.95,
   "max_dd": -40.6,
   "window": "2011-2026",
   "regime_cagr": {
@@ -198,24 +615,24 @@
     },
     {
      "period": "2025-2026",
-     "cagr": 27.2
+     "cagr": 35.2
     }
    ],
-   "median": 30.1,
+   "median": 33.0,
    "best": 45.4,
    "worst": 4.0
   },
-  "forward_note": "Backtest on the broad universe, NOT a forward projection. Realistic forward ~25-29% after survivorship + 3-name concentration; per-2yr regime range 4% to 45% (median 30%). LIVE paper-track begins 2026-07-01."
+  "forward_note": "Backtest on the broad universe, NOT a forward projection. Realistic forward ~25-29% after survivorship + 3-name concentration; per-2yr regime range 4% to 45% (median 33%). LIVE paper-track begins 2026-07-01."
  },
  "metrics": {
   "in_sample": {
-   "cagr": 29.2,
-   "sharpe": 0.93,
+   "cagr": 30.0,
+   "sharpe": 0.95,
    "max_dd": -40.6
   },
   "oos": {
-   "cagr": 35.0,
-   "sharpe": 1.13,
+   "cagr": 37.2,
+   "sharpe": 1.18,
    "max_dd": -29.7
   },
   "train": {
@@ -223,11 +640,11 @@
    "sharpe": 0.84,
    "max_dd": -40.6
   },
-  "spy_cagr": 12.3,
-  "nasdaq_cagr": 16.2,
+  "spy_cagr": 12.1,
+  "nasdaq_cagr": 15.9,
   "n_rebalances": 186,
-  "annual_turnover_pct": 785,
-  "final_multiple": 56.8
+  "annual_turnover_pct": 787,
+  "final_multiple": 59.6
  },
  "equity_curve": [
   {
@@ -616,7 +1033,7 @@
   },
   {
    "date": "2016-05-31",
-   "equity": 418.6,
+   "equity": 418.5,
    "spy": 163.0,
    "nasdaq": 183.3
   },
@@ -1318,27 +1735,33 @@
   },
   {
    "date": "2026-02-28",
-   "equity": 4628.3,
+   "equity": 4683.3,
    "spy": 534.9,
    "nasdaq": 839.5
   },
   {
    "date": "2026-03-31",
-   "equity": 4672.0,
+   "equity": 4911.2,
    "spy": 507.6,
    "nasdaq": 799.6
   },
   {
    "date": "2026-04-30",
-   "equity": 5643.9,
+   "equity": 5932.8,
    "spy": 560.5,
    "nasdaq": 921.9
   },
   {
    "date": "2026-05-31",
-   "equity": 5683.3,
+   "equity": 5974.3,
    "spy": 589.4,
    "nasdaq": 999.0
+  },
+  {
+   "date": "2026-06-30",
+   "equity": 5959.7,
+   "spy": 583.1,
+   "nasdaq": 970.8
   }
  ],
  "yearly": [
@@ -1419,8 +1842,8 @@
   },
   {
    "label": "2026",
-   "strategy": 25.9,
-   "spy": 7.4
+   "strategy": 38.1,
+   "spy": 9.6
   }
  ],
  "holdings": [
@@ -1459,7 +1882,7 @@
   {
    "date": "2026-02-13",
    "tickers": [
-    "AVGO",
+    "EXPE",
     "HCC",
     "TALO"
    ]
@@ -2915,10 +3338,10 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible), NOT a forward projection. Realistic forward ~25-29%; per-2yr regime CAGR 4% to 45% (median 30%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible), NOT a forward projection. Realistic forward ~25-29%; per-2yr regime CAGR 4% to 45% (median 33%).",
   "E3/PEAD is the validated core: real post-earnings drift (survives zeroing announcement-window days), entered 3 days AFTER the filing \u2014 reacts to earnings, does not predict them.",
   "Liquidity-survival 0.96 at a $5M-ADV lens \u2014 the edge is tradeable, not a microcap artifact (unlike the .7-event tilt it replaced).",
-  "TRUE daily mark-to-market: the -41% drawdown is the real intra-period low. Top-3 concentration = high single-name risk (202 distinct names rotated over the backtest).",
-  "Frictionless backtest: ignores ~785%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01."
+  "TRUE daily mark-to-market: the -41% drawdown is the real intra-period low. Top-3 concentration = high single-name risk (203 distinct names rotated over the backtest).",
+  "Frictionless backtest: ignores ~787%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01."
  ]
 }

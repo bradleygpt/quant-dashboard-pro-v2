@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-26",
+ "generated_at": "2026-06-30",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -90,13 +90,13 @@
     },
     {
      "rank": 12,
-     "ticker": "SMCI",
-     "score": 9.384999
+     "ticker": "STLD",
+     "score": 9.374999
     },
     {
      "rank": 13,
-     "ticker": "STLD",
-     "score": 9.374999
+     "ticker": "SMCI",
+     "score": 9.368333
     },
     {
      "rank": 14,
@@ -159,12 +159,140 @@
      "score": 9.073333
     }
    ],
-   "source": "factor-builder"
+   "source": "factor-builder",
+   "signal_as_of": "2026-06-30",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "EIX",
+     "score": 10.061666
+    },
+    {
+     "rank": 2,
+     "ticker": "MOS",
+     "score": 9.963333
+    },
+    {
+     "rank": 3,
+     "ticker": "FISV",
+     "score": 9.799999
+    },
+    {
+     "rank": 4,
+     "ticker": "RL",
+     "score": 9.719999
+    },
+    {
+     "rank": 5,
+     "ticker": "TPR",
+     "score": 9.545
+    },
+    {
+     "rank": 6,
+     "ticker": "DECK",
+     "score": 9.533333
+    },
+    {
+     "rank": 7,
+     "ticker": "ED",
+     "score": 9.525
+    },
+    {
+     "rank": 8,
+     "ticker": "SJM",
+     "score": 9.436666
+    },
+    {
+     "rank": 9,
+     "ticker": "SMCI",
+     "score": 9.418333
+    },
+    {
+     "rank": 10,
+     "ticker": "ATO",
+     "score": 9.396667
+    },
+    {
+     "rank": 11,
+     "ticker": "TTWO",
+     "score": 9.393333
+    },
+    {
+     "rank": 12,
+     "ticker": "AFL",
+     "score": 9.371667
+    },
+    {
+     "rank": 13,
+     "ticker": "COF",
+     "score": 9.363334
+    },
+    {
+     "rank": 14,
+     "ticker": "BKNG",
+     "score": 9.335
+    },
+    {
+     "rank": 15,
+     "ticker": "FIX",
+     "score": 9.293333
+    },
+    {
+     "rank": 16,
+     "ticker": "F",
+     "score": 9.285
+    },
+    {
+     "rank": 17,
+     "ticker": "MU",
+     "score": 9.276667
+    },
+    {
+     "rank": 18,
+     "ticker": "FSLR",
+     "score": 9.27
+    },
+    {
+     "rank": 19,
+     "ticker": "AEE",
+     "score": 9.185
+    },
+    {
+     "rank": 20,
+     "ticker": "STLD",
+     "score": 9.155001
+    },
+    {
+     "rank": 21,
+     "ticker": "AAPL",
+     "score": 9.023333
+    },
+    {
+     "rank": 22,
+     "ticker": "CINF",
+     "score": 9.014999
+    },
+    {
+     "rank": 23,
+     "ticker": "IVZ",
+     "score": 9.01
+    },
+    {
+     "rank": 24,
+     "ticker": "IRM",
+     "score": 8.986667
+    },
+    {
+     "rank": 25,
+     "ticker": "EXPE",
+     "score": 8.966666
+    }
+   ]
   }
  ],
  "backtest": {
-  "cagr": 31.0,
-  "sharpe": 1.16,
+  "cagr": 30.8,
+  "sharpe": 1.15,
   "max_dd": -42.9,
   "window": "2011-2026",
   "regime_cagr": {
@@ -199,7 +327,7 @@
     },
     {
      "period": "2025-2026",
-     "cagr": 59.8
+     "cagr": 56.7
     }
    ],
    "median": 32.6,
@@ -210,13 +338,13 @@
  },
  "metrics": {
   "in_sample": {
-   "cagr": 31.0,
-   "sharpe": 1.16,
+   "cagr": 30.8,
+   "sharpe": 1.15,
    "max_dd": -42.9
   },
   "oos": {
-   "cagr": 33.6,
-   "sharpe": 1.19,
+   "cagr": 32.9,
+   "sharpe": 1.17,
    "max_dd": -27.2
   },
   "train": {
@@ -224,11 +352,11 @@
    "sharpe": 1.14,
    "max_dd": -42.9
   },
-  "spy_cagr": 12.3,
-  "nasdaq_cagr": 16.2,
+  "spy_cagr": 12.1,
+  "nasdaq_cagr": 15.9,
   "n_rebalances": 38,
   "annual_turnover_pct": 210,
-  "final_multiple": 59.3
+  "final_multiple": 61.6
  },
  "equity_curve": [
   {
@@ -1340,6 +1468,12 @@
    "equity": 5929.6,
    "spy": 589.4,
    "nasdaq": 999.0
+  },
+  {
+   "date": "2026-06-30",
+   "equity": 6164.9,
+   "spy": 583.1,
+   "nasdaq": 970.8
   }
  ],
  "yearly": [
@@ -1420,8 +1554,8 @@
   },
   {
    "label": "2026",
-   "strategy": 22.6,
-   "spy": 7.4
+   "strategy": 19.4,
+   "spy": 9.6
   }
  ],
  "holdings": [

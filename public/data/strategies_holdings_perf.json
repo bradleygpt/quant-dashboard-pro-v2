@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-06-26",
- "as_of": "2026-06-26",
+ "generated_at": "2026-06-30",
+ "as_of": "2026-06-30",
  "periods": [
   "daily",
   "rebalance",
@@ -11,63 +11,64 @@
    "slug": "katalepsis",
    "label": "Katalepsis",
    "color": "#00C805",
-   "entry": "2026-05-29",
+   "entry": "2026-07-01",
+   "book_type": "live",
    "holdings": [
     {
-     "ticker": "MXL",
-     "name": "MaxLinear, Inc",
-     "daily": 2.3,
-     "rebalance": 3.9,
-     "alltime": 3.9
-    },
-    {
-     "ticker": "VIAV",
-     "name": "Viavi Solutions Inc.",
-     "daily": -5.6,
-     "rebalance": -1.9,
-     "alltime": -1.9
+     "ticker": "COHR",
+     "name": "Coherent Corp.",
+     "daily": 0.8,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
      "ticker": "INTC",
      "name": "Intel Corporation",
-     "daily": -3.4,
-     "rebalance": 11.9,
-     "alltime": 11.9
-    },
-    {
-     "ticker": "MU",
-     "name": "Micron Technology, Inc.",
-     "daily": -6.7,
-     "rebalance": 16.6,
-     "alltime": 16.6
+     "daily": 6.0,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
      "ticker": "STX",
      "name": "Seagate Technology Holdings PLC",
-     "daily": -12.2,
-     "rebalance": 2.4,
-     "alltime": 2.4
+     "daily": -0.4,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
-     "ticker": "TH",
-     "name": null,
-     "daily": 0.4,
-     "rebalance": 16.8,
-     "alltime": 16.8
+     "ticker": "MXL",
+     "name": "MaxLinear, Inc",
+     "daily": 18.0,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "VIAV",
+     "name": "Viavi Solutions Inc.",
+     "daily": 0.7,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology, Inc.",
+     "daily": 0.8,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
      "ticker": "WDC",
      "name": "Western Digital Corporation",
-     "daily": -13.2,
-     "rebalance": 10.4,
-     "alltime": 10.4
+     "daily": -2.0,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
-     "ticker": "COHR",
-     "name": "Coherent Corp.",
-     "daily": -6.6,
-     "rebalance": 5.3,
-     "alltime": 5.3
+     "ticker": "LRCX",
+     "name": "Lam Research Corporation",
+     "daily": 5.5,
+     "rebalance": 0.0,
+     "alltime": 0.0
     }
    ]
   },
@@ -75,28 +76,29 @@
    "slug": "aristeia",
    "label": "Aristeia",
    "color": "#5BA8FF",
-   "entry": "2026-06-16",
+   "entry": "2026-07-01",
+   "book_type": "live",
    "holdings": [
     {
      "ticker": "INSW",
      "name": "International Seaways, Inc.",
-     "daily": -2.4,
-     "rebalance": -3.0,
-     "alltime": 73.5
+     "daily": -1.6,
+     "rebalance": 0.0,
+     "alltime": 67.1
     },
     {
      "ticker": "MRVL",
      "name": "Marvell Technology, Inc.",
-     "daily": -5.2,
-     "rebalance": -4.3,
-     "alltime": -4.3
+     "daily": 7.3,
+     "rebalance": 0.0,
+     "alltime": 6.9
     },
     {
-     "ticker": "MTZ",
-     "name": "MasTec, Inc.",
-     "daily": -1.8,
-     "rebalance": 7.3,
-     "alltime": 5.5
+     "ticker": "AKAM",
+     "name": "Akamai Technologies, Inc.",
+     "daily": 3.9,
+     "rebalance": 0.0,
+     "alltime": 5.3
     }
    ]
   },
@@ -105,27 +107,28 @@
    "label": "Auxo",
    "color": "#A855F7",
    "entry": "2026-06-16",
+   "book_type": "paper",
    "holdings": [
     {
      "ticker": "EIX",
      "name": "Edison International",
-     "daily": 1.2,
-     "rebalance": 5.0,
-     "alltime": 4.5
+     "daily": -1.3,
+     "rebalance": 3.3,
+     "alltime": 2.8
     },
     {
      "ticker": "MOS",
      "name": "Mosaic Company (The)",
-     "daily": 3.0,
-     "rebalance": 3.2,
-     "alltime": -22.7
+     "daily": -5.6,
+     "rebalance": -2.3,
+     "alltime": -26.8
     },
     {
      "ticker": "FISV",
      "name": "Fiserv, Inc.",
-     "daily": 4.0,
-     "rebalance": -0.8,
-     "alltime": -0.8
+     "daily": 0.5,
+     "rebalance": -1.6,
+     "alltime": -1.6
     }
    ]
   },
@@ -133,42 +136,29 @@
    "slug": "prosodos",
    "label": "Prosodos",
    "color": "#FBBF24",
-   "entry": "2026-06-16",
+   "entry": "2026-05-15",
+   "book_type": "paper",
    "holdings": [
     {
      "ticker": "FISV",
      "name": "Fiserv, Inc.",
-     "daily": 4.0,
-     "rebalance": -0.8,
-     "alltime": -26.7
+     "daily": 0.5,
+     "rebalance": -11.4,
+     "alltime": -27.3
     },
     {
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
-     "daily": 0.0,
-     "rebalance": -2.3,
-     "alltime": -2.3
-    },
-    {
-     "ticker": "EIX",
-     "name": "Edison International",
-     "daily": 1.2,
-     "rebalance": 5.0,
-     "alltime": 5.0
+     "daily": -0.1,
+     "rebalance": 13.5,
+     "alltime": -8.4
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "daily": 1.9,
-     "rebalance": -5.1,
-     "alltime": 4.5
-    },
-    {
-     "ticker": "MU",
-     "name": "Micron Technology, Inc.",
-     "daily": -6.7,
-     "rebalance": 10.9,
-     "alltime": -4.8
+     "daily": -2.0,
+     "rebalance": 6.1,
+     "alltime": 6.1
     }
    ]
   },
@@ -177,41 +167,42 @@
    "label": "Pronoia",
    "color": "#F97316",
    "entry": "2026-06-16",
+   "book_type": "paper",
    "holdings": [
     {
      "ticker": "AAOI",
      "name": null,
-     "daily": -2.1,
-     "rebalance": -20.6,
-     "alltime": -25.0
+     "daily": -1.3,
+     "rebalance": -13.3,
+     "alltime": -18.1
     },
     {
      "ticker": "INBX",
      "name": null,
-     "daily": -0.5,
+     "daily": -0.8,
      "rebalance": 1.8,
-     "alltime": 24.9
+     "alltime": 24.8
     },
     {
      "ticker": "VSAT",
      "name": "ViaSat, Inc.",
-     "daily": 3.3,
-     "rebalance": -0.8,
-     "alltime": -0.8
+     "daily": 17.1,
+     "rebalance": 43.8,
+     "alltime": 43.8
     },
     {
      "ticker": "VIAV",
      "name": "Viavi Solutions Inc.",
-     "daily": -5.6,
-     "rebalance": -4.9,
-     "alltime": -4.9
+     "daily": 0.7,
+     "rebalance": -4.7,
+     "alltime": -4.7
     },
     {
      "ticker": "MU",
      "name": "Micron Technology, Inc.",
-     "daily": -6.7,
-     "rebalance": 10.9,
-     "alltime": 10.9
+     "daily": 0.8,
+     "rebalance": 13.1,
+     "alltime": 13.1
     }
    ]
   }
