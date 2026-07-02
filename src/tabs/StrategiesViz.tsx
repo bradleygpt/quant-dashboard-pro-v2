@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Treemap, ResponsiveContainer } from "recharts";
+import { Treemap, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { Card, Spinner } from "../components/ui";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
@@ -108,9 +108,13 @@ type Corr = {
   strategy_corr: StratCorr[]; strategy_avg_abs_corr: number; strategy_labels: Record<string, string>; strategy_colors: Record<string, string>;
 };
 
+// Diverging fill for correlation polarity (dataviz rule: two warm/cool poles + a
+// NEUTRAL GRAY midpoint at 0 — never two cool hues, never a hue at the midpoint).
+// Warm amber = positive co-movement, cool blue = negative; |corr|<0.05 reads neutral.
 function corrFill(c: number): string {
   const a = Math.max(0, Math.min(1, Math.abs(c)));
-  return c >= 0 ? `rgba(91,168,255,${0.12 + 0.7 * a})` : `rgba(168,85,247,${0.12 + 0.7 * a})`;
+  if (a < 0.05) return "#1B222E";
+  return c >= 0 ? `rgba(230,180,80,${0.10 + 0.62 * a})` : `rgba(91,168,255,${0.10 + 0.62 * a})`;
 }
 function StrategyCorrMatrix({ d }: { d: Corr }) {
   const slugs = Object.keys(d.strategy_labels);
@@ -132,7 +136,9 @@ function StrategyCorrMatrix({ d }: { d: Corr }) {
             <td className="p-1 text-right font-medium" style={{ color: d.strategy_colors[a] }}>{d.strategy_labels[a].slice(0, 4)}</td>
             {slugs.map((b) => {
               const v = m[a][b];
-              return <td key={b} className="p-1 font-mono" style={{ background: a === b ? "#11161F" : corrFill(v), color: a === b ? "#5A6477" : "#E6E9EF" }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
+              const tip = a === b ? undefined
+                : `${d.strategy_labels[a]} × ${d.strategy_labels[b]}: ${isNaN(v) ? "insufficient overlap" : (v >= 0 ? "+" : "") + v.toFixed(2)} — monthly returns, full backtest. Amber = co-move, blue = offset, gray ≈ decoupled.`;
+              return <td key={b} title={tip} className="p-1 font-mono" style={{ background: a === b ? "#11161F" : corrFill(v), color: a === b ? "#5A6477" : "#E6E9EF" }}>{a === b ? "—" : isNaN(v) ? "·" : v.toFixed(2)}</td>;
             })}
           </tr>
         ))}
@@ -363,6 +369,99 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
   );
 }
 
+// ─────────────────── Strategy comparison overlay (audit §3.1 item 3) ───────────────────
+// Multi-series equity curves INDEXED TO 100 at the common start on ONE axis (log — 15y of
+// compounding; never dual-axis). Fixed hue per strategy (color follows the entity, same
+// hues as the treemap/network); LIVE books solid, PAPER books dashed + tagged in the
+// legend (secondary encoding, ties into truth-in-labeling). SPY = neutral gray reference.
+const CMP_SERIES = [
+  { slug: "katalepsis", label: "Katalepsis", color: "#00C805", file: "c78q.json", kind: "c78q" as const },
+  { slug: "aristeia", label: "Aristeia", color: "#5BA8FF", file: "aristeia_strategy.json", kind: "strategy" as const },
+  { slug: "auxo", label: "Auxo", color: "#A855F7", file: "auxo_strategy.json", kind: "strategy" as const },
+  { slug: "prosodos", label: "Prosodos", color: "#FBBF24", file: "prosodos_strategy.json", kind: "strategy" as const },
+  { slug: "pronoia", label: "Pronoia", color: "#F97316", file: "pronoia_strategy.json", kind: "strategy" as const },
+];
+
+function StrategyComparison({ statusMap }: { statusMap?: StatusMap }) {
+  const [series, setSeries] = useState<Record<string, Map<string, number>> | null>(null);
+  const [spy, setSpy] = useState<Map<string, number> | null>(null);
+  const [err, setErr] = useState(false);
+
+  useEffect(() => {
+    Promise.all(
+      CMP_SERIES.map((s) =>
+        fetch(`${BASE}/${s.file}`).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+      )
+    ).then((jsons) => {
+      const out: Record<string, Map<string, number>> = {};
+      let spyMap: Map<string, number> | null = null;
+      jsons.forEach((j, i) => {
+        const def = CMP_SERIES[i];
+        if (!j) return;
+        const m = new Map<string, number>();
+        if (def.kind === "c78q") {
+          for (const r of j.backtest?.summary ?? []) m.set(String(r.date).slice(0, 7), 100 * (1 + r.cum_strat / 100));
+          spyMap = new Map((j.backtest?.summary ?? []).map((r: any) => [String(r.date).slice(0, 7), 100 * (1 + r.cum_spy / 100)]));
+        } else {
+          for (const r of j.equity_curve ?? []) if (r.equity != null) m.set(String(r.date).slice(0, 7), r.equity);
+        }
+        if (m.size > 1) out[def.slug] = m;
+      });
+      if (!Object.keys(out).length) { setErr(true); return; }
+      setSeries(out); setSpy(spyMap);
+    });
+  }, []);
+
+  const rows = useMemo(() => {
+    if (!series) return [];
+    const maps = Object.values(series);
+    // common t0 = the latest first-month across the loaded series → every line = 100 there
+    const t0 = maps.map((m) => [...m.keys()].sort()[0]).sort().slice(-1)[0];
+    const months = [...new Set(maps.flatMap((m) => [...m.keys()]))].filter((d) => d >= t0).sort();
+    const base: Record<string, number> = {};
+    for (const [slug, m] of Object.entries(series)) {
+      const first = months.find((d) => m.has(d));
+      if (first) base[slug] = m.get(first)!;
+    }
+    const spyBase = spy ? (months.map((d) => spy!.get(d)).find((v) => v != null) ?? null) : null;
+    return months.map((d) => {
+      const row: Record<string, number | string | null> = { date: d };
+      for (const [slug, m] of Object.entries(series)) row[slug] = m.has(d) && base[slug] ? +(100 * m.get(d)! / base[slug]).toFixed(2) : null;
+      row.SPY = spy?.has(d) && spyBase ? +(100 * spy.get(d)! / spyBase).toFixed(2) : null;
+      return row;
+    });
+  }, [series, spy]);
+
+  if (err) return null;
+  if (!series) return <Card title="Strategy comparison" sub=""><Spinner /></Card>;
+  const t0 = rows[0]?.date ?? "start";
+  return (
+    <Card title="📈 Strategy comparison — growth of 100" sub={`All backtest equity curves indexed to 100 at ${t0} on ONE log axis. Solid = LIVE broker book today; dashed = PAPER research book. SPY = gray reference. Hover for every series at a date.`}>
+      <ResponsiveContainer width="100%" height={360}>
+        <LineChart data={rows} margin={{ top: 8, right: 16, bottom: 0, left: 4 }}>
+          <CartesianGrid stroke="#1A2130" vertical={false} />
+          <XAxis dataKey="date" tick={{ fill: "#7C879B", fontSize: 11 }} minTickGap={60} />
+          <YAxis scale="log" domain={["auto", "auto"]} allowDataOverflow tick={{ fill: "#7C879B", fontSize: 11 }} width={56}
+            tickFormatter={(v) => (v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(Math.round(v)))} />
+          <Tooltip contentStyle={{ background: "#0F1420", border: "1px solid #1E2632", borderRadius: 8, fontSize: 12 }}
+            formatter={(v: number, n) => [v != null ? Math.round(v).toLocaleString() : "—", n]} />
+          <Legend wrapperStyle={{ fontSize: 11 }} />
+          {CMP_SERIES.filter((s) => series[s.slug]).map((s) => {
+            const bt = bookTypeOf(s.slug, statusMap);
+            return <Line key={s.slug} type="monotone" dataKey={s.slug} name={`${s.label}${bt === "paper" ? " · paper" : " · live"}`}
+              stroke={s.color} strokeWidth={2} strokeDasharray={bt === "paper" ? "6 3" : undefined} dot={false} connectNulls />;
+          })}
+          <Line type="monotone" dataKey="SPY" name="SPY" stroke="#8A93A6" strokeWidth={1.4} strokeDasharray="2 3" dot={false} connectNulls />
+        </LineChart>
+      </ResponsiveContainer>
+      <p className="mt-2 text-[10px] leading-relaxed text-[#5A6477]">
+        Backtest research records (survivor-biased upper bounds), not forward guarantees — see each strategy page's caveats.
+        Indexed to a common base on a single axis; per the chart rules, no second y-scale is ever used.
+      </p>
+    </Card>
+  );
+}
+
 export default function StrategiesViz({ statusMap }: { statusMap?: StatusMap }) {
-  return <><HoldingsTreemap statusMap={statusMap} /><CorrelationNetwork statusMap={statusMap} /></>;
+  return <><StrategyComparison statusMap={statusMap} /><HoldingsTreemap statusMap={statusMap} /><CorrelationNetwork statusMap={statusMap} /></>;
 }
