@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 
@@ -40,6 +41,7 @@ function heat(v: number | null): string {
 // renders entirely from its data — honest true-daily metrics, equity curve vs SP500+Nasdaq,
 // year-vs-S&P table, and the full historical holdings log.
 export default function StrategyTab({ slug }: { slug: string }) {
+  const { goToDetail } = useStore();
   const [d, setD] = useState<StrategyData | null>(null);
   const [err, setErr] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -191,7 +193,8 @@ export default function StrategyTab({ slug }: { slug: string }) {
               <span className="w-20 shrink-0 font-mono text-[#7C879B]">{h.date}</span>
               <div className="flex flex-wrap gap-1.5">
                 {h.tickers.map((t) => (
-                  <span key={t} className="rounded border border-[#1E2632] bg-[#0C0F16] px-1.5 py-0.5 font-mono text-[#E6E9EF]">{t}</span>
+                  <button key={t} onClick={() => goToDetail(t)} title={`Open ${t} stock detail`}
+                    className="rounded border border-[#1E2632] bg-[#0C0F16] px-1.5 py-0.5 font-mono text-[#E6E9EF] hover:border-[#2A3550] hover:text-[#5BA8FF]">{t}</button>
                 ))}
               </div>
             </div>

@@ -134,7 +134,7 @@ export default function HomeTab() {
                 ))}
               </div>
               <details className="mt-2"><summary className="cursor-pointer text-xs text-[#5BA8FF]">View all {earningsThisWeek.length} earnings</summary>
-                <div className="mt-1 max-h-40 overflow-auto text-xs">{earningsThisWeek.sort((a, b) => a.date.localeCompare(b.date)).map((e, i) => <div key={i} className="flex justify-between border-t border-[#161D29] py-0.5"><span className="font-medium text-[#5BA8FF]">{e.symbol}</span><span className="text-[#7C879B]">{e.date} {e.hour ?? ""}</span></div>)}</div>
+                <div className="mt-1 max-h-40 overflow-auto text-xs">{earningsThisWeek.sort((a, b) => a.date.localeCompare(b.date)).map((e, i) => <div key={i} className="flex justify-between border-t border-[#161D29] py-0.5"><button onClick={() => goToDetail(e.symbol)} className="font-medium text-[#5BA8FF] hover:underline" title={`Open ${e.symbol} stock detail`}>{e.symbol}</button><span className="text-[#7C879B]">{e.date} {e.hour ?? ""}</span></div>)}</div>
               </details>
             </div>
           )}

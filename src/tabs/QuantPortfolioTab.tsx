@@ -340,6 +340,7 @@ export default function QuantPortfolioTab() {
 
 // ──────────────────────────────────────────────────────────────────────────
 function RebalanceActions({ actions }: { actions: RebalAction[] }) {
+  const { goToDetail } = useStore();
   if (!actions.length) return <Card title="🎯 Action Items"><div className="text-sm text-[#00C805]">Portfolio matches optimal — no actions needed.</div></Card>;
   const inits = actions.filter((a) => a.action === "INITIATE");
   const adds = actions.filter((a) => a.action === "ADD");
@@ -365,7 +366,7 @@ function RebalanceActions({ actions }: { actions: RebalAction[] }) {
           <tbody>
             {items.map((a) => (
               <tr key={a.ticker} className="border-t border-[#161D29]">
-                <td className="px-3 py-1.5 font-semibold text-[#C3CAD7]">{a.ticker}</td>
+                <td className="px-3 py-1.5"><button onClick={() => goToDetail(a.ticker)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${a.ticker} stock detail`}>{a.ticker}</button></td>
                 {cols.includes("score") && <td className="px-3 py-1.5 text-[#9CA7BB]">{a.rating ?? "—"}{a.score != null ? ` (${a.score.toFixed(1)})` : ""}</td>}
                 {cols.includes("pct") && <td className="px-3 py-1.5 text-right">{a.current_pct.toFixed(1)}%</td>}
                 {cols.includes("tgt") && <td className="px-3 py-1.5 text-right">{a.target_pct.toFixed(1)}%</td>}

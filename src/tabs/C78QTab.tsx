@@ -186,6 +186,7 @@ function DeployedBlock({ data }: { data: C78q }) {
   // ETL snapshot frozen at the deploy date (stale_mark), so "current"/gains read 0%.
   // Prefer a live intraday quote (batched keyless /api/quotes) so this Live Deployment
   // view reflects today; fall back to the baked snapshot, labeled per row.
+  const { goToDetail } = useStore();
   const posTickers = useMemo(() => (s?.positions ?? []).map((p) => p.ticker), [s]);
   const [livePx, setLivePx] = useState<Map<string, number>>(new Map());
   useEffect(() => {
@@ -207,7 +208,7 @@ function DeployedBlock({ data }: { data: C78q }) {
                 {t.rows.map((r) => (
                   <tr key={r.ticker} className="border-t border-[#161D29]">
                     <td className="px-3 py-1.5 text-[#7C879B]">{r.rank}</td>
-                    <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{r.ticker}</td>
+                    <td className="px-3 py-1.5"><button onClick={() => goToDetail(r.ticker)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${r.ticker} stock detail`}>{r.ticker}</button></td>
                     <td className="px-3 py-1.5">{(wpp * 100).toFixed(1)}%</td>
                     <td className="px-3 py-1.5">{(r.posterior_prob * 100).toFixed(1)}%</td>
                     <td className="px-3 py-1.5 text-[#9CA7BB]">{r.n_streams}</td>
@@ -248,7 +249,7 @@ function DeployedBlock({ data }: { data: C78q }) {
                     const gain = p.entry_price > 0 ? (cur / p.entry_price - 1) * 100 : 0;
                     return (
                       <tr key={p.ticker} className="border-t border-[#161D29]">
-                        <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{p.ticker}</td>
+                        <td className="px-3 py-1.5"><button onClick={() => goToDetail(p.ticker)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${p.ticker} stock detail`}>{p.ticker}</button></td>
                         <td className="px-3 py-1.5">{p.shares}</td>
                         <td className="px-3 py-1.5">{fmtMoney(p.entry_price)}</td>
                         <td className="px-3 py-1.5">{fmtMoney(cur)}

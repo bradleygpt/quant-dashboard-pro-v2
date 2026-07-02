@@ -58,6 +58,15 @@ export default function ETFTab() {
   );
 }
 
+// Linked ticker cell: routes to stock detail when the ETF is in the scored universe
+// (same rule as the universe table); expanded-coverage ETFs have no detail page.
+function EtfTicker({ t }: { t: string }) {
+  const { byTicker, goToDetail } = useStore();
+  return byTicker.get(t)
+    ? <button onClick={() => goToDetail(t)} className="font-semibold text-[#5BA8FF] hover:underline" title={`Open ${t} stock detail`}>{t}</button>
+    : <span className="font-semibold text-[#8FA8D0]" title="expanded coverage — no stock-detail page">{t}</span>;
+}
+
 function PortfolioBuilder({ data }: { data: EtfFile }) {
   const names = Object.keys(data.templates);
   const [name, setName] = useState(names[0]);
@@ -83,7 +92,7 @@ function PortfolioBuilder({ data }: { data: EtfFile }) {
             {t.allocations.map((a, i) => (
               <tr key={i} className="border-t border-[#161D29]">
                 <td className="py-1.5 text-[#C3CAD7]">{a.category}</td>
-                <td className="py-1.5 font-semibold text-[#5BA8FF]">{a.etf}</td>
+                <td className="py-1.5"><EtfTicker t={a.etf} /></td>
                 <td className="py-1.5 text-[#9CA7BB]">{a.alt}</td>
                 <td className="py-1.5 text-right">{a.weight}%</td>
                 <td className="py-1.5 text-right">{fmtMoney(capital * (a.weight / 100), 0)}</td>
@@ -140,7 +149,7 @@ function Comparison({ data }: { data: EtfFile }) {
           <tbody>
             {sel.map((t) => { const d = data.etfs[t] || {}; return (
               <tr key={t} className="border-t border-[#161D29]">
-                <td className="px-3 py-1.5 font-semibold text-[#5BA8FF]">{t}</td>
+                <td className="px-3 py-1.5"><EtfTicker t={t} /></td>
                 <td className="max-w-[200px] truncate px-3 py-1.5 text-[#C3CAD7]">{d.shortName}</td>
                 <td className="px-3 py-1.5">{d.expenseRatio == null ? "—" : `${(d.expenseRatio * 100).toFixed(2)}%`}</td>
                 <td className="px-3 py-1.5">{d.totalAssets ? `$${(d.totalAssets / 1e9).toFixed(1)}B` : "—"}</td>
@@ -201,7 +210,7 @@ function Maps({ data }: { data: EtfFile }) {
           {map.map((m, i) => (
             <tr key={i} className="border-t border-[#161D29]">
               <td className="py-1.5 font-medium text-white">{m[key]}</td>
-              <td className="py-1.5 font-semibold text-[#5BA8FF]">{m.ticker}</td>
+              <td className="py-1.5"><EtfTicker t={m.ticker} /></td>
               <td className="py-1.5 text-[#9CA7BB]">{m.alternative ?? "—"}</td>
               <td className="py-1.5 text-xs text-[#9CA7BB]">{m.use_case}</td>
             </tr>
