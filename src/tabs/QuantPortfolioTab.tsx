@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
+import type { PresetName } from "../lib/types";
 import { Card, Metric, RatingBadge, Pill } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import IndexBadges from "../components/IndexBadges";
@@ -26,16 +27,16 @@ const DONUT = ["#3B82F6", "#00C805", "#F7931A", "#9B59B6", "#FF9800", "#5DADE2",
 
 interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; caveat?: string | null; source_meta?: string | null; coverage?: { first_date?: string; last_date?: string; min_n?: number; max_n?: number } | null; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
 
-// Static validated 3-period × preset CAGR table (app.py, 121 quarterly rebalances 1996-2026)
-const CAGR_TABLE = {
-  periods: ["1996–present (30y)", "2010–present (15y)", "2020–present (5y)"],
-  rows: [
-    { label: "Momentum (m_heavy)", vals: ["+30.12%", "+30.01%", "+37.19%"], color: "#00C805" },
-    { label: "Value (v_heavy)", vals: ["+28.18%", "+31.67%", "+34.78%"], color: "#5DADE2" },
-    { label: "Equal Weighted (equal)", vals: ["+26.22%", "+27.30%", "+29.87%"], color: "#C3CAD7" },
-    { label: "SPY benchmark", vals: ["~+10.0%", "~+14.1%", "~+14.8%"], color: "#7C879B" },
-  ],
-};
+// Preset order + colors for the data-driven CAGR panel. The old static CAGR_TABLE
+// (3-period × preset literals) is GONE (audit §1.4): per-preset full-period CAGRs now
+// come from meta.presets (baked), and the period splits are recomputed client-side
+// from the shipped quant_backtest.json curve — every displayed number traces to data.
+// The old 15y/5y PER-PRESET cells had no baked source and are not displayed anymore.
+const PRESET_ROWS: { key: string; color: string }[] = [
+  { key: "m_heavy", color: "#00C805" },
+  { key: "v_heavy", color: "#5DADE2" },
+  { key: "equal", color: "#C3CAD7" },
+];
 
 export default function QuantPortfolioTab() {
   const { rows, byTicker, preset, meta, goToDetail } = useStore();
@@ -126,6 +127,29 @@ export default function QuantPortfolioTab() {
     return { curve: reb, startYear: new Date(reb[0].t).getFullYear(), qTotal: last.quant - 100, qCagr, sTotal: lastSpy != null ? lastSpy - 100 : null, sCagr, alpha: sCagr != null ? qCagr - sCagr : null };
   }, [curve]);
 
+  // Period CAGRs recomputed from the shipped backtest curve (TOP-25 + SPY) — replaces
+  // the untraceable per-preset 15y/5y literals of the old CAGR_TABLE.
+  const periodCagrs = useMemo(() => {
+    if (curve.length < 2) return null;
+    const winCagr = (fromIso: string | null) => {
+      const from = fromIso ? Date.parse(fromIso) : -Infinity;
+      const seg = curve.filter((c) => c.t >= from && c.quant != null);
+      if (seg.length < 2) return null;
+      const yrs = (seg[seg.length - 1].t - seg[0].t) / (365.25 * 864e5);
+      if (yrs <= 0.5) return null;
+      const q = (Math.pow(seg[seg.length - 1].quant / seg[0].quant, 1 / yrs) - 1) * 100;
+      const s0 = seg.find((c) => c.spy != null)?.spy ?? null;
+      const sN = (() => { for (let i = seg.length - 1; i >= 0; i--) if (seg[i].spy != null) return seg[i].spy!; return null; })();
+      const s = s0 != null && sN != null ? (Math.pow(sN / s0, 1 / yrs) - 1) * 100 : null;
+      return { q, s };
+    };
+    return [
+      { label: "1996–present", biased: true, ...(winCagr(null) ?? {}) },
+      { label: "2011–present (robust)", biased: false, ...(winCagr("2011-01-01") ?? {}) },
+      { label: "2020–present", biased: false, ...(winCagr("2020-01-01") ?? {}) },
+    ].filter((r): r is { label: string; biased: boolean; q: number; s: number | null } => (r as any).q != null);
+  }, [curve]);
+
   return (
     <div className="space-y-4">
       <h2 className="text-lg font-bold text-white">Quant Portfolio Builder</h2>
@@ -135,27 +159,46 @@ export default function QuantPortfolioTab() {
         They are separate; the backtest CAGR is the strategy's, not this allocation's.
       </p>
 
-      {/* ── Validated CAGR table (30y/15y/5y × presets) ── */}
-      <Card title="Validated Backtest CAGR by Period & Preset" sub="Quarterly rebalance, point-in-time SEC EDGAR fundamentals, TOP-25, gross of costs/taxes. The 2010+ and 2020+ columns are the ROBUST window; the 1996+ column is survivorship-biased (current survivors scored back in time) and is shown separately, dimmed — do not lead with it.">
-        <div className="overflow-auto rounded-lg border border-[#1E2632]">
-          <table className="w-full text-sm">
-            <thead><tr>{["Preset", ...CAGR_TABLE.periods].map((hh, hi) => {
-              const biased = hi === 1; // periods[0] = "1996–present" -> header index 1 after "Preset"
-              return <th key={hh} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase" style={{ color: biased ? "#7A6A45" : "#7C879B" }}>{biased ? "⚠ " : ""}{hh}{biased ? " · biased" : ""}</th>;
-            })}</tr></thead>
-            <tbody>
-              {CAGR_TABLE.rows.map((r) => (
-                <tr key={r.label} className="border-t border-[#161D29]">
-                  <td className="px-3 py-1.5 font-medium" style={{ color: r.color }}>{r.label}</td>
-                  {r.vals.map((v, i) => <td key={i} className="px-3 py-1.5 font-semibold" style={{ color: i === 0 ? "#6E6A5A" : r.label.includes("SPY") ? "#7C879B" : "#00C805" }}>{v}</td>)}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* ── Validated CAGR panel — every number traces to baked data (audit §1.4) ── */}
+      <Card title="Validated Backtest CAGR" asOfSource="quant_backtest" sub="Quarterly rebalance, point-in-time SEC EDGAR fundamentals, TOP-25, gross of costs/taxes. Per-preset figures from the baked meta presets; period splits recomputed from the shipped backtest curve.">
+        <div className="grid gap-3 lg:grid-cols-2">
+          <div className="overflow-auto rounded-lg border border-[#1E2632]">
+            <table className="w-full text-sm">
+              <thead><tr>{["Preset", "Validated CAGR (1996–2026)", "Sharpe", "Max DD"].map((hh) => <th key={hh} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{hh}</th>)}</tr></thead>
+              <tbody>
+                {PRESET_ROWS.filter((p) => meta.presets[p.key as PresetName]).map((p) => {
+                  const pi = meta.presets[p.key as PresetName];
+                  return (
+                    <tr key={p.key} className="border-t border-[#161D29]">
+                      <td className="px-3 py-1.5 font-medium" style={{ color: p.color }}>{pi.label}</td>
+                      <td className="px-3 py-1.5 font-semibold text-[#00C805]">{fmtPct(pi.backtest_cagr)}</td>
+                      <td className="px-3 py-1.5">{pi.backtest_sharpe.toFixed(2)}</td>
+                      <td className="px-3 py-1.5 text-[#FF5722]">{fmtPct(pi.backtest_max_dd)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="overflow-auto rounded-lg border border-[#1E2632]">
+            <table className="w-full text-sm">
+              <thead><tr>{["TOP-25 window", "Strategy CAGR", "SPY CAGR"].map((hh) => <th key={hh} className="bg-[#0F1420] px-3 py-2 text-left text-xs uppercase text-[#7C879B]">{hh}</th>)}</tr></thead>
+              <tbody>
+                {(periodCagrs ?? []).map((r) => (
+                  <tr key={r.label} className="border-t border-[#161D29]">
+                    <td className="px-3 py-1.5 font-medium" style={{ color: r.biased ? "#9C8A5E" : "#C3CAD7" }}>{r.biased ? "⚠ " : ""}{r.label}{r.biased ? " · biased" : ""}</td>
+                    <td className="px-3 py-1.5 font-semibold" style={{ color: r.biased ? "#6E6A5A" : "#00C805" }}>+{r.q.toFixed(1)}%</td>
+                    <td className="px-3 py-1.5 text-[#7C879B]">{r.s != null ? `+${r.s.toFixed(1)}%` : "—"}</td>
+                  </tr>
+                ))}
+                {!periodCagrs?.length && <tr><td className="px-3 py-2 text-xs text-[#7C879B]" colSpan={3}>Backtest curve unavailable — period splits not shown.</td></tr>}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="mt-2 text-[11px] leading-relaxed text-[#7C879B]">
-          <strong className="text-[#C3CAD7]">Read the 2010+ / 2020+ columns</strong> — the robust, survivorship-clean window. The dimmed <span className="text-[#9C8A5E]">1996+ column is survivorship-biased upward</span> (pre-2010 scores only names that survived to today) and is kept only for context, not as the headline.
-          Momentum (m_heavy) shows no decay across the robust regimes (2020+ +37.19% strongest); Equal-weighted is the conservative floor. ⚠️ Past performance ≠ future; realized after-cost alpha is typically 2–4% below backtest CAGR.
+          <strong className="text-[#C3CAD7]">Read the 2011+ / 2020+ rows</strong> — the robust, survivorship-clean window. The dimmed <span className="text-[#9C8A5E]">1996+ row is survivorship-biased upward</span> (pre-2010 scores only names that survived to today) and is kept only for context, not as the headline.
+          Per-preset period splits are no longer shown: only the full-period preset CAGRs are baked, and this panel does not display numbers it cannot trace to data. ⚠️ Past performance ≠ future; realized after-cost alpha is typically 2–4% below backtest CAGR.
         </div>
       </Card>
 
