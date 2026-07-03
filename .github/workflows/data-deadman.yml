@@ -1,0 +1,53 @@
+name: Data freshness dead-man
+
+# Off-machine alarm for the whole local bake/publish/push chain (option B §1.7-A).
+# If no commit has touched public/data/meta.json in 3+ days, every local safeguard
+# (nightly chain, watchdog, alert email) has ALSO failed or the machine is off —
+# this is the alarm of last resort, so it runs where the machine isn't: GitHub.
+# A scheduled-workflow failure emails the repo owner; we also keep one deduped
+# tracking issue open (same pattern as refresh.yml's anti-silent-break step).
+on:
+  schedule:
+    - cron: "0 13 * * *" # daily 13:00 UTC / 09:00 ET, after both refresh.yml crons
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check age of last commit touching public/data/meta.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # API query, no checkout: full-history clones of this repo are huge
+          # (years of nightly baked-data commits) and unnecessary here.
+          last=$(gh api "repos/${GITHUB_REPOSITORY}/commits?path=public/data/meta.json&per_page=1" \
+                 --jq '.[0].commit.committer.date')
+          if [ -z "$last" ] || [ "$last" = "null" ]; then
+            echo "::error::could not resolve last commit for public/data/meta.json"
+            exit 1
+          fi
+          age_days=$(( ( $(date -u +%s) - $(date -u -d "$last" +%s) ) / 86400 ))
+          echo "meta.json last committed ${last} (${age_days}d ago); budget 3d"
+          if [ "$age_days" -ge 3 ]; then
+            echo "::error::public/data/meta.json is ${age_days} days old — the local bake/publish/push chain looks dead. Check ops/heartbeats and the ML Quant Daily Refresh task."
+            exit 1
+          fi
+
+      - name: Surface failure (deduped tracking issue)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Data dead-man: meta.json has not been committed in 3+ days"
+          body="Dead-man tripped on $(date -u +%Y-%m-%dT%H:%MZ). The local nightly chain (bake -> validate -> publish -> push) has not landed a commit touching public/data/meta.json in 3+ days. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "$body"
+          else
+            gh issue comment "$existing" --body "$body"
+          fi
