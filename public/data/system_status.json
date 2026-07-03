@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-03T07:53:53"
+    "at": "2026-07-03T17:06:33"
   },
   "engines": {
     "binary": {
@@ -37,7 +37,7 @@
   },
   "watchdog": null,
   "market": {
-    "state": "closed"
+    "state": "rth"
   },
   "_meta": {
     "ppi_as_of": "2026-07-03",
