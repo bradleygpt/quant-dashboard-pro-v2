@@ -1,6 +1,7 @@
 import { ENTITY, INK, alpha, type EntitySlug } from "../theme";
 import { useEffect, useRef, useState } from "react";
 import { Card, Spinner } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 
 // The five strategies as LIVING, animated signatures — each motif built from the Greek meaning of
 // the name, driven by the strategy's REAL data (posteriors / equity curve / holdings). Canvas + rAF,
@@ -221,7 +222,7 @@ export default function StrategySignatures() {
   const [sigs, setSigs] = useState<Record<string, SData> | null>(null);
   useEffect(() => {
     Promise.all(
-      THEMES.map((t) => fetch(`${BASE}/${t.file}`).then((r) => (r.ok ? r.json() : null)).then((d) => [t.key, d ? extract(t, d) : null] as const).catch(() => [t.key, null] as const))
+      THEMES.map((t) => loadDataJSON<any>(t.file).then((d) => [t.key, d ? extract(t, d) : null] as const))
     ).then((pairs) => {
       const out: Record<string, SData> = {};
       pairs.forEach(([k, s]) => { if (s) out[k] = s; });

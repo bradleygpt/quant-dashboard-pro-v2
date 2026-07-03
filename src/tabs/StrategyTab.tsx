@@ -2,6 +2,7 @@ import { BRASS, ENTITY, STREAM } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
@@ -49,10 +50,8 @@ export default function StrategyTab({ slug }: { slug: string }) {
 
   useEffect(() => {
     setD(null); setErr(false); setShowAll(false);
-    fetch(`${BASE}/${slug}_strategy.json`)
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then(setD)
-      .catch(() => setErr(true));
+    loadDataJSON<StrategyData>(`${slug}_strategy.json`)
+      .then((j) => { if (j) setD(j); else setErr(true); });
   }, [slug]);
 
   const holdings = useMemo(() => {

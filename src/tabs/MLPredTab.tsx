@@ -4,6 +4,7 @@ import IndexBadges from "../components/IndexBadges";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import AsOf from "../components/AsOf";
 import { fmtMoney, fmtPct } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ScatterChart, Scatter, ZAxis } from "recharts";
 import { INK, SEM } from "../theme";
 
@@ -43,7 +44,7 @@ export default function MLPredTab() {
   const [sub, setSub] = useState<Sub>("rankings");
 
   useEffect(() => {
-    fetch(`${BASE}/mlpred.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setRaw).catch(() => setErr(true));
+    loadDataJSON<MLPred>("mlpred.json").then((j) => { if (j) setRaw(j); else setErr(true); });
   }, []);
 
   // Price preference: LIVE intraday quote -> baked daily price -> as-of-prediction

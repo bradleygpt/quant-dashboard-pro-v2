@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Metric, Spinner, Unavailable } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -33,10 +34,8 @@ export default function PaperTrackTab() {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    fetch(`${BASE}/paper_track_event_pead.json`)
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then(setD)
-      .catch(() => setErr(true));
+    loadDataJSON<PaperTrack>("paper_track_event_pead.json")
+      .then((j) => { if (j) setD(j); else setErr(true); });
   }, []);
 
   if (err) return <Unavailable what="Event-Balanced paper-track" detail="paper_track_event_pead.json failed to load." />;

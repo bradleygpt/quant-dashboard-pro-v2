@@ -5,6 +5,7 @@ import { Card, Spinner } from "../components/ui";
 import RegimeRibbon from "../components/RegimeRibbon";
 import { BookTypePill } from "./StrategiesTab";
 import { DIVERGING, ENTITY, INK, LINE, SEM, SURFACE, alpha, entityColor } from "../theme";
+import { loadDataJSON } from "../lib/data";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -68,7 +69,7 @@ function TreeCell(props: any) {
 function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
   const [perf, setPerf] = useState<Perf | null | "err">(null);
   const [period, setPeriod] = useState<Period>("rebalance");
-  useEffect(() => { fetch(`${BASE}/strategies_holdings_perf.json`).then((r) => (r.ok ? r.json() : null)).then((d) => setPerf(d ?? "err")).catch(() => setPerf("err")); }, []);
+  useEffect(() => { loadDataJSON<Perf>("strategies_holdings_perf.json").then((d) => setPerf(d ?? "err")); }, []);
   const data = useMemo(() => {
     if (!perf || perf === "err") return [];
     return perf.strategies.map((s) => {
@@ -300,7 +301,7 @@ function ForceNetwork({ d }: { d: Corr }) {
 
 function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
   const [d, setD] = useState<Corr | null | "err">(null);
-  useEffect(() => { fetch(`${BASE}/strategies_correlation.json`).then((r) => (r.ok ? r.json() : null)).then((x) => setD(x ?? "err")).catch(() => setD("err")); }, []);
+  useEffect(() => { loadDataJSON<Corr>("strategies_correlation.json").then((x) => setD(x ?? "err")); }, []);
   if (d === "err") return null;
   if (!d) return <Card title="Holdings correlation network" sub=""><Spinner /></Card>;
   const slugs = Object.keys(d.strategy_labels);

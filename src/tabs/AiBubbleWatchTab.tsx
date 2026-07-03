@@ -1,6 +1,7 @@
 import { ASSET, ENTITY, INK, LINE, SEM, SURFACE, alpha } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { Card, Spinner, Unavailable } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 import {
   TYPE_META, validDeals, forceLayout, cycleEdgeIds, enumerateCycles,
   type AiDealsFile, type Deal, type DealType,
@@ -17,7 +18,7 @@ const TYPES = Object.keys(TYPE_META) as DealType[];
 export default function AiBubbleWatchTab() {
   const [data, setData] = useState<AiDealsFile | null>(null);
   const [err, setErr] = useState(false);
-  useEffect(() => { fetch(`${BASE}/ai_deals.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setData).catch(() => setErr(true)); }, []);
+  useEffect(() => { loadDataJSON<AiDealsFile>("ai_deals.json").then((j) => { if (j) setData(j); else setErr(true); }); }, []);
 
   const [hoverNode, setHoverNode] = useState<string | null>(null);
   const [selEdge, setSelEdge] = useState<Deal | null>(null);

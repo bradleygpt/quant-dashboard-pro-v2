@@ -4,6 +4,8 @@
 // it is NOT a hand-tuned mock. Every field traces to a real baked artifact and
 // pnl is null when there is no honest live mark (DATA_INTEGRITY_STANDARD).
 
+import { fetchData } from "../lib/data";
+
 export interface SystemStatus {
   bake: { fresh: boolean; at: string };
   engines: {
@@ -68,7 +70,7 @@ const MARKET_KEYS: MarketStateKey[] = ["rth", "pre", "after", "closed"];
 // ALWAYS resolves — callers can gate render on it without a hang risk.
 export async function loadSystemStatus(): Promise<SystemStatus> {
   try {
-    const res = await fetch(`${import.meta.env.BASE_URL}data/system_status.json`, { cache: "no-cache" });
+    const res = await fetchData("system_status.json", { cache: "no-cache" });
     if (!res.ok) return SYSTEM_STATUS;
     const j = await res.json();
     const mk = (j?.market?.state as MarketStateKey) ?? SYSTEM_STATUS.market.state;

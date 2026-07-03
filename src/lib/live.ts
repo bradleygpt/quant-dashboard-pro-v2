@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
+import { fetchData } from "./data";
 
 export type LiveState<T> = { status: "loading" | "ok" | "unavailable"; data: T | null };
+
+// Baked data files must resolve through the git-vs-blob resolver in lib/data —
+// components keep passing `${BASE_URL}data/...` paths and this strips the
+// prefix; /api/ endpoints fetch directly as before.
+const DATA_PREFIX = `${import.meta.env.BASE_URL}data/`;
 
 // Fetch a live API/static endpoint with graceful degradation. A non-OK response,
 // network error, timeout, or {ok:false} payload yields status "unavailable" — the
@@ -12,7 +18,9 @@ export function useLiveData<T extends { ok?: boolean }>(path: string, timeoutMs 
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     setState({ status: "loading", data: null });
-    fetch(path, { signal: ctrl.signal })
+    (path.startsWith(DATA_PREFIX)
+      ? fetchData(path.slice(DATA_PREFIX.length), { signal: ctrl.signal })
+      : fetch(path, { signal: ctrl.signal }))
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d: T) => { if (live) setState(d && d.ok === false ? { status: "unavailable", data: d } : { status: "ok", data: d }); })
       .catch(() => { if (live) setState({ status: "unavailable", data: null }); })

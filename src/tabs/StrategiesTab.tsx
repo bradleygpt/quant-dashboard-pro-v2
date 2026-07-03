@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Spinner } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 import StrategyTab from "./StrategyTab";
 import PaperTrackTab from "./PaperTrackTab";
 import C78QTab from "./C78QTab";
@@ -32,10 +33,8 @@ export type StratStatusMap = Record<string, StratStatus>;
 export function useStrategyStatus(): StratStatusMap {
   const [map, setMap] = useState<StratStatusMap>({});
   useEffect(() => {
-    fetch(`${BASE}/system_status.json`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => setMap(j?.strategies ?? {}))
-      .catch(() => setMap({}));
+    loadDataJSON<any>("system_status.json")
+      .then((j) => setMap(j?.strategies ?? {}));
   }, []);
   return map;
 }
@@ -122,8 +121,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
   const [rationale, setRationale] = useState<Record<string, { rationale: string }> | null>(null);
 
   useEffect(() => {
-    fetch(`${BASE}/basket_summary.json`).then((r) => (r.ok ? r.json() : null)).then(setBasket).catch(() => setBasket(null));
-    fetch(`${BASE}/strategy_rationale.json`).then((r) => (r.ok ? r.json() : null)).then((j) => setRationale(j?.strategies ?? null)).catch(() => {});
+    loadDataJSON<Basket>("basket_summary.json").then(setBasket);
+    loadDataJSON<any>("strategy_rationale.json").then((j) => setRationale(j?.strategies ?? null));
   }, []);
 
   useEffect(() => {
@@ -131,10 +130,10 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
       STRATS.map(async (def) => {
         const file = def.kind === "paper" ? "paper_track_event_pead.json" : def.kind === "c78q" ? "c78q.json" : `${def.slug}_strategy.json`;
         try {
-          const d = await fetch(`${BASE}/${file}`).then((r) => (r.ok ? r.json() : null));
+          const d = await loadDataJSON<any>(file);
           let stratJson: any = null;
           if (def.kind === "paper" && def.backtestSlug) {
-            stratJson = await fetch(`${BASE}/${def.backtestSlug}_strategy.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+            stratJson = await loadDataJSON<any>(`${def.backtestSlug}_strategy.json`);
           }
           if (!d && !stratJson) return null;
           return SummaryRow(d ?? {}, def, statusMap[def.key], stratJson);

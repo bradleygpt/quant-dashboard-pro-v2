@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Card, Spinner, Unavailable } from "./ui";
+import { loadDataJSON } from "../lib/data";
 
 // "Find your ETF": enter 1-10+ stock tickers, get the ETFs most relevant to that set —
 // ranked by how many of your names they hold + how much of the ETF those names are. Reads the
@@ -23,9 +24,9 @@ export default function FindYourETF() {
 
   useEffect(() => {
     if (cache) return;
-    fetch(`${BASE}/etf_holdings.json`).then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((j) => { cache = j; setData(j); }).catch(() => setErr(true));
-    fetch(`${BASE}/etf_descriptions.json`).then((r) => (r.ok ? r.json() : null)).then((j) => setDescs(j?.descriptions ?? {})).catch(() => {});
+    loadDataJSON<HoldingsFile>("etf_holdings.json")
+      .then((j) => { if (j) { cache = j; setData(j); } else setErr(true); });
+    loadDataJSON<any>("etf_descriptions.json").then((j) => setDescs(j?.descriptions ?? {}));
   }, []);
 
   const run = (tickers: string[]) => {

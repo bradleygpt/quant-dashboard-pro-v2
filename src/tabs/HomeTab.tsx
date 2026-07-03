@@ -6,6 +6,7 @@ import IndexBadges from "../components/IndexBadges";
 import AnomalyCallouts from "../components/AnomalyCallouts";
 import UniverseSummary from "../components/UniverseSummary";
 import { fmtMoney, fmtPct } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { computePpi } from "../lib/ppiIndex";
@@ -35,7 +36,7 @@ export default function HomeTab() {
   const [snap, setSnap] = useState<SnapshotsFile | null>(null);
   // snapshots feed only the Δwk/Δmo deltas — failure degrades to delta-less metrics
   // (visible: the deltas simply don't render), never a broken panel.
-  useEffect(() => { fetch(`${BASE}/snapshots.json`).then((r) => r.ok ? r.json() : null).then(setSnap).catch(() => setSnap(null)); }, []);
+  useEffect(() => { loadDataJSON<SnapshotsFile>("snapshots.json").then(setSnap); }, []);
   const [holdings] = useState<Holding[]>(() => { try { return JSON.parse(localStorage.getItem("qd_holdings") || "[]"); } catch { return []; } });
 
   const presetKey = preset === "Custom" ? meta.default_preset : preset;

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import { Card, Metric, Pill, Spinner, Unavailable } from "../components/ui";
 import { fmtMoney, fmtPct } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { useLiveData } from "../lib/live";
 import { computeBreadth } from "../lib/regime";
 import { computePpi, type PpiResult } from "../lib/ppiIndex";
@@ -43,7 +44,7 @@ export default function C78QTab() {
   const [data, setData] = useState<C78q | null>(null);
   const [err, setErr] = useState(false);
   const [sub, setSub] = useState<Sub>("ppi");
-  useEffect(() => { fetch(`${BASE}/c78q.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setData).catch(() => setErr(true)); }, []);
+  useEffect(() => { loadDataJSON<C78q>("c78q.json").then((j) => { if (j) setData(j); else setErr(true); }); }, []);
 
   const breadthPct = useMemo(() => (rows.length ? computeBreadth(rows).pct_above_50sma : null), [rows]);
   const livePpi = useMemo<PpiResult | null>(() => {

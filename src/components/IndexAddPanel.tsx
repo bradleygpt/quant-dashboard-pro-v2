@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../store";
+import { loadDataJSON } from "../lib/data";
 import { Card, Spinner, Unavailable, RatingBadge } from "./ui";
 import { INK, SEM } from "../theme";
 
@@ -58,8 +59,8 @@ export default function IndexAddPanel() {
   const [err, setErr] = useState(false);
   useEffect(() => {
     if (cache) return;
-    fetch(`${BASE}/index_add_candidates.json`).then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((j) => { cache = j; setData(j); }).catch(() => setErr(true));
+    loadDataJSON<File>("index_add_candidates.json")
+      .then((j) => { if (j) { cache = j; setData(j); } else setErr(true); });
   }, []);
 
   if (err) return <Unavailable what="Index-add candidates" detail="index_add_candidates.json hasn’t been baked yet (run build_index_add_candidates.py)." />;

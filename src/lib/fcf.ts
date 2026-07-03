@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { INK, SEM } from "../theme";
+import { loadDataJSON } from "./data";
 
 // Shared loader for the FCF-distortion dataset (built by the EDGAR engine in quant-dashboard-react).
 // Module-cached so the screener + stock-detail panel share one fetch.
-const BASE = `${import.meta.env.BASE_URL}data`;
 export type FcfRow = {
   ticker: string; name?: string; sector?: string; market_cap?: number | null;
   fcf_reported: number | null; fcf_fully_adjusted: number | null; sbc: number | null;
@@ -16,7 +16,7 @@ let inflight: Promise<Map<string, FcfRow> | null> | null = null;
 function load(): Promise<Map<string, FcfRow> | null> {
   if (cache) return Promise.resolve(cache);
   if (!inflight)
-    inflight = fetch(`${BASE}/fcf_distortion.json`).then((r) => (r.ok ? r.json() : null)).then((d: { rows: FcfRow[] } | null) => {
+    inflight = loadDataJSON<{ rows: FcfRow[] }>("fcf_distortion.json").then((d) => {
       cache = d ? new Map(d.rows.map((x) => [x.ticker, x])) : null;
       return cache;
     }).catch(() => null);

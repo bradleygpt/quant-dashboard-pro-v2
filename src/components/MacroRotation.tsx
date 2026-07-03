@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "./ui";
+import { loadDataJSON } from "../lib/data";
 
 // AI Sector Rotation — which sectors the macro setup favors / pressures, synthesized over the
 // already-sourced risk radar + macro forecasts (macro_rotation.json). Numbers/risks-only-fed.
@@ -10,7 +11,7 @@ export default function MacroRotation() {
   const [d, setD] = useState(cache);
   useEffect(() => {
     if (cache) return;
-    fetch(`${BASE}/macro_rotation.json`).then((r) => (r.ok ? r.json() : null)).then((j) => { cache = j; setD(j); }).catch(() => {});
+    loadDataJSON<any>("macro_rotation.json").then((j) => { cache = j; setD(j); });
   }, []);
   if (!d?.rotation) return null;
   return (

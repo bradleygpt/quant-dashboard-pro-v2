@@ -3,6 +3,7 @@ import AiNarrative from "../components/AiNarrative";
 import { useStore } from "../store";
 import { Card, Metric, Spinner } from "../components/ui";
 import { fmtPct, fmtCapB } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { findDoppelgangers, aggregateForwardReturns, type DoppelDB, type Match } from "../lib/doppelganger";
 import { SEM } from "../theme";
 
@@ -21,7 +22,7 @@ export default function DoppelgangerTab() {
   const [dedupe, setDedupe] = useState(true);
 
   useEffect(() => {
-    fetch(`${BASE}/doppelganger.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setDb).catch(() => setErr(true));
+    loadDataJSON<DoppelDB>("doppelganger.json").then((j) => { if (j) setDb(j); else setErr(true); });
   }, []);
 
   const ticker = selectedTicker ?? rows.find((r) => r.sector !== "ETF")?.ticker ?? null;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../store";
 import { Card } from "./ui";
+import { loadDataJSON } from "../lib/data";
 
 // Thematic Explorer — the "AI" theme (flagship). Grounded in real data: stocks ranked by return-
 // correlation to an AI-compute proxy basket + an LLM map of which buildout layers benefit. ai_theme.json.
@@ -15,7 +16,7 @@ export default function ThematicExplorer() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (cache) return;
-    fetch(`${BASE}/ai_theme.json`).then((r) => (r.ok ? r.json() : null)).then((j) => { cache = j; setData(j); }).catch(() => {});
+    loadDataJSON<Theme>("ai_theme.json").then((j) => { cache = j; setData(j); });
   }, []);
   if (!data) return null;
 

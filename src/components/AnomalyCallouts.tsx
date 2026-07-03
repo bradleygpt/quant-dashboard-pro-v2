@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../store";
 import { Card } from "./ui";
+import { loadDataJSON } from "../lib/data";
 
 // AI Anomaly Watch: stocks whose quant pillars most diverge (strong momentum vs weak valuation, etc.)
 // with an LLM thesis-risk note. Fed only the pillar grades — never invents (anomalies.json).
@@ -13,7 +14,7 @@ export default function AnomalyCallouts() {
   const [data, setData] = useState<{ anomalies: Anom[] } | null>(cache);
   useEffect(() => {
     if (cache) return;
-    fetch(`${BASE}/anomalies.json`).then((r) => (r.ok ? r.json() : null)).then((j) => { cache = j; setData(j); }).catch(() => {});
+    loadDataJSON<{ anomalies: Anom[] }>("anomalies.json").then((j) => { cache = j; setData(j); });
   }, []);
 
   const list = (data?.anomalies ?? []).filter((a) => a.warning);

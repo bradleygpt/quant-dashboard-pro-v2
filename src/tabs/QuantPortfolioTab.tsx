@@ -7,6 +7,7 @@ import { Card, Metric, RatingBadge, Pill, Unavailable } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import IndexBadges from "../components/IndexBadges";
 import { fmtMoney, fmtPct, fmtCapB } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import {
   buildOptimalPortfolio, buildTop25, computeRebalanceDeltas, computeDiversificationStats,
   compareToSpyOverlap, computeIdealAllocation, type Aggressiveness, type QpPosition,
@@ -45,12 +46,8 @@ export default function QuantPortfolioTab() {
   const mkt = useLiveData<any>("/api/market");
   const [bt, setBt] = useState<QBT | null>(null);
   const [btErr, setBtErr] = useState(false);
-  useEffect(() => {
-    fetch(`${BASE}/quant_backtest.json`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then(setBt)
-      .catch(() => setBtErr(true));   // visible error state below — never a silent gap (audit §4)
-  }, []);
+  // visible error state below — never a silent gap (audit §4)
+  useEffect(() => { loadDataJSON<QBT>("quant_backtest.json").then((j) => { if (j) setBt(j); else setBtErr(true); }); }, []);
 
   const [level, setLevel] = useState<Level>("Validated TOP-25");
   const [mode, setMode] = useState<"fresh" | "rebalance">("fresh");

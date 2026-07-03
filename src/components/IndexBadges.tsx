@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { loadDataJSON } from "../lib/data";
 
 // S&P 500 / Nasdaq-100 membership badges. Loads public/data/index_membership.json once
 // (module-cached) and renders a small badge per index the ticker belongs to.
@@ -10,8 +11,7 @@ let inflight: Promise<Membership> | null = null;
 function load(): Promise<Membership> {
   if (cache) return Promise.resolve(cache);
   if (!inflight) {
-    inflight = fetch(`${BASE}/index_membership.json`)
-      .then((r) => (r.ok ? r.json() : null))
+    inflight = loadDataJSON<any>("index_membership.json")
       .then((j) => {
         cache = j ? { sp500: new Set<string>(j.sp500), nasdaq100: new Set<string>(j.nasdaq100) } : { sp500: new Set(), nasdaq100: new Set() };
         return cache;

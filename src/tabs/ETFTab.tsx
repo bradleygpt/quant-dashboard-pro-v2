@@ -4,6 +4,7 @@ import { useStore, type ViewRow } from "../store";
 import { Card, Metric, Pill, RatingBadge, Spinner, Unavailable } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney, fmtCapB, fmtPct } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import FindYourETF from "../components/FindYourETF";
 import IndexAddPanel from "../components/IndexAddPanel";
@@ -26,7 +27,7 @@ export default function ETFTab() {
   const [err, setErr] = useState(false);
   const [section, setSection] = useState<Section>("builder");
 
-  useEffect(() => { fetch(`${BASE}/etf.json`).then((r) => r.ok ? r.json() : Promise.reject()).then(setData).catch(() => setErr(true)); }, []);
+  useEffect(() => { loadDataJSON<any>("etf.json").then((j) => { if (j) setData(j); else setErr(true); }); }, []);
 
   const etfRows = useMemo(() => rows.filter((r) => r.sector === "ETF"), [rows]);
 
@@ -241,7 +242,7 @@ function useLookthrough(): LTData | null {
   const [d, setD] = useState<LTData | null>(ltCache);
   useEffect(() => {
     if (ltCache) return;
-    if (!ltInflight) ltInflight = fetch(`${import.meta.env.BASE_URL}data/etf_lookthrough.json`).then((r) => (r.ok ? r.json() : null)).then((j) => { ltCache = j; return j; }).catch(() => null);
+    if (!ltInflight) ltInflight = loadDataJSON<LTData>("etf_lookthrough.json").then((j) => { ltCache = j; return j; });
     ltInflight.then(setD);
   }, []);
   return d;

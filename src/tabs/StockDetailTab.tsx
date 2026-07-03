@@ -7,7 +7,7 @@ import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
 import { Card, GradePill, RatingBadge, Spinner, Metric, Unavailable } from "../components/ui";
 import { fmtMoney, fmtPct, fmtCapB, fmtNum } from "../lib/format";
-import { loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
+import { fetchData, loadDataJSON, loadTickerDetail, loadTickerPrices, loadTickerTimeseries, type DetailTimeseries } from "../lib/data";
 import type { TickerDetail, PriceSeries } from "../lib/types";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, Radar, BarChart, Bar, Cell, ComposedChart } from "recharts";
 import { computeRisk } from "../lib/risk";
@@ -75,21 +75,16 @@ export default function StockDetailTab() {
   // Unavailable state in the quarterly card, never a silently empty chart (audit §4)
   const [quarterly, setQuarterly] = useState<Record<string, any[]> | null>(null);
   const [quarterlyErr, setQuarterlyErr] = useState(false);
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/quarterly.json`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then(setQuarterly)
-      .catch(() => setQuarterlyErr(true));
-  }, []);
+  useEffect(() => { loadDataJSON<Record<string, any[]>>("quarterly.json").then((j) => { if (j) setQuarterly(j); else setQuarterlyErr(true); }); }, []);
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
 
   // earnings-quality signal (heuristic over the baked review text — #11)
   const [eq, setEq] = useState<Record<string, { quality: string; reason: string }>>({});
-  useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/earnings_quality.json`).then((r) => r.ok ? r.json() : null).then((j) => setEq(j?.quality ?? {})).catch(() => {}); }, []);
+  useEffect(() => { loadDataJSON<any>("earnings_quality.json").then((j) => setEq(j?.quality ?? {})).catch(() => {}); }, []);
 
   // factor correlations (from build_correlations.py — #9; absent until generated → card hides)
   const [corr, setCorr] = useState<Record<string, unknown> | null>(null);
-  useEffect(() => { fetch(`${import.meta.env.BASE_URL}data/correlations_cache.json`).then((r) => r.ok ? r.json() : null).then(setCorr).catch(() => {}); }, []);
+  useEffect(() => { loadDataJSON<Record<string, unknown>>("correlations_cache.json").then(setCorr).catch(() => {}); }, []);
 
   // AI note (Gemini via /api/ai) — on-demand, degrades if no key
   const [ai, setAi] = useState<{ kind: string; status: "idle" | "loading" | "done"; text?: string; reason?: string; price?: number; live?: boolean; verdict?: string; cached?: boolean; period?: string }>({ kind: "", status: "idle" });
@@ -129,7 +124,7 @@ export default function StockDetailTab() {
       // so Vercel shows the SAME review as Streamlit without a live LLM key. Strict
       // no-op when the file is absent → falls through to the live /api/ai path below.
       try {
-        const res = await fetch(`${import.meta.env.BASE_URL}data/earnings_reviews.json`, { cache: "force-cache" });
+        const res = await fetchData("earnings_reviews.json", { cache: "force-cache" });
         if (res.ok) {
           const all = await res.json();
           // Try the reported-quarter key, then the per-ticker LATEST (the bake emits

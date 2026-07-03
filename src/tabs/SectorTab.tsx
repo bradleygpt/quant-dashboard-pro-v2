@@ -4,6 +4,7 @@ import { useStore, type ViewRow } from "../store";
 import { Card, RatingBadge, GradePill, Spinner } from "../components/ui";
 import { SortableTable, RATING_RANK, type Column } from "../components/SortableTable";
 import { fmtMoney } from "../lib/format";
+import { loadDataJSON } from "../lib/data";
 import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, Cell } from "recharts";
 import { ASSET, INK, SEM, SURFACE } from "../theme";
 
@@ -33,7 +34,7 @@ export default function SectorTab() {
   const [open, setOpen] = useState<string | null>(null);
   const [narr, setNarr] = useState<Record<string, { narrative: string }> | null>(null);
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/sector_narratives.json`).then((r) => (r.ok ? r.json() : null))
+    loadDataJSON<any>("sector_narratives.json")
       .then((j) => setNarr(j?.sectors ?? null)).catch(() => {});
   }, []);
 

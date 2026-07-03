@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Spinner } from "../components/ui";
+import { loadDataJSON } from "../lib/data";
 
 const SECTIONS: { key: string; label: string }[] = [
   { key: "GETTING_STARTED", label: "Getting Started" },
@@ -78,7 +79,7 @@ export default function HelpTab() {
   const [content, setContent] = useState<Record<string, any> | null>(null);
   const [active, setActive] = useState(SECTIONS[0].key);
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/help.json`).then((r) => r.json()).then(setContent);
+    loadDataJSON<Record<string, any>>("help.json").then((j) => { if (j) setContent(j); });
   }, []);
   if (!content) return <Spinner />;
   const avail = SECTIONS.filter((s) => content[s.key]);

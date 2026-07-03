@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "./ui";
 import { INK, SEM } from "../theme";
+import { loadDataJSON } from "../lib/data";
 
 // FCF-quality (distortion) per-name panel. Reads fcf_distortion.json (built by the EDGAR-backed
 // engine in quant-dashboard-react), module-cached, and shows whether a name's reported FCF is real
@@ -19,7 +20,7 @@ let inflight: Promise<Map<string, Row> | null> | null = null;
 function load(): Promise<Map<string, Row> | null> {
   if (cache) return Promise.resolve(cache);
   if (!inflight)
-    inflight = fetch(`${BASE}/fcf_distortion.json`).then((r) => (r.ok ? r.json() : null)).then((d: Data | null) => {
+    inflight = loadDataJSON<Data>("fcf_distortion.json").then((d) => {
       cache = d ? new Map(d.rows.map((x) => [x.ticker, x])) : null;
       return cache;
     }).catch(() => null);
