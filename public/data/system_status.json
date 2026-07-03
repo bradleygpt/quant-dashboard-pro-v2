@@ -1,16 +1,16 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-02T21:40:26"
+    "at": "2026-07-03T07:53:53"
   },
   "engines": {
     "binary": {
-      "current": true,
-      "asOf": "2026-07-01"
+      "current": false,
+      "asOf": null
     },
     "return": {
-      "current": true,
-      "asOf": "2026-06-30"
+      "current": false,
+      "asOf": null
     }
   },
   "ppi": {
@@ -19,34 +19,9 @@
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-08-03"
+    "nextRebalance": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-01"
-    },
-    "aristeia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-01"
-    },
-    "auxo": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16"
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-05-15"
-    },
-    "pronoia": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16"
-    },
     "axia": {
       "book_type": "paper",
       "status": "research-scout, holdings-redundant"
@@ -60,27 +35,13 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "stuck_lock_silent",
-        "pid": 17076,
-        "run_id": "20260702T152810",
-        "holder_pid_dead": true,
-        "stalled_hours": 3.4,
-        "last_step": "pr_cluster",
-        "self_cleared": true
-      }
-    ],
-    "checked_at": "2026-07-02T19:00:02.360883"
-  },
+  "watchdog": null,
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-07-02",
-    "ppi_breadth_pct": 68.1,
+    "ppi_as_of": "2026-07-03",
+    "ppi_breadth_pct": 68.2,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }

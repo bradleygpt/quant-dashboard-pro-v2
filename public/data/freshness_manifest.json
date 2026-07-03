@@ -2,7 +2,7 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-07-02",
+      "as_of": "2026-07-03",
       "forecasters": [
         "Federal Reserve (SEP)",
         "World Bank (GEP)",
@@ -23,97 +23,84 @@
     },
     "earnings_reviews": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-07-02",
-      "ppi": "30.9 MODERATE (live c78q PPI, as-of 2026-07-02)",
+      "as_of": "2026-07-03",
+      "ppi": "30.9 MODERATE (live c78q PPI, as-of 2026-07-03)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
     },
     "universe_floor0": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
-      "check_status": "ok"
-    },
-    "doppelganger": {
-      "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
-      "check_status": "ok"
-    },
-    "etf": {
-      "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
-      "check_status": "ok"
-    },
-    "market_static": {
-      "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
-      "check_status": "ok"
-    },
-    "pundits": {
-      "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
-      "check_status": "ok"
-    },
-    "help": {
-      "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-07-02",
-      "generated_at": "2026-07-02T21:40:26",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
-    "paper_track_event_pead": {
-      "source": "producer-stamped (not written by bake)",
-      "as_of": "2026-06-30",
-      "generated_at": "2026-06-30T18:03:28",
+    "doppelganger": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     },
-    "regime_timeseries": {
-      "source": "quant-historical regime_classifications.parquet (ML regime classifier)",
-      "as_of": "2026-07-01",
-      "n_segments": 83,
-      "consumed_by": "RegimeRibbon (strategies hub hero, Katalepsis backtest)",
+    "etf": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
+      "check_status": "ok"
+    },
+    "market_static": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
+      "check_status": "ok"
+    },
+    "pundits": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
+      "check_status": "ok"
+    },
+    "help": {
+      "source": "bake.py vintage pass",
+      "as_of": "2026-07-03",
+      "generated_at": "2026-07-03T07:53:53",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-07-02T21:40:26"
+  "generated_at": "2026-07-03T07:53:53"
 }
