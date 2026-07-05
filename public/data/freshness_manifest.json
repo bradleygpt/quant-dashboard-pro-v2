@@ -104,10 +104,10 @@
   },
   "generated_at": "2026-07-05T16:47:38",
   "blob": {
-    "version": "20260705T210620Z",
-    "published_at": "2026-07-05T21:06:20+00:00",
-    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@9a58dcfbb7a94bcbcd6a2dbcbda6939881964d53/data",
-    "commit_sha": "9a58dcfbb7a94bcbcd6a2dbcbda6939881964d53",
+    "version": "20260705T214319Z",
+    "published_at": "2026-07-05T21:43:20+00:00",
+    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@f1bcd576806d72cb9022efe58c08070e325e48b4/data",
+    "commit_sha": "f1bcd576806d72cb9022efe58c08070e325e48b4",
     "manifest_key": "_manifest/version_manifest.json",
     "files": {
       "earnings_reviews.json": {
