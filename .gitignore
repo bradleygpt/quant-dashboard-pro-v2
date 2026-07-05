@@ -5,3 +5,19 @@ dist/
 .DS_Store
 
 .vercel
+
+# Option B: bulk data served via jsDelivr from bradleygpt/akribeia-data (do NOT track).
+# These are produced locally by the bake and published to the data repo; the frontend
+# resolves them via the freshness_manifest.json `blob` section. See ops/publish_data_repo.py.
+public/data/detail_timeseries/
+public/data/detail/
+public/data/prices/
+public/data/earnings_reviews.json
+public/data/universe_floor0.json
+public/data/universe_floor1.json
+public/data/universe_floor10.json
+public/data/mlpred.json
+public/data/quarterly.json
+public/data/correlations_cache.json
+public/data/fcf_distortion.json
+public/data/earnings_quality.json
