@@ -62,6 +62,29 @@ jobs:
           # NOTE: no rm -rf. c78q.json, ai_deals.json, and MLPred files are baked
           # locally from quant-historical (unavailable in CI) and must NOT be deleted.
           # This overlays CI-baked files only, preserving locally-committed data.
+          # OPTION B: preserve the committed jsDelivr `blob` pointer. The freshly-baked
+          # freshness_manifest.json has NO blob section (bulk data now lives in the
+          # akribeia-data repo, served via jsDelivr, and the git path is slimmed away).
+          # Without this, the twice-daily rebake would overwrite the blob pointer, the
+          # resolver would fall back to the now-404 git path, and prod would lose all
+          # bulk data. CI never changes bulk, so the committed blob is always the valid
+          # current pointer — carry it forward verbatim.
+          python - <<'PY'
+          import json, subprocess
+          p = 'public/data/freshness_manifest.json'
+          new = json.load(open(p))
+          try:
+              old = json.loads(subprocess.check_output(
+                  ['git','show','HEAD:public/data/freshness_manifest.json'], text=True))
+          except subprocess.CalledProcessError:
+              old = {}
+          if old.get('blob'):
+              new['blob'] = old['blob']
+              json.dump(new, open(p,'w'), indent=2)
+              print('preserved blob pointer:', old['blob'].get('commit_sha','')[:12])
+          else:
+              print('no committed blob section to preserve (pre-migration state)')
+          PY
 
       - name: Commit + push (auto-deploys on Vercel)
         run: |
