@@ -10,6 +10,23 @@
 export const config = { runtime: "edge" };
 
 const MODEL = "gemini-2.5-flash-lite";
+const FALLBACK_MODEL = "gemini-2.5-flash"; // used only after the lite tier keeps 503-ing (both free tier)
+const TRANSIENT = new Set([429, 500, 502, 503, 504]); // retry-worthy: overload / transient upstream errors
+const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+// Earnings-review validation (mirrors earnings_reviewer.validate_review_text). A bracketed fragment
+// carrying instruction words = the model echoed the skeleton; guided==actual = a self-referential thesis.
+const BRACKET_LEAK = /\[[^\]]*?(bullet|sentence|disclosed|e\.g\.|insert|specific number|one of\s*:|if known|if given|X\.X|Y%|placeholder|most important|net effect)[^\]]*?\]/i;
+const scrubReview = (t: string): string => t.split("\n").filter((l) => !BRACKET_LEAK.test(l.trim())).join("\n").trim();
+const earningsReliable = (t: string): boolean => {
+  if (!t || t.trim().length < 120) return false;
+  if (BRACKET_LEAK.test(t) || /\$?X\.X{1,2}\b|\bY%/i.test(t)) return false; // leftover placeholders
+  const m = t.match(/guided[^.;:\n]*?\$?([\d,]+(?:\.\d+)?)[^.;:\n]*?actual[^.;:\n]*?\$?([\d,]+(?:\.\d+)?)/i);
+  if ((m && m[1] === m[2]) || /variance\s+(?:of\s+)?0(?:\.0+)?\s*%/i.test(t)) return false; // thesis vs itself
+  const req = ["VERDICT", "HEADLINE", "KEY METRICS", "GUIDANCE", "THESIS CHECK", "BOTTOM LINE"];
+  return req.filter((s) => new RegExp(`^[ \\t>#*\\-]*${s}\\b`, "im").test(t)).length >= 4; // tolerate **markdown** headers
+
+};
 
 type Blob = {
   name?: string; sector?: string; mcapB?: string; score?: string; rating?: string;
@@ -59,37 +76,42 @@ export default async function handler(req: Request) {
   ].filter(Boolean).join("\n");
 
   const prompt = kind === "earnings"
-    ? `You are an equity analyst reviewing ${ticker}'s most recent reported quarter${period ? ` (~${period})` : ""}.
+    ? `You are an equity analyst reviewing ${ticker}'s most recent reported quarter${period ? `, as of ${period}` : ""}.
 
-DATA — the ONLY figures you may cite (baked fundamentals; you do NOT have the full 8-K text):
+DATA — the ONLY figures you may cite (baked quant fundamentals; you do NOT have the 8-K text, and you have NO other knowledge of this company):
 ${block}
 
-Produce a review with EXACTLY these section headers, each on its own line (uppercase), matching this structure:
+RULES (mandatory):
+- Use ONLY the DATA above. Do NOT use any memory of ${ticker} — its products, executives, or past fiscal years. If a fact is not in the DATA, write "not in the provided data".
+- Never state a fiscal year, dollar revenue, EPS, or segment figure that is not in the DATA. The period is ${period || "the latest quarter in the DATA"}.
+- Output ONLY the finished review. Never output square brackets [ ], the word "insert", or any placeholder/instruction text — replace every field with a real value or "not in the provided data".
 
-VERDICT: [BUY ON STRENGTH | BUY | HOLD | TRIM | EXIT]
-[2 sentences: why this verdict, tied to the reported trajectory + valuation.]
+Write these sections, each header on its own UPPERCASE line, then finished prose:
+
+VERDICT: one of BUY ON STRENGTH / BUY / HOLD / TRIM / EXIT
+Two sentences on why, tied to the DATA's growth trajectory and valuation verdict.
 
 HEADLINE
-[1-2 sentences: the single most important fact about this quarter.]
+One sentence: the most important fact in the DATA this quarter.
 
 KEY METRICS
-- Revenue: [YoY growth from the data]
-- Earnings: [YoY growth from the data]
-- Margins: [gross / operating / net from the data]
+- Revenue: the revenue YoY figure from the DATA (or "not in the provided data").
+- Earnings: the earnings YoY figure from the DATA.
+- Margins: gross / operating / net from the DATA.
 
 GUIDANCE
-- [Forward guidance is NOT in the baked data — write exactly: "Not available in the baked fundamentals — see the 8-K filing." Do NOT invent guidance numbers.]
+Forward guidance is not in the baked data. Write exactly: "Not in the baked fundamentals — see the 8-K filing." Do not invent guidance.
 
 THESIS CHECK
-[Compare the latest quarter to the prior quarter shown above — state the revenue and earnings deltas explicitly.]
+Compare THIS quarter's revenue and earnings YoY to the PRIOR quarter's figures shown in the DATA, and state both. If the DATA shows only one quarter, write exactly "Only one quarter in the data — no prior-quarter comparison." Never compare a figure to itself.
 
 CALLOUTS
-- [2-3 bullets grounded ONLY in the metrics above: margin trend, growth acceleration/deceleration, and the valuation premium/verdict.]
+Two or three bullets grounded ONLY in the DATA: margin trend, growth acceleration/deceleration, valuation premium/verdict.
 
 BOTTOM LINE
-[1-2 sentences: net effect on the thesis.]
+One or two sentences: net effect on the thesis.
 
-Cite only the figures above; never invent revenue, EPS, margin, segment, or guidance numbers. Keep it under ~230 words.`
+Keep it under ~230 words.`
     : `You are a senior equity analyst. Write a 4-paragraph research note on ${ticker}.
 
 DATA (quant pipeline + filings — use these figures; do not recompute prices or invent numbers):
@@ -119,20 +141,44 @@ In 2-3 sentences give actionable rebalance reasoning: where the book is over/und
     finalPrompt = `Explain in 2 plain-English sentences what ${ticker}'s factor correlations mean for a portfolio: ${JSON.stringify(d.corr || {})}. e.g. "0.7 to gold means it tends to move with gold — a hedge, or redundant if you already hold gold." Use ONLY the values given; never invent numbers.`;
   }
 
-  try {
+  const body = JSON.stringify({ contents: [{ parts: [{ text: finalPrompt }] }], generationConfig: { temperature: kind === "screener" ? 0.1 : 0.45, maxOutputTokens: 900 } });
+  const callModel = async (model: string) => {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 22000);
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({ contents: [{ parts: [{ text: finalPrompt }] }], generationConfig: { temperature: kind === "screener" ? 0.1 : 0.45, maxOutputTokens: 900 } }),
-      signal: ctrl.signal,
-    });
-    clearTimeout(t);
-    if (!r.ok) return json({ ok: false, reason: `api_${r.status}` });
-    const data: any = await r.json();
-    const text = data?.candidates?.[0]?.content?.parts?.map((x: any) => x.text).join("") || "";
-    return json({ ok: !!text, ticker, kind, text, provider: "gemini", model: MODEL });
+    try {
+      return await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body,
+        signal: ctrl.signal,
+      });
+    } finally { clearTimeout(t); }
+  };
+
+  // Gemini's flash-lite tier returns transient 503s under load. Retry with backoff, then escalate to
+  // the (also free-tier) flash model before giving up — turns a hard failure into a brief wait.
+  let lastStatus = 0;
+  try {
+    const attempts = [MODEL, MODEL, MODEL, FALLBACK_MODEL]; // 3 tries on lite, final try on flash
+    for (let i = 0; i < attempts.length; i++) {
+      const r = await callModel(attempts[i]);
+      if (r.ok) {
+        const data: any = await r.json();
+        let text = data?.candidates?.[0]?.content?.parts?.map((x: any) => x.text).join("") || "";
+        // Earnings reviews get scrubbed of any leaked template brackets, then validated. A review
+        // that still leaks placeholders, echoes a self-referential thesis, or drops sections is
+        // returned as unreliable (reason:"unreliable") so the UI shows unavailable, not a badge.
+        if (kind === "earnings" && text) {
+          text = scrubReview(text);
+          if (!earningsReliable(text)) return json({ ok: false, reason: "unreliable" });
+        }
+        return json({ ok: !!text, ticker, kind, text, provider: "gemini", model: attempts[i] });
+      }
+      lastStatus = r.status;
+      if (!TRANSIENT.has(r.status)) return json({ ok: false, reason: `api_${r.status}` }); // 400/401/403 = don't retry
+      if (i < attempts.length - 1) await sleep(400 * (i + 1)); // 400ms, 800ms, 1200ms backoff
+    }
+    return json({ ok: false, reason: `api_${lastStatus || 503}` }); // exhausted retries + fallback
   } catch (e: any) {
     return json({ ok: false, reason: `error_${e?.name || "unknown"}` });
   }

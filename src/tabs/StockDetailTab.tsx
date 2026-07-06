@@ -98,6 +98,17 @@ export default function StockDetailTab() {
     const hits = (text.match(/not disclosed|not in the provided 8-?k|not provided in|not specified|\bn\/a\b/gi) || []).length;
     return hits >= 4;
   };
+  // Client-side safety net mirroring earnings_reviewer.validate_review_text: a review that leaked
+  // template brackets, echoed a self-referential thesis, or is structurally broken is UNRELIABLE —
+  // it must render "unavailable", never a verdict badge. (Primary gate is the bake; this backs it up.)
+  const BRACKET_LEAK = /\[[^\]]*?(bullet|sentence|disclosed|e\.g\.|insert|specific number|one of\s*:|if known|if given|X\.X|Y%|placeholder|most important|net effect)[^\]]*?\]/i;
+  const isUnreliableReview = (text?: string): boolean => {
+    if (!text) return true;
+    if (BRACKET_LEAK.test(text) || /\$?X\.X{1,2}\b|\bY%/i.test(text)) return true;
+    const m = text.match(/guided[^.;:\n]*?\$?([\d,]+(?:\.\d+)?)[^.;:\n]*?actual[^.;:\n]*?\$?([\d,]+(?:\.\d+)?)/i);
+    if ((m && m[1] === m[2]) || /variance\s+(?:of\s+)?0(?:\.0+)?\s*%/i.test(text)) return true;
+    return false;
+  };
   // Verdict parsing/ranking mirrors earnings_reviewer._verdict_rank
   const parseVerdict = (text: string): string | undefined => {
     const m = text.match(/VERDICT:\s*([A-Z ]+)/i);
@@ -118,7 +129,8 @@ export default function StockDetailTab() {
     if (kind === "earnings" && period) {
       try {
         const hit = JSON.parse(localStorage.getItem(`qd_earn_review_${row.ticker}_${period}`) || "null");
-        if (hit?.text) { setAi({ kind, status: "done", text: hit.text, verdict: hit.verdict, price: hit.price, live: hit.live, period, cached: true }); return; }
+        // Skip a locally-cached review that fails the new validation (regenerate instead).
+        if (hit?.text && !isUnreliableReview(hit.text)) { setAi({ kind, status: "done", text: hit.text, verdict: hit.verdict, price: hit.price, live: hit.live, period, cached: true }); return; }
       } catch { /* ignore */ }
       // Pre-baked review (bake copies ai_earnings_cache.json → earnings_reviews.json),
       // so Vercel shows the SAME review as Streamlit without a live LLM key. Strict
@@ -132,6 +144,11 @@ export default function StockDetailTab() {
           const hit = all?.[`${row.ticker}_${period}`] ?? all?.[`${row.ticker}_LATEST`];
           // earnings_reviewer stores the body as `full_text`; tolerate aliases.
           const text = hit?.full_text ?? hit?.text ?? hit?.review ?? hit?.body;
+          // Reject bake-flagged (ok:false / unreliable) OR locally-detected fabrications → no badge.
+          if (hit && (hit.ok === false || hit.unreliable || isUnreliableReview(text))) {
+            setAi({ kind, status: "done", reason: "unreliable", period });
+            return;
+          }
           if (text && !isEmptyReview(text)) {
             const verdict = hit.verdict ?? parseVerdict(text);
             setAi({ kind, status: "done", text, verdict, price: usePrice ?? undefined, live: false, period, cached: true });
@@ -404,15 +421,17 @@ export default function StockDetailTab() {
       {/* Quarterly earnings & revenue growth (YoY) */}
       {quarterlyErr && <Unavailable what="Quarterly fundamentals" detail="quarterly.json failed to load — the earnings/revenue growth chart is hidden rather than silently absent." />}
       {qhist.length > 0 && (
-        <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
+        <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. A quarter with no year-ago comparison shows a GAP (not 0%) — YoY needs the same quarter one year back. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
           <ResponsiveContainer width="100%" height={220}>
-            <ComposedChart data={[...qhist].reverse().map((q) => ({ date: (q.date || "").slice(0, 7), eps: (q.earningsGrowth ?? 0) * 100, rev: (q.revenueGrowth ?? 0) * 100, _g: (q.earningsGrowth ?? 0) >= 0 }))} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+            {/* YoY growth is null when the year-ago quarter is absent — map null→null so Recharts
+                draws a GAP (missing bar / broken line), never a fabricated 0% (?? 0 was the bug). */}
+            <ComposedChart data={[...qhist].reverse().map((q) => ({ date: (q.date || "").slice(0, 7), eps: q.earningsGrowth != null ? q.earningsGrowth * 100 : null, rev: q.revenueGrowth != null ? q.revenueGrowth * 100 : null }))} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
               <CartesianGrid stroke={SURFACE.raised} vertical={false} />
               <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} />
               <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
-              <Tooltip {...tooltipProps} formatter={(v: number, n) => [`${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
-              <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={(q.earningsGrowth ?? 0) >= 0 ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
-              <Line type="monotone" dataKey="rev" stroke={SEM.warn} dot={false} strokeWidth={1.6} />
+              <Tooltip {...tooltipProps} formatter={(v: number, n) => [v == null ? "n/a (no year-ago quarter)" : `${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
+              <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={q.earningsGrowth == null ? "transparent" : q.earningsGrowth >= 0 ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
+              <Line type="monotone" dataKey="rev" stroke={SEM.warn} dot={false} strokeWidth={1.6} connectNulls={false} />
             </ComposedChart>
           </ResponsiveContainer>
         </Card>
@@ -450,6 +469,8 @@ export default function StockDetailTab() {
           : <p className="mt-2 text-xs text-warn">{
               ai.reason === "empty_filing"
                 ? "8-K format not parsed for this quarter — review unavailable (the filing's figures weren't machine-extractable)."
+              : ai.reason === "unreliable"
+                ? "Earnings review failed validation (template leakage or ungrounded figures) — withheld rather than shown with a verdict. It regenerates cleanly on the next bake."
               : ai.reason === "no_key"
                 ? (ai.kind === "earnings"
                     ? "Earnings review pending next bake — Vercel serves pre-baked reviews (no live LLM). Generate it in the local Streamlit app and it ships on the next bake."

@@ -4,6 +4,9 @@
 // (bold section headers, bulleted metrics) instead of flattening into one paragraph. Unstructured
 // text (the 4-paragraph research note) falls back to clean paragraphs.
 const SECTION_HEADERS = ["HEADLINE", "KEY METRICS", "GUIDANCE", "THESIS CHECK", "CALLOUTS", "BOTTOM LINE"];
+// Defensive: any line still carrying a bracketed template instruction is dropped before render, so a
+// review that slipped past validation never shows "[2-3 bullets: …]" verbatim to the user.
+const BRACKET_LEAK = /\[[^\]]*?(bullet|sentence|disclosed|e\.g\.|insert|specific number|one of\s*:|if known|if given|X\.X|Y%|placeholder|most important|net effect)[^\]]*?\]/i;
 
 function parseSections(text: string): { header: string; body: string }[] {
   const marks: { h: string; i: number; len: number }[] = [];
@@ -40,7 +43,8 @@ function Body({ text }: { text: string }) {
 }
 
 export default function StructuredReview({ text }: { text: string }) {
-  const clean = text.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim();
+  const scrubbed = text.split("\n").filter((l) => !BRACKET_LEAK.test(l.trim())).join("\n");
+  const clean = scrubbed.replace(/VERDICT:\s*[A-Z ]+\s*$/i, "").trim();
   const sections = parseSections(clean);
   if (!sections.length) {
     return (
