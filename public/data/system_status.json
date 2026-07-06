@@ -1,27 +1,52 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-06T18:09:08"
+    "at": "2026-07-06T17:52:17"
   },
   "engines": {
     "binary": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-07-01"
     },
     "return": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-06-30"
     }
   },
   "ppi": {
-    "score": 39.5,
+    "score": 39.6,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null
+    "nextRebalance": "2026-08-03"
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-01"
+    },
+    "aristeia": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-01"
+    },
+    "auxo": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-05-15"
+    },
+    "pronoia": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
     "axia": {
       "book_type": "paper",
       "status": "research-scout, holdings-redundant"
@@ -35,9 +60,144 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": false,
+    "alerts": [
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr1.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr2.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr3.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr4.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr5.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/pr/pr6.parquet",
+        "age_days": 3.7,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "streams/universe/data_quality.parquet",
+        "age_days": 3.6,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "data",
+        "source": "regime/classifications/regime_classifications.parquet",
+        "age_days": 3.6,
+        "budget_days": 3
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/aristeia_strategy.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/auxo_strategy.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/axia_strategy.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/prosodos_strategy.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/pronoia_strategy.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "stage5",
+        "source": "stage5_output/basket_summary.json",
+        "age_days": 5.4,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "web",
+        "source": "strategies_correlation.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "web",
+        "source": "strategies_holdings_perf.json",
+        "age_days": 4.8,
+        "budget_days": 2
+      },
+      {
+        "kind": "lapsed_layer",
+        "layer": "mlpred",
+        "source": "universe_predictions_2026-06-30.csv",
+        "age_days": 3.6,
+        "budget_days": 3,
+        "note": "predict step not rewriting the CSV (nightly chain stalled?)"
+      },
+      {
+        "kind": "lapsed_heartbeat",
+        "source": "ops/heartbeats/mlpred_publish.json",
+        "age_days": 3.6,
+        "budget_days": 3
+      },
+      {
+        "kind": "job_failed_flag",
+        "source": "ops/heartbeats/data_publish_FAILED.json"
+      }
+    ],
+    "checked_at": "2026-07-06T14:36:42.541062"
+  },
   "market": {
-    "state": "rth"
+    "state": "after"
   },
   "_meta": {
     "ppi_as_of": "2026-07-06",

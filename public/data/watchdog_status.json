@@ -1,15 +1,136 @@
 {
   "ok": false,
-  "checked_at": "2026-07-02T19:00:02.360883",
+  "checked_at": "2026-07-06T14:36:42.541062",
   "alerts": [
     {
-      "kind": "stuck_lock_silent",
-      "pid": 17076,
-      "run_id": "20260702T152810",
-      "holder_pid_dead": true,
-      "stalled_hours": 3.4,
-      "last_step": "pr_cluster",
-      "self_cleared": true
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr1.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr2.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr3.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr4.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr5.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/pr/pr6.parquet",
+      "age_days": 3.7,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "streams/universe/data_quality.parquet",
+      "age_days": 3.6,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "data",
+      "source": "regime/classifications/regime_classifications.parquet",
+      "age_days": 3.6,
+      "budget_days": 3
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/aristeia_strategy.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/auxo_strategy.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/axia_strategy.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/prosodos_strategy.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/pronoia_strategy.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/basket_summary.json",
+      "age_days": 5.4,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "web",
+      "source": "strategies_correlation.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "web",
+      "source": "strategies_holdings_perf.json",
+      "age_days": 4.8,
+      "budget_days": 2
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "mlpred",
+      "source": "universe_predictions_2026-06-30.csv",
+      "age_days": 3.6,
+      "budget_days": 3,
+      "note": "predict step not rewriting the CSV (nightly chain stalled?)"
+    },
+    {
+      "kind": "lapsed_heartbeat",
+      "source": "ops/heartbeats/mlpred_publish.json",
+      "age_days": 3.6,
+      "budget_days": 3
+    },
+    {
+      "kind": "job_failed_flag",
+      "source": "ops/heartbeats/data_publish_FAILED.json"
     }
   ]
 }
