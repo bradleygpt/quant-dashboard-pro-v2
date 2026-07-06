@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-05T21:42:32",
-  "source_commit": "983496a",
+  "generated_at": "2026-07-06T08:51:21",
+  "source_commit": "49d12d4",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -433,6 +433,7 @@
       "n_stocks": 1289,
       "n_etf": 70,
       "sectors": [
+        "",
         "Basic Materials",
         "Communication Services",
         "Consumer Cyclical",
@@ -453,6 +454,7 @@
       "n_stocks": 1227,
       "n_etf": 68,
       "sectors": [
+        "",
         "Basic Materials",
         "Communication Services",
         "Consumer Cyclical",
