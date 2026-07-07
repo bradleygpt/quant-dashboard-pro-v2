@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "../store";
+import { probeHealth } from "../lib/markets";
 import Hud from "../landing/Hud";
 import {
   computeChaos,
@@ -44,6 +45,10 @@ export default function LandingDemoTab() {
   const [flying, setFlying] = useState(false);
   const flyTimer = useRef<number | null>(null);
 
+  // THESIS sun health: ONE probe on landing load (no polling storm). Null until the
+  // probe answers; the sun stays dim until proven reachable — never lit while down.
+  const [thesisUp, setThesisUp] = useState<boolean | null>(null);
+
   useEffect(() => {
     let alive = true;
     loadSystemStatus().then((s) => {
@@ -51,12 +56,15 @@ export default function LandingDemoTab() {
       setStatus(s);
       if (!userChaos.current) setChaos(computeChaos(s));
     });
+    probeHealth().then((h) => {
+      if (alive) setThesisUp(h.up);
+    });
     return () => {
       alive = false;
     };
   }, []);
 
-  const suns = useMemo(() => (status ? buildSuns(status) : []), [status]);
+  const suns = useMemo(() => (status ? buildSuns(status, thesisUp) : []), [status, thesisUp]);
   const planets = useMemo(() => (status ? buildPlanets(status) : []), [status]);
 
   const onHover = (def: PlanetDef | null, x: number, y: number) =>

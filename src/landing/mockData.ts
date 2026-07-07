@@ -125,24 +125,26 @@ export interface SunDef {
   agitation: number;
 }
 
-function engineState(s: SystemStatus): Record<SunDef["id"], { lum: number; agitation: number }> {
+function engineState(s: SystemStatus, thesisUp: boolean | null): Record<SunDef["id"], { lum: number; agitation: number }> {
   const mlOk = s.engines.return.current; // MLPred ≈ the return engine's currency
   return {
     quant: { lum: 1.0, agitation: 0.0 },
     mlpred: { lum: mlOk ? 1.0 : 0.5, agitation: mlOk ? 0.0 : 0.6 },
-    thesis: { lum: 0.58, agitation: 0.12 }, // in development: dim, but calm — not broken
+    // THESIS is health-DRIVEN (one /health probe on landing load): reachable = lit,
+    // unreachable or not-yet-probed = visibly dim. Never lit while down — honest-desk.
+    thesis: thesisUp ? { lum: 1.0, agitation: 0.05 } : { lum: 0.35, agitation: 0.12 },
   };
 }
 
-// Suns derive their engine health (lum/agitation) and the MLPRED status line
-// from the live status. Geometry (mass/color) is fixed art.
-export function buildSuns(s: SystemStatus = SYSTEM_STATUS): SunDef[] {
-  const es = engineState(s);
+// Suns derive their engine health (lum/agitation) and the MLPRED/THESIS status lines
+// from live signals. Geometry (mass/color) is fixed art.
+export function buildSuns(s: SystemStatus = SYSTEM_STATUS, thesisUp: boolean | null = null): SunDef[] {
+  const es = engineState(s, thesisUp);
   const mlAsOf = mmdd(s.engines.return.asOf);
   return [
     { id: "quant", name: "QUANT", role: "Scoring · FV · rating", status: "online · universe scored", color: "#FFE3A8", mass: 1.04, lum: es.quant.lum, agitation: es.quant.agitation },
     { id: "mlpred", name: "PROLEPSIS", role: "Prediction ensemble", status: s.engines.return.current ? `targets current · ${mlAsOf}` : `targets stale · ${mlAsOf}`, color: "#CFE0FF", mass: 1.0, lum: es.mlpred.lum, agitation: es.mlpred.agitation },
-    { id: "thesis", name: "THESIS", role: "LLM thesis engine", status: "in development · nascent", color: "#FF9E5A", mass: 0.92, lum: es.thesis.lum, agitation: es.thesis.agitation },
+    { id: "thesis", name: "THESIS", role: "LLM thesis engine", status: thesisUp ? "online · thesis engine live" : "offline · engine unreachable", color: "#FF9E5A", mass: 0.92, lum: es.thesis.lum, agitation: es.thesis.agitation },
   ];
 }
 
