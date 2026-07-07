@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-06T17:52:17"
+    "at": "2026-07-07T00:49:19"
   },
   "engines": {
     "binary": {
@@ -61,146 +61,15 @@
     }
   },
   "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr1.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr2.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr3.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr4.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr5.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/pr/pr6.parquet",
-        "age_days": 3.7,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "streams/universe/data_quality.parquet",
-        "age_days": 3.6,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "data",
-        "source": "regime/classifications/regime_classifications.parquet",
-        "age_days": 3.6,
-        "budget_days": 3
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/aristeia_strategy.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/auxo_strategy.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/axia_strategy.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/prosodos_strategy.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/pronoia_strategy.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "stage5",
-        "source": "stage5_output/basket_summary.json",
-        "age_days": 5.4,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "web",
-        "source": "strategies_correlation.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "web",
-        "source": "strategies_holdings_perf.json",
-        "age_days": 4.8,
-        "budget_days": 2
-      },
-      {
-        "kind": "lapsed_layer",
-        "layer": "mlpred",
-        "source": "universe_predictions_2026-06-30.csv",
-        "age_days": 3.6,
-        "budget_days": 3,
-        "note": "predict step not rewriting the CSV (nightly chain stalled?)"
-      },
-      {
-        "kind": "lapsed_heartbeat",
-        "source": "ops/heartbeats/mlpred_publish.json",
-        "age_days": 3.6,
-        "budget_days": 3
-      },
-      {
-        "kind": "job_failed_flag",
-        "source": "ops/heartbeats/data_publish_FAILED.json"
-      }
-    ],
-    "checked_at": "2026-07-06T14:36:42.541062"
+    "ok": true,
+    "alerts": [],
+    "checked_at": "2026-07-06T19:00:02.339543"
   },
   "market": {
-    "state": "after"
+    "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-07-06",
+    "ppi_as_of": "2026-07-07",
     "ppi_breadth_pct": 69.9,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
