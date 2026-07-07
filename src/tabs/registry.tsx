@@ -23,6 +23,7 @@ const DoppelgangerTab = lazy(() => import("./DoppelgangerTab"));
 const MLPredTab = lazy(() => import("./MLPredTab"));
 const AiBubbleWatchTab = lazy(() => import("./AiBubbleWatchTab"));
 const StrategiesTab = lazy(() => import("./StrategiesTab"));
+const ThesisEngineTab = lazy(() => import("./ThesisEngineTab"));
 
 export interface TabDef {
   id: string;
@@ -52,5 +53,6 @@ export const TABS: TabDef[] = [
   { id: "aibubble", label: "🫧 AI Bubble Watch", component: AiBubbleWatchTab },
   { id: "etfs", label: "ETF Center", component: ETFTab },
   { id: "voices", label: "🎤 Pundit Views", component: PunditViewsTab },
+  { id: "thesis", label: "📝 Thesis Engine", component: ThesisEngineTab },
   { id: "help", label: "📖 Help", component: HelpTab },
 ];
