@@ -85,6 +85,46 @@ export const BRASS = {
 export const PAPER = "#D8B878";
 
 /**
+ * Brand accents — the Akribeia mark's own hues. coral→magenta is the gradient
+ * that runs through the "a." mark, the splash progress bar, and the in-app
+ * loading spinner. This is the ONE source of truth for "brand color"; it is
+ * deliberately distinct from SEM (status) and ENTITY (per-strategy) hues.
+ */
+export const BRAND = {
+  coral: "#EE7D6B",     // gradient start — the loading spinner's accent
+  magenta: "#D4488F",   // gradient end
+  wordmark: "#9AA2AC",  // "AKRIBEIA" lockup text
+} as const;
+
+/**
+ * Splash cinematic palette. JS-only BY DESIGN — <canvas> consumes color as JS
+ * strings, so these never need Tailwind utilities and are intentionally NOT
+ * added to CSS_MIRROR below (nothing to mirror ⇒ nothing to drift).
+ * `bg` is deeper than SURFACE.page on purpose: the splash is deep space, the
+ * app is a panel surface.
+ */
+export const SPLASH = {
+  bg: "#04060C",
+  star: "#E8EEFC",         // drifting background particles
+  starCore: "#FFFFFF",     // constellation stars
+  starLine: "#ECF0FF",     // constellation link lines
+  particleBase: "#EEF2FF", // particle tint before it takes the mark's color
+  bearPink: "#F070C4",
+  bearViolet: "#946EF8",
+  bearBlue: "#608EFF",
+  bearEdge: "#C6ACFF",     // silhouette hairline
+  bearHalo: "#AC8CFF",     // silhouette glow
+  dot: "#CA49A3",          // the "a." dot burst
+  probeHot: "#FFFFFF",     // droplet probe radial gradient, hot→deep
+  probeMid: "#D7E9F2",
+  probeCool: "#61798C",
+  probeDeep: "#1E2D3A",
+  trail: "#DCE8F4",        // probe trail
+  trailHalo: "#BED7F0",
+  sparkWarm: "#FFF0E1",    // impact sparks
+} as const;
+
+/**
  * Entity series — one fixed hue per strategy, forever. Color follows the
  * entity, never rank or filter order. Katalepsis wears brass (live-money).
  * benchmark (SPY/index references) is deliberately neutral: always dashed +
