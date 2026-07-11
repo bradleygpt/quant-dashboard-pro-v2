@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T17:25:29",
-  "source_commit": "2ae51ce",
+  "generated_at": "2026-07-11T06:38:20",
+  "source_commit": "da3d62a",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -445,6 +445,7 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     },
@@ -466,6 +467,7 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     },
@@ -486,6 +488,7 @@
         "Industrials",
         "Real Estate",
         "Technology",
+        "Unknown",
         "Utilities"
       ]
     }
