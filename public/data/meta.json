@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-13T07:53:48",
-  "source_commit": "4278cf7",
+  "generated_at": "2026-07-13T17:37:33",
+  "source_commit": "d7c6b2e",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -445,14 +445,13 @@
         "Industrials",
         "Real Estate",
         "Technology",
-        "Unknown",
         "Utilities"
       ]
     },
     "1": {
       "floor": 1,
-      "n_total": 1294,
-      "n_stocks": 1228,
+      "n_total": 1295,
+      "n_stocks": 1229,
       "n_etf": 66,
       "sectors": [
         "",
@@ -467,7 +466,6 @@
         "Industrials",
         "Real Estate",
         "Technology",
-        "Unknown",
         "Utilities"
       ]
     },
@@ -488,7 +486,6 @@
         "Industrials",
         "Real Estate",
         "Technology",
-        "Unknown",
         "Utilities"
       ]
     }
