@@ -1,6 +1,6 @@
 import React from "react";
 import AsOf from "./AsOf";
-import { GRADE_COLORS, INK, RATING_COLORS, alpha } from "../theme";
+import { BRAND, GRADE_COLORS, INK, LINE, RATING_COLORS, alpha } from "../theme";
 
 export function Card({ title, sub, children, className = "", asOfSource, asOfDate }: {
   title?: string; sub?: string; children: React.ReactNode; className?: string;
@@ -52,10 +52,23 @@ export function GradePill({ grade }: { grade: string | null | undefined }) {
   return <span className="font-semibold" style={{ color: c }}>{grade}</span>;
 }
 
+/**
+ * The one in-app loading affordance — React Query fetches, tab switches, chart
+ * refresh. Brand-colored (BRAND.coral head on a LINE.strong track) so the
+ * loader reads as Akribeia rather than as a generic link-blue control.
+ * Deliberately NOT the splash cinematic: that plays once per session, in
+ * SplashScreen.tsx, and must never be imported here.
+ *
+ * Colors are inline (not Tailwind classes) because BRAND lives in theme.ts as a
+ * JS-only token — it has no index.css @theme mirror to drift against.
+ */
 export function Spinner({ label = "Loading…" }: { label?: string }) {
   return (
     <div className="flex items-center gap-3 p-8 text-mute">
-      <div className="h-4 w-4 animate-spin rounded-full border-2 border-line-2 border-t-link" />
+      <div
+        className="h-4 w-4 animate-spin rounded-full border-2"
+        style={{ borderColor: LINE.strong, borderTopColor: BRAND.coral }}
+      />
       {label}
     </div>
   );

@@ -4,6 +4,7 @@ import { loadMeta } from "./lib/data";
 import { StoreProvider, useStore } from "./store";
 import { Spinner } from "./components/ui";
 import Sidebar from "./components/Sidebar";
+import SplashScreen from "./components/SplashScreen";
 import { TABS } from "./tabs/registry";
 
 function Shell() {
@@ -59,7 +60,7 @@ function Shell() {
   );
 }
 
-export default function App() {
+function AppBody() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [err, setErr] = useState<string | null>(null);
   useEffect(() => {
@@ -71,5 +72,21 @@ export default function App() {
     <StoreProvider meta={meta}>
       <Shell />
     </StoreProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      {/*
+        SplashScreen sits ABOVE the shell and outside any tab, so it covers first
+        paint (including AppBody's own meta-loading spinner) and is never
+        remounted by a tab switch. There is no router in this app — tab state
+        lives in the store — so there is nothing to wire it to. It self-dismisses
+        and renders null once seen this session.
+      */}
+      <SplashScreen />
+      <AppBody />
+    </>
   );
 }
