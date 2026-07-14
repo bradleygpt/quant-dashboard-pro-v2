@@ -31,6 +31,26 @@ export interface TabDef {
   component: ComponentType;
 }
 
+/** LINK-OUTS — deliberately NOT tabs. These are external surfaces that are not dashboard content:
+ *  they open in a new tab rather than mounting a component. The Drafts queue is Bradley's own
+ *  authenticated content-review page behind the markets tunnel (token-gated), not a public dashboard
+ *  surface, so it gets a link-out and never a tab. Rendered by App.tsx after the TABS strip. */
+export interface LinkDef {
+  id: string;
+  label: string;
+  href: string;
+  title?: string;
+}
+
+export const LINKS: LinkDef[] = [
+  {
+    id: "drafts",
+    label: "✍️ Drafts",
+    href: "https://viewing-uncombed-wheat.ngrok-free.dev/drafts",
+    title: "Content review queue (authenticated; opens in a new tab)",
+  },
+];
+
 const Placeholder = (title: string) => () =>
   ComingSoon({ title, reason: "This tab is a placeholder in the source Streamlit app (no implemented logic)." });
 
