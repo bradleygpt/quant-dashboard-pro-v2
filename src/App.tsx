@@ -4,7 +4,7 @@ import { loadMeta } from "./lib/data";
 import { StoreProvider, useStore } from "./store";
 import { Spinner } from "./components/ui";
 import Sidebar from "./components/Sidebar";
-import { LINKS, TABS } from "./tabs/registry";
+import { TABS } from "./tabs/registry";
 
 function Shell() {
   const { activeTab, setActiveTab } = useStore();
@@ -47,20 +47,6 @@ function Shell() {
             >
               {t.label}
             </button>
-          ))}
-          {/* LINK-OUTS (registry LINKS): external surfaces, not dashboard tabs — they navigate away
-              rather than mounting a component, so they render as anchors and never become `activeTab`. */}
-          {LINKS.map((l) => (
-            <a
-              key={l.id}
-              href={l.href}
-              target="_blank"
-              rel="noreferrer"
-              title={l.title}
-              className="shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-sm text-ink-3 transition hover:bg-hover"
-            >
-              {l.label} <span aria-hidden>↗</span>
-            </a>
           ))}
         </nav>
         <main className="min-w-0 flex-1 overflow-x-hidden p-4 max-md:p-3">

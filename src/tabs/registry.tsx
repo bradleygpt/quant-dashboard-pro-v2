@@ -31,25 +31,14 @@ export interface TabDef {
   component: ComponentType;
 }
 
-/** LINK-OUTS — deliberately NOT tabs. These are external surfaces that are not dashboard content:
- *  they open in a new tab rather than mounting a component. The Drafts queue is Bradley's own
- *  authenticated content-review page behind the markets tunnel (token-gated), not a public dashboard
- *  surface, so it gets a link-out and never a tab. Rendered by App.tsx after the TABS strip. */
-export interface LinkDef {
-  id: string;
-  label: string;
-  href: string;
-  title?: string;
-}
-
-export const LINKS: LinkDef[] = [
-  {
-    id: "drafts",
-    label: "✍️ Drafts",
-    href: "https://viewing-uncombed-wheat.ngrok-free.dev/drafts",
-    title: "Content review queue (authenticated; opens in a new tab)",
-  },
-];
+/** SURFACE BOUNDARY (design rule, 2026-07-15): this deployed dashboard is the EXTERNAL product
+ *  surface — nothing personal/internal may link from it. Personal tools (the /drafts review queue,
+ *  /m, anything token-gated on the markets tunnel) live only on the authenticated tunnel pages and
+ *  are reached from Bradley's own bookmark, never from here. A link on this nav publishes its URL
+ *  to every dashboard visitor — that is how the tunnel address leaked once already (the since-
+ *  reverted Drafts link-out). The Thesis Engine tab stays: it is a product feature for dashboard
+ *  users. Before adding ANY nav entry, ask: is this for visitors, or for Bradley? If Bradley, it
+ *  does not belong in this registry. */
 
 const Placeholder = (title: string) => () =>
   ComingSoon({ title, reason: "This tab is a placeholder in the source Streamlit app (no implemented logic)." });
