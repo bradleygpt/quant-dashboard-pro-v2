@@ -1,6 +1,7 @@
 import { ASSET, ENTITY, INK, LINE, SEM, SURFACE, alpha } from "../theme";
 import { useEffect, useMemo, useState } from "react";
 import { Card, Spinner, Unavailable } from "../components/ui";
+import BubbleSnapshot from "../components/BubbleSnapshot";
 import { loadDataJSON } from "../lib/data";
 import {
   TYPE_META, validDeals, forceLayout, cycleEdgeIds, enumerateCycles,
@@ -73,9 +74,13 @@ export default function AiBubbleWatchTab() {
         </p>
       </div>
 
-      {/* top disclaimer */}
+      {/* live monthly snapshot (data layer, refreshed monthly; commentary separate) */}
+      <BubbleSnapshot />
+
+      {/* top disclaimer — applies to the ILLUSTRATIVE deal network + finding cards below,
+          not to the live snapshot above */}
       <div className="rounded-md border border-warn/25 bg-warn/5 px-3 py-2 text-[11px] leading-relaxed text-paper">
-        ⚠ Illustrative · figures are analyst tallies &amp; point-in-time estimates · as of ~mid-2026 · not a live feed.
+        ⚠ Below this line: illustrative · figures are analyst tallies &amp; point-in-time estimates · as of ~mid-2026 · not a live feed.
       </div>
 
       {/* headline */}
