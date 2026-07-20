@@ -235,7 +235,7 @@ function relativeRating(pct: number): string {
 
 // Look-through scoring: each ETF as a weight-weighted basket of its holdings' stock scores
 // (etf_lookthrough.json, built free from yfinance top-holdings). Module-cached.
-type LT = { lt_score: number | null; coverage: number; n_matched: number; equity: boolean; note: string; name?: string | null; price?: number | null; aum?: number | null; in_universe?: boolean; top?: { t: string; w: number; s: number }[] };
+type LT = { lt_score: number | null; coverage: number; n_matched: number; equity: boolean; note: string; name?: string | null; price?: number | null; aum?: number | null; in_universe?: boolean; asset_class?: string; rating_ok?: boolean; top?: { t: string; w: number; s: number }[] };
 type LTData = { etfs: Record<string, LT>; n_scored: number; n_etfs: number; source: string };
 let ltCache: LTData | null = null, ltInflight: Promise<LTData | null> | null = null;
 function useLookthrough(): LTData | null {
@@ -248,7 +248,7 @@ function useLookthrough(): LTData | null {
   return d;
 }
 
-type EtfRow = { ticker: string; name: string; price: number | null; aumB: number | null; composite: number | null; lt_score: number | null; coverage: number; inUniverse: boolean; rating?: string };
+type EtfRow = { ticker: string; name: string; price: number | null; aumB: number | null; composite: number | null; lt_score: number | null; coverage: number; inUniverse: boolean; rating?: string; assetClass?: string; ratingOk: boolean; note?: string };
 
 function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: string) => void }) {
   const lt = useLookthrough();
@@ -262,23 +262,28 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
       return {
         ticker: tk, name: u?.name ?? e?.name ?? tk,
         price: u?.price ?? e?.price ?? null,
-        aumB: u ? u.marketCapB : e?.aum != null ? e.aum / 1e9 : null,
+        // v2 dataset carries totalAssets for every ETF (funds report AUM, not marketCap)
+        aumB: e?.aum != null ? e.aum / 1e9 : u ? u.marketCapB : null,
         composite: u ? u.composite : null,
         lt_score: e?.lt_score ?? null, coverage: e?.coverage ?? 0,
         inUniverse: !!u, rating: u?.rating,
+        assetClass: e?.asset_class, ratingOk: e?.rating_ok ?? (e?.lt_score != null), note: e?.note,
       };
     });
   }, [lt, rows, uniMap]);
 
-  // Rate by look-through score where covered; else by stock-model composite (baked ETFs only).
+  // Rating policy (handoff §5.4): look-through-based rating ONLY when >=50% of fund
+  // weight is mapped (rating_ok) — a rating computed on 20% of a fund is false
+  // coverage. Below the floor, in-universe ETFs fall back to the stock-model
+  // composite cohort; everything else shows an explicit suppressed/N-A state.
   const relRating = useMemo(() => {
     const m = new Map<string, string>();
     const rank = (pool: EtfRow[], key: (r: EtfRow) => number) => {
       const asc = pool.map(key).sort((a, b) => a - b); const n = asc.length;
       pool.forEach((r) => { const below = asc.filter((s) => s < key(r)).length; m.set(r.ticker, relativeRating(n <= 1 ? 0.5 : below / (n - 1))); });
     };
-    rank(display.filter((r) => r.lt_score != null), (r) => r.lt_score!);
-    rank(display.filter((r) => r.lt_score == null && r.composite != null), (r) => r.composite!);
+    rank(display.filter((r) => r.lt_score != null && r.ratingOk), (r) => r.lt_score!);
+    rank(display.filter((r) => !(r.lt_score != null && r.ratingOk) && r.composite != null), (r) => r.composite!);
     return m;
   }, [display]);
 
@@ -288,10 +293,21 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
         : <span className="font-semibold text-ink-3" title="expanded coverage — no stock-detail page">{r.ticker}</span> },
     { key: "name", header: "Name", sortValue: (r) => r.name, render: (r) => <span className="block max-w-[280px] truncate text-ink-2">{r.name}</span> },
     { key: "lt", header: "Look-through", align: "right", sortValue: (r) => r.lt_score ?? -1, render: (r) => r.lt_score == null
-        ? <span className="text-dim" title="low coverage (bond / broad-intl)">—</span>
-        : <span title={`${Math.round(r.coverage * 100)}% of weight mapped to scored stocks`}><span className="font-semibold text-link">{r.lt_score.toFixed(2)}</span><span className="ml-1 text-[10px] text-mute">{Math.round(r.coverage * 100)}%</span></span> },
+        ? <span className="text-dim" title={r.note ?? "insufficient coverage"}>{
+            r.assetClass === "bond" ? "N/A (bond)" :
+            r.assetClass === "commodity" ? "N/A (cmdty)" :
+            r.assetClass === "crypto" ? "N/A (crypto)" :
+            r.assetClass === "intl_equity" ? "insuff. (intl)" : "insuff. cov"}</span>
+        : <span title={r.note ?? `${Math.round(r.coverage * 100)}% of weight mapped to scored stocks`}><span className="font-semibold text-link">{r.lt_score.toFixed(2)}</span><span className="ml-1 text-[10px] text-mute">{Math.round(r.coverage * 100)}%</span></span> },
     { key: "composite", header: "Stock-model", align: "right", sortValue: (r) => r.composite ?? -1, render: (r) => r.composite == null ? <span className="text-dim">—</span> : <span className="text-ink-3">{r.composite.toFixed(2)}</span> },
-    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating ?? ""] ?? 0, render: (r) => { const rt = relRating.get(r.ticker) ?? r.rating; return rt ? <RatingBadge rating={rt} /> : <span className="text-dim">—</span>; } },
+    { key: "rating", header: "Rating", sortValue: (r) => RATING_RANK[relRating.get(r.ticker) ?? r.rating ?? ""] ?? 0, render: (r) => {
+        const rt = relRating.get(r.ticker) ?? r.rating;
+        if (rt) return <RatingBadge rating={rt} />;
+        const why = r.assetClass && r.assetClass !== "us_equity" && r.assetClass !== "intl_equity"
+          ? "N/A — non-equity fund; an equity scoring model cannot rate it"
+          : r.lt_score != null ? "rating suppressed — under 50% of fund weight mapped (would be false coverage)"
+          : r.note ?? "insufficient coverage";
+        return <span className="text-dim" title={why}>{r.lt_score != null ? "suppressed" : "—"}</span>; } },
     { key: "price", header: "Price", align: "right", sortValue: (r) => r.price ?? -1, render: (r) => r.price == null ? "—" : fmtMoney(r.price) },
     { key: "cap", header: "AUM", align: "right", sortValue: (r) => r.aumB ?? -1, render: (r) => <span className="text-ink-3">{r.aumB == null ? "—" : fmtCapB(r.aumB)}</span> },
   ], [goToDetail, relRating]);
@@ -299,7 +315,7 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
   return (
     <div className="space-y-2">
       <p className="text-[11px] leading-relaxed text-mute">
-        <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy). “—” = bond / broad-international (holdings outside the scored US-equity universe). Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need a paid holdings feed; the pipeline swaps in unchanged.
+        <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy) and require ≥50% of fund weight mapped — below that the rating is suppressed rather than shown on false coverage (yfinance exposes only top-10 holdings, so broad small/mid-cap funds map a thin slice by construction). Bond / commodity / crypto funds are structurally unratable by an equity model and show an explicit N/A; international-equity funds hold names outside the scored US universe. Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need issuer CSVs or a paid holdings feed; the pipeline swaps in unchanged.
       </p>
       <SortableTable columns={cols} rows={display} rowKey={(r) => r.ticker} initialSortKey="lt" initialSortDir="desc" />
     </div>
