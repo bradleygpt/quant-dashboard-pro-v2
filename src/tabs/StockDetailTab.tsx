@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
 import ThesisPanel from "../components/ThesisPanel";
+import MarketsEntry from "../components/MarketsEntry";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
@@ -566,6 +567,9 @@ export default function StockDetailTab() {
 
       {/* Investment Thesis (dossier → Claude Code queue → baked render) */}
       <ThesisPanel ticker={ticker} row={row} rows={rows} td={td} qhist={qhist} />
+
+      {/* Markets Engine entry (anchor-mapped, gate-validated templates; never auto-submits) */}
+      <MarketsEntry ticker={ticker} />
 
       {/* pillar detail */}
       {td && (

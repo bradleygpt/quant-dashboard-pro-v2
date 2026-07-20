@@ -22,6 +22,7 @@ import {
   type HealthVerdict,
   type ThesisEvent,
 } from "../lib/markets";
+import { clearActiveJob, loadActiveJob, saveActiveJob, takePrefill } from "../lib/marketsPrefill";
 
 const HEALTH_INTERVAL_MS = 45_000; // modest cadence; the tab is niche, no polling storm
 const RESULT_POLL_MS = 2_500;
@@ -77,6 +78,8 @@ export default function ThesisEngineTab() {
   const [health, setHealth] = useState<HealthVerdict | null>(null);
   const [query, setQuery] = useState("");
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
+  // proxy-honesty label carried in from the Stock Detail entry block (travels with the click)
+  const [proxyLabel, setProxyLabel] = useState<string | null>(null);
   const pollRef = useRef<number | null>(null);
 
   const checkHealth = useCallback(async () => setHealth(await probeHealth()), []);
@@ -99,6 +102,7 @@ export default function ThesisEngineTab() {
           return;
         }
         if (pollRef.current) window.clearInterval(pollRef.current);
+        clearActiveJob();
         const answer = (r.final?.answer as string | undefined) ?? "";
         const v = validateAnswer(answer);
         if (!v.ok) {
@@ -112,11 +116,35 @@ export default function ThesisEngineTab() {
           answer,
           citations: Array.isArray(r.final?.citations) ? (r.final?.citations as unknown[]) : [],
         });
-      } catch {
-        // transient poll failure: keep polling; the job persists server-side and the next
-        // tick re-reads the full event log (reconnect-by-job-id semantics).
+      } catch (e) {
+        // 404 = the server no longer knows this job (engine restarted): stop + forget it.
+        // Anything else is transient: keep polling; the job persists server-side and the
+        // next tick re-reads the full event log (reconnect-by-job-id semantics).
+        if (e instanceof MarketsApiError && e.status === 404) {
+          if (pollRef.current) window.clearInterval(pollRef.current);
+          clearActiveJob();
+          setPhase({ kind: "error", message: "The engine no longer knows this job (it likely restarted). Re-ask when ready." });
+        }
       }
     }, RESULT_POLL_MS);
+  }, []);
+
+  // Mount: (1) apply a one-shot prefill from the Stock Detail entry block — fill the
+  // input + show the proxy label, NEVER submit; (2) resume a persisted running job so
+  // navigating away doesn't orphan a 7-minute slot (job state is component-local).
+  useEffect(() => {
+    const p = takePrefill();
+    if (p) {
+      setQuery(p.query);
+      setProxyLabel(p.proxyLabel);
+    }
+    const j = loadActiveJob();
+    if (j) {
+      setQuery((q) => q || j.query);
+      setPhase({ kind: "running", jobId: j.jobId, events: [] });
+      startPolling(j.jobId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submit = useCallback(async () => {
@@ -125,11 +153,17 @@ export default function ThesisEngineTab() {
     setPhase({ kind: "submitting" });
     try {
       const jobId = await submitQuery(q);
+      saveActiveJob(jobId, q);
       setPhase({ kind: "running", jobId, events: [] });
       startPolling(jobId);
     } catch (e) {
       if (e instanceof MarketsApiError) {
-        setPhase({ kind: "error", message: e.message, yielding: e.yielding });
+        // capacity etiquette: 429 gets the expectation copy, and the rate limiter is the
+        // guard — no automatic retry loops here.
+        const msg = e.status === 429
+          ? "Engine is working on another question (~7 min typical). Try again shortly."
+          : e.message;
+        setPhase({ kind: "error", message: msg, yielding: e.yielding });
       } else {
         setPhase({ kind: "error", message: "submit failed (network)" });
       }
@@ -189,6 +223,12 @@ export default function ThesisEngineTab() {
       {MARKETS_CONFIGURED && !offline && (
         <>
           <Card title="Ask">
+            {proxyLabel && (
+              <p className="mb-2 rounded-md px-3 py-1.5 text-[11px]"
+                style={{ color: INK.ink3, background: SURFACE.raised, border: `1px solid ${LINE.line}` }}>
+                {proxyLabel}
+              </p>
+            )}
             <div className="flex gap-2">
               <input
                 value={query}
@@ -208,8 +248,9 @@ export default function ThesisEngineTab() {
               </button>
             </div>
             <p className="mt-1.5 text-[11px]" style={{ color: INK.dim }}>
-              One GPU job at a time; a staged run takes several minutes. The job persists server-side, so a
-              dropped connection resumes on the next poll.
+              One GPU job at a time — typically ~7 minutes, up to ~20 with charts; after ~10pm the engine
+              yields to the nightly quant run. The job persists server-side and survives navigating away
+              from this tab (polling resumes when you return).
             </p>
           </Card>
 
