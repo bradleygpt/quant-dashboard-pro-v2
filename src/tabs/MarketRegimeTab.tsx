@@ -38,6 +38,24 @@ function macroHealth(md: Record<string, any>, spread: number | null, hyOas: numb
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
+// ISM staleness (audit 2026-07-20): after the 2nd business day of the current
+// month the baked ISM must cover the PRIOR month, else the forecast card badges
+// loudly instead of lying quietly. Business days = Mon–Fri (US holidays ignored —
+// worst case the badge shows one day early, which errs on the loud side).
+function ismIsStale(period?: string): boolean {
+  if (!period) return true;
+  const now = new Date();
+  let biz = 0;
+  for (let d = 1; d <= now.getDate(); d++) {
+    const dow = new Date(now.getFullYear(), now.getMonth(), d).getDay();
+    if (dow !== 0 && dow !== 6) biz++;
+  }
+  if (biz <= 2) return false; // grace window before the monthly releases land
+  const prior = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const expect = `${prior.getFullYear()}-${String(prior.getMonth() + 1).padStart(2, "0")}`;
+  return period.slice(0, 7) < expect;
+}
+
 interface Market {
   ok?: boolean;
   indices?: { name: string; ok: boolean; price?: number; distance_from_ath_pct?: number; change_1d_pct?: number; change_5d_pct?: number; change_1m_pct?: number; change_3m_pct?: number; ytd_pct?: number }[];
@@ -182,8 +200,8 @@ export default function MarketRegimeTab() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <Metric label="CPI (YoY)" value={md.cpi_current != null ? `${md.cpi_current}%` : "—"} hint={`${md.cpi_prior != null ? `${(md.cpi_current - md.cpi_prior) >= 0 ? "+" : ""}${(md.cpi_current - md.cpi_prior).toFixed(1)}% vs prior · ` : ""}${md.cpi_asof ? `as-of ${md.cpi_asof.slice(0, 7)}` : md.cpi_trend ?? ""}`} />
             <Metric label="Unemployment" value={md.unemployment_current != null ? `${md.unemployment_current}%` : "—"} hint={`${md.unemployment_prior != null ? `${(md.unemployment_current - md.unemployment_prior) >= 0 ? "+" : ""}${(md.unemployment_current - md.unemployment_prior).toFixed(1)}% vs prior · ` : ""}${md.unemployment_asof ? `as-of ${md.unemployment_asof.slice(0, 7)}` : md.unemployment_trend ?? ""}`} />
-            <Metric label="ISM Mfg" value={md.ism_manufacturing ?? "—"} hint={md.ism_asof ? `manual · ${md.ism_asof}` : "manual"} />
-            <Metric label="ISM Svcs" value={md.ism_services ?? "—"} hint={md.ism_asof ? `manual · ${md.ism_asof}` : "manual"} />
+            <Metric label="ISM Mfg" value={md.ism_manufacturing ?? "—"} hint={`manual · ${md.ism_mfg_asof ?? md.ism_asof ?? "?"}`} />
+            <Metric label="ISM Svcs" value={md.ism_services ?? "—"} hint={`manual · ${md.ism_svcs_asof ?? md.ism_asof ?? "?"}`} />
             <Metric label="Fed Funds" value={md.fed_funds_upper != null ? `${md.fed_funds_lower}–${md.fed_funds_upper}%` : "—"} />
             <Metric label="GDP QoQ" value={md.gdp_latest_qoq_annualized != null ? `${md.gdp_latest_qoq_annualized}%` : "—"} hint={md.gdp_quarter} />
           </div>
@@ -215,11 +233,16 @@ export default function MarketRegimeTab() {
             );
           })()}
           {ef && (
-            <Card title="S&P 500 Earnings Forecast" sub="3-factor model (CPI + Unemployment + ISM)">
+            <Card title="S&P 500 Earnings Forecast" sub="3-factor model (CPI + Unemployment + ISM). CPI/Unemp auto-refresh from FRED at bake time; ISM is a manual baked input (no compliant free feed exists).">
+              {ismIsStale(md.ism_asof) && (
+                <div className="mb-2 inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn, background: "rgba(0,0,0,0.15)" }}>
+                  STALE — update ISM (baked period {md.ism_asof ?? "?"}; run update_ism.py)
+                </div>
+              )}
               <div className="text-2xl font-bold text-white">{fmtPct(ef.sp500_earnings_growth, 1, true)}</div>
               <div className="text-xs text-mute">modeled YoY earnings growth</div>
               <div className="mt-1 text-[10px] leading-relaxed text-dim">
-                Inputs: CPI {md.cpi_current ?? "—"}% {md.cpi_source?.startsWith("FRED") ? `(FRED, as-of ${md.cpi_asof?.slice(0, 7) ?? "?"})` : "(static)"} · Unemp {md.unemployment_current ?? "—"}% {md.unemployment_source?.startsWith("FRED") ? `(FRED, as-of ${md.unemployment_asof?.slice(0, 7) ?? "?"})` : "(static)"} · ISM {md.ism_composite ?? "—"} (manual, as-of {md.ism_asof ?? "?"})
+                Inputs: CPI {md.cpi_current ?? "—"}% {md.cpi_source?.startsWith("FRED") ? `(FRED, as-of ${md.cpi_asof?.slice(0, 7) ?? "?"})` : "(static)"} · Unemp {md.unemployment_current ?? "—"}% {md.unemployment_source?.startsWith("FRED") ? `(FRED, as-of ${md.unemployment_asof?.slice(0, 7) ?? "?"})` : "(static)"} · ISM composite {md.ism_composite ?? "—"}{md.ism_mfg_asof ? ` (mfg ${md.ism_manufacturing} @ ${md.ism_mfg_asof} · svcs ${md.ism_services} @ ${md.ism_svcs_asof}${md.ism_entered ? ` · entered ${md.ism_entered}` : ""})` : ` (manual, as-of ${md.ism_asof ?? "?"})`}
               </div>
               {ef.scenarios && (
                 <table className="mt-2 w-full text-xs">
