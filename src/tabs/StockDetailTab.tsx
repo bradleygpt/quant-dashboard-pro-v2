@@ -2,6 +2,7 @@ import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
+import ThesisPanel from "../components/ThesisPanel";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
@@ -562,6 +563,9 @@ export default function StockDetailTab() {
 
       {/* FCF quality / SBC distortion */}
       <FcfQuality ticker={ticker} />
+
+      {/* Investment Thesis (dossier → Claude Code queue → baked render) */}
+      <ThesisPanel ticker={ticker} row={row} rows={rows} td={td} qhist={qhist} />
 
       {/* pillar detail */}
       {td && (
