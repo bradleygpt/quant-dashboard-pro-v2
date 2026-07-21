@@ -1,20 +1,22 @@
-// Investment Thesis panel (handoff §2, 2026-07-20).
-// Architecture: dossier → queue → Claude Code generation → baked JSON → this render.
-// The app NEVER generates. "Generate Thesis" builds a full dossier snapshot of what
-// the app knows right now and downloads it; Bradley drops it into
-// quant-dashboard-pro/theses/queue/ and generation happens in Claude Code per
-// theses/PROMPT_PACK.md (zero marginal cost). Baked theses ship via the bake as
-// data/theses/ + theses_index.json.
+// Investment Thesis panel — REWORKED 2026-07-21 to the AI Analysis pattern.
+// "Generate Thesis" calls the same Gemini edge function as Research Note / Earnings
+// Review (/api/ai, kind=thesis): server-side key, strict-JSON output, the PROMPT_PACK
+// anti-slop contract validated server-side (one retry with failures fed back, then an
+// honest error state — slop is never rendered silently). Works for ANY scored ticker.
+// Cache: localStorage per (ticker, snapshot_hash) following the Earnings Review
+// mechanism — repeat views are free; regeneration matters only when the dossier
+// drifts (same thresholds as the DATED badge). Repo-baked theses (source claude-code)
+// remain as seed content; the dossier-download/queue UX is gone from the product.
 import { useEffect, useState } from "react";
-import { Card } from "./ui";
+import { Card, Spinner } from "./ui";
 import { loadDataJSON } from "../lib/data";
-import { SEM, alpha } from "../theme";
+import { INK, SEM, alpha } from "../theme";
 
 interface ThesisSide { claim: string; pillars: string[]; catalysts: string[]; falsifiers: string[] }
 interface GradeSlot { graded_at?: string; realized_return_pct?: number; winner?: string; falsifiers_triggered?: string[] }
 interface BookRef { book: string; label?: string; as_of?: string }
 interface Thesis {
-  ticker: string; generated_at: string; generator?: string; snapshot_hash: string;
+  ticker: string; generated_at: string; generator?: string; source?: string; snapshot_hash: string;
   books?: BookRef[]; // live-book membership AT SNAPSHOT TIME (S5 provenance — travels with the thesis)
   inputs?: Record<string, any>;
   bull: ThesisSide; bear: ThesisSide;
@@ -22,8 +24,6 @@ interface Thesis {
   grading?: { h3m?: GradeSlot | null; h6m?: GradeSlot | null; h12m?: GradeSlot | null };
 }
 type ThesisIndex = Record<string, { latest: string; files: string[]; count: number }>;
-
-const NA = "N/A";
 
 // Aging: the thesis is a snapshot; badge it when today's inputs have moved
 // materially off the snapshot (price ±12% or default-preset composite ±1.0).
@@ -44,33 +44,66 @@ async function sha256hex16(s: string): Promise<string> {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 16);
 }
 
-// Mirror build_thesis_dossier.py: full snapshot, N/A for missing (never 0).
-async function buildDossier(ticker: string, row: any, rows: any[], td: any, qhist: any[]) {
-  const comp = (r: any) => r?.byPreset?.equal?.c ?? Object.values(r?.byPreset ?? {}).map((v: any) => v?.c)[0];
-  const sector = row?.sector ?? NA;
-  const peers = (rows || []).filter((r) => r.sector === sector).map(comp).filter((c) => typeof c === "number").sort((a, b) => b - a);
+// Live-book membership from the same artifacts the strategies table reads
+// (c78q.json latest LIVE target; aristeia current_holdings). Module-cached.
+interface LiveBooks { c78q?: { rows: string[]; as_of?: string }; ari?: { rows: string[]; as_of?: string } }
+let booksCache: LiveBooks | null = null;
+let booksInflight: Promise<LiveBooks> | null = null;
+async function loadBooks(): Promise<LiveBooks> {
+  if (booksCache) return booksCache;
+  if (!booksInflight) {
+    booksInflight = Promise.all([
+      loadDataJSON<any>("c78q.json"),
+      loadDataJSON<any>("aristeia_strategy.json"),
+    ]).then(([c, a]) => {
+      const out: LiveBooks = {};
+      const t = c?.target;
+      if (t?.book_type === "live") out.c78q = { rows: (t.rows || []).map((r: any) => r.ticker), as_of: t.as_of };
+      const ch = a?.current_holdings;
+      if (ch?.book_type === "live") out.ari = { rows: ch.tickers || [], as_of: ch.as_of };
+      booksCache = out;
+      return out;
+    });
+  }
+  return booksInflight;
+}
+async function booksFor(ticker: string): Promise<BookRef[]> {
+  const b = await loadBooks();
+  const out: BookRef[] = [];
+  if (b?.c78q?.rows.includes(ticker)) out.push({ book: "c78q", label: "Katalepsis", as_of: b.c78q.as_of });
+  if (b?.ari?.rows.includes(ticker)) out.push({ book: "aristeia", label: "Aristeia", as_of: b.ari.as_of });
+  return out;
+}
+
+// Compact DATA blob for the edge function — same pre-formatted style as the AI
+// Analysis card (the model narrates given figures, never recomputes prices).
+function thesisBlob(row: any, rows: any[], qhist: any[], books: BookRef[]) {
+  const rw = row.raw || {};
+  const pf = (x?: number | null) => (x == null ? "—" : `${x >= 0 ? "+" : ""}${Math.round(x * 100)}%`);
+  const lf = (x?: number | null) => (x == null ? "—" : `${Math.round(x * 100)}%`);
+  const nf = (x?: number | null) => (x == null ? "—" : x.toFixed(x >= 100 ? 0 : 1));
+  const prem = row.fvPremium;
+  const comp = (r: any) => r?.byPreset?.equal?.c;
+  const peers = (rows || []).filter((r) => r.sector === row.sector).map(comp).filter((c) => typeof c === "number").sort((a, b) => b - a);
   const my = comp(row);
-  const inputs = {
-    name: row?.name ?? NA, sector, industry: row?.industry ?? NA,
-    price: row?.price ?? NA, market_cap_b: row?.marketCapB ?? NA,
-    composite_by_preset: row?.byPreset ?? NA, pillars: row?.pillars ?? NA,
-    grades: row?.grades ?? NA, raw_metrics: row?.raw ?? NA,
-    fair_value: td?.fv ?? row?.fv ?? NA, fv_premium_pct: row?.fvPremium ?? NA, fv_verdict: row?.fvVerdict ?? NA,
-    buy_point: td?.qbp ?? row?.qbp ?? NA, qbp_distance_pct: row?.qbpDistance ?? NA, qbp_signal: row?.qbpSignal ?? NA,
-    pillar_detail: td?.pillar_detail ?? NA,
-    quarterly: qhist?.length ? qhist : NA,
-    c78q: NA, // book membership resolves repo-side; the CLI builder fills it
-    sector_context: peers.length && typeof my === "number"
-      ? { n_sector: peers.length, rank_in_sector: peers.indexOf(my) + 1 || NA, sector_median_composite: peers[Math.floor(peers.length / 2)] }
-      : NA,
-  };
-  const stamp = new Date();
+  const rank = peers.length && typeof my === "number"
+    ? `${peers.indexOf(my) + 1} of ${peers.length} in ${row.sector} (sector median composite ${peers[Math.floor(peers.length / 2)].toFixed(2)})`
+    : undefined;
   return {
-    ticker,
-    built_at: stamp.toISOString().slice(0, 19),
-    builder: "app Generate Thesis button v1",
-    snapshot_hash: await sha256hex16(JSON.stringify(inputs)),
-    inputs,
+    name: row.name ?? "", sector: row.sector ?? "", mcapB: row.marketCapB != null ? row.marketCapB.toFixed(0) : undefined,
+    score: row.composite?.toFixed(2), rating: row.rating, grades: row.grades, rank,
+    val: { fpe: nf(rw.forwardPE), pe: nf(rw.trailingPE), peg: nf(rw.pegRatio), ps: nf(rw.priceToSalesTrailing12Months), evs: nf(rw.enterpriseToEbitda) },
+    prof: { gross: lf(rw.grossMargins), oper: lf(rw.operatingMargins), net: lf(rw.profitMargins), roe: lf(rw.returnOnEquity) },
+    growth: { rev: pf(rw.revenueGrowth), earn: pf(rw.earningsGrowth) },
+    mom: { m3: pf(rw.momentum_3m), m12: pf(rw.momentum_12m), sma200: pf(rw.momentum_vs_sma200), upside: pf(rw.analyst_mean_target_upside) },
+    analysts: rw.analyst_count != null ? `${rw.analyst_count} analysts, recommendation score ${rw.analyst_recommendation_score ?? "—"}` : undefined,
+    fv: row.fv != null ? { value: row.fv.toFixed(0), premium: prem != null ? `${Math.abs(prem).toFixed(1)}%` : undefined, direction: prem != null ? (prem >= 0 ? "above" : "below") : undefined, verdict: row.fvVerdict ?? undefined } : undefined,
+    qbp: row.qbpSignal ?? undefined,
+    books: books.length ? books.map((b) => `${b.label ?? b.book} (as of ${b.as_of ?? "?"})`).join(", ") : undefined,
+    quarters: (qhist || []).slice(0, 9).map((q: any) => ({
+      date: String(q.date || "").slice(0, 7), rev: pf(q.revenueGrowth), earn: pf(q.earningsGrowth),
+      gross: lf(q.grossMargins), oper: lf(q.operatingMargins), net: lf(q.netMargins),
+    })),
   };
 }
 
@@ -89,45 +122,90 @@ function SideCol({ label, side, color }: { label: string; side: ThesisSide; colo
   );
 }
 
+type GenState =
+  | { kind: "idle" }
+  | { kind: "loading" }
+  | { kind: "failed"; reason: string; errors?: string[] };
+
 export default function ThesisPanel({ ticker, row, rows, td, qhist }: { ticker: string | null; row: any; rows: any[]; td: any; qhist: any[] }) {
   const [thesis, setThesis] = useState<Thesis | null>(null);
   const [checked, setChecked] = useState(false);
-  const [queued, setQueued] = useState(false);
+  const [gen, setGen] = useState<GenState>({ kind: "idle" });
+  const [curHash, setCurHash] = useState<string | null>(null);
+  const [books, setBooks] = useState<BookRef[]>([]);
 
+  // current snapshot hash + books (drives cache freshness and the DATED semantics)
+  useEffect(() => {
+    if (!ticker || !row) return;
+    let live = true;
+    (async () => {
+      const b = await booksFor(ticker);
+      const blob = thesisBlob(row, rows, qhist, b);
+      const h = await sha256hex16(JSON.stringify(blob));
+      if (live) { setBooks(b); setCurHash(h); }
+    })();
+    return () => { live = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ticker, row, qhist?.length]);
+
+  // load: live-generated cache first (Earnings-Review mechanism), else the baked seed
   useEffect(() => {
     if (!ticker) return;
     let live = true;
-    setThesis(null); setChecked(false); setQueued(false);
-    loadDataJSON<ThesisIndex>("theses_index.json").then(async (idx) => {
+    setThesis(null); setChecked(false); setGen({ kind: "idle" });
+    (async () => {
+      try {
+        const hit = JSON.parse(localStorage.getItem(`qd_thesis_${ticker}`) || "null");
+        if (hit?.bull?.claim && hit?.bear?.claim) { if (live) { setThesis(hit); setChecked(true); } return; }
+      } catch { /* fall through */ }
+      const idx = await loadDataJSON<ThesisIndex>("theses_index.json");
       const latest = idx?.[ticker]?.latest;
       const t = latest ? await loadDataJSON<Thesis>(`theses/${latest}`) : null;
       if (live) { setThesis(t); setChecked(true); }
-    });
+    })();
     return () => { live = false; };
   }, [ticker]);
 
   if (!ticker || !row) return null;
 
-  const enqueue = async () => {
-    const dossier = await buildDossier(ticker, row, rows, td, qhist);
-    const blob = new Blob([JSON.stringify(dossier, null, 1)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `${ticker}_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-    setQueued(true);
+  const generate = async () => {
+    setGen({ kind: "loading" });
+    try {
+      const blob = thesisBlob(row, rows, qhist, books);
+      const hash = curHash ?? (await sha256hex16(JSON.stringify(blob)));
+      const qs = new URLSearchParams({ ticker, kind: "thesis", d: JSON.stringify(blob) });
+      const d = await fetch(`/api/ai?${qs}`).then((r) => r.json());
+      if (!d.ok) { setGen({ kind: "failed", reason: d.reason || "error", errors: d.errors }); return; }
+      const t: Thesis = {
+        ticker,
+        generated_at: new Date().toISOString().slice(0, 19),
+        generator: `gemini (${d.model || "?"})`,
+        source: "gemini-live",
+        snapshot_hash: hash,
+        books,
+        // minimal snapshot for the DATED drift check (full persistence is a separate decision)
+        inputs: { price: row.price, composite_by_preset: row.byPreset },
+        bull: d.thesis.bull, bear: d.thesis.bear, synthesis: d.thesis.synthesis,
+        grading: { h3m: null, h6m: null, h12m: null },
+      };
+      try { localStorage.setItem(`qd_thesis_${ticker}`, JSON.stringify(t)); } catch { /* storage full/off */ }
+      setThesis(t); setGen({ kind: "idle" });
+    } catch {
+      setGen({ kind: "failed", reason: "error" });
+    }
   };
 
   const aging = thesis ? agingInfo(thesis, row) : null;
-  const grades = thesis?.grading ? Object.entries(thesis.grading).filter(([, v]) => v) as [string, GradeSlot][] : [];
+  const grades = thesis?.grading ? (Object.entries(thesis.grading).filter(([, v]) => v) as [string, GradeSlot][]) : [];
+  const upToDate = !!thesis && thesis.source === "gemini-live" && !!curHash && thesis.snapshot_hash === curHash;
 
   return (
-    <Card title="Investment Thesis" sub="Bull and bear cases generated from a full dossier snapshot (Claude Code, zero-cost; the app never calls an LLM). Pillars cite dossier numbers; each side names its own falsifiers; the crux is what the two cases actually disagree on.">
+    <Card title="Investment Thesis" sub="Bull and bear cases generated on demand (Gemini) from this ticker's current dossier snapshot — scores, multiples, margins, quarterly history, fair value, buy point, live-book membership. Validated before render: pillars must cite dossier numbers, each side names its own falsifiers, and the crux is what the two cases actually disagree on. Works for any scored ticker.">
       {thesis ? (
         <>
           <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] text-mute">
             <span>generated {thesis.generated_at?.slice(0, 10)}</span>
+            <span>· {thesis.source === "gemini-live" ? "gemini-live" : `seed (${(thesis.generator || "claude-code").split(" ")[0]})`}</span>
             <span>· snapshot {thesis.snapshot_hash}</span>
             {/* book provenance AT SNAPSHOT TIME (S5): what the live books were when this
                 was written — never reconstructed later. Canonical strategy labels. */}
@@ -165,20 +243,33 @@ export default function ThesisPanel({ ticker, row, rows, td, qhist }: { ticker: 
             <p className="mt-2 text-xs leading-relaxed text-ink-2">{thesis.synthesis?.divergence_summary}</p>
           </div>
         </>
-      ) : checked ? (
-        <p className="text-sm text-mute">No thesis baked for {ticker} yet.</p>
-      ) : (
-        <p className="text-sm text-mute">Checking for a baked thesis…</p>
+      ) : checked && gen.kind !== "loading" ? (
+        <p className="text-sm text-mute">No thesis for {ticker} yet — generate one from the current snapshot.</p>
+      ) : gen.kind !== "loading" ? (
+        <p className="text-sm text-mute">Checking for a thesis…</p>
+      ) : null}
+
+      {gen.kind === "loading" && <div className="mt-2"><Spinner label="Generating thesis — Gemini is writing both cases from the dossier snapshot…" /></div>}
+
+      {gen.kind === "failed" && (
+        <div className="mt-2 rounded-md border px-3 py-2 text-xs" style={{ borderColor: SEM.warn, color: SEM.warn }}>
+          {gen.reason === "no_key"
+            ? "LLM not configured — requires GEMINI_API_KEY in Vercel (same key as the AI Analysis card); the generator activates on the next deploy."
+            : gen.reason === "validation_failed"
+              ? <>The model's output failed the anti-slop validator twice — withheld rather than rendered.{gen.errors?.length ? <span className="mt-1 block" style={{ color: INK.mute }}>{gen.errors.slice(0, 4).join(" · ")}</span> : null}</>
+              : `Generation failed (${gen.reason}) — usually transient; try again shortly.`}
+        </div>
       )}
+
       <div className="mt-3 flex items-center gap-3">
-        <button onClick={enqueue} className="rounded-md border border-line px-3 py-1.5 text-sm text-ink-2 hover:bg-hover">
-          {thesis ? "Re-queue with fresh snapshot" : "Generate Thesis"}
+        <button
+          onClick={generate}
+          disabled={gen.kind === "loading" || upToDate}
+          title={upToDate ? "Already generated from the current snapshot — regeneration matters only when the dossier drifts (DATED badge)." : undefined}
+          className="rounded-md border border-line px-3 py-1.5 text-sm text-ink-2 hover:bg-hover disabled:opacity-50"
+        >
+          {gen.kind === "loading" ? "Generating…" : thesis ? (upToDate ? "Up to date with current snapshot" : "Regenerate from current snapshot") : "Generate Thesis"}
         </button>
-        {queued && (
-          <span className="text-[11px] text-mute">
-            Dossier downloaded — drop it in <code>quant-dashboard-pro/theses/queue/</code> and ask Claude Code to generate (see theses/PROMPT_PACK.md).
-          </span>
-        )}
       </div>
     </Card>
   );

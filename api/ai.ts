@@ -31,13 +31,15 @@ const earningsReliable = (t: string): boolean => {
 type Blob = {
   name?: string; sector?: string; mcapB?: string; score?: string; rating?: string;
   grades?: Record<string, string>;
-  val?: { fpe?: string; pe?: string; peg?: string; ps?: string };
+  val?: { fpe?: string; pe?: string; peg?: string; ps?: string; evs?: string };
   prof?: { gross?: string; oper?: string; net?: string; roe?: string };
   growth?: { rev?: string; earn?: string };
-  mom?: { m3?: string; m12?: string; upside?: string };
+  mom?: { m3?: string; m12?: string; upside?: string; sma200?: string };
   fv?: { value?: string; premium?: string; direction?: string; verdict?: string };
   qbp?: string; surprise?: string;
   quarters?: { date: string; rev: string; earn: string; gross?: string; oper?: string; net?: string }[];
+  // thesis-kind extras (2026-07-21 rework): sector rank, analyst set, live-book membership
+  rank?: string; analysts?: string; books?: string;
   // runtime-kind payloads (screener / doppelganger / portfolio / correlation)
   query?: string;
   analogs?: unknown; fwd?: unknown;
@@ -45,12 +47,59 @@ type Blob = {
   corr?: unknown;
 };
 
+// ── Investment Thesis validation (ported from validate_thesis.py — the anti-slop gate;
+//    same mechanical checks, not weakened). Returns [] when clean. ──
+const THESIS_BANNED = [
+  "strong fundamentals", "attractive valuation", "well-positioned", "well positioned",
+  "best-in-class", "robust growth", "solid execution", "compelling opportunity",
+  "poised to benefit", "strong track record",
+];
+const T_COMPARE = /(vs\.?|than|above|below|versus|×|x\b|%|percentile|rank)/i;
+function validateThesisJson(t: any): string[] {
+  const errs: string[] = [];
+  for (const side of ["bull", "bear"] as const) {
+    const s = t?.[side];
+    if (!s) { errs.push(`missing ${side}`); continue; }
+    const claim = s.claim ?? "";
+    if (typeof claim !== "string" || claim.length < 20 || claim.length > 300)
+      errs.push(`${side}.claim must be one sentence of 20-300 chars (got ${String(claim).length})`);
+    const pillars: unknown[] = Array.isArray(s.pillars) ? s.pillars : [];
+    if (pillars.length < 3 || pillars.length > 4) errs.push(`${side}.pillars: need 3-4, got ${pillars.length}`);
+    pillars.forEach((p, i) => { if (!/\d/.test(String(p))) errs.push(`${side}.pillars[${i}] cites no DATA number`); });
+    const cat = Array.isArray(s.catalysts) ? s.catalysts.length : 0;
+    if (cat < 2 || cat > 4) errs.push(`${side}.catalysts: need 2-4, got ${cat}`);
+    const fal = Array.isArray(s.falsifiers) ? s.falsifiers.length : 0;
+    if (fal < 2 || fal > 3) errs.push(`${side}.falsifiers: need 2-3 (for its OWN side), got ${fal}`);
+    const blob = [claim, ...pillars.map(String)].join(" ");
+    for (const sent of blob.split(/(?<=[.;])\s+/)) {
+      const low = sent.toLowerCase();
+      for (const b of THESIS_BANNED) {
+        if (low.includes(b) && !(/\d/.test(sent) && T_COMPARE.test(sent)))
+          errs.push(`${side}: banned filler "${b}" without a number and comparison in the same sentence`);
+      }
+    }
+  }
+  const crux = t?.synthesis?.crux_variables;
+  const nCrux = Array.isArray(crux) ? crux.length : 0;
+  if (nCrux < 1 || nCrux > 2) errs.push(`synthesis.crux_variables: need 1-2, got ${nCrux}`);
+  const div = t?.synthesis?.divergence_summary;
+  if (typeof div !== "string" || div.length < 50) errs.push("synthesis.divergence_summary: missing or under 50 chars");
+  return errs;
+}
+function parseThesisText(text: string): any | null {
+  const cleaned = text.replace(/^\s*```(?:json)?/i, "").replace(/```\s*$/, "").trim();
+  try { return JSON.parse(cleaned); } catch { /* try to slice the outermost object */ }
+  const a = cleaned.indexOf("{"), b = cleaned.lastIndexOf("}");
+  if (a >= 0 && b > a) { try { return JSON.parse(cleaned.slice(a, b + 1)); } catch { return null; } }
+  return null;
+}
+
 export default async function handler(req: Request) {
   const key = process.env.GEMINI_API_KEY;
   const url = new URL(req.url);
   const p = Object.fromEntries(url.searchParams.entries());
   const ticker = (p.ticker || "").toUpperCase();
-  const TICKER_KINDS = ["earnings", "research", "doppelganger", "correlation"];
+  const TICKER_KINDS = ["earnings", "research", "doppelganger", "correlation", "thesis"];
   const kind = [...TICKER_KINDS, "screener", "portfolio"].includes(p.kind) ? p.kind : "research";
   const period = p.period || "";
   if (!key) return json({ ok: false, reason: "no_key", needs: "GEMINI_API_KEY" });
@@ -63,15 +112,22 @@ export default async function handler(req: Request) {
 
   const block = [
     `${ticker} (${d.name || ""}) — ${d.sector || "?"} · market cap $${d.mcapB || "?"}B · quant composite ${d.score || "?"}/12 (${d.rating || "?"})`,
+    d.rank ? `Sector rank — ${d.rank}` : "",
     `Pillar grades — Valuation ${g.Valuation || "?"}, Growth ${g.Growth || "?"}, Profitability ${g.Profitability || "?"}, Momentum ${g.Momentum || "?"}, EPS Revisions ${g["EPS Revisions"] || "?"}`,
-    `Valuation — fwd P/E ${d.val?.fpe || "—"}, trailing P/E ${d.val?.pe || "—"}, PEG ${d.val?.peg || "—"}, P/S ${d.val?.ps || "—"}`,
+    `Valuation — fwd P/E ${d.val?.fpe || "—"}, trailing P/E ${d.val?.pe || "—"}, PEG ${d.val?.peg || "—"}, P/S ${d.val?.ps || "—"}${d.val?.evs ? `, EV/EBITDA ${d.val.evs}` : ""}`,
     `Profitability — gross ${d.prof?.gross || "—"}, operating ${d.prof?.oper || "—"}, net ${d.prof?.net || "—"}, ROE ${d.prof?.roe || "—"}`,
     `Growth — revenue ${d.growth?.rev || "—"} YoY, earnings ${d.growth?.earn || "—"} YoY`,
-    `Momentum — 3M ${d.mom?.m3 || "—"}, 12M ${d.mom?.m12 || "—"}; analyst mean-target upside ${d.mom?.upside || "—"}`,
+    `Momentum — 3M ${d.mom?.m3 || "—"}, 12M ${d.mom?.m12 || "—"}${d.mom?.sma200 ? `, vs 200-day ${d.mom.sma200}` : ""}; analyst mean-target upside ${d.mom?.upside || "—"}`,
+    d.analysts ? `Analyst set — ${d.analysts}` : "",
     d.fv?.value ? `Fair value $${d.fv.value}: the stock trades ${d.fv.premium || "?"} ${d.fv.direction || ""} fair value — verdict ${d.fv.verdict || "?"}.` : "",
     d.qbp ? `Quant buy-point signal: ${d.qbp}.` : "",
+    d.books ? `Live strategy books — ${d.books}.` : "",
     q0 ? `Reported quarter ${q0.date}: revenue ${q0.rev} YoY, earnings ${q0.earn} YoY, gross margin ${q0.gross || "—"}, operating margin ${q0.oper || "—"}, net margin ${q0.net || "—"}.` : "",
     q1 ? `Prior quarter ${q1.date}: revenue ${q1.rev} YoY, earnings ${q1.earn} YoY.` : "",
+    kind === "thesis" && d.quarters && d.quarters.length > 2
+      ? "Quarterly history (date · revenue YoY · earnings YoY · net margin):\n" + d.quarters.slice(2)
+          .map((q) => `  ${q.date}: ${q.rev} · ${q.earn} · ${q.net || "—"}`).join("\n")
+      : "",
     d.surprise ? `Latest analyst earnings surprise: ${d.surprise}.` : "",
   ].filter(Boolean).join("\n");
 
@@ -141,8 +197,37 @@ In 2-3 sentences give actionable rebalance reasoning: where the book is over/und
     finalPrompt = `Explain in 2 plain-English sentences what ${ticker}'s factor correlations mean for a portfolio: ${JSON.stringify(d.corr || {})}. e.g. "0.7 to gold means it tends to move with gold — a hedge, or redundant if you already hold gold." Use ONLY the values given; never invent numbers.`;
   }
 
-  const body = JSON.stringify({ contents: [{ parts: [{ text: finalPrompt }] }], generationConfig: { temperature: kind === "screener" ? 0.1 : 0.45, maxOutputTokens: 900 } });
-  const callModel = async (model: string) => {
+  // ── Investment Thesis (2026-07-21 rework): on-demand generation replacing the
+  //    dossier-download/queue UX. The anti-slop contract from theses/PROMPT_PACK.md
+  //    survives verbatim; output is strict JSON matching the baked thesis schema and
+  //    is validated server-side (one retry with the failures fed back, then an honest
+  //    validation_failed state — never rendered silently). ──
+  const thesisPrompt = (retryErrors: string[] | null) => `You are writing an institutional-quality bull AND bear investment thesis for ${ticker}.
+
+DATA — the ONLY figures you may cite (baked quant pipeline; you have NO other knowledge of this company — no memory of its products, filings, or news; if a needed fact is absent, express the uncertainty instead of inventing):
+${block}
+
+REQUIREMENTS (mandatory — a validator rejects violations):
+- Two GENUINELY OPPOSING cases. Not "great company but risks exist" twice: the bull must be a case FOR owning it that would embarrass the bear if right, and vice versa.
+- Each side: "claim" = ONE sentence, 20-300 characters, falsifiable and specific to this company now.
+- Each side: "pillars" = exactly 3 or 4 strings. EVERY pillar must cite at least one specific number from the DATA and make a claim that could be wrong. A pillar that just recites a metric is invalid — say what the number implies and what you are betting it means.
+- Each side: "catalysts" = 2-4 strings, each with rough timing ("next 1-2 quarters", "H1 2027").
+- Each side: "falsifiers" = 2-3 concrete observations that would kill ITS OWN side ("net margin below X% for two consecutive quarters", never "things get worse").
+- "synthesis": "crux_variables" = the 1-2 specific quantities the two cases ACTUALLY disagree on (not topic labels); "divergence_summary" = 2-4 sentences naming where the cases split and what to watch.
+- STYLE BANS: never write "strong fundamentals", "attractive valuation", "well-positioned", "best-in-class", "robust growth", "solid execution", "compelling opportunity", "poised to benefit", or "strong track record" unless the SAME sentence carries a number and a comparison. No hedging both ways inside one pillar. Never do price arithmetic beyond simple ratios of DATA numbers.
+${retryErrors ? `\nYOUR PREVIOUS ATTEMPT FAILED VALIDATION — fix ALL of these and return the corrected JSON:\n${retryErrors.map((e) => `- ${e}`).join("\n")}\n` : ""}
+Return ONLY JSON, no prose and no markdown fences, exactly this shape:
+{"bull":{"claim":"...","pillars":["..."],"catalysts":["..."],"falsifiers":["..."]},"bear":{"claim":"...","pillars":["..."],"catalysts":["..."],"falsifiers":["..."]},"synthesis":{"crux_variables":["..."],"divergence_summary":"..."}}`;
+
+  const makeBody = (text: string) => JSON.stringify({
+    contents: [{ parts: [{ text }] }],
+    generationConfig: {
+      temperature: kind === "screener" ? 0.1 : kind === "thesis" ? 0.4 : 0.45,
+      maxOutputTokens: kind === "thesis" ? 2400 : 900,
+      ...(kind === "thesis" ? { responseMimeType: "application/json" } : {}),
+    },
+  });
+  const callModel = async (model: string, body: string) => {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 22000);
     try {
@@ -154,31 +239,52 @@ In 2-3 sentences give actionable rebalance reasoning: where the book is over/und
       });
     } finally { clearTimeout(t); }
   };
-
   // Gemini's flash-lite tier returns transient 503s under load. Retry with backoff, then escalate to
   // the (also free-tier) flash model before giving up — turns a hard failure into a brief wait.
-  let lastStatus = 0;
-  try {
+  const runLadder = async (promptText: string): Promise<{ text?: string; model?: string; reason?: string }> => {
+    const body = makeBody(promptText);
+    let lastStatus = 0;
     const attempts = [MODEL, MODEL, MODEL, FALLBACK_MODEL]; // 3 tries on lite, final try on flash
     for (let i = 0; i < attempts.length; i++) {
-      const r = await callModel(attempts[i]);
+      const r = await callModel(attempts[i], body);
       if (r.ok) {
         const data: any = await r.json();
-        let text = data?.candidates?.[0]?.content?.parts?.map((x: any) => x.text).join("") || "";
-        // Earnings reviews get scrubbed of any leaked template brackets, then validated. A review
-        // that still leaks placeholders, echoes a self-referential thesis, or drops sections is
-        // returned as unreliable (reason:"unreliable") so the UI shows unavailable, not a badge.
-        if (kind === "earnings" && text) {
-          text = scrubReview(text);
-          if (!earningsReliable(text)) return json({ ok: false, reason: "unreliable" });
-        }
-        return json({ ok: !!text, ticker, kind, text, provider: "gemini", model: attempts[i] });
+        const text = data?.candidates?.[0]?.content?.parts?.map((x: any) => x.text).join("") || "";
+        return { text, model: attempts[i] };
       }
       lastStatus = r.status;
-      if (!TRANSIENT.has(r.status)) return json({ ok: false, reason: `api_${r.status}` }); // 400/401/403 = don't retry
+      if (!TRANSIENT.has(r.status)) return { reason: `api_${r.status}` }; // 400/401/403 = don't retry
       if (i < attempts.length - 1) await sleep(400 * (i + 1)); // 400ms, 800ms, 1200ms backoff
     }
-    return json({ ok: false, reason: `api_${lastStatus || 503}` }); // exhausted retries + fallback
+    return { reason: `api_${lastStatus || 503}` }; // exhausted retries + fallback
+  };
+
+  try {
+    if (kind === "thesis") {
+      // generate → parse → validate; ONE automatic retry with the failures fed back,
+      // then an honest validation_failed state. Slop is never rendered silently.
+      let errors: string[] = [];
+      for (let phase = 0; phase < 2; phase++) {
+        const out = await runLadder(thesisPrompt(phase === 0 ? null : errors));
+        if (out.reason) return json({ ok: false, reason: out.reason });
+        const parsed = parseThesisText(out.text || "");
+        errors = parsed ? validateThesisJson(parsed) : ["response was not parseable JSON"];
+        if (parsed && errors.length === 0)
+          return json({ ok: true, ticker, kind, thesis: parsed, provider: "gemini", model: out.model, retried: phase > 0 });
+      }
+      return json({ ok: false, reason: "validation_failed", errors: errors.slice(0, 8) });
+    }
+    const out = await runLadder(finalPrompt);
+    if (out.reason) return json({ ok: false, reason: out.reason });
+    let text = out.text || "";
+    // Earnings reviews get scrubbed of any leaked template brackets, then validated. A review
+    // that still leaks placeholders, echoes a self-referential thesis, or drops sections is
+    // returned as unreliable (reason:"unreliable") so the UI shows unavailable, not a badge.
+    if (kind === "earnings" && text) {
+      text = scrubReview(text);
+      if (!earningsReliable(text)) return json({ ok: false, reason: "unreliable" });
+    }
+    return json({ ok: !!text, ticker, kind, text, provider: "gemini", model: out.model });
   } catch (e: any) {
     return json({ ok: false, reason: `error_${e?.name || "unknown"}` });
   }
