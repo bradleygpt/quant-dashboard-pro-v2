@@ -1,27 +1,52 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-21T17:07:16"
+    "at": "2026-07-21T15:04:12"
   },
   "engines": {
     "binary": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-07-20"
     },
     "return": {
       "current": false,
-      "asOf": null
+      "asOf": "2026-06-30"
     }
   },
   "ppi": {
-    "score": 39.1,
+    "score": 39.0,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null
+    "nextRebalance": "2026-08-03"
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-20"
+    },
+    "aristeia": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-07-01"
+    },
+    "auxo": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-05-15"
+    },
+    "pronoia": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16"
+    },
     "axia": {
       "book_type": "paper",
       "status": "research-scout, holdings-redundant"
@@ -35,7 +60,11 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": true,
+    "alerts": [],
+    "checked_at": "2026-07-06T19:00:02.339543"
+  },
   "market": {
     "state": "rth"
   },
