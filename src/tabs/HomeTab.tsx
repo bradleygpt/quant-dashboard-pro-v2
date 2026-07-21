@@ -6,7 +6,7 @@ import IndexBadges from "../components/IndexBadges";
 import AnomalyCallouts from "../components/AnomalyCallouts";
 import UniverseSummary from "../components/UniverseSummary";
 import { fmtMoney, fmtPct } from "../lib/format";
-import { loadDataJSON } from "../lib/data";
+import { blobPublishAgeDays, loadDataJSON } from "../lib/data";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { computePpi } from "../lib/ppiIndex";
@@ -59,6 +59,12 @@ export default function HomeTab() {
   }, [stocks]);
   const breadthCount = useMemo(() => stocks.filter((r) => r.composite >= threshold).length, [stocks, threshold]);
 
+  // publish dead-man (S6, 2026-07-21): the bulk-publish leg died silently for 5 days
+  // and the watchdog badge rode the same broken delivery. This check is consumer-side:
+  // the blob pointer's version stamp freezing IS the failure. >2.5 days = loud banner.
+  const [pubAge, setPubAge] = useState<number | null>(null);
+  useEffect(() => { blobPublishAgeDays().then(setPubAge).catch(() => {}); }, []);
+
   const universeTickers = useMemo(() => new Set(rows.map((r) => r.ticker)), [rows]);
   const earningsThisWeek = useMemo(() => {
     if (!cal.data?.earnings) return [];
@@ -94,6 +100,16 @@ export default function HomeTab() {
   return (
     <div className="space-y-4">
       <div><h2 className="text-lg font-bold text-white">Dashboard Overview</h2><p className="text-xs text-mute">Your universe and market at a glance.</p></div>
+
+      {/* publish dead-man banner: bulk data (charts, prices, detail shards) stops
+          updating when the nightly publish leg dies — say so loudly instead of
+          letting stale charts read as current. Consumer-side by design. */}
+      {pubAge != null && pubAge > 2.5 && (
+        <div className="rounded-md border px-3 py-2 text-xs font-semibold" style={{ borderColor: SEM.warn, color: SEM.warn }}>
+          ⚠ Bulk data last published {pubAge.toFixed(1)} days ago — the nightly publish leg is likely down.
+          Charts/prices/detail pages are serving the last good publish. Check ops/heartbeats (data_publish, web_push) on the quant machine.
+        </div>
+      )}
 
       {/* 1. Pullback Pressure Index (c78q — faithful port of pullback_pressure_index.py) */}
       <Card title="Pullback Pressure Index (PPI)" sub="Market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown in Strategies → Katalepsis.">

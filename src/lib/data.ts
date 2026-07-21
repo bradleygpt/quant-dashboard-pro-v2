@@ -54,6 +54,21 @@ async function resolveBlobUrl(path: string): Promise<string | null> {
   return e ? `${blob.base_url}/${encodeURI(e.key)}` : null;
 }
 
+/** Age in days of the last bulk publish (blob.version stamp "YYYYMMDDTHHMMSSZ"),
+ *  or null when no blob section / unparseable. CONSUMER-SIDE publish dead-man
+ *  (2026-07-21): the publish leg silently died for 5 days (headless git-credential
+ *  failure) and every guard rode the same broken delivery — the watchdog badge
+ *  ships via web_push, which was the dead thing. This check lives in the data
+ *  CONSUMER: the manifest blob pointer freezing IS the failure signature, and the
+ *  manifest itself always loads via the git path. */
+export async function blobPublishAgeDays(): Promise<number | null> {
+  const blob = await loadBlobSection();
+  const m = blob?.version?.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/) ?? null;
+  if (!m) return null;
+  const t = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
+  return (Date.now() - t) / 86400000;
+}
+
 /** Fetch a data file wherever it lives (blob first per the manifest, git
  *  fallback). ALL data reads — lib and components alike — go through this;
  *  never build a `data/...` URL in a component. */
