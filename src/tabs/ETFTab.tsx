@@ -236,7 +236,7 @@ function relativeRating(pct: number): string {
 // Look-through scoring: each ETF as a weight-weighted basket of its holdings' stock scores
 // (etf_lookthrough.json, built free from yfinance top-holdings). Module-cached.
 type LT = { lt_score: number | null; coverage: number; n_matched: number; equity: boolean; note: string; name?: string | null; price?: number | null; aum?: number | null; in_universe?: boolean; asset_class?: string; rating_ok?: boolean; top?: { t: string; w: number; s: number }[] };
-type LTData = { etfs: Record<string, LT>; n_scored: number; n_etfs: number; source: string };
+type LTData = { etfs: Record<string, LT>; n_scored: number; n_etfs: number; source: string; generated_at?: string };
 let ltCache: LTData | null = null, ltInflight: Promise<LTData | null> | null = null;
 function useLookthrough(): LTData | null {
   const [d, setD] = useState<LTData | null>(ltCache);
@@ -312,8 +312,17 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
     { key: "cap", header: "AUM", align: "right", sortValue: (r) => r.aumB ?? -1, render: (r) => <span className="text-ink-3">{r.aumB == null ? "—" : fmtCapB(r.aumB)}</span> },
   ], [goToDetail, relRating]);
 
+  // Seasonal-rebuild guard (B4, S6): the look-through dataset is regenerated manually
+  // post-10-Q-season (holdings + AUM drift slowly); badge loudly past ~1 quarter.
+  const ltStale = lt?.generated_at ? (Date.now() - Date.parse(lt.generated_at)) / 86_400_000 > 100 : false;
+
   return (
     <div className="space-y-2">
+      {ltStale && (
+        <div className="inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
+          STALE — ETF look-through dataset last rebuilt {lt?.generated_at}; run seasonal_rebuild.ps1 (post-10-Q-season step)
+        </div>
+      )}
       <p className="text-[11px] leading-relaxed text-mute">
         <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy) and require ≥50% of fund weight mapped — below that the rating is suppressed rather than shown on false coverage (yfinance exposes only top-10 holdings, so broad small/mid-cap funds map a thin slice by construction). Bond / commodity / crypto funds are structurally unratable by an equity model and show an explicit N/A; international-equity funds hold names outside the scored US universe. Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need issuer CSVs or a paid holdings feed; the pipeline swaps in unchanged.
       </p>

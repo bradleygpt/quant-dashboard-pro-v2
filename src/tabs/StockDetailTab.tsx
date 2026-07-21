@@ -83,6 +83,10 @@ export default function StockDetailTab() {
   const [quarterlyErr, setQuarterlyErr] = useState(false);
   useEffect(() => { loadDataJSON<Record<string, any[]>>("quarterly.json").then((j) => { if (j) setQuarterly(j); else setQuarterlyErr(true); }); }, []);
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
+  // Seasonal-rebuild guard (B4, S6): quarterly_deep.json is rebuilt manually after each
+  // 10-Q season; if its vintage exceeds ~1 quarter + filing lag, badge loudly.
+  const deepVintage = (quarterly as any)?.deep_generated_at as string | undefined;
+  const deepStale = deepVintage ? (Date.now() - Date.parse(deepVintage)) / 86_400_000 > 100 : false;
 
   // earnings-quality signal (heuristic over the baked review text — #11)
   const [eq, setEq] = useState<Record<string, { quality: string; reason: string }>>({});
@@ -428,6 +432,11 @@ export default function StockDetailTab() {
       {quarterlyErr && <Unavailable what="Quarterly fundamentals" detail="quarterly.json failed to load — the earnings/revenue growth chart is hidden rather than silently absent." />}
       {qhist.length > 0 && (
         <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals (EDGAR-deepened to ~13 quarters). Bars: earnings growth (green ≥0 / red <0); line: revenue growth. A quarter with no year-ago comparison shows a GAP (not 0%) — YoY needs the same quarter one year back. Display is clipped at ±150%: a near-zero year-ago base prints ±1000%+ and would flatten every other bar — hover shows the true value. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
+          {deepStale && (
+            <div className="mb-2 inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
+              STALE — deep quarterly history last rebuilt {deepVintage?.slice(0, 10)}; run seasonal_rebuild.ps1 (post-10-Q-season step)
+            </div>
+          )}
           <ResponsiveContainer width="100%" height={220}>
             {/* YoY growth is null when the year-ago quarter is absent — map null→null so Recharts
                 draws a GAP (missing bar / broken line), never a fabricated 0% (?? 0 was the bug).

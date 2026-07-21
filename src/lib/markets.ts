@@ -1,5 +1,11 @@
 // Shared client for the Markets Thesis Engine API (markets-llm server.py).
 //
+// DOMAIN COUPLING (Phase-0 postmortem, 2026-07-20): if the engine's tunnel domain ever
+// changes, THREE places must change together or prod silently breaks with "Failed to fetch":
+//   1. VITE_MARKETS_URL (Vercel project env — build-time, needs a redeploy)
+//   2. web/vercel.json  -> Content-Security-Policy connect-src (JSON, can't carry this comment)
+//   3. markets-llm/api/server.py -> ALLOWED_ORIGINS is the reverse edge (engine must allow prod)
+//
 // Base URL comes ONLY from VITE_MARKETS_URL (never hardcode localhost or the tunnel domain in
 // src). Auth comes from VITE_MARKETS_TOKEN as `Authorization: Bearer <t>` on every /api/*
 // request; GET /health is intentionally unauthenticated so the landing sun and the tab's
