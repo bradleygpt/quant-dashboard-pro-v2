@@ -12,8 +12,10 @@ import { SEM, alpha } from "../theme";
 
 interface ThesisSide { claim: string; pillars: string[]; catalysts: string[]; falsifiers: string[] }
 interface GradeSlot { graded_at?: string; realized_return_pct?: number; winner?: string; falsifiers_triggered?: string[] }
+interface BookRef { book: string; label?: string; as_of?: string }
 interface Thesis {
   ticker: string; generated_at: string; generator?: string; snapshot_hash: string;
+  books?: BookRef[]; // live-book membership AT SNAPSHOT TIME (S5 provenance — travels with the thesis)
   inputs?: Record<string, any>;
   bull: ThesisSide; bear: ThesisSide;
   synthesis: { crux_variables: string[]; divergence_summary: string };
@@ -127,6 +129,17 @@ export default function ThesisPanel({ ticker, row, rows, td, qhist }: { ticker: 
           <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] text-mute">
             <span>generated {thesis.generated_at?.slice(0, 10)}</span>
             <span>· snapshot {thesis.snapshot_hash}</span>
+            {/* book provenance AT SNAPSHOT TIME (S5): what the live books were when this
+                was written — never reconstructed later. Canonical strategy labels. */}
+            {thesis.books?.map((b) => (
+              <span key={b.book} className="rounded border px-1.5 py-0.5 font-semibold"
+                style={{ color: SEM.link, borderColor: SEM.link }}>
+                {b.label ?? b.book} book{b.as_of ? ` · as of ${b.as_of}` : ""}
+              </span>
+            ))}
+            {thesis.books && thesis.books.length === 0 && (
+              <span className="rounded border border-line px-1.5 py-0.5">off-book at writing</span>
+            )}
             {aging && (
               <span className="rounded border px-1.5 py-0.5 font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
                 DATED — {aging}
