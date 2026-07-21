@@ -320,11 +320,11 @@ function UniverseTable({ rows, goToDetail }: { rows: ViewRow[]; goToDetail: (t: 
     <div className="space-y-2">
       {ltStale && (
         <div className="inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
-          STALE — ETF look-through dataset last rebuilt {lt?.generated_at}; run seasonal_rebuild.ps1 (post-10-Q-season step)
+          STALE — ETF look-through dataset last rebuilt {lt?.generated_at}; the weekly rebuild (Sat) has been failing for weeks — check the ETF Lookthrough Weekly task / run seasonal_rebuild.ps1
         </div>
       )}
       <p className="text-[11px] leading-relaxed text-mute">
-        <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy) and require ≥50% of fund weight mapped — below that the rating is suppressed rather than shown on false coverage (yfinance exposes only top-10 holdings, so broad small/mid-cap funds map a thin slice by construction). Bond / commodity / crypto funds are structurally unratable by an equity model and show an explicit N/A; international-equity funds hold names outside the scored US universe. Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need issuer CSVs or a paid holdings feed; the pipeline swaps in unchanged.
+        <strong className="text-ink-3">Look-through</strong> scores each ETF as a weight-weighted basket of its holdings' stock scores{lt ? ` (${lt.n_scored}/${lt.n_etfs} ETFs scored; free yfinance top-holdings, % = weight mapped; dataset as of ${lt.generated_at ?? "?"} — weekly rebuild)` : ""}. Ratings rank <strong className="text-ink-3">within the ETF cohort</strong> (top ~15% Strong Buy) and require ≥50% of fund weight mapped — below that the rating is suppressed rather than shown on false coverage (yfinance exposes only top-10 holdings, so broad small/mid-cap funds map a thin slice by construction). Bond / commodity / crypto funds are structurally unratable by an equity model and show an explicit N/A; international-equity funds hold names outside the scored US universe. Non-linked tickers are expanded coverage beyond the baked universe (no stock-detail page). Full weights would need issuer CSVs or a paid holdings feed; the pipeline swaps in unchanged.
       </p>
       <SortableTable columns={cols} rows={display} rowKey={(r) => r.ticker} initialSortKey="lt" initialSortDir="desc" />
     </div>

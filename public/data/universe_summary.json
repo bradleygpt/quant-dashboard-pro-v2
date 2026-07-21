@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-06-22",
+  "generated_at": "2026-07-21",
   "model": "qwen2.5:7b",
-  "summary": "The market currently exhibits a cautiously optimistic posture with a slight risk-on bias, as evidenced by the 2% of stocks in the Buy tier and strong sectors like Basic Materials and Energy. However, the overall neutral valuation backdrop, marked by a median fair-value premium of -1.9%, suggests caution is warranted. The strength in certain sectors implies a rotation away from traditionally defensive areas such as Industrials and Healthcare towards more cyclical plays.",
+  "summary": "The market currently exhibits a cautiously optimistic posture with a slight risk-on bias, as indicated by the 2% of stocks in the Buy tier and strong sectors like Utilities and Energy. However, valuations are modestly compressed, given the median fair-value premium is -1.2%, suggesting some caution despite momentum leaders in semiconductors and technology. Weaker sectors such as Financial Services and Healthcare indicate a rotation towards more defensive plays, hinting at potential outperformance from stable utilities and energy stocks.",
   "stats": {
-    "n": 1289,
+    "n": 1287,
     "buy_tier_pct": 2,
     "rating_dist": {
-      "Strong Buy+": 3,
-      "Strong Buy": 14,
-      "Buy": 8,
-      "Hold": 1157,
-      "Sell": 103,
+      "Strong Buy+": 4,
+      "Strong Buy": 17,
+      "Buy": 4,
+      "Hold": 1137,
+      "Sell": 121,
       "Strong Sell": 4
     },
-    "median_fv_premium_pct": -1.9,
+    "median_fv_premium_pct": -1.2,
     "strongest_sectors": [
-      "Basic Materials (6.97)",
+      "Utilities (6.96)",
       "Energy (6.96)",
-      "Utilities (6.95)"
+      "Basic Materials (6.95)"
     ],
     "weakest_sectors": [
-      "Industrials (6.92)",
-      "Consumer Cyclical (6.92)",
-      "Healthcare (6.93)"
+      "Financial Services (6.92)",
+      "Healthcare (6.92)",
+      "Consumer Cyclical (6.92)"
     ],
     "momentum_leaders": [
       "SNDK",
+      "MU",
       "BE",
       "WDC",
-      "MU",
-      "OPEN"
+      "STX"
     ]
   }
 }
