@@ -7,6 +7,7 @@ import AnomalyCallouts from "../components/AnomalyCallouts";
 import UniverseSummary from "../components/UniverseSummary";
 import { fmtMoney, fmtPct } from "../lib/format";
 import { blobPublishAgeDays, loadDataJSON } from "../lib/data";
+import PpiHistory from "../components/PpiHistory";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
 import { computePpi } from "../lib/ppiIndex";
@@ -140,6 +141,9 @@ export default function HomeTab() {
           </div>
         )}
       </Card>
+
+      {/* 1b. PPI daily history (reconstructed backfill + nightly as-lived prints) */}
+      <PpiHistory />
 
       {/* 2. This Week's Calendar */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
