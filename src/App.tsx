@@ -4,6 +4,7 @@ import { loadMeta } from "./lib/data";
 import { StoreProvider, useStore } from "./store";
 import { Spinner } from "./components/ui";
 import Sidebar from "./components/Sidebar";
+import LoadingOverlay from "./components/LoadingOverlay";
 import { TABS } from "./tabs/registry";
 
 function Shell() {
@@ -62,14 +63,31 @@ function Shell() {
 export default function App() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  // Landing sequence (2026-07-22): the loading animation is the front door, playing
+  // EVERY visit by decision — so no storage gating of any kind. It renders OVER the
+  // app while meta loads, which means the animation IS the loading state: the portal
+  // mounts behind it and the hand-off cross-fades into a live view instead of a
+  // second spinner or a white flash. Reduced-motion users skip it entirely (never
+  // hold someone who asked not to be animated) — evaluated once, before first paint.
+  const [introDone, setIntroDone] = useState(
+    () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   useEffect(() => {
     loadMeta().then(setMeta).catch((e) => setErr(String(e)));
   }, []);
-  if (err) return <div className="p-8 text-red-400">Failed to load data: {err}</div>;
-  if (!meta) return <Spinner label="Loading dashboard…" />;
   return (
-    <StoreProvider meta={meta}>
-      <Shell />
-    </StoreProvider>
+    <>
+      {err ? (
+        <div className="p-8 text-red-400">Failed to load data: {err}</div>
+      ) : meta ? (
+        <StoreProvider meta={meta}>
+          <Shell />
+        </StoreProvider>
+      ) : (
+        // only visible if the data outlives the animation (or reduced-motion skipped it)
+        introDone ? <Spinner label="Loading dashboard…" /> : null
+      )}
+      {!introDone && <LoadingOverlay onDone={() => setIntroDone(true)} />}
+    </>
   );
 }
