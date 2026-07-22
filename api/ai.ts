@@ -103,6 +103,26 @@ export default async function handler(req: Request) {
   const kind = [...TICKER_KINDS, "screener", "portfolio"].includes(p.kind) ? p.kind : "research";
   const period = p.period || "";
   if (!key) return json({ ok: false, reason: "no_key", needs: "GEMINI_API_KEY" });
+
+  // Diagnostic: which models can THIS key call? (kind=models — names only, never the
+  // key.) Exists because the ladder's fallback rung 404'd for weeks undetected
+  // (2026-07-22): the key is sensitive-type in Vercel, so availability can only be
+  // checked from inside a deployment. Use after any model-id change.
+  if (p.kind === "models") {
+    try {
+      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200",
+        { headers: { "x-goog-api-key": key } });
+      if (!r.ok) return json({ ok: false, reason: `api_${r.status}` });
+      const data: any = await r.json();
+      const gen = (data.models ?? [])
+        .filter((m: any) => (m.supportedGenerationMethods ?? []).includes("generateContent"))
+        .map((m: any) => String(m.name).replace("models/", ""));
+      return json({ ok: true, kind: "models", generateContent: gen.sort(), ladder: [MODEL, FALLBACK_MODEL] });
+    } catch (e: any) {
+      return json({ ok: false, reason: `error_${e?.name || "unknown"}` });
+    }
+  }
+
   if (TICKER_KINDS.includes(kind) && !ticker) return json({ ok: false, reason: "no_ticker" });
 
   let d: Blob = {};
