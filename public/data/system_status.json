@@ -1,16 +1,16 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-21T20:36:02"
+    "at": "2026-07-22T07:16:00"
   },
   "engines": {
     "binary": {
-      "current": true,
-      "asOf": "2026-07-20"
+      "current": false,
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-06-30"
+      "asOf": null
     }
   },
   "ppi": {
@@ -19,34 +19,9 @@
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-08-03"
+    "nextRebalance": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-20"
-    },
-    "aristeia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-01"
-    },
-    "auxo": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16"
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-05-15"
-    },
-    "pronoia": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16"
-    },
     "axia": {
       "book_type": "paper",
       "status": "research-scout, holdings-redundant"
@@ -60,17 +35,13 @@
       "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": {
-    "ok": true,
-    "alerts": [],
-    "checked_at": "2026-07-21T19:00:02.716193"
-  },
+  "watchdog": null,
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-07-21",
-    "ppi_breadth_pct": 64.5,
+    "ppi_as_of": "2026-07-22",
+    "ppi_breadth_pct": 64.4,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
