@@ -10,7 +10,13 @@
 export const config = { runtime: "edge" };
 
 const MODEL = "gemini-2.5-flash-lite";
-const FALLBACK_MODEL = "gemini-2.5-flash"; // used only after the lite tier keeps 503-ing (both free tier)
+// Fallback rung fix (2026-07-22, Item 1): "gemini-2.5-flash" 404'd on generateContent
+// for this free-tier key even though ListModels shows it (listed ≠ free-quota
+// allocated), so the ladder's last rung was dead — flash-lite exhaustion failed all
+// AI features instead of escalating. "gemini-flash-latest" is Google's self-tracking
+// alias: a distinct pool from flash-lite and immune to pinned-id retirement (the
+// exact failure mode this replaces). Verify any future change via /api/ai?kind=models.
+const FALLBACK_MODEL = "gemini-flash-latest";
 const TRANSIENT = new Set([429, 500, 502, 503, 504]); // retry-worthy: overload / transient upstream errors
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
