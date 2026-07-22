@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-22T10:48:16",
-  "source_commit": "eb137f3",
+  "generated_at": "2026-07-22T17:02:22",
+  "source_commit": "ea1e377",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -471,8 +471,8 @@
     },
     "10": {
       "floor": 10,
-      "n_total": 642,
-      "n_stocks": 587,
+      "n_total": 644,
+      "n_stocks": 589,
       "n_etf": 55,
       "sectors": [
         "Basic Materials",
