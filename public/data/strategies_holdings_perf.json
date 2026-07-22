@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-06-30",
- "as_of": "2026-06-30",
+ "generated_at": "2026-07-17",
+ "as_of": "2026-07-17",
  "periods": [
   "daily",
   "rebalance",
@@ -11,53 +11,11 @@
    "slug": "katalepsis",
    "label": "Katalepsis",
    "color": "#00C805",
-   "entry": "2026-07-01",
+   "entry": "2026-07-20",
    "book_type": "live",
    "holdings": [
     {
-     "ticker": "COHR",
-     "name": null,
-     "daily": 0.8,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
      "ticker": "INTC",
-     "name": null,
-     "daily": 6.0,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "STX",
-     "name": null,
-     "daily": -0.4,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "MXL",
-     "name": null,
-     "daily": 18.0,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "VIAV",
-     "name": null,
-     "daily": 0.7,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "MU",
-     "name": null,
-     "daily": 0.8,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "WDC",
      "name": null,
      "daily": -2.0,
      "rebalance": 0.0,
@@ -66,7 +24,14 @@
     {
      "ticker": "LRCX",
      "name": null,
-     "daily": 5.5,
+     "daily": -2.4,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "MXL",
+     "name": null,
+     "daily": -3.4,
      "rebalance": 0.0,
      "alltime": 0.0
     }
@@ -82,23 +47,23 @@
     {
      "ticker": "INSW",
      "name": null,
-     "daily": -1.6,
-     "rebalance": 0.0,
-     "alltime": 21.5
+     "daily": -1.7,
+     "rebalance": 11.5,
+     "alltime": 101.4
     },
     {
      "ticker": "MRVL",
      "name": null,
-     "daily": 7.3,
-     "rebalance": 0.0,
-     "alltime": 0.0
+     "daily": 0.2,
+     "rebalance": -30.6,
+     "alltime": -30.6
     },
     {
      "ticker": "AKAM",
      "name": null,
-     "daily": 3.9,
-     "rebalance": 0.0,
-     "alltime": 3.5
+     "daily": 1.2,
+     "rebalance": 6.5,
+     "alltime": 12.7
     }
    ]
   },
@@ -112,23 +77,23 @@
     {
      "ticker": "EIX",
      "name": null,
-     "daily": -1.3,
-     "rebalance": 3.3,
-     "alltime": 2.8
+     "daily": -0.5,
+     "rebalance": 9.0,
+     "alltime": 8.4
     },
     {
      "ticker": "MOS",
      "name": null,
-     "daily": -5.6,
-     "rebalance": -2.3,
-     "alltime": -26.8
+     "daily": -1.8,
+     "rebalance": 2.0,
+     "alltime": -23.6
     },
     {
      "ticker": "FISV",
      "name": null,
-     "daily": 0.5,
-     "rebalance": -1.6,
-     "alltime": -1.6
+     "daily": -2.1,
+     "rebalance": 1.6,
+     "alltime": 1.6
     }
    ]
   },
@@ -142,23 +107,23 @@
     {
      "ticker": "FISV",
      "name": null,
-     "daily": 0.5,
-     "rebalance": -11.4,
-     "alltime": -27.3
+     "daily": -2.1,
+     "rebalance": -8.5,
+     "alltime": -25.0
     },
     {
      "ticker": "TPR",
      "name": null,
-     "daily": -0.1,
-     "rebalance": 13.5,
-     "alltime": -8.4
+     "daily": -1.9,
+     "rebalance": 9.7,
+     "alltime": -11.5
     },
     {
      "ticker": "DECK",
      "name": null,
-     "daily": -2.0,
-     "rebalance": 6.1,
-     "alltime": 6.1
+     "daily": -2.3,
+     "rebalance": 13.8,
+     "alltime": 13.8
     }
    ]
   },
@@ -172,37 +137,37 @@
     {
      "ticker": "AAOI",
      "name": null,
-     "daily": -1.3,
-     "rebalance": -13.3,
-     "alltime": -18.1
-    },
-    {
-     "ticker": "MU",
-     "name": null,
-     "daily": 0.8,
-     "rebalance": 13.1,
-     "alltime": 13.1
-    },
-    {
-     "ticker": "VIAV",
-     "name": null,
-     "daily": 0.7,
-     "rebalance": -4.7,
-     "alltime": -4.7
+     "daily": 2.2,
+     "rebalance": -40.0,
+     "alltime": -43.4
     },
     {
      "ticker": "INBX",
      "name": null,
-     "daily": -0.8,
-     "rebalance": 1.8,
-     "alltime": 24.8
+     "daily": -1.9,
+     "rebalance": -6.1,
+     "alltime": 15.1
     },
     {
-     "ticker": "MXL",
+     "ticker": "MU",
      "name": null,
-     "daily": 18.0,
-     "rebalance": 51.7,
-     "alltime": 51.7
+     "daily": -0.5,
+     "rebalance": -16.8,
+     "alltime": -16.8
+    },
+    {
+     "ticker": "VIAV",
+     "name": null,
+     "daily": 3.3,
+     "rebalance": -23.8,
+     "alltime": -23.8
+    },
+    {
+     "ticker": "IREN",
+     "name": null,
+     "daily": -3.5,
+     "rebalance": -43.2,
+     "alltime": -36.4
     }
    ]
   }

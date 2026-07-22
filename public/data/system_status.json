@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-21T15:46:00"
+    "at": "2026-07-21T20:36:02"
   },
   "engines": {
     "binary": {
@@ -14,7 +14,7 @@
     }
   },
   "ppi": {
-    "score": 39.1,
+    "score": 39.0,
     "level": "MODERATE"
   },
   "c78q": {
@@ -63,10 +63,10 @@
   "watchdog": {
     "ok": true,
     "alerts": [],
-    "checked_at": "2026-07-06T19:00:02.339543"
+    "checked_at": "2026-07-21T19:00:02.716193"
   },
   "market": {
-    "state": "rth"
+    "state": "closed"
   },
   "_meta": {
     "ppi_as_of": "2026-07-21",
