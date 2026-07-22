@@ -4,6 +4,7 @@ import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
 import ThesisPanel from "../components/ThesisPanel";
 import MarketsEntry from "../components/MarketsEntry";
+import QuarterlyEarningsCard from "../components/QuarterlyEarningsCard";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
@@ -22,10 +23,6 @@ interface Quote {
   history?: { dates: string[]; close: number[]; high: number[]; low: number[]; volume: number[] } | null;
 }
 const PERIODS = ["6mo", "1y", "2y", "5y", "10y", "max"];
-// YoY-growth chart display clamp (%): a near-zero year-ago base prints ±1000%+
-// and auto-scales every normal ±50% bar into invisibility. Bars/line are clamped
-// to ±YOY_CLIP for DISPLAY only; the tooltip always shows the true value.
-const YOY_CLIP = 150;
 // Indicator lookback: fetch a PADDED range (visible window + ≥200 trading days)
 // so SMA-200 / RSI-14 are warmed up and span the FULL visible window, then slice
 // the display back to the visible window. Without this the 200-SMA only appears
@@ -428,31 +425,17 @@ export default function StockDetailTab() {
         </ResponsiveContainer>
       </Card>
 
-      {/* Quarterly earnings & revenue growth (YoY) */}
-      {quarterlyErr && <Unavailable what="Quarterly fundamentals" detail="quarterly.json failed to load — the earnings/revenue growth chart is hidden rather than silently absent." />}
-      {qhist.length > 0 && (
-        <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals (EDGAR-deepened to ~13 quarters). Bars: earnings growth (green ≥0 / red <0); line: revenue growth. A quarter with no year-ago comparison shows a GAP (not 0%) — YoY needs the same quarter one year back. Display is clipped at ±150%: a near-zero year-ago base prints ±1000%+ and would flatten every other bar — hover shows the true value. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
+      {/* Quarterly earnings — EPS bars + market-cap line, YoY toggle (rework 2026-07-21) */}
+      {qhist.length > 0 || quarterlyErr ? (
+        <div>
           {deepStale && (
             <div className="mb-2 inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
               STALE — deep quarterly history last rebuilt {deepVintage?.slice(0, 10)}; run seasonal_rebuild.ps1 (post-10-Q-season step)
             </div>
           )}
-          <ResponsiveContainer width="100%" height={220}>
-            {/* YoY growth is null when the year-ago quarter is absent — map null→null so Recharts
-                draws a GAP (missing bar / broken line), never a fabricated 0% (?? 0 was the bug).
-                epsC/revC are DISPLAY values clamped to ±YOY_CLIP; the tooltip reads the raw
-                eps/rev off the payload so the true magnitude is never hidden, only the bar. */}
-            <ComposedChart data={[...qhist].reverse().map((q) => { const eps = q.earningsGrowth != null ? q.earningsGrowth * 100 : null; const rev = q.revenueGrowth != null ? q.revenueGrowth * 100 : null; const clamp = (v: number | null) => (v == null ? null : Math.max(-YOY_CLIP, Math.min(YOY_CLIP, v))); return { date: (q.date || "").slice(0, 7), eps, rev, epsC: clamp(eps), revC: clamp(rev) }; })} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-              <CartesianGrid stroke={SURFACE.raised} vertical={false} />
-              <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} />
-              <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
-              <Tooltip {...tooltipProps} formatter={(v: number, n, item: any) => { const raw = n === "epsC" ? item?.payload?.eps : item?.payload?.rev; const label = n === "epsC" ? "Earnings YoY" : "Revenue YoY"; return [raw == null ? "n/a (no year-ago quarter)" : `${raw >= 0 ? "+" : ""}${raw.toFixed(1)}%${Math.abs(raw) > YOY_CLIP ? " (bar clipped)" : ""}`, label]; }} />
-              <Bar dataKey="epsC">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={q.earningsGrowth == null ? "transparent" : q.earningsGrowth >= 0 ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
-              <Line type="monotone" dataKey="revC" stroke={SEM.warn} dot={false} strokeWidth={1.6} connectNulls={false} />
-            </ComposedChart>
-          </ResponsiveContainer>
-        </Card>
-      )}
+          <QuarterlyEarningsCard qhist={qhist} quarterlyErr={quarterlyErr} />
+        </div>
+      ) : null}
 
       {/* AI correlation read (#9) — only when correlation data has been generated */}
       {corr && corr[row.ticker] != null && (
