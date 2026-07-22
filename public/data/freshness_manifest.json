@@ -117,33 +117,33 @@
   },
   "generated_at": "2026-07-21T15:46:00",
   "blob": {
-    "version": "20260721T194655Z",
-    "published_at": "2026-07-21T19:46:57+00:00",
-    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@d8836e4a6649e6aa047a293128a8870a40cd1d28/data",
-    "commit_sha": "d8836e4a6649e6aa047a293128a8870a40cd1d28",
+    "version": "20260722T003815Z",
+    "published_at": "2026-07-22T00:38:17+00:00",
+    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@76122530962923631806f113590c83f56f0e3d50/data",
+    "commit_sha": "76122530962923631806f113590c83f56f0e3d50",
     "manifest_key": "_manifest/version_manifest.json",
     "files": {
       "earnings_reviews.json": {
         "key": "earnings_reviews.json",
-        "sha256": "e817c804e68f11dbc06643e11242d30dfc69d2c463098def80ddb8067897128c",
+        "sha256": "c05f26815a2d663f69a64d698edbf3ab46e40aed6a6796a60b7a4c8bf2c4b51d",
         "bytes": 6176191,
         "as_of": "2026-07-21"
       },
       "universe_floor0.json": {
         "key": "universe_floor0.json",
-        "sha256": "976f238df5fd0caee19d772e094b9bb0f2d656fa7751fa588ae98bdc2db9ebd3",
+        "sha256": "236efe4b4b0b85b5aa64835955165ffe0c93c663867ef43d7cf4424f673c52e6",
         "bytes": 1805986,
         "as_of": "2026-07-21"
       },
       "universe_floor1.json": {
         "key": "universe_floor1.json",
-        "sha256": "98b3971c47cad699e2d8ed866d06550fc21ae3275582030b782724f077d35342",
+        "sha256": "dc02209d274787c02bf6c6aa21ed908f3136e47226b5cfd1937d6b50f2b3efc9",
         "bytes": 1717001,
         "as_of": "2026-07-21"
       },
       "universe_floor10.json": {
         "key": "universe_floor10.json",
-        "sha256": "02a0050b59e4ee1037a45efaa3b68945997cfd5d9b8c25ccbd70e70ec6703b2d",
+        "sha256": "56da1451db45f60d2c21d104db535ac02515f5a965059ad799f9cd20824c1e67",
         "bytes": 862594,
         "as_of": "2026-07-21"
       },
@@ -155,8 +155,8 @@
       },
       "quarterly.json": {
         "key": "quarterly.json",
-        "sha256": "4afbd7325ec621b597dbf502ccabc99b0f83b4bcce744f67c7fff696b16d1abc",
-        "bytes": 2969611,
+        "sha256": "fe3ae363fab12b61dc83d8e2feae77779dabf0ec153aa6015f163c9cd5b8ce1e",
+        "bytes": 4014058,
         "as_of": "2026-07-21"
       },
       "correlations_cache.json": {
