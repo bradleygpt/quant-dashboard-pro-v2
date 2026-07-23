@@ -6,6 +6,7 @@ import PaperTrackTab from "./PaperTrackTab";
 import C78QTab from "./C78QTab";
 import StrategiesViz from "./StrategiesViz";
 import StrategySignatures from "./StrategySignatures";
+import { useRebalanceSchedule, type SleeveSchedule, type ScheduleMap } from "../lib/schedule";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -27,7 +28,13 @@ const STRATS: StratDef[] = [
   { key: "pronoia", slug: "pronoia", label: "Pronoia", factor: "ML 12-month foresight", kind: "quant" },
 ];
 
-export interface StratStatus { book_type?: BookType; status?: string; as_of?: string }
+export interface StratStatus {
+  book_type?: BookType; status?: string; as_of?: string; retired?: boolean;
+  // Schedule, computed by ops/rebalance_schedule.py. BOTH dimensions travel with the
+  // date: which MODEL produced it, and whether THAT rebalance is paper or live.
+  next_rebalance?: string; rebalance_model?: string; rebalance_model_label?: string;
+  rebalance_book_type?: BookType; go_live?: string; go_live_pending?: boolean;
+}
 export type StratStatusMap = Record<string, StratStatus>;
 
 export function useStrategyStatus(): StratStatusMap {
@@ -60,6 +67,20 @@ export function BookTypePill({ bookType, asOf }: { bookType: BookType; asOf?: st
 interface Row {
   def: StratDef; engine: string; cagr: number; sharpe: number; maxdd: number; spy: number;
   tickers: string[]; next: string; bookType: BookType; asOf?: string;
+  nextModel?: string; nextBookType?: BookType; goLive?: string; goLivePending?: boolean;
+}
+
+// The schedule is authoritative from system_status (bake folds in rebalance_schedule.json).
+// Artifact fields are a fallback only -- mixing them is what put two scheduling models in
+// one display slot and rendered a live book as 8 days overdue.
+function schedOf(sc: SleeveSchedule | undefined, st: StratStatus | undefined, fallback?: string) {
+  return {
+    next: sc?.next_rebalance ?? st?.next_rebalance ?? fallback ?? "—",
+    nextModel: sc?.model_label ?? st?.rebalance_model_label,
+    nextBookType: sc?.rebalance_book_type ?? st?.rebalance_book_type,
+    goLive: sc?.go_live ?? st?.go_live,
+    goLivePending: sc?.go_live_pending ?? st?.go_live_pending,
+  };
 }
 
 // book_type resolution order: system_status.strategies map -> the JSON's own field -> "paper".
@@ -70,14 +91,15 @@ function resolveBookType(statusEntry: StratStatus | undefined, jsonBookType: unk
   return "paper";
 }
 
-function SummaryRow(d: any, def: StratDef, statusEntry: StratStatus | undefined, stratJson?: any): Row {
+function SummaryRow(d: any, def: StratDef, statusEntry: StratStatus | undefined,
+                    sched: SleeveSchedule | undefined, stratJson?: any): Row {
   if (def.kind === "c78q") {
     const bt = d.metrics?.backtest ?? {};
     const tickers = (d.target?.rows ?? []).map((r: any) => r.ticker);
     return {
       def, engine: "Katalepsis", cagr: (bt.net_cagr ?? NaN) * 100, sharpe: bt.sharpe ?? NaN,
       maxdd: (bt.max_drawdown ?? NaN) * 100, spy: (bt.spy_cagr ?? NaN) * 100,
-      tickers, next: d.state?.next_rebalance ?? "—",
+      tickers, ...schedOf(sched, statusEntry, d.state?.next_rebalance),
       bookType: resolveBookType(statusEntry, d.target?.book_type),
       asOf: statusEntry?.as_of ?? d.target?.as_of,
     };
@@ -94,7 +116,7 @@ function SummaryRow(d: any, def: StratDef, statusEntry: StratStatus | undefined,
       def, engine: dz.engine ?? def.label, cagr: dz.backtest_cagr ?? NaN, sharpe: dz.sharpe ?? NaN,
       maxdd: dz.max_dd ?? NaN, spy: dz.spy_cagr ?? NaN,
       tickers: bookType === "live" && liveTickers.length ? liveTickers : paperHolds,
-      next: d?.next_rebalance_date ?? stratJson?.next_rebalance ?? "—",
+      ...schedOf(sched, statusEntry, d?.next_rebalance_date ?? stratJson?.next_rebalance),
       bookType, asOf: statusEntry?.as_of ?? ch.as_of,
     };
   }
@@ -107,7 +129,7 @@ function SummaryRow(d: any, def: StratDef, statusEntry: StratStatus | undefined,
       : (d.holdings ? [...d.holdings].sort((a: any, b: any) => b.date.localeCompare(a.date))[0]?.tickers ?? [] : []);
   return {
     def, engine: d.engine ?? def.label, cagr: m.cagr ?? NaN, sharpe: m.sharpe ?? NaN, maxdd: m.max_dd ?? NaN,
-    spy: d.metrics?.spy_cagr ?? NaN, tickers, next: d.next_rebalance ?? "—",
+    spy: d.metrics?.spy_cagr ?? NaN, tickers, ...schedOf(sched, statusEntry, d.next_rebalance),
     bookType: resolveBookType(statusEntry, ch?.book_type),
     asOf: statusEntry?.as_of ?? ch?.as_of,
   };
@@ -125,6 +147,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
     loadDataJSON<any>("strategy_rationale.json").then((j) => setRationale(j?.strategies ?? null));
   }, []);
 
+  const schedMap: ScheduleMap = useRebalanceSchedule();
+
   useEffect(() => {
     Promise.all(
       STRATS.map(async (def) => {
@@ -136,13 +160,13 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
             stratJson = await loadDataJSON<any>(`${def.backtestSlug}_strategy.json`);
           }
           if (!d && !stratJson) return null;
-          return SummaryRow(d ?? {}, def, statusMap[def.key], stratJson);
+          return SummaryRow(d ?? {}, def, statusMap[def.key], schedMap[def.key], stratJson);
         } catch {
           return null;
         }
       })
     ).then((rs) => setRows(rs.filter(Boolean) as Row[]));
-  }, [statusMap]);
+  }, [statusMap, schedMap]);
 
   const scouts = Object.entries(statusMap)
     .filter(([, v]) => (v.status ?? "").includes("research-scout"))
@@ -237,7 +261,22 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
                         ))}
                       </div>
                     </td>
-                    <td className="px-2 py-2 font-mono text-ink-3">{r.next}</td>
+                    <td className="px-2 py-2 text-ink-3">
+                      <div className="font-mono">{r.next}</div>
+                      {(r.nextModel || r.nextBookType) && (
+                        <div className="mt-0.5 text-[10px] leading-tight text-mute">
+                          {r.nextModel}
+                          {r.nextBookType && (
+                            <span className={r.nextBookType === "live" ? "text-pos" : ""}>
+                              {" · "}{r.nextBookType === "live" ? "live" : "paper"}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      {r.goLivePending && r.goLive && (
+                        <div className="text-[10px] leading-tight text-mute">go live {r.goLive}</div>
+                      )}
+                    </td>
                   </tr>
                 );
               })}

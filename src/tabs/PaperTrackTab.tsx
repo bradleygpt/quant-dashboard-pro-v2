@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Metric, Spinner, Unavailable } from "../components/ui";
 import { loadDataJSON } from "../lib/data";
+import { useRebalanceSchedule, scheduleLabel, isPastDue } from "../lib/schedule";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -30,6 +31,8 @@ export interface PaperTrack {
 // this renders the *live* book: current holdings + scores, next rebalance, and (once the monthly
 // updater has rolled at least once) the realized period-by-period record vs SPY.
 export default function PaperTrackTab() {
+  const _ptSched = useRebalanceSchedule()["paper_track_event_pead"];
+  const _ptOverdue = isPastDue(_ptSched);
   const [d, setD] = useState<PaperTrack | null>(null);
   const [err, setErr] = useState(false);
 
@@ -64,7 +67,11 @@ export default function PaperTrackTab() {
       </div>
 
       <div className="rounded-lg border border-pos/35 bg-pos/8 p-3 text-xs text-pos-soft">
-        <span className="font-semibold text-pos">Next rebalance: {d.next_rebalance_date}.</span>{" "}
+        <span className={`font-semibold ${_ptOverdue ? "text-neg" : "text-pos"}`}>
+          Next rebalance: {_ptSched?.next_rebalance ?? d.next_rebalance_date}
+          {_ptSched && <span className="font-normal text-mute">{" "}({scheduleLabel(_ptSched)})</span>}
+          {_ptOverdue && <span className="ml-1">— PAST DUE</span>}.
+        </span>{" "}
         Picks are generated the night before so they can be researched before deploying on the first trading day of the month.
         {d.pending_rebalance && (d.pending_rebalance.buy.length > 0 || d.pending_rebalance.sell.length > 0) && (
           <span className="ml-1 text-paper">

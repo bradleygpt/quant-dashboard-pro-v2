@@ -10,6 +10,7 @@ import { computePpi, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 import RegimeRibbon from "../components/RegimeRibbon";
+import { useRebalanceSchedule, scheduleLabel, isPastDue } from "../lib/schedule";
 import { INK, SEM, STREAM, SURFACE } from "../theme";
 
 const BASE = `${import.meta.env.BASE_URL}data`;
@@ -183,6 +184,7 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
 
 // ── (b) Current monthly deployed assets ──────────────────────────────────────
 function DeployedBlock({ data }: { data: C78q }) {
+  const _kSched = useRebalanceSchedule()["katalepsis"];
   const t = data.target, s = data.state;
   const wpp = t?.n ? 1 / t.n : (data.spec?.weight_per_position ?? 0.125); // current-book weight (target.n), not the go-forward spec
   const cap = s?.capital ?? data.spec?.capital_default ?? 25000;
@@ -234,12 +236,14 @@ function DeployedBlock({ data }: { data: C78q }) {
       ) : null}
 
       {s?.mode === "deployed" ? (
-        <Card title="Live Deployment State" sub={`Deployed ${s.deployed_date} · scale-in ${s.scale_in_pct}% · next rebalance ${s.next_rebalance}. Current = live intraday quote when available (else baked snapshot, labeled).`}>
+        <Card title="Live Deployment State" sub={`Deployed ${s.deployed_date} · scale-in ${s.scale_in_pct}% · next rebalance ${_kSched?.next_rebalance ?? s.next_rebalance}${_kSched ? ` (${scheduleLabel(_kSched)})` : ""}. Current = live intraday quote when available (else baked snapshot, labeled).`}>
           <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Metric label="Capital" value={fmtMoney(s.capital ?? 0, 0)} />
             <Metric label="Scale-in" value={`${s.scale_in_pct}%`} />
             <Metric label="Cash reserve" value={fmtMoney(s.cash_reserve ?? 0, 0)} />
-            <Metric label="Next rebalance" value={s.next_rebalance ?? "—"} />
+            <Metric label="Next rebalance"
+                    value={_kSched?.next_rebalance ?? s.next_rebalance ?? "—"}
+                    hint={_kSched ? scheduleLabel(_kSched) + (isPastDue(_kSched) ? " · PAST DUE" : "") : undefined} />
           </div>
           {s.positions?.length ? (
             <div className="overflow-auto rounded-lg border border-line">

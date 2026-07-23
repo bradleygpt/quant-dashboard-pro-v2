@@ -22,141 +22,159 @@
   "n": 3,
   "book_type": "live"
  },
- "next_rebalance": "2026-07-15",
+ "next_rebalance": "2026-08-01",
+ "schedule": {
+  "sleeve": "aristeia",
+  "model": "calendar_monthly_first",
+  "model_label": "first of month",
+  "hold_days": null,
+  "anchor": null,
+  "next_rebalance": "2026-08-01",
+  "effective_trading_day": "2026-08-03",
+  "book_type": "live",
+  "rebalance_book_type": "live",
+  "go_live": "2026-07-01",
+  "go_live_pending": false,
+  "never_goes_live": false,
+  "gates_execution": false,
+  "rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day.",
+  "computed_for": "2026-07-23",
+  "source": "ops/rebalance_schedule.py"
+ },
  "rebalance_ledger": [
   {
    "as_of": "2026-06-16",
    "held_n": 3,
    "held_tickers": [
     "INSW",
-    "TRN",
-    "MTDR"
+    "AKAM",
+    "MTZ"
    ],
    "top25": [
     {
      "rank": 1,
      "ticker": "INSW",
-     "score": 10.735488
+     "score": 10.466384
     },
     {
      "rank": 2,
-     "ticker": "TRN",
-     "score": 10.023643
+     "ticker": "AKAM",
+     "score": 10.064875
     },
     {
      "rank": 3,
-     "ticker": "MTDR",
-     "score": 9.854641
+     "ticker": "MTZ",
+     "score": 9.888005
     },
     {
      "rank": 4,
      "ticker": "POWL",
-     "score": 9.844913
+     "score": 9.648281
     },
     {
      "rank": 5,
      "ticker": "VLO",
-     "score": 9.813859
+     "score": 9.461275
     },
     {
      "rank": 6,
-     "ticker": "TH",
-     "score": 9.682466
+     "ticker": "DVA",
+     "score": 9.442562
     },
     {
      "rank": 7,
-     "ticker": "AKAM",
-     "score": 9.660122
+     "ticker": "NVT",
+     "score": 9.428321
     },
     {
      "rank": 8,
-     "ticker": "DVA",
-     "score": 9.485497
+     "ticker": "AMAT",
+     "score": 9.357612
     },
     {
      "rank": 9,
-     "ticker": "MTZ",
-     "score": 9.398026
+     "ticker": "AESI",
+     "score": 9.336252
     },
     {
      "rank": 10,
-     "ticker": "IVZ",
-     "score": 9.37735
+     "ticker": "MTDR",
+     "score": 9.307349
     },
     {
      "rank": 11,
-     "ticker": "NVT",
-     "score": 9.358252
+     "ticker": "TRN",
+     "score": 9.30612
     },
     {
      "rank": 12,
-     "ticker": "AMAT",
-     "score": 9.340574
+     "ticker": "SNEX",
+     "score": 9.28651
     },
     {
      "rank": 13,
-     "ticker": "AESI",
-     "score": 9.32682
+     "ticker": "BEN",
+     "score": 9.276878
     },
     {
      "rank": 14,
-     "ticker": "TRGP",
-     "score": 9.263222
+     "ticker": "R",
+     "score": 9.243036
     },
     {
      "rank": 15,
-     "ticker": "ICHR",
-     "score": 9.250566
+     "ticker": "IVZ",
+     "score": 9.215366
     },
     {
      "rank": 16,
-     "ticker": "HLX",
-     "score": 9.214844
+     "ticker": "WDC",
+     "score": 9.192378
     },
     {
      "rank": 17,
-     "ticker": "R",
-     "score": 9.129196
+     "ticker": "MRVL",
+     "score": 9.162363
     },
     {
      "rank": 18,
-     "ticker": "MRVL",
-     "score": 9.126279
+     "ticker": "KSS",
+     "score": 9.153515
     },
     {
      "rank": 19,
-     "ticker": "ENVA",
-     "score": 9.108829
+     "ticker": "TH",
+     "score": 9.144114
     },
     {
      "rank": 20,
-     "ticker": "WRLD",
-     "score": 9.049559
+     "ticker": "ARW",
+     "score": 9.044836
     },
     {
      "rank": 21,
-     "ticker": "ARW",
-     "score": 9.044046
+     "ticker": "MRNA",
+     "score": 9.016378
     },
     {
      "rank": 22,
-     "ticker": "LFUS",
-     "score": 9.025845
+     "ticker": "AEO",
+     "score": 8.994401
     },
     {
      "rank": 23,
-     "ticker": "ECPG",
-     "score": 9.024925
+     "ticker": "UCTT",
+     "score": 8.988711
     },
     {
      "rank": 24,
-     "ticker": "KSS",
-     "score": 9.024195
+     "ticker": "PDFS",
+     "score": 8.965685
     },
     {
      "rank": 25,
-     "ticker": "DVN",
-     "score": 9.024061
+     "ticker": "PARR",
+     "score": 8.922907
     }
    ],
    "source": "aristeia-builder",
@@ -164,128 +182,128 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "INSW",
-     "score": 10.69641
+     "ticker": "AKAM",
+     "score": 10.687008
     },
     {
      "rank": 2,
-     "ticker": "AKAM",
-     "score": 10.282646
+     "ticker": "INSW",
+     "score": 10.42515
     },
     {
      "rank": 3,
-     "ticker": "TRN",
-     "score": 10.23807
+     "ticker": "MTZ",
+     "score": 9.686855
     },
     {
      "rank": 4,
      "ticker": "TH",
-     "score": 10.21384
+     "score": 9.681581
     },
     {
      "rank": 5,
      "ticker": "POWL",
-     "score": 9.863777
+     "score": 9.667183
     },
     {
      "rank": 6,
-     "ticker": "IVZ",
-     "score": 9.405186
+     "ticker": "TRN",
+     "score": 9.440666
     },
     {
      "rank": 7,
      "ticker": "MRVL",
-     "score": 9.332558
+     "score": 9.360438
     },
     {
      "rank": 8,
-     "ticker": "AMAT",
-     "score": 9.248972
+     "ticker": "IVZ",
+     "score": 9.299654
     },
     {
      "rank": 9,
-     "ticker": "ICHR",
-     "score": 9.236967
+     "ticker": "SNEX",
+     "score": 9.266641
     },
     {
      "rank": 10,
-     "ticker": "ALGT",
-     "score": 9.229239
+     "ticker": "AMAT",
+     "score": 9.233484
     },
     {
      "rank": 11,
-     "ticker": "MTZ",
-     "score": 9.208956
+     "ticker": "AEO",
+     "score": 9.202059
     },
     {
      "rank": 12,
-     "ticker": "GIII",
-     "score": 9.181855
+     "ticker": "BEN",
+     "score": 9.186413
     },
     {
      "rank": 13,
-     "ticker": "KRYS",
-     "score": 9.169622
+     "ticker": "ALGT",
+     "score": 9.177311
     },
     {
      "rank": 14,
-     "ticker": "AEO",
-     "score": 9.154961
+     "ticker": "PDFS",
+     "score": 9.125196
     },
     {
      "rank": 15,
-     "ticker": "ENVA",
-     "score": 9.153099
+     "ticker": "BMNR",
+     "score": 9.103687
     },
     {
      "rank": 16,
-     "ticker": "DVA",
-     "score": 9.153017
+     "ticker": "R",
+     "score": 9.095255
     },
     {
      "rank": 17,
-     "ticker": "PDFS",
-     "score": 9.12998
+     "ticker": "ARW",
+     "score": 9.040564
     },
     {
      "rank": 18,
-     "ticker": "MATX",
-     "score": 9.09388
+     "ticker": "DVA",
+     "score": 9.023704
     },
     {
      "rank": 19,
-     "ticker": "BMNR",
-     "score": 9.041262
+     "ticker": "NVT",
+     "score": 9.00654
     },
     {
      "rank": 20,
-     "ticker": "HIW",
-     "score": 9.038435
+     "ticker": "NXPI",
+     "score": 8.992914
     },
     {
      "rank": 21,
-     "ticker": "ARW",
-     "score": 9.032633
+     "ticker": "NHC",
+     "score": 8.969183
     },
     {
      "rank": 22,
-     "ticker": "WRLD",
-     "score": 9.011164
+     "ticker": "TGTX",
+     "score": 8.934081
     },
     {
      "rank": 23,
-     "ticker": "R",
-     "score": 9.010729
+     "ticker": "HIW",
+     "score": 8.904888
     },
     {
      "rank": 24,
-     "ticker": "ECPG",
-     "score": 8.974691
+     "ticker": "STLD",
+     "score": 8.887169
     },
     {
      "rank": 25,
-     "ticker": "NVT",
-     "score": 8.951423
+     "ticker": "ENVA",
+     "score": 8.886482
     }
    ],
    "book_type": "paper"
@@ -579,72 +597,72 @@
   }
  ],
  "backtest": {
-  "cagr": 28.2,
-  "sharpe": 0.87,
-  "max_dd": -45.9,
+  "cagr": 23.0,
+  "sharpe": 0.77,
+  "max_dd": -52.2,
   "window": "2011-2026",
   "regime_cagr": {
    "blocks": [
     {
      "period": "2011-2012",
-     "cagr": 61.4
+     "cagr": 48.0
     },
     {
      "period": "2013-2014",
-     "cagr": 20.4
+     "cagr": 13.3
     },
     {
      "period": "2015-2016",
-     "cagr": 20.7
+     "cagr": 8.5
     },
     {
      "period": "2017-2018",
-     "cagr": 27.9
+     "cagr": 18.1
     },
     {
      "period": "2019-2020",
-     "cagr": 29.6
+     "cagr": 20.9
     },
     {
      "period": "2021-2022",
-     "cagr": -12.6
+     "cagr": 0.5
     },
     {
      "period": "2023-2024",
-     "cagr": 48.8
+     "cagr": 55.2
     },
     {
      "period": "2025-2026",
-     "cagr": 50.0
+     "cagr": 31.8
     }
    ],
-   "median": 28.8,
-   "best": 61.4,
-   "worst": -12.6
+   "median": 19.5,
+   "best": 55.2,
+   "worst": 0.5
   },
-  "forward_note": "Backtest on the broad universe, NOT a forward projection. Realistic forward ~25-29% after survivorship + 3-name concentration; per-2yr regime range -13% to 61% (median 29%). LIVE paper-track begins 2026-07-01."
+  "forward_note": "Backtest on the broad universe, NOT a forward projection. Realistic forward ~25-29% after survivorship + 3-name concentration; per-2yr regime range 0% to 55% (median 20%). LIVE paper-track begins 2026-07-01."
  },
  "metrics": {
   "in_sample": {
-   "cagr": 28.2,
-   "sharpe": 0.87,
-   "max_dd": -45.9
+   "cagr": 23.0,
+   "sharpe": 0.77,
+   "max_dd": -52.2
   },
   "oos": {
-   "cagr": 23.0,
-   "sharpe": 0.81,
-   "max_dd": -45.9
+   "cagr": 26.7,
+   "sharpe": 0.91,
+   "max_dd": -43.4
   },
   "train": {
-   "cagr": 31.2,
-   "sharpe": 0.9,
-   "max_dd": -45.7
+   "cagr": 21.0,
+   "sharpe": 0.71,
+   "max_dd": -52.2
   },
   "spy_cagr": 12.1,
   "nasdaq_cagr": 15.9,
   "n_rebalances": 186,
-  "annual_turnover_pct": 804,
-  "final_multiple": 42.5
+  "annual_turnover_pct": 800,
+  "final_multiple": 25.4
  },
  "equity_curve": [
   {
@@ -655,1111 +673,1111 @@
   },
   {
    "date": "2011-02-28",
-   "equity": 101.1,
+   "equity": 100.5,
    "spy": 103.2,
    "nasdaq": 103.0
   },
   {
    "date": "2011-03-31",
-   "equity": 107.3,
+   "equity": 108.9,
    "spy": 103.1,
    "nasdaq": 103.0
   },
   {
    "date": "2011-04-30",
-   "equity": 104.1,
+   "equity": 108.9,
    "spy": 106.0,
    "nasdaq": 106.4
   },
   {
    "date": "2011-05-31",
-   "equity": 101.1,
+   "equity": 111.5,
    "spy": 104.6,
    "nasdaq": 105.0
   },
   {
    "date": "2011-06-30",
-   "equity": 114.1,
+   "equity": 112.5,
    "spy": 102.7,
    "nasdaq": 102.7
   },
   {
    "date": "2011-07-31",
-   "equity": 115.2,
+   "equity": 109.2,
    "spy": 100.5,
    "nasdaq": 102.1
   },
   {
    "date": "2011-08-31",
-   "equity": 122.7,
+   "equity": 111.9,
    "spy": 94.8,
    "nasdaq": 95.5
   },
   {
    "date": "2011-09-30",
-   "equity": 103.2,
+   "equity": 94.5,
    "spy": 88.0,
    "nasdaq": 89.5
   },
   {
    "date": "2011-10-31",
-   "equity": 122.9,
+   "equity": 121.1,
    "spy": 97.4,
    "nasdaq": 99.4
   },
   {
    "date": "2011-11-30",
-   "equity": 118.7,
+   "equity": 113.6,
    "spy": 97.0,
    "nasdaq": 97.0
   },
   {
    "date": "2011-12-31",
-   "equity": 118.9,
+   "equity": 116.6,
    "spy": 97.8,
    "nasdaq": 96.5
   },
   {
    "date": "2012-01-31",
-   "equity": 146.6,
+   "equity": 128.1,
    "spy": 102.0,
    "nasdaq": 104.2
   },
   {
    "date": "2012-02-29",
-   "equity": 142.3,
+   "equity": 124.1,
    "spy": 106.2,
    "nasdaq": 109.9
   },
   {
    "date": "2012-03-31",
-   "equity": 170.8,
+   "equity": 153.6,
    "spy": 109.5,
    "nasdaq": 114.5
   },
   {
    "date": "2012-04-30",
-   "equity": 162.1,
+   "equity": 145.8,
    "spy": 108.7,
    "nasdaq": 112.8
   },
   {
    "date": "2012-05-31",
-   "equity": 187.3,
+   "equity": 168.4,
    "spy": 101.9,
    "nasdaq": 104.7
   },
   {
    "date": "2012-06-30",
-   "equity": 210.3,
+   "equity": 190.6,
    "spy": 105.9,
    "nasdaq": 108.7
   },
   {
    "date": "2012-07-31",
-   "equity": 215.4,
+   "equity": 196.5,
    "spy": 107.2,
    "nasdaq": 108.9
   },
   {
    "date": "2012-08-31",
-   "equity": 228.5,
+   "equity": 206.3,
    "spy": 109.4,
    "nasdaq": 113.6
   },
   {
    "date": "2012-09-30",
-   "equity": 245.3,
+   "equity": 221.4,
    "spy": 112.0,
    "nasdaq": 115.4
   },
   {
    "date": "2012-10-31",
-   "equity": 240.0,
+   "equity": 216.7,
    "spy": 109.8,
    "nasdaq": 110.3
   },
   {
    "date": "2012-11-30",
-   "equity": 255.2,
+   "equity": 217.4,
    "spy": 110.1,
    "nasdaq": 111.5
   },
   {
    "date": "2012-12-31",
-   "equity": 255.2,
+   "equity": 218.2,
    "spy": 110.9,
    "nasdaq": 111.8
   },
   {
    "date": "2013-01-31",
-   "equity": 257.6,
+   "equity": 220.3,
    "spy": 116.5,
    "nasdaq": 116.4
   },
   {
    "date": "2013-02-28",
-   "equity": 256.6,
+   "equity": 228.2,
    "spy": 117.8,
    "nasdaq": 117.0
   },
   {
    "date": "2013-03-31",
-   "equity": 302.0,
+   "equity": 255.6,
    "spy": 122.0,
    "nasdaq": 121.0
   },
   {
    "date": "2013-04-30",
-   "equity": 288.0,
+   "equity": 252.3,
    "spy": 124.2,
    "nasdaq": 123.3
   },
   {
    "date": "2013-05-31",
-   "equity": 329.8,
+   "equity": 280.1,
    "spy": 126.8,
    "nasdaq": 128.0
   },
   {
    "date": "2013-06-30",
-   "equity": 340.4,
+   "equity": 275.9,
    "spy": 124.9,
    "nasdaq": 126.0
   },
   {
    "date": "2013-07-31",
-   "equity": 365.6,
+   "equity": 296.2,
    "spy": 131.1,
    "nasdaq": 134.3
   },
   {
    "date": "2013-08-31",
-   "equity": 371.0,
+   "equity": 300.6,
    "spy": 127.0,
    "nasdaq": 133.0
   },
   {
    "date": "2013-09-30",
-   "equity": 403.9,
+   "equity": 327.9,
    "spy": 130.7,
    "nasdaq": 139.7
   },
   {
    "date": "2013-10-31",
-   "equity": 437.4,
+   "equity": 354.7,
    "spy": 136.6,
    "nasdaq": 145.2
   },
   {
    "date": "2013-11-30",
-   "equity": 455.7,
+   "equity": 380.5,
    "spy": 140.4,
    "nasdaq": 150.4
   },
   {
    "date": "2013-12-31",
-   "equity": 469.6,
+   "equity": 397.9,
    "spy": 143.7,
    "nasdaq": 154.7
   },
   {
    "date": "2014-01-31",
-   "equity": 444.4,
+   "equity": 399.6,
    "spy": 138.6,
    "nasdaq": 152.0
   },
   {
    "date": "2014-02-28",
-   "equity": 438.9,
+   "equity": 403.1,
    "spy": 144.6,
    "nasdaq": 159.6
   },
   {
    "date": "2014-03-31",
-   "equity": 417.5,
+   "equity": 390.6,
    "spy": 145.6,
    "nasdaq": 155.5
   },
   {
    "date": "2014-04-30",
-   "equity": 361.8,
+   "equity": 380.0,
    "spy": 146.5,
    "nasdaq": 152.4
   },
   {
    "date": "2014-05-31",
-   "equity": 382.5,
+   "equity": 394.8,
    "spy": 149.6,
    "nasdaq": 157.1
   },
   {
    "date": "2014-06-30",
-   "equity": 389.0,
+   "equity": 405.7,
    "spy": 152.4,
    "nasdaq": 163.3
   },
   {
    "date": "2014-07-31",
-   "equity": 381.0,
+   "equity": 382.2,
    "spy": 150.1,
    "nasdaq": 161.8
   },
   {
    "date": "2014-08-31",
-   "equity": 398.3,
+   "equity": 394.3,
    "spy": 155.8,
    "nasdaq": 169.6
   },
   {
    "date": "2014-09-30",
-   "equity": 384.2,
+   "equity": 341.9,
    "spy": 153.4,
    "nasdaq": 166.4
   },
   {
    "date": "2014-10-31",
-   "equity": 365.9,
+   "equity": 321.4,
    "spy": 156.9,
    "nasdaq": 171.5
   },
   {
    "date": "2014-11-30",
-   "equity": 378.6,
+   "equity": 287.0,
    "spy": 160.8,
    "nasdaq": 177.5
   },
   {
    "date": "2014-12-31",
-   "equity": 369.9,
+   "equity": 280.1,
    "spy": 160.1,
    "nasdaq": 175.4
   },
   {
    "date": "2015-01-31",
-   "equity": 348.7,
+   "equity": 280.7,
    "spy": 155.1,
    "nasdaq": 171.7
   },
   {
    "date": "2015-02-28",
-   "equity": 389.6,
+   "equity": 312.4,
    "spy": 163.6,
    "nasdaq": 183.8
   },
   {
    "date": "2015-03-31",
-   "equity": 441.9,
+   "equity": 312.6,
    "spy": 160.8,
    "nasdaq": 181.5
   },
   {
    "date": "2015-04-30",
-   "equity": 503.8,
+   "equity": 336.2,
    "spy": 162.2,
    "nasdaq": 183.0
   },
   {
    "date": "2015-05-31",
-   "equity": 532.7,
+   "equity": 359.6,
    "spy": 163.9,
    "nasdaq": 187.8
   },
   {
    "date": "2015-06-30",
-   "equity": 573.2,
+   "equity": 390.3,
    "spy": 160.4,
    "nasdaq": 184.7
   },
   {
    "date": "2015-07-31",
-   "equity": 550.5,
+   "equity": 370.7,
    "spy": 163.6,
    "nasdaq": 189.9
   },
   {
    "date": "2015-08-31",
-   "equity": 542.7,
+   "equity": 340.9,
    "spy": 153.3,
    "nasdaq": 176.9
   },
   {
    "date": "2015-09-30",
-   "equity": 535.6,
+   "equity": 338.6,
    "spy": 149.3,
    "nasdaq": 171.1
   },
   {
    "date": "2015-10-31",
-   "equity": 515.3,
+   "equity": 325.8,
    "spy": 161.7,
    "nasdaq": 187.2
   },
   {
    "date": "2015-11-30",
-   "equity": 494.4,
+   "equity": 284.8,
    "spy": 161.8,
    "nasdaq": 189.2
   },
   {
    "date": "2015-12-31",
-   "equity": 474.9,
+   "equity": 272.9,
    "spy": 158.9,
    "nasdaq": 185.5
   },
   {
    "date": "2016-01-31",
-   "equity": 444.1,
+   "equity": 251.1,
    "spy": 150.9,
    "nasdaq": 170.9
   },
   {
    "date": "2016-02-29",
-   "equity": 462.3,
+   "equity": 274.1,
    "spy": 150.2,
    "nasdaq": 168.8
   },
   {
    "date": "2016-03-31",
-   "equity": 496.4,
+   "equity": 280.2,
    "spy": 160.2,
    "nasdaq": 180.4
   },
   {
    "date": "2016-04-30",
-   "equity": 478.8,
+   "equity": 287.9,
    "spy": 160.6,
    "nasdaq": 176.9
   },
   {
    "date": "2016-05-31",
-   "equity": 490.5,
+   "equity": 304.9,
    "spy": 163.0,
    "nasdaq": 183.3
   },
   {
    "date": "2016-06-30",
-   "equity": 483.0,
+   "equity": 305.1,
    "spy": 163.2,
    "nasdaq": 179.4
   },
   {
    "date": "2016-07-31",
-   "equity": 513.7,
+   "equity": 326.8,
    "spy": 169.0,
    "nasdaq": 191.2
   },
   {
    "date": "2016-08-31",
-   "equity": 529.9,
+   "equity": 334.6,
    "spy": 168.8,
    "nasdaq": 193.1
   },
   {
    "date": "2016-09-30",
-   "equity": 548.1,
+   "equity": 340.9,
    "spy": 168.6,
    "nasdaq": 196.7
   },
   {
    "date": "2016-10-31",
-   "equity": 507.1,
+   "equity": 312.7,
    "spy": 165.3,
    "nasdaq": 192.2
   },
   {
    "date": "2016-11-30",
-   "equity": 583.7,
+   "equity": 336.8,
    "spy": 171.0,
    "nasdaq": 197.2
   },
   {
    "date": "2016-12-31",
-   "equity": 539.1,
+   "equity": 329.8,
    "spy": 174.1,
    "nasdaq": 199.4
   },
   {
    "date": "2017-01-31",
-   "equity": 707.7,
+   "equity": 422.8,
    "spy": 177.2,
    "nasdaq": 207.9
   },
   {
    "date": "2017-02-28",
-   "equity": 720.9,
+   "equity": 423.7,
    "spy": 183.8,
    "nasdaq": 215.8
   },
   {
    "date": "2017-03-31",
-   "equity": 746.0,
+   "equity": 422.9,
    "spy": 183.7,
    "nasdaq": 218.9
   },
   {
    "date": "2017-04-30",
-   "equity": 778.5,
+   "equity": 426.1,
    "spy": 185.4,
    "nasdaq": 224.0
   },
   {
    "date": "2017-05-31",
-   "equity": 869.8,
+   "equity": 455.1,
    "spy": 187.5,
    "nasdaq": 229.6
   },
   {
    "date": "2017-06-30",
-   "equity": 864.4,
+   "equity": 460.0,
    "spy": 188.4,
    "nasdaq": 227.4
   },
   {
    "date": "2017-07-31",
-   "equity": 895.8,
+   "equity": 457.2,
    "spy": 192.1,
    "nasdaq": 235.1
   },
   {
    "date": "2017-08-31",
-   "equity": 885.0,
+   "equity": 436.7,
    "spy": 192.2,
    "nasdaq": 238.1
   },
   {
    "date": "2017-09-30",
-   "equity": 893.0,
+   "equity": 428.3,
    "spy": 195.9,
    "nasdaq": 240.6
   },
   {
    "date": "2017-10-31",
-   "equity": 929.1,
+   "equity": 446.7,
    "spy": 200.2,
    "nasdaq": 249.2
   },
   {
    "date": "2017-11-30",
-   "equity": 819.6,
+   "equity": 402.5,
    "spy": 205.9,
    "nasdaq": 254.6
   },
   {
    "date": "2017-12-31",
-   "equity": 813.8,
+   "equity": 399.7,
    "spy": 207.9,
    "nasdaq": 255.7
   },
   {
    "date": "2018-01-31",
-   "equity": 927.4,
+   "equity": 455.5,
    "spy": 219.6,
    "nasdaq": 274.5
   },
   {
    "date": "2018-02-28",
-   "equity": 1005.9,
+   "equity": 436.3,
    "spy": 211.0,
    "nasdaq": 269.4
   },
   {
    "date": "2018-03-31",
-   "equity": 965.4,
+   "equity": 446.9,
    "spy": 205.3,
    "nasdaq": 261.6
   },
   {
    "date": "2018-04-30",
-   "equity": 874.8,
+   "equity": 433.4,
    "spy": 205.9,
    "nasdaq": 261.7
   },
   {
    "date": "2018-05-31",
-   "equity": 913.8,
+   "equity": 457.8,
    "spy": 210.3,
    "nasdaq": 275.6
   },
   {
    "date": "2018-06-30",
-   "equity": 964.2,
+   "equity": 465.4,
    "spy": 211.4,
    "nasdaq": 278.2
   },
   {
    "date": "2018-07-31",
-   "equity": 963.9,
+   "equity": 484.2,
    "spy": 219.0,
    "nasdaq": 284.1
   },
   {
    "date": "2018-08-31",
-   "equity": 1085.1,
+   "equity": 539.5,
    "spy": 225.6,
    "nasdaq": 300.3
   },
   {
    "date": "2018-09-30",
-   "equity": 1109.7,
+   "equity": 551.7,
    "spy": 226.6,
    "nasdaq": 298.0
   },
   {
    "date": "2018-10-31",
-   "equity": 915.7,
+   "equity": 501.7,
    "spy": 210.8,
    "nasdaq": 270.6
   },
   {
    "date": "2018-11-30",
-   "equity": 988.7,
+   "equity": 535.9,
    "spy": 214.6,
    "nasdaq": 271.5
   },
   {
    "date": "2018-12-31",
-   "equity": 880.9,
+   "equity": 459.3,
    "spy": 194.9,
    "nasdaq": 245.7
   },
   {
    "date": "2019-01-31",
-   "equity": 1020.0,
+   "equity": 573.0,
    "spy": 210.3,
    "nasdaq": 269.7
   },
   {
    "date": "2019-02-28",
-   "equity": 1044.2,
+   "equity": 557.0,
    "spy": 216.5,
    "nasdaq": 279.0
   },
   {
    "date": "2019-03-31",
-   "equity": 1041.9,
+   "equity": 550.4,
    "spy": 220.4,
    "nasdaq": 286.3
   },
   {
    "date": "2019-04-30",
-   "equity": 1125.3,
+   "equity": 594.5,
    "spy": 229.0,
    "nasdaq": 299.8
   },
   {
    "date": "2019-05-31",
-   "equity": 1119.1,
+   "equity": 591.2,
    "spy": 214.0,
    "nasdaq": 276.0
   },
   {
    "date": "2019-06-30",
-   "equity": 1249.2,
+   "equity": 660.6,
    "spy": 228.7,
    "nasdaq": 296.5
   },
   {
    "date": "2019-07-31",
-   "equity": 1236.7,
+   "equity": 649.2,
    "spy": 231.7,
    "nasdaq": 302.8
   },
   {
    "date": "2019-08-31",
-   "equity": 1310.3,
+   "equity": 651.2,
    "spy": 227.5,
    "nasdaq": 294.9
   },
   {
    "date": "2019-09-30",
-   "equity": 1395.4,
+   "equity": 638.3,
    "spy": 231.5,
    "nasdaq": 296.3
   },
   {
    "date": "2019-10-31",
-   "equity": 1305.3,
+   "equity": 618.5,
    "spy": 236.2,
    "nasdaq": 307.1
   },
   {
    "date": "2019-11-30",
-   "equity": 1243.3,
+   "equity": 589.1,
    "spy": 244.2,
    "nasdaq": 320.9
   },
   {
    "date": "2019-12-31",
-   "equity": 1285.5,
+   "equity": 609.2,
    "spy": 251.2,
    "nasdaq": 332.3
   },
   {
    "date": "2020-01-31",
-   "equity": 1186.2,
+   "equity": 582.3,
    "spy": 250.8,
    "nasdaq": 338.9
   },
   {
    "date": "2020-02-29",
-   "equity": 1130.8,
+   "equity": 545.5,
    "spy": 229.7,
    "nasdaq": 317.3
   },
   {
    "date": "2020-03-31",
-   "equity": 968.2,
+   "equity": 390.5,
    "spy": 201.0,
    "nasdaq": 285.2
   },
   {
    "date": "2020-04-30",
-   "equity": 1107.1,
+   "equity": 430.1,
    "spy": 226.5,
    "nasdaq": 329.2
   },
   {
    "date": "2020-05-31",
-   "equity": 1415.4,
+   "equity": 527.7,
    "spy": 236.7,
    "nasdaq": 351.5
   },
   {
    "date": "2020-06-30",
-   "equity": 1428.8,
+   "equity": 545.8,
    "spy": 241.1,
    "nasdaq": 372.5
   },
   {
    "date": "2020-07-31",
-   "equity": 1462.0,
+   "equity": 558.6,
    "spy": 254.3,
    "nasdaq": 398.0
   },
   {
    "date": "2020-08-31",
-   "equity": 1604.6,
+   "equity": 599.2,
    "spy": 272.2,
    "nasdaq": 436.1
   },
   {
    "date": "2020-09-30",
-   "equity": 1639.3,
+   "equity": 642.8,
    "spy": 261.5,
    "nasdaq": 413.6
   },
   {
    "date": "2020-10-31",
-   "equity": 1521.9,
+   "equity": 648.8,
    "spy": 254.2,
    "nasdaq": 404.1
   },
   {
    "date": "2020-11-30",
-   "equity": 1586.9,
+   "equity": 675.8,
    "spy": 281.6,
    "nasdaq": 451.8
   },
   {
    "date": "2020-12-31",
-   "equity": 1481.5,
+   "equity": 671.8,
    "spy": 292.0,
    "nasdaq": 477.3
   },
   {
    "date": "2021-01-31",
-   "equity": 1671.9,
+   "equity": 719.9,
    "spy": 288.8,
    "nasdaq": 484.1
   },
   {
    "date": "2021-02-28",
-   "equity": 1794.7,
+   "equity": 760.5,
    "spy": 296.3,
    "nasdaq": 488.6
   },
   {
    "date": "2021-03-31",
-   "equity": 1702.2,
+   "equity": 677.4,
    "spy": 308.9,
    "nasdaq": 490.6
   },
   {
    "date": "2021-04-30",
-   "equity": 1705.9,
+   "equity": 761.2,
    "spy": 325.1,
    "nasdaq": 517.1
   },
   {
    "date": "2021-05-31",
-   "equity": 1631.1,
+   "equity": 825.5,
    "spy": 326.9,
    "nasdaq": 509.2
   },
   {
    "date": "2021-06-30",
-   "equity": 1585.6,
+   "equity": 812.2,
    "spy": 334.1,
    "nasdaq": 537.2
   },
   {
    "date": "2021-07-31",
-   "equity": 1503.3,
+   "equity": 810.3,
    "spy": 341.7,
    "nasdaq": 543.4
   },
   {
    "date": "2021-08-31",
-   "equity": 1782.6,
+   "equity": 925.5,
    "spy": 351.7,
    "nasdaq": 565.1
   },
   {
    "date": "2021-09-30",
-   "equity": 1616.1,
+   "equity": 842.9,
    "spy": 334.9,
    "nasdaq": 535.1
   },
   {
    "date": "2021-10-31",
-   "equity": 1763.1,
+   "equity": 967.1,
    "spy": 358.1,
    "nasdaq": 574.0
   },
   {
    "date": "2021-11-30",
-   "equity": 1711.0,
+   "equity": 937.4,
    "spy": 355.1,
    "nasdaq": 575.5
   },
   {
    "date": "2021-12-31",
-   "equity": 1757.5,
+   "equity": 1000.5,
    "spy": 370.6,
    "nasdaq": 579.4
   },
   {
    "date": "2022-01-31",
-   "equity": 1486.4,
+   "equity": 858.9,
    "spy": 351.1,
    "nasdaq": 527.4
   },
   {
    "date": "2022-02-28",
-   "equity": 1412.1,
+   "equity": 884.4,
    "spy": 340.1,
    "nasdaq": 509.3
   },
   {
    "date": "2022-03-31",
-   "equity": 1283.0,
+   "equity": 860.1,
    "spy": 352.3,
    "nasdaq": 526.7
   },
   {
    "date": "2022-04-30",
-   "equity": 1251.9,
+   "equity": 773.6,
    "spy": 321.3,
    "nasdaq": 456.8
   },
   {
    "date": "2022-05-31",
-   "equity": 1260.0,
+   "equity": 738.4,
    "spy": 321.3,
    "nasdaq": 447.4
   },
   {
    "date": "2022-06-30",
-   "equity": 1113.7,
+   "equity": 638.8,
    "spy": 294.3,
    "nasdaq": 408.5
   },
   {
    "date": "2022-07-31",
-   "equity": 1151.2,
+   "equity": 684.8,
    "spy": 321.1,
    "nasdaq": 458.9
   },
   {
    "date": "2022-08-31",
-   "equity": 1062.0,
+   "equity": 721.8,
    "spy": 307.5,
    "nasdaq": 437.6
   },
   {
    "date": "2022-09-30",
-   "equity": 1178.1,
+   "equity": 745.2,
    "spy": 278.8,
    "nasdaq": 391.7
   },
   {
    "date": "2022-10-31",
-   "equity": 1320.7,
+   "equity": 800.9,
    "spy": 301.1,
    "nasdaq": 407.0
   },
   {
    "date": "2022-11-30",
-   "equity": 1272.1,
+   "equity": 779.1,
    "spy": 317.2,
    "nasdaq": 424.7
   },
   {
    "date": "2022-12-31",
-   "equity": 1132.9,
+   "equity": 677.9,
    "spy": 298.5,
    "nasdaq": 387.6
   },
   {
    "date": "2023-01-31",
-   "equity": 1175.0,
+   "equity": 750.7,
    "spy": 317.0,
    "nasdaq": 429.0
   },
   {
    "date": "2023-02-28",
-   "equity": 1237.4,
+   "equity": 787.9,
    "spy": 308.7,
    "nasdaq": 424.3
   },
   {
    "date": "2023-03-31",
-   "equity": 1210.9,
+   "equity": 787.9,
    "spy": 319.5,
    "nasdaq": 452.6
   },
   {
    "date": "2023-04-30",
-   "equity": 1206.4,
+   "equity": 798.9,
    "spy": 324.2,
    "nasdaq": 452.8
   },
   {
    "date": "2023-05-31",
-   "equity": 1091.6,
+   "equity": 736.6,
    "spy": 325.0,
    "nasdaq": 479.1
   },
   {
    "date": "2023-06-30",
-   "equity": 1161.3,
+   "equity": 809.6,
    "spy": 346.0,
    "nasdaq": 510.6
   },
   {
    "date": "2023-07-31",
-   "equity": 1229.2,
+   "equity": 882.0,
    "spy": 356.8,
    "nasdaq": 531.3
   },
   {
    "date": "2023-08-31",
-   "equity": 1175.6,
+   "equity": 908.6,
    "spy": 350.5,
    "nasdaq": 519.8
   },
   {
    "date": "2023-09-30",
-   "equity": 1124.1,
+   "equity": 876.9,
    "spy": 333.4,
    "nasdaq": 489.6
   },
   {
    "date": "2023-10-31",
-   "equity": 1083.0,
+   "equity": 796.1,
    "spy": 326.1,
    "nasdaq": 476.0
   },
   {
    "date": "2023-11-30",
-   "equity": 1191.3,
+   "equity": 890.5,
    "spy": 355.2,
    "nasdaq": 526.9
   },
   {
    "date": "2023-12-31",
-   "equity": 1268.8,
+   "equity": 986.7,
    "spy": 370.9,
    "nasdaq": 556.0
   },
   {
    "date": "2024-01-31",
-   "equity": 1211.3,
+   "equity": 913.9,
    "spy": 376.8,
    "nasdaq": 561.6
   },
   {
    "date": "2024-02-29",
-   "equity": 1395.7,
+   "equity": 960.2,
    "spy": 396.3,
    "nasdaq": 596.0
   },
   {
    "date": "2024-03-31",
-   "equity": 1526.3,
+   "equity": 1002.6,
    "spy": 408.5,
    "nasdaq": 606.6
   },
   {
    "date": "2024-04-30",
-   "equity": 1458.6,
+   "equity": 959.0,
    "spy": 391.5,
    "nasdaq": 579.9
   },
   {
    "date": "2024-05-31",
-   "equity": 1542.0,
+   "equity": 964.8,
    "spy": 410.3,
    "nasdaq": 619.8
   },
   {
    "date": "2024-06-30",
-   "equity": 1679.5,
+   "equity": 1034.8,
    "spy": 424.6,
    "nasdaq": 656.7
   },
   {
    "date": "2024-07-31",
-   "equity": 1694.1,
+   "equity": 1043.8,
    "spy": 429.4,
    "nasdaq": 651.8
   },
   {
    "date": "2024-08-31",
-   "equity": 1822.7,
+   "equity": 1112.8,
    "spy": 439.2,
    "nasdaq": 656.0
   },
   {
    "date": "2024-09-30",
-   "equity": 2046.2,
+   "equity": 1171.8,
    "spy": 448.1,
    "nasdaq": 673.7
   },
   {
    "date": "2024-10-31",
-   "equity": 2190.1,
+   "equity": 1306.7,
    "spy": 443.6,
    "nasdaq": 670.2
   },
   {
    "date": "2024-11-30",
-   "equity": 2620.0,
+   "equity": 1654.9,
    "spy": 469.0,
    "nasdaq": 711.8
   },
   {
    "date": "2024-12-31",
-   "equity": 2501.9,
+   "equity": 1626.6,
    "spy": 457.3,
    "nasdaq": 715.2
   },
   {
    "date": "2025-01-31",
-   "equity": 2726.0,
+   "equity": 1772.4,
    "spy": 469.7,
    "nasdaq": 726.9
   },
   {
    "date": "2025-02-28",
-   "equity": 2569.1,
+   "equity": 1667.8,
    "spy": 463.0,
    "nasdaq": 698.0
   },
   {
    "date": "2025-03-31",
-   "equity": 2405.6,
+   "equity": 1572.1,
    "spy": 436.3,
    "nasdaq": 640.7
   },
   {
    "date": "2025-04-30",
-   "equity": 2769.2,
+   "equity": 1686.3,
    "spy": 433.0,
    "nasdaq": 646.1
   },
   {
    "date": "2025-05-31",
-   "equity": 2980.0,
+   "equity": 1845.9,
    "spy": 459.7,
    "nasdaq": 707.9
   },
   {
    "date": "2025-06-30",
-   "equity": 2976.5,
+   "equity": 1835.9,
    "spy": 482.5,
    "nasdaq": 754.4
   },
   {
    "date": "2025-07-31",
-   "equity": 2784.3,
+   "equity": 1776.4,
    "spy": 492.9,
    "nasdaq": 782.3
   },
   {
    "date": "2025-08-31",
-   "equity": 2904.5,
+   "equity": 1996.0,
    "spy": 502.3,
    "nasdaq": 794.6
   },
   {
    "date": "2025-09-30",
-   "equity": 2826.5,
+   "equity": 2038.0,
    "spy": 520.0,
    "nasdaq": 839.2
   },
   {
    "date": "2025-10-31",
-   "equity": 2939.9,
+   "equity": 1877.6,
    "spy": 531.8,
    "nasdaq": 878.7
   },
   {
    "date": "2025-11-30",
-   "equity": 3141.7,
+   "equity": 2019.6,
    "spy": 532.5,
    "nasdaq": 865.4
   },
   {
    "date": "2025-12-31",
-   "equity": 3028.6,
+   "equity": 1827.4,
    "spy": 532.3,
    "nasdaq": 860.8
   },
   {
    "date": "2026-01-31",
-   "equity": 3361.4,
+   "equity": 1979.7,
    "spy": 539.5,
    "nasdaq": 868.9
   },
   {
    "date": "2026-02-28",
-   "equity": 3810.9,
+   "equity": 2205.0,
    "spy": 534.9,
    "nasdaq": 839.5
   },
   {
    "date": "2026-03-31",
-   "equity": 3529.1,
+   "equity": 2306.3,
    "spy": 507.6,
    "nasdaq": 799.6
   },
   {
    "date": "2026-04-30",
-   "equity": 4247.2,
+   "equity": 2726.1,
    "spy": 560.5,
    "nasdaq": 921.9
   },
   {
    "date": "2026-05-31",
-   "equity": 4081.3,
+   "equity": 2593.3,
    "spy": 589.4,
    "nasdaq": 999.0
   },
   {
    "date": "2026-06-30",
-   "equity": 4245.6,
+   "equity": 2543.5,
    "spy": 583.1,
    "nasdaq": 970.8
   }
@@ -1767,82 +1785,82 @@
  "yearly": [
   {
    "label": "2011",
-   "strategy": 20.6,
+   "strategy": 16.5,
    "spy": -1.1
   },
   {
    "label": "2012",
-   "strategy": 114.7,
+   "strategy": 87.2,
    "spy": 13.4
   },
   {
    "label": "2013",
-   "strategy": 84.0,
+   "strategy": 82.3,
    "spy": 29.6
   },
   {
    "label": "2014",
-   "strategy": -21.2,
+   "strategy": -29.6,
    "spy": 11.4
   },
   {
    "label": "2015",
-   "strategy": 28.4,
+   "strategy": -2.6,
    "spy": -0.7
   },
   {
    "label": "2016",
-   "strategy": 13.5,
+   "strategy": 20.9,
    "spy": 9.5
   },
   {
    "label": "2017",
-   "strategy": 51.0,
+   "strategy": 21.2,
    "spy": 19.4
   },
   {
    "label": "2018",
-   "strategy": 8.2,
+   "strategy": 14.9,
    "spy": -6.2
   },
   {
    "label": "2019",
-   "strategy": 45.9,
+   "strategy": 32.6,
    "spy": 28.9
   },
   {
    "label": "2020",
-   "strategy": 15.2,
+   "strategy": 10.3,
    "spy": 16.3
   },
   {
    "label": "2021",
-   "strategy": 18.6,
+   "strategy": 48.9,
    "spy": 26.9
   },
   {
    "label": "2022",
-   "strategy": -35.5,
+   "strategy": -32.2,
    "spy": -19.4
   },
   {
    "label": "2023",
-   "strategy": 12.0,
+   "strategy": 45.5,
    "spy": 24.2
   },
   {
    "label": "2024",
-   "strategy": 97.2,
+   "strategy": 64.8,
    "spy": 23.3
   },
   {
    "label": "2025",
-   "strategy": 21.1,
+   "strategy": 12.3,
    "spy": 16.4
   },
   {
    "label": "2026",
-   "strategy": 53.5,
+   "strategy": 35.6,
    "spy": 8.9
   }
  ],
@@ -1850,9 +1868,9 @@
   {
    "date": "2026-06-16",
    "tickers": [
+    "AKAM",
     "INSW",
-    "MTDR",
-    "TRN"
+    "MTZ"
    ]
   },
   {
@@ -1860,38 +1878,38 @@
    "tickers": [
     "INSW",
     "IVZ",
-    "TRN"
+    "LCII"
    ]
   },
   {
    "date": "2026-04-16",
    "tickers": [
     "INSW",
-    "MTDR",
+    "PARR",
     "VLO"
    ]
   },
   {
    "date": "2026-03-17",
    "tickers": [
-    "INSW",
     "IVZ",
-    "MU"
+    "MU",
+    "PARR"
    ]
   },
   {
    "date": "2026-02-13",
    "tickers": [
-    "APH",
     "EXPE",
-    "INSW"
+    "PARR",
+    "STLD"
    ]
   },
   {
    "date": "2026-01-14",
    "tickers": [
-    "APH",
     "INSW",
+    "PARR",
     "TALO"
    ]
   },
@@ -1900,29 +1918,29 @@
    "tickers": [
     "APH",
     "EXPE",
-    "INSW"
+    "PARR"
    ]
   },
   {
    "date": "2025-11-12",
    "tickers": [
     "APH",
-    "INSW",
+    "PARR",
     "WRLD"
    ]
   },
   {
    "date": "2025-10-14",
    "tickers": [
-    "AMR",
-    "MATX",
+    "HE",
+    "SNEX",
     "VCTR"
    ]
   },
   {
    "date": "2025-09-15",
    "tickers": [
-    "AMR",
+    "APP",
     "MIDD",
     "VCTR"
    ]
@@ -1930,23 +1948,23 @@
   {
    "date": "2025-08-14",
    "tickers": [
+    "FNF",
     "MD",
-    "TRN",
     "VCTR"
    ]
   },
   {
    "date": "2025-07-16",
    "tickers": [
-    "ACAD",
-    "CNK",
-    "TRIP"
+    "APP",
+    "MD",
+    "MOS"
    ]
   },
   {
    "date": "2025-06-13",
    "tickers": [
-    "ACAD",
+    "APP",
     "CHTR",
     "MD"
    ]
@@ -1956,23 +1974,23 @@
    "tickers": [
     "CHTR",
     "MIDD",
-    "WRLD"
+    "SMP"
    ]
   },
   {
    "date": "2025-04-14",
    "tickers": [
-    "AFRM",
-    "EXPE",
-    "NFLX"
+    "NFLX",
+    "SIG",
+    "TPR"
    ]
   },
   {
    "date": "2025-03-14",
    "tickers": [
-    "AXON",
-    "GIII",
-    "NFLX"
+    "APP",
+    "NFLX",
+    "VRSN"
    ]
   },
   {
@@ -1987,31 +2005,31 @@
    "date": "2025-01-13",
    "tickers": [
     "APP",
-    "CTAS",
-    "HCC"
+    "LQDT",
+    "SMP"
    ]
   },
   {
    "date": "2024-12-10",
    "tickers": [
+    "APAM",
     "AVGO",
-    "CHTR",
     "TRGP"
    ]
   },
   {
    "date": "2024-11-08",
    "tickers": [
-    "HCA",
-    "TPL",
-    "TRGP"
+    "COO",
+    "NFLX",
+    "TPL"
    ]
   },
   {
    "date": "2024-10-10",
    "tickers": [
-    "AVGO",
     "ENVA",
+    "SLVM",
     "TPL"
    ]
   },
@@ -2026,9 +2044,9 @@
   {
    "date": "2024-08-12",
    "tickers": [
-    "AGX",
-    "APH",
-    "AVGO"
+    "AVGO",
+    "ENVA",
+    "NDAQ"
    ]
   },
   {
@@ -2051,47 +2069,47 @@
    "date": "2024-05-10",
    "tickers": [
     "CMG",
-    "MMM",
+    "FNF",
     "TPL"
    ]
   },
   {
    "date": "2024-04-11",
    "tickers": [
-    "CEG",
     "ENVA",
+    "FNF",
     "MEDP"
    ]
   },
   {
    "date": "2024-03-12",
    "tickers": [
-    "DFIN",
     "ENVA",
+    "FNF",
     "NVDA"
    ]
   },
   {
    "date": "2024-02-09",
    "tickers": [
+    "AKR",
     "CMG",
-    "DFIN",
-    "SMCI"
+    "NDAQ"
    ]
   },
   {
    "date": "2024-01-10",
    "tickers": [
+    "APAM",
     "AVGO",
-    "DFIN",
     "DUOL"
    ]
   },
   {
    "date": "2023-12-08",
    "tickers": [
-    "CTAS",
-    "DFIN",
+    "FNF",
+    "INTC",
     "ORLY"
    ]
   },
@@ -2099,16 +2117,16 @@
    "date": "2023-11-08",
    "tickers": [
     "AKAM",
-    "GIII",
-    "INSW"
+    "APAM",
+    "EMR"
    ]
   },
   {
    "date": "2023-10-10",
    "tickers": [
     "AKAM",
-    "GIII",
-    "SMCI"
+    "BKNG",
+    "CNR"
    ]
   },
   {
@@ -2116,14 +2134,14 @@
    "tickers": [
     "APP",
     "BKNG",
-    "SMCI"
+    "EMR"
    ]
   },
   {
    "date": "2023-08-10",
    "tickers": [
-    "HCA",
     "INSW",
+    "PANW",
     "WRLD"
    ]
   },
@@ -2131,15 +2149,15 @@
    "date": "2023-07-12",
    "tickers": [
     "INSW",
-    "KHC",
-    "MSFT"
+    "MEDP",
+    "TDG"
    ]
   },
   {
    "date": "2023-06-09",
    "tickers": [
-    "CMG",
     "INSW",
+    "MEDP",
     "PVH"
    ]
   },
@@ -2148,45 +2166,45 @@
    "tickers": [
     "INSW",
     "PVH",
-    "WYNN"
+    "TDG"
    ]
   },
   {
    "date": "2023-04-11",
    "tickers": [
+    "BKNG",
     "INSW",
-    "LW",
     "SNEX"
    ]
   },
   {
    "date": "2023-03-10",
    "tickers": [
-    "CTAS",
-    "INSW",
+    "BKNG",
+    "BTU",
     "LW"
    ]
   },
   {
    "date": "2023-02-08",
    "tickers": [
+    "AMGN",
     "BTU",
-    "ENVA",
-    "SLVM"
+    "ENVA"
    ]
   },
   {
    "date": "2023-01-09",
    "tickers": [
     "ENVA",
-    "HALO",
-    "SLVM"
+    "NGVT",
+    "UTHR"
    ]
   },
   {
    "date": "2022-12-07",
    "tickers": [
-    "HALO",
+    "ENVA",
     "KNSL",
     "SLVM"
    ]
@@ -2195,32 +2213,32 @@
    "date": "2022-11-07",
    "tickers": [
     "INSW",
-    "MEDP",
-    "VRTX"
+    "KNSL",
+    "MEDP"
    ]
   },
   {
    "date": "2022-10-07",
    "tickers": [
+    "CNR",
     "DFIN",
-    "INSW",
-    "VRTX"
+    "INSW"
    ]
   },
   {
    "date": "2022-09-08",
    "tickers": [
-    "INSW",
-    "ORLY",
-    "VRTX"
+    "CNR",
+    "FSLR",
+    "INSW"
    ]
   },
   {
    "date": "2022-08-09",
    "tickers": [
+    "CNR",
     "CTAS",
-    "HALO",
-    "REGN"
+    "GFF"
    ]
   },
   {
@@ -2228,13 +2246,13 @@
    "tickers": [
     "CB",
     "GFF",
-    "HALO"
+    "VLO"
    ]
   },
   {
    "date": "2022-06-08",
    "tickers": [
-    "CB",
+    "CNR",
     "HCA",
     "VLO"
    ]
@@ -2242,32 +2260,32 @@
   {
    "date": "2022-05-09",
    "tickers": [
+    "CNR",
     "CRC",
-    "HCA",
-    "OVV"
+    "HCA"
    ]
   },
   {
    "date": "2022-04-07",
    "tickers": [
-    "OVV",
-    "SKY",
+    "EOG",
+    "RCUS",
     "WRLD"
    ]
   },
   {
    "date": "2022-03-09",
    "tickers": [
+    "CNP",
     "EOG",
-    "SKY",
     "WRLD"
    ]
   },
   {
    "date": "2022-02-07",
    "tickers": [
+    "AOSL",
     "ENVA",
-    "MEDP",
     "STC"
    ]
   },
@@ -2283,7 +2301,7 @@
    "date": "2021-12-07",
    "tickers": [
     "CMG",
-    "ENTG",
+    "FNF",
     "MDB"
    ]
   },
@@ -2292,53 +2310,53 @@
    "tickers": [
     "CMG",
     "ENVA",
-    "ESI"
+    "MDB"
    ]
   },
   {
    "date": "2021-10-07",
    "tickers": [
     "AEP",
-    "AGCO",
+    "AGO",
     "NVDA"
    ]
   },
   {
    "date": "2021-09-08",
    "tickers": [
-    "CARR",
     "FCX",
+    "NVDA",
     "STLD"
    ]
   },
   {
    "date": "2021-08-09",
    "tickers": [
-    "GBX",
     "GNRC",
+    "NVDA",
     "SIG"
    ]
   },
   {
    "date": "2021-07-09",
    "tickers": [
+    "CZR",
     "ENVA",
-    "LQDT",
-    "MD"
+    "STLD"
    ]
   },
   {
    "date": "2021-06-09",
    "tickers": [
     "AZO",
-    "PVH",
-    "VRTX"
+    "GD",
+    "PVH"
    ]
   },
   {
    "date": "2021-05-10",
    "tickers": [
-    "AZO",
+    "ACM",
     "ENVA",
     "PVH"
    ]
@@ -2346,65 +2364,65 @@
   {
    "date": "2021-04-09",
    "tickers": [
-    "CNK",
-    "SKY",
-    "SSTK"
+    "ENVA",
+    "FCX",
+    "GATX"
    ]
   },
   {
    "date": "2021-03-10",
    "tickers": [
-    "ACHC",
+    "AMGN",
     "CNK",
-    "R"
+    "GOGO"
    ]
   },
   {
    "date": "2021-02-08",
    "tickers": [
+    "ACHC",
     "DHR",
-    "MHK",
     "WPC"
    ]
   },
   {
    "date": "2021-01-07",
    "tickers": [
-    "DHR",
-    "GNRC",
-    "GOGO"
+    "ALGT",
+    "GOGO",
+    "TYL"
    ]
   },
   {
    "date": "2020-12-07",
    "tickers": [
     "AXON",
-    "GNRC",
-    "STX"
+    "STX",
+    "TYL"
    ]
   },
   {
    "date": "2020-11-05",
    "tickers": [
+    "AJG",
     "DHR",
-    "GNRC",
-    "IRTC"
+    "GNRC"
    ]
   },
   {
    "date": "2020-10-07",
    "tickers": [
     "AAPL",
-    "ECPG",
+    "AZO",
     "GNRC"
    ]
   },
   {
    "date": "2020-09-08",
    "tickers": [
-    "AAPL",
     "AVGO",
-    "AZO"
+    "AZO",
+    "ENTG"
    ]
   },
   {
@@ -2418,57 +2436,57 @@
   {
    "date": "2020-07-09",
    "tickers": [
-    "CAG",
-    "CMG",
-    "MOH"
+    "AVGO",
+    "AZO",
+    "CMG"
    ]
   },
   {
    "date": "2020-06-09",
    "tickers": [
-    "CAG",
     "CWEN",
-    "GILD"
+    "GILD",
+    "REGN"
    ]
   },
   {
    "date": "2020-05-08",
    "tickers": [
-    "CAG",
-    "DOCU",
+    "HUM",
+    "PRAA",
     "REGN"
    ]
   },
   {
    "date": "2020-04-08",
    "tickers": [
+    "D",
     "ECPG",
-    "PRAA",
-    "WMS"
+    "PRAA"
    ]
   },
   {
    "date": "2020-03-10",
    "tickers": [
+    "D",
     "FICO",
-    "NI",
-    "PBH"
+    "IFF"
    ]
   },
   {
    "date": "2020-02-07",
    "tickers": [
-    "ACA",
     "BIIB",
-    "MGM"
+    "CZR",
+    "ZBH"
    ]
   },
   {
    "date": "2020-01-08",
    "tickers": [
     "BIIB",
-    "MGM",
-    "MTZ"
+    "MTZ",
+    "TYL"
    ]
   },
   {
@@ -2498,24 +2516,24 @@
   {
    "date": "2019-09-09",
    "tickers": [
-    "CMG",
-    "IRTC",
-    "NSIT"
+    "NSIT",
+    "RCL",
+    "ZS"
    ]
   },
   {
    "date": "2019-08-08",
    "tickers": [
+    "AXP",
     "KNSL",
-    "SYY",
-    "WRLD"
+    "RCL"
    ]
   },
   {
    "date": "2019-07-10",
    "tickers": [
     "CABO",
-    "FDS",
+    "STC",
     "ZS"
    ]
   },
@@ -2524,7 +2542,7 @@
    "tickers": [
     "AVGO",
     "LULU",
-    "V"
+    "TDG"
    ]
   },
   {
@@ -2555,16 +2573,16 @@
    "date": "2019-02-07",
    "tickers": [
     "AFL",
-    "APH",
-    "HCA"
+    "INVA",
+    "XNCR"
    ]
   },
   {
    "date": "2019-01-08",
    "tickers": [
-    "CVSA",
+    "AON",
     "MEDP",
-    "UAL"
+    "SRPT"
    ]
   },
   {
@@ -2578,7 +2596,7 @@
   {
    "date": "2018-11-05",
    "tickers": [
-    "ALRM",
+    "CZR",
     "FLR",
     "PAYC"
    ]
@@ -2586,8 +2604,8 @@
   {
    "date": "2018-10-05",
    "tickers": [
-    "FLR",
-    "PATK",
+    "MEDP",
+    "PSX",
     "WRLD"
    ]
   },
@@ -2612,15 +2630,15 @@
    "tickers": [
     "AAPL",
     "TROW",
-    "UNF"
+    "XHR"
    ]
   },
   {
    "date": "2018-06-07",
    "tickers": [
     "DPZ",
-    "FTI",
-    "LULU"
+    "PRAA",
+    "XPO"
    ]
   },
   {
@@ -2634,7 +2652,7 @@
   {
    "date": "2018-04-09",
    "tickers": [
-    "MELI",
+    "CHDN",
     "PRAA",
     "SSTK"
    ]
@@ -2643,15 +2661,15 @@
    "date": "2018-03-08",
    "tickers": [
     "FICO",
-    "MELI",
-    "PRAA"
+    "PRAA",
+    "RIG"
    ]
   },
   {
    "date": "2018-02-06",
    "tickers": [
+    "ENTG",
     "FIVE",
-    "SEDG",
     "TTWO"
    ]
   },
@@ -2684,31 +2702,31 @@
    "tickers": [
     "AAPL",
     "ALRM",
-    "RCL"
+    "YUM"
    ]
   },
   {
    "date": "2017-09-06",
    "tickers": [
     "AAPL",
-    "AON",
-    "FMC"
+    "FMC",
+    "YUM"
    ]
   },
   {
    "date": "2017-08-07",
    "tickers": [
     "AAPL",
-    "FMC",
-    "PRAA"
+    "PRAA",
+    "YUM"
    ]
   },
   {
    "date": "2017-07-07",
    "tickers": [
+    "AAPL",
     "AZTA",
-    "TTWO",
-    "WRLD"
+    "CSX"
    ]
   },
   {
@@ -2723,16 +2741,16 @@
    "date": "2017-05-08",
    "tickers": [
     "APH",
-    "CTAS",
+    "CZR",
     "TTWO"
    ]
   },
   {
    "date": "2017-04-06",
    "tickers": [
-    "SRPT",
-    "URI",
-    "WRLD"
+    "BCPC",
+    "KLIC",
+    "URI"
    ]
   },
   {
@@ -2740,7 +2758,7 @@
    "tickers": [
     "CENX",
     "DXPE",
-    "FCX"
+    "URI"
    ]
   },
   {
@@ -2748,7 +2766,7 @@
    "tickers": [
     "AMPH",
     "CBU",
-    "WRLD"
+    "ECPG"
    ]
   },
   {
@@ -2763,38 +2781,38 @@
    "date": "2016-12-05",
    "tickers": [
     "DPZ",
-    "FCX",
-    "GNRC"
+    "GNRC",
+    "LYV"
    ]
   },
   {
    "date": "2016-11-03",
    "tickers": [
+    "AGX",
     "MELI",
-    "PTGX",
     "SM"
    ]
   },
   {
    "date": "2016-10-05",
    "tickers": [
+    "AFL",
     "PTGX",
-    "URI",
-    "WDFC"
+    "URI"
    ]
   },
   {
    "date": "2016-09-06",
    "tickers": [
-    "BAX",
     "DPZ",
-    "TECH"
+    "TECH",
+    "YUM"
    ]
   },
   {
    "date": "2016-08-05",
    "tickers": [
-    "FANG",
+    "CNP",
     "KHC",
     "PSX"
    ]
@@ -2803,14 +2821,14 @@
    "date": "2016-07-07",
    "tickers": [
     "AGCO",
-    "ALGN",
+    "AGO",
     "FDX"
    ]
   },
   {
    "date": "2016-06-07",
    "tickers": [
-    "ABCB",
+    "APLE",
     "BAX",
     "FDX"
    ]
@@ -2818,8 +2836,8 @@
   {
    "date": "2016-05-06",
    "tickers": [
-    "ALGN",
-    "ALRM",
+    "AGO",
+    "CPRT",
     "TTWO"
    ]
   },
@@ -2827,7 +2845,7 @@
    "date": "2016-04-07",
    "tickers": [
     "AGCO",
-    "DPZ",
+    "CF",
     "THRM"
    ]
   },
@@ -2836,23 +2854,23 @@
    "tickers": [
     "ABCB",
     "PRGO",
-    "ULTA"
+    "THRM"
    ]
   },
   {
    "date": "2016-02-05",
    "tickers": [
-    "RES",
-    "THRM",
-    "V"
+    "CF",
+    "LEA",
+    "THRM"
    ]
   },
   {
    "date": "2016-01-06",
    "tickers": [
+    "ABCB",
     "CTAS",
-    "RES",
-    "THRM"
+    "RES"
    ]
   },
   {
@@ -2860,7 +2878,7 @@
    "tickers": [
     "CF",
     "CTAS",
-    "V"
+    "EVR"
    ]
   },
   {
@@ -2868,7 +2886,7 @@
    "tickers": [
     "CTAS",
     "DKS",
-    "V"
+    "LQDT"
    ]
   },
   {
@@ -2890,7 +2908,7 @@
   {
    "date": "2015-08-06",
    "tickers": [
-    "CTAS",
+    "LQDT",
     "MD",
     "VRSK"
    ]
@@ -2900,14 +2918,14 @@
    "tickers": [
     "AGO",
     "CELH",
-    "CF"
+    "LQDT"
    ]
   },
   {
    "date": "2015-06-08",
    "tickers": [
-    "AAPL",
     "CELH",
+    "LQDT",
     "VRSK"
    ]
   },
@@ -2922,17 +2940,17 @@
   {
    "date": "2015-04-08",
    "tickers": [
+    "CF",
     "RES",
-    "V",
     "WRLD"
    ]
   },
   {
    "date": "2015-03-09",
    "tickers": [
-    "CELH",
     "ESI",
-    "GEO"
+    "GEO",
+    "NSP"
    ]
   },
   {
@@ -2948,63 +2966,63 @@
    "tickers": [
     "ESI",
     "ICUI",
-    "VECO"
+    "MD"
    ]
   },
   {
    "date": "2014-12-04",
    "tickers": [
-    "AAT",
     "ESI",
+    "GILD",
     "ICUI"
    ]
   },
   {
    "date": "2014-11-04",
    "tickers": [
-    "APH",
-    "ESI",
-    "ICUI"
+    "CENX",
+    "ENPH",
+    "ESI"
    ]
   },
   {
    "date": "2014-10-06",
    "tickers": [
-    "MDU",
+    "NSIT",
     "PBH",
-    "TRN"
+    "RGLD"
    ]
   },
   {
    "date": "2014-09-05",
    "tickers": [
-    "CTAS",
-    "MDU",
+    "EVR",
+    "THRM",
     "TRN"
    ]
   },
   {
    "date": "2014-08-06",
    "tickers": [
+    "CELH",
     "CMG",
-    "CTAS",
-    "ICUI"
+    "CTAS"
    ]
   },
   {
    "date": "2014-07-08",
    "tickers": [
-    "AON",
     "CELH",
-    "WRLD"
+    "LYV",
+    "THRM"
    ]
   },
   {
    "date": "2014-06-06",
    "tickers": [
-    "AON",
     "CELH",
-    "FIVE"
+    "FIVE",
+    "LYV"
    ]
   },
   {
@@ -3018,25 +3036,25 @@
   {
    "date": "2014-04-07",
    "tickers": [
-    "CELH",
     "CSGP",
-    "ESI"
+    "GILD",
+    "WYNN"
    ]
   },
   {
    "date": "2014-03-07",
    "tickers": [
     "ACIW",
-    "CMG",
-    "CSGP"
+    "GPK",
+    "WYNN"
    ]
   },
   {
    "date": "2014-02-05",
    "tickers": [
+    "ACIW",
     "CMG",
-    "ECPG",
-    "PBH"
+    "ECPG"
    ]
   },
   {
@@ -3044,7 +3062,7 @@
    "tickers": [
     "ACIW",
     "CMG",
-    "PBH"
+    "MD"
    ]
   },
   {
@@ -3058,9 +3076,9 @@
   {
    "date": "2013-11-04",
    "tickers": [
+    "ACIW",
     "CMG",
-    "ECPG",
-    "PRIM"
+    "ECPG"
    ]
   },
   {
@@ -3074,8 +3092,8 @@
   {
    "date": "2013-09-05",
    "tickers": [
-    "CSGP",
     "ECPG",
+    "LYV",
     "TRIP"
    ]
   },
@@ -3107,32 +3125,32 @@
    "date": "2013-05-07",
    "tickers": [
     "CBRL",
-    "CELH",
-    "ECPG"
+    "ECPG",
+    "HRB"
    ]
   },
   {
    "date": "2013-04-08",
    "tickers": [
+    "AKR",
     "CBRL",
-    "FAST",
     "RES"
    ]
   },
   {
    "date": "2013-03-07",
    "tickers": [
-    "CBRL",
-    "CELH",
+    "AKR",
+    "PBH",
     "SRPT"
    ]
   },
   {
    "date": "2013-02-05",
    "tickers": [
+    "AKR",
     "MD",
-    "SRPT",
-    "WKC"
+    "SRPT"
    ]
   },
   {
@@ -3146,17 +3164,17 @@
   {
    "date": "2012-12-04",
    "tickers": [
+    "ACIW",
     "MD",
-    "NEU",
-    "WERN"
+    "NEU"
    ]
   },
   {
    "date": "2012-11-02",
    "tickers": [
     "AROC",
-    "ITT",
-    "MIDD"
+    "MELI",
+    "MTZ"
    ]
   },
   {
@@ -3178,7 +3196,7 @@
   {
    "date": "2012-08-02",
    "tickers": [
-    "HLX",
+    "CELH",
     "ULTA",
     "WRLD"
    ]
@@ -3194,16 +3212,16 @@
   {
    "date": "2012-06-04",
    "tickers": [
+    "ACIW",
     "CELH",
-    "LTC",
     "WINA"
    ]
   },
   {
    "date": "2012-05-03",
    "tickers": [
+    "AAPL",
     "CELH",
-    "MTN",
     "WINA"
    ]
   },
@@ -3228,7 +3246,7 @@
    "tickers": [
     "CELH",
     "IOSP",
-    "RES"
+    "NI"
    ]
   },
   {
@@ -3242,7 +3260,7 @@
   {
    "date": "2011-12-01",
    "tickers": [
-    "CELH",
+    "CTAS",
     "NEU",
     "ULTA"
    ]
@@ -3260,14 +3278,14 @@
    "tickers": [
     "CENX",
     "LVS",
-    "ULTA"
+    "MELI"
    ]
   },
   {
    "date": "2011-09-01",
    "tickers": [
-    "CENX",
     "LVS",
+    "MELI",
     "ULTA"
    ]
   },
@@ -3282,7 +3300,7 @@
   {
    "date": "2011-07-05",
    "tickers": [
-    "CELH",
+    "MNST",
     "SHOO",
     "ULTA"
    ]
@@ -3290,8 +3308,8 @@
   {
    "date": "2011-06-03",
    "tickers": [
-    "CELH",
     "HUBG",
+    "MTN",
     "SHOO"
    ]
   },
@@ -3307,22 +3325,22 @@
    "date": "2011-04-04",
    "tickers": [
     "DECK",
-    "TRNO",
-    "WKC"
+    "MD",
+    "TRNO"
    ]
   },
   {
    "date": "2011-03-04",
    "tickers": [
+    "MD",
     "RES",
-    "TRNO",
-    "VSH"
+    "TRNO"
    ]
   },
   {
    "date": "2011-02-02",
    "tickers": [
-    "HUBG",
+    "AAPL",
     "MDU",
     "NEU"
    ]
@@ -3330,18 +3348,18 @@
   {
    "date": "2011-01-03",
    "tickers": [
+    "AAPL",
     "HUBG",
-    "MDU",
-    "PTEN"
+    "MDU"
    ]
   }
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible), NOT a forward projection. Realistic forward ~25-29%; per-2yr regime CAGR -13% to 61% (median 29%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible), NOT a forward projection. Realistic forward ~25-29%; per-2yr regime CAGR 0% to 55% (median 20%).",
   "E3/PEAD is the validated core: real post-earnings drift (survives zeroing announcement-window days), entered 3 days AFTER the filing \u2014 reacts to earnings, does not predict them.",
   "Liquidity-survival 0.96 at a $5M-ADV lens \u2014 the edge is tradeable, not a microcap artifact (unlike the .7-event tilt it replaced).",
-  "TRUE daily mark-to-market: the -46% drawdown is the real intra-period low. Top-3 concentration = high single-name risk (191 distinct names rotated over the backtest).",
-  "Frictionless backtest: ignores ~804%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01."
+  "TRUE daily mark-to-market: the -52% drawdown is the real intra-period low. Top-3 concentration = high single-name risk (198 distinct names rotated over the backtest).",
+  "Frictionless backtest: ignores ~800%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01."
  ]
 }
