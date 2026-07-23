@@ -33,11 +33,11 @@
   "effective_trading_day": "2026-09-10",
   "book_type": "paper",
   "rebalance_book_type": "paper",
-  "go_live": "2027-01-06",
+  "go_live": "2026-11-10",
   "go_live_pending": true,
   "never_goes_live": false,
   "gates_execution": false,
-  "rationale": "Paper sleeve on an 84-trading-day hold. Its 2026-09-10 expiry fires as a PAPER rebalance (research track continues, no money); go-live is deferred to the following expiry per the research report's post-midterm finding.",
+  "rationale": "Paper sleeve on an 84-trading-day hold. Its 2026-09-10 expiry fires as a PAPER rebalance (research track continues, no money). Goes live 2026-11-10 alongside Auxo and Pronoia \u2014 post-midterms per the research report \u2014 trading the book selected at the 09-10 rebalance; first live rebalance 2027-01-06.",
   "computed_for": "2026-07-23",
   "source": "ops/rebalance_schedule.py"
  },
