@@ -21,7 +21,12 @@ import { setPrefill } from "../lib/marketsPrefill";
 import { useStore } from "../store";
 import { INK, LINE, SEM, SURFACE } from "../theme";
 
-interface AnchorEntry { anchor: string | null; alias: string | null; anchor_name: string | null; mapping_kind: string }
+interface AnchorEntry {
+  anchor: string | null; alias: string | null; anchor_name: string | null; mapping_kind: string;
+  // Short-history anchors (XLC from 2018-06): the SHORT-HISTORY label is an S5 obligation
+  // that must render at this click-out, not only on the engine tab.
+  short_history?: boolean; coverage_start?: string; short_history_note?: string;
+}
 type AnchorMap = Record<string, AnchorEntry>;
 
 let mapCache: AnchorMap | null = null;
@@ -40,12 +45,31 @@ function useAnchorMap(): AnchorMap | null {
 // Gate-validated templates (see header). Wording is deliberately alias-based —
 // "SMH"/"XLK" are NOT in the gate vocabulary; "semiconductors"/"tech stocks" are.
 // Grammar is plurality-neutral (aliases mix singular/plural).
-const TEMPLATES: { label: string; make: (alias: string) => string }[] = [
-  { label: "Drawdowns + recoveries", make: (a) => `How deep were ${a} drawdowns since 2004, and how long did recoveries take?` },
+// `since` is the anchor's real coverage start — "2004" for full-history anchors, the
+// documented later start for short-history ones (XLC → 2018). Sending "since 2004" for XLC
+// would pre-fill a false premise the engine would then have to correct.
+const TEMPLATES: { label: string; make: (alias: string, since: string) => string }[] = [
+  { label: "Drawdowns + recoveries", make: (a, since) => `How deep were ${a} drawdowns since ${since}, and how long did recoveries take?` },
   { label: "Regime correlation", make: (a) => `How does the correlation between ${a} and the stock market change across regimes?` },
   { label: "FOMC behavior", make: (a) => `How did ${a} perform around FOMC meetings?` },
   { label: "Post-selloff recovery", make: (a) => `After a big selloff, how quickly did ${a} recover?` },
 ];
+
+// SHORT-HISTORY label — renders wherever XLC (or any short-history anchor) evidence
+// appears. S5 obligation: unmissable, and it states the real coverage so the reader never
+// reads the measured counts as full-history-robust.
+function ShortHistoryNote({ entry, since }: { entry: AnchorEntry; since: string }) {
+  return (
+    <div
+      className="rounded-md px-2.5 py-1.5 text-[11px] leading-snug"
+      style={{ color: INK.ink2, background: SURFACE.raised, border: `1px solid ${SEM.warn ?? LINE.line}` }}
+    >
+      <span className="font-semibold" style={{ color: SEM.warn ?? INK.ink }}>⚠ Short history</span>{" "}
+      {entry.short_history_note
+        ?? `${entry.anchor_name} is measured only since ${since} — evidence spans ~1 market cycle, so treat drawdown and event counts as indicative, not robust.`}
+    </div>
+  );
+}
 
 export default function MarketsEntry({ ticker }: { ticker: string | null }) {
   const { setActiveTab } = useStore();
@@ -69,6 +93,8 @@ export default function MarketsEntry({ ticker }: { ticker: string | null }) {
   const mapped = entry && entry.mapping_kind !== "none" && entry.alias;
   const offline = expanded && health != null && !health.up;
   const clickable = mapped && expanded && health?.up;
+  const shortHist = !!(entry && entry.short_history);
+  const sinceYear = (entry?.coverage_start || "2004").slice(0, 4);
 
   const go = (q: string) => {
     if (!clickable || !entry) return;
@@ -92,15 +118,19 @@ export default function MarketsEntry({ ticker }: { ticker: string | null }) {
           {map ? `No measured anchor covers this name's sector — asking would only produce the engine's honest refusal, so nothing fires from here.` : "Loading anchor map…"}
         </p>
       ) : !expanded ? (
-        <button
-          onClick={() => setExpanded(true)}
-          className="rounded-md px-3 py-1.5 text-sm font-medium"
-          style={{ background: SURFACE.active, color: INK.ink, border: `1px solid ${LINE.line}` }}
-        >
-          Ask the engine about {entry!.alias} →
-        </button>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => setExpanded(true)}
+            className="self-start rounded-md px-3 py-1.5 text-sm font-medium"
+            style={{ background: SURFACE.active, color: INK.ink, border: `1px solid ${LINE.line}` }}
+          >
+            Ask the engine about {entry!.alias} →
+          </button>
+          {shortHist && <ShortHistoryNote entry={entry!} since={sinceYear} />}
+        </div>
       ) : (
         <>
+          {shortHist && <ShortHistoryNote entry={entry!} since={sinceYear} />}
           <div className="mb-2 flex items-center gap-2 text-[11px]">
             <span
               className="rounded-full px-2 py-0.5 font-semibold"
@@ -116,7 +146,7 @@ export default function MarketsEntry({ ticker }: { ticker: string | null }) {
           </div>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {TEMPLATES.map((t) => {
-              const q = t.make(entry!.alias!);
+              const q = t.make(entry!.alias!, sinceYear);
               return (
                 <button
                   key={t.label}
