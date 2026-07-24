@@ -1,16 +1,16 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-24T00:45:23"
+    "at": "2026-07-24T06:55:53"
   },
   "engines": {
     "binary": {
-      "current": true,
-      "asOf": "2026-07-20"
+      "current": false,
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-06-30"
+      "asOf": null
     }
   },
   "ppi": {
@@ -19,105 +19,29 @@
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-08-01",
-    "rebalanceModel": "calendar_monthly_first",
-    "rebalanceBookType": "live",
-    "effectiveTradingDay": "2026-08-03"
+    "nextRebalance": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-20"
-    },
-    "aristeia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-01",
-      "next_rebalance": "2026-08-01",
-      "rebalance_model": "calendar_monthly_first",
-      "rebalance_model_label": "first of month",
-      "rebalance_book_type": "live",
-      "go_live": "2026-07-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day."
-    },
-    "auxo": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "live",
-      "go_live": "2026-11-10",
-      "go_live_pending": true,
-      "schedule_rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report."
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-05-15",
-      "next_rebalance": "2026-09-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "paper",
-      "go_live": "2026-11-10",
-      "go_live_pending": true,
-      "schedule_rationale": "Paper sleeve on an 84-trading-day hold. Its 2026-09-10 expiry fires as a PAPER rebalance (research track continues, no money). Goes live 2026-11-10 alongside Auxo and Pronoia \u2014 post-midterms per the research report \u2014 trading the book selected at the 09-10 rebalance; first live rebalance 2027-01-06."
-    },
-    "pronoia": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "live",
-      "go_live": "2026-11-10",
-      "go_live_pending": true,
-      "schedule_rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report."
-    },
-    "auxesis": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
     "axia": {
       "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
+      "status": "research-scout, holdings-redundant"
     },
     "horme": {
       "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
+      "status": "research-scout, holdings-redundant"
     },
     "krasis": {
       "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
+      "status": "research-scout, holdings-redundant"
     }
   },
-  "watchdog": {
-    "ok": true,
-    "alerts": [],
-    "checked_at": "2026-07-23T20:57:44.296688"
-  },
+  "watchdog": null,
   "market": {
     "state": "closed"
   },
   "_meta": {
     "ppi_as_of": "2026-07-24",
-    "ppi_breadth_pct": 57.8,
+    "ppi_breadth_pct": 59.4,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
