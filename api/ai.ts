@@ -270,7 +270,13 @@ Return ONLY JSON, no prose and no markdown fences, exactly this shape:
   const runLadder = async (promptText: string): Promise<{ text?: string; model?: string; reason?: string }> => {
     const body = makeBody(promptText);
     let lastStatus = 0;
-    const attempts = [MODEL, MODEL, MODEL, FALLBACK_MODEL]; // 3 tries on lite, final try on flash
+    // DIAGNOSTIC OVERRIDE (?model=): pin the ladder to one whitelisted tier so flash-lite
+    // and flash output can be compared on identical input. Anything not in the whitelist is
+    // ignored and the normal ladder runs — this cannot select an arbitrary model.
+    const pinned = [MODEL, FALLBACK_MODEL].includes(p.model) ? p.model : null;
+    const attempts = pinned
+      ? [pinned, pinned]                                // 2 tries on the pinned tier only
+      : [MODEL, MODEL, MODEL, FALLBACK_MODEL];          // 3 tries on lite, final try on flash
     for (let i = 0; i < attempts.length; i++) {
       const r = await callModel(attempts[i], body);
       if (r.ok) {
