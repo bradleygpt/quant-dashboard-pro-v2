@@ -6,7 +6,7 @@ import { fmtMoney, fmtPct } from "../lib/format";
 import { loadDataJSON } from "../lib/data";
 import { useLiveData } from "../lib/live";
 import { computeBreadth } from "../lib/regime";
-import { computePpi, type PpiResult } from "../lib/ppiIndex";
+import { computePpi, PPI_VERDICT, PPI_BAND_NOTE, type PpiResult } from "../lib/ppiIndex";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import PipelineViz, { buildVizData, type VizStream } from "../components/PipelineViz";
 import RegimeRibbon from "../components/RegimeRibbon";
@@ -76,12 +76,15 @@ export default function C78QTab() {
 }
 
 // ── (d) PPI ─────────────────────────────────────────────────────────────────
+// DEMOTED 2026-07-24 alongside ppiIndex.ts — these were a second copy of the deployment
+// instructions, including the "Pullback likely" forecast the v2 study refutes. Bands now
+// describe present stress only.
 const BANDS = [
-  { lo: 0, hi: 20, label: "LOW", color: SEM.pos, note: "Market healthy. Deploy normally." },
-  { lo: 20, hi: 40, label: "MODERATE", color: SEM.posSoft, note: "Normal fluctuation." },
-  { lo: 40, hi: 60, label: "ELEVATED", color: SEM.warnHot, note: "Consider scaling in vs full deployment." },
-  { lo: 60, hi: 80, label: "HIGH", color: SEM.neg, note: "Delay new deployment. Pullback likely." },
-  { lo: 80, hi: 100, label: "EXTREME", color: SEM.negDeep, note: "Active correction. Wait for resolution." },
+  { lo: 0, hi: 20, label: "LOW", color: SEM.pos, note: "Stress low — measures calm." },
+  { lo: 20, hi: 40, label: "MODERATE", color: SEM.posSoft, note: "Stress mild — normal range." },
+  { lo: 40, hi: 60, label: "ELEVATED", color: SEM.warnHot, note: "Stress elevated — the most common state (~69% of days)." },
+  { lo: 60, hi: 80, label: "HIGH", color: SEM.neg, note: "Stress high — coincides with a decline already underway." },
+  { lo: 80, hi: 100, label: "EXTREME", color: SEM.negDeep, note: "Stress extreme — dislocation in progress (never observed in 15y)." },
 ];
 
 function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
@@ -98,7 +101,7 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
                 <div className="text-4xl font-bold" style={{ color: live.color }}>{live.score.toFixed(1)}<span className="text-lg text-mute">/100</span></div>
                 <div className="text-sm font-semibold" style={{ color: live.color }}>{live.level}</div>
               </div>
-              <div className="flex-1 text-sm text-ink-3">{live.action}<div className="mt-1 text-xs text-mute">Suggested deployment: <span className="font-semibold text-ink-2">{live.band_deploy_pct}%</span> now.</div></div>
+              <div className="flex-1 text-sm text-ink-3">{live.action}<div className="mt-1 text-xs text-mute">Historical band reference: <span className="font-semibold text-ink-3">{live.band_deploy_pct}%</span> exposure — {PPI_BAND_NOTE}</div></div>
             </div>
             {/* gradient band scale with marker */}
             <div className="mt-3">
@@ -173,7 +176,7 @@ function PpiBlock({ live, feedStatus, baked, breadthPct, history }: {
       {baked && (
         <Card title="ETL cross-reference" sub={`The daily Python ETL's last computed PPI (as of ${baked.as_of}) — uses real per-stock parquet breadth.`}>
           <div className="flex flex-wrap items-center gap-4">
-            <Metric label="ETL PPI" value={`${baked.score.toFixed(1)} · ${baked.level}`} hint={`deploy ${baked.band_deploy_pct}%`} />
+            <Metric label="ETL PPI" value={`${baked.score.toFixed(1)} · ${baked.level}`} hint={`band ref ${baked.band_deploy_pct}% — not a recommendation`} />
             <div className="text-xs text-mute">{live ? `Live recompute: ${live.score.toFixed(1)} · ${live.level}. Differences come from data recency + breadth source (baked universe vs parquets).` : "Live recompute unavailable in preview."}</div>
           </div>
         </Card>

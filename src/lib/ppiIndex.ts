@@ -22,6 +22,22 @@ const NICE: Record<Key, string> = {
 
 const clip = (x: number, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, x));
 
+// The settled verdict on this gauge — carried by EVERY surface that renders it, so no
+// screen can imply it times the market. Source: ops/ppi_deployment_regression_v2.md
+// (quant-historical), 15.3 years / 3,861 sessions from 2011-03-15.
+export const PPI_VERDICT =
+  "Context readout, not a timing signal. Tested over 15.3 years: no pullback-forecasting " +
+  "signal is learnable from this data — a matched-exposure control beat it in 5 of 8 " +
+  "drawdowns, and the aggregate risk edge came from COVID alone. These components " +
+  "describe present market stress accurately; they do not predict it. See " +
+  "ops/ppi_deployment_regression_v2.md.";
+
+export const PPI_BAND_NOTE =
+  "Banded exposure is a historical reference showing how the bands mapped to exposure in " +
+  "the study — not a recommendation.";
+
+
+
 // RSI with simple rolling-mean gains/losses (matches the Python compute_rsi: rolling().mean()).
 function computeRSI(closes: number[], window: number): (number | null)[] {
   const n = closes.length;
@@ -44,6 +60,9 @@ function computeRSI(closes: number[], window: number): (number | null)[] {
 export interface PpiComponent { key: Key; name: string; weight: number; score: number; detail: string; available: boolean }
 export interface PpiResult {
   score: number; level: string; color: string; action: string; band_deploy_pct: number;
+  // `band_deploy_pct` is RETAINED for the baked ETL/history data path, but it is a
+  // historical banded-exposure REFERENCE, not a recommendation — see PPI_VERDICT. Do not
+  // render it as an instruction.
   components: PpiComponent[];
 }
 
@@ -137,12 +156,21 @@ export function computePpi(
   const keys = Object.keys(PPI_WEIGHTS) as Key[];
   const score = keys.reduce((a, k) => a + raw[k].score * PPI_WEIGHTS[k], 0);
 
+  // DEMOTED TO A CONTEXT READOUT (2026-07-24, ops/ppi_deployment_regression_v2.md).
+  // These strings were deployment INSTRUCTIONS and one was a forecast ("Pullback
+  // likely"). 15.3 years of the gauge's own history refutes that reading: the
+  // matched-exposure control beat it in 5 of 8 drawdowns, the aggregate drawdown edge was
+  // COVID alone (+9.8pp of a +6.6pp total), 7 of 8 drawdowns were ENTERED at or above its
+  // own average deployment (no anticipation), and forward correlation is wrong-signed at
+  // every horizon. The wider search was worse: 0 of 23 configs passed all five gates OOS
+  // and only 1 passed the leading gate at all.
+  // So the bands now DESCRIBE present stress; they never instruct and never forecast.
   let level: string, color: string, action: string, band: number;
-  if (score < 20) { level = "LOW"; color = SEM.pos; action = "Market healthy. Deploy normally."; band = 100; }
-  else if (score < 40) { level = "MODERATE"; color = SEM.posSoft; action = "Normal fluctuation. No timing concern."; band = 100; }
-  else if (score < 60) { level = "ELEVATED"; color = SEM.warnHot; action = "Consider scaling in vs full deployment."; band = 50; }
-  else if (score < 80) { level = "HIGH"; color = SEM.neg; action = "Delay new deployment. Pullback likely."; band = 25; }
-  else { level = "EXTREME"; color = SEM.negDeep; action = "Active correction. Wait for resolution."; band = 0; }
+  if (score < 20) { level = "LOW"; color = SEM.pos; action = "Stress low — breadth, volatility and drawdown measures are all calm."; band = 100; }
+  else if (score < 40) { level = "MODERATE"; color = SEM.posSoft; action = "Stress mild — readings within their normal range."; band = 100; }
+  else if (score < 60) { level = "ELEVATED"; color = SEM.warnHot; action = "Stress elevated — note this is the most common state, ~69% of days since 2011."; band = 50; }
+  else if (score < 80) { level = "HIGH"; color = SEM.neg; action = "Stress high — historically this coincides with a decline already underway, rather than preceding one."; band = 25; }
+  else { level = "EXTREME"; color = SEM.negDeep; action = "Stress extreme — severe dislocation in progress. Never observed in 15 years of reconstructed history."; band = 0; }
 
   const components: PpiComponent[] = keys.map((k) => ({
     key: k, name: NICE[k], weight: PPI_WEIGHTS[k], score: Math.round(raw[k].score), detail: raw[k].detail,

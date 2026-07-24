@@ -10,7 +10,7 @@ import { blobPublishAgeDays, loadDataJSON } from "../lib/data";
 import PpiHistory from "../components/PpiHistory";
 import { useLiveData } from "../lib/live";
 import { computeBreadth, computeFearGreed } from "../lib/regime";
-import { computePpi } from "../lib/ppiIndex";
+import { computePpi, PPI_VERDICT, PPI_BAND_NOTE } from "../lib/ppiIndex";
 import { getDeltas, type SnapshotsFile } from "../lib/snapshots";
 import { analyzePortfolio, type Holding } from "../lib/portfolio";
 import { INK, SEM } from "../theme";
@@ -113,8 +113,8 @@ export default function HomeTab() {
       )}
 
       {/* 1. Pullback Pressure Index (c78q — faithful port of pullback_pressure_index.py) */}
-      <Card title="Pullback Pressure Index (PPI)" sub="Market-timing gauge — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). Full breakdown in Strategies → Katalepsis.">
-        {ppiFeed.status === "loading" ? <Spinner label="Loading market timing…" /> :
+      <Card title="Pullback Pressure Index (PPI)" sub={`Market STRESS readout — 7 weighted components (live SPY/VIX/VVIX + baked-universe breadth). ${PPI_VERDICT} Full breakdown in Strategies → Katalepsis.`}>
+        {ppiFeed.status === "loading" ? <Spinner label="Loading market stress…" /> :
          !ppi ? <Unavailable what="PPI inputs" detail="Needs live SPY/VIX/VVIX from /api/ppi (deployed app only)." /> : (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <div>
@@ -122,9 +122,15 @@ export default function HomeTab() {
               <div className="text-sm font-semibold" style={{ color: ppi.color }}>{ppi.level}</div>
             </div>
             <div className="rounded-md border border-line bg-panel p-3">
-              <div className="text-xs uppercase text-mute">Suggested deployment</div>
-              <div className="text-2xl font-bold text-white">{ppi.band_deploy_pct}%</div>
-              <div className="mt-1 text-xs leading-relaxed text-ink-3">{ppi.action}</div>
+              {/* Was "Suggested deployment" with the band % as the headline number — an
+                  instruction the gauge's own 15-year history refutes. Now the stress
+                  reading leads; the band is a labelled historical reference beneath it. */}
+              <div className="text-xs uppercase text-mute">Current reading</div>
+              <div className="mt-0.5 text-sm leading-relaxed text-ink-2">{ppi.action}</div>
+              <div className="mt-2 border-t border-line pt-2 text-[11px] leading-snug text-mute">
+                Historical band reference: <span className="font-semibold text-ink-3">{ppi.band_deploy_pct}%</span> exposure.{" "}
+                {PPI_BAND_NOTE}
+              </div>
             </div>
             <div className="lg:col-span-1">
               <div className="mb-1 text-xs font-semibold uppercase text-mute">Components</div>

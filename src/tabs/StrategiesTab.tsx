@@ -191,7 +191,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <div className="text-sm font-semibold text-pos">▣ Total basket — all {basket.n} strategies, equal-weight pooled</div>
-              <div className="text-[11px] text-mute">The consolidated book (2011–2026 backtest). Deployable = excluding &gt;10% SPY drawdowns (PPI takes the book to cash there).</div>
+              <div className="text-[11px] text-mute">The consolidated book (2011–2026 backtest). Deployable = the same backtest with &gt;10% SPY drawdown periods excluded — a what-if that assumes those periods were sat out. It is NOT a claim that any gauge identifies them in advance; see the PPI verdict on Home.</div>
             </div>
             <div className="flex flex-wrap gap-5">
               <div><div className="text-[10px] uppercase tracking-wide text-mute">Basket CAGR</div><div className="font-mono text-xl font-bold text-pos">{basket.full.cagr.toFixed(1)}%</div><div className="text-[10px] text-mute">vs SPY {basket.spy_cagr.toFixed(1)}%</div></div>

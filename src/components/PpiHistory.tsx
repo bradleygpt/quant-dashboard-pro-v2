@@ -1,9 +1,11 @@
 // PPI daily history chart (P2.1, 2026-07-21): score line over threshold zones with
-// the suggested-deployment band overlaid as a step line. Series provenance is part
+// the historical band reference overlaid as a step line. DEMOTED 2026-07-24 — the
+// band is the study's exposure mapping, never a recommendation (PPI_VERDICT). Series provenance is part
 // of the render (S5): rows are RECONSTRUCTED (current formula applied to historical
 // inputs — valid for testing, not as-lived readings) until the nightly as-lived
 // append takes over; the tooltip carries per-row source and the caption says so.
 import { useEffect, useMemo, useState } from "react";
+import { PPI_VERDICT } from "../lib/ppiIndex";
 import { Card } from "./ui";
 import { loadDataJSON } from "../lib/data";
 import { INK, SEM, SURFACE, alpha } from "../theme";
@@ -49,7 +51,7 @@ export default function PpiHistory() {
   if (!data?.series?.length) return null; // ships with the next publish — hidden until then
 
   return (
-    <Card title="PPI History" sub={`Daily Pullback Pressure Index with suggested deployment. ${data.n_reconstructed} rows are RECONSTRUCTED (current formula applied to historical inputs — for testing, not as-lived readings); ${data.n_as_lived} as-lived nightly prints accumulate from 2026-07-21. Zones: <20 LOW · <40 MODERATE · <60 ELEVATED (50% deploy) · <80 HIGH (25%) · 80+ EXTREME (0%).`}>
+    <Card title="PPI History" sub={`Daily Pullback Pressure Index (stress readout) with its historical band reference. ${PPI_VERDICT} ${data.n_reconstructed} rows are RECONSTRUCTED (current formula applied to historical inputs — for testing, not as-lived readings); ${data.n_as_lived} as-lived nightly prints accumulate from 2026-07-21. Zones: <20 LOW · <40 MODERATE · <60 ELEVATED (band 50%) · <80 HIGH (25%) · 80+ EXTREME (0%) — bands are the study’s historical exposure mapping, not advice.`}>
       <div className="mb-1 flex gap-1">
         {RANGES.map((r) => (
           <button key={r.key} onClick={() => setRange(r.key)}
@@ -69,7 +71,7 @@ export default function PpiHistory() {
             contentStyle={{ background: SURFACE.raised, border: `1px solid ${SURFACE.active}`, fontSize: 12 }}
             formatter={(v: number, n: string, item: any) => {
               if (n === "score") return [`${v} (${item?.payload?.level}${item?.payload?.source === "reconstructed" ? " · reconstructed" : ""})`, "PPI"];
-              return [`${v}%`, "suggested deployment"];
+              return [`${v}%`, "band reference (historical, not advice)"];
             }}
           />
           <Line type="monotone" dataKey="score" stroke={SEM.warn} dot={false} strokeWidth={1.8} />
