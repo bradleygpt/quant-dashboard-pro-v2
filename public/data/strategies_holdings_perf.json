@@ -49,7 +49,7 @@
      "name": null,
      "daily": -1.7,
      "rebalance": 11.5,
-     "alltime": 101.4
+     "alltime": 89.3
     },
     {
      "ticker": "MRVL",
@@ -63,7 +63,7 @@
      "name": null,
      "daily": 1.2,
      "rebalance": 6.5,
-     "alltime": 12.7
+     "alltime": -3.9
     }
    ]
   },
@@ -74,6 +74,13 @@
    "entry": "2026-06-16",
    "book_type": "paper",
    "holdings": [
+    {
+     "ticker": "BKNG",
+     "name": null,
+     "daily": -1.6,
+     "rebalance": 3.4,
+     "alltime": 3.4
+    },
     {
      "ticker": "EIX",
      "name": null,
@@ -86,14 +93,7 @@
      "name": null,
      "daily": -1.8,
      "rebalance": 2.0,
-     "alltime": -23.6
-    },
-    {
-     "ticker": "FISV",
-     "name": null,
-     "daily": -2.1,
-     "rebalance": 1.6,
-     "alltime": 1.6
+     "alltime": -15.6
     }
    ]
   },
@@ -109,21 +109,21 @@
      "name": null,
      "daily": -2.1,
      "rebalance": -8.5,
-     "alltime": -25.0
-    },
-    {
-     "ticker": "TPR",
-     "name": null,
-     "daily": -1.9,
-     "rebalance": 9.7,
-     "alltime": -11.5
+     "alltime": 513.6
     },
     {
      "ticker": "DECK",
      "name": null,
      "daily": -2.3,
      "rebalance": 13.8,
-     "alltime": 13.8
+     "alltime": 6.0
+    },
+    {
+     "ticker": "TPR",
+     "name": null,
+     "daily": -1.9,
+     "rebalance": 9.7,
+     "alltime": -17.9
     }
    ]
   },
@@ -142,18 +142,18 @@
      "alltime": -43.4
     },
     {
-     "ticker": "INBX",
-     "name": null,
-     "daily": -1.9,
-     "rebalance": -6.1,
-     "alltime": 15.1
-    },
-    {
      "ticker": "MU",
      "name": null,
      "daily": -0.5,
      "rebalance": -16.8,
      "alltime": -16.8
+    },
+    {
+     "ticker": "INBX",
+     "name": null,
+     "daily": -1.9,
+     "rebalance": -6.1,
+     "alltime": 15.1
     },
     {
      "ticker": "VIAV",
@@ -163,11 +163,11 @@
      "alltime": -23.8
     },
     {
-     "ticker": "IREN",
+     "ticker": "WDC",
      "name": null,
-     "daily": -3.5,
-     "rebalance": -43.2,
-     "alltime": -36.4
+     "daily": 2.2,
+     "rebalance": -29.9,
+     "alltime": 122.1
     }
    ]
   }
