@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-25T06:47:22"
+    "at": "2026-07-25T16:38:04"
   },
   "engines": {
     "binary": {
@@ -14,7 +14,7 @@
     }
   },
   "ppi": {
-    "score": 34.1,
+    "score": 33.3,
     "level": "MODERATE"
   },
   "c78q": {
