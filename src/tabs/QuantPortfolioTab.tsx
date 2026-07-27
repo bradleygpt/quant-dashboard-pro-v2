@@ -34,6 +34,11 @@ interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_po
 // (3-period × preset literals) is GONE (audit §1.4): per-preset full-period CAGRs now
 // come from meta.presets (baked), and the period splits are recomputed client-side
 // from the shipped quant_backtest.json curve — every displayed number traces to data.
+// SIGNED FORMATTING (2026-07-27). Several metrics hardcoded a "+" prefix AND a green
+// class, so a negative alpha rendered as "+-9.7%" in green — a losing number typeset as
+// a win. Sign and colour must both derive from the value.
+const sgn = (v: number, dp = 1) => `${v >= 0 ? "+" : ""}${v.toFixed(dp)}%`;
+const sgnCls = (v: number) => (v >= 0 ? "text-pos" : "text-neg");
 // The old 15y/5y PER-PRESET cells had no baked source and are not displayed anymore.
 const PRESET_ROWS: { key: string; color: string }[] = [
   { key: "m_heavy", color: SEM.pos },
@@ -192,8 +197,8 @@ export default function QuantPortfolioTab() {
                 {(periodCagrs ?? []).map((r) => (
                   <tr key={r.label} className="border-t border-line-faint">
                     <td className="px-3 py-1.5 font-medium" style={{ color: r.biased ? alpha(PAPER, 0.85) : INK.ink2 }}>{r.biased ? "⚠ " : ""}{r.label}{r.biased ? " · biased" : ""}</td>
-                    <td className="px-3 py-1.5 font-semibold" style={{ color: r.biased ? INK.dim : SEM.pos }}>+{r.q.toFixed(1)}%</td>
-                    <td className="px-3 py-1.5 text-mute">{r.s != null ? `+${r.s.toFixed(1)}%` : "—"}</td>
+                    <td className="px-3 py-1.5 font-semibold" style={{ color: r.biased ? INK.dim : (r.q >= 0 ? SEM.pos : SEM.neg) }}>{sgn(r.q)}</td>
+                    <td className="px-3 py-1.5 text-mute">{r.s != null ? sgn(r.s) : "—"}</td>
                   </tr>
                 ))}
                 {!periodCagrs?.length && <tr><td className="px-3 py-2 text-xs text-mute" colSpan={3}>Backtest curve unavailable — period splits not shown.</td></tr>}
@@ -216,10 +221,14 @@ export default function QuantPortfolioTab() {
         <Card title={`📈 Validated TOP-25 Backtest (${robust.startYear}+) — robust dataset, vs Buy-&-Hold SPY`}
           sub={`Cumulative growth of $100 from ${robust.startYear}. This is the survivorship-clean window — point-in-time EDGAR coverage is thin and biased upward pre-2010, so that stretch is excluded from the headline and shown separately below. Same TOP-25 equal-weight quarterly strategy.`}>
           <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Metric label={`TOP-25 (${robust.startYear}+)`} value={<span className="text-pos">+{robust.qTotal.toFixed(0)}%</span>} hint={`$100 → $${(100 + robust.qTotal).toLocaleString(undefined, { maximumFractionDigits: 0 })} · ${robust.qCagr.toFixed(1)}% CAGR`} />
-            <Metric label="SPY (buy & hold)" value={robust.sTotal != null ? `+${robust.sTotal.toFixed(0)}%` : "—"} hint={robust.sCagr != null ? `${robust.sCagr.toFixed(1)}% CAGR` : undefined} />
-            <Metric label="Alpha (CAGR)" value={robust.alpha != null ? <span className="text-pos">+{robust.alpha.toFixed(1)}%</span> : "—"} hint="vs buy & hold" />
-            <Metric label="Win Rate" value={h?.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"} hint="full-period (1996+)" />
+            <Metric label={`TOP-25 (${robust.startYear}+)`} value={<span className={sgnCls(robust.qTotal)}>{sgn(robust.qTotal, 0)}</span>} hint={`$100 → $${(100 + robust.qTotal).toLocaleString(undefined, { maximumFractionDigits: 0 })} · ${robust.qCagr.toFixed(1)}% CAGR`} />
+            <Metric label="SPY (buy & hold)" value={robust.sTotal != null ? sgn(robust.sTotal, 0) : "—"} hint={robust.sCagr != null ? `${robust.sCagr.toFixed(1)}% CAGR` : undefined} />
+            <Metric label="Alpha (CAGR)" value={robust.alpha != null ? <span className={sgnCls(robust.alpha)}>{sgn(robust.alpha)}</span> : "—"} hint="vs buy & hold" />
+            {/* The hint used to read "full-period (1996+)" inside a card scoped to the robust
+                window, pairing a 2011+ headline with a 1996+ win rate. The rate is computed
+                over whatever span the source actually covers, so it names that span. */}
+            <Metric label="Win Rate" value={h?.win_rate_pct != null ? `${h.win_rate_pct.toFixed(1)}%` : "—"}
+                    hint={bt?.populated_range ? `over ${bt.populated_range[0].slice(0, 7)} – ${bt.populated_range[1].slice(0, 7)}` : "source span"} />
           </div>
           <ResponsiveContainer width="100%" height={340}>
             <LineChart data={robust.curve} margin={{ top: 5, right: 12, bottom: 0, left: 4 }}>
