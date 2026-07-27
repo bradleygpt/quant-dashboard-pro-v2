@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-07-21",
+  "generated_at": "2026-07-27",
   "model": "qwen2.5:7b",
-  "summary": "The market currently exhibits a cautiously optimistic posture with a slight risk-on bias, as indicated by the 2% of stocks in the Buy tier and strong sectors like Utilities and Energy. However, valuations are modestly compressed, given the median fair-value premium is -1.2%, suggesting some caution despite momentum leaders in semiconductors and technology. Weaker sectors such as Financial Services and Healthcare indicate a rotation towards more defensive plays, hinting at potential outperformance from stable utilities and energy stocks.",
+  "summary": "The market exhibits a cautiously optimistic tone with a slight risk-on bias, as indicated by the modest 2% of stocks in the Buy tier and positive median fair-value premium. Strength is concentrated in sectors like Utilities and Communication Services, while Healthcare, Technology, and Financial Services lag behind, suggesting a rotation towards more defensive and stable sectors.",
   "stats": {
-    "n": 1287,
+    "n": 1289,
     "buy_tier_pct": 2,
     "rating_dist": {
       "Strong Buy+": 4,
       "Strong Buy": 17,
       "Buy": 4,
-      "Hold": 1137,
-      "Sell": 121,
-      "Strong Sell": 4
+      "Hold": 1138,
+      "Sell": 120,
+      "Strong Sell": 6
     },
-    "median_fv_premium_pct": -1.2,
+    "median_fv_premium_pct": -1.6,
     "strongest_sectors": [
       "Utilities (6.96)",
-      "Energy (6.96)",
+      "Communication Services (6.96)",
       "Basic Materials (6.95)"
     ],
     "weakest_sectors": [
-      "Financial Services (6.92)",
       "Healthcare (6.92)",
-      "Consumer Cyclical (6.92)"
+      "Technology (6.93)",
+      "Financial Services (6.93)"
     ],
     "momentum_leaders": [
       "SNDK",
       "MU",
-      "BE",
       "WDC",
-      "STX"
+      "LITE",
+      "BE"
     ]
   }
 }
