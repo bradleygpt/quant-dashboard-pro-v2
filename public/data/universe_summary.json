@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-07-27",
   "model": "qwen2.5:7b",
-  "summary": "The market exhibits a cautiously optimistic tone with a slight risk-on bias, as indicated by the modest 2% of stocks in the Buy tier and positive median fair-value premium. Strength is concentrated in sectors like Utilities and Communication Services, while Healthcare, Technology, and Financial Services lag behind, suggesting a rotation towards more defensive and stable sectors.",
+  "summary": "The market currently exhibits a cautiously optimistic posture with a slight risk-on bias, as indicated by the modest 2% of stocks in the Buy tier. However, the majority of stocks are trading below their median fair value, suggesting a cautious valuation backdrop. Sectorally, strength is concentrated in Utilities and Communication Services, while Technology and Financial Services lag slightly, hinting at a rotation towards more defensive sectors.",
   "stats": {
     "n": 1289,
     "buy_tier_pct": 2,
