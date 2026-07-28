@@ -64,7 +64,7 @@
       "weight": 0.3333
     }
   ],
-  "next_rebalance_date": "2026-07-01",
+  "next_rebalance_date": "2026-08-01",
   "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance.  [2026-07 rebalance deliberately SKIPPED, not reconstructed \u2014 see `skips`; resumes 2026-08-01. next_rebalance_date intentionally left at 2026-07-01 so the overdue alert stays lit until the 07-31 run.]",
   "generated_at": "2026-06-30T18:03:28",
   "skips": [
@@ -75,7 +75,9 @@
       "decided": "2026-07-23",
       "reason": "The 2026-07-01 first-of-month rebalance was missed. Running the updater after the fact would close the period at the run date's prices (weeks late) and roll to a book held only days before 2026-08-01 \u2014 a spurious rebalance the strategy never specifies. Ruling (A): skip July, resume at the 2026-08-01 rebalance (run the night of 2026-07-31). The book INSW/AKAM/MRVL was held unchanged through July, which the 07-31 close will mark honestly.",
       "resume_rebalance": "2026-08-01",
-      "do_not_reconstruct": true
+      "do_not_reconstruct": true,
+      "gate_advanced_to": "2026-08-01",
+      "gate_note": "next_rebalance_date was left at the SKIPPED period's date; the updater only advances the gate when it RUNS, so a deliberate skip strands it. Advanced to the config-resolved date 2026-07-27."
     }
   ]
 }
