@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-17",
+ "generated_at": "2026-07-24",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-07-24",
+  "computed_for": "2026-08-01",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -139,18 +139,18 @@
     },
     {
      "rank": 18,
-     "ticker": "AFL",
-     "score": 9.583333
-    },
-    {
-     "rank": 19,
      "ticker": "FANG",
      "score": 9.551667
     },
     {
-     "rank": 20,
+     "rank": 19,
      "ticker": "SMCI",
      "score": 9.535
+    },
+    {
+     "rank": 20,
+     "ticker": "AFL",
+     "score": 9.533333
     },
     {
      "rank": 21,
@@ -179,17 +179,17 @@
     }
    ],
    "source": "factor-builder",
-   "signal_as_of": "2026-07-17",
+   "signal_as_of": "2026-07-24",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "MOS",
-     "score": 10.473333
+     "score": 10.49
     },
     {
      "rank": 2,
      "ticker": "EIX",
-     "score": 10.381667
+     "score": 10.415
     },
     {
      "rank": 3,
@@ -199,17 +199,17 @@
     {
      "rank": 4,
      "ticker": "ED",
-     "score": 10.001667
+     "score": 9.974999
     },
     {
      "rank": 5,
-     "ticker": "DECK",
-     "score": 9.858333
+     "ticker": "AAPL",
+     "score": 9.8
     },
     {
      "rank": 6,
      "ticker": "AFL",
-     "score": 9.833333
+     "score": 9.799999
     },
     {
      "rank": 7,
@@ -218,93 +218,93 @@
     },
     {
      "rank": 8,
-     "ticker": "AAPL",
-     "score": 9.766667
+     "ticker": "DECK",
+     "score": 9.738333
     },
     {
      "rank": 9,
-     "ticker": "RL",
-     "score": 9.653334
+     "ticker": "IVZ",
+     "score": 9.7
     },
     {
      "rank": 10,
-     "ticker": "ATO",
-     "score": 9.645
+     "ticker": "SMCI",
+     "score": 9.691666
     },
     {
      "rank": 11,
-     "ticker": "FANG",
-     "score": 9.628334
+     "ticker": "FSLR",
+     "score": 9.641666
     },
     {
      "rank": 12,
-     "ticker": "SMCI",
-     "score": 9.618334
+     "ticker": "FANG",
+     "score": 9.615001
     },
     {
      "rank": 13,
-     "ticker": "COF",
-     "score": 9.616666
+     "ticker": "RL",
+     "score": 9.603333
     },
     {
      "rank": 14,
-     "ticker": "STLD",
-     "score": 9.61
-    },
-    {
-     "rank": 15,
-     "ticker": "TPR",
-     "score": 9.605
-    },
-    {
-     "rank": 16,
      "ticker": "MU",
      "score": 9.6
     },
     {
+     "rank": 15,
+     "ticker": "COF",
+     "score": 9.599999
+    },
+    {
+     "rank": 16,
+     "ticker": "TPR",
+     "score": 9.598333
+    },
+    {
      "rank": 17,
-     "ticker": "FSLR",
-     "score": 9.585
+     "ticker": "ATO",
+     "score": 9.595
     },
     {
      "rank": 18,
-     "ticker": "IVZ",
-     "score": 9.55
+     "ticker": "MCK",
+     "score": 9.566667
     },
     {
      "rank": 19,
-     "ticker": "MCK",
-     "score": 9.533333
+     "ticker": "STLD",
+     "score": 9.533334
     },
     {
      "rank": 20,
-     "ticker": "AEE",
-     "score": 9.525
+     "ticker": "CINF",
+     "score": 9.516666
     },
     {
      "rank": 21,
      "ticker": "BEN",
-     "score": 9.525
+     "score": 9.491666
     },
     {
      "rank": 22,
-     "ticker": "CINF",
-     "score": 9.433333
+     "ticker": "AEE",
+     "score": 9.441667
     },
     {
      "rank": 23,
-     "ticker": "CVNA",
-     "score": 9.416667
-    },
-    {
-     "rank": 24,
      "ticker": "APO",
      "score": 9.391666
     },
     {
-     "rank": 25,
+     "rank": 24,
      "ticker": "FDX",
      "score": 9.383333
+    },
+    {
+     "rank": 25,
+     "ticker": "CVNA",
+     "score": 9.316667
     }
    ],
    "book_type": "paper"
@@ -347,7 +347,7 @@
     },
     {
      "period": "2025-2026",
-     "cagr": 44.3
+     "cagr": 44.0
     }
    ],
    "median": 19.6,
@@ -729,7 +729,7 @@
   },
   {
    "date": "2015-11-30",
-   "equity": 285.1,
+   "equity": 285.2,
    "spy": 161.8,
    "nasdaq": 189.2
   },
@@ -1389,7 +1389,7 @@
   },
   {
    "date": "2025-01-31",
-   "equity": 1142.0,
+   "equity": 1142.1,
    "spy": 469.7,
    "nasdaq": 726.9
   },
@@ -1574,8 +1574,8 @@
   },
   {
    "label": "2026",
-   "strategy": 36.0,
-   "spy": 8.9
+   "strategy": 36.6,
+   "spy": 8.3
   }
  ],
  "holdings": [

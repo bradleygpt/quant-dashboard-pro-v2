@@ -1,5 +1,18 @@
 {
-  "ok": true,
-  "checked_at": "2026-07-30T01:30:05.227012",
-  "alerts": []
+  "ok": false,
+  "checked_at": "2026-08-01T01:30:05.110897",
+  "alerts": [
+    {
+      "kind": "rebalance_lag",
+      "source": "c78q.json",
+      "target_as_of": "2026-07-20",
+      "next_rebalance": "2026-08-01",
+      "note": "next_rebalance arrived but target.as_of never advanced (the June/July condition)"
+    }
+  ],
+  "notify": {
+    "toast": "skipped: BurntToast not installed",
+    "email": "sent to bmhartnett1990@gmail.com",
+    "notified_at": "2026-08-01T01:30:08"
+  }
 }

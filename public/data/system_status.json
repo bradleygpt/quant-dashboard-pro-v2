@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-07-31T21:58:28"
+    "at": "2026-08-01T01:55:18"
   },
   "engines": {
     "binary": {
@@ -31,9 +31,9 @@
       "as_of": "2026-07-20"
     },
     "aristeia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-07-01",
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-07-17",
       "next_rebalance": "2026-08-01",
       "rebalance_model": "calendar_monthly_first",
       "rebalance_model_label": "first of month",
@@ -108,15 +108,23 @@
     }
   },
   "watchdog": {
-    "ok": true,
-    "alerts": [],
-    "checked_at": "2026-07-30T01:30:05.227012"
+    "ok": false,
+    "alerts": [
+      {
+        "kind": "rebalance_lag",
+        "source": "c78q.json",
+        "target_as_of": "2026-07-20",
+        "next_rebalance": "2026-08-01",
+        "note": "next_rebalance arrived but target.as_of never advanced (the June/July condition)"
+      }
+    ],
+    "checked_at": "2026-08-01T01:30:05.110897"
   },
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-07-31",
+    "ppi_as_of": "2026-08-01",
     "ppi_breadth_pct": 59.9,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
