@@ -103,46 +103,46 @@
   },
   "generated_at": "2026-07-31T17:36:39",
   "blob": {
-    "version": "20260731T054807Z",
-    "published_at": "2026-07-31T05:48:09+00:00",
-    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@50ee6e557671c34c678790cede10d5445c646282/data",
-    "commit_sha": "50ee6e557671c34c678790cede10d5445c646282",
+    "version": "20260801T015425Z",
+    "published_at": "2026-08-01T01:54:27+00:00",
+    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@db11263a87ec536c1558231a284c9fef36c8556a/data",
+    "commit_sha": "db11263a87ec536c1558231a284c9fef36c8556a",
     "manifest_key": "_manifest/version_manifest.json",
     "files": {
       "earnings_reviews.json": {
         "key": "earnings_reviews.json",
-        "sha256": "acad207f3f43c069bfa582726d3738ddd3f38c5272fefe559d5d0e0d761e028a",
+        "sha256": "a868570fdad128e423aba5061f84d267f307644d98dd19a3a0a71f657611f7bd",
         "bytes": 6176191,
         "as_of": "2026-07-31"
       },
       "universe_floor0.json": {
         "key": "universe_floor0.json",
-        "sha256": "8d4b71a69b6efbeffa407a05b10cc92d97c59b9b94c0b0d6604182821a00e879",
-        "bytes": 1805603,
+        "sha256": "f52b91342b5db2088c81cba1eb6f9d8e010b9a0fd8f870224c5fdf29e06c5b09",
+        "bytes": 1806691,
         "as_of": "2026-07-31"
       },
       "universe_floor1.json": {
         "key": "universe_floor1.json",
-        "sha256": "eb4c28dc6a81ad02bf19eef3c07a1d74cf5406bcc31f9eb707a820a4492b293c",
-        "bytes": 1713571,
+        "sha256": "4c6571fdb003197a37e0bef0dfd2b357665018509ebbda78bfa202f9095c764f",
+        "bytes": 1713359,
         "as_of": "2026-07-31"
       },
       "universe_floor10.json": {
         "key": "universe_floor10.json",
-        "sha256": "5a570ccfc2762d7da9e797702bdc94e0e7086c4e31d61964bd3cc8d7f2de4a0a",
-        "bytes": 867631,
+        "sha256": "62f76a6f882c6fc24eaaac0034a2a1adcf9f90e6423a99ed585661dc9d4ecb7e",
+        "bytes": 870813,
         "as_of": "2026-07-31"
       },
       "mlpred.json": {
         "key": "mlpred.json",
-        "sha256": "b810a813bfa3eef879cf75119f6b778b3a13fa68a1c0705cff8dedf28db169f4",
-        "bytes": 1436523,
+        "sha256": "4a2873361dc8b4b82bdf3f43074cd77f250a8617f9bc5011dad7b9f87a90be19",
+        "bytes": 88,
         "as_of": "2026-07-31"
       },
       "quarterly.json": {
         "key": "quarterly.json",
-        "sha256": "27355a8c78c6a2b09f999dbc98cfb07ff37153cd3208b0c8e8a1e1ef500d5ca3",
-        "bytes": 4022927,
+        "sha256": "fefc31df429454b81fca8986bf20a084adb6c862899132c83cb250d64faf1dd5",
+        "bytes": 4022528,
         "as_of": "2026-07-31"
       },
       "correlations_cache.json": {
@@ -177,7 +177,7 @@
       },
       "detail": {
         "files": 3345,
-        "bytes": 22111497,
+        "bytes": 21496662,
         "as_of": "2026-07-31"
       },
       "prices": {
