@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-02T07:14:05",
-  "source_commit": "4fd987d",
+  "generated_at": "2026-08-02T16:35:32",
+  "source_commit": "23f64f4",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -18,13 +18,13 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.2
       },
-      "backtest_cagr": 16.48,
+      "backtest_cagr": 16.38,
       "backtest_sharpe": 0.85,
       "backtest_max_dd": -36.37,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-07-26T12:59:34.082316+00:00",
+      "backtest_recomputed_at": "2026-08-02T13:14:42.075810+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "m_heavy": {
@@ -36,13 +36,13 @@
         "Momentum": 0.8,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 26.71,
-      "backtest_sharpe": 1.01,
+      "backtest_cagr": 27.0,
+      "backtest_sharpe": 1.02,
       "backtest_max_dd": -28.98,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-07-26T12:59:34.082316+00:00",
+      "backtest_recomputed_at": "2026-08-02T13:14:42.075810+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "v_heavy": {
@@ -54,13 +54,13 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 17.14,
-      "backtest_sharpe": 0.93,
+      "backtest_cagr": 16.89,
+      "backtest_sharpe": 0.92,
       "backtest_max_dd": -37.32,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-07-26T12:59:34.082316+00:00",
+      "backtest_recomputed_at": "2026-08-02T13:14:42.075810+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "research_vq": {
