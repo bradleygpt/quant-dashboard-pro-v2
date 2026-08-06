@@ -12,8 +12,8 @@
   },
   "inception_date": "2026-06-17",
   "benchmark": "SPY",
-  "spy_entry_adj_close": 739.0560302734375,
-  "spy_entry_date": "2026-06-17",
+  "spy_entry_adj_close": 747.030029296875,
+  "spy_entry_date": "2026-07-31",
   "expected_net_cagr_backtest": "Event-balanced (.25ml/.25fund/.50event). Backtest 30.0%; liquidity-survival 0.96 (edge is tradeable, NOT microcap); worst 2-yr regime +12.7%; maxDD -41%; Sharpe 0.94. Realistic forward expectation ~25-29% after survivorship+concentration. E3/PEAD core confirmed by open-hunt OOS walk-forward (selected every fold). ADV reported per holding for sizing, not exclusion.",
   "display": {
     "engine": "Aristeia",
@@ -29,44 +29,114 @@
     "realistic_forward": "~25-29%",
     "window": "2011-2026"
   },
-  "holdings": [
+  "next_rebalance_date": "2026-09-01",
+  "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance.  [2026-07 rebalance deliberately SKIPPED, not reconstructed \u2014 see `skips`; resumes 2026-08-01. next_rebalance_date intentionally left at 2026-07-01 so the overdue alert stays lit until the 07-31 run.]",
+  "history": [
+    {
+      "closed_on": "2026-06-30",
+      "from_date": "2026-06-17",
+      "book_return_pct": -0.84,
+      "spy_return_pct": 1.04,
+      "relative_pct": -1.89,
+      "holdings": [
+        {
+          "ticker": "INSW",
+          "entry": 81.44999694824219,
+          "exit": 76.58999633789062,
+          "ret_pct": -5.97
+        },
+        {
+          "ticker": "MTZ",
+          "entry": 374.9100036621094,
+          "exit": 416.05999755859375,
+          "ret_pct": 10.98
+        },
+        {
+          "ticker": "AKAM",
+          "entry": 127.8550033569336,
+          "exit": 118.20999908447266,
+          "ret_pct": -7.54
+        }
+      ]
+    },
+    {
+      "closed_on": "2026-07-31",
+      "from_date": "2026-06-30",
+      "book_return_pct": -4.67,
+      "spy_return_pct": 0.03,
+      "relative_pct": -4.71,
+      "holdings": [
+        {
+          "ticker": "INSW",
+          "entry": 76.59,
+          "exit": 96.18000030517578,
+          "ret_pct": 25.58
+        },
+        {
+          "ticker": "AKAM",
+          "entry": 118.21,
+          "exit": 115.18000030517578,
+          "ret_pct": -2.56
+        },
+        {
+          "ticker": "MRVL",
+          "entry": 297.89,
+          "exit": 187.55999755859375,
+          "ret_pct": -37.04
+        }
+      ]
+    }
+  ],
+  "current_holdings": [
+    {
+      "ticker": "TRN",
+      "entry_date": "2026-07-31",
+      "entry_adj_close": 31.24,
+      "adv_usd_m": 28.0,
+      "blend_score": 10.783,
+      "event": 11.56,
+      "fund": 9.27,
+      "ml": 10.74,
+      "weight": 0.3333
+    },
     {
       "ticker": "INSW",
-      "entry_date": "2026-06-17",
-      "entry_adj_close": 81.44999694824219,
-      "adv_usd_m": 41.7,
-      "blend_score": 10.295,
-      "event": 10.76,
-      "fund": 8.09,
-      "ml": 11.56,
+      "entry_date": "2026-07-31",
+      "entry_adj_close": 96.18,
+      "adv_usd_m": 43.2,
+      "blend_score": 10.476,
+      "event": 10.75,
+      "fund": 9.33,
+      "ml": 11.08,
       "weight": 0.3333
     },
     {
-      "ticker": "MTZ",
-      "entry_date": "2026-06-17",
-      "entry_adj_close": 374.9100036621094,
-      "adv_usd_m": 424.9,
-      "blend_score": 9.913,
-      "event": 10.04,
-      "fund": 7.66,
-      "ml": 11.91,
-      "weight": 0.3333
-    },
-    {
-      "ticker": "AKAM",
-      "entry_date": "2026-06-17",
-      "entry_adj_close": 127.8550033569336,
-      "adv_usd_m": 738.0,
-      "blend_score": 9.83,
-      "event": 10.41,
-      "fund": 7.8,
-      "ml": 10.7,
+      "ticker": "TH",
+      "entry_date": "2026-07-31",
+      "entry_adj_close": 15.2,
+      "adv_usd_m": 16.5,
+      "blend_score": 10.334,
+      "event": 10.12,
+      "fund": 9.29,
+      "ml": 11.81,
       "weight": 0.3333
     }
   ],
-  "next_rebalance_date": "2026-08-01",
-  "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance.  [2026-07 rebalance deliberately SKIPPED, not reconstructed \u2014 see `skips`; resumes 2026-08-01. next_rebalance_date intentionally left at 2026-07-01 so the overdue alert stays lit until the 07-31 run.]",
-  "generated_at": "2026-06-30T18:03:28",
+  "pending_rebalance": {
+    "deploy_next_trading_day_after": "2026-07-31",
+    "sell": [
+      "AKAM",
+      "MRVL"
+    ],
+    "buy": [
+      "TRN",
+      "TH"
+    ],
+    "hold": [
+      "INSW"
+    ]
+  },
+  "generated_at": "2026-08-02T15:09:32",
   "skips": [
     {
       "period": "2026-07",
@@ -79,5 +149,6 @@
       "gate_advanced_to": "2026-08-01",
       "gate_note": "next_rebalance_date was left at the SKIPPED period's date; the updater only advances the gate when it RUNS, so a deliberate skip strands it. Advanced to the config-resolved date 2026-07-27."
     }
-  ]
+  ],
+  "gate_note": "gate corrected 2026-08-02: next_gate_after_run originally returned the month-begin after the RUN date (8/01 = the rebalance just prepared, night-before semantics), leaving the gate past-due all month under the schedule validator. Formula now clears the prepared deploy; see ops/paper_track_gate.py."
 }
