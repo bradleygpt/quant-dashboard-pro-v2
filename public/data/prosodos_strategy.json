@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-24",
+ "generated_at": "2026-07-31",
  "engine": "Prosodos",
  "character": "Profitability + Growth",
  "tagline": "Quality at scale \u2014 the highest-profitability names, growth-tilted, concentrated.",
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on an 84-trading-day hold. Its 2026-09-10 expiry fires as a PAPER rebalance (research track continues, no money). Goes live 2026-11-10 alongside Auxo and Pronoia \u2014 post-midterms per the research report \u2014 trading the book selected at the 09-10 rebalance; first live rebalance 2027-01-06.",
-  "computed_for": "2026-08-01",
+  "computed_for": "2026-08-06",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-09-10",
@@ -179,7 +179,7 @@
     }
    ],
    "source": "prosodos-builder",
-   "signal_as_of": "2026-07-24",
+   "signal_as_of": "2026-07-31",
    "signal_top25": [
     {
      "rank": 1,
@@ -194,12 +194,12 @@
     {
      "rank": 3,
      "ticker": "TPR",
-     "score": 11.094999
+     "score": 11.084999
     },
     {
      "rank": 4,
      "ticker": "BKNG",
-     "score": 11.0625
+     "score": 11.049999
     },
     {
      "rank": 5,
@@ -208,13 +208,13 @@
     },
     {
      "rank": 6,
-     "ticker": "APP",
-     "score": 10.7325
+     "ticker": "NVDA",
+     "score": 10.752501
     },
     {
      "rank": 7,
-     "ticker": "NVDA",
-     "score": 10.7275
+     "ticker": "APP",
+     "score": 10.7325
     },
     {
      "rank": 8,
@@ -234,7 +234,7 @@
     {
      "rank": 11,
      "ticker": "MCD",
-     "score": 10.5
+     "score": 10.4875
     },
     {
      "rank": 12,
@@ -244,12 +244,12 @@
     {
      "rank": 13,
      "ticker": "INCY",
-     "score": 10.3875
+     "score": 10.4
     },
     {
      "rank": 14,
      "ticker": "MSFT",
-     "score": 10.37
+     "score": 10.3575
     },
     {
      "rank": 15,
@@ -259,12 +259,12 @@
     {
      "rank": 16,
      "ticker": "RCL",
-     "score": 10.295
+     "score": 10.275
     },
     {
      "rank": 17,
      "ticker": "QCOM",
-     "score": 10.190001
+     "score": 10.2275
     },
     {
      "rank": 18,
@@ -288,23 +288,23 @@
     },
     {
      "rank": 22,
-     "ticker": "MA",
-     "score": 10.110001
-    },
-    {
-     "rank": 23,
      "ticker": "MNST",
      "score": 10.1075
     },
     {
+     "rank": 23,
+     "ticker": "MA",
+     "score": 10.09
+    },
+    {
      "rank": 24,
      "ticker": "CF",
-     "score": 10.072499
+     "score": 10.059999
     },
     {
      "rank": 25,
      "ticker": "EBAY",
-     "score": 10.0625
+     "score": 10.049999
     }
    ],
    "book_type": "paper"
@@ -312,13 +312,13 @@
  ],
  "metrics": {
   "in_sample": {
-   "cagr": 13.5,
-   "sharpe": 0.65,
+   "cagr": 13.8,
+   "sharpe": 0.66,
    "max_dd": -37.6
   },
   "oos": {
-   "cagr": 9.1,
-   "sharpe": 0.46,
+   "cagr": 9.9,
+   "sharpe": 0.49,
    "max_dd": -37.6
   },
   "train": {
@@ -326,11 +326,11 @@
    "sharpe": 0.78,
    "max_dd": -32.8
   },
-  "spy_cagr": 14.0,
-  "nasdaq_cagr": 15.9,
+  "spy_cagr": 13.9,
+  "nasdaq_cagr": 15.6,
   "n_rebalances": 47,
   "annual_turnover_pct": 165,
-  "final_multiple": 7.0
+  "final_multiple": 7.2
  },
  "equity_curve": [
   {
@@ -1448,6 +1448,12 @@
    "equity": 695.1,
    "spy": 751.4,
    "nasdaq": 970.8
+  },
+  {
+   "date": "2026-07-31",
+   "equity": 722.9,
+   "spy": 751.4,
+   "nasdaq": 939.7
   }
  ],
  "yearly": [
@@ -1528,7 +1534,7 @@
   },
   {
    "label": "2026",
-   "strategy": -10.1,
+   "strategy": -6.1,
    "spy": 8.5
   }
  ],
@@ -1916,6 +1922,6 @@
   "Top-3 concentration: high single-name risk. Held 41 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~165%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
   "Valuation pillar de-contaminated with authoritative yfinance splits (2026-06-17). EDGAR-era 2011-2026, point-in-time S&P membership.",
-  "Backtest through 2026-05-07 (panel data limit). OOS column = untouched 2021-2026 holdout."
+  "Backtest through 2026-05-07 (panel data limit). The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective."
  ]
 }

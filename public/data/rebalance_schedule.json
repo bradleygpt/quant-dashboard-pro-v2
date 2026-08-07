@@ -1,5 +1,5 @@
 {
-  "generated_for": "2026-07-23",
+  "generated_for": "2026-08-06",
   "source": "ops/rebalance_schedule.py",
   "note": "COMPUTED, never stored. Each entry carries the model that produced the date and whether that rebalance is paper or live.",
   "retired": [
@@ -15,8 +15,8 @@
       "model_label": "first of month",
       "hold_days": null,
       "anchor": null,
-      "next_rebalance": "2026-08-01",
-      "effective_trading_day": "2026-08-03",
+      "next_rebalance": "2026-09-01",
+      "effective_trading_day": "2026-09-01",
       "book_type": "live",
       "rebalance_book_type": "live",
       "go_live": "2026-05-29",
@@ -24,7 +24,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     },
     "aristeia": {
@@ -33,8 +33,8 @@
       "model_label": "first of month",
       "hold_days": null,
       "anchor": null,
-      "next_rebalance": "2026-08-01",
-      "effective_trading_day": "2026-08-03",
+      "next_rebalance": "2026-09-01",
+      "effective_trading_day": "2026-09-01",
       "book_type": "live",
       "rebalance_book_type": "live",
       "go_live": "2026-07-01",
@@ -42,7 +42,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     },
     "auxo": {
@@ -60,7 +60,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     },
     "pronoia": {
@@ -78,7 +78,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     },
     "prosodos": {
@@ -96,7 +96,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Paper sleeve on an 84-trading-day hold. Its 2026-09-10 expiry fires as a PAPER rebalance (research track continues, no money). Goes live 2026-11-10 alongside Auxo and Pronoia \u2014 post-midterms per the research report \u2014 trading the book selected at the 09-10 rebalance; first live rebalance 2027-01-06.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     },
     "paper_track_event_pead": {
@@ -105,8 +105,8 @@
       "model_label": "first of month",
       "hold_days": null,
       "anchor": null,
-      "next_rebalance": "2026-08-01",
-      "effective_trading_day": "2026-08-03",
+      "next_rebalance": "2026-09-01",
+      "effective_trading_day": "2026-09-01",
       "book_type": "paper",
       "rebalance_book_type": "paper",
       "go_live": null,
@@ -114,7 +114,7 @@
       "never_goes_live": true,
       "gates_execution": true,
       "rationale": "Forward out-of-sample paper track, compared to SPY at each first-of-month rebalance. Research only \u2014 never trades real money.",
-      "computed_for": "2026-07-23",
+      "computed_for": "2026-08-06",
       "source": "ops/rebalance_schedule.py"
     }
   }

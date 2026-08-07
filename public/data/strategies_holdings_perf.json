@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-07-24",
- "as_of": "2026-07-24",
+ "generated_at": "2026-07-31",
+ "as_of": "2026-07-31",
  "periods": [
   "daily",
   "rebalance",
@@ -11,29 +11,36 @@
    "slug": "katalepsis",
    "label": "Katalepsis",
    "color": "#00C805",
-   "entry": "2026-07-20",
+   "entry": "2026-08-03",
    "book_type": "live",
    "holdings": [
     {
-     "ticker": "INTC",
+     "ticker": "TH",
      "name": null,
-     "daily": -7.9,
-     "rebalance": -4.9,
-     "alltime": -4.9
+     "daily": 4.8,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
      "ticker": "LRCX",
      "name": null,
-     "daily": -4.6,
-     "rebalance": -0.5,
-     "alltime": -0.5
+     "daily": -1.6,
+     "rebalance": 0.0,
+     "alltime": 0.0
     },
     {
      "ticker": "MXL",
      "name": null,
-     "daily": -21.5,
-     "rebalance": -4.6,
-     "alltime": -4.6
+     "daily": -0.1,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
+    {
+     "ticker": "PENG",
+     "name": null,
+     "daily": 2.3,
+     "rebalance": 0.0,
+     "alltime": 0.0
     }
    ]
   },
@@ -41,29 +48,29 @@
    "slug": "aristeia",
    "label": "Aristeia",
    "color": "#5BA8FF",
-   "entry": "2026-07-17",
-   "book_type": "paper",
+   "entry": "2026-08-03",
+   "book_type": "live",
    "holdings": [
+    {
+     "ticker": "TRN",
+     "name": null,
+     "daily": -9.0,
+     "rebalance": 0.0,
+     "alltime": -18.4
+    },
+    {
+     "ticker": "TH",
+     "name": null,
+     "daily": 4.8,
+     "rebalance": 0.0,
+     "alltime": 0.0
+    },
     {
      "ticker": "INSW",
      "name": null,
      "daily": 1.0,
-     "rebalance": 6.4,
-     "alltime": 153.4
-    },
-    {
-     "ticker": "AKAM",
-     "name": null,
-     "daily": -1.7,
-     "rebalance": -4.0,
-     "alltime": -0.7
-    },
-    {
-     "ticker": "TRN",
-     "name": null,
-     "daily": 1.7,
-     "rebalance": 2.6,
-     "alltime": -0.9
+     "rebalance": 0.0,
+     "alltime": 219.2
     }
    ]
   },
@@ -77,23 +84,23 @@
     {
      "ticker": "BKNG",
      "name": null,
-     "daily": 2.7,
-     "rebalance": 1.0,
-     "alltime": 1.0
+     "daily": -0.2,
+     "rebalance": 9.8,
+     "alltime": 9.8
     },
     {
      "ticker": "EIX",
      "name": null,
-     "daily": 0.1,
-     "rebalance": 12.0,
-     "alltime": 11.4
+     "daily": -6.8,
+     "rebalance": 3.0,
+     "alltime": 2.5
     },
     {
      "ticker": "MOS",
      "name": null,
-     "daily": 0.1,
-     "rebalance": 2.8,
-     "alltime": -15.0
+     "daily": -2.9,
+     "rebalance": 2.0,
+     "alltime": -15.7
     }
    ]
   },
@@ -107,23 +114,23 @@
     {
      "ticker": "FISV",
      "name": null,
-     "daily": 2.1,
-     "rebalance": -7.8,
-     "alltime": 518.3
+     "daily": -0.2,
+     "rebalance": -2.5,
+     "alltime": 553.7
     },
     {
      "ticker": "DECK",
      "name": null,
-     "daily": -0.2,
-     "rebalance": 2.7,
-     "alltime": -4.4
+     "daily": -2.8,
+     "rebalance": 3.5,
+     "alltime": -3.5
     },
     {
      "ticker": "TPR",
      "name": null,
-     "daily": 2.5,
-     "rebalance": 10.6,
-     "alltime": -17.3
+     "daily": -0.1,
+     "rebalance": 18.2,
+     "alltime": -11.6
     }
    ]
   },
@@ -135,39 +142,39 @@
    "book_type": "paper",
    "holdings": [
     {
-     "ticker": "AAOI",
-     "name": null,
-     "daily": -10.6,
-     "rebalance": -41.4,
-     "alltime": -44.6
-    },
-    {
-     "ticker": "MU",
-     "name": null,
-     "daily": -7.0,
-     "rebalance": -9.8,
-     "alltime": -9.8
-    },
-    {
      "ticker": "INBX",
      "name": null,
-     "daily": -4.1,
-     "rebalance": -12.4,
-     "alltime": 7.4
+     "daily": -3.2,
+     "rebalance": -11.9,
+     "alltime": 8.1
     },
     {
-     "ticker": "VIAV",
+     "ticker": "AAOI",
      "name": null,
-     "daily": -5.5,
-     "rebalance": -21.1,
-     "alltime": -21.1
+     "daily": 4.7,
+     "rebalance": -44.8,
+     "alltime": 12.8
+    },
+    {
+     "ticker": "WDC",
+     "name": null,
+     "daily": 2.2,
+     "rebalance": -20.0,
+     "alltime": 153.6
     },
     {
      "ticker": "IREN",
      "name": null,
-     "daily": -8.6,
-     "rebalance": -37.4,
-     "alltime": -29.9
+     "daily": -3.8,
+     "rebalance": -37.8,
+     "alltime": -30.4
+    },
+    {
+     "ticker": "TER",
+     "name": null,
+     "daily": 0.6,
+     "rebalance": -10.2,
+     "alltime": -10.2
     }
    ]
   }

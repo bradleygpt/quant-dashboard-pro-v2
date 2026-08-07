@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-24",
+ "generated_at": "2026-07-31",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-01",
+  "computed_for": "2026-08-06",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -179,7 +179,7 @@
     }
    ],
    "source": "factor-builder",
-   "signal_as_of": "2026-07-24",
+   "signal_as_of": "2026-07-31",
    "signal_top25": [
     {
      "rank": 1,
@@ -188,123 +188,123 @@
     },
     {
      "rank": 2,
-     "ticker": "EIX",
-     "score": 10.415
+     "ticker": "BKNG",
+     "score": 10.466666
     },
     {
      "rank": 3,
-     "ticker": "BKNG",
-     "score": 10.366667
+     "ticker": "EIX",
+     "score": 10.338332
     },
     {
      "rank": 4,
      "ticker": "ED",
-     "score": 9.974999
+     "score": 9.901667
     },
     {
      "rank": 5,
-     "ticker": "AAPL",
-     "score": 9.8
+     "ticker": "AFL",
+     "score": 9.9
     },
     {
      "rank": 6,
-     "ticker": "AFL",
-     "score": 9.799999
-    },
-    {
-     "rank": 7,
      "ticker": "FISV",
      "score": 9.799999
     },
     {
-     "rank": 8,
+     "rank": 7,
      "ticker": "DECK",
-     "score": 9.738333
+     "score": 9.788333
+    },
+    {
+     "rank": 8,
+     "ticker": "TPR",
+     "score": 9.758333
     },
     {
      "rank": 9,
-     "ticker": "IVZ",
-     "score": 9.7
+     "ticker": "COF",
+     "score": 9.75
     },
     {
      "rank": 10,
      "ticker": "SMCI",
-     "score": 9.691666
+     "score": 9.704999
     },
     {
      "rank": 11,
-     "ticker": "FSLR",
-     "score": 9.641666
+     "ticker": "ATO",
+     "score": 9.684999
     },
     {
      "rank": 12,
-     "ticker": "FANG",
-     "score": 9.615001
+     "ticker": "FSLR",
+     "score": 9.658334
     },
     {
      "rank": 13,
      "ticker": "RL",
-     "score": 9.603333
+     "score": 9.653334
     },
     {
      "rank": 14,
-     "ticker": "MU",
-     "score": 9.6
+     "ticker": "AAPL",
+     "score": 9.650001
     },
     {
      "rank": 15,
-     "ticker": "COF",
-     "score": 9.599999
+     "ticker": "STLD",
+     "score": 9.633333
     },
     {
      "rank": 16,
-     "ticker": "TPR",
-     "score": 9.598333
+     "ticker": "FANG",
+     "score": 9.621667
     },
     {
      "rank": 17,
-     "ticker": "ATO",
-     "score": 9.595
+     "ticker": "IVZ",
+     "score": 9.616667
     },
     {
      "rank": 18,
-     "ticker": "MCK",
-     "score": 9.566667
+     "ticker": "BEN",
+     "score": 9.608333
     },
     {
      "rank": 19,
-     "ticker": "STLD",
-     "score": 9.533334
+     "ticker": "APO",
+     "score": 9.591666
     },
     {
      "rank": 20,
-     "ticker": "CINF",
-     "score": 9.516666
+     "ticker": "MCK",
+     "score": 9.583333
     },
     {
      "rank": 21,
-     "ticker": "BEN",
-     "score": 9.491666
+     "ticker": "MU",
+     "score": 9.566668
     },
     {
      "rank": 22,
      "ticker": "AEE",
-     "score": 9.441667
+     "score": 9.458334
     },
     {
      "rank": 23,
-     "ticker": "APO",
-     "score": 9.391666
+     "ticker": "FDX",
+     "score": 9.416666
     },
     {
      "rank": 24,
-     "ticker": "FDX",
+     "ticker": "CVNA",
      "score": 9.383333
     },
     {
      "rank": 25,
-     "ticker": "CVNA",
-     "score": 9.316667
+     "ticker": "CINF",
+     "score": 9.35
     }
    ],
    "book_type": "paper"
@@ -347,7 +347,7 @@
     },
     {
      "period": "2025-2026",
-     "cagr": 44.0
+     "cagr": 43.2
     }
    ],
    "median": 19.6,
@@ -363,8 +363,8 @@
    "max_dd": -42.9
   },
   "oos": {
-   "cagr": 25.9,
-   "sharpe": 1.04,
+   "cagr": 25.7,
+   "sharpe": 1.03,
    "max_dd": -30.9
   },
   "train": {
@@ -372,11 +372,11 @@
    "sharpe": 0.82,
    "max_dd": -42.9
   },
-  "spy_cagr": 12.1,
-  "nasdaq_cagr": 15.9,
+  "spy_cagr": 12.0,
+  "nasdaq_cagr": 15.6,
   "n_rebalances": 38,
   "annual_turnover_pct": 216,
-  "final_multiple": 20.7
+  "final_multiple": 21.6
  },
  "equity_curve": [
   {
@@ -729,7 +729,7 @@
   },
   {
    "date": "2015-11-30",
-   "equity": 285.2,
+   "equity": 285.1,
    "spy": 161.8,
    "nasdaq": 189.2
   },
@@ -1221,7 +1221,7 @@
   },
   {
    "date": "2022-09-30",
-   "equity": 803.8,
+   "equity": 803.7,
    "spy": 278.8,
    "nasdaq": 391.7
   },
@@ -1389,7 +1389,7 @@
   },
   {
    "date": "2025-01-31",
-   "equity": 1142.1,
+   "equity": 1142.0,
    "spy": 469.7,
    "nasdaq": 726.9
   },
@@ -1494,6 +1494,12 @@
    "equity": 2070.8,
    "spy": 583.1,
    "nasdaq": 970.8
+  },
+  {
+   "date": "2026-07-31",
+   "equity": 2160.9,
+   "spy": 582.4,
+   "nasdaq": 939.7
   }
  ],
  "yearly": [
@@ -1574,8 +1580,8 @@
   },
   {
    "label": "2026",
-   "strategy": 36.6,
-   "spy": 8.3
+   "strategy": 36.4,
+   "spy": 9.4
   }
  ],
  "holdings": [
@@ -1887,6 +1893,7 @@
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
   "Backtested 2011-2026, NOT a forward projection. Walk-forward tests show realized returns ~40% of backtest CAGR; per-2yr regime CAGR ranged 2% to 48% (median 20%).",
+  "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The walk-forward ~40%% figure above is the honest out-of-sample read.",
   "TRUE daily mark-to-market - the -43% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-3 concentration: high single-name risk. Held 65 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~216%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
