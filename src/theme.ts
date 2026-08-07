@@ -94,7 +94,8 @@ export const ENTITY = {
   katalepsis: BRASS.brass,
   aristeia: "#3D8FEF",
   auxo: "#A855F7",
-  prosodos: "#18A67F",
+  prosodos: "#18A67F", // retired 2026-08-07 — hue reserved for historical views
+  statera: "#E0862E",
   pronoia: "#C84D8F",
   axia: "#6B7FE8",     // retired 2026-06-20 — hue reserved for historical views
   horme: "#7E9C34",    // retired
@@ -105,7 +106,7 @@ export type EntitySlug = keyof typeof ENTITY;
 
 /** Canonical adjacency order for multi-entity charts (validated: min adjacent CVD ΔE 13.3). */
 export const ENTITY_ORDER: EntitySlug[] = [
-  "katalepsis", "aristeia", "pronoia", "prosodos", "auxo", "horme", "krasis", "axia",
+  "katalepsis", "aristeia", "pronoia", "statera", "auxo", "prosodos", "horme", "krasis", "axia",
 ];
 
 /** Fixed hue per entity, with a safe fallback for unknown slugs. */

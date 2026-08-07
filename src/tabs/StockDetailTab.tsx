@@ -2,9 +2,6 @@ import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
-import ThesisPanel from "../components/ThesisPanel";
-import MarketsEntry from "../components/MarketsEntry";
-import QuarterlyEarningsCard from "../components/QuarterlyEarningsCard";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
@@ -80,10 +77,6 @@ export default function StockDetailTab() {
   const [quarterlyErr, setQuarterlyErr] = useState(false);
   useEffect(() => { loadDataJSON<Record<string, any[]>>("quarterly.json").then((j) => { if (j) setQuarterly(j); else setQuarterlyErr(true); }); }, []);
   const qhist = ticker && quarterly ? (quarterly[ticker] ?? []) : [];
-  // Seasonal-rebuild guard (B4, S6): quarterly_deep.json is rebuilt manually after each
-  // 10-Q season; if its vintage exceeds ~1 quarter + filing lag, badge loudly.
-  const deepVintage = (quarterly as any)?.deep_generated_at as string | undefined;
-  const deepStale = deepVintage ? (Date.now() - Date.parse(deepVintage)) / 86_400_000 > 100 : false;
 
   // earnings-quality signal (heuristic over the baked review text — #11)
   const [eq, setEq] = useState<Record<string, { quality: string; reason: string }>>({});
@@ -425,17 +418,24 @@ export default function StockDetailTab() {
         </ResponsiveContainer>
       </Card>
 
-      {/* Quarterly earnings — EPS bars + market-cap line, YoY toggle (rework 2026-07-21) */}
-      {qhist.length > 0 || quarterlyErr ? (
-        <div>
-          {deepStale && (
-            <div className="mb-2 inline-block rounded border px-2 py-0.5 text-[11px] font-semibold" style={{ color: SEM.warn, borderColor: SEM.warn }}>
-              STALE — deep quarterly history last rebuilt {deepVintage?.slice(0, 10)}; run seasonal_rebuild.ps1 (post-10-Q-season step)
-            </div>
-          )}
-          <QuarterlyEarningsCard qhist={qhist} quarterlyErr={quarterlyErr} />
-        </div>
-      ) : null}
+      {/* Quarterly earnings & revenue growth (YoY) */}
+      {quarterlyErr && <Unavailable what="Quarterly fundamentals" detail="quarterly.json failed to load — the earnings/revenue growth chart is hidden rather than silently absent." />}
+      {qhist.length > 0 && (
+        <Card title="Quarterly Earnings & Revenue Growth (YoY)" asOfSource="quarterly" sub="From baked quarterly fundamentals. Bars: earnings growth (green ≥0 / red <0); line: revenue growth. A quarter with no year-ago comparison shows a GAP (not 0%) — YoY needs the same quarter one year back. EPS-dollar beat/miss requires a live earnings feed (FINNHUB).">
+          <ResponsiveContainer width="100%" height={220}>
+            {/* YoY growth is null when the year-ago quarter is absent — map null→null so Recharts
+                draws a GAP (missing bar / broken line), never a fabricated 0% (?? 0 was the bug). */}
+            <ComposedChart data={[...qhist].reverse().map((q) => ({ date: (q.date || "").slice(0, 7), eps: q.earningsGrowth != null ? q.earningsGrowth * 100 : null, rev: q.revenueGrowth != null ? q.revenueGrowth * 100 : null }))} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+              <CartesianGrid stroke={SURFACE.raised} vertical={false} />
+              <XAxis dataKey="date" tick={{ fill: INK.mute, fontSize: 11 }} />
+              <YAxis tick={{ fill: INK.mute, fontSize: 11 }} width={44} tickFormatter={(v) => `${v}%`} />
+              <Tooltip {...tooltipProps} formatter={(v: number, n) => [v == null ? "n/a (no year-ago quarter)" : `${v.toFixed(1)}%`, n === "eps" ? "Earnings YoY" : "Revenue YoY"]} />
+              <Bar dataKey="eps">{[...qhist].reverse().map((q, i) => <Cell key={i} fill={q.earningsGrowth == null ? "transparent" : q.earningsGrowth >= 0 ? alpha(SEM.pos, 0.5) : alpha(SEM.neg, 0.45)} />)}</Bar>
+              <Line type="monotone" dataKey="rev" stroke={SEM.warn} dot={false} strokeWidth={1.6} connectNulls={false} />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Card>
+      )}
 
       {/* AI correlation read (#9) — only when correlation data has been generated */}
       {corr && corr[row.ticker] != null && (
@@ -496,7 +496,7 @@ export default function StockDetailTab() {
                   <Tooltip {...tooltipProps} formatter={(v: number) => [fmtMoney(v), "Fair value"]} />
                   <ReferenceLine y={td.fv.current_price} stroke={SEM.neg} strokeDasharray="4 3" label={{ value: `Current ${fmtMoney(td.fv.current_price, 0)}`, fill: SEM.neg, fontSize: 9, position: "insideTopRight" }} />
                   <ReferenceLine y={td.fv.composite_fair_value} stroke={ASSET.eth} strokeDasharray="4 3" label={{ value: `Fair ${fmtMoney(td.fv.composite_fair_value, 0)}`, fill: ASSET.eth, fontSize: 9, position: "insideBottomRight" }} />
-                  <Bar dataKey="fv" fill={ENTITY.prosodos} />
+                  <Bar dataKey="fv" fill={ENTITY.statera} />
                 </BarChart>
               </ResponsiveContainer>
               <table className="mt-2 w-full text-sm">
@@ -556,12 +556,6 @@ export default function StockDetailTab() {
 
       {/* FCF quality / SBC distortion */}
       <FcfQuality ticker={ticker} />
-
-      {/* Investment Thesis (dossier → Claude Code queue → baked render) */}
-      <ThesisPanel ticker={ticker} row={row} rows={rows} td={td} qhist={qhist} />
-
-      {/* Markets Engine entry (anchor-mapped, gate-validated templates; never auto-submits) */}
-      <MarketsEntry ticker={ticker} />
 
       {/* pillar detail */}
       {td && (

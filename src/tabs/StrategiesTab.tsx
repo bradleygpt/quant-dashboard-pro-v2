@@ -14,9 +14,10 @@ type Kind = "quant" | "paper" | "c78q";
 type BookType = "live" | "paper";
 interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string }
 
-// The consolidated portfolio (post-redundancy-audit 2026-06-20): Katalepsis + Aristeia are the two
-// genuinely distinct bets; Auxo + Prosodos are the surviving quant factors; Pronoia (ML 12-month
-// foresight) is the validated, decorrelated 5th (added 2026-06-20). Axia/Krasis/Horme retired.
+// The consolidated portfolio: Katalepsis + Aristeia are the two genuinely distinct bets; Auxo
+// (growth) + Statera (value, added 2026-08-07 from the constrained hunt7 config search) are the
+// quant factors; Pronoia (ML 12-month foresight) is the decorrelated 5th.
+// Retired: Axia, Horme, Krasis (2026-06-20), Prosodos (2026-08-07).
 // LIVE vs PAPER is NOT declared here — it comes from the data layer (system_status.strategies /
 // each strategy JSON's book_type): live = broker-confirmed positions, paper = signal-derived
 // research book. A paper book must never render as live (2026-07-01 truth-in-labeling directive).
@@ -24,7 +25,7 @@ const STRATS: StratDef[] = [
   { key: "katalepsis", slug: "c78q", label: "Katalepsis", factor: "ML posterior · c78q", kind: "c78q" },
   { key: "aristeia", slug: "event_balanced", label: "Aristeia", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia" },
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
-  { key: "prosodos", slug: "prosodos", label: "Prosodos", factor: "Profitability", kind: "quant" },
+  { key: "statera", slug: "statera", label: "Statera", factor: "Value", kind: "quant" },
   { key: "pronoia", slug: "pronoia", label: "Pronoia", factor: "ML 12-month foresight", kind: "quant" },
 ];
 
@@ -181,8 +182,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
         <p className="text-xs text-mute">
           Five strategies run as one pooled book: <span className="text-ink-2">Katalepsis</span> (ML posterior),
           <span className="text-ink-2"> Aristeia</span> (event/PEAD) and <span className="text-ink-2">Pronoia</span> (ML
-          12-month foresight) are the three distinct, decorrelated bets; Auxo and Prosodos are the surviving quant factors.
-          Axia/Krasis/Horme were retired as redundant per the combined-book audit. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
+          12-month foresight) are the three distinct, decorrelated bets; Auxo (growth) and Statera (value) are the quant factors.
+          Axia, Horme, Krasis and Prosodos are retired. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
 
@@ -191,7 +192,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <div className="text-sm font-semibold text-pos">▣ Total basket — all {basket.n} strategies, equal-weight pooled</div>
-              <div className="text-[11px] text-mute">The consolidated book (2011–2026 backtest). Deployable = the same backtest with &gt;10% SPY drawdown periods excluded — a what-if that assumes those periods were sat out. It is NOT a claim that any gauge identifies them in advance; see the PPI verdict on Home.</div>
+              <div className="text-[11px] text-mute">The consolidated book (2011–2026 backtest). Deployable = excluding &gt;10% SPY drawdowns (PPI takes the book to cash there).</div>
             </div>
             <div className="flex flex-wrap gap-5">
               <div><div className="text-[10px] uppercase tracking-wide text-mute">Basket CAGR</div><div className="font-mono text-xl font-bold text-pos">{basket.full.cagr.toFixed(1)}%</div><div className="text-[10px] text-mute">vs SPY {basket.spy_cagr.toFixed(1)}%</div></div>

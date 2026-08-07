@@ -26,7 +26,7 @@ const BASE = `${import.meta.env.BASE_URL}data`;
 type Level = Aggressiveness | "Validated TOP-25";
 const LEVELS: Level[] = ["Validated TOP-25", "Conservative", "Balanced", "Aggressive"];
 const POS_BY_LEVEL: Record<Level, number> = { "Validated TOP-25": 25, Conservative: 30, Balanced: 20, Aggressive: 12 };
-const DONUT = [SEM.link, SEM.pos, ASSET.btc, ENTITY.auxo, SEM.warnHot, SEM.link, SEM.neg, SEM.warn, ENTITY.prosodos, ENTITY.pronoia, SEM.posSoft];
+const DONUT = [SEM.link, SEM.pos, ASSET.btc, ENTITY.auxo, SEM.warnHot, SEM.link, SEM.neg, SEM.warn, ENTITY.statera, ENTITY.pronoia, SEM.posSoft];
 
 interface QBT { ok?: boolean; source_file?: string; n_checkpoints?: number; n_populated?: number; populated_range?: [string, string] | null; date_range?: [string, string] | null; span_years?: number; spy_source?: "buyhold_yahoo_v8" | "overlapping_fallback"; spy_asof?: string | null; strategy_label?: string; caveat?: string | null; source_meta?: string | null; coverage?: { first_date?: string; last_date?: string; min_n?: number; max_n?: number } | null; headline?: { quant_total_pct?: number; spy_total_pct?: number; quant_cagr_pct?: number; spy_cagr_pct?: number; win_rate_pct?: number; n_periods?: number }; curve?: { date: string; quant: number; spy: number | null }[] }
 

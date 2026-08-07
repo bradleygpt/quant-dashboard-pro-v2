@@ -1,77 +1,81 @@
 {
-  "generated_at": "2026-06-26",
-  "model": "qwen2.5:7b",
+  "generated_at": "2026-08-07",
+  "model": "ollama",
   "note": "AI rationale \u2014 fed only the strategy's holdings + their quant characteristics, never invents",
   "strategies": {
     "Katalepsis": {
-      "rationale": "These holdings share a common thread of being technology-focused with some industrial exposure, aligning with Katalepsis\u2019s posterior-ranked conviction book strategy that blends signals to identify high-confidence positions. The mix of strong scores (like MU) and more moderate ones (such as MXL) reflects the strategy's approach to blending different signals for a balanced portfolio.",
+      "rationale": "",
       "holdings": [
-        "MU",
-        "RKLB",
-        "MXL"
+        "TH",
+        "LRCX",
+        "MXL",
+        "PENG"
       ],
       "sector_mix": {
-        "Technology": 2,
-        "Industrials": 1
+        "Industrials": 1,
+        "Technology": 3
       },
       "thesis": "Posterior-ranked conviction book (c78q signal blend)."
     },
     "Aristeia": {
-      "rationale": "These holdings share a common thread of post-earnings-drift performance, indicated by their validated scores (V grade). AKAM, INSW, and MTZ have diverse sector exposures but all exhibit positive composite scores, aligning with Aristeia's focus on event-driven strategies within the BROAD universe.",
+      "rationale": "",
       "holdings": [
-        "AKAM",
-        "INSW",
-        "MTZ"
+        "TRN",
+        "TH",
+        "INSW"
       ],
       "sector_mix": {
-        "Technology": 1,
-        "Energy": 1,
-        "Industrials": 1
+        "Industrials": 2,
+        "Energy": 1
       },
       "thesis": "Event/PEAD-anchored blend (25% ML-prediction / 25% fundamentals / 50% event) over the BROAD universe \u2014 the validated post-earnings-drift core, diluted to stay tradeable."
     },
     "Auxo": {
-      "rationale": "These holdings share a focus on growth potential across different sectors: EIX in Utilities, FISV in Technology, and MOS in Basic Materials. This basket fits Auxo's thesis by prioritizing companies with strong revenue and earnings compounding (high composite scores) while maintaining a light value-anchored approach (moderate to high grades in valuation).",
+      "rationale": "",
       "holdings": [
-        "EIX",
-        "FISV",
-        "MOS"
+        "UVV",
+        "GEO",
+        "SNEX"
       ],
       "sector_mix": {
-        "Utilities": 1,
-        "Technology": 1,
-        "Basic Materials": 1
+        "Consumer Defensive": 1,
+        "Industrials": 1,
+        "Financial Services": 1
       },
       "thesis": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored."
     },
-    "Prosodos": {
-      "rationale": "These holdings share a high margin and return-on-capital profile, aligning with Prosodos\u2019s focus on quality at scale. The diverse sector mix includes top performers in Consumer Cyclical and Technology sectors, while also holding a Utilities stock for balance, supporting the thesis of selecting highest-margin, highest-return-on-capital names across a broad but targeted portfolio.",
+    "Statera": {
+      "rationale": "",
       "holdings": [
-        "DECK",
-        "EIX",
-        "FISV",
-        "MU",
-        "TPR"
+        "PRAA",
+        "HUBG",
+        "MAN",
+        "LNC",
+        "ABR",
+        "HTZ",
+        "JBLU",
+        "DXC"
       ],
       "sector_mix": {
-        "Consumer Cyclical": 2,
-        "Utilities": 1,
-        "Technology": 2
+        "Financial Services": 2,
+        "Industrials": 4,
+        "Real Estate": 1,
+        "Technology": 1
       },
-      "thesis": "Quality at scale - highest-margin, highest-return-on-capital names, held a touch broader (5)."
+      "thesis": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence."
     },
     "Pronoia": {
-      "rationale": "These holdings share a common thread of being in top-5 picks by the model\u2019s year-ahead forecast, with scores ranging from 6.3 to 9.1. This basket fits Pronoia's thesis by focusing on validated, decorrelated sectors\u2014primarily Technology and Financial Services\u2014and holding them for approximately 105 days based on the 12-month expected-return foresight.",
+      "rationale": "",
       "holdings": [
+        "INBX",
+        "AAOI",
         "IREN",
-        "MU",
-        "STX",
-        "VIAV",
-        "VSAT"
+        "INDV",
+        "NG"
       ],
       "sector_mix": {
         "Financial Services": 1,
-        "Technology": 4
+        "Healthcare": 1
       },
       "thesis": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve."
     }

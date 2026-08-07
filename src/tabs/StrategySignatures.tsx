@@ -22,7 +22,7 @@ function bez(x0: number, y0: number, x1: number, y1: number, x2: number, y2: num
   return { x: a * x0 + b * x1 + c * x2 + d * x3, y: a * y0 + b * y1 + c * y2 + d * y3 };
 }
 
-type Motif = "focus" | "ridge" | "living" | "inflow" | "foresight";
+type Motif = "focus" | "ridge" | "living" | "inflow" | "foresight" | "balance"; // balance (Statera): plain area fill, no flourish
 interface Theme {
   key: string; label: string; greek: string; meaning: string;
   accent: string; bright: string; rgb: [number, number, number]; file: string; kind: "c78q" | "quant"; motif: Motif;
@@ -41,7 +41,7 @@ const THEMES: Theme[] = [
   { key: "katalepsis", label: "Katalepsis", greek: "κατάληψις", meaning: "the certain grasp", ...sig("katalepsis"), file: "c78q.json", kind: "c78q", motif: "focus" },
   { key: "aristeia", label: "Aristeia", greek: "ἀριστεία", meaning: "the heroic peak", ...sig("aristeia"), file: "aristeia_strategy.json", kind: "quant", motif: "ridge" },
   { key: "auxo", label: "Auxo", greek: "Αὐξώ", meaning: "growth, increase", ...sig("auxo"), file: "auxo_strategy.json", kind: "quant", motif: "living" },
-  { key: "prosodos", label: "Prosodos", greek: "πρόσοδος", meaning: "the inflow", ...sig("prosodos"), file: "prosodos_strategy.json", kind: "quant", motif: "inflow" },
+  { key: "statera", label: "Statera", greek: "στατήρ", meaning: "the balance", ...sig("statera"), file: "statera_strategy.json", kind: "quant", motif: "balance" },
   { key: "pronoia", label: "Pronoia", greek: "πρόνοια", meaning: "foresight", ...sig("pronoia"), file: "pronoia_strategy.json", kind: "quant", motif: "foresight" },
 ];
 

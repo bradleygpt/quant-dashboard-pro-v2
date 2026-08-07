@@ -354,7 +354,7 @@ const CMP_SERIES = [
   { slug: "katalepsis", label: "Katalepsis", color: ENTITY.katalepsis, file: "c78q.json", kind: "c78q" as const },
   { slug: "aristeia", label: "Aristeia", color: ENTITY.aristeia, file: "aristeia_strategy.json", kind: "strategy" as const },
   { slug: "auxo", label: "Auxo", color: ENTITY.auxo, file: "auxo_strategy.json", kind: "strategy" as const },
-  { slug: "prosodos", label: "Prosodos", color: ENTITY.prosodos, file: "prosodos_strategy.json", kind: "strategy" as const },
+  { slug: "statera", label: "Statera", color: ENTITY.statera, file: "statera_strategy.json", kind: "strategy" as const },
   { slug: "pronoia", label: "Pronoia", color: ENTITY.pronoia, file: "pronoia_strategy.json", kind: "strategy" as const },
 ];
 
