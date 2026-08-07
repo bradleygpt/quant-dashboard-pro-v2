@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-08-06T21:13:06"
+    "at": "2026-08-07T01:23:05"
   },
   "engines": {
     "binary": {
@@ -14,15 +14,15 @@
     }
   },
   "ppi": {
-    "score": 27.7,
+    "score": 29.9,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-08-01",
+    "nextRebalance": "2026-09-01",
     "rebalanceModel": "calendar_monthly_first",
     "rebalanceBookType": "live",
-    "effectiveTradingDay": "2026-08-03"
+    "effectiveTradingDay": "2026-09-01"
   },
   "strategies": {
     "katalepsis": {
@@ -34,7 +34,7 @@
       "book_type": "live",
       "status": "deployed",
       "as_of": "2026-08-03",
-      "next_rebalance": "2026-08-01",
+      "next_rebalance": "2026-09-01",
       "rebalance_model": "calendar_monthly_first",
       "rebalance_model_label": "first of month",
       "rebalance_book_type": "live",
@@ -108,27 +108,16 @@
     }
   },
   "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "schedule_drift",
-        "layer": "web",
-        "source": "aristeia_strategy.json",
-        "sleeve": "aristeia",
-        "stored": "2026-08-01",
-        "config_derived": "2026-09-01",
-        "model": "calendar_monthly_first",
-        "note": "artifact disagrees with ops/rebalance_schedule.py -- rebuild, do not hand-edit"
-      }
-    ],
-    "checked_at": "2026-08-06T19:00:06.954476"
+    "ok": true,
+    "alerts": [],
+    "checked_at": "2026-08-06T21:14:06.779867"
   },
   "market": {
     "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-08-06",
-    "ppi_breadth_pct": 70.6,
+    "ppi_as_of": "2026-08-07",
+    "ppi_breadth_pct": 68.5,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
