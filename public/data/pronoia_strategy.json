@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-07",
+  "computed_for": "2026-08-08",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -76,7 +76,7 @@
     {
      "rank": 5,
      "ticker": "NG",
-     "score": 0.227645
+     "score": 0.224132
     },
     {
      "rank": 6,
@@ -229,18 +229,18 @@
     },
     {
      "rank": 10,
-     "ticker": "NG",
-     "score": 0.227645
-    },
-    {
-     "rank": 11,
      "ticker": "MKSI",
      "score": 0.226484
     },
     {
-     "rank": 12,
+     "rank": 11,
      "ticker": "TD",
      "score": 0.225665
+    },
+    {
+     "rank": 12,
+     "ticker": "NG",
+     "score": 0.224132
     },
     {
      "rank": 13,
@@ -1973,6 +1973,12 @@
   "Validated edge: top-5 monthly excess +1.0%%/mo, t 2.50 (SIGNIFICANT, persists/strengthens recently) \u2014 unlike the 1-month prediction, which is noise. Broad rank-IC is still ~0 (candidate-grade); the edge lives in the extreme top names.",
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
   "TRADEABLE: low quarterly turnover (~135%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
-  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (94 distinct names rotated)."
- ]
+  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (94 distinct names rotated).",
+  "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
+ ],
+ "pit_freeze": {
+  "frozen_at": "2026-07-31",
+  "snapshot": "pronoia_frozen.json",
+  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
+ }
 }

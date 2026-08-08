@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day.",
-  "computed_for": "2026-08-07",
+  "computed_for": "2026-08-08",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -607,112 +607,112 @@
     {
      "rank": 1,
      "ticker": "INSW",
-     "score": 10.829883
+     "score": 10.827114
     },
     {
      "rank": 2,
      "ticker": "AKAM",
-     "score": 10.2481
+     "score": 10.235923
     },
     {
      "rank": 3,
      "ticker": "TRN",
-     "score": 9.667373
+     "score": 9.666819
     },
     {
      "rank": 4,
      "ticker": "ENVA",
-     "score": 9.659786
+     "score": 9.656466
     },
     {
      "rank": 5,
      "ticker": "AMAT",
-     "score": 9.630547
+     "score": 9.622244
     },
     {
      "rank": 6,
      "ticker": "BEN",
-     "score": 9.569139
+     "score": 9.565266
     },
     {
      "rank": 7,
      "ticker": "MRVL",
-     "score": 9.558736
+     "score": 9.554861
     },
     {
      "rank": 8,
      "ticker": "POWL",
-     "score": 9.546578
+     "score": 9.549346
     },
     {
      "rank": 9,
      "ticker": "TH",
-     "score": 9.540579
+     "score": 9.538918
     },
     {
      "rank": 10,
      "ticker": "IVZ",
-     "score": 9.494507
+     "score": 9.481222
     },
     {
      "rank": 11,
-     "ticker": "AEO",
-     "score": 9.415418
+     "ticker": "BMNR",
+     "score": 9.409612
     },
     {
      "rank": 12,
-     "ticker": "BMNR",
-     "score": 9.412933
+     "ticker": "AEO",
+     "score": 9.400473
     },
     {
      "rank": 13,
      "ticker": "DVA",
-     "score": 9.383432
+     "score": 9.380111
     },
     {
      "rank": 14,
      "ticker": "MTZ",
-     "score": 9.365617
+     "score": 9.357867
     },
     {
      "rank": 15,
      "ticker": "SNEX",
-     "score": 9.295288
+     "score": 9.293074
     },
     {
      "rank": 16,
-     "ticker": "JEF",
-     "score": 9.217751
+     "ticker": "ECPG",
+     "score": 9.198029
     },
     {
      "rank": 17,
-     "ticker": "ECPG",
-     "score": 9.200796
-    },
-    {
-     "rank": 18,
      "ticker": "INTC",
      "score": 9.181255
     },
     {
-     "rank": 19,
+     "rank": 18,
      "ticker": "VCTR",
-     "score": 9.177792
+     "score": 9.178899
+    },
+    {
+     "rank": 19,
+     "ticker": "JEF",
+     "score": 9.152987
     },
     {
      "rank": 20,
      "ticker": "UCTT",
-     "score": 9.136406
+     "score": 9.12921
     },
     {
      "rank": 21,
-     "ticker": "UTHR",
-     "score": 9.115789
+     "ticker": "STEL",
+     "score": 9.107067
     },
     {
      "rank": 22,
-     "ticker": "STEL",
-     "score": 9.108728
+     "ticker": "UTHR",
+     "score": 9.104717
     },
     {
      "rank": 23,
@@ -722,12 +722,12 @@
     {
      "rank": 24,
      "ticker": "PDFS",
-     "score": 9.081066
+     "score": 9.079405
     },
     {
      "rank": 25,
      "ticker": "NBIX",
-     "score": 9.075788
+     "score": 9.078003
     }
    ],
    "book_type": "paper",
@@ -736,77 +736,77 @@
     {
      "rank": 1,
      "ticker": "INSW",
-     "score": 10.838243
+     "score": 10.840456
     },
     {
      "rank": 2,
      "ticker": "AKAM",
-     "score": 9.958958
+     "score": 9.959511
     },
     {
      "rank": 3,
      "ticker": "ENVA",
-     "score": 9.767794
+     "score": 9.764475
     },
     {
      "rank": 4,
      "ticker": "TRN",
-     "score": 9.747963
+     "score": 9.748516
     },
     {
      "rank": 5,
      "ticker": "AMAT",
-     "score": 9.691635
+     "score": 9.689976
     },
     {
      "rank": 6,
      "ticker": "BEN",
-     "score": 9.683981
+     "score": 9.681768
     },
     {
      "rank": 7,
      "ticker": "DVA",
-     "score": 9.563992
+     "score": 9.564545
     },
     {
      "rank": 8,
      "ticker": "TH",
-     "score": 9.544563
+     "score": 9.537373
     },
     {
      "rank": 9,
      "ticker": "POWL",
-     "score": 9.50754
+     "score": 9.50588
     },
     {
      "rank": 10,
      "ticker": "VCTR",
-     "score": 9.464561
+     "score": 9.454605
     },
     {
      "rank": 11,
      "ticker": "ESI",
-     "score": 9.444763
+     "score": 9.44421
     },
     {
      "rank": 12,
-     "ticker": "MRVL",
-     "score": 9.416409
+     "ticker": "ECPG",
+     "score": 9.419029
     },
     {
      "rank": 13,
-     "ticker": "ECPG",
-     "score": 9.416264
+     "ticker": "MRVL",
+     "score": 9.415855
     },
     {
      "rank": 14,
      "ticker": "MTZ",
-     "score": 9.32935
+     "score": 9.327691
     },
     {
      "rank": 15,
      "ticker": "SNEX",
-     "score": 9.310305
+     "score": 9.307539
     },
     {
      "rank": 16,
@@ -816,47 +816,47 @@
     {
      "rank": 17,
      "ticker": "UCTT",
-     "score": 9.189356
+     "score": 9.191015
     },
     {
      "rank": 18,
      "ticker": "NHC",
-     "score": 9.183691
+     "score": 9.182585
     },
     {
      "rank": 19,
      "ticker": "WRLD",
-     "score": 9.178049
+     "score": 9.179155
     },
     {
      "rank": 20,
-     "ticker": "JEF",
-     "score": 9.166396
+     "ticker": "INTC",
+     "score": 9.138989
     },
     {
      "rank": 21,
-     "ticker": "INTC",
-     "score": 9.137883
+     "ticker": "NBIX",
+     "score": 9.124496
     },
     {
      "rank": 22,
-     "ticker": "NBIX",
-     "score": 9.121178
+     "ticker": "STEL",
+     "score": 9.088188
     },
     {
      "rank": 23,
-     "ticker": "STEL",
-     "score": 9.089294
+     "ticker": "UTHR",
+     "score": 9.066957
     },
     {
      "rank": 24,
      "ticker": "ALGT",
-     "score": 9.068161
+     "score": 9.055992
     },
     {
      "rank": 25,
-     "ticker": "UTHR",
-     "score": 9.066957
+     "ticker": "CORT",
+     "score": 9.03814
     }
    ],
    "source": "aristeia-builder",
@@ -3667,6 +3667,12 @@
   "E3/PEAD is the validated core: real post-earnings drift (survives zeroing announcement-window days), entered 3 days AFTER the filing \u2014 reacts to earnings, does not predict them.",
   "Liquidity-survival 0.96 at a $5M-ADV lens \u2014 the edge is tradeable, not a microcap artifact (unlike the .7-event tilt it replaced).",
   "TRUE daily mark-to-market: the -52% drawdown is the real intra-period low. Top-3 concentration = high single-name risk (128 distinct names rotated over the backtest).",
-  "Frictionless backtest: ignores ~613%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01."
- ]
+  "Frictionless backtest: ignores ~613%/yr turnover cost, slippage, tax. LIVE forward paper-track (separate, vs SPY) begins 2026-07-01.",
+  "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
+ ],
+ "pit_freeze": {
+  "frozen_at": "2026-07-31",
+  "snapshot": "aristeia_frozen.json",
+  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
+ }
 }
