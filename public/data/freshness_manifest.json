@@ -2,7 +2,7 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-08-08",
+      "as_of": "2026-08-09",
       "forecasters": [
         "Federal Reserve (SEP)",
         "World Bank (GEP)",
@@ -19,125 +19,90 @@
       ],
       "n_live": 3,
       "consumed_by": "Macro Outlook tab (consensus panel + FOMC dot plot)",
-      "check_status": "ok",
-      "written_by_bake": true
+      "check_status": "ok"
     },
     "earnings_reviews": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-08-08",
-      "ppi": "38.3 MODERATE (live c78q PPI, as-of 2026-08-08)",
+      "as_of": "2026-08-09",
+      "ppi": "38.3 MODERATE (live c78q PPI, as-of 2026-08-09)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
-      "check_status": "ok",
-      "written_by_bake": true
+      "check_status": "ok"
     },
     "universe_floor0": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-08",
-      "generated_at": "2026-08-08T16:08:21",
-      "check_status": "ok",
-      "written_by_bake": true
-    },
-    "bubblewatch_index": {
-      "written_by_bake": true
-    },
-    "house_views_freshness": {
-      "written_by_bake": true
-    },
-    "meta": {
-      "written_by_bake": true
-    },
-    "pgi_money_market": {
-      "written_by_bake": true
-    },
-    "risk_radar": {
-      "written_by_bake": true
-    },
-    "theses_index": {
-      "written_by_bake": true
-    },
-    "ticker_anchor_map": {
-      "written_by_bake": true
+      "as_of": "2026-08-09",
+      "generated_at": "2026-08-09T05:39:35",
+      "check_status": "ok"
     }
   },
-  "generated_at": "2026-08-08T16:08:21",
+  "generated_at": "2026-08-09T05:39:35",
   "blob": {
     "version": "20260808T045951Z",
     "published_at": "2026-08-08T04:59:53+00:00",
