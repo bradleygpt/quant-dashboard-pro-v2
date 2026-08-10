@@ -105,32 +105,67 @@
    ]
   },
   {
-   "slug": "prosodos",
-   "label": "Prosodos",
-   "color": "#FBBF24",
-   "entry": "2026-05-15",
+   "slug": "statera",
+   "label": "Statera",
+   "color": "#38BDF8",
+   "entry": "2026-07-17",
    "book_type": "paper",
    "holdings": [
     {
-     "ticker": "FISV",
+     "ticker": "PRAA",
      "name": null,
-     "daily": -0.2,
-     "rebalance": -2.5,
-     "alltime": 553.7
+     "daily": 0.1,
+     "rebalance": -4.1,
+     "alltime": 17.0
     },
     {
-     "ticker": "DECK",
+     "ticker": "HUBG",
      "name": null,
-     "daily": -2.8,
-     "rebalance": 3.5,
-     "alltime": -3.5
+     "daily": 2.5,
+     "rebalance": -9.2,
+     "alltime": 51.3
     },
     {
-     "ticker": "TPR",
+     "ticker": "MAN",
      "name": null,
-     "daily": -0.1,
-     "rebalance": 18.2,
-     "alltime": -11.6
+     "daily": 1.0,
+     "rebalance": 0.2,
+     "alltime": 82.7
+    },
+    {
+     "ticker": "LNC",
+     "name": null,
+     "daily": -0.9,
+     "rebalance": 8.0,
+     "alltime": 3.6
+    },
+    {
+     "ticker": "ABR",
+     "name": null,
+     "daily": 4.6,
+     "rebalance": -3.3,
+     "alltime": -1.0
+    },
+    {
+     "ticker": "HTZ",
+     "name": null,
+     "daily": -4.2,
+     "rebalance": -11.9,
+     "alltime": -36.3
+    },
+    {
+     "ticker": "JBLU",
+     "name": null,
+     "daily": -0.7,
+     "rebalance": 11.3,
+     "alltime": -11.1
+    },
+    {
+     "ticker": "DXC",
+     "name": null,
+     "daily": 0.0,
+     "rebalance": 18.7,
+     "alltime": -2.6
     }
    ]
   },
@@ -142,13 +177,6 @@
    "book_type": "paper",
    "holdings": [
     {
-     "ticker": "INBX",
-     "name": null,
-     "daily": -3.2,
-     "rebalance": -11.9,
-     "alltime": 8.1
-    },
-    {
      "ticker": "AAOI",
      "name": null,
      "daily": 4.7,
@@ -156,18 +184,18 @@
      "alltime": 12.8
     },
     {
-     "ticker": "IREN",
+     "ticker": "INBX",
      "name": null,
-     "daily": -3.8,
-     "rebalance": -37.8,
-     "alltime": -30.4
+     "daily": -3.2,
+     "rebalance": -11.9,
+     "alltime": 8.1
     },
     {
-     "ticker": "INDV",
+     "ticker": "MU",
      "name": null,
-     "daily": -0.5,
-     "rebalance": 5.3,
-     "alltime": 19.0
+     "daily": -5.9,
+     "rebalance": -19.4,
+     "alltime": -19.4
     },
     {
      "ticker": "NG",
@@ -175,6 +203,13 @@
      "daily": -4.0,
      "rebalance": -30.0,
      "alltime": -30.0
+    },
+    {
+     "ticker": "NOK",
+     "name": null,
+     "daily": 0.6,
+     "rebalance": -34.6,
+     "alltime": -34.6
     }
    ]
   }

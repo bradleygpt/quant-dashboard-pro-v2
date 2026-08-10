@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 21-trading-day hold; pure-Valuation top-8 broad (hunt7 constrained config search, 2026-08-06; recorded walk-forward of the selection procedure 0.54x \u2014 hunt8). Replaces retired Prosodos in the 2026-11-10 go-live cohort per Bradley's 2026-08-07 order; paper rebalances continue on the 21-day grid until then.",
-  "computed_for": "2026-08-07",
+  "computed_for": "2026-08-10",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-09-07",
@@ -4029,7 +4029,7 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "UNIVERSE: broad scored panel (changed from PIT S&P membership 2026-08-06, Bradley's call). The panel contains NO delisted names, so this broad backtest is INCLUSION-BIASED upward -- the d10114a diagnostic measured roughly 10-15pts of such bias on the prior system. No liquidity floor is applied yet; that decision is open (register entry 7).",
+  "UNIVERSE: broad scored panel (changed from PIT S&P membership 2026-08-06, Bradley's call). The panel contains NO delisted names, so this broad backtest is INCLUSION-BIASED upward -- the d10114a diagnostic measured roughly 10-15pts of such bias on the prior system. NO liquidity floor, by decision (Bradley, 2026-08-07): measured $5M/$10M median-dollar-volume floors cost 6-10pp CAGR (stage5_output/liquidity_floor_test.csv) and the current books already clear $5M; the sleeve ships floorless, which means small/illiquid names can and do enter the book.",
   "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 5% to 64% (median 30%).",
   "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The recorded walk-forward figures above are the honest out-of-sample read.",
   "TRUE daily mark-to-market - the -34% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
@@ -4038,6 +4038,12 @@
   "Current holdings = PAPER research book (signal-derived, never held at a broker) as of 2026-07-17; next rebalance projected 2026-09-07 (21-day hold).",
   "SELECTION PROVENANCE: config chosen 2026-08-06 by a CONSTRAINED grid search (hunt7) -- admissibility ceilings on holdings overlap and sector concentration derived from the incumbent four-sleeve book -- then ranked by CAGR+Sharpe. Promoted (as Statera) 2026-08-07, Bradley's call, replacing retired Prosodos.",
   "RECORDED WALK-FORWARD of the selection procedure (hunt8): 20.2% CAGR / 0.81 Sharpe / -41.4% maxDD chained 2013-2026 -- 0.54x the in-sample figure. The per-year selection log shows this specific config is the procedure's pick only in 2022-2023: the PROCEDURE is validated, not the config. Read expectations off the walk-forward row, not the backtest row.",
-  "No trading history: paper book from 2026-08-07. Prosodos's history is NOT this sleeve's history."
- ]
+  "No trading history: paper book from 2026-08-07. Prosodos's history is NOT this sleeve's history.",
+  "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
+ ],
+ "pit_freeze": {
+  "frozen_at": "2026-07-31",
+  "snapshot": "statera_frozen.json",
+  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
+ }
 }

@@ -7491,5 +7491,10 @@
     }
   },
   "recompute_note": "Config = top-3 / 1st-of-month (~21-day hold), full universe. target.rows = the ACTUAL last-rebalance book from the append-only holdings ledger (target.as_of links to that rebalance; target.n = its size, e.g. legacy n=8 until the 7/1 cut to n=3) - NOT a recompute, so it never drifts. target.rebalance_history = the full ledger. target.signal_now = top-3 the posterior favors today (drift indicator, NOT held).",
-  "data_caveat": "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded. The failure-bias is bounded but real - not a survivorship-free track record."
+  "data_caveat": "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded. The failure-bias is bounded but real - not a survivorship-free track record.",
+  "pit_freeze": {
+    "frozen_at": "2026-07-02T02:22:14.968430+00:00",
+    "snapshot": "c78q_frozen.json",
+    "policy": "PIT-FREEZE 2026-08-07 (block form): frozen at promotion, never re-derives."
+  }
 }
