@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-10T05:58:38",
-  "source_commit": "0c538fd",
+  "generated_at": "2026-08-10T16:30:23",
+  "source_commit": "65dfa16",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -450,8 +450,8 @@
     },
     "1": {
       "floor": 1,
-      "n_total": 1289,
-      "n_stocks": 1224,
+      "n_total": 1288,
+      "n_stocks": 1223,
       "n_etf": 65,
       "sectors": [
         "",
