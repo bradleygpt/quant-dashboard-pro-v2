@@ -27,6 +27,10 @@ const STRATS: StratDef[] = [
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
   { key: "statera", slug: "statera", label: "Statera", factor: "Value", kind: "quant" },
   { key: "pronoia", slug: "pronoia", label: "Pronoia", factor: "ML 12-month foresight", kind: "quant" },
+  // Kairos (2026-08-11, Bradley): fifth-slot PAPER sleeve — hunt10 event-momentum winner as a
+  // FIXED config (V.1/G.1/P.1/M.2/E.5, N5, H105). Paper-labeled via the data layer (book_type);
+  // pre-registered checkpoints 2026-08-28 + 2026-11-10 (ops/kairos_checkpoints.md).
+  { key: "kairos", slug: "kairos", label: "Kairos", factor: "Event-momentum · EMC", kind: "quant" },
 ];
 
 export interface StratStatus {
@@ -183,6 +187,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
           Five strategies run as one pooled book: <span className="text-ink-2">Katalepsis</span> (ML posterior),
           <span className="text-ink-2"> Aristeia</span> (event/PEAD) and <span className="text-ink-2">Pronoia</span> (ML
           12-month foresight) are the three distinct, decorrelated bets; Auxo (growth) and Statera (value) are the quant factors.
+          <span className="text-ink-2"> Kairos</span> (event-momentum) is a PAPER-ONLY fifth-slot candidate — not in the
+          pooled book; promotion rides pre-registered checkpoints (2026-08-28, then the 2026-11-10 go-live evaluation).
           Axia, Horme, Krasis and Prosodos are retired. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
