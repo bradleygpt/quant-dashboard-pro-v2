@@ -23,7 +23,9 @@ interface StratDef { key: string; slug: string; label: string; factor: string; k
 // research book. A paper book must never render as live (2026-07-01 truth-in-labeling directive).
 const STRATS: StratDef[] = [
   { key: "katalepsis", slug: "c78q", label: "Katalepsis", factor: "ML posterior · c78q", kind: "c78q" },
-  { key: "aristeia", slug: "event_balanced", label: "Aristeia", factor: "Event / PEAD", kind: "paper", backtestSlug: "aristeia" },
+  // Aristeia RETIRED 2026-08-11 (Bradley's order; hunt9/harness-gap: the 4-book beats the
+  // 5-book with it on the production harness). Its realized broker record lives in the
+  // ledger (two live rows) and the pit-frozen artifact — immutable, not re-derived.
   { key: "auxo", slug: "auxo", label: "Auxo", factor: "Growth", kind: "quant" },
   { key: "statera", slug: "statera", label: "Statera", factor: "Value", kind: "quant" },
   { key: "pronoia", slug: "pronoia", label: "Pronoia", factor: "ML 12-month foresight", kind: "quant" },
@@ -184,12 +186,14 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
       <div>
         <h2 className="text-lg font-bold text-white">Strategies — consolidated portfolio</h2>
         <p className="text-xs text-mute">
-          Five strategies run as one pooled book: <span className="text-ink-2">Katalepsis</span> (ML posterior),
-          <span className="text-ink-2"> Aristeia</span> (event/PEAD) and <span className="text-ink-2">Pronoia</span> (ML
-          12-month foresight) are the three distinct, decorrelated bets; Auxo (growth) and Statera (value) are the quant factors.
+          Four strategies run as one pooled book: <span className="text-ink-2">Katalepsis</span> (ML posterior) and
+          <span className="text-ink-2"> Pronoia</span> (ML 12-month foresight) are the distinct, decorrelated bets;
+          Auxo (growth) and Statera (value) are the quant factors.
           <span className="text-ink-2"> Kairos</span> (event-momentum) is a PAPER-ONLY fifth-slot candidate — not in the
           pooled book; promotion rides pre-registered checkpoints (2026-08-28, then the 2026-11-10 go-live evaluation).
-          Axia, Horme, Krasis and Prosodos are retired. Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
+          Axia, Horme, Krasis, Prosodos and Aristeia (retired 2026-08-11 — the 4-book beat the 5-book with it on the
+          production harness; its realized broker record is preserved in the ledger and frozen artifact) are retired.
+          Backtest CAGRs are research records, not forward guarantees. Click a row for the full page.
         </p>
       </div>
 

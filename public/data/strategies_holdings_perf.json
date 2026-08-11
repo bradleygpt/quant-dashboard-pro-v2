@@ -45,36 +45,6 @@
    ]
   },
   {
-   "slug": "aristeia",
-   "label": "Aristeia",
-   "color": "#5BA8FF",
-   "entry": "2026-08-03",
-   "book_type": "live",
-   "holdings": [
-    {
-     "ticker": "TRN",
-     "name": null,
-     "daily": -9.0,
-     "rebalance": 0.0,
-     "alltime": 2.0
-    },
-    {
-     "ticker": "TH",
-     "name": null,
-     "daily": 4.8,
-     "rebalance": 0.0,
-     "alltime": 0.0
-    },
-    {
-     "ticker": "INSW",
-     "name": null,
-     "daily": 1.0,
-     "rebalance": 0.0,
-     "alltime": 174.8
-    }
-   ]
-  },
-  {
    "slug": "auxo",
    "label": "Auxo",
    "color": "#A855F7",
@@ -210,6 +180,50 @@
      "daily": -0.9,
      "rebalance": 23.2,
      "alltime": 23.2
+    }
+   ]
+  },
+  {
+   "slug": "kairos",
+   "label": "Kairos",
+   "color": "#EAB308",
+   "entry": "2026-06-16",
+   "book_type": "paper",
+   "holdings": [
+    {
+     "ticker": "TGTX",
+     "name": null,
+     "daily": -2.8,
+     "rebalance": 2.9,
+     "alltime": -24.9
+    },
+    {
+     "ticker": "CCL",
+     "name": null,
+     "daily": 0.1,
+     "rebalance": -10.0,
+     "alltime": -10.0
+    },
+    {
+     "ticker": "EVRG",
+     "name": null,
+     "daily": -0.3,
+     "rebalance": -1.1,
+     "alltime": 12.2
+    },
+    {
+     "ticker": "INSW",
+     "name": null,
+     "daily": 1.0,
+     "rebalance": 17.3,
+     "alltime": 127.4
+    },
+    {
+     "ticker": "MRVL",
+     "name": null,
+     "daily": 2.3,
+     "rebalance": -32.7,
+     "alltime": -32.7
     }
    ]
   }
