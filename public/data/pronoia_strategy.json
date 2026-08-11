@@ -16,8 +16,8 @@
    "AAOI",
    "INBX",
    "MU",
-   "NG",
-   "NOK"
+   "NOK",
+   "VSAT"
   ],
   "n": 5,
   "book_type": "paper"
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-10",
+  "computed_for": "2026-08-11",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -49,8 +49,8 @@
     "AAOI",
     "INBX",
     "MU",
-    "NG",
-    "NOK"
+    "NOK",
+    "VSAT"
    ],
    "top25": [
     {
@@ -70,18 +70,18 @@
     },
     {
      "rank": 4,
-     "ticker": "NG",
-     "score": 0.997487
-    },
-    {
-     "rank": 5,
      "ticker": "NOK",
      "score": 0.997475
     },
     {
-     "rank": 6,
+     "rank": 5,
      "ticker": "VSAT",
      "score": 0.996633
+    },
+    {
+     "rank": 6,
+     "ticker": "NG",
+     "score": 0.995812
     },
     {
      "rank": 7,
@@ -199,18 +199,18 @@
     },
     {
      "rank": 4,
-     "ticker": "NG",
-     "score": 0.997487
-    },
-    {
-     "rank": 5,
      "ticker": "AAOI",
      "score": 0.997453
     },
     {
-     "rank": 6,
+     "rank": 5,
      "ticker": "INBX",
      "score": 0.996604
+    },
+    {
+     "rank": 6,
+     "ticker": "NG",
+     "score": 0.995812
     },
     {
      "rank": 7,
@@ -1581,7 +1581,7 @@
   },
   {
    "label": "2026",
-   "strategy": 7.7,
+   "strategy": 20.8,
    "spy": 9.4
   }
  ],
@@ -1969,7 +1969,7 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR 1% to 85% (median 32%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR 1% to 85% (median 34%).",
   "Validated edge: top-5 monthly excess +1.0%%/mo, t 2.50 (SIGNIFICANT, persists/strengthens recently) \u2014 unlike the 1-month prediction, which is noise. Broad rank-IC is still ~0 (candidate-grade); the edge lives in the extreme top names.",
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
   "TRADEABLE: low quarterly turnover (~191%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
