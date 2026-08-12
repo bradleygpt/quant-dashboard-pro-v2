@@ -2,7 +2,7 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-08-11",
+      "as_of": "2026-08-12",
       "forecasters": [
         "Federal Reserve (SEP)",
         "World Bank (GEP)",
@@ -23,86 +23,106 @@
     },
     "earnings_reviews": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-08-11",
-      "ppi": "30.2 MODERATE (live c78q PPI, as-of 2026-08-11)",
+      "as_of": "2026-08-12",
+      "ppi": "30.2 MODERATE (live c78q PPI, as-of 2026-08-12)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
     },
     "universe_floor0": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
+      "as_of": "2026-08-12",
+      "generated_at": "2026-08-12T01:01:13",
+      "check_status": "ok"
+    },
+    "detail_timeseries": {
+      "source": "build_detail_timeseries_v3 (fairvalue.py composite, PIT)",
+      "as_of": "2026-08-12",
+      "rows": 1211,
+      "target": 1211,
+      "check_status": "ok"
+    },
+    "regime_timeseries": {
+      "source": "quant-historical regime_classifications.parquet (ML regime classifier)",
       "as_of": "2026-08-11",
-      "generated_at": "2026-08-11T16:36:54",
+      "n_segments": 83,
+      "consumed_by": "RegimeRibbon (strategies hub hero, Katalepsis backtest)",
+      "check_status": "ok"
+    },
+    "paper_track_event_pead": {
+      "source": "producer-stamped (not written by bake)",
+      "as_of": "2026-08-02",
+      "generated_at": "2026-08-02T15:09:32",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-08-11T16:36:54",
+  "generated_at": "2026-08-12T01:01:13",
   "blob": {
     "version": "20260812T050217Z",
     "published_at": "2026-08-12T05:02:24+00:00",

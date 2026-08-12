@@ -42,7 +42,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "PAPER track from 2026-08-11 (hunt10 EMC winner as a FIXED config \u2014 the re-selecting procedure failed the PIT book test and does not ship). Pre-registered checkpoints: 2026-08-28 validation, go-live evaluation 2026-11-10 with the others. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-08-11",
+  "computed_for": "2026-08-12",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -1976,6 +1976,12 @@
   "IN-SAMPLE CONFIG SELECTION, stated plainly: the weights/N/H are the maximum of a 12,240-candidate search over the full 2011-2026 window. Walk-forward of the selection procedure retained 0.59x; expectation ~21%% CAGR / 0.74 Sharpe, NOT the backtest figure.",
   "SURVIVOR BIAS: survivors-only broad panel \u2014 CAGR is an UPPER BOUND (standing rulings; no product surface may imply the picks beat the market).",
   "NO TRANSACTION COSTS in the backtest lineage (matches the hunt5/7/8/10 race convention). Turnover is low (~215%/yr at 105-session holds) so the drag is small, but it is not zero.",
-  "Validated at creation: Control D +17.4pp (z +4.4, 10bps, paired bootstrap); no ML input, so the training-label fence is a no-op for this sleeve. Book test at creation: 5-book 37.1%%/1.53 vs 4-book 36.7%%/1.44 (full window); the PIT-chained variant of the SELECTION PROCEDURE was negative \u2014 one reason this ships as PAPER, not live."
- ]
+  "Validated at creation: Control D +17.4pp (z +4.4, 10bps, paired bootstrap); no ML input, so the training-label fence is a no-op for this sleeve. Book test at creation: 5-book 37.1%%/1.53 vs 4-book 36.7%%/1.44 (full window); the PIT-chained variant of the SELECTION PROCEDURE was negative \u2014 one reason this ships as PAPER, not live.",
+  "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
+ ],
+ "pit_freeze": {
+  "frozen_at": "2026-07-31",
+  "snapshot": "kairos_frozen.json",
+  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
+ }
 }
