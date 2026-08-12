@@ -2,6 +2,7 @@ import { tooltipProps } from "../components/ChartFrame";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "../store";
 import FcfQuality from "../components/FcfQuality";
+import SotdBanner from "../components/SotdBanner";
 import StructuredReview from "../components/StructuredReview";
 import AiNarrative from "../components/AiNarrative";
 import IndexBadges from "../components/IndexBadges";
@@ -261,6 +262,8 @@ export default function StockDetailTab() {
 
   return (
     <div className="space-y-4">
+      {/* Stock of the Day banner — renders only when viewing the day's pick */}
+      <SotdBanner />
       {/* selector */}
       <div className="relative max-w-md">
         <input

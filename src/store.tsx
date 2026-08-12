@@ -1,7 +1,16 @@
-import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback } from "react";
 import type { Floor, Meta, PresetName, Row } from "./lib/types";
-import { loadMeta, loadUniverse } from "./lib/data";
+import { loadDataJSON, loadMeta, loadUniverse } from "./lib/data";
 import { resolveScores } from "./lib/scoring";
+
+// Stock of the Day artifact (fidelity-gated nightly emit; Bradley's ship ruling 2026-08-11)
+export interface SotdPick {
+  ticker: string; consensus: number; n_streams: number;
+  streams: Record<string, number | null>;
+}
+export interface Sotd {
+  product?: string; date: string; pick: SotdPick; runners_up: SotdPick[]; caveats: string[];
+}
 
 export type PresetSel = PresetName | "Custom";
 export interface ViewRow extends Row {
@@ -25,6 +34,7 @@ interface Store {
   goToDetail: (t: string) => void;
   activeTab: string;
   setActiveTab: (t: string) => void;
+  sotd: Sotd | null;
   // persistence
   watchlist: string[];
   toggleWatch: (t: string) => void;
@@ -63,8 +73,27 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
   const [rawRows, setRawRows] = useState<Row[]>([]);
   const [loadingUniverse, setLoading] = useState(true);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<string>("home");
+  const [activeTab, setActiveTabRaw] = useState<string>("home");
   const [watchlist, setWatchlist] = usePersisted<string[]>("qd_watchlist", []);
+  const [sotd, setSotd] = useState<Sotd | null>(null);
+  // DEFAULT LANDING = Stock of the Day detail view (Bradley's ruling 2026-08-11):
+  // on load with NO ticker selected and NO navigation yet, the dashboard opens on the
+  // stock detail view pre-populated with the day's pick. A default, never a lock —
+  // any user navigation before the artifact resolves wins and is never overridden.
+  const navTouched = useRef(false);
+  const setActiveTab = useCallback((t: string) => { navTouched.current = true; setActiveTabRaw(t); }, []);
+  useEffect(() => {
+    let live = true;
+    loadDataJSON<Sotd>("stock_of_the_day.json").then((j) => {
+      if (!live || !j?.pick?.ticker) return;
+      setSotd(j);
+      if (!navTouched.current) {
+        setSelectedTicker((cur) => cur ?? j.pick.ticker);
+        setActiveTabRaw((cur) => (cur === "home" ? "detail" : cur));
+      }
+    });
+    return () => { live = false; };
+  }, []);
 
   useEffect(() => {
     let live = true;
@@ -90,8 +119,8 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
     return { rows: vr, byTicker: map };
   }, [rawRows, preset, customWeights, meta.presets]);
 
-  const selectTicker = useCallback((t: string | null) => setSelectedTicker(t), []);
-  const goToDetail = useCallback((t: string) => { setSelectedTicker(t); setActiveTab("detail"); }, []);
+  const selectTicker = useCallback((t: string | null) => { navTouched.current = true; setSelectedTicker(t); }, []);
+  const goToDetail = useCallback((t: string) => { navTouched.current = true; setSelectedTicker(t); setActiveTabRaw("detail"); }, []);
   const toggleWatch = useCallback((t: string) => {
     setWatchlist(watchlist.includes(t) ? watchlist.filter((x) => x !== t) : [...watchlist, t]);
   }, [watchlist, setWatchlist]);
@@ -99,7 +128,7 @@ export function StoreProvider({ meta, children }: { meta: Meta; children: React.
   const store: Store = {
     meta, floor, setFloor, preset, setPreset, customWeights, setCustomWeights,
     rows, byTicker, loadingUniverse, selectedTicker, selectTicker, goToDetail,
-    activeTab, setActiveTab, watchlist, toggleWatch,
+    activeTab, setActiveTab, sotd, watchlist, toggleWatch,
   };
   return <Ctx.Provider value={store}>{children}</Ctx.Provider>;
 }
