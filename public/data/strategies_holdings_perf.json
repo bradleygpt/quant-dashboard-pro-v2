@@ -175,11 +175,11 @@
      "alltime": -34.6
     },
     {
-     "ticker": "VIAV",
+     "ticker": "NG",
      "name": null,
-     "daily": 5.4,
-     "rebalance": -26.2,
-     "alltime": -26.2
+     "daily": -4.0,
+     "rebalance": -30.0,
+     "alltime": -30.0
     }
    ]
   },
