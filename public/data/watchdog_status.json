@@ -1,5 +1,97 @@
 {
-  "ok": true,
-  "checked_at": "2026-08-11T01:30:05.496292",
-  "alerts": []
+  "ok": false,
+  "checked_at": "2026-08-20T17:40:51.913110",
+  "alerts": [
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/basket_summary.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/kairos_strategy.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/auxo_strategy.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/pronoia_strategy.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "stage5",
+      "source": "stage5_output/statera_strategy.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "web",
+      "source": "strategies_correlation.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "web",
+      "source": "strategies_holdings_perf.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "lapsed_layer",
+      "layer": "web",
+      "source": "meta.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 1.5,
+      "age_days": 5.4
+    },
+    {
+      "kind": "delivery_stall",
+      "source": "web repo public/data",
+      "last_commit": "2026-08-15T08:32:19-04:00",
+      "age_hours": 129.1,
+      "budget_hours": 48
+    },
+    {
+      "kind": "lapsed_heartbeat",
+      "source": "ops/heartbeats/data_publish.json",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7
+    },
+    {
+      "kind": "delivery_stall",
+      "source": "akribeia-data last push",
+      "age_sessions": 4.0,
+      "budget_sessions": 2,
+      "age_days": 6.7,
+      "note": "bulk data repo has not received a push despite changed files"
+    }
+  ],
+  "notify": {
+    "toast": "skipped: BurntToast not installed",
+    "email": "sent to bmhartnett1990@gmail.com",
+    "notified_at": "2026-08-20T17:40:54"
+  }
 }

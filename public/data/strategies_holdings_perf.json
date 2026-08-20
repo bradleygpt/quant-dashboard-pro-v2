@@ -161,6 +161,13 @@
      "alltime": 8.1
     },
     {
+     "ticker": "MU",
+     "name": null,
+     "daily": -5.9,
+     "rebalance": -19.4,
+     "alltime": -19.4
+    },
+    {
      "ticker": "NOK",
      "name": null,
      "daily": 0.6,
@@ -168,18 +175,11 @@
      "alltime": -34.6
     },
     {
-     "ticker": "NG",
+     "ticker": "VIAV",
      "name": null,
-     "daily": -4.0,
-     "rebalance": -30.0,
-     "alltime": -30.0
-    },
-    {
-     "ticker": "MU",
-     "name": null,
-     "daily": -5.9,
-     "rebalance": -19.4,
-     "alltime": -19.4
+     "daily": 5.4,
+     "rebalance": -26.2,
+     "alltime": -26.2
     }
    ]
   },
