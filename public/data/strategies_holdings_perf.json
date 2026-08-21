@@ -168,18 +168,18 @@
      "alltime": -19.4
     },
     {
+     "ticker": "VSAT",
+     "name": null,
+     "daily": -0.9,
+     "rebalance": 23.2,
+     "alltime": 23.2
+    },
+    {
      "ticker": "NOK",
      "name": null,
      "daily": 0.6,
      "rebalance": -34.6,
      "alltime": -34.6
-    },
-    {
-     "ticker": "VIAV",
-     "name": null,
-     "daily": 5.4,
-     "rebalance": -26.2,
-     "alltime": -26.2
     }
    ]
   },
