@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-22T00:50:32",
-  "source_commit": "c251360",
+  "generated_at": "2026-08-22T05:02:30",
+  "source_commit": "0ce1bcc",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -24,7 +24,7 @@
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-16T12:26:58.321529+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "m_heavy": {
@@ -42,7 +42,7 @@
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-16T12:26:58.321529+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "v_heavy": {
@@ -60,7 +60,7 @@
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-16T12:26:58.321529+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "research_vq": {
@@ -471,8 +471,8 @@
     },
     "10": {
       "floor": 10,
-      "n_total": 654,
-      "n_stocks": 599,
+      "n_total": 652,
+      "n_stocks": 597,
       "n_etf": 55,
       "sectors": [
         "Basic Materials",
