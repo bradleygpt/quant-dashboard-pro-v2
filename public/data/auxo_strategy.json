@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-21",
+  "computed_for": "2026-08-22",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",

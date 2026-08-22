@@ -17,7 +17,7 @@
    "INBX",
    "MU",
    "VSAT",
-   "NOK"
+   "NG"
   ],
   "n": 5,
   "book_type": "paper"
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-21",
+  "computed_for": "2026-08-22",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -50,7 +50,7 @@
     "INBX",
     "MU",
     "VSAT",
-    "NOK"
+    "NG"
    ],
    "top25": [
     {
@@ -75,83 +75,83 @@
     },
     {
      "rank": 5,
+     "ticker": "NG",
+     "score": 0.99665
+    },
+    {
+     "rank": 6,
      "ticker": "NOK",
      "score": 0.996633
     },
     {
-     "rank": 6,
-     "ticker": "NG",
-     "score": 0.995812
-    },
-    {
      "rank": 7,
-     "ticker": "IREN",
+     "ticker": "MXL",
      "score": 0.995791
     },
     {
      "rank": 8,
-     "ticker": "MXL",
+     "ticker": "IREN",
      "score": 0.99495
     },
     {
      "rank": 9,
-     "ticker": "ALB",
+     "ticker": "VIAV",
      "score": 0.994108
     },
     {
      "rank": 10,
-     "ticker": "VIAV",
+     "ticker": "ALB",
      "score": 0.993266
     },
     {
      "rank": 11,
-     "ticker": "LRCX",
+     "ticker": "WDC",
      "score": 0.992424
     },
     {
      "rank": 12,
-     "ticker": "COHR",
+     "ticker": "LRCX",
      "score": 0.991583
     },
     {
      "rank": 13,
-     "ticker": "INTC",
+     "ticker": "STX",
      "score": 0.990741
     },
     {
      "rank": 14,
-     "ticker": "WDC",
+     "ticker": "INDV",
      "score": 0.989899
     },
     {
      "rank": 15,
-     "ticker": "POWL",
+     "ticker": "COHR",
      "score": 0.989057
     },
     {
      "rank": 16,
-     "ticker": "FORM",
+     "ticker": "INTC",
      "score": 0.988216
     },
     {
      "rank": 17,
-     "ticker": "NVRI",
+     "ticker": "POWL",
      "score": 0.987374
     },
     {
      "rank": 18,
-     "ticker": "STX",
+     "ticker": "FORM",
      "score": 0.986532
     },
     {
      "rank": 19,
-     "ticker": "INDV",
-     "score": 0.98569
+     "ticker": "APLS",
+     "score": 0.985786
     },
     {
      "rank": 20,
-     "ticker": "APLS",
-     "score": 0.98495
+     "ticker": "NVRI",
+     "score": 0.98569
     },
     {
      "rank": 21,
@@ -160,22 +160,22 @@
     },
     {
      "rank": 22,
-     "ticker": "CLS",
+     "ticker": "PARR",
      "score": 0.984007
     },
     {
      "rank": 23,
-     "ticker": "ADEA",
+     "ticker": "ICHR",
      "score": 0.983165
     },
     {
      "rank": 24,
-     "ticker": "ICHR",
+     "ticker": "TD",
      "score": 0.982323
     },
     {
      "rank": 25,
-     "ticker": "TER",
+     "ticker": "CLS",
      "score": 0.981481
     }
    ],
@@ -204,13 +204,13 @@
     },
     {
      "rank": 5,
-     "ticker": "INBX",
-     "score": 0.996604
+     "ticker": "NG",
+     "score": 0.99665
     },
     {
      "rank": 6,
-     "ticker": "NG",
-     "score": 0.995812
+     "ticker": "INBX",
+     "score": 0.996604
     },
     {
      "rank": 7,
@@ -274,13 +274,13 @@
     },
     {
      "rank": 19,
-     "ticker": "COHR",
-     "score": 0.985569
+     "ticker": "APLS",
+     "score": 0.985786
     },
     {
      "rank": 20,
-     "ticker": "APLS",
-     "score": 0.98495
+     "ticker": "COHR",
+     "score": 0.985569
     },
     {
      "rank": 21,
@@ -1581,7 +1581,7 @@
   },
   {
    "label": "2026",
-   "strategy": 19.5,
+   "strategy": 21.9,
    "spy": 9.4
   }
  ],

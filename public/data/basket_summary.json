@@ -9,12 +9,12 @@
  "n": 4,
  "weighting": "equal-weight pooled",
  "full": {
-  "cagr": 27.6,
-  "sharpe": 1.17,
+  "cagr": 27.7,
+  "sharpe": 1.18,
   "max_dd": -21.4
  },
  "deployable": {
-  "cagr": 26.2,
+  "cagr": 26.4,
   "sharpe": 1.2,
   "max_dd": -25.1
  },

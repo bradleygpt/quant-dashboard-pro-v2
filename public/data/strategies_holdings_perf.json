@@ -175,11 +175,11 @@
      "alltime": 23.2
     },
     {
-     "ticker": "NOK",
+     "ticker": "NG",
      "name": null,
-     "daily": 0.6,
-     "rebalance": -34.6,
-     "alltime": -34.6
+     "daily": -4.0,
+     "rebalance": -30.0,
+     "alltime": -30.0
     }
    ]
   },
