@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-07-31",
- "as_of": "2026-07-31",
+ "generated_at": "2026-08-21",
+ "as_of": "2026-08-21",
  "periods": [
   "daily",
   "rebalance",
@@ -17,28 +17,28 @@
     {
      "ticker": "TH",
      "name": null,
-     "daily": 4.8,
-     "rebalance": 0.0,
-     "alltime": 0.0
+     "daily": 1.2,
+     "rebalance": 13.0,
+     "alltime": 13.0
     },
     {
      "ticker": "LRCX",
      "name": null,
-     "daily": -1.6,
-     "rebalance": 0.0,
-     "alltime": 0.0
+     "daily": 1.1,
+     "rebalance": 6.6,
+     "alltime": 6.6
     },
     {
      "ticker": "MXL",
      "name": null,
-     "daily": -0.1,
-     "rebalance": 0.0,
-     "alltime": 0.0
+     "daily": 2.0,
+     "rebalance": -0.7,
+     "alltime": -0.7
     },
     {
      "ticker": "PENG",
      "name": null,
-     "daily": 2.3,
+     "daily": 2.9,
      "rebalance": 0.0,
      "alltime": 0.0
     }
@@ -55,22 +55,22 @@
      "ticker": "UVV",
      "name": null,
      "daily": -1.1,
-     "rebalance": -0.1,
-     "alltime": -16.3
+     "rebalance": -14.7,
+     "alltime": -28.5
     },
     {
      "ticker": "GEO",
      "name": null,
-     "daily": 0.7,
-     "rebalance": 7.9,
-     "alltime": 7.9
+     "daily": 3.1,
+     "rebalance": 14.3,
+     "alltime": 14.3
     },
     {
-     "ticker": "SNEX",
+     "ticker": "SONO",
      "name": null,
      "daily": -1.4,
-     "rebalance": -12.9,
-     "alltime": 14.8
+     "rebalance": 6.7,
+     "alltime": -23.6
     }
    ]
   },
@@ -78,64 +78,64 @@
    "slug": "statera",
    "label": "Statera",
    "color": "#38BDF8",
-   "entry": "2026-07-17",
+   "entry": "2026-08-17",
    "book_type": "paper",
    "holdings": [
     {
-     "ticker": "PRAA",
+     "ticker": "VYX",
      "name": null,
-     "daily": 0.1,
-     "rebalance": -4.1,
-     "alltime": 17.0
-    },
-    {
-     "ticker": "HUBG",
-     "name": null,
-     "daily": 2.5,
-     "rebalance": -9.2,
-     "alltime": 51.3
-    },
-    {
-     "ticker": "MAN",
-     "name": null,
-     "daily": 1.0,
-     "rebalance": 0.2,
-     "alltime": 82.7
-    },
-    {
-     "ticker": "LNC",
-     "name": null,
-     "daily": -0.9,
-     "rebalance": 8.0,
-     "alltime": 3.6
-    },
-    {
-     "ticker": "ABR",
-     "name": null,
-     "daily": 4.6,
-     "rebalance": -3.3,
-     "alltime": -1.0
+     "daily": 3.4,
+     "rebalance": 2.7,
+     "alltime": 2.7
     },
     {
      "ticker": "HTZ",
      "name": null,
-     "daily": -4.2,
-     "rebalance": -11.9,
-     "alltime": -36.3
+     "daily": 7.7,
+     "rebalance": 4.2,
+     "alltime": -9.5
     },
     {
-     "ticker": "JBLU",
+     "ticker": "ABR",
      "name": null,
-     "daily": -0.7,
-     "rebalance": 11.3,
-     "alltime": -11.1
+     "daily": 0.2,
+     "rebalance": 3.8,
+     "alltime": 6.0
+    },
+    {
+     "ticker": "HUBG",
+     "name": null,
+     "daily": 1.7,
+     "rebalance": 3.2,
+     "alltime": 32.4
+    },
+    {
+     "ticker": "EGBN",
+     "name": null,
+     "daily": 1.5,
+     "rebalance": -1.1,
+     "alltime": 27.4
+    },
+    {
+     "ticker": "LNC",
+     "name": null,
+     "daily": 0.4,
+     "rebalance": -5.6,
+     "alltime": -4.3
+    },
+    {
+     "ticker": "SSTK",
+     "name": null,
+     "daily": -0.6,
+     "rebalance": -1.7,
+     "alltime": -1.7
     },
     {
      "ticker": "DXC",
      "name": null,
-     "daily": 0.0,
-     "rebalance": 18.7,
-     "alltime": -2.6
+     "daily": 0.9,
+     "rebalance": 3.9,
+     "alltime": -6.4
     }
    ]
   },
@@ -149,37 +149,37 @@
     {
      "ticker": "AAOI",
      "name": null,
-     "daily": 4.7,
-     "rebalance": -44.8,
-     "alltime": 12.8
+     "daily": -3.3,
+     "rebalance": -26.9,
+     "alltime": 49.3
     },
     {
      "ticker": "INBX",
      "name": null,
-     "daily": -3.2,
-     "rebalance": -11.9,
-     "alltime": 8.1
+     "daily": 4.5,
+     "rebalance": 11.3,
+     "alltime": 36.5
     },
     {
-     "ticker": "MU",
+     "ticker": "NOK",
      "name": null,
-     "daily": -5.9,
-     "rebalance": -19.4,
-     "alltime": -19.4
-    },
-    {
-     "ticker": "VSAT",
-     "name": null,
-     "daily": -0.9,
-     "rebalance": 23.2,
-     "alltime": 23.2
+     "daily": 0.6,
+     "rebalance": -27.0,
+     "alltime": -27.0
     },
     {
      "ticker": "NG",
      "name": null,
-     "daily": -4.0,
-     "rebalance": -30.0,
-     "alltime": -30.0
+     "daily": 0.7,
+     "rebalance": 4.7,
+     "alltime": 4.7
+    },
+    {
+     "ticker": "TER",
+     "name": null,
+     "daily": -1.9,
+     "rebalance": -8.2,
+     "alltime": -8.2
     }
    ]
   },
@@ -193,37 +193,37 @@
     {
      "ticker": "TGTX",
      "name": null,
-     "daily": -2.8,
-     "rebalance": 2.9,
-     "alltime": -24.9
+     "daily": 7.3,
+     "rebalance": 7.4,
+     "alltime": -21.7
     },
     {
      "ticker": "CCL",
      "name": null,
-     "daily": 0.1,
-     "rebalance": -10.0,
-     "alltime": -10.0
+     "daily": 1.4,
+     "rebalance": -16.3,
+     "alltime": -16.3
     },
     {
      "ticker": "EVRG",
      "name": null,
-     "daily": -0.3,
-     "rebalance": -1.1,
-     "alltime": 12.2
+     "daily": -2.7,
+     "rebalance": -2.8,
+     "alltime": 10.2
     },
     {
      "ticker": "INSW",
      "name": null,
-     "daily": 1.0,
-     "rebalance": 17.3,
-     "alltime": 127.4
+     "daily": 0.2,
+     "rebalance": 21.4,
+     "alltime": 135.3
     },
     {
      "ticker": "MRVL",
      "name": null,
-     "daily": 2.3,
-     "rebalance": -32.7,
-     "alltime": -32.7
+     "daily": -5.6,
+     "rebalance": -14.9,
+     "alltime": -14.9
     }
    ]
   }

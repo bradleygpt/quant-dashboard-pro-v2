@@ -16,25 +16,25 @@
       {
         "rank": 1,
         "ticker": "TH",
-        "posterior_prob": 0.917936,
+        "posterior_prob": 0.933994,
         "n_streams": null
       },
       {
         "rank": 2,
         "ticker": "LRCX",
-        "posterior_prob": 0.879036,
+        "posterior_prob": 0.923742,
         "n_streams": null
       },
       {
         "rank": 3,
         "ticker": "MXL",
-        "posterior_prob": 0.89605,
+        "posterior_prob": 0.92584,
         "n_streams": null
       },
       {
         "rank": 4,
         "ticker": "PENG",
-        "posterior_prob": 0.878769,
+        "posterior_prob": 0.912913,
         "n_streams": null
       }
     ],
@@ -902,6 +902,272 @@
         "source": "manual-seed (broker confirmed 2026-07-20 via A2-addendum handoff: July rebalance COMPLETED - COHR/STX/VIAV/MU/WDC exited; the paused legs from the 7/01 partial rebalance are done; live book = top-3)"
       },
       {
+        "as_of": "2026-07-31",
+        "held_n": 3,
+        "held_tickers": [
+          "TH",
+          "MXL",
+          "LRCX"
+        ],
+        "top25": [
+          {
+            "rank": 1,
+            "ticker": "TH",
+            "score": 0.933994
+          },
+          {
+            "rank": 2,
+            "ticker": "MXL",
+            "score": 0.92584
+          },
+          {
+            "rank": 3,
+            "ticker": "LRCX",
+            "score": 0.923742
+          },
+          {
+            "rank": 4,
+            "ticker": "PENG",
+            "score": 0.912913
+          },
+          {
+            "rank": 5,
+            "ticker": "STX",
+            "score": 0.906907
+          },
+          {
+            "rank": 6,
+            "ticker": "INTC",
+            "score": 0.906573
+          },
+          {
+            "rank": 7,
+            "ticker": "VIAV",
+            "score": 0.905819
+          },
+          {
+            "rank": 8,
+            "ticker": "UCTT",
+            "score": 0.905588
+          },
+          {
+            "rank": 9,
+            "ticker": "KLIC",
+            "score": 0.89187
+          },
+          {
+            "rank": 10,
+            "ticker": "MRVL",
+            "score": 0.886903
+          },
+          {
+            "rank": 11,
+            "ticker": "SNEX",
+            "score": 0.884188
+          },
+          {
+            "rank": 12,
+            "ticker": "MYRG",
+            "score": 0.878547
+          },
+          {
+            "rank": 13,
+            "ticker": "MTRN",
+            "score": 0.87671
+          },
+          {
+            "rank": 14,
+            "ticker": "MU",
+            "score": 0.876346
+          },
+          {
+            "rank": 15,
+            "ticker": "GLW",
+            "score": 0.87633
+          },
+          {
+            "rank": 16,
+            "ticker": "ICHR",
+            "score": 0.875112
+          },
+          {
+            "rank": 17,
+            "ticker": "COHU",
+            "score": 0.873754
+          },
+          {
+            "rank": 18,
+            "ticker": "VSH",
+            "score": 0.872409
+          },
+          {
+            "rank": 19,
+            "ticker": "MKSI",
+            "score": 0.869996
+          },
+          {
+            "rank": 20,
+            "ticker": "AMAT",
+            "score": 0.869477
+          },
+          {
+            "rank": 21,
+            "ticker": "BTSG",
+            "score": 0.86907
+          },
+          {
+            "rank": 22,
+            "ticker": "NOK",
+            "score": 0.867958
+          },
+          {
+            "rank": 23,
+            "ticker": "ACMR",
+            "score": 0.862968
+          },
+          {
+            "rank": 24,
+            "ticker": "VECO",
+            "score": 0.862462
+          },
+          {
+            "rank": 25,
+            "ticker": "FORM",
+            "score": 0.861988
+          }
+        ],
+        "book_type": "paper",
+        "signal_as_of": "2026-08-21",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "TH",
+            "score": 0.933994
+          },
+          {
+            "rank": 2,
+            "ticker": "MXL",
+            "score": 0.92584
+          },
+          {
+            "rank": 3,
+            "ticker": "LRCX",
+            "score": 0.923742
+          },
+          {
+            "rank": 4,
+            "ticker": "PENG",
+            "score": 0.912913
+          },
+          {
+            "rank": 5,
+            "ticker": "STX",
+            "score": 0.906907
+          },
+          {
+            "rank": 6,
+            "ticker": "INTC",
+            "score": 0.906573
+          },
+          {
+            "rank": 7,
+            "ticker": "VIAV",
+            "score": 0.905819
+          },
+          {
+            "rank": 8,
+            "ticker": "UCTT",
+            "score": 0.905588
+          },
+          {
+            "rank": 9,
+            "ticker": "KLIC",
+            "score": 0.89187
+          },
+          {
+            "rank": 10,
+            "ticker": "MRVL",
+            "score": 0.886903
+          },
+          {
+            "rank": 11,
+            "ticker": "SNEX",
+            "score": 0.884188
+          },
+          {
+            "rank": 12,
+            "ticker": "MYRG",
+            "score": 0.878547
+          },
+          {
+            "rank": 13,
+            "ticker": "MTRN",
+            "score": 0.87671
+          },
+          {
+            "rank": 14,
+            "ticker": "MU",
+            "score": 0.876346
+          },
+          {
+            "rank": 15,
+            "ticker": "GLW",
+            "score": 0.87633
+          },
+          {
+            "rank": 16,
+            "ticker": "ICHR",
+            "score": 0.875112
+          },
+          {
+            "rank": 17,
+            "ticker": "COHU",
+            "score": 0.873754
+          },
+          {
+            "rank": 18,
+            "ticker": "VSH",
+            "score": 0.872409
+          },
+          {
+            "rank": 19,
+            "ticker": "MKSI",
+            "score": 0.869996
+          },
+          {
+            "rank": 20,
+            "ticker": "AMAT",
+            "score": 0.869477
+          },
+          {
+            "rank": 21,
+            "ticker": "BTSG",
+            "score": 0.86907
+          },
+          {
+            "rank": 22,
+            "ticker": "NOK",
+            "score": 0.867958
+          },
+          {
+            "rank": 23,
+            "ticker": "ACMR",
+            "score": 0.862968
+          },
+          {
+            "rank": 24,
+            "ticker": "VECO",
+            "score": 0.862462
+          },
+          {
+            "rank": 25,
+            "ticker": "FORM",
+            "score": 0.861988
+          }
+        ],
+        "source": "rebake"
+      },
+      {
         "as_of": "2026-08-03",
         "held_n": 4,
         "held_tickers": [
@@ -934,7 +1200,7 @@
       }
     ],
     "signal_now": {
-      "as_of": "2026-07-31",
+      "as_of": "2026-08-21",
       "rows": [
         {
           "rank": 1,
