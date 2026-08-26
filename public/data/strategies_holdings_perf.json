@@ -161,11 +161,11 @@
      "alltime": 36.5
     },
     {
-     "ticker": "NOK",
+     "ticker": "MU",
      "name": null,
-     "daily": 0.6,
-     "rebalance": -27.0,
-     "alltime": -27.0
+     "daily": -0.8,
+     "rebalance": -5.3,
+     "alltime": -5.3
     },
     {
      "ticker": "NG",
@@ -175,11 +175,11 @@
      "alltime": 4.7
     },
     {
-     "ticker": "TER",
+     "ticker": "NOK",
      "name": null,
-     "daily": -1.9,
-     "rebalance": -8.2,
-     "alltime": -8.2
+     "daily": 0.6,
+     "rebalance": -27.0,
+     "alltime": -27.0
     }
    ]
   },
