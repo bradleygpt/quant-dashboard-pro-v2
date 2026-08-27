@@ -1,30 +1,78 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-08-26T16:48:02"
+    "at": "2026-08-27T00:36:19"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": null
+      "asOf": "2026-08-03"
     },
     "return": {
       "current": false,
-      "asOf": null
+      "asOf": "2026-07-31"
     }
   },
   "ppi": {
-    "score": 43.9,
+    "score": 43.1,
     "level": "ELEVATED"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null,
-    "rebalanceModel": null,
-    "rebalanceBookType": null,
-    "effectiveTradingDay": null
+    "nextRebalance": "2026-09-01",
+    "rebalanceModel": "calendar_monthly_first",
+    "rebalanceBookType": "live",
+    "effectiveTradingDay": "2026-09-01"
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-08-03"
+    },
+    "auxo": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "live",
+      "go_live": "2026-11-10",
+      "go_live_pending": true,
+      "schedule_rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report."
+    },
+    "statera": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-08-17",
+      "next_rebalance": "2026-09-07",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "paper",
+      "go_live": "2026-11-10",
+      "go_live_pending": true,
+      "schedule_rationale": "Paper sleeve on a 21-trading-day hold; pure-Valuation top-8 broad (hunt7 constrained config search, 2026-08-06; recorded walk-forward of the selection procedure 0.54x \u2014 hunt8). Replaces retired Prosodos in the 2026-11-10 go-live cohort per Bradley's 2026-08-07 order; paper rebalances continue on the 21-day grid until then."
+    },
+    "pronoia": {
+      "book_type": "paper",
+      "status": "paper-track (deployment deferred)",
+      "as_of": "2026-06-16",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "live",
+      "go_live": "2026-11-10",
+      "go_live_pending": true,
+      "schedule_rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report."
+    },
+    "auxesis": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
+    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -45,15 +93,26 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": true,
+    "alerts": [],
+    "checked_at": "2026-08-25T19:00:06.780473"
+  },
   "market": {
-    "state": "rth"
+    "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-08-26",
-    "ppi_breadth_pct": 56.6,
+    "ppi_as_of": "2026-08-27",
+    "ppi_breadth_pct": 67.1,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
