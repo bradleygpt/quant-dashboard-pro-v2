@@ -11,6 +11,7 @@
         "Fannie Mae (ESR)",
         "KPMG Economics",
         "Guggenheim Investments",
+        "UBS CIO GWM",
         "Goldman Sachs Research",
         "Morgan Stanley Research",
         "Yardeni Research",
@@ -23,13 +24,13 @@
     "earnings_reviews": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
       "as_of": "2026-08-28",
-      "ppi": "41.6 ELEVATED (live c78q PPI, as-of 2026-08-28)",
+      "ppi": "45.7 ELEVATED (live c78q PPI, as-of 2026-08-28)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
@@ -37,84 +38,71 @@
     "universe_floor0": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
       "as_of": "2026-08-28",
-      "generated_at": "2026-08-28T01:18:57",
-      "check_status": "ok"
-    },
-    "regime_timeseries": {
-      "source": "quant-historical regime_classifications.parquet (ML regime classifier)",
-      "as_of": "2026-08-27",
-      "n_segments": 83,
-      "consumed_by": "RegimeRibbon (strategies hub hero, Katalepsis backtest)",
-      "check_status": "ok"
-    },
-    "paper_track_event_pead": {
-      "source": "producer-stamped (not written by bake)",
-      "as_of": "2026-08-02",
-      "generated_at": "2026-08-02T15:09:32",
+      "generated_at": "2026-08-28T16:56:47",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-08-28T01:18:57",
+  "generated_at": "2026-08-28T16:56:47",
   "blob": {
     "version": "20260828T051936Z",
     "published_at": "2026-08-28T05:19:37+00:00",
