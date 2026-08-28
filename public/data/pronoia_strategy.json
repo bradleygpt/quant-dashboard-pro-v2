@@ -16,8 +16,8 @@
    "AAOI",
    "INBX",
    "MU",
-   "NG",
-   "NOK"
+   "NOK",
+   "NG"
   ],
   "n": 5,
   "book_type": "paper"
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-27",
+  "computed_for": "2026-08-28",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -49,8 +49,8 @@
     "AAOI",
     "INBX",
     "MU",
-    "NG",
-    "NOK"
+    "NOK",
+    "NG"
    ],
    "top25": [
     {
@@ -70,72 +70,72 @@
     },
     {
      "rank": 4,
-     "ticker": "NG",
-     "score": 0.997487
-    },
-    {
-     "rank": 5,
      "ticker": "NOK",
      "score": 0.997475
     },
     {
+     "rank": 5,
+     "ticker": "NG",
+     "score": 0.99665
+    },
+    {
      "rank": 6,
-     "ticker": "IREN",
+     "ticker": "VIAV",
      "score": 0.996633
     },
     {
      "rank": 7,
-     "ticker": "PARR",
+     "ticker": "AGX",
      "score": 0.995791
     },
     {
      "rank": 8,
-     "ticker": "VIAV",
+     "ticker": "MXL",
      "score": 0.99495
     },
     {
      "rank": 9,
-     "ticker": "WDC",
+     "ticker": "IREN",
      "score": 0.994108
     },
     {
      "rank": 10,
-     "ticker": "ALB",
+     "ticker": "POWL",
      "score": 0.993266
     },
     {
      "rank": 11,
-     "ticker": "MXL",
+     "ticker": "STX",
      "score": 0.992424
     },
     {
      "rank": 12,
-     "ticker": "POWL",
+     "ticker": "LRCX",
      "score": 0.991583
     },
     {
      "rank": 13,
-     "ticker": "FORM",
+     "ticker": "MTUS",
      "score": 0.990741
     },
     {
      "rank": 14,
-     "ticker": "STX",
+     "ticker": "ALB",
      "score": 0.989899
     },
     {
      "rank": 15,
-     "ticker": "INDV",
+     "ticker": "WDC",
      "score": 0.989057
     },
     {
      "rank": 16,
-     "ticker": "GOOGL",
+     "ticker": "FORM",
      "score": 0.988216
     },
     {
      "rank": 17,
-     "ticker": "VSAT",
+     "ticker": "GOOGL",
      "score": 0.987374
     },
     {
@@ -145,38 +145,38 @@
     },
     {
      "rank": 19,
-     "ticker": "NVRI",
+     "ticker": "INDV",
      "score": 0.98569
     },
     {
      "rank": 20,
-     "ticker": "ICHR",
+     "ticker": "VSAT",
      "score": 0.984848
     },
     {
      "rank": 21,
-     "ticker": "AOSL",
+     "ticker": "REX",
      "score": 0.984007
     },
     {
      "rank": 22,
-     "ticker": "REX",
+     "ticker": "PARR",
      "score": 0.983165
     },
     {
      "rank": 23,
-     "ticker": "TD",
+     "ticker": "CENX",
      "score": 0.982323
     },
     {
      "rank": 24,
-     "ticker": "APLS",
-     "score": 0.981605
+     "ticker": "NVRI",
+     "score": 0.981481
     },
     {
      "rank": 25,
-     "ticker": "LRCX",
-     "score": 0.981481
+     "ticker": "CLS",
+     "score": 0.98064
     }
    ],
    "source": "pronoia-builder",
@@ -194,18 +194,18 @@
     },
     {
      "rank": 3,
-     "ticker": "AAOI",
+     "ticker": "LRCX",
      "score": 0.998302
     },
     {
      "rank": 4,
-     "ticker": "NG",
-     "score": 0.997487
+     "ticker": "AAOI",
+     "score": 0.997453
     },
     {
      "rank": 5,
-     "ticker": "LRCX",
-     "score": 0.997453
+     "ticker": "NG",
+     "score": 0.99665
     },
     {
      "rank": 6,
@@ -214,17 +214,17 @@
     },
     {
      "rank": 7,
-     "ticker": "LGND",
+     "ticker": "UCTT",
      "score": 0.995755
     },
     {
      "rank": 8,
-     "ticker": "MU",
+     "ticker": "LGND",
      "score": 0.994907
     },
     {
      "rank": 9,
-     "ticker": "UCTT",
+     "ticker": "STX",
      "score": 0.994058
     },
     {
@@ -234,7 +234,7 @@
     },
     {
      "rank": 11,
-     "ticker": "STX",
+     "ticker": "AGX",
      "score": 0.99236
     },
     {
@@ -244,68 +244,68 @@
     },
     {
      "rank": 13,
-     "ticker": "KLIC",
+     "ticker": "MU",
      "score": 0.990662
     },
     {
      "rank": 14,
-     "ticker": "WDC",
+     "ticker": "INTC",
      "score": 0.989813
     },
     {
      "rank": 15,
-     "ticker": "TD",
+     "ticker": "KLIC",
      "score": 0.988964
     },
     {
      "rank": 16,
-     "ticker": "INTC",
+     "ticker": "TD",
      "score": 0.988115
     },
     {
      "rank": 17,
-     "ticker": "ENVA",
+     "ticker": "POWL",
      "score": 0.987267
     },
     {
      "rank": 18,
-     "ticker": "MRVL",
+     "ticker": "MKSI",
      "score": 0.986418
     },
     {
      "rank": 19,
-     "ticker": "MKSI",
+     "ticker": "WDC",
      "score": 0.985569
     },
     {
      "rank": 20,
-     "ticker": "FORM",
+     "ticker": "VIAV",
      "score": 0.98472
     },
     {
      "rank": 21,
-     "ticker": "GLW",
+     "ticker": "PENG",
      "score": 0.983871
     },
     {
      "rank": 22,
-     "ticker": "ICHR",
+     "ticker": "MRVL",
      "score": 0.983022
     },
     {
      "rank": 23,
-     "ticker": "POWL",
+     "ticker": "MTUS",
      "score": 0.982173
     },
     {
      "rank": 24,
-     "ticker": "APLS",
-     "score": 0.981605
+     "ticker": "FORM",
+     "score": 0.981324
     },
     {
      "rank": 25,
-     "ticker": "AMAT",
-     "score": 0.981324
+     "ticker": "GLW",
+     "score": 0.980475
     }
    ],
    "book_type": "paper"
@@ -1581,7 +1581,7 @@
   },
   {
    "label": "2026",
-   "strategy": 35.2,
+   "strategy": 33.1,
    "spy": 12.1
   }
  ],
@@ -1969,11 +1969,11 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR -1% to 82% (median 31%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR -8% to 121% (median 46%).",
   "Validated edge: top-5 monthly excess +1.0%%/mo, t 2.50 (SIGNIFICANT, persists/strengthens recently) \u2014 unlike the 1-month prediction, which is noise. Broad rank-IC is still ~0 (candidate-grade); the edge lives in the extreme top names.",
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
-  "TRADEABLE: low quarterly turnover (~182%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
-  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (115 distinct names rotated).",
+  "TRADEABLE: low quarterly turnover (~195%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
+  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (135 distinct names rotated).",
   "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
  ],
  "pit_freeze": {
