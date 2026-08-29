@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-22",
+  "generated_at": "2026-08-29",
   "model": "qwen2.5:7b",
-  "summary": "The market exhibits a cautious posture, with a slight risk-off sentiment as indicated by the preponderance of 'Hold' ratings and a median fair-value premium of -1.5%, suggesting stocks are trading below fair value. Strength is concentrated in sectors like Utilities, Communication Services, and Energy, while Technology, Industrials, and Consumer Cyclical sectors are lagging, implying a rotation towards more defensive sectors.",
+  "summary": "The market currently exhibits a cautious posture, with a slight risk-off sentiment as indicated by the low 2% Buy-tier allocation. Valuations are modestly bearish, with a median fair-value premium of -1.6%, suggesting stocks are trading below their fair values. Strength is concentrated in sectors like Utilities and Communication Services, while Technology, Industrials, and Consumer Cyclical sectors are lagging, indicating a rotation towards defensive sectors.",
   "stats": {
     "n": 1290,
     "buy_tier_pct": 2,
@@ -13,7 +13,7 @@
       "Sell": 151,
       "Strong Sell": 12
     },
-    "median_fv_premium_pct": -1.5,
+    "median_fv_premium_pct": -1.6,
     "strongest_sectors": [
       "Utilities (6.96)",
       "Communication Services (6.96)",
