@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-28",
+  "computed_for": "2026-08-29",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -105,12 +105,12 @@
     },
     {
      "rank": 11,
-     "ticker": "STX",
+     "ticker": "LRCX",
      "score": 0.992424
     },
     {
      "rank": 12,
-     "ticker": "LRCX",
+     "ticker": "STX",
      "score": 0.991583
     },
     {
@@ -135,17 +135,17 @@
     },
     {
      "rank": 17,
-     "ticker": "GOOGL",
+     "ticker": "INTC",
      "score": 0.987374
     },
     {
      "rank": 18,
-     "ticker": "INTC",
+     "ticker": "INDV",
      "score": 0.986532
     },
     {
      "rank": 19,
-     "ticker": "INDV",
+     "ticker": "GOOGL",
      "score": 0.98569
     },
     {
@@ -160,12 +160,12 @@
     },
     {
      "rank": 22,
-     "ticker": "PARR",
+     "ticker": "CENX",
      "score": 0.983165
     },
     {
      "rank": 23,
-     "ticker": "CENX",
+     "ticker": "COKE",
      "score": 0.982323
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T00:12:58",
+  "generated_at": "2026-08-29T00:53:58",
   "consensus": {
     "metrics": [
       "gdp",
@@ -33,7 +33,7 @@
         "name": "Federal Reserve (SEP)",
         "kind": "official",
         "live": true,
-        "as_of": "2026-06",
+        "as_of": "2026-06-17",
         "source": "FRED Release 326 (FOMC SEP)",
         "url": "https://fred.stlouisfed.org/release?rid=326",
         "notes": "Inflation = PCE (the Fed's gauge), not CPI. Median dot per year.",
@@ -123,7 +123,7 @@
         "as_of": "2026-06",
         "source": "WFII 2026 Midyear Outlook",
         "url": "https://sites.wf.com/outlook/",
-        "notes": "Released Jun 16, 2026. Inflation = CPI. Fed funds = year-end target range 3.50\u20133.75% for both 2026 and 2027 (midpoint shown). S&P 500 = year-end target range (midpoint shown): 7,800\u20138,000 (2026), 8,600\u20138,800 (2027).",
+        "notes": "Released Jun 16, 2026. Inflation = CPI. Fed funds = year-end target range 3.50\u00e2\u20ac\u201c3.75% for both 2026 and 2027 (midpoint shown). S&P 500 = year-end target range (midpoint shown): 7,800\u00e2\u20ac\u201c8,000 (2026), 8,600\u00e2\u20ac\u201c8,800 (2027).",
         "values": {
           "gdp": {
             "2026": 2.2,
@@ -181,7 +181,7 @@
         "name": "KPMG Economics",
         "kind": "house",
         "as_of": "2026-06",
-        "source": "KPMG Economic Compass (midyear 2026\u201327)",
+        "source": "KPMG Economic Compass (midyear 2026\u00e2\u20ac\u201c27)",
         "url": "https://kpmg.com/us/en/articles/2026/june-2026-economic-compass.html",
         "notes": "GDP is Q4/Q4 basis (2.2% 2026, 2.1% 2027). Inflation = PCE (the Fed's gauge), expected to plateau at ~4% later in 2026 (no 2027 point published). KPMG expects the Fed to hike in H2 2026 (no explicit rate level given); unemployment seen in the low-4% range.",
         "values": {
@@ -199,42 +199,19 @@
         "id": "guggenheim",
         "name": "Guggenheim Investments",
         "kind": "house",
-        "as_of": "2026-06",
-        "source": "Economic Outlook & Key Themes (Monthly Commentary, Jun 2026)",
-        "url": "https://portal.guggenheiminvestments.com/GuggenheimInvestments/media/PDF/Economic-Outlook-and-Key-Themes-Monthly-Commentary.pdf",
-        "notes": "GDP = 'real GDP growth holding around 2 percent in 2026' (qualitative point). Fed funds = current target range 3.50\u20133.75% (midpoint shown), expected held through mid-2027 with rising rate-hike odds. Core PCE seen ending 2026 above 3% (no point figure published); unemployment expected to remain near current levels.",
+        "as_of": "2026-07",
+        "source": "July 2026 Economic Outlook and Key Themes",
+        "url": "https://www.guggenheiminvestments.com/perspectives/macroeconomic-research/july-2026-economic-outlook-and-key-themes/",
+        "notes": "Unemployment rate for 2026 is described as 'near current levels' rather than a specific percentage. gdp 2026 is qualified (around): \"We see real gross domestic product (GDP) growth around 2 percent in 2026 and 2027, underpinned by robust artificial intelligence (AI) capital expenditures and near-term fiscal tailwinds.\" inflation 2026 is qualified (above): \"While year-over-year core PCE is expected to end the year above 3 percent, we expect some moderation in sequential numbers in coming months as these impulses cool.\"",
         "values": {
           "gdp": {
             "2026": 2.0
           },
           "fed_funds": {
             "2026": 3.625
-          }
-        },
-        "live": false
-      },
-      {
-        "id": "ubs_cio",
-        "name": "UBS CIO GWM",
-        "kind": "house",
-        "as_of": "2025-11",
-        "source": "UBS Year Ahead 2026 ('Escape velocity?')",
-        "url": "https://www.ubs.com/global/en/media/display-page-ndp/en-20251120-year-ahead-2026.html",
-        "notes": "Forecast table as of Nov 12, 2025; S&P 500 year-end target 7,700 reaffirmed Jan 13, 2026. GDP = annual average. Inflation table labeled simply 'Inflation (%)' \u2014 treated as CPI (not explicitly labeled in the doc). Fed funds = year-end (Dec-26) policy rate (3.33%). UBS did not publish an unemployment forecast, nor 2027 S&P/fed-funds figures, in this report.",
-        "values": {
-          "gdp": {
-            "2026": 1.7,
-            "2027": 1.9
           },
           "inflation": {
-            "2026": 3.0,
-            "2027": 2.4
-          },
-          "fed_funds": {
-            "2026": 3.33
-          },
-          "sp500_target": {
-            "2026": 7700
+            "2026": 3.0
           }
         },
         "live": false
@@ -243,16 +220,19 @@
         "id": "goldman_sachs",
         "name": "Goldman Sachs Research",
         "kind": "house",
-        "as_of": "2026-06",
-        "source": "Goldman Sachs Research (mid-2026 updates)",
-        "url": "https://www.goldmansachs.com/insights/articles/s-and-p-500-forecast-to-climb-as-earnings-growth-powers-stocks-higher",
-        "notes": "S&P 500 year-end 2026 target 8,000 (raised from 7,600; as of May 26, 2026). Unemployment 4.4% by end-2026 (Jun 9, 2026 update). Core PCE seen 3%+ through 2026 and ~2% in 2027 (ranges, no point). GDP for 2026 (2.8% full-year / 2.5% Q4/Q4) is from the older Jan-2026 vintage so it is not shown here. No 2026 rate cuts expected (policy held at 3.50\u20133.75%); first cuts seen in 2027 toward a 3\u20133.25% terminal.",
+        "as_of": "2026-07",
+        "source": "US Midyear Outlook: Geopolitical Shocks, the New Fed Era, and Growth",
+        "url": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/us-midyear-outlook-geopolitical-shocks-the-new-fed-era-and-growth",
+        "notes": "The report focuses on the outlook for the current year (2026) and does not explicitly state forecasts for 2027. The GDP forecast is for the full year. gdp 2026 is qualified (around): \"David Mericle, chief US economist in Goldman Sachs Research, forecasts the Fed to keep interest rates unchanged this year before cutting its policy rate in 2027. He also unpacks the factors driving US inflation, highlights the surprising resilience of the US labor market, and explains why he expects US GDP to expand around 2% this year.\"",
         "values": {
           "sp500_target": {
             "2026": 8000
           },
           "unemployment": {
             "2026": 4.4
+          },
+          "gdp": {
+            "2026": 2.0
           }
         },
         "live": false
@@ -264,7 +244,7 @@
         "as_of": "2026-05",
         "source": "Morgan Stanley 2026 Midyear Investment Outlook",
         "url": "https://www.morganstanley.com/insights/articles/investment-outlook-midyear-2026",
-        "notes": "S&P 500 year-end 2026 target 8,000 (raised from 7,800; May 15, 2026). MS's detailed US GDP/inflation/unemployment figures are in gated research; the public midyear articles publish only global GDP (3.2% 2026 / 3.4% 2027) and a 2027 Fed terminal of 3\u20133.25%. The 8,300 figure is a mid-2027 (12-month-forward) S&P level, not a year-end 2027 target, so it is omitted.",
+        "notes": "S&P 500 year-end 2026 target 8,000 (raised from 7,800; May 15, 2026). MS's detailed US GDP/inflation/unemployment figures are in gated research; the public midyear articles publish only global GDP (3.2% 2026 / 3.4% 2027) and a 2027 Fed terminal of 3\u00e2\u20ac\u201c3.25%. The 8,300 figure is a mid-2027 (12-month-forward) S&P level, not a year-end 2027 target, so it is omitted.",
         "values": {
           "sp500_target": {
             "2026": 8000
@@ -279,7 +259,7 @@
         "as_of": "2026-05",
         "source": "Yardeni Research Market Call (May 2026)",
         "url": "https://www.yardeniquicktakes.com/market-call-raising-our-2026-s-p-500-target-range-due-to-earnings-led-meltup/",
-        "notes": "Yardeni publishes a year-end 2026 S&P 500 RANGE of 6,750\u20138,250 (forward P/E 18.0\u201322.0); the midpoint (7,500) is shown here, with 8,250 the top/raised target. No GDP/inflation/unemployment/fed-funds point forecasts in this note.",
+        "notes": "Yardeni publishes a year-end 2026 S&P 500 RANGE of 6,750\u00e2\u20ac\u201c8,250 (forward P/E 18.0\u00e2\u20ac\u201c22.0); the midpoint (7,500) is shown here, with 8,250 the top/raised target. No GDP/inflation/unemployment/fed-funds point forecasts in this note.",
         "values": {
           "sp500_target": {
             "2026": 7500
@@ -294,7 +274,7 @@
         "as_of": "2025-12",
         "source": "Vanguard 2026 Economic & Market Outlook",
         "url": "https://corporate.vanguard.com/content/corporatesite/us/en/corp/vemo/vemo-united-states.html",
-        "notes": "GDP 2.25% is Q4/Q4 (Dec-10-2025 VEMO baseline, still standing at the Jun-17-2026 update). The mid-2026 update revised core PCE inflation above 3% (from 2.6%), unemployment to the mid-4% range (from 4.2%), and removed the 2026 rate cut (policy rate now seen in its current range through 2027) \u2014 those revisions are qualitative, so no updated point figures are shown.",
+        "notes": "GDP 2.25% is Q4/Q4 (Dec-10-2025 VEMO baseline, still standing at the Jun-17-2026 update). The mid-2026 update revised core PCE inflation above 3% (from 2.6%), unemployment to the mid-4% range (from 4.2%), and removed the 2026 rate cut (policy rate now seen in its current range through 2027) \u00e2\u20ac\u201d those revisions are qualitative, so no updated point figures are shown.",
         "values": {
           "gdp": {
             "2026": 2.25
@@ -306,7 +286,7 @@
   },
   "dot_plot": {
     "live": true,
-    "as_of": "2026-06",
+    "as_of": "2026-06-17",
     "source": "FRED Release 326 (FOMC SEP)",
     "url": "https://fred.stlouisfed.org/release?rid=326",
     "years": [
@@ -356,7 +336,7 @@
     {
       "id": "fed_sep",
       "name": "Federal Reserve (SEP)",
-      "as_of": "2026-06",
+      "as_of": "2026-06-17",
       "live": true,
       "source": "FRED Release 326 (FOMC SEP)",
       "url": "https://fred.stlouisfed.org/release?rid=326",
@@ -403,35 +383,26 @@
       "name": "KPMG Economics",
       "as_of": "2026-06",
       "live": false,
-      "source": "KPMG Economic Compass (midyear 2026\u201327)",
+      "source": "KPMG Economic Compass (midyear 2026\u00e2\u20ac\u201c27)",
       "url": "https://kpmg.com/us/en/articles/2026/june-2026-economic-compass.html",
       "kind": "house"
     },
     {
       "id": "guggenheim",
       "name": "Guggenheim Investments",
-      "as_of": "2026-06",
+      "as_of": "2026-07",
       "live": false,
-      "source": "Economic Outlook & Key Themes (Monthly Commentary, Jun 2026)",
-      "url": "https://portal.guggenheiminvestments.com/GuggenheimInvestments/media/PDF/Economic-Outlook-and-Key-Themes-Monthly-Commentary.pdf",
-      "kind": "house"
-    },
-    {
-      "id": "ubs_cio",
-      "name": "UBS CIO GWM",
-      "as_of": "2025-11",
-      "live": false,
-      "source": "UBS Year Ahead 2026 ('Escape velocity?')",
-      "url": "https://www.ubs.com/global/en/media/display-page-ndp/en-20251120-year-ahead-2026.html",
+      "source": "July 2026 Economic Outlook and Key Themes",
+      "url": "https://www.guggenheiminvestments.com/perspectives/macroeconomic-research/july-2026-economic-outlook-and-key-themes/",
       "kind": "house"
     },
     {
       "id": "goldman_sachs",
       "name": "Goldman Sachs Research",
-      "as_of": "2026-06",
+      "as_of": "2026-07",
       "live": false,
-      "source": "Goldman Sachs Research (mid-2026 updates)",
-      "url": "https://www.goldmansachs.com/insights/articles/s-and-p-500-forecast-to-climb-as-earnings-growth-powers-stocks-higher",
+      "source": "US Midyear Outlook: Geopolitical Shocks, the New Fed Era, and Growth",
+      "url": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/us-midyear-outlook-geopolitical-shocks-the-new-fed-era-and-growth",
       "kind": "house"
     },
     {
