@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-21",
+ "generated_at": "2026-08-28",
  "engine": "Kairos",
  "character": "Event-Momentum",
  "tagline": "Event-momentum composite (50% event pillar: PEAD / 8-K sentiment / insider; 20% momentum; 10% each value/growth/profitability) over the BROAD universe \u2014 top-5, ~105-day hold. PAPER TRACK from 2026-08-11; the hunt10 winner as a fixed config.",
@@ -42,7 +42,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "PAPER track from 2026-08-11 (hunt10 EMC winner as a FIXED config \u2014 the re-selecting procedure failed the PIT book test and does not ship). Pre-registered checkpoints: 2026-08-28 validation, go-live evaluation 2026-11-10 with the others. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-08-29",
+  "computed_for": "2026-08-30",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -60,256 +60,256 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 10.204489
+     "score": 10.203659
     },
     {
      "rank": 2,
      "ticker": "CCL",
-     "score": 9.980677
+     "score": 9.981777
     },
     {
      "rank": 3,
      "ticker": "EVRG",
-     "score": 9.819328
+     "score": 9.819336
     },
     {
      "rank": 4,
      "ticker": "INSW",
-     "score": 9.771358
+     "score": 9.770989
     },
     {
      "rank": 5,
      "ticker": "MRVL",
-     "score": 9.764707
+     "score": 9.765038
     },
     {
      "rank": 6,
      "ticker": "BEN",
-     "score": 9.693393
+     "score": 9.693516
     },
     {
      "rank": 7,
      "ticker": "IVZ",
-     "score": 9.692741
+     "score": 9.693485
     },
     {
      "rank": 8,
      "ticker": "VCTR",
-     "score": 9.648285
+     "score": 9.646885
     },
     {
      "rank": 9,
      "ticker": "WDC",
-     "score": 9.565594
+     "score": 9.565769
     },
     {
      "rank": 10,
      "ticker": "GIII",
-     "score": 9.350988
+     "score": 9.351294
     },
     {
      "rank": 11,
      "ticker": "PGNY",
-     "score": 9.291082
+     "score": 9.290802
     },
     {
      "rank": 12,
      "ticker": "DVA",
-     "score": 9.265564
+     "score": 9.266273
     },
     {
      "rank": 13,
      "ticker": "RCL",
-     "score": 9.265039
+     "score": 9.265328
     },
     {
      "rank": 14,
      "ticker": "SNEX",
-     "score": 9.209774
+     "score": 9.211941
     },
     {
      "rank": 15,
      "ticker": "NBIX",
-     "score": 9.188782
+     "score": 9.188087
     },
     {
      "rank": 16,
      "ticker": "LYV",
-     "score": 9.166035
+     "score": 9.165762
     },
     {
      "rank": 17,
      "ticker": "KRYS",
-     "score": 9.152696
+     "score": 9.15299
     },
     {
      "rank": 18,
      "ticker": "POWL",
-     "score": 9.127546
+     "score": 9.1293
     },
     {
      "rank": 19,
      "ticker": "JEF",
-     "score": 9.074238
+     "score": 9.07362
     },
     {
      "rank": 20,
      "ticker": "CORT",
-     "score": 9.06451
+     "score": 9.064465
     },
     {
      "rank": 21,
      "ticker": "ENVA",
-     "score": 9.058739
+     "score": 9.06022
     },
     {
      "rank": 22,
      "ticker": "STLD",
-     "score": 9.054562
+     "score": 9.053778
     },
     {
      "rank": 23,
      "ticker": "KDP",
-     "score": 9.05138
+     "score": 9.052113
     },
     {
      "rank": 24,
      "ticker": "WSM",
-     "score": 9.050686
+     "score": 9.050724
     },
     {
      "rank": 25,
      "ticker": "ECPG",
-     "score": 9.024939
+     "score": 9.026983
     }
    ],
    "book_type": "paper",
-   "signal_as_of": "2026-08-21",
+   "signal_as_of": "2026-08-28",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "BKNG",
-     "score": 9.944906
+     "score": 9.991692
     },
     {
      "rank": 2,
      "ticker": "VCTR",
-     "score": 9.930473
+     "score": 9.92907
     },
     {
      "rank": 3,
-     "ticker": "INCY",
-     "score": 9.797298
+     "ticker": "TGTX",
+     "score": 9.784028
     },
     {
      "rank": 4,
-     "ticker": "TGTX",
-     "score": 9.760369
+     "ticker": "BEN",
+     "score": 9.585058
     },
     {
      "rank": 5,
      "ticker": "ECPG",
-     "score": 9.555782
+     "score": 9.498369
     },
     {
      "rank": 6,
-     "ticker": "BEN",
-     "score": 9.53231
+     "ticker": "IVZ",
+     "score": 9.476794
     },
     {
      "rank": 7,
-     "ticker": "IVZ",
-     "score": 9.494627
+     "ticker": "INCY",
+     "score": 9.465845
     },
     {
      "rank": 8,
      "ticker": "INSW",
-     "score": 9.295208
+     "score": 9.198489
     },
     {
      "rank": 9,
-     "ticker": "DAL",
-     "score": 9.149401
+     "ticker": "EVRG",
+     "score": 9.161762
     },
     {
      "rank": 10,
-     "ticker": "EVRG",
-     "score": 9.094069
+     "ticker": "WSR",
+     "score": 9.159869
     },
     {
      "rank": 11,
-     "ticker": "GPN",
-     "score": 9.057218
+     "ticker": "CART",
+     "score": 9.119614
     },
     {
      "rank": 12,
-     "ticker": "DXCM",
-     "score": 9.04315
+     "ticker": "URBN",
+     "score": 9.103434
     },
     {
      "rank": 13,
-     "ticker": "CORT",
-     "score": 9.036131
+     "ticker": "APAM",
+     "score": 9.048473
     },
     {
      "rank": 14,
-     "ticker": "CON",
-     "score": 9.020466
+     "ticker": "CORT",
+     "score": 9.01481
     },
     {
      "rank": 15,
-     "ticker": "CART",
-     "score": 8.945345
+     "ticker": "IQV",
+     "score": 9.005587
     },
     {
      "rank": 16,
-     "ticker": "WSR",
-     "score": 8.925856
+     "ticker": "CON",
+     "score": 8.967596
     },
     {
      "rank": 17,
-     "ticker": "NSIT",
-     "score": 8.925558
+     "ticker": "GPN",
+     "score": 8.965527
     },
     {
      "rank": 18,
-     "ticker": "MRK",
-     "score": 8.900763
+     "ticker": "NEU",
+     "score": 8.93318
     },
     {
      "rank": 19,
-     "ticker": "GIII",
-     "score": 8.890898
+     "ticker": "DXCM",
+     "score": 8.929831
     },
     {
      "rank": 20,
-     "ticker": "ADAM",
-     "score": 8.860432
+     "ticker": "NSIT",
+     "score": 8.872679
     },
     {
      "rank": 21,
-     "ticker": "HIW",
-     "score": 8.843224
+     "ticker": "GIII",
+     "score": 8.86121
     },
     {
      "rank": 22,
-     "ticker": "IQV",
-     "score": 8.81835
+     "ticker": "LYV",
+     "score": 8.858906
     },
     {
      "rank": 23,
-     "ticker": "ETSY",
-     "score": 8.779713
+     "ticker": "ADAM",
+     "score": 8.852888
     },
     {
      "rank": 24,
-     "ticker": "DDOG",
-     "score": 8.775665
+     "ticker": "KDP",
+     "score": 8.852476
     },
     {
      "rank": 25,
-     "ticker": "NEU",
-     "score": 8.772914
+     "ticker": "EXPD",
+     "score": 8.851123
     }
    ],
    "source": "kairos-builder"
@@ -1585,8 +1585,8 @@
   },
   {
    "label": "2026",
-   "strategy": 28.5,
-   "spy": 12.1
+   "strategy": 25.1,
+   "spy": 12.7
   }
  ],
  "holdings": [

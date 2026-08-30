@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-21",
+ "generated_at": "2026-08-28",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-29",
+  "computed_for": "2026-08-30",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -179,32 +179,32 @@
     }
    ],
    "source": "factor-builder",
-   "signal_as_of": "2026-08-21",
+   "signal_as_of": "2026-08-28",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "UVV",
-     "score": 10.816666
+     "score": 10.833333
     },
     {
      "rank": 2,
-     "ticker": "SONO",
-     "score": 10.783334
+     "ticker": "BKNG",
+     "score": 10.683333
     },
     {
      "rank": 3,
-     "ticker": "BKNG",
-     "score": 10.65
+     "ticker": "SONO",
+     "score": 10.633333
     },
     {
      "rank": 4,
-     "ticker": "MOS",
-     "score": 10.606667
+     "ticker": "GEO",
+     "score": 10.608334
     },
     {
      "rank": 5,
-     "ticker": "GEO",
-     "score": 10.575001
+     "ticker": "NTCT",
+     "score": 10.566667
     },
     {
      "rank": 6,
@@ -213,68 +213,68 @@
     },
     {
      "rank": 7,
-     "ticker": "NTCT",
-     "score": 10.516666
+     "ticker": "ARR",
+     "score": 10.55
     },
     {
      "rank": 8,
-     "ticker": "ARR",
-     "score": 10.483334
+     "ticker": "MOS",
+     "score": 10.523333
     },
     {
      "rank": 9,
-     "ticker": "LPG",
-     "score": 10.348332
-    },
-    {
-     "rank": 10,
      "ticker": "SNEX",
      "score": 10.258333
     },
     {
+     "rank": 10,
+     "ticker": "LPG",
+     "score": 10.198333
+    },
+    {
      "rank": 11,
-     "ticker": "EIX",
-     "score": 10.165
-    },
-    {
-     "rank": 12,
-     "ticker": "BOOT",
-     "score": 10.141665
-    },
-    {
-     "rank": 13,
      "ticker": "PRIM",
      "score": 10.138333
     },
     {
-     "rank": 14,
+     "rank": 12,
      "ticker": "COHU",
+     "score": 10.116667
+    },
+    {
+     "rank": 13,
+     "ticker": "ED",
+     "score": 10.085
+    },
+    {
+     "rank": 14,
+     "ticker": "ACA",
      "score": 10.083333
     },
     {
      "rank": 15,
-     "ticker": "ACA",
-     "score": 10.056666
+     "ticker": "BOOT",
+     "score": 10.041666
     },
     {
      "rank": 16,
-     "ticker": "ED",
-     "score": 9.991666
+     "ticker": "EZPW",
+     "score": 10.033333
     },
     {
      "rank": 17,
-     "ticker": "EZPW",
-     "score": 9.966666
+     "ticker": "EIX",
+     "score": 9.998334
     },
     {
      "rank": 18,
-     "ticker": "SMCI",
-     "score": 9.961666
+     "ticker": "PIPR",
+     "score": 9.983334
     },
     {
      "rank": 19,
-     "ticker": "PIPR",
-     "score": 9.916667
+     "ticker": "TPG",
+     "score": 9.974999
     },
     {
      "rank": 20,
@@ -283,28 +283,28 @@
     },
     {
      "rank": 21,
-     "ticker": "TPG",
-     "score": 9.875
+     "ticker": "SMCI",
+     "score": 9.895
     },
     {
      "rank": 22,
-     "ticker": "FRPT",
-     "score": 9.853333
+     "ticker": "APO",
+     "score": 9.858334
     },
     {
      "rank": 23,
-     "ticker": "COF",
-     "score": 9.816667
+     "ticker": "FISV",
+     "score": 9.799999
     },
     {
      "rank": 24,
-     "ticker": "ECPG",
-     "score": 9.815
+     "ticker": "ATO",
+     "score": 9.788333
     },
     {
      "rank": 25,
-     "ticker": "FISV",
-     "score": 9.799999
+     "ticker": "TGTX",
+     "score": 9.781667
     }
    ],
    "book_type": "paper"
@@ -1580,8 +1580,8 @@
   },
   {
    "label": "2026",
-   "strategy": 23.3,
-   "spy": 12.1
+   "strategy": 22.0,
+   "spy": 12.7
   }
  ],
  "holdings": [

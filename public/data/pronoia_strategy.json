@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-21",
+ "generated_at": "2026-08-28",
  "engine": "Pronoia",
  "character": "12-Month Foresight",
  "tagline": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve.",
@@ -16,8 +16,8 @@
    "AAOI",
    "INBX",
    "MU",
-   "NOK",
-   "NG"
+   "NG",
+   "NOK"
   ],
   "n": 5,
   "book_type": "paper"
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-29",
+  "computed_for": "2026-08-30",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -49,8 +49,8 @@
     "AAOI",
     "INBX",
     "MU",
-    "NOK",
-    "NG"
+    "NG",
+    "NOK"
    ],
    "top25": [
     {
@@ -70,13 +70,13 @@
     },
     {
      "rank": 4,
-     "ticker": "NOK",
-     "score": 0.997475
+     "ticker": "NG",
+     "score": 0.997487
     },
     {
      "rank": 5,
-     "ticker": "NG",
-     "score": 0.99665
+     "ticker": "NOK",
+     "score": 0.997475
     },
     {
      "rank": 6,
@@ -85,17 +85,17 @@
     },
     {
      "rank": 7,
-     "ticker": "AGX",
+     "ticker": "IREN",
      "score": 0.995791
     },
     {
      "rank": 8,
-     "ticker": "MXL",
+     "ticker": "ALB",
      "score": 0.99495
     },
     {
      "rank": 9,
-     "ticker": "IREN",
+     "ticker": "WDC",
      "score": 0.994108
     },
     {
@@ -105,82 +105,82 @@
     },
     {
      "rank": 11,
-     "ticker": "LRCX",
+     "ticker": "INTC",
      "score": 0.992424
     },
     {
      "rank": 12,
-     "ticker": "STX",
+     "ticker": "FORM",
      "score": 0.991583
     },
     {
      "rank": 13,
-     "ticker": "MTUS",
+     "ticker": "VSAT",
      "score": 0.990741
     },
     {
      "rank": 14,
-     "ticker": "ALB",
+     "ticker": "MXL",
      "score": 0.989899
     },
     {
      "rank": 15,
-     "ticker": "WDC",
+     "ticker": "INDV",
      "score": 0.989057
     },
     {
      "rank": 16,
-     "ticker": "FORM",
+     "ticker": "GOOGL",
      "score": 0.988216
     },
     {
      "rank": 17,
-     "ticker": "INTC",
+     "ticker": "STX",
      "score": 0.987374
     },
     {
      "rank": 18,
-     "ticker": "INDV",
-     "score": 0.986532
+     "ticker": "APLS",
+     "score": 0.986622
     },
     {
      "rank": 19,
-     "ticker": "GOOGL",
-     "score": 0.98569
+     "ticker": "ICHR",
+     "score": 0.986532
     },
     {
      "rank": 20,
-     "ticker": "VSAT",
-     "score": 0.984848
+     "ticker": "NVRI",
+     "score": 0.98569
     },
     {
      "rank": 21,
-     "ticker": "REX",
-     "score": 0.984007
+     "ticker": "APA",
+     "score": 0.984848
     },
     {
      "rank": 22,
-     "ticker": "CENX",
-     "score": 0.983165
+     "ticker": "TD",
+     "score": 0.984007
     },
     {
      "rank": 23,
-     "ticker": "COKE",
-     "score": 0.982323
+     "ticker": "TER",
+     "score": 0.983165
     },
     {
      "rank": 24,
-     "ticker": "NVRI",
-     "score": 0.981481
+     "ticker": "ADEA",
+     "score": 0.982323
     },
     {
      "rank": 25,
-     "ticker": "CLS",
-     "score": 0.98064
+     "ticker": "COHR",
+     "score": 0.981481
     }
    ],
    "source": "pronoia-builder",
-   "signal_as_of": "2026-08-21",
+   "signal_as_of": "2026-08-28",
    "signal_top25": [
     {
      "rank": 1,
@@ -194,118 +194,118 @@
     },
     {
      "rank": 3,
-     "ticker": "LRCX",
+     "ticker": "AAOI",
      "score": 0.998302
     },
     {
      "rank": 4,
-     "ticker": "AAOI",
-     "score": 0.997453
+     "ticker": "NG",
+     "score": 0.997487
     },
     {
      "rank": 5,
-     "ticker": "NG",
-     "score": 0.99665
+     "ticker": "INBX",
+     "score": 0.997453
     },
     {
      "rank": 6,
-     "ticker": "INBX",
+     "ticker": "LGND",
      "score": 0.996604
     },
     {
      "rank": 7,
-     "ticker": "UCTT",
+     "ticker": "MU",
      "score": 0.995755
     },
     {
      "rank": 8,
-     "ticker": "LGND",
+     "ticker": "UCTT",
      "score": 0.994907
     },
     {
      "rank": 9,
-     "ticker": "STX",
+     "ticker": "KLIC",
      "score": 0.994058
     },
     {
      "rank": 10,
-     "ticker": "MXL",
+     "ticker": "INTC",
      "score": 0.993209
     },
     {
      "rank": 11,
-     "ticker": "AGX",
+     "ticker": "NOK",
      "score": 0.99236
     },
     {
      "rank": 12,
-     "ticker": "NOK",
+     "ticker": "STX",
      "score": 0.991511
     },
     {
      "rank": 13,
-     "ticker": "MU",
+     "ticker": "MXL",
      "score": 0.990662
     },
     {
      "rank": 14,
-     "ticker": "INTC",
+     "ticker": "TD",
      "score": 0.989813
     },
     {
      "rank": 15,
-     "ticker": "KLIC",
+     "ticker": "WDC",
      "score": 0.988964
     },
     {
      "rank": 16,
-     "ticker": "TD",
+     "ticker": "MKSI",
      "score": 0.988115
     },
     {
      "rank": 17,
-     "ticker": "POWL",
+     "ticker": "ICHR",
      "score": 0.987267
     },
     {
      "rank": 18,
-     "ticker": "MKSI",
-     "score": 0.986418
+     "ticker": "APLS",
+     "score": 0.986622
     },
     {
      "rank": 19,
-     "ticker": "WDC",
-     "score": 0.985569
+     "ticker": "ENVA",
+     "score": 0.986418
     },
     {
      "rank": 20,
-     "ticker": "VIAV",
-     "score": 0.98472
+     "ticker": "FORM",
+     "score": 0.985569
     },
     {
      "rank": 21,
-     "ticker": "PENG",
-     "score": 0.983871
+     "ticker": "POWL",
+     "score": 0.98472
     },
     {
      "rank": 22,
-     "ticker": "MRVL",
-     "score": 0.983022
+     "ticker": "GLW",
+     "score": 0.983871
     },
     {
      "rank": 23,
-     "ticker": "MTUS",
-     "score": 0.982173
+     "ticker": "VIAV",
+     "score": 0.983022
     },
     {
      "rank": 24,
-     "ticker": "FORM",
-     "score": 0.981324
+     "ticker": "MRVL",
+     "score": 0.982173
     },
     {
      "rank": 25,
-     "ticker": "GLW",
-     "score": 0.980475
+     "ticker": "SNEX",
+     "score": 0.981324
     }
    ],
    "book_type": "paper"
@@ -1581,8 +1581,8 @@
   },
   {
    "label": "2026",
-   "strategy": 33.1,
-   "spy": 12.1
+   "strategy": 33.3,
+   "spy": 12.7
   }
  ],
  "holdings": [
@@ -1969,11 +1969,11 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR -8% to 121% (median 46%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR 8% to 86% (median 36%).",
   "Validated edge: top-5 monthly excess +1.0%%/mo, t 2.50 (SIGNIFICANT, persists/strengthens recently) \u2014 unlike the 1-month prediction, which is noise. Broad rank-IC is still ~0 (candidate-grade); the edge lives in the extreme top names.",
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
-  "TRADEABLE: low quarterly turnover (~195%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
-  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (135 distinct names rotated).",
+  "TRADEABLE: low quarterly turnover (~188%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
+  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (123 distinct names rotated).",
   "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
  ],
  "pit_freeze": {
