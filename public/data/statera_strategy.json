@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-28",
+ "generated_at": "2026-08-31",
  "engine": "Statera",
  "character": "Value-heavy",
  "tagline": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence.",
@@ -17,13 +17,13 @@
   "as_of": "2026-08-17",
   "tickers": [
    "HTZ",
-   "DXC",
-   "KMPR",
-   "JBLU",
-   "HUBG",
    "VYX",
-   "ABR",
-   "SSTK"
+   "SSTK",
+   "HUBG",
+   "LNC",
+   "EGBN",
+   "JBLU",
+   "ABR"
   ],
   "n": 8,
   "book_type": "paper"
@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 21-trading-day hold; pure-Valuation top-8 broad (hunt7 constrained config search, 2026-08-06; recorded walk-forward of the selection procedure 0.54x \u2014 hunt8). Replaces retired Prosodos in the 2026-11-10 go-live cohort per Bradley's 2026-08-07 order; paper rebalances continue on the 21-day grid until then.",
-  "computed_for": "2026-08-30",
+  "computed_for": "2026-09-02",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-09-07",
@@ -324,13 +324,13 @@
    "held_n": 8,
    "held_tickers": [
     "HTZ",
-    "DXC",
-    "KMPR",
-    "JBLU",
-    "HUBG",
     "VYX",
-    "ABR",
-    "SSTK"
+    "SSTK",
+    "HUBG",
+    "LNC",
+    "EGBN",
+    "JBLU",
+    "ABR"
    ],
    "top25": [
     {
@@ -340,47 +340,47 @@
     },
     {
      "rank": 2,
-     "ticker": "DXC",
-     "score": 12.0
-    },
-    {
-     "rank": 3,
-     "ticker": "KMPR",
-     "score": 12.0
-    },
-    {
-     "rank": 4,
-     "ticker": "JBLU",
-     "score": 12.0
-    },
-    {
-     "rank": 5,
-     "ticker": "HUBG",
-     "score": 12.0
-    },
-    {
-     "rank": 6,
      "ticker": "VYX",
      "score": 12.0
     },
     {
-     "rank": 7,
-     "ticker": "ABR",
-     "score": 12.0
-    },
-    {
-     "rank": 8,
+     "rank": 3,
      "ticker": "SSTK",
      "score": 12.0
     },
     {
-     "rank": 9,
+     "rank": 4,
+     "ticker": "HUBG",
+     "score": 12.0
+    },
+    {
+     "rank": 5,
+     "ticker": "LNC",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
      "ticker": "EGBN",
      "score": 12.0
     },
     {
+     "rank": 7,
+     "ticker": "JBLU",
+     "score": 12.0
+    },
+    {
+     "rank": 8,
+     "ticker": "ABR",
+     "score": 12.0
+    },
+    {
+     "rank": 9,
+     "ticker": "DXC",
+     "score": 12.0
+    },
+    {
      "rank": 10,
-     "ticker": "LNC",
+     "ticker": "KMPR",
      "score": 12.0
     },
     {
@@ -400,12 +400,12 @@
     },
     {
      "rank": 14,
-     "ticker": "LUMN",
+     "ticker": "ADNT",
      "score": 11.666667
     },
     {
      "rank": 15,
-     "ticker": "ADNT",
+     "ticker": "MAN",
      "score": 11.666667
     },
     {
@@ -415,7 +415,7 @@
     },
     {
      "rank": 17,
-     "ticker": "MAN",
+     "ticker": "LUMN",
      "score": 11.666667
     },
     {
@@ -430,12 +430,12 @@
     },
     {
      "rank": 20,
-     "ticker": "GBX",
+     "ticker": "AHCO",
      "score": 11.5
     },
     {
      "rank": 21,
-     "ticker": "AHCO",
+     "ticker": "GBX",
      "score": 11.5
     },
     {
@@ -450,62 +450,62 @@
     },
     {
      "rank": 24,
-     "ticker": "QDEL",
+     "ticker": "REZI",
      "score": 11.333333
     },
     {
      "rank": 25,
-     "ticker": "REZI",
+     "ticker": "NX",
      "score": 11.333333
     }
    ],
    "book_type": "paper",
-   "signal_as_of": "2026-08-28",
+   "signal_as_of": "2026-08-31",
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "HUBG",
+     "ticker": "KMPR",
      "score": 12.0
     },
     {
      "rank": 2,
-     "ticker": "EGBN",
+     "ticker": "HUBG",
      "score": 12.0
     },
     {
      "rank": 3,
-     "ticker": "JBLU",
-     "score": 12.0
-    },
-    {
-     "rank": 4,
-     "ticker": "HTZ",
-     "score": 12.0
-    },
-    {
-     "rank": 5,
      "ticker": "DXC",
      "score": 12.0
     },
     {
-     "rank": 6,
+     "rank": 4,
      "ticker": "ABR",
      "score": 12.0
     },
     {
-     "rank": 7,
+     "rank": 5,
+     "ticker": "HTZ",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
      "ticker": "LNC",
      "score": 12.0
     },
     {
+     "rank": 7,
+     "ticker": "EGBN",
+     "score": 12.0
+    },
+    {
      "rank": 8,
-     "ticker": "KMPR",
+     "ticker": "JBLU",
      "score": 12.0
     },
     {
      "rank": 9,
      "ticker": "SSTK",
-     "score": 11.75
+     "score": 12.0
     },
     {
      "rank": 10,
@@ -519,47 +519,47 @@
     },
     {
      "rank": 12,
-     "ticker": "MAN",
-     "score": 11.666667
-    },
-    {
-     "rank": 13,
      "ticker": "LUMN",
      "score": 11.666667
     },
     {
-     "rank": 14,
-     "ticker": "CNC",
-     "score": 11.666667
-    },
-    {
-     "rank": 15,
-     "ticker": "WKC",
-     "score": 11.666667
-    },
-    {
-     "rank": 16,
-     "ticker": "AOSL",
-     "score": 11.666667
-    },
-    {
-     "rank": 17,
+     "rank": 13,
      "ticker": "VYX",
      "score": 11.666667
     },
     {
-     "rank": 18,
+     "rank": 14,
      "ticker": "ADNT",
      "score": 11.666667
     },
     {
+     "rank": 15,
+     "ticker": "AOSL",
+     "score": 11.666667
+    },
+    {
+     "rank": 16,
+     "ticker": "CNC",
+     "score": 11.666667
+    },
+    {
+     "rank": 17,
+     "ticker": "MAN",
+     "score": 11.666667
+    },
+    {
+     "rank": 18,
+     "ticker": "WKC",
+     "score": 11.666667
+    },
+    {
      "rank": 19,
-     "ticker": "UPBD",
+     "ticker": "KSS",
      "score": 11.6
     },
     {
      "rank": 20,
-     "ticker": "KSS",
+     "ticker": "UPBD",
      "score": 11.6
     },
     {
@@ -579,12 +579,12 @@
     },
     {
      "rank": 24,
-     "ticker": "EMBC",
-     "score": 11.333333
+     "ticker": "ALK",
+     "score": 11.4
     },
     {
      "rank": 25,
-     "ticker": "CCOI",
+     "ticker": "REZI",
      "score": 11.333333
     }
    ],
@@ -1781,6 +1781,12 @@
    "equity": 6224.9,
    "spy": 582.4,
    "nasdaq": 939.7
+  },
+  {
+   "date": "2026-08-31",
+   "equity": 6551.5,
+   "spy": 597.6,
+   "nasdaq": 976.7
   }
  ],
  "yearly": [
@@ -1861,8 +1867,8 @@
   },
   {
    "label": "2026",
-   "strategy": 33.0,
-   "spy": 12.7
+   "strategy": 30.8,
+   "spy": 12.3
   }
  ],
  "holdings": [
@@ -1870,11 +1876,11 @@
    "date": "2026-08-17",
    "tickers": [
     "ABR",
-    "DXC",
+    "EGBN",
     "HTZ",
     "HUBG",
     "JBLU",
-    "KMPR",
+    "LNC",
     "SSTK",
     "VYX"
    ]
@@ -4314,11 +4320,11 @@
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
   "UNIVERSE: broad scored panel (changed from PIT S&P membership 2026-08-06, Bradley's call). The panel contains NO delisted names, so this broad backtest is INCLUSION-BIASED upward -- the d10114a diagnostic measured roughly 10-15pts of such bias on the prior system. NO liquidity floor, by decision (Bradley, 2026-08-07): measured $5M/$10M median-dollar-volume floors cost 6-10pp CAGR (stage5_output/liquidity_floor_test.csv) and the current books already clear $5M; the sleeve ships floorless, which means small/illiquid names can and do enter the book.",
-  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 10% to 72% (median 27%).",
+  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 5% to 62% (median 37%).",
   "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The recorded walk-forward figures above are the honest out-of-sample read.",
-  "TRUE daily mark-to-market - the -34% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
+  "TRUE daily mark-to-market - the -32% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-8 concentration: high single-name risk. Held 168 distinct names over the backtest, rotating ~8 at a time.",
-  "Frictionless backtest: ignores ~342%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
+  "Frictionless backtest: ignores ~330%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
   "Current holdings = PAPER research book (signal-derived, never held at a broker) as of 2026-08-17; next rebalance projected 2026-09-07 (21-day hold).",
   "SELECTION PROVENANCE: config chosen 2026-08-06 by a CONSTRAINED grid search (hunt7) -- admissibility ceilings on holdings overlap and sector concentration derived from the incumbent four-sleeve book -- then ranked by CAGR+Sharpe. Promoted (as Statera) 2026-08-07, Bradley's call, replacing retired Prosodos.",
   "RECORDED WALK-FORWARD of the selection procedure (hunt8): 20.2% CAGR / 0.81 Sharpe / -41.4% maxDD chained 2013-2026 -- 0.54x the in-sample figure. The per-year selection log shows this specific config is the procedure's pick only in 2022-2023: the PROCEDURE is validated, not the config. Read expectations off the walk-forward row, not the backtest row.",

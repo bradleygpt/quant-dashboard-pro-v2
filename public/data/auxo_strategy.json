@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-28",
+ "generated_at": "2026-08-31",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -18,7 +18,7 @@
   "tickers": [
    "UVV",
    "GEO",
-   "SONO"
+   "SNEX"
   ],
   "n": 3,
   "book_type": "paper"
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-08-30",
+  "computed_for": "2026-09-02",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -49,7 +49,7 @@
    "held_tickers": [
     "UVV",
     "GEO",
-    "SONO"
+    "SNEX"
    ],
    "top25": [
     {
@@ -64,13 +64,13 @@
     },
     {
      "rank": 3,
-     "ticker": "SONO",
-     "score": 10.666667
+     "ticker": "SNEX",
+     "score": 10.675
     },
     {
      "rank": 4,
-     "ticker": "SNEX",
-     "score": 10.625
+     "ticker": "SONO",
+     "score": 10.666667
     },
     {
      "rank": 5,
@@ -179,7 +179,7 @@
     }
    ],
    "source": "factor-builder",
-   "signal_as_of": "2026-08-28",
+   "signal_as_of": "2026-08-31",
    "signal_top25": [
     {
      "rank": 1,
@@ -188,12 +188,12 @@
     },
     {
      "rank": 2,
-     "ticker": "BKNG",
-     "score": 10.683333
+     "ticker": "SONO",
+     "score": 10.783334
     },
     {
      "rank": 3,
-     "ticker": "SONO",
+     "ticker": "BKNG",
      "score": 10.633333
     },
     {
@@ -203,28 +203,28 @@
     },
     {
      "rank": 5,
+     "ticker": "MOS",
+     "score": 10.589999
+    },
+    {
+     "rank": 6,
      "ticker": "NTCT",
      "score": 10.566667
     },
     {
-     "rank": 6,
-     "ticker": "MMI",
-     "score": 10.55
-    },
-    {
      "rank": 7,
      "ticker": "ARR",
-     "score": 10.55
+     "score": 10.533334
     },
     {
      "rank": 8,
-     "ticker": "MOS",
-     "score": 10.523333
+     "ticker": "MMI",
+     "score": 10.533333
     },
     {
      "rank": 9,
      "ticker": "SNEX",
-     "score": 10.258333
+     "score": 10.225
     },
     {
      "rank": 10,
@@ -233,78 +233,78 @@
     },
     {
      "rank": 11,
-     "ticker": "PRIM",
-     "score": 10.138333
+     "ticker": "ACA",
+     "score": 10.139999
     },
     {
      "rank": 12,
-     "ticker": "COHU",
-     "score": 10.116667
+     "ticker": "PRIM",
+     "score": 10.088333
     },
     {
      "rank": 13,
      "ticker": "ED",
-     "score": 10.085
+     "score": 10.068334
     },
     {
      "rank": 14,
-     "ticker": "ACA",
-     "score": 10.083333
+     "ticker": "EZPW",
+     "score": 10.049999
     },
     {
      "rank": 15,
-     "ticker": "BOOT",
-     "score": 10.041666
+     "ticker": "PIPR",
+     "score": 10.016667
     },
     {
      "rank": 16,
-     "ticker": "EZPW",
-     "score": 10.033333
+     "ticker": "BOOT",
+     "score": 10.008333
     },
     {
      "rank": 17,
-     "ticker": "EIX",
-     "score": 9.998334
+     "ticker": "TPG",
+     "score": 10.008333
     },
     {
      "rank": 18,
-     "ticker": "PIPR",
-     "score": 9.983334
+     "ticker": "COHU",
+     "score": 10.0
     },
     {
      "rank": 19,
-     "ticker": "TPG",
-     "score": 9.974999
+     "ticker": "APO",
+     "score": 9.925
     },
     {
      "rank": 20,
      "ticker": "ADAM",
-     "score": 9.900001
+     "score": 9.916667
     },
     {
      "rank": 21,
      "ticker": "SMCI",
-     "score": 9.895
+     "score": 9.878333
     },
     {
      "rank": 22,
-     "ticker": "APO",
-     "score": 9.858334
+     "ticker": "TGTX",
+     "score": 9.848333
     },
     {
      "rank": 23,
-     "ticker": "FISV",
-     "score": 9.799999
+     "ticker": "ATO",
+     "score": 9.838333
     },
     {
      "rank": 24,
-     "ticker": "ATO",
-     "score": 9.788333
+     "ticker": "HRMY",
+     "score": 9.825
     },
     {
      "rank": 25,
-     "ticker": "TGTX",
-     "score": 9.781667
+     "ticker": "FISV",
+     "score": 9.799999
     }
    ],
    "book_type": "paper"
@@ -1500,6 +1500,12 @@
    "equity": 7394.0,
    "spy": 582.4,
    "nasdaq": 939.7
+  },
+  {
+   "date": "2026-08-31",
+   "equity": 6875.7,
+   "spy": 597.6,
+   "nasdaq": 976.7
   }
  ],
  "yearly": [
@@ -1580,8 +1586,8 @@
   },
   {
    "label": "2026",
-   "strategy": 22.0,
-   "spy": 12.7
+   "strategy": 10.0,
+   "spy": 12.3
   }
  ],
  "holdings": [
@@ -1893,7 +1899,7 @@
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
   "UNIVERSE: broad scored panel (changed from PIT S&P membership 2026-08-06, Bradley's call). The panel contains NO delisted names, so this broad backtest is INCLUSION-BIASED upward -- the d10114a diagnostic measured roughly 10-15pts of such bias on the prior system. NO liquidity floor, by decision (Bradley, 2026-08-07): measured $5M/$10M median-dollar-volume floors cost 6-10pp CAGR (stage5_output/liquidity_floor_test.csv) and the current books already clear $5M; the sleeve ships floorless, which means small/illiquid names can and do enter the book.",
-  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 18% to 58% (median 27%).",
+  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 18% to 58% (median 24%).",
   "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The recorded walk-forward figures above are the honest out-of-sample read.",
   "TRUE daily mark-to-market - the -48% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
   "Top-3 concentration: high single-name risk. Held 85 distinct names over the backtest, rotating ~3 at a time.",

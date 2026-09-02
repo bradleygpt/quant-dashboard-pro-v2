@@ -12,8 +12,8 @@
   },
   "inception_date": "2026-06-17",
   "benchmark": "SPY",
-  "spy_entry_adj_close": 747.030029296875,
-  "spy_entry_date": "2026-07-31",
+  "spy_entry_adj_close": 767.0499877929688,
+  "spy_entry_date": "2026-08-31",
   "expected_net_cagr_backtest": "Event-balanced (.25ml/.25fund/.50event). Backtest 30.0%; liquidity-survival 0.96 (edge is tradeable, NOT microcap); worst 2-yr regime +12.7%; maxDD -41%; Sharpe 0.94. Realistic forward expectation ~25-29% after survivorship+concentration. E3/PEAD core confirmed by open-hunt OOS walk-forward (selected every fold). ADV reported per holding for sizing, not exclusion.",
   "display": {
     "engine": "Aristeia",
@@ -29,7 +29,7 @@
     "realistic_forward": "~25-29%",
     "window": "2011-2026"
   },
-  "next_rebalance_date": "2026-09-01",
+  "next_rebalance_date": "2026-10-01",
   "note": "Forward out-of-sample paper track. No look-ahead: picks use as-of signal at inception. Broad universe; illiquidity handled via ADV-aware sizing + realistic slippage, not exclusion. Compare cumulative vs SPY at each first-of-month rebalance.  [2026-07 rebalance deliberately SKIPPED, not reconstructed \u2014 see `skips`; resumes 2026-08-01. next_rebalance_date intentionally left at 2026-07-01 so the overdue alert stays lit until the 07-31 run.]",
   "history": [
     {
@@ -85,58 +85,85 @@
           "ret_pct": -37.04
         }
       ]
+    },
+    {
+      "closed_on": "2026-08-31",
+      "from_date": "2026-07-31",
+      "book_return_pct": 5.55,
+      "spy_return_pct": 2.68,
+      "relative_pct": 2.87,
+      "holdings": [
+        {
+          "ticker": "TRN",
+          "entry": 31.24,
+          "exit": 28.81999969482422,
+          "ret_pct": -7.75
+        },
+        {
+          "ticker": "INSW",
+          "entry": 96.18,
+          "exit": 98.63999938964844,
+          "ret_pct": 2.56
+        },
+        {
+          "ticker": "TH",
+          "entry": 15.2,
+          "exit": 18.520000457763672,
+          "ret_pct": 21.84
+        }
+      ]
     }
   ],
   "current_holdings": [
     {
-      "ticker": "TRN",
-      "entry_date": "2026-07-31",
-      "entry_adj_close": 31.24,
-      "adv_usd_m": 28.0,
-      "blend_score": 10.783,
-      "event": 11.56,
-      "fund": 9.27,
-      "ml": 10.74,
+      "ticker": "PGNY",
+      "entry_date": "2026-08-31",
+      "entry_adj_close": 25.59,
+      "adv_usd_m": 32.0,
+      "blend_score": 9.994,
+      "event": 11.2,
+      "fund": 6.99,
+      "ml": 10.6,
       "weight": 0.3333
     },
     {
       "ticker": "INSW",
-      "entry_date": "2026-07-31",
-      "entry_adj_close": 96.18,
-      "adv_usd_m": 43.2,
-      "blend_score": 10.476,
-      "event": 10.75,
-      "fund": 9.33,
-      "ml": 11.08,
+      "entry_date": "2026-08-31",
+      "entry_adj_close": 98.64,
+      "adv_usd_m": 48.1,
+      "blend_score": 9.977,
+      "event": 10.25,
+      "fund": 9.37,
+      "ml": 10.04,
       "weight": 0.3333
     },
     {
-      "ticker": "TH",
-      "entry_date": "2026-07-31",
-      "entry_adj_close": 15.2,
-      "adv_usd_m": 16.5,
-      "blend_score": 10.334,
-      "event": 10.12,
-      "fund": 9.29,
-      "ml": 11.81,
+      "ticker": "AKAM",
+      "entry_date": "2026-08-31",
+      "entry_adj_close": 108.62,
+      "adv_usd_m": 408.0,
+      "blend_score": 9.929,
+      "event": 11.12,
+      "fund": 7.67,
+      "ml": 9.82,
       "weight": 0.3333
     }
   ],
   "pending_rebalance": {
-    "deploy_next_trading_day_after": "2026-07-31",
+    "deploy_next_trading_day_after": "2026-08-31",
     "sell": [
-      "AKAM",
-      "MRVL"
-    ],
-    "buy": [
       "TRN",
       "TH"
+    ],
+    "buy": [
+      "PGNY",
+      "AKAM"
     ],
     "hold": [
       "INSW"
     ]
   },
-  "generated_at": "2026-08-02T15:09:32",
+  "generated_at": "2026-08-31T20:32:33",
   "skips": [
     {
       "period": "2026-07",
