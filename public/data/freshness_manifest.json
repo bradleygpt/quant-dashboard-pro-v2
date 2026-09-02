@@ -104,47 +104,47 @@
   },
   "generated_at": "2026-09-01T18:56:17",
   "blob": {
-    "version": "20260829T045433Z",
-    "published_at": "2026-08-29T04:54:34+00:00",
-    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@1f3223ec2d17180cc515bab0903dc51589c142a4/data",
-    "commit_sha": "1f3223ec2d17180cc515bab0903dc51589c142a4",
+    "version": "20260902T045850Z",
+    "published_at": "2026-09-02T04:58:52+00:00",
+    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@ea2e9531c0ffa34166818a691352327190b11ff4/data",
+    "commit_sha": "ea2e9531c0ffa34166818a691352327190b11ff4",
     "manifest_key": "_manifest/version_manifest.json",
     "files": {
       "earnings_reviews.json": {
         "key": "earnings_reviews.json",
-        "sha256": "3050debedde53b5ddaa0cc4f3230f88b2fe7f8c844147c7dd4708125454b5afe",
+        "sha256": "7a3f42c6fd1b421da162a1eab446a8b429fe38f071b93471c921b02f5902d2ce",
         "bytes": 6176191,
-        "as_of": "2026-08-29"
+        "as_of": "2026-09-02"
       },
       "universe_floor0.json": {
         "key": "universe_floor0.json",
-        "sha256": "06629abea71049cef5f9a3c59b99e2d15dc7413405a8f5df1987d5e75c42e076",
-        "bytes": 1807848,
-        "as_of": "2026-08-29"
+        "sha256": "716b45eedc46306dd5b90a734398a5603351d98f1f6518601c5fb9ce64767c04",
+        "bytes": 1808936,
+        "as_of": "2026-09-02"
       },
       "universe_floor1.json": {
         "key": "universe_floor1.json",
-        "sha256": "8468462a44c3db270a74f0ed2ec831026469481c312454c6fab18b51e6b98788",
-        "bytes": 1711414,
-        "as_of": "2026-08-29"
+        "sha256": "92186872271cf8f8155f33af137270e06158768bcc33de1ac78db614f15f528f",
+        "bytes": 1712429,
+        "as_of": "2026-09-02"
       },
       "universe_floor10.json": {
         "key": "universe_floor10.json",
-        "sha256": "729d9f78f6219c028858a571331c5f36d1919fe09f00727af2c4a1c4b2db5a20",
-        "bytes": 878508,
-        "as_of": "2026-08-29"
+        "sha256": "1f2b68ec06c4d9094239aa47735e1c73b3e8bff6d6fad894b631e85bbb54e3e4",
+        "bytes": 878950,
+        "as_of": "2026-09-02"
       },
       "mlpred.json": {
         "key": "mlpred.json",
-        "sha256": "ea43dba99ca1570ad44885bf78d98f17af6c6b7bf8d64239fb12532296bd5659",
-        "bytes": 1033812,
-        "as_of": "2026-08-29"
+        "sha256": "cf8f623dc3861e6aec7fa6b8cfc6b464a03e988684111845b8b2a29cc98cd702",
+        "bytes": 88,
+        "as_of": "2026-09-02"
       },
       "quarterly.json": {
         "key": "quarterly.json",
-        "sha256": "96b67a62598b11e85d7590babd7b592db21a8bb5dc669221df0ee9eebc52ac97",
+        "sha256": "4026d1ab9b5bf8c2074e13c5be759c01fa8795a77e5245a86dc9be2d18864a5f",
         "bytes": 4029116,
-        "as_of": "2026-08-29"
+        "as_of": "2026-09-02"
       },
       "correlations_cache.json": {
         "key": "correlations_cache.json",
@@ -160,9 +160,9 @@
       },
       "earnings_quality.json": {
         "key": "earnings_quality.json",
-        "sha256": "ba88217deb967862110d37148c7454942bd94eb81ae9cc6a1a97ad8e9da29077",
+        "sha256": "c70c89dadbdeff927c3efa38ed8344ed51d0aa46ba6cd0c452d149c488030c3a",
         "bytes": 341591,
-        "as_of": "2026-08-29"
+        "as_of": "2026-09-02"
       }
     },
     "dirs": [
@@ -173,18 +173,18 @@
     "dir_stats": {
       "detail_timeseries": {
         "files": 1311,
-        "bytes": 394519405,
-        "as_of": "2026-08-29"
+        "bytes": 394506134,
+        "as_of": "2026-09-02"
       },
       "detail": {
         "files": 3357,
-        "bytes": 22048543,
-        "as_of": "2026-08-29"
+        "bytes": 21433747,
+        "as_of": "2026-09-02"
       },
       "prices": {
         "files": 1250,
-        "bytes": 5201789,
-        "as_of": "2026-08-29"
+        "bytes": 5148821,
+        "as_of": "2026-09-02"
       }
     }
   }
