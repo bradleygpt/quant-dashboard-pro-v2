@@ -1,33 +1,5 @@
 {
-  "ok": false,
-  "checked_at": "2026-09-01T19:00:07.347667",
-  "alerts": [
-    {
-      "kind": "lapsed_layer",
-      "layer": "web",
-      "source": "meta.json",
-      "age_sessions": 2.0,
-      "budget_sessions": 1.5,
-      "age_days": 3.4
-    },
-    {
-      "kind": "rebalance_lag",
-      "source": "c78q.json",
-      "target_as_of": "2026-08-03",
-      "next_rebalance": "2026-09-01",
-      "note": "next_rebalance arrived but target.as_of never advanced (the June/July condition)"
-    },
-    {
-      "kind": "delivery_stall",
-      "source": "web repo public/data",
-      "last_commit": "2026-08-29T08:31:42-04:00",
-      "age_hours": 82.5,
-      "budget_hours": 48
-    }
-  ],
-  "notify": {
-    "toast": "skipped: BurntToast not installed",
-    "email": "sent to bmhartnett1990@gmail.com",
-    "notified_at": "2026-09-01T19:00:09"
-  }
+  "ok": true,
+  "checked_at": "2026-09-02T19:00:07.248302",
+  "alerts": []
 }

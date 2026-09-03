@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-09-02",
+  "computed_for": "2026-09-03",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -155,12 +155,12 @@
     },
     {
      "rank": 21,
-     "ticker": "REX",
+     "ticker": "CLS",
      "score": 0.984848
     },
     {
      "rank": 22,
-     "ticker": "CLS",
+     "ticker": "REX",
      "score": 0.984007
     },
     {
@@ -175,7 +175,7 @@
     },
     {
      "rank": 25,
-     "ticker": "SEDG",
+     "ticker": "ARM",
      "score": 0.981481
     }
    ],
@@ -209,12 +209,12 @@
     },
     {
      "rank": 6,
-     "ticker": "WDC",
+     "ticker": "CLMT",
      "score": 0.997451
     },
     {
      "rank": 7,
-     "ticker": "CLMT",
+     "ticker": "WDC",
      "score": 0.996602
     },
     {
