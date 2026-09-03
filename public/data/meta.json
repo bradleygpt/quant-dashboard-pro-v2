@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-03T00:15:08",
-  "source_commit": "c251360",
+  "generated_at": "2026-09-03T09:08:47",
+  "source_commit": "b43bae3",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -18,13 +18,13 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.2
       },
-      "backtest_cagr": 16.38,
+      "backtest_cagr": 16.43,
       "backtest_sharpe": 0.85,
       "backtest_max_dd": -36.37,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-30T16:18:12.915006+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "m_heavy": {
@@ -36,13 +36,13 @@
         "Momentum": 0.8,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 27.0,
-      "backtest_sharpe": 1.02,
+      "backtest_cagr": 27.1,
+      "backtest_sharpe": 1.03,
       "backtest_max_dd": -28.98,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-30T16:18:12.915006+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "v_heavy": {
@@ -54,13 +54,13 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 16.9,
+      "backtest_cagr": 16.83,
       "backtest_sharpe": 0.92,
       "backtest_max_dd": -37.32,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-08-09T12:36:49.357206+00:00",
+      "backtest_recomputed_at": "2026-08-30T16:18:12.915006+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "research_vq": {
@@ -450,8 +450,8 @@
     },
     "1": {
       "floor": 1,
-      "n_total": 1289,
-      "n_stocks": 1224,
+      "n_total": 1290,
+      "n_stocks": 1225,
       "n_etf": 65,
       "sectors": [
         "",
@@ -471,8 +471,8 @@
     },
     "10": {
       "floor": 10,
-      "n_total": 654,
-      "n_stocks": 599,
+      "n_total": 644,
+      "n_stocks": 589,
       "n_etf": 55,
       "sectors": [
         "Basic Materials",
