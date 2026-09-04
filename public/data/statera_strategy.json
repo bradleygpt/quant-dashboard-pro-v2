@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 21-trading-day hold; pure-Valuation top-8 broad (hunt7 constrained config search, 2026-08-06; recorded walk-forward of the selection procedure 0.54x \u2014 hunt8). Replaces retired Prosodos in the 2026-11-10 go-live cohort per Bradley's 2026-08-07 order; paper rebalances continue on the 21-day grid until then.",
-  "computed_for": "2026-09-03",
+  "computed_for": "2026-09-04",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-09-07",

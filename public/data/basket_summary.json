@@ -9,14 +9,14 @@
  "n": 4,
  "weighting": "equal-weight pooled",
  "full": {
-  "cagr": 37.6,
-  "sharpe": 1.28,
-  "max_dd": -20.1
+  "cagr": 34.9,
+  "sharpe": 1.18,
+  "max_dd": -20.5
  },
  "deployable": {
-  "cagr": 35.5,
-  "sharpe": 1.28,
-  "max_dd": -24.6
+  "cagr": 32.4,
+  "sharpe": 1.15,
+  "max_dd": -24.2
  },
  "spy_cagr": 13.8,
  "note": "Combined book = equal-weight of the 5 sleeves' monthly returns. Deployable excludes >10% SPY drawdowns (PPI takes the book to cash there)."

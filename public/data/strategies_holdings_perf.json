@@ -154,13 +154,6 @@
      "alltime": 28.8
     },
     {
-     "ticker": "INBX",
-     "name": null,
-     "daily": 2.7,
-     "rebalance": 36.1,
-     "alltime": 66.9
-    },
-    {
      "ticker": "NG",
      "name": null,
      "daily": -1.7,
@@ -168,11 +161,18 @@
      "alltime": 3.2
     },
     {
-     "ticker": "MU",
+     "ticker": "INBX",
      "name": null,
-     "daily": 2.8,
-     "rebalance": -6.1,
-     "alltime": -6.1
+     "daily": 2.7,
+     "rebalance": 36.1,
+     "alltime": 66.9
+    },
+    {
+     "ticker": "RKLB",
+     "name": null,
+     "daily": -0.7,
+     "rebalance": -38.9,
+     "alltime": 31.0
     },
     {
      "ticker": "APLS",
