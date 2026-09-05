@@ -42,7 +42,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "PAPER track from 2026-08-11 (hunt10 EMC winner as a FIXED config \u2014 the re-selecting procedure failed the PIT book test and does not ship). Pre-registered checkpoints: 2026-08-28 validation, go-live evaluation 2026-11-10 with the others. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-09-04",
+  "computed_for": "2026-09-05",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -60,12 +60,12 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 10.203657
+     "score": 10.199268
     },
     {
      "rank": 2,
      "ticker": "CCL",
-     "score": 9.953851
+     "score": 9.952388
     },
     {
      "rank": 3,
@@ -75,77 +75,77 @@
     {
      "rank": 4,
      "ticker": "INSW",
-     "score": 9.771187
+     "score": 9.769724
     },
     {
      "rank": 5,
      "ticker": "MRVL",
-     "score": 9.765051
+     "score": 9.763588
     },
     {
      "rank": 6,
-     "ticker": "BEN",
-     "score": 9.69343
-    },
-    {
-     "rank": 7,
      "ticker": "IVZ",
      "score": 9.692005
     },
     {
+     "rank": 7,
+     "ticker": "BEN",
+     "score": 9.691967
+    },
+    {
      "rank": 8,
      "ticker": "VCTR",
-     "score": 9.645979
+     "score": 9.644516
     },
     {
      "rank": 9,
      "ticker": "WDC",
-     "score": 9.565815
+     "score": 9.561425
     },
     {
      "rank": 10,
      "ticker": "GIII",
-     "score": 9.350927
+     "score": 9.346539
     },
     {
      "rank": 11,
      "ticker": "PGNY",
-     "score": 9.290934
+     "score": 9.289471
     },
     {
      "rank": 12,
-     "ticker": "DVA",
-     "score": 9.266489
+     "ticker": "RCL",
+     "score": 9.262163
     },
     {
      "rank": 13,
-     "ticker": "RCL",
-     "score": 9.265089
+     "ticker": "DVA",
+     "score": 9.262099
     },
     {
      "rank": 14,
      "ticker": "SNEX",
-     "score": 9.244544
+     "score": 9.24308
     },
     {
      "rank": 15,
      "ticker": "NBIX",
-     "score": 9.188929
+     "score": 9.184538
     },
     {
      "rank": 16,
      "ticker": "LYV",
-     "score": 9.164871
+     "score": 9.16048
     },
     {
      "rank": 17,
      "ticker": "KRYS",
-     "score": 9.152825
+     "score": 9.148436
     },
     {
      "rank": 18,
      "ticker": "POWL",
-     "score": 9.130526
+     "score": 9.126135
     },
     {
      "rank": 19,
@@ -155,32 +155,32 @@
     {
      "rank": 20,
      "ticker": "CORT",
-     "score": 9.064317
+     "score": 9.062854
     },
     {
      "rank": 21,
      "ticker": "STLD",
-     "score": 9.053152
+     "score": 9.051689
     },
     {
      "rank": 22,
      "ticker": "KDP",
-     "score": 9.051107
+     "score": 9.048182
     },
     {
      "rank": 23,
      "ticker": "WSM",
-     "score": 9.050619
+     "score": 9.04623
     },
     {
      "rank": 24,
      "ticker": "ENVA",
-     "score": 9.030171
+     "score": 9.027246
     },
     {
      "rank": 25,
      "ticker": "ECPG",
-     "score": 9.02507
+     "score": 9.022144
     }
    ],
    "book_type": "paper",
@@ -189,17 +189,17 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 9.956131
+     "score": 9.951759
     },
     {
      "rank": 2,
      "ticker": "VCTR",
-     "score": 9.92907
+     "score": 9.927612
     },
     {
      "rank": 3,
      "ticker": "BKNG",
-     "score": 9.893864
+     "score": 9.892406
     },
     {
      "rank": 4,
@@ -209,7 +209,7 @@
     {
      "rank": 5,
      "ticker": "BEN",
-     "score": 9.530422
+     "score": 9.528965
     },
     {
      "rank": 6,
@@ -219,7 +219,7 @@
     {
      "rank": 7,
      "ticker": "ECPG",
-     "score": 9.479763
+     "score": 9.476849
     },
     {
      "rank": 8,
@@ -229,7 +229,7 @@
     {
      "rank": 9,
      "ticker": "MTDR",
-     "score": 9.17061
+     "score": 9.169153
     },
     {
      "rank": 10,
@@ -244,7 +244,7 @@
     {
      "rank": 12,
      "ticker": "INSW",
-     "score": 9.095923
+     "score": 9.094466
     },
     {
      "rank": 13,
@@ -254,52 +254,52 @@
     {
      "rank": 14,
      "ticker": "IQV",
-     "score": 8.982944
+     "score": 8.98003
     },
     {
      "rank": 15,
      "ticker": "GPN",
-     "score": 8.969169
+     "score": 8.966253
     },
     {
      "rank": 16,
      "ticker": "DXCM",
-     "score": 8.94883
+     "score": 8.944458
     },
     {
      "rank": 17,
      "ticker": "APAM",
-     "score": 8.936014
+     "score": 8.934557
     },
     {
      "rank": 18,
      "ticker": "WSR",
-     "score": 8.93313
+     "score": 8.930216
     },
     {
      "rank": 19,
      "ticker": "NSIT",
-     "score": 8.895899
+     "score": 8.892984
     },
     {
      "rank": 20,
      "ticker": "CORT",
-     "score": 8.891879
+     "score": 8.890421
     },
     {
      "rank": 21,
      "ticker": "LYV",
-     "score": 8.888956
+     "score": 8.884584
     },
     {
      "rank": 22,
      "ticker": "ADAM",
-     "score": 8.867002
+     "score": 8.862631
     },
     {
      "rank": 23,
      "ticker": "NEU",
-     "score": 8.86352
+     "score": 8.859148
     },
     {
      "rank": 24,
@@ -309,7 +309,7 @@
     {
      "rank": 25,
      "ticker": "EXPD",
-     "score": 8.834732
+     "score": 8.831818
     }
    ],
    "source": "kairos-builder"
