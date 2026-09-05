@@ -24,7 +24,7 @@
     "earnings_reviews": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "system_status": {
@@ -38,71 +38,71 @@
     "universe_floor0": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
       "as_of": "2026-09-05",
-      "generated_at": "2026-09-05T08:38:48",
+      "generated_at": "2026-09-05T17:38:30",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-09-05T08:38:48",
+  "generated_at": "2026-09-05T17:38:30",
   "blob": {
     "version": "20260905T044223Z",
     "published_at": "2026-09-05T04:42:24+00:00",
