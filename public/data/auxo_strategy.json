@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-31",
+ "generated_at": "2026-09-04",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -14,14 +14,14 @@
   "hold_days": 105
  },
  "current_holdings": {
-  "as_of": "2026-06-16",
+  "as_of": "2026-09-01",
   "tickers": [
    "UVV",
    "GEO",
-   "SNEX"
+   "SONO"
   ],
   "n": 3,
-  "book_type": "paper"
+  "book_type": "live"
  },
  "schedule": {
   "sleeve": "auxo",
@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-09-05",
+  "computed_for": "2026-09-09",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -179,135 +179,283 @@
     }
    ],
    "source": "factor-builder",
-   "signal_as_of": "2026-08-31",
+   "signal_as_of": "2026-09-04",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "UVV",
-     "score": 10.833333
+     "score": 10.849999
     },
     {
      "rank": 2,
-     "ticker": "SONO",
-     "score": 10.783334
+     "ticker": "MOS",
+     "score": 10.74
     },
     {
      "rank": 3,
-     "ticker": "BKNG",
-     "score": 10.633333
+     "ticker": "SONO",
+     "score": 10.7
     },
     {
      "rank": 4,
      "ticker": "GEO",
-     "score": 10.608334
+     "score": 10.591667
     },
     {
      "rank": 5,
-     "ticker": "MOS",
-     "score": 10.589999
-    },
-    {
-     "rank": 6,
-     "ticker": "NTCT",
+     "ticker": "ARR",
      "score": 10.566667
     },
     {
-     "rank": 7,
-     "ticker": "ARR",
-     "score": 10.533334
+     "rank": 6,
+     "ticker": "BKNG",
+     "score": 10.533333
     },
     {
-     "rank": 8,
+     "rank": 7,
      "ticker": "MMI",
      "score": 10.533333
     },
     {
+     "rank": 8,
+     "ticker": "NTCT",
+     "score": 10.5
+    },
+    {
      "rank": 9,
-     "ticker": "SNEX",
-     "score": 10.225
+     "ticker": "LPG",
+     "score": 10.301666
     },
     {
      "rank": 10,
-     "ticker": "LPG",
-     "score": 10.198333
+     "ticker": "SNEX",
+     "score": 10.241667
     },
     {
      "rank": 11,
      "ticker": "ACA",
-     "score": 10.139999
+     "score": 10.173332
     },
     {
      "rank": 12,
      "ticker": "PRIM",
-     "score": 10.088333
+     "score": 10.121667
     },
     {
      "rank": 13,
-     "ticker": "ED",
-     "score": 10.068334
+     "ticker": "COHU",
+     "score": 10.116667
     },
     {
      "rank": 14,
-     "ticker": "EZPW",
-     "score": 10.049999
+     "ticker": "PIPR",
+     "score": 10.1
     },
     {
      "rank": 15,
-     "ticker": "PIPR",
-     "score": 10.016667
+     "ticker": "ED",
+     "score": 10.091666
     },
     {
      "rank": 16,
-     "ticker": "BOOT",
-     "score": 10.008333
+     "ticker": "EZPW",
+     "score": 10.083333
     },
     {
      "rank": 17,
-     "ticker": "TPG",
-     "score": 10.008333
+     "ticker": "BOOT",
+     "score": 9.958333
     },
     {
      "rank": 18,
-     "ticker": "COHU",
-     "score": 10.0
+     "ticker": "TPG",
+     "score": 9.924999
     },
     {
      "rank": 19,
-     "ticker": "APO",
-     "score": 9.925
+     "ticker": "ADAM",
+     "score": 9.900001
     },
     {
      "rank": 20,
-     "ticker": "ADAM",
-     "score": 9.916667
+     "ticker": "TGTX",
+     "score": 9.891666
     },
     {
      "rank": 21,
      "ticker": "SMCI",
-     "score": 9.878333
+     "score": 9.888332
     },
     {
      "rank": 22,
-     "ticker": "TGTX",
-     "score": 9.848333
+     "ticker": "HRMY",
+     "score": 9.841667
     },
     {
      "rank": 23,
-     "ticker": "ATO",
-     "score": 9.838333
+     "ticker": "APO",
+     "score": 9.841666
     },
     {
      "rank": 24,
-     "ticker": "HRMY",
-     "score": 9.825
+     "ticker": "PAHC",
+     "score": 9.833333
     },
     {
      "rank": 25,
-     "ticker": "FISV",
-     "score": 9.799999
+     "ticker": "DUOL",
+     "score": 9.825
     }
    ],
    "book_type": "paper"
+  },
+  {
+   "as_of": "2026-09-01",
+   "kind": "deviation",
+   "held_n": 3,
+   "held_tickers": [
+    "UVV",
+    "GEO",
+    "SONO"
+   ],
+   "top25": [],
+   "book_type": "live",
+   "source": "manual-seed (deviation entry banked 2026-09-08, Bradley order: 2026-09-01 LIVE deployment of auxo at full-portfolio sizing - 5-sleeve split of the 19,300 USD account, 3,590 USD per sleeve, ~1,196.67 USD/name fractional. Book traded = the 2026-08-29-served artifact vintage (UVV/GEO/SONO). One-name difference vs the bank: traded SONO, banked SNEX (the frozen promotion book) - the served artifact had drifted from the bank and the orders followed the serving. Fill prices NOT YET RECORDED - pending broker export.)",
+   "deviation": {
+    "ticker": "SONO",
+    "type": "served_artifact_followed",
+    "banked_alternative": "SNEX",
+    "reason": "9/01 orders followed the 2026-08-29-served artifact book; bank held SNEX",
+    "ruled": "2026-09-08"
+   },
+   "signal_as_of": "2026-09-04",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "UVV",
+     "score": 10.849999
+    },
+    {
+     "rank": 2,
+     "ticker": "MOS",
+     "score": 10.74
+    },
+    {
+     "rank": 3,
+     "ticker": "SONO",
+     "score": 10.7
+    },
+    {
+     "rank": 4,
+     "ticker": "GEO",
+     "score": 10.591667
+    },
+    {
+     "rank": 5,
+     "ticker": "ARR",
+     "score": 10.566667
+    },
+    {
+     "rank": 6,
+     "ticker": "BKNG",
+     "score": 10.533333
+    },
+    {
+     "rank": 7,
+     "ticker": "MMI",
+     "score": 10.533333
+    },
+    {
+     "rank": 8,
+     "ticker": "NTCT",
+     "score": 10.5
+    },
+    {
+     "rank": 9,
+     "ticker": "LPG",
+     "score": 10.301666
+    },
+    {
+     "rank": 10,
+     "ticker": "SNEX",
+     "score": 10.241667
+    },
+    {
+     "rank": 11,
+     "ticker": "ACA",
+     "score": 10.173332
+    },
+    {
+     "rank": 12,
+     "ticker": "PRIM",
+     "score": 10.121667
+    },
+    {
+     "rank": 13,
+     "ticker": "COHU",
+     "score": 10.116667
+    },
+    {
+     "rank": 14,
+     "ticker": "PIPR",
+     "score": 10.1
+    },
+    {
+     "rank": 15,
+     "ticker": "ED",
+     "score": 10.091666
+    },
+    {
+     "rank": 16,
+     "ticker": "EZPW",
+     "score": 10.083333
+    },
+    {
+     "rank": 17,
+     "ticker": "BOOT",
+     "score": 9.958333
+    },
+    {
+     "rank": 18,
+     "ticker": "TPG",
+     "score": 9.924999
+    },
+    {
+     "rank": 19,
+     "ticker": "ADAM",
+     "score": 9.900001
+    },
+    {
+     "rank": 20,
+     "ticker": "TGTX",
+     "score": 9.891666
+    },
+    {
+     "rank": 21,
+     "ticker": "SMCI",
+     "score": 9.888332
+    },
+    {
+     "rank": 22,
+     "ticker": "HRMY",
+     "score": 9.841667
+    },
+    {
+     "rank": 23,
+     "ticker": "APO",
+     "score": 9.841666
+    },
+    {
+     "rank": 24,
+     "ticker": "PAHC",
+     "score": 9.833333
+    },
+    {
+     "rank": 25,
+     "ticker": "DUOL",
+     "score": 9.825
+    }
+   ]
   }
  ],
  "backtest": {
@@ -1503,7 +1651,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 6875.7,
+   "equity": 6875.8,
    "spy": 597.6,
    "nasdaq": 976.7
   }
@@ -1586,11 +1734,19 @@
   },
   {
    "label": "2026",
-   "strategy": 10.0,
-   "spy": 12.3
+   "strategy": 10.4,
+   "spy": 12.8
   }
  ],
  "holdings": [
+  {
+   "date": "2026-09-01",
+   "tickers": [
+    "GEO",
+    "SONO",
+    "UVV"
+   ]
+  },
   {
    "date": "2026-06-16",
    "tickers": [
@@ -1896,20 +2052,22 @@
    ]
   }
  ],
+ "pit_freeze": {
+  "frozen_at": "2026-07-31",
+  "boundary": "2026-09-01",
+  "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
+  "snapshot": "auxo_frozen.json",
+  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
+ },
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
   "UNIVERSE: broad scored panel (changed from PIT S&P membership 2026-08-06, Bradley's call). The panel contains NO delisted names, so this broad backtest is INCLUSION-BIASED upward -- the d10114a diagnostic measured roughly 10-15pts of such bias on the prior system. NO liquidity floor, by decision (Bradley, 2026-08-07): measured $5M/$10M median-dollar-volume floors cost 6-10pp CAGR (stage5_output/liquidity_floor_test.csv) and the current books already clear $5M; the sleeve ships floorless, which means small/illiquid names can and do enter the book.",
-  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 18% to 58% (median 24%).",
+  "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 19% to 58% (median 27%).",
   "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The recorded walk-forward figures above are the honest out-of-sample read.",
   "TRUE daily mark-to-market - the -48% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
-  "Top-3 concentration: high single-name risk. Held 85 distinct names over the backtest, rotating ~3 at a time.",
+  "Top-3 concentration: high single-name risk. Held 86 distinct names over the backtest, rotating ~3 at a time.",
   "Frictionless backtest: ignores ~227%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
-  "Current holdings = PAPER research book (signal-derived, never held at a broker) as of 2026-06-16; next rebalance projected 2026-11-10 (105-day hold).",
+  "Current holdings = LIVE broker-confirmed position as of 2026-09-01; next rebalance projected 2026-11-10 (105-day hold).",
   "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
- ],
- "pit_freeze": {
-  "frozen_at": "2026-07-31",
-  "snapshot": "auxo_frozen.json",
-  "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
- }
+ ]
 }

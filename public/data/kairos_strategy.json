@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-08-31",
+ "generated_at": "2026-09-04",
  "engine": "Kairos",
  "character": "Event-Momentum",
- "tagline": "Event-momentum composite (50% event pillar: PEAD / 8-K sentiment / insider; 20% momentum; 10% each value/growth/profitability) over the BROAD universe \u2014 top-5, ~105-day hold. PAPER TRACK from 2026-08-11; the hunt10 winner as a fixed config.",
+ "tagline": "Event-momentum composite (50% event pillar: PEAD / 8-K sentiment / insider; 20% momentum; 10% each value/growth/profitability) over the BROAD universe, top-5, ~105-day hold. LIVE from 2026-09-01; the hunt10 winner as a fixed config.",
  "config": {
   "weights": {
    "Valuation": 0.1,
@@ -15,7 +15,7 @@
   "hold_days": 105
  },
  "current_holdings": {
-  "as_of": "2026-06-16",
+  "as_of": "2026-09-01",
   "tickers": [
    "TGTX",
    "CCL",
@@ -24,7 +24,7 @@
    "MRVL"
   ],
   "n": 5,
-  "book_type": "paper"
+  "book_type": "live"
  },
  "next_rebalance": "2027-01-05",
  "schedule": {
@@ -42,7 +42,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "PAPER track from 2026-08-11 (hunt10 EMC winner as a FIXED config \u2014 the re-selecting procedure failed the PIT book test and does not ship). Pre-registered checkpoints: 2026-08-28 validation, go-live evaluation 2026-11-10 with the others. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-09-05",
+  "computed_for": "2026-09-09",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -184,135 +184,290 @@
     }
    ],
    "book_type": "paper",
-   "signal_as_of": "2026-08-31",
+   "signal_as_of": "2026-09-04",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 9.951759
+     "score": 10.031858
     },
     {
      "rank": 2,
-     "ticker": "VCTR",
-     "score": 9.927612
+     "ticker": "INCY",
+     "score": 9.965537
     },
     {
      "rank": 3,
-     "ticker": "BKNG",
-     "score": 9.892406
+     "ticker": "VCTR",
+     "score": 9.874163
     },
     {
      "rank": 4,
-     "ticker": "INCY",
-     "score": 9.55827
+     "ticker": "BKNG",
+     "score": 9.643831
     },
     {
      "rank": 5,
      "ticker": "BEN",
-     "score": 9.528965
+     "score": 9.622503
     },
     {
      "rank": 6,
      "ticker": "IVZ",
-     "score": 9.492521
+     "score": 9.443743
     },
     {
      "rank": 7,
      "ticker": "ECPG",
-     "score": 9.476849
+     "score": 9.409317
     },
     {
      "rank": 8,
-     "ticker": "EVRG",
-     "score": 9.294044
+     "ticker": "INSW",
+     "score": 9.240184
     },
     {
      "rank": 9,
-     "ticker": "MTDR",
-     "score": 9.169153
+     "ticker": "CON",
+     "score": 9.235598
     },
     {
      "rank": 10,
-     "ticker": "URBN",
-     "score": 9.132965
+     "ticker": "MTDR",
+     "score": 9.193245
     },
     {
      "rank": 11,
-     "ticker": "CART",
-     "score": 9.125988
+     "ticker": "EVRG",
+     "score": 9.164679
     },
     {
      "rank": 12,
-     "ticker": "INSW",
-     "score": 9.094466
+     "ticker": "WSR",
+     "score": 9.144239
     },
     {
      "rank": 13,
-     "ticker": "CON",
-     "score": 9.023142
+     "ticker": "CART",
+     "score": 9.141906
     },
     {
      "rank": 14,
-     "ticker": "IQV",
-     "score": 8.98003
+     "ticker": "HUM",
+     "score": 9.106586
     },
     {
      "rank": 15,
-     "ticker": "GPN",
-     "score": 8.966253
+     "ticker": "URBN",
+     "score": 9.104866
     },
     {
      "rank": 16,
-     "ticker": "DXCM",
-     "score": 8.944458
+     "ticker": "HALO",
+     "score": 9.08654
     },
     {
      "rank": 17,
-     "ticker": "APAM",
-     "score": 8.934557
+     "ticker": "IQV",
+     "score": 8.980461
     },
     {
      "rank": 18,
-     "ticker": "WSR",
-     "score": 8.930216
+     "ticker": "CORT",
+     "score": 8.929965
     },
     {
      "rank": 19,
-     "ticker": "NSIT",
-     "score": 8.892984
+     "ticker": "MRK",
+     "score": 8.917063
     },
     {
      "rank": 20,
-     "ticker": "CORT",
-     "score": 8.890421
+     "ticker": "KDP",
+     "score": 8.916242
     },
     {
      "rank": 21,
-     "ticker": "LYV",
-     "score": 8.884584
+     "ticker": "NSIT",
+     "score": 8.909812
     },
     {
      "rank": 22,
-     "ticker": "ADAM",
-     "score": 8.862631
+     "ticker": "GPN",
+     "score": 8.888381
     },
     {
      "rank": 23,
-     "ticker": "NEU",
-     "score": 8.859148
+     "ticker": "EXPD",
+     "score": 8.86656
     },
     {
      "rank": 24,
-     "ticker": "BGC",
-     "score": 8.840843
+     "ticker": "DAL",
+     "score": 8.863176
     },
     {
      "rank": 25,
-     "ticker": "EXPD",
-     "score": 8.831818
+     "ticker": "ADAM",
+     "score": 8.855254
     }
    ],
    "source": "kairos-builder"
+  },
+  {
+   "as_of": "2026-09-01",
+   "kind": "deviation",
+   "held_n": 5,
+   "held_tickers": [
+    "TGTX",
+    "CCL",
+    "EVRG",
+    "INSW",
+    "MRVL"
+   ],
+   "top25": [],
+   "book_type": "live",
+   "source": "manual-seed (deviation entry banked 2026-09-08, Bradley order: kairos moved PAPER -> LIVE at the 2026-09-01 full-portfolio deployment - 5-sleeve split of the 19,300 USD account, 3,590 USD per sleeve, 718.00 USD/name fractional. Book = the pit-frozen 2026-06-16 selection, carried into the live deployment. The 2026-06-16 paper entry remains valid history and is not modified. Fill prices NOT YET RECORDED - pending broker export.)",
+   "sizing": {
+    "TGTX": 13.2228,
+    "CCL": 30.0544,
+    "EVRG": 8.862,
+    "INSW": 7.279,
+    "MRVL": 3.3922
+   },
+   "deviation": {
+    "type": "paper_to_live_transition",
+    "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live checkpoint; fills pending",
+    "ruled": "2026-09-08"
+   },
+   "signal_as_of": "2026-09-04",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "TGTX",
+     "score": 10.031858
+    },
+    {
+     "rank": 2,
+     "ticker": "INCY",
+     "score": 9.965537
+    },
+    {
+     "rank": 3,
+     "ticker": "VCTR",
+     "score": 9.874163
+    },
+    {
+     "rank": 4,
+     "ticker": "BKNG",
+     "score": 9.643831
+    },
+    {
+     "rank": 5,
+     "ticker": "BEN",
+     "score": 9.622503
+    },
+    {
+     "rank": 6,
+     "ticker": "IVZ",
+     "score": 9.443743
+    },
+    {
+     "rank": 7,
+     "ticker": "ECPG",
+     "score": 9.409317
+    },
+    {
+     "rank": 8,
+     "ticker": "INSW",
+     "score": 9.240184
+    },
+    {
+     "rank": 9,
+     "ticker": "CON",
+     "score": 9.235598
+    },
+    {
+     "rank": 10,
+     "ticker": "MTDR",
+     "score": 9.193245
+    },
+    {
+     "rank": 11,
+     "ticker": "EVRG",
+     "score": 9.164679
+    },
+    {
+     "rank": 12,
+     "ticker": "WSR",
+     "score": 9.144239
+    },
+    {
+     "rank": 13,
+     "ticker": "CART",
+     "score": 9.141906
+    },
+    {
+     "rank": 14,
+     "ticker": "HUM",
+     "score": 9.106586
+    },
+    {
+     "rank": 15,
+     "ticker": "URBN",
+     "score": 9.104866
+    },
+    {
+     "rank": 16,
+     "ticker": "HALO",
+     "score": 9.08654
+    },
+    {
+     "rank": 17,
+     "ticker": "IQV",
+     "score": 8.980461
+    },
+    {
+     "rank": 18,
+     "ticker": "CORT",
+     "score": 8.929965
+    },
+    {
+     "rank": 19,
+     "ticker": "MRK",
+     "score": 8.917063
+    },
+    {
+     "rank": 20,
+     "ticker": "KDP",
+     "score": 8.916242
+    },
+    {
+     "rank": 21,
+     "ticker": "NSIT",
+     "score": 8.909812
+    },
+    {
+     "rank": 22,
+     "ticker": "GPN",
+     "score": 8.888381
+    },
+    {
+     "rank": 23,
+     "ticker": "EXPD",
+     "score": 8.86656
+    },
+    {
+     "rank": 24,
+     "ticker": "DAL",
+     "score": 8.863176
+    },
+    {
+     "rank": 25,
+     "ticker": "ADAM",
+     "score": 8.855254
+    }
+   ]
   }
  ],
  "backtest": {
@@ -1591,11 +1746,21 @@
   },
   {
    "label": "2026",
-   "strategy": 23.9,
-   "spy": 12.3
+   "strategy": 27.3,
+   "spy": 12.8
   }
  ],
  "holdings": [
+  {
+   "date": "2026-09-01",
+   "tickers": [
+    "CCL",
+    "EVRG",
+    "INSW",
+    "MRVL",
+    "TGTX"
+   ]
+  },
   {
    "date": "2026-06-16",
    "tickers": [
@@ -1978,15 +2143,17 @@
   }
  ],
  "caveats": [
-  "PAPER TRACK ONLY (from 2026-08-11): no capital. Pre-registered promotion checkpoints in ops/kairos_checkpoints.md \u2014 first 2026-08-28, go-live evaluation 2026-11-10. The slot is CONTESTABLE: a research-queue challenger beating Kairos at a checkpoint under the same four bars takes the slot.",
-  "IN-SAMPLE CONFIG SELECTION, stated plainly: the weights/N/H are the maximum of a 12,240-candidate search over the full 2011-2026 window. Walk-forward of the selection procedure retained 0.59x; expectation ~21%% CAGR / 0.74 Sharpe, NOT the backtest figure.",
+  "LIVE from 2026-09-01: full-portfolio sizing at the five sleeve split. Book carried from the pit-frozen 2026-06-16 selection. Fill prices pending broker confirmation. Pre-registered checkpoints in ops/kairos_checkpoints.md continue under the original schedule: first 2026-08-28, evaluation 2026-11-10. The slot remains CONTESTABLE: a research-queue challenger beating Kairos at a checkpoint under the same four bars takes the slot, which now implies a live transition rather than a paper one.",
+  "IN-SAMPLE CONFIG SELECTION, stated plainly: the weights/N/H are the maximum of a 12,240-candidate search over the full 2011-2026 window. Walk-forward of the selection procedure retained 0.59x; expectation ~21% CAGR / 0.74 Sharpe, NOT the backtest figure.",
   "SURVIVOR BIAS: survivors-only broad panel \u2014 CAGR is an UPPER BOUND (standing rulings; no product surface may imply the picks beat the market).",
   "NO TRANSACTION COSTS in the backtest lineage (matches the hunt5/7/8/10 race convention). Turnover is low (~215%/yr at 105-session holds) so the drag is small, but it is not zero.",
-  "Validated at creation: Control D +17.4pp (z +4.4, 10bps, paired bootstrap); no ML input, so the training-label fence is a no-op for this sleeve. Book test at creation: 5-book 37.1%%/1.53 vs 4-book 36.7%%/1.44 (full window); the PIT-chained variant of the SELECTION PROCEDURE was negative \u2014 one reason this ships as PAPER, not live.",
+  "Validated at creation: Control D +17.4pp (z +4.4, 10bps, paired bootstrap); no ML input, so the training-label fence is a no-op for this sleeve. Book test at creation: 5-book 37.1%/1.53 vs 4-book 36.7%/1.44 (full window); the PIT-chained variant of the SELECTION PROCEDURE was negative. The sleeve therefore ships as a FIXED config, not as a re-selecting procedure. This finding stands and is unchanged by the 2026-09-01 live deployment.",
   "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
  ],
  "pit_freeze": {
   "frozen_at": "2026-07-31",
+  "boundary": "2026-09-01",
+  "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
   "snapshot": "kairos_frozen.json",
   "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
  }

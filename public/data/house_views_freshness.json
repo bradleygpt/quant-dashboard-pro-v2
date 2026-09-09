@@ -1,28 +1,28 @@
 {
-  "checked_utc": "2026-09-01T13:52:32.512637+00:00",
-  "checked_human": "2026-09-01 13:52 UTC",
+  "checked_utc": "2026-08-01T10:37:13.195646+00:00",
+  "checked_human": "2026-08-01 10:37 UTC",
   "status": "ok",
-  "needs_action_count": 3,
+  "needs_action_count": 4,
   "forecasters": [
     {
       "id": "wells_fargo_ii",
       "name": "Wells Fargo Inv. Institute",
+      "status": "current",
+      "prior_as_of": "2026-06",
+      "report_month": "2026-06",
+      "report_title": "2026 Midyear Outlook Report: Keeping Discipline in Noisy Markets",
+      "url": "https://www.wellsfargo.com/investment-institute/reports/2026-midyear-outlook/",
+      "error": null
+    },
+    {
+      "id": "fannie_mae_esr",
+      "name": "Fannie Mae (ESR)",
       "status": "error",
       "prior_as_of": "2026-06",
       "report_month": null,
       "report_title": null,
       "url": null,
       "error": "No JSON found: "
-    },
-    {
-      "id": "fannie_mae_esr",
-      "name": "Fannie Mae (ESR)",
-      "status": "current",
-      "prior_as_of": "2026-06",
-      "report_month": "2026-06",
-      "report_title": "Economic Forecast: June 2026",
-      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKKns6g1q_QdivYTkngvkA4WHeYJX54Xwrju8MMVHdyEMJ6Cqjw772aA5EOoSaBc_ERUrYPfnZUvJxFAlfwrz35p4xXt-vLXmol_DSeGTjXaHeE8xNhBhtOP5DOH8VqzEDImOMeKVjRfxJ95zeXMKcgWHnQjHJcZcTe_9N80K9",
-      "error": null
     },
     {
       "id": "kpmg",
@@ -39,19 +39,19 @@
       "name": "Guggenheim Investments",
       "status": "stale",
       "prior_as_of": "2026-06",
-      "report_month": "2026-08",
-      "report_title": "August 2026 Economic Outlook and Key Themes",
-      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw85MXQtJUHQx73XR_KAz797g7DIDxBIuWqPGCeb4CFlQ6KDkBEw_n1im-6CeSODp7OBC3V9RtQ4C9ogfI2ghrDYATzwh_bOiQxY6cB_Fk0Q0OquVqT1XtgrM6zhvuMTy97UpTRHF5ZrixiVuYzdf2B_YRuW3Sd09Npkl9b9AVJWJN4LXe8_8igUA-TCzUcjeXW6xmFqeXof2MSGkcxz_WSK8SS3IEz8cda3J4LCKXPMU=,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOAodqeL9HvJW5OPvfnXSP3Zk5sLE8cURDgXIvrXOqSNM3VOu4mqFFjRkVZzWUEsSL87GXjgRbyTh2Jp9BfEsCcVeW3V3Cesjjl6D30dn9s8VhOqoRb5HNvZZysxNUcB1gd9uQ1CGsAl39A7lUXw==,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFvjDuxTti0yrgvQigK0YKgV6fsOyrE0yi-A527MIJB6QpJqwr4DhuX5DkQB44Tfa8ip2Wub9aYD_kOMWuGbMTUqE3y5IzSA_GnLRaDUpHG5R49Ljhlk14aFckpwXI4lP_b",
+      "report_month": "2026-07",
+      "report_title": "July 2026 Economic Outlook and Key Themes",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF1RohbIRxRdS7vqnd-elRh5JZrmg7vOMtT1Fa-aZxMpAaZ41LMGas3iPSAtoAm23xAwUQa8MVUmlqIU9osDbXo76tOHSTcZF0PBNc4FiWhp4adrI566Elj-ZZabvWFNoh1JjjYaDIl5kw2OXOjhpZVhUj9Q3ojteKQIqnYSGEqYNrWLq8U01A4K4oOaC26rQbCiU03BjR25-J-FJadV43Izf69nrTa-x4uL8OHRpOp",
       "error": null
     },
     {
       "id": "ubs_cio",
       "name": "UBS CIO GWM",
-      "status": "current",
+      "status": "stale",
       "prior_as_of": "2025-11",
-      "report_month": "2025-11",
-      "report_title": "UBS Year Ahead 2026 ('Escape velocity?')",
-      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEkdx27rV9c6xUV-T0-Z7xVcDFaL-CHjgJ1LRaPbq1AkfuuyOKdSEef81dZWYYVHbH02j8Tl1DUOR8gB59NO4PJJBdiyGuKhV5qaQoSSWShEK5fsxPABPdM2UztTveLrrotYKVDhkHrE9TJrjD8QdUBHBFcsrtwAadWv6g6bnnr-rLBTeawp4ZbwhIEN3khTvZf5WFnEiQTjoyQQNCGiA==",
+      "report_month": "2026-05",
+      "report_title": "Energy spikes and bond yields: Why the market has overshot",
+      "url": "https://www.ubs.com/global/en/investment-principles/chief-investment-office/insights/energy-spikes-and-bond-yields-why-the-market-has-overshot.html",
       "error": null
     },
     {
@@ -61,7 +61,7 @@
       "prior_as_of": "2026-06",
       "report_month": "2026-07",
       "report_title": "US Midyear Outlook: Geopolitical Shocks, the New Fed Era, and Growth",
-      "url": "https://www.goldmansachs.com/insights/\u0baa\u0bcd\u0baa\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4/us-midyear-outlook-geopolitical-shocks-the-new-fed-era-and-growth/index.html",
+      "url": "https://www.goldmansachs.com/insights/\u0baa\u0bcd\u0baa\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4-us-midyear-outlook-geopolitical-shocks-the-new-fed-era-and-growth/index.html",
       "error": null
     },
     {
@@ -70,8 +70,8 @@
       "status": "current",
       "prior_as_of": "2026-05",
       "report_month": "2026-05",
-      "report_title": "2026 Midyear Investment Outlook: Constructive, not complacent",
-      "url": "https://www.morganstanley.com/ideas/investment-outlook-midyear-2026",
+      "report_title": "2026 Midyear Investment Outlook: Constructive, Not Complacent",
+      "url": "https://www.morganstanley.com/insights/articles/2026-midyear-investment-outlook-constructive-not-complacent",
       "error": null
     },
     {
@@ -79,9 +79,9 @@
       "name": "Yardeni Research",
       "status": "stale",
       "prior_as_of": "2026-05",
-      "report_month": "2026-08",
-      "report_title": "US MARKET CALL: Warsh Proof",
-      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9O99oJF-G5QfTI2GvcXjtum_eDQg-z8FEcvBRN9brw3tFggoePtR4K4AIsecDn6r6rvI8qAZbSXDu1IfC8-0JPjM29yI5Uu2UTS4pJ4DaH8pnn41hlLO0OvjHWLcIK2zlPCJ8kqFZ_IQ1WfIqDC8X4C0jxsdpzPs=",
+      "report_month": "2026-07",
+      "report_title": "US Economy Is Still Flying",
+      "url": "https://www.yardeni.com/quicktakes/us-economy-is-still-flying/",
       "error": null
     },
     {

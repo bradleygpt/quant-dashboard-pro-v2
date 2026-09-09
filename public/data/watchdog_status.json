@@ -1,5 +1,94 @@
 {
-  "ok": true,
-  "checked_at": "2026-09-04T19:00:06.112005",
-  "alerts": []
+  "ok": false,
+  "checked_at": "2026-09-08T19:00:04.560786",
+  "alerts": [
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "stage5",
+      "source": "kairos_strategy.json",
+      "sleeve": "kairos",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "web",
+      "source": "kairos_strategy.json",
+      "sleeve": "kairos",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "stage5",
+      "source": "auxo_strategy.json",
+      "sleeve": "auxo",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "web",
+      "source": "auxo_strategy.json",
+      "sleeve": "auxo",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "stage5",
+      "source": "pronoia_strategy.json",
+      "sleeve": "pronoia",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "web",
+      "source": "pronoia_strategy.json",
+      "sleeve": "pronoia",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "stage5",
+      "source": "statera_strategy.json",
+      "sleeve": "statera",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "schedule_live_before_go_live",
+      "layer": "web",
+      "source": "statera_strategy.json",
+      "sleeve": "statera",
+      "go_live": "2026-11-10",
+      "note": "labelled LIVE but its go-live date has not passed"
+    },
+    {
+      "kind": "delivery_stall",
+      "source": "web repo public/data",
+      "last_commit": "2026-09-05T08:31:38-04:00",
+      "age_hours": 82.5,
+      "budget_hours": 48
+    },
+    {
+      "kind": "live_book_not_researchable",
+      "sleeve": "pronoia",
+      "ineligible": [
+        "AAOI",
+        "INBX",
+        "NG",
+        "NOK"
+      ],
+      "as_of": "2026-09-01",
+      "note": "pronoia: NOT IN RESEARCH UNIVERSE: ['AAOI', 'INBX', 'NG', 'NOK'] \u2014 onboard before trading (build_cache PORTFOLIO_STOCKS + edgar facts + build_quarterly_deep + bake), or drop from the live book"
+    }
+  ],
+  "notify": {
+    "toast": "skipped: BurntToast not installed",
+    "email": "sent to bmhartnett1990@gmail.com",
+    "notified_at": "2026-09-08T19:00:06"
+  }
 }

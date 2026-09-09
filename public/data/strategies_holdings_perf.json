@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-31",
- "as_of": "2026-08-31",
+ "generated_at": "2026-09-04",
+ "as_of": "2026-09-04",
  "periods": [
   "daily",
   "rebalance",
@@ -11,36 +11,29 @@
    "slug": "katalepsis",
    "label": "Katalepsis",
    "color": "#00C805",
-   "entry": "2026-08-03",
+   "entry": "2026-09-01",
    "book_type": "live",
    "holdings": [
     {
-     "ticker": "TH",
+     "ticker": "STX",
      "name": null,
-     "daily": -0.2,
-     "rebalance": 17.3,
-     "alltime": 17.3
+     "daily": 6.3,
+     "rebalance": 4.0,
+     "alltime": 4.0
     },
     {
-     "ticker": "LRCX",
+     "ticker": "WDC",
      "name": null,
-     "daily": -0.1,
-     "rebalance": 2.3,
-     "alltime": 2.3
+     "daily": 5.9,
+     "rebalance": 3.8,
+     "alltime": 3.8
     },
     {
-     "ticker": "MXL",
+     "ticker": "DVA",
      "name": null,
-     "daily": -2.9,
-     "rebalance": -10.7,
-     "alltime": -10.7
-    },
-    {
-     "ticker": "PENG",
-     "name": null,
-     "daily": -0.9,
-     "rebalance": -6.7,
-     "alltime": -6.7
+     "daily": 1.3,
+     "rebalance": 4.5,
+     "alltime": 4.5
     }
    ]
   },
@@ -48,29 +41,29 @@
    "slug": "auxo",
    "label": "Auxo",
    "color": "#A855F7",
-   "entry": "2026-06-16",
-   "book_type": "paper",
+   "entry": "2026-09-01",
+   "book_type": "live",
    "holdings": [
     {
      "ticker": "UVV",
      "name": null,
-     "daily": -0.5,
-     "rebalance": -13.8,
-     "alltime": -27.7
+     "daily": -0.8,
+     "rebalance": -1.1,
+     "alltime": -27.5
     },
     {
      "ticker": "GEO",
      "name": null,
-     "daily": -1.5,
-     "rebalance": 11.1,
-     "alltime": 11.1
+     "daily": 2.9,
+     "rebalance": 4.1,
+     "alltime": 11.0
     },
     {
-     "ticker": "SNEX",
+     "ticker": "SONO",
      "name": null,
-     "daily": -0.2,
-     "rebalance": -22.1,
-     "alltime": 2.7
+     "daily": -5.0,
+     "rebalance": 1.5,
+     "alltime": -27.3
     }
    ]
   },
@@ -78,64 +71,57 @@
    "slug": "statera",
    "label": "Statera",
    "color": "#38BDF8",
-   "entry": "2026-08-17",
-   "book_type": "paper",
+   "entry": "2026-09-01",
+   "book_type": "live",
    "holdings": [
-    {
-     "ticker": "HTZ",
-     "name": null,
-     "daily": 6.1,
-     "rebalance": 5.1,
-     "alltime": -8.7
-    },
     {
      "ticker": "VYX",
      "name": null,
-     "daily": -4.6,
-     "rebalance": 8.8,
-     "alltime": 8.8
+     "daily": 2.0,
+     "rebalance": 4.6,
+     "alltime": 18.7
     },
     {
-     "ticker": "SSTK",
+     "ticker": "HTZ",
      "name": null,
-     "daily": -7.2,
-     "rebalance": 2.4,
-     "alltime": 2.4
-    },
-    {
-     "ticker": "HUBG",
-     "name": null,
-     "daily": 0.7,
-     "rebalance": 1.0,
-     "alltime": 29.6
-    },
-    {
-     "ticker": "LNC",
-     "name": null,
-     "daily": -1.6,
-     "rebalance": -4.7,
-     "alltime": -3.3
-    },
-    {
-     "ticker": "EGBN",
-     "name": null,
-     "daily": -1.0,
-     "rebalance": -4.4,
-     "alltime": 23.1
-    },
-    {
-     "ticker": "JBLU",
-     "name": null,
-     "daily": -4.2,
-     "rebalance": -12.2,
-     "alltime": -32.2
+     "daily": 1.3,
+     "rebalance": 2.7,
+     "alltime": -7.5
     },
     {
      "ticker": "ABR",
      "name": null,
-     "daily": -1.0,
-     "rebalance": 0.2,
-     "alltime": 2.4
+     "daily": 1.2,
+     "rebalance": 6.1,
+     "alltime": 7.3
+    },
+    {
+     "ticker": "EGBN",
+     "name": null,
+     "daily": 1.5,
+     "rebalance": 5.1,
+     "alltime": 27.1
+    },
+    {
+     "ticker": "LNC",
+     "name": null,
+     "daily": -0.4,
+     "rebalance": 6.3,
+     "alltime": 3.3
+    },
+    {
+     "ticker": "SSTK",
+     "name": null,
+     "daily": -0.5,
+     "rebalance": -0.2,
+     "alltime": 6.1
+    },
+    {
+     "ticker": "DXC",
+     "name": null,
+     "daily": -0.1,
+     "rebalance": 4.5,
+     "alltime": -6.0
     }
    ]
   },
@@ -149,30 +135,30 @@
     {
      "ticker": "AAOI",
      "name": null,
-     "daily": 1.4,
-     "rebalance": -37.0,
-     "alltime": 28.8
+     "daily": 5.1,
+     "rebalance": -38.2,
+     "alltime": 26.2
     },
     {
      "ticker": "NG",
      "name": null,
-     "daily": -1.7,
-     "rebalance": 3.2,
-     "alltime": 3.2
+     "daily": -3.0,
+     "rebalance": -3.1,
+     "alltime": -3.1
     },
     {
      "ticker": "INBX",
      "name": null,
-     "daily": 2.7,
-     "rebalance": 36.1,
-     "alltime": 66.9
+     "daily": -0.9,
+     "rebalance": 30.1,
+     "alltime": 59.6
     },
     {
      "ticker": "RKLB",
      "name": null,
-     "daily": -0.7,
-     "rebalance": -38.9,
-     "alltime": 31.0
+     "daily": 0.7,
+     "rebalance": -38.6,
+     "alltime": 31.7
     },
     {
      "ticker": "APLS",
@@ -187,43 +173,43 @@
    "slug": "kairos",
    "label": "Kairos",
    "color": "#EAB308",
-   "entry": "2026-06-16",
-   "book_type": "paper",
+   "entry": "2026-09-01",
+   "book_type": "live",
    "holdings": [
     {
      "ticker": "TGTX",
      "name": null,
-     "daily": 0.7,
-     "rebalance": 7.4,
-     "alltime": -21.6
+     "daily": -1.3,
+     "rebalance": -0.2,
+     "alltime": -19.2
     },
     {
      "ticker": "CCL",
      "name": null,
-     "daily": -3.5,
-     "rebalance": -22.3,
-     "alltime": -22.3
+     "daily": 0.1,
+     "rebalance": 1.2,
+     "alltime": -23.5
     },
     {
      "ticker": "EVRG",
      "name": null,
-     "daily": 0.5,
-     "rebalance": -2.7,
-     "alltime": 10.4
+     "daily": -0.5,
+     "rebalance": 0.0,
+     "alltime": 11.1
     },
     {
      "ticker": "INSW",
      "name": null,
-     "daily": -0.2,
-     "rebalance": 20.3,
-     "alltime": 133.2
+     "daily": 2.2,
+     "rebalance": 4.8,
+     "alltime": 147.0
     },
     {
      "ticker": "MRVL",
      "name": null,
-     "daily": -2.3,
-     "rebalance": -24.0,
-     "alltime": -24.0
+     "daily": 7.0,
+     "rebalance": 6.3,
+     "alltime": -19.8
     }
    ]
   }

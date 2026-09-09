@@ -3,43 +3,37 @@
   "generated_at": "2026-07-02T02:22:14.968430+00:00",
   "spec": {
     "version": "v1.0 LOCKED + Rider A",
-    "config": "live book n=4 (deployed 2026-08-03); research recompute = top3_monthly_full_universe",
+    "config": "live book n=3 (deployed 2026-09-01); research recompute = top3_monthly_full_universe",
     "capital_default": 25000,
-    "basket_size": 4,
-    "weight_per_position": 0.25,
+    "basket_size": 3,
+    "weight_per_position": 0.3333,
     "hold_days": 21,
     "rebalance": "1st of month (~21 trading days)"
   },
   "target": {
-    "as_of": "2026-08-03",
+    "as_of": "2026-09-01",
     "rows": [
       {
         "rank": 1,
-        "ticker": "TH",
-        "posterior_prob": 0.725436,
+        "ticker": "STX",
+        "posterior_prob": 0.756596,
         "n_streams": null
       },
       {
         "rank": 2,
-        "ticker": "LRCX",
-        "posterior_prob": 0.776812,
+        "ticker": "WDC",
+        "posterior_prob": 0.720586,
         "n_streams": null
       },
       {
         "rank": 3,
-        "ticker": "MXL",
-        "posterior_prob": 0.851115,
-        "n_streams": null
-      },
-      {
-        "rank": 4,
-        "ticker": "PENG",
-        "posterior_prob": 0.768018,
+        "ticker": "DVA",
+        "posterior_prob": 0.745593,
         "n_streams": null
       }
     ],
-    "n": 4,
-    "source": "manual-seed (broker confirmed 2026-08-03); n=4 (config top-3); PENG was signal rank 4 (0.9129) - deliberate addition, not a model pick. TH/PENG new fills; LRCX/MXL held from 7/20 (price = 7/31 close)",
+    "n": 3,
+    "source": "manual-seed (deviation entry banked 2026-09-08, Bradley order: 2026-09-01 LIVE rebalance of katalepsis/c78q at full-portfolio sizing - 5-sleeve split of the 19,300 USD account, 3,590 USD per sleeve, ~1,196.67 USD/name. SELLS executed same session: TH, LRCX, MXL, PENG (the 2026-08-03 book, closed in full). Served vintage the orders followed: the 2026-09-01 06:49 EDT generate_c78q_target run on the 8/31-trained calibration (c78q_target_2026-08-28.csv, prediction frontier 2026-08-28), served via the pre-open packet and c78q app - NOT the dashboard c78q.json, which still showed the 8/03 book. FOR THE RECORD: INTC/STX/VCYT was a pre-month-end research LOOKAHEAD (weekend 8/28-data target, later also the signal-now list) and was NEVER TRADED - any reference to it as the 9/01 traded book is a mislabel. Fractional sizing recorded below; fill prices NOT YET RECORDED - pending broker export.)",
     "book_type": "live",
     "top25": [],
     "rebalance_history": [
@@ -1197,10 +1191,433 @@
           }
         ],
         "banked_at": "2026-08-03T10:36:26"
+      },
+      {
+        "as_of": "2026-08-31",
+        "held_n": 3,
+        "held_tickers": [
+          "INTC",
+          "STX",
+          "VCYT"
+        ],
+        "top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.759091
+          },
+          {
+            "rank": 2,
+            "ticker": "STX",
+            "score": 0.756596
+          },
+          {
+            "rank": 3,
+            "ticker": "VCYT",
+            "score": 0.749258
+          },
+          {
+            "rank": 4,
+            "ticker": "DVA",
+            "score": 0.745593
+          },
+          {
+            "rank": 5,
+            "ticker": "ICHR",
+            "score": 0.733745
+          },
+          {
+            "rank": 6,
+            "ticker": "VSTS",
+            "score": 0.733468
+          },
+          {
+            "rank": 7,
+            "ticker": "CNC",
+            "score": 0.731269
+          },
+          {
+            "rank": 8,
+            "ticker": "LQDA",
+            "score": 0.729794
+          },
+          {
+            "rank": 9,
+            "ticker": "AMD",
+            "score": 0.729616
+          },
+          {
+            "rank": 10,
+            "ticker": "MXL",
+            "score": 0.727249
+          },
+          {
+            "rank": 11,
+            "ticker": "WDC",
+            "score": 0.720586
+          },
+          {
+            "rank": 12,
+            "ticker": "AMN",
+            "score": 0.718759
+          },
+          {
+            "rank": 13,
+            "ticker": "UFCS",
+            "score": 0.711979
+          },
+          {
+            "rank": 14,
+            "ticker": "INSW",
+            "score": 0.709978
+          },
+          {
+            "rank": 15,
+            "ticker": "BTSG",
+            "score": 0.708279
+          },
+          {
+            "rank": 16,
+            "ticker": "VIAV",
+            "score": 0.702744
+          },
+          {
+            "rank": 17,
+            "ticker": "MTZ",
+            "score": 0.702313
+          },
+          {
+            "rank": 18,
+            "ticker": "UCTT",
+            "score": 0.701179
+          },
+          {
+            "rank": 19,
+            "ticker": "POWL",
+            "score": 0.698918
+          },
+          {
+            "rank": 20,
+            "ticker": "MRVL",
+            "score": 0.698709
+          },
+          {
+            "rank": 21,
+            "ticker": "XNCR",
+            "score": 0.697733
+          },
+          {
+            "rank": 22,
+            "ticker": "LNTH",
+            "score": 0.697143
+          },
+          {
+            "rank": 23,
+            "ticker": "MU",
+            "score": 0.694568
+          },
+          {
+            "rank": 24,
+            "ticker": "FTRE",
+            "score": 0.693913
+          },
+          {
+            "rank": 25,
+            "ticker": "ENVA",
+            "score": 0.692393
+          }
+        ],
+        "book_type": "paper",
+        "source": "rebake",
+        "signal_as_of": "2026-09-04",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.759091
+          },
+          {
+            "rank": 2,
+            "ticker": "STX",
+            "score": 0.756596
+          },
+          {
+            "rank": 3,
+            "ticker": "VCYT",
+            "score": 0.749258
+          },
+          {
+            "rank": 4,
+            "ticker": "DVA",
+            "score": 0.745593
+          },
+          {
+            "rank": 5,
+            "ticker": "ICHR",
+            "score": 0.733745
+          },
+          {
+            "rank": 6,
+            "ticker": "VSTS",
+            "score": 0.733468
+          },
+          {
+            "rank": 7,
+            "ticker": "CNC",
+            "score": 0.731269
+          },
+          {
+            "rank": 8,
+            "ticker": "LQDA",
+            "score": 0.729794
+          },
+          {
+            "rank": 9,
+            "ticker": "AMD",
+            "score": 0.729616
+          },
+          {
+            "rank": 10,
+            "ticker": "MXL",
+            "score": 0.727249
+          },
+          {
+            "rank": 11,
+            "ticker": "WDC",
+            "score": 0.720586
+          },
+          {
+            "rank": 12,
+            "ticker": "AMN",
+            "score": 0.718759
+          },
+          {
+            "rank": 13,
+            "ticker": "UFCS",
+            "score": 0.711979
+          },
+          {
+            "rank": 14,
+            "ticker": "INSW",
+            "score": 0.709978
+          },
+          {
+            "rank": 15,
+            "ticker": "BTSG",
+            "score": 0.708279
+          },
+          {
+            "rank": 16,
+            "ticker": "VIAV",
+            "score": 0.702744
+          },
+          {
+            "rank": 17,
+            "ticker": "MTZ",
+            "score": 0.702313
+          },
+          {
+            "rank": 18,
+            "ticker": "UCTT",
+            "score": 0.701179
+          },
+          {
+            "rank": 19,
+            "ticker": "POWL",
+            "score": 0.698918
+          },
+          {
+            "rank": 20,
+            "ticker": "MRVL",
+            "score": 0.698709
+          },
+          {
+            "rank": 21,
+            "ticker": "XNCR",
+            "score": 0.697733
+          },
+          {
+            "rank": 22,
+            "ticker": "LNTH",
+            "score": 0.697143
+          },
+          {
+            "rank": 23,
+            "ticker": "MU",
+            "score": 0.694568
+          },
+          {
+            "rank": 24,
+            "ticker": "FTRE",
+            "score": 0.693913
+          },
+          {
+            "rank": 25,
+            "ticker": "ENVA",
+            "score": 0.692393
+          }
+        ]
+      },
+      {
+        "as_of": "2026-09-01",
+        "kind": "deviation",
+        "held_n": 3,
+        "held_tickers": [
+          "STX",
+          "WDC",
+          "DVA"
+        ],
+        "top25": [],
+        "book_type": "live",
+        "source": "manual-seed (deviation entry banked 2026-09-08, Bradley order: 2026-09-01 LIVE rebalance of katalepsis/c78q at full-portfolio sizing - 5-sleeve split of the 19,300 USD account, 3,590 USD per sleeve, ~1,196.67 USD/name. SELLS executed same session: TH, LRCX, MXL, PENG (the 2026-08-03 book, closed in full). Served vintage the orders followed: the 2026-09-01 06:49 EDT generate_c78q_target run on the 8/31-trained calibration (c78q_target_2026-08-28.csv, prediction frontier 2026-08-28), served via the pre-open packet and c78q app - NOT the dashboard c78q.json, which still showed the 8/03 book. FOR THE RECORD: INTC/STX/VCYT was a pre-month-end research LOOKAHEAD (weekend 8/28-data target, later also the signal-now list) and was NEVER TRADED - any reference to it as the 9/01 traded book is a mislabel. Fractional sizing recorded below; fill prices NOT YET RECORDED - pending broker export.)",
+        "sizing": {
+          "STX": 1.4446,
+          "WDC": 2.656,
+          "DVA": 6.7989
+        },
+        "sells": [
+          "TH",
+          "LRCX",
+          "MXL",
+          "PENG"
+        ],
+        "deviation": {
+          "type": "fills_pending_deployment",
+          "note": "live rebalance banked without broker fill prices; lookahead mislabel corrected in source",
+          "ruled": "2026-09-08"
+        },
+        "signal_as_of": "2026-09-04",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.759091
+          },
+          {
+            "rank": 2,
+            "ticker": "STX",
+            "score": 0.756596
+          },
+          {
+            "rank": 3,
+            "ticker": "VCYT",
+            "score": 0.749258
+          },
+          {
+            "rank": 4,
+            "ticker": "DVA",
+            "score": 0.745593
+          },
+          {
+            "rank": 5,
+            "ticker": "ICHR",
+            "score": 0.733745
+          },
+          {
+            "rank": 6,
+            "ticker": "VSTS",
+            "score": 0.733468
+          },
+          {
+            "rank": 7,
+            "ticker": "CNC",
+            "score": 0.731269
+          },
+          {
+            "rank": 8,
+            "ticker": "LQDA",
+            "score": 0.729794
+          },
+          {
+            "rank": 9,
+            "ticker": "AMD",
+            "score": 0.729616
+          },
+          {
+            "rank": 10,
+            "ticker": "MXL",
+            "score": 0.727249
+          },
+          {
+            "rank": 11,
+            "ticker": "WDC",
+            "score": 0.720586
+          },
+          {
+            "rank": 12,
+            "ticker": "AMN",
+            "score": 0.718759
+          },
+          {
+            "rank": 13,
+            "ticker": "UFCS",
+            "score": 0.711979
+          },
+          {
+            "rank": 14,
+            "ticker": "INSW",
+            "score": 0.709978
+          },
+          {
+            "rank": 15,
+            "ticker": "BTSG",
+            "score": 0.708279
+          },
+          {
+            "rank": 16,
+            "ticker": "VIAV",
+            "score": 0.702744
+          },
+          {
+            "rank": 17,
+            "ticker": "MTZ",
+            "score": 0.702313
+          },
+          {
+            "rank": 18,
+            "ticker": "UCTT",
+            "score": 0.701179
+          },
+          {
+            "rank": 19,
+            "ticker": "POWL",
+            "score": 0.698918
+          },
+          {
+            "rank": 20,
+            "ticker": "MRVL",
+            "score": 0.698709
+          },
+          {
+            "rank": 21,
+            "ticker": "XNCR",
+            "score": 0.697733
+          },
+          {
+            "rank": 22,
+            "ticker": "LNTH",
+            "score": 0.697143
+          },
+          {
+            "rank": 23,
+            "ticker": "MU",
+            "score": 0.694568
+          },
+          {
+            "rank": 24,
+            "ticker": "FTRE",
+            "score": 0.693913
+          },
+          {
+            "rank": 25,
+            "ticker": "ENVA",
+            "score": 0.692393
+          }
+        ]
       }
     ],
     "signal_now": {
-      "as_of": "2026-08-31",
+      "as_of": "2026-09-04",
       "rows": [
         {
           "rank": 1,
