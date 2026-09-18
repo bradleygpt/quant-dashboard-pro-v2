@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T19:23:28",
+  "generated_at": "2026-09-18T09:16:34",
   "consensus": {
     "metrics": [
       "gdp",
@@ -77,6 +77,42 @@
         "values": {
           "gdp": {
             "2026": 2.0
+          }
+        }
+      },
+      {
+        "id": "imf_weo",
+        "name": "IMF (WEO)",
+        "kind": "official",
+        "live": true,
+        "as_of": "2026-04",
+        "source": "IMF WEO (DataMapper)",
+        "url": "https://www.imf.org/en/Publications/WEO",
+        "notes": "Inflation = CPI. WEO full update Apr/Oct, interim Jan/Jul.",
+        "values": {
+          "gdp": {
+            "2026": 2.3,
+            "2027": 2.1,
+            "2028": 2.1,
+            "2029": 1.9,
+            "2030": 1.8,
+            "2031": 1.8
+          },
+          "inflation": {
+            "2026": 3.2,
+            "2027": 2.1,
+            "2028": 2.2,
+            "2029": 2.2,
+            "2030": 2.2,
+            "2031": 2.2
+          },
+          "unemployment": {
+            "2026": 4.4,
+            "2027": 4.2,
+            "2028": 4.1,
+            "2029": 3.9,
+            "2030": 3.9,
+            "2031": 3.9
           }
         }
       },
@@ -333,6 +369,15 @@
       "live": true,
       "source": "World Bank Data360 WB_GEP",
       "url": "https://data360.worldbank.org/en/dataset/WB_GEP",
+      "kind": "official"
+    },
+    {
+      "id": "imf_weo",
+      "name": "IMF (WEO)",
+      "as_of": "2026-04",
+      "live": true,
+      "source": "IMF WEO (DataMapper)",
+      "url": "https://www.imf.org/en/Publications/WEO",
       "kind": "official"
     },
     {
