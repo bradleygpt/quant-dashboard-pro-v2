@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-06-22",
+  "generated_at": "2026-09-24",
   "model": "qwen2.5:7b",
-  "rotation": "GDP growth is expected to be moderate at around 2% in the long run, favoring defensive sectors like healthcare and utilities. Higher inflation expectations through 2027 could pressure consumer staples and discretionary sectors, while lower rates forecasted post-2027 might benefit technology and real estate.",
-  "risks_used": []
+  "rotation": "Given the risks and forecasts, sectors likely to be pressured include those sensitive to inflation, such as consumer staples and utilities. Conversely, sectors benefiting from low interest rates, such as real estate and technology, may see increased favor. Additionally, sectors exposed to geopolitical risks, like energy and materials, could face pressure.",
+  "risks_used": [
+    {
+      "title": "Persistent Inflation and Monetary Policy Uncertainty",
+      "category": "Inflation",
+      "severity": "High"
+    },
+    {
+      "title": "Geopolitical Instability and Commodity Price Volatility",
+      "category": "Geopolitical",
+      "severity": "High"
+    },
+    {
+      "title": "US Fiscal Deficit and Rising National Debt",
+      "category": "Fiscal",
+      "severity": "High"
+    },
+    {
+      "title": "AI Investment Boom and Productivity Puzzle",
+      "category": "Markets",
+      "severity": "Medium"
+    },
+    {
+      "title": "Erosion of Trust and Market Fragility",
+      "category": "Markets",
+      "severity": "Medium"
+    },
+    {
+      "title": "Labor Market Stabilization Amidst Shifting Dynamics",
+      "category": "Labor",
+      "severity": "Medium"
+    },
+    {
+      "title": "Tariff Policy and Trade Deficit Widening",
+      "category": "Trade",
+      "severity": "Low"
+    }
+  ]
 }

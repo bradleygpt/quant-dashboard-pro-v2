@@ -1,81 +1,66 @@
 {
-  "generated_at": "2026-08-07",
-  "model": "ollama",
+  "generated_at": "2026-09-24",
+  "model": "qwen2.5:7b",
   "note": "AI rationale \u2014 fed only the strategy's holdings + their quant characteristics, never invents",
   "strategies": {
     "Katalepsis": {
-      "rationale": "",
+      "rationale": "These names share a high composite score, with STX and WDC both scoring 8.3 and DVA scoring 7.0. This basket fits Katalepsis's thesis by prioritizing high conviction through posterior ranking, blending signals to identify the most promising investments across technology and healthcare sectors.",
       "holdings": [
-        "TH",
-        "LRCX",
-        "MXL",
-        "PENG"
+        "STX",
+        "WDC",
+        "DVA"
       ],
       "sector_mix": {
-        "Industrials": 1,
-        "Technology": 3
+        "Technology": 2,
+        "Healthcare": 1
       },
       "thesis": "Posterior-ranked conviction book (c78q signal blend)."
     },
-    "Aristeia": {
-      "rationale": "",
-      "holdings": [
-        "TRN",
-        "TH",
-        "INSW"
-      ],
-      "sector_mix": {
-        "Industrials": 2,
-        "Energy": 1
-      },
-      "thesis": "Event/PEAD-anchored blend (25% ML-prediction / 25% fundamentals / 50% event) over the BROAD universe \u2014 the validated post-earnings-drift core, diluted to stay tradeable."
-    },
     "Auxo": {
-      "rationale": "",
+      "rationale": "These holdings share a common thread of strong growth potential, as reflected in their composite scores and pillar grades, particularly in the \"Growth\" and \"Pillar\" categories. This basket aligns with Auxo's growth-led strategy by focusing on fast-compounding revenue and earnings, while maintaining a light value-anchored approach, as seen in the varying but generally positive value grades.",
       "holdings": [
         "UVV",
         "GEO",
-        "SNEX"
+        "SONO"
       ],
       "sector_mix": {
         "Consumer Defensive": 1,
         "Industrials": 1,
-        "Financial Services": 1
+        "Technology": 1
       },
       "thesis": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored."
     },
     "Statera": {
-      "rationale": "",
+      "rationale": "These names share a common thread of being value-led, with composite scores ranging from 5.3 to 8.2, indicating they are among the cheapest in their sectors. This basket fits Statera's thesis by selecting the cheapest names across a diversified top-8, with a fast 21-day cadence, ensuring a current and cost-effective portfolio.",
       "holdings": [
-        "PRAA",
-        "HUBG",
-        "MAN",
-        "LNC",
-        "ABR",
+        "VYX",
         "HTZ",
-        "JBLU",
+        "ABR",
+        "EGBN",
+        "LNC",
+        "SSTK",
         "DXC"
       ],
       "sector_mix": {
-        "Financial Services": 2,
-        "Industrials": 4,
+        "Technology": 2,
+        "Industrials": 1,
         "Real Estate": 1,
-        "Technology": 1
+        "Financial Services": 2,
+        "Communication Services": 1
       },
       "thesis": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence."
     },
     "Pronoia": {
-      "rationale": "",
+      "rationale": "These holdings share a common thread in the Technology sector, with a focus on companies like MU and AAOI that have strong year-ahead forecasts from the Pronoia model. This basket fits Pronoia's thesis by selecting the top-5 by the model's 12-month forecast and holding them for about 105 days, aiming for validated and decorrelated returns.",
       "holdings": [
-        "INBX",
         "AAOI",
-        "IREN",
-        "INDV",
-        "NG"
+        "INBX",
+        "MU",
+        "NG",
+        "NOK"
       ],
       "sector_mix": {
-        "Financial Services": 1,
-        "Healthcare": 1
+        "Technology": 1
       },
       "thesis": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve."
     }

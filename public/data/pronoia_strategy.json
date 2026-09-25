@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-31",
+ "generated_at": "2026-09-11",
  "engine": "Pronoia",
  "character": "12-Month Foresight",
  "tagline": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve.",
@@ -11,16 +11,16 @@
   "hold_days": 105
  },
  "current_holdings": {
-  "as_of": "2026-06-16",
+  "as_of": "2026-09-01",
   "tickers": [
    "AAOI",
-   "NG",
    "INBX",
-   "RKLB",
-   "APLS"
+   "MU",
+   "NG",
+   "NOK"
   ],
   "n": 5,
-  "book_type": "paper"
+  "book_type": "live"
  },
  "next_rebalance": "2026-11-10",
  "schedule": {
@@ -31,166 +31,69 @@
   "anchor": "2026-06-16",
   "next_rebalance": "2026-11-10",
   "effective_trading_day": "2026-11-10",
-  "book_type": "paper",
+  "book_type": "live",
   "rebalance_book_type": "live",
-  "go_live": "2026-11-10",
-  "go_live_pending": true,
+  "go_live": "2026-09-01",
+  "go_live_pending": false,
   "never_goes_live": false,
   "gates_execution": false,
-  "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-09-05",
+  "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
+  "computed_for": "2026-09-24",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
   {
    "as_of": "2026-06-16",
+   "kind": "correction",
    "held_n": 5,
    "held_tickers": [
     "AAOI",
-    "NG",
     "INBX",
-    "RKLB",
-    "APLS"
+    "MU",
+    "NG",
+    "NOK"
    ],
-   "top25": [
-    {
-     "rank": 1,
-     "ticker": "AAOI",
-     "score": 1.0
-    },
-    {
-     "rank": 2,
-     "ticker": "NG",
-     "score": 0.999162
-    },
-    {
-     "rank": 3,
-     "ticker": "INBX",
-     "score": 0.999158
-    },
-    {
-     "rank": 4,
-     "ticker": "RKLB",
-     "score": 0.998317
-    },
-    {
-     "rank": 5,
-     "ticker": "APLS",
-     "score": 0.997492
-    },
-    {
-     "rank": 6,
-     "ticker": "NOK",
-     "score": 0.997475
-    },
-    {
-     "rank": 7,
-     "ticker": "MXL",
-     "score": 0.996633
-    },
-    {
-     "rank": 8,
-     "ticker": "MU",
-     "score": 0.995791
-    },
-    {
-     "rank": 9,
-     "ticker": "IREN",
-     "score": 0.99495
-    },
-    {
-     "rank": 10,
-     "ticker": "VIAV",
-     "score": 0.994108
-    },
-    {
-     "rank": 11,
-     "ticker": "POWL",
-     "score": 0.993266
-    },
-    {
-     "rank": 12,
-     "ticker": "ALB",
-     "score": 0.992424
-    },
-    {
-     "rank": 13,
-     "ticker": "CENX",
-     "score": 0.991583
-    },
-    {
-     "rank": 14,
-     "ticker": "WDC",
-     "score": 0.990741
-    },
-    {
-     "rank": 15,
-     "ticker": "APA",
-     "score": 0.989899
-    },
-    {
-     "rank": 16,
-     "ticker": "OGN",
-     "score": 0.989057
-    },
-    {
-     "rank": 17,
-     "ticker": "INTC",
-     "score": 0.988216
-    },
-    {
-     "rank": 18,
-     "ticker": "RCUS",
-     "score": 0.987374
-    },
-    {
-     "rank": 19,
-     "ticker": "VSAT",
-     "score": 0.986532
-    },
-    {
-     "rank": 20,
-     "ticker": "PENG",
-     "score": 0.98569
-    },
-    {
-     "rank": 21,
-     "ticker": "FORM",
-     "score": 0.984848
-    },
-    {
-     "rank": 22,
-     "ticker": "STX",
-     "score": 0.984007
-    },
-    {
-     "rank": 23,
-     "ticker": "KSS",
-     "score": 0.983165
-    },
-    {
-     "rank": 24,
-     "ticker": "VISN",
-     "score": 0.982323
-    },
-    {
-     "rank": 25,
-     "ticker": "SNEX",
-     "score": 0.981481
-    }
+   "top25": [],
+   "book_type": "paper",
+   "source": "manual-seed (correction banked 2026-09-08, Bradley order: supersedes the drifted 2026-06-16 entry above. Book restored from the pit-frozen holdings history (frozen 2026-08-10, immutable since), which preserved the true 2026-06-16 selection. top25 not reconstructed - the original ranking was destroyed by the pre-write-once refresh and is not recoverable without re-derivation, which is prohibited.)"
+  },
+  {
+   "as_of": "2026-09-01",
+   "kind": "deviation",
+   "held_n": 5,
+   "held_tickers": [
+    "AAOI",
+    "INBX",
+    "MU",
+    "NG",
+    "NOK"
    ],
-   "source": "pronoia-builder",
-   "signal_as_of": "2026-08-31",
+   "top25": [],
+   "book_type": "live",
+   "source": "manual-seed (deviation entry banked 2026-09-08, Bradley order: pronoia moved PAPER -> LIVE at the 2026-09-01 full-portfolio deployment - 5-sleeve split of the 19,300 USD account, 3,590 USD per sleeve, 718.00 USD/name fractional. Book = the corrected 2026-06-16 selection (frozen-history book), carried into the live deployment. The 2026-06-16 paper entries remain valid history and are not modified. Fill prices NOT YET RECORDED - pending broker export.)",
+   "sizing": {
+    "AAOI": 6.6673,
+    "INBX": 5.6669,
+    "MU": 0.7489,
+    "NG": 83.4884,
+    "NOK": 70.8087
+   },
+   "deviation": {
+    "type": "paper_to_live_transition",
+    "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live; fills pending",
+    "ruled": "2026-09-08"
+   },
+   "signal_as_of": "2026-09-11",
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "LQDA",
+     "ticker": "NG",
      "score": 1.0
     },
     {
      "rank": 2,
-     "ticker": "NG",
-     "score": 0.999162
+     "ticker": "LQDA",
+     "score": 1.0
     },
     {
      "rank": 3,
@@ -214,101 +117,100 @@
     },
     {
      "rank": 7,
-     "ticker": "INBX",
+     "ticker": "LRCX",
      "score": 0.996602
     },
     {
      "rank": 8,
-     "ticker": "BTSG",
+     "ticker": "INBX",
      "score": 0.995752
     },
     {
      "rank": 9,
-     "ticker": "RCUS",
+     "ticker": "BTSG",
      "score": 0.994902
     },
     {
      "rank": 10,
-     "ticker": "STX",
+     "ticker": "DD",
      "score": 0.994053
     },
     {
      "rank": 11,
-     "ticker": "DD",
+     "ticker": "WDC",
      "score": 0.993203
     },
     {
      "rank": 12,
-     "ticker": "SAFT",
+     "ticker": "STX",
      "score": 0.992353
     },
     {
      "rank": 13,
-     "ticker": "WDC",
+     "ticker": "MU",
      "score": 0.991504
     },
     {
      "rank": 14,
-     "ticker": "PENG",
+     "ticker": "MXL",
      "score": 0.990654
     },
     {
      "rank": 15,
-     "ticker": "LRCX",
+     "ticker": "FORM",
      "score": 0.989805
     },
     {
      "rank": 16,
-     "ticker": "INSW",
+     "ticker": "AMAT",
      "score": 0.988955
     },
     {
      "rank": 17,
-     "ticker": "MXL",
+     "ticker": "AMD",
      "score": 0.988105
     },
     {
      "rank": 18,
-     "ticker": "UCTT",
+     "ticker": "ICHR",
      "score": 0.987256
     },
     {
      "rank": 19,
-     "ticker": "MU",
+     "ticker": "VSTS",
      "score": 0.986406
     },
     {
      "rank": 20,
+     "ticker": "AHT",
+     "score": 0.986175
+    },
+    {
+     "rank": 21,
      "ticker": "MRLN",
      "score": 0.985726
     },
     {
-     "rank": 21,
-     "ticker": "COLL",
+     "rank": 22,
+     "ticker": "MRNA",
      "score": 0.985556
     },
     {
-     "rank": 22,
-     "ticker": "ICHR",
+     "rank": 23,
+     "ticker": "INTC",
      "score": 0.984707
     },
     {
-     "rank": 23,
-     "ticker": "RKLB",
+     "rank": 24,
+     "ticker": "HUBG",
      "score": 0.983857
     },
     {
-     "rank": 24,
-     "ticker": "FORM",
-     "score": 0.983008
-    },
-    {
      "rank": 25,
-     "ticker": "PARR",
-     "score": 0.982158
+     "ticker": "ACMR",
+     "score": 0.983008
     }
-   ],
-   "book_type": "paper"
+   ]
   }
  ],
  "backtest": {
@@ -1504,7 +1406,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 14663.4,
+   "equity": 15468.7,
    "spy": 597.6,
    "nasdaq": 976.7
   }
@@ -1587,11 +1489,21 @@
   },
   {
    "label": "2026",
-   "strategy": 13.1,
-   "spy": 12.3
+   "strategy": 26.7,
+   "spy": 11.9
   }
  ],
  "holdings": [
+  {
+   "date": "2026-09-01",
+   "tickers": [
+    "AAOI",
+    "INBX",
+    "MU",
+    "NG",
+    "NOK"
+   ]
+  },
   {
    "date": "2026-06-16",
    "tickers": [
@@ -1975,15 +1887,18 @@
  ],
  "caveats": [
   "SURVIVOR BIAS: survivors-only backtest universe, so CAGR is an UPPER BOUND. Of ~721 S&P names that left the index 2011-2026, only ~40 are genuine bankruptcies (the rest are M&A / ticker-changes, NOT losses) and are excluded from the panel. The failure-bias is bounded (momentum/quality screens avoid most pre-bankruptcy names) but real - not a survivorship-free track record.",
-  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR 3% to 134% (median 29%).",
+  "Backtested 2011-2026 on the BROAD universe (no floor; trading = eligible). Realistic forward ~22% net of cost + survivor haircut; per-2yr regime CAGR 1% to 85% (median 32%).",
   "Validated edge: top-5 monthly excess +1.0%%/mo, t 2.50 (SIGNIFICANT, persists/strengthens recently) \u2014 unlike the 1-month prediction, which is noise. Broad rank-IC is still ~0 (candidate-grade); the edge lives in the extreme top names.",
   "TACTICAL, not blind: the edge is strong near all-time highs / broad breadth and NEGATIVE in >10%% corrections. Deploy in healthy regimes; the PPI gauge takes the book to cash in drawdowns.",
-  "TRADEABLE: low quarterly turnover (~179%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
-  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (115 distinct names rotated).",
+  "TRADEABLE: low quarterly turnover (~191%/yr), negligible cost drag, and a $5M-ADV liquidity floor RAISES the CAGR (the edge is in liquid mid/large-caps, not microcaps).",
+  "Decorrelated 0.40-0.45 from the other four sleeves; adds +0.14 to the deployable combined-book Sharpe (1.50 -> 1.64). Top-5 concentration = high single-name risk (121 distinct names rotated).",
   "PIT-FROZEN 2026-07-31: the backtest history above is a frozen snapshot taken at promotion and never re-derives (register entry 6 documents why re-derived backtests are not track records). Rebuilds append only post-freeze dates."
  ],
  "pit_freeze": {
-  "frozen_at": "2026-07-31",
+  "freeze_date": "2026-07-31",
+  "frozen_at": null,
+  "boundary": "2026-09-01",
+  "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
   "snapshot": "pronoia_frozen.json",
   "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
  }

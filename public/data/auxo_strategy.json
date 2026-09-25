@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-04",
+ "generated_at": "2026-09-11",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -31,14 +31,14 @@
   "anchor": "2026-06-16",
   "next_rebalance": "2026-11-10",
   "effective_trading_day": "2026-11-10",
-  "book_type": "paper",
+  "book_type": "live",
   "rebalance_book_type": "live",
-  "go_live": "2026-11-10",
-  "go_live_pending": true,
+  "go_live": "2026-09-01",
+  "go_live_pending": false,
   "never_goes_live": false,
   "gates_execution": false,
-  "rationale": "Paper sleeve on a 105-trading-day hold. Goes live at its 2026-11-10 expiry, which lands post-midterms per the research report.",
-  "computed_for": "2026-09-09",
+  "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
+  "computed_for": "2026-09-24",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -328,22 +328,22 @@
     "reason": "9/01 orders followed the 2026-08-29-served artifact book; bank held SNEX",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-09-04",
+   "signal_as_of": "2026-09-11",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "UVV",
-     "score": 10.849999
+     "score": 10.983333
     },
     {
      "rank": 2,
      "ticker": "MOS",
-     "score": 10.74
+     "score": 10.773333
     },
     {
      "rank": 3,
      "ticker": "SONO",
-     "score": 10.7
+     "score": 10.733334
     },
     {
      "rank": 4,
@@ -352,63 +352,63 @@
     },
     {
      "rank": 5,
-     "ticker": "ARR",
-     "score": 10.566667
+     "ticker": "NTCT",
+     "score": 10.55
     },
     {
      "rank": 6,
-     "ticker": "BKNG",
-     "score": 10.533333
+     "ticker": "MMI",
+     "score": 10.516666
     },
     {
      "rank": 7,
-     "ticker": "MMI",
-     "score": 10.533333
+     "ticker": "SNEX",
+     "score": 10.491667
     },
     {
      "rank": 8,
-     "ticker": "NTCT",
-     "score": 10.5
+     "ticker": "ARR",
+     "score": 10.466667
     },
     {
      "rank": 9,
      "ticker": "LPG",
-     "score": 10.301666
+     "score": 10.325
     },
     {
      "rank": 10,
-     "ticker": "SNEX",
-     "score": 10.241667
+     "ticker": "BKNG",
+     "score": 10.3
     },
     {
      "rank": 11,
+     "ticker": "PRIM",
+     "score": 10.255
+    },
+    {
+     "rank": 12,
      "ticker": "ACA",
      "score": 10.173332
     },
     {
-     "rank": 12,
-     "ticker": "PRIM",
-     "score": 10.121667
-    },
-    {
      "rank": 13,
-     "ticker": "COHU",
-     "score": 10.116667
+     "ticker": "PIPR",
+     "score": 10.150001
     },
     {
      "rank": 14,
-     "ticker": "PIPR",
-     "score": 10.1
+     "ticker": "COHU",
+     "score": 10.133333
     },
     {
      "rank": 15,
-     "ticker": "ED",
-     "score": 10.091666
+     "ticker": "EZPW",
+     "score": 10.099999
     },
     {
      "rank": 16,
-     "ticker": "EZPW",
-     "score": 10.083333
+     "ticker": "ED",
+     "score": 10.094999
     },
     {
      "rank": 17,
@@ -417,43 +417,43 @@
     },
     {
      "rank": 18,
-     "ticker": "TPG",
-     "score": 9.924999
+     "ticker": "TGTX",
+     "score": 9.915
     },
     {
      "rank": 19,
-     "ticker": "ADAM",
-     "score": 9.900001
+     "ticker": "SMCI",
+     "score": 9.898333
     },
     {
      "rank": 20,
-     "ticker": "TGTX",
-     "score": 9.891666
+     "ticker": "UFCS",
+     "score": 9.808333
     },
     {
      "rank": 21,
-     "ticker": "SMCI",
-     "score": 9.888332
+     "ticker": "FISV",
+     "score": 9.799999
     },
     {
      "rank": 22,
      "ticker": "HRMY",
-     "score": 9.841667
+     "score": 9.791666
     },
     {
      "rank": 23,
-     "ticker": "APO",
-     "score": 9.841666
+     "ticker": "HAFC",
+     "score": 9.786666
     },
     {
      "rank": 24,
-     "ticker": "PAHC",
-     "score": 9.833333
+     "ticker": "COLL",
+     "score": 9.783333
     },
     {
      "rank": 25,
-     "ticker": "DUOL",
-     "score": 9.825
+     "ticker": "PAHC",
+     "score": 9.773333
     }
    ]
   }
@@ -1651,7 +1651,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 6875.8,
+   "equity": 6875.6,
    "spy": 597.6,
    "nasdaq": 976.7
   }
@@ -1734,8 +1734,8 @@
   },
   {
    "label": "2026",
-   "strategy": 10.4,
-   "spy": 12.8
+   "strategy": 9.2,
+   "spy": 11.9
   }
  ],
  "holdings": [
@@ -2053,7 +2053,8 @@
   }
  ],
  "pit_freeze": {
-  "frozen_at": "2026-07-31",
+  "freeze_date": "2026-07-31",
+  "frozen_at": null,
   "boundary": "2026-09-01",
   "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
   "snapshot": "auxo_frozen.json",
