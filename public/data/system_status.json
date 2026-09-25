@@ -1,71 +1,30 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-09-24T22:25:41"
+    "at": "2026-09-25T09:53:20"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": "2026-09-01"
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-08-31"
+      "asOf": null
     }
   },
   "ppi": {
-    "score": 30.0,
+    "score": 36.0,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-08-03",
+    "nextRebalance": null,
     "rebalanceModel": null,
     "rebalanceBookType": null,
     "effectiveTradingDay": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01"
-    },
-    "auxo": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": null,
-      "rebalance_model": null,
-      "rebalance_model_label": null,
-      "rebalance_book_type": null,
-      "go_live": null,
-      "go_live_pending": null,
-      "schedule_rationale": null
-    },
-    "statera": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": null,
-      "rebalance_model": null,
-      "rebalance_model_label": null,
-      "rebalance_book_type": null,
-      "go_live": null,
-      "go_live_pending": null,
-      "schedule_rationale": null
-    },
-    "pronoia": {
-      "book_type": "paper",
-      "status": "paper-track (deployment deferred)",
-      "as_of": "2026-06-16",
-      "next_rebalance": null,
-      "rebalance_model": null,
-      "rebalance_model_label": null,
-      "rebalance_book_type": null,
-      "go_live": null,
-      "go_live_pending": null,
-      "schedule_rationale": null
-    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -88,101 +47,13 @@
       "rebalance_model": null
     }
   },
-  "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "stage5",
-        "source": "kairos_strategy.json",
-        "sleeve": "kairos",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "web",
-        "source": "kairos_strategy.json",
-        "sleeve": "kairos",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "stage5",
-        "source": "auxo_strategy.json",
-        "sleeve": "auxo",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "web",
-        "source": "auxo_strategy.json",
-        "sleeve": "auxo",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "stage5",
-        "source": "pronoia_strategy.json",
-        "sleeve": "pronoia",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "web",
-        "source": "pronoia_strategy.json",
-        "sleeve": "pronoia",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "stage5",
-        "source": "statera_strategy.json",
-        "sleeve": "statera",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "schedule_live_before_go_live",
-        "layer": "web",
-        "source": "statera_strategy.json",
-        "sleeve": "statera",
-        "go_live": "2026-11-10",
-        "note": "labelled LIVE but its go-live date has not passed"
-      },
-      {
-        "kind": "delivery_stall",
-        "source": "web repo public/data",
-        "last_commit": "2026-09-05T08:31:38-04:00",
-        "age_hours": 82.5,
-        "budget_hours": 48
-      },
-      {
-        "kind": "live_book_not_researchable",
-        "sleeve": "pronoia",
-        "ineligible": [
-          "AAOI",
-          "INBX",
-          "NG",
-          "NOK"
-        ],
-        "as_of": "2026-09-01",
-        "note": "pronoia: NOT IN RESEARCH UNIVERSE: ['AAOI', 'INBX', 'NG', 'NOK'] \u2014 onboard before trading (build_cache PORTFOLIO_STOCKS + edgar facts + build_quarterly_deep + bake), or drop from the live book"
-      }
-    ],
-    "checked_at": "2026-09-08T19:00:04.560786"
-  },
+  "watchdog": null,
   "market": {
-    "state": "closed"
+    "state": "pre"
   },
   "_meta": {
-    "ppi_as_of": "2026-09-24",
-    "ppi_breadth_pct": 67.1,
+    "ppi_as_of": "2026-09-25",
+    "ppi_breadth_pct": 26.9,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
