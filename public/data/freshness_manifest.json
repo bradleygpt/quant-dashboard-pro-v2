@@ -2,7 +2,7 @@
   "sources": {
     "macro_forecasts": {
       "source": "macro_forecasts.build_macro_forecasts \u2014 FRED SEP (Release 326) + World Bank GEP + IMF WEO live; bank house views curated",
-      "as_of": "2026-09-25",
+      "as_of": "2026-09-26",
       "forecasters": [
         "Federal Reserve (SEP)",
         "World Bank (GEP)",
@@ -23,86 +23,86 @@
     },
     "earnings_reviews": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
-      "as_of": "2026-09-25",
-      "ppi": "44.7 ELEVATED (live c78q PPI, as-of 2026-09-25)",
+      "as_of": "2026-09-26",
+      "ppi": "44.9 ELEVATED (live c78q PPI, as-of 2026-09-26)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
     },
     "universe_floor0": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
-      "as_of": "2026-09-25",
-      "generated_at": "2026-09-25T19:39:00",
+      "as_of": "2026-09-26",
+      "generated_at": "2026-09-26T09:35:40",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-09-25T19:39:00",
+  "generated_at": "2026-09-26T09:35:40",
   "blob": {
     "version": "20260925T022608Z",
     "published_at": "2026-09-25T02:26:09+00:00",
