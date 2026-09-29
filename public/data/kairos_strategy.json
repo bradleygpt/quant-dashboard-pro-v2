@@ -42,7 +42,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-09-24",
+  "computed_for": "2026-09-29",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -345,127 +345,127 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 9.999402
+     "score": 10.057727
     },
     {
      "rank": 2,
-     "ticker": "INCY",
-     "score": 9.776459
+     "ticker": "VCTR",
+     "score": 9.761379
     },
     {
      "rank": 3,
-     "ticker": "VCTR",
-     "score": 9.745493
+     "ticker": "INCY",
+     "score": 9.749058
     },
     {
      "rank": 4,
      "ticker": "BEN",
-     "score": 9.599154
+     "score": 9.571754
     },
     {
      "rank": 5,
      "ticker": "IVZ",
-     "score": 9.485029
+     "score": 9.486727
     },
     {
      "rank": 6,
      "ticker": "ECPG",
-     "score": 9.448321
+     "score": 9.455112
     },
     {
      "rank": 7,
-     "ticker": "INSW",
-     "score": 9.339472
+     "ticker": "MTDR",
+     "score": 9.453537
     },
     {
      "rank": 8,
-     "ticker": "EVRG",
-     "score": 9.325253
+     "ticker": "INSW",
+     "score": 9.435991
     },
     {
      "rank": 9,
-     "ticker": "CON",
-     "score": 9.300121
+     "ticker": "EVRG",
+     "score": 9.329865
     },
     {
      "rank": 10,
-     "ticker": "MTDR",
-     "score": 9.230551
+     "ticker": "CON",
+     "score": 9.282297
     },
     {
      "rank": 11,
      "ticker": "HUM",
-     "score": 9.143128
+     "score": 9.099842
     },
     {
      "rank": 12,
      "ticker": "URBN",
-     "score": 9.133398
+     "score": 9.092657
     },
     {
      "rank": 13,
-     "ticker": "WSR",
-     "score": 9.068367
+     "ticker": "GPN",
+     "score": 9.083755
     },
     {
      "rank": 14,
-     "ticker": "HALO",
-     "score": 9.05771
+     "ticker": "BGC",
+     "score": 9.080573
     },
     {
      "rank": 15,
-     "ticker": "CORT",
-     "score": 9.034397
+     "ticker": "HALO",
+     "score": 9.059407
     },
     {
      "rank": 16,
-     "ticker": "IQV",
-     "score": 9.021713
+     "ticker": "CORT",
+     "score": 9.042885
     },
     {
      "rank": 17,
-     "ticker": "AMT",
-     "score": 9.017455
+     "ticker": "NHC",
+     "score": 9.026814
     },
     {
      "rank": 18,
-     "ticker": "CART",
-     "score": 8.993265
+     "ticker": "IQV",
+     "score": 8.998316
     },
     {
      "rank": 19,
-     "ticker": "KDP",
-     "score": 8.977123
+     "ticker": "AMT",
+     "score": 8.965071
     },
     {
      "rank": 20,
-     "ticker": "ABM",
-     "score": 8.975087
+     "ticker": "KDP",
+     "score": 8.95118
     },
     {
      "rank": 21,
-     "ticker": "GPN",
-     "score": 8.964079
+     "ticker": "ABM",
+     "score": 8.941265
     },
     {
      "rank": 22,
-     "ticker": "NHC",
-     "score": 8.932713
+     "ticker": "NSIT",
+     "score": 8.938559
     },
     {
      "rank": 23,
-     "ticker": "BGC",
-     "score": 8.916153
+     "ticker": "DAL",
+     "score": 8.88966
     },
     {
      "rank": 24,
      "ticker": "AVB",
-     "score": 8.908118
+     "score": 8.885698
     },
     {
      "rank": 25,
-     "ticker": "NSIT",
-     "score": 8.898778
+     "ticker": "KRYS",
+     "score": 8.880428
     }
    ]
   }

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-24",
+  "generated_at": "2026-09-29",
   "model": "qwen2.5:7b",
-  "rotation": "Given the risks and forecasts, sectors likely to be pressured include those sensitive to inflation, such as consumer staples and utilities. Conversely, sectors benefiting from low interest rates, such as real estate and technology, may see increased favor. Additionally, sectors exposed to geopolitical risks, like energy and materials, could face pressure.",
+  "rotation": "Favor sectors resilient to inflation and monetary policy uncertainty, such as healthcare and utilities. Pressure sectors sensitive to geopolitical instability and commodity prices, like energy and materials. Favor tech and AI-related sectors given the expected productivity growth, despite the current market volatility. Pressure sectors exposed to trade tensions, such as manufacturing and export-oriented businesses.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",

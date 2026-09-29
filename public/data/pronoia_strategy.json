@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-09-24",
+  "computed_for": "2026-09-29",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -87,12 +87,12 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "NG",
+     "ticker": "LQDA",
      "score": 1.0
     },
     {
      "rank": 2,
-     "ticker": "LQDA",
+     "ticker": "NG",
      "score": 1.0
     },
     {
@@ -127,87 +127,87 @@
     },
     {
      "rank": 9,
-     "ticker": "BTSG",
+     "ticker": "MU",
      "score": 0.994902
     },
     {
      "rank": 10,
-     "ticker": "DD",
+     "ticker": "HUBG",
      "score": 0.994053
     },
     {
      "rank": 11,
-     "ticker": "WDC",
+     "ticker": "BTSG",
      "score": 0.993203
     },
     {
      "rank": 12,
-     "ticker": "STX",
+     "ticker": "DD",
      "score": 0.992353
     },
     {
      "rank": 13,
-     "ticker": "MU",
+     "ticker": "MXL",
      "score": 0.991504
     },
     {
      "rank": 14,
-     "ticker": "MXL",
+     "ticker": "FORM",
      "score": 0.990654
     },
     {
      "rank": 15,
-     "ticker": "FORM",
+     "ticker": "WDC",
      "score": 0.989805
     },
     {
      "rank": 16,
-     "ticker": "AMAT",
+     "ticker": "STX",
      "score": 0.988955
     },
     {
      "rank": 17,
-     "ticker": "AMD",
+     "ticker": "ICHR",
      "score": 0.988105
     },
     {
      "rank": 18,
-     "ticker": "ICHR",
-     "score": 0.987256
+     "ticker": "MRLN",
+     "score": 0.987406
     },
     {
      "rank": 19,
      "ticker": "VSTS",
-     "score": 0.986406
+     "score": 0.987256
     },
     {
      "rank": 20,
-     "ticker": "AHT",
-     "score": 0.986175
+     "ticker": "ACMR",
+     "score": 0.986406
     },
     {
      "rank": 21,
-     "ticker": "MRLN",
-     "score": 0.985726
-    },
-    {
-     "rank": 22,
-     "ticker": "MRNA",
+     "ticker": "AMD",
      "score": 0.985556
     },
     {
-     "rank": 23,
-     "ticker": "INTC",
+     "rank": 22,
+     "ticker": "VIAV",
      "score": 0.984707
     },
     {
+     "rank": 23,
+     "ticker": "AHT",
+     "score": 0.984332
+    },
+    {
      "rank": 24,
-     "ticker": "HUBG",
+     "ticker": "UCTT",
      "score": 0.983857
     },
     {
      "rank": 25,
-     "ticker": "ACMR",
+     "ticker": "COHR",
      "score": 0.983008
     }
    ]
@@ -1489,7 +1489,7 @@
   },
   {
    "label": "2026",
-   "strategy": 26.7,
+   "strategy": 42.5,
    "spy": 11.9
   }
  ],
