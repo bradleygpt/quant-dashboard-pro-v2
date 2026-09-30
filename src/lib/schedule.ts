@@ -22,8 +22,9 @@ export interface SleeveSchedule {
   anchor: string | null;
   next_rebalance: string;
   effective_trading_day: string;
-  book_type: "paper" | "live";
-  rebalance_book_type: "paper" | "live";
+  // "model" from ops/rebalance_schedule.TRADING_STOPPED (2026-09-21): no orders placed.
+  book_type: "paper" | "live" | "model";
+  rebalance_book_type: "paper" | "live" | "model";
   go_live: string | null;
   go_live_pending: boolean;
   never_goes_live: boolean;
@@ -54,7 +55,9 @@ export function isPastDue(s: SleeveSchedule | undefined, today = new Date()): bo
 /** One-line label carrying both dimensions. Never render a bare date. */
 export function scheduleLabel(s: SleeveSchedule | undefined): string {
   if (!s) return "";
-  const who = s.rebalance_book_type === "live" ? "live" : "paper";
+  // The value names itself: a binary live/paper collapse would call a post-stop model
+  // rebalance "paper". Unknown values fall to "paper" -- never to "live".
+  const who = s.rebalance_book_type === "live" || s.rebalance_book_type === "model" ? s.rebalance_book_type : "paper";
   const tail = s.go_live_pending && s.go_live ? ` · go live ${s.go_live}` : "";
   return `${s.model_label} · ${who}${tail}`;
 }

@@ -11,12 +11,16 @@ const BASE = `${import.meta.env.BASE_URL}data`;
 
 // live = broker-confirmed positions; paper = signal-derived research book (2026-07-01 directive:
 // a paper book must always be visibly labeled wherever holdings are shown).
-type BookType = "live" | "paper";
+// model = a rebalance after Bradley stopped trading (2026-09-21): no order placed. Every
+// branch below names its type explicitly -- nothing may reach a LIVE label by elimination.
+type BookType = "live" | "paper" | "model";
 type StatusMap = Record<string, { book_type?: BookType; status?: string; as_of?: string }>;
+const isBookType = (v: unknown): v is BookType => v === "live" || v === "paper" || v === "model";
+const BOOK_TAG: Record<BookType, string> = { live: "LIVE", paper: "PAPER", model: "MODEL" };
 function bookTypeOf(slug: string, statusMap: StatusMap | undefined, jsonBookType?: unknown): BookType {
   const s = statusMap?.[slug]?.book_type;
-  if (s === "live" || s === "paper") return s;
-  if (jsonBookType === "live" || jsonBookType === "paper") return jsonBookType;
+  if (isBookType(s)) return s;
+  if (isBookType(jsonBookType)) return jsonBookType;
   return "paper";
 }
 
@@ -75,7 +79,7 @@ function HoldingsTreemap({ statusMap }: { statusMap?: StatusMap }) {
     return perf.strategies.map((s) => {
       const bt = bookTypeOf(s.slug, statusMap, s.book_type);
       return {
-        name: bt === "paper" ? `${s.label} · PAPER` : `${s.label} · LIVE`, stratColor: entityColor(s.slug),
+        name: `${s.label} · ${BOOK_TAG[bt]}`, stratColor: entityColor(s.slug),
         children: s.holdings.map((h) => ({ name: h.ticker, size: 1, fill: gainColor(h[period], period), label: fmtGain(h[period]), stratColor: entityColor(s.slug) })),
       };
     });
@@ -329,7 +333,7 @@ function CorrelationNetwork({ statusMap }: { statusMap?: StatusMap }) {
                 return (
                   <span key={s} className="inline-flex items-center gap-1.5 text-ink-2">
                     <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: entityColor(s) }} />{d.strategy_labels[s]}
-                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-brass-hi" : "text-paper"}`}>{bt === "live" ? "● LIVE" : "◌ PAPER"}</span>
+                    <span className={`text-[9px] font-semibold ${bt === "live" ? "text-brass-hi" : bt === "model" ? "text-mute" : "text-paper"}`}>{bt === "live" ? "● LIVE" : bt === "model" ? "◇ MODEL" : "◌ PAPER"}</span>
                   </span>
                 );
               })}
@@ -496,13 +500,21 @@ function CurrentBooks({ books, statusMap }: { books: HubBook[]; statusMap?: Stat
   const resolved = books.map((b) => ({ b, bt: bookTypeOf(b.slug, statusMap, b.jsonBookType) }));
   const live = resolved.filter((x) => x.bt === "live");
   const paper = resolved.filter((x) => x.bt === "paper");
+  // Its own group: a two-way live/paper split would silently DROP a model book from the card.
+  const model = resolved.filter((x) => x.bt === "model");
   const scouts = Object.entries(statusMap ?? {})
     .filter(([, v]) => (v.status ?? "").includes("research-scout"))
     .map(([k, v]) => ({ name: k.charAt(0).toUpperCase() + k.slice(1), asOf: v.as_of }));
   return (
-    <Card title="📚 Current books" sub="What each strategy holds right now. LIVE = broker-confirmed money; PAPER = signal-derived research book.">
+    <Card title="📚 Current books" sub="What each strategy holds right now. LIVE = broker-confirmed money; PAPER = signal-derived research book; MODEL = a rebalance after trading stopped (2026-09-21), no order placed.">
       <div className="space-y-2">
         {live.map(({ b, bt }) => <BookRow key={b.slug} book={b} bookType={bt} />)}
+        {model.length > 0 && (
+          <>
+            <div className="pt-1 text-[10px] font-semibold uppercase tracking-wide text-mute">◇ Model — rebalances after trading stopped, no orders</div>
+            {model.map(({ b, bt }) => <BookRow key={b.slug} book={b} bookType={bt} deEmph />)}
+          </>
+        )}
         {paper.length > 0 && (
           <>
             <div className="pt-1 text-[10px] font-semibold uppercase tracking-wide text-paper">◌ Paper — research books</div>
@@ -583,9 +595,10 @@ function StrategiesHub({ statusMap }: { statusMap?: StatusMap }) {
             <Legend {...legendProps} />
             {CMP_SERIES.filter((s) => hub.series[s.slug]).map((s) => {
               const bt = bookTypeOf(s.slug, statusMap);
-              return <Line key={s.slug} type="monotone" dataKey={s.slug} name={`${s.label}${bt === "paper" ? " · paper" : " · live"}`}
-                stroke={s.color} strokeWidth={2} strokeOpacity={bt === "paper" ? 0.75 : 1}
-                strokeDasharray={bt === "paper" ? "6 3" : undefined} dot={false} connectNulls />;
+              // Solid only for live; every non-live series is dashed and named for what it is.
+              return <Line key={s.slug} type="monotone" dataKey={s.slug} name={`${s.label} · ${bt}`}
+                stroke={s.color} strokeWidth={2} strokeOpacity={bt === "live" ? 1 : 0.75}
+                strokeDasharray={bt === "live" ? undefined : "6 3"} dot={false} connectNulls />;
             })}
             <Line type="monotone" dataKey="SPY" name="SPY" stroke={ENTITY.benchmark} strokeWidth={1.4} strokeDasharray="2 3" dot={false} connectNulls />
             <Brush dataKey="date" height={22} travellerWidth={8}

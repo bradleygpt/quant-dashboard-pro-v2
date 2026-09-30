@@ -11,7 +11,10 @@ import { useRebalanceSchedule, type SleeveSchedule, type ScheduleMap } from "../
 const BASE = `${import.meta.env.BASE_URL}data`;
 
 type Kind = "quant" | "paper" | "c78q";
-type BookType = "live" | "paper";
+// model = a rebalance after Bradley stopped trading (2026-09-21): what the model would hold,
+// no order placed. Neither live (no broker position) nor paper (the sleeve was real money).
+type BookType = "live" | "paper" | "model";
+const isBookType = (v: unknown): v is BookType => v === "live" || v === "paper" || v === "model";
 interface StratDef { key: string; slug: string; label: string; factor: string; kind: Kind; backtestSlug?: string }
 
 // The consolidated portfolio: Katalepsis + Aristeia are the two genuinely distinct bets; Auxo
@@ -54,6 +57,18 @@ export function useStrategyStatus(): StratStatusMap {
 }
 
 export function BookTypePill({ bookType, asOf }: { bookType: BookType; asOf?: string }) {
+  // LIVE is reserved for bookType === "live"; every other branch is explicit, so no value
+  // can fall through to the broker-confirmed label.
+  if (bookType === "model") {
+    return (
+      <span
+        title={`MODEL — what the model would hold; Bradley stopped trading 2026-09-21, no order placed${asOf ? ` (as of ${asOf})` : ""}`}
+        className="rounded-full bg-mute/10 px-2 py-0.5 text-[10px] font-semibold text-mute ring-1 ring-mute/40"
+      >
+        ◇ MODEL · no orders
+      </span>
+    );
+  }
   return bookType === "live" ? (
     <span
       title={`LIVE — broker-confirmed positions${asOf ? ` (as of ${asOf})` : ""}`}
@@ -93,8 +108,8 @@ function schedOf(sc: SleeveSchedule | undefined, st: StratStatus | undefined, fa
 // book_type resolution order: system_status.strategies map -> the JSON's own field -> "paper".
 // Defaulting to paper is deliberate: absent metadata must never masquerade as live money.
 function resolveBookType(statusEntry: StratStatus | undefined, jsonBookType: unknown): BookType {
-  if (statusEntry?.book_type === "live" || statusEntry?.book_type === "paper") return statusEntry.book_type;
-  if (jsonBookType === "live" || jsonBookType === "paper") return jsonBookType;
+  if (isBookType(statusEntry?.book_type)) return statusEntry.book_type;
+  if (isBookType(jsonBookType)) return jsonBookType;
   return "paper";
 }
 
@@ -279,7 +294,7 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
                           {r.nextModel}
                           {r.nextBookType && (
                             <span className={r.nextBookType === "live" ? "text-pos" : ""}>
-                              {" · "}{r.nextBookType === "live" ? "live" : "paper"}
+                              {" · "}{r.nextBookType}
                             </span>
                           )}
                         </div>
@@ -296,7 +311,8 @@ function Summary({ onPick, statusMap }: { onPick: (key: string) => void; statusM
         </div>
         <p className="mt-3 text-[10px] text-dim">
           <span className="text-brass-hi">● LIVE</span> = broker-confirmed positions;{" "}
-          <span className="text-paper">◌ PAPER</span> = signal-derived research book, never held at a broker.
+          <span className="text-paper">◌ PAPER</span> = signal-derived research book, never held at a broker;{" "}
+          <span className="text-mute">◇ MODEL</span> = a rebalance after trading stopped (2026-09-21), no order placed.
           Quant strategies rebalance every fixed hold-window; live sleeves rebalance the first trading day of each month. Click any row to open its full page.
           {scouts.length > 0 && (
             <> {" "}Research scouts (paper, holdings-redundant — excluded from the book): {scouts.join(" · ")}.</>
