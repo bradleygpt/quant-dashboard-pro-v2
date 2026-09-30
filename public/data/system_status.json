@@ -1,85 +1,30 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-09-30T01:40:03"
+    "at": "2026-09-30T10:48:05"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": "2026-09-01"
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-08-31"
+      "asOf": null
     }
   },
   "ppi": {
-    "score": 29.9,
+    "score": 38.2,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-10-01",
-    "rebalanceModel": "calendar_monthly_first",
-    "rebalanceBookType": "live",
-    "effectiveTradingDay": "2026-10-01"
+    "nextRebalance": null,
+    "rebalanceModel": null,
+    "rebalanceBookType": null,
+    "effectiveTradingDay": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01"
-    },
-    "auxo": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "live",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "statera": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-10-06",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "live",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order."
-    },
-    "pronoia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "live",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "aristeia": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
-    "auxesis": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -100,100 +45,15 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
     }
   },
-  "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "delivery_stall",
-        "source": "web repo public/data",
-        "last_commit": "2026-09-26T08:31:49-04:00",
-        "age_hours": 58.5,
-        "budget_hours": 48
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "statera",
-        "layer": "stage5",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "statera",
-        "layer": "web",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "auxo",
-        "layer": "stage5",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "auxo",
-        "layer": "web",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "kairos",
-        "layer": "stage5",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": "kairos",
-        "layer": "web",
-        "suppressed_kind": "schedule_live_before_go_live",
-        "expired_on": "2026-09-24",
-        "days_overdue": 4,
-        "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      }
-    ],
-    "checked_at": "2026-09-28T19:00:07.842137"
-  },
+  "watchdog": null,
   "market": {
-    "state": "closed"
+    "state": "pre"
   },
   "_meta": {
     "ppi_as_of": "2026-09-30",
-    "ppi_breadth_pct": 67.1,
+    "ppi_breadth_pct": 24.7,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
