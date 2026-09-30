@@ -38,7 +38,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-09-29",
+  "computed_for": "2026-09-30",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -93,7 +93,7 @@
     {
      "rank": 2,
      "ticker": "NG",
-     "score": 1.0
+     "score": 0.999162
     },
     {
      "rank": 3,
@@ -107,87 +107,87 @@
     },
     {
      "rank": 5,
-     "ticker": "APLS",
-     "score": 0.997492
-    },
-    {
-     "rank": 6,
      "ticker": "NCI",
      "score": 0.997451
     },
     {
+     "rank": 6,
+     "ticker": "APLS",
+     "score": 0.996656
+    },
+    {
      "rank": 7,
-     "ticker": "LRCX",
+     "ticker": "INBX",
      "score": 0.996602
     },
     {
      "rank": 8,
-     "ticker": "INBX",
+     "ticker": "STX",
      "score": 0.995752
     },
     {
      "rank": 9,
-     "ticker": "MU",
+     "ticker": "LRCX",
      "score": 0.994902
     },
     {
      "rank": 10,
-     "ticker": "HUBG",
+     "ticker": "BTSG",
      "score": 0.994053
     },
     {
      "rank": 11,
-     "ticker": "BTSG",
+     "ticker": "MU",
      "score": 0.993203
     },
     {
      "rank": 12,
-     "ticker": "DD",
+     "ticker": "FORM",
      "score": 0.992353
     },
     {
      "rank": 13,
-     "ticker": "MXL",
+     "ticker": "HUBG",
      "score": 0.991504
     },
     {
      "rank": 14,
-     "ticker": "FORM",
+     "ticker": "MXL",
      "score": 0.990654
     },
     {
      "rank": 15,
-     "ticker": "WDC",
+     "ticker": "ICHR",
      "score": 0.989805
     },
     {
      "rank": 16,
-     "ticker": "STX",
+     "ticker": "WDC",
      "score": 0.988955
     },
     {
      "rank": 17,
-     "ticker": "ICHR",
+     "ticker": "INTC",
      "score": 0.988105
     },
     {
      "rank": 18,
-     "ticker": "MRLN",
-     "score": 0.987406
-    },
-    {
-     "rank": 19,
-     "ticker": "VSTS",
+     "ticker": "DD",
      "score": 0.987256
     },
     {
-     "rank": 20,
-     "ticker": "ACMR",
+     "rank": 19,
+     "ticker": "UCTT",
      "score": 0.986406
     },
     {
+     "rank": 20,
+     "ticker": "MRLN",
+     "score": 0.985726
+    },
+    {
      "rank": 21,
-     "ticker": "AMD",
+     "ticker": "VSTS",
      "score": 0.985556
     },
     {
@@ -197,18 +197,18 @@
     },
     {
      "rank": 23,
-     "ticker": "AHT",
-     "score": 0.984332
-    },
-    {
-     "rank": 24,
-     "ticker": "UCTT",
+     "ticker": "PARR",
      "score": 0.983857
     },
     {
-     "rank": 25,
-     "ticker": "COHR",
+     "rank": 24,
+     "ticker": "MRNA",
      "score": 0.983008
+    },
+    {
+     "rank": 25,
+     "ticker": "NOK",
+     "score": 0.982158
     }
    ]
   }
@@ -1489,7 +1489,7 @@
   },
   {
    "label": "2026",
-   "strategy": 42.5,
+   "strategy": 24.2,
    "spy": 11.9
   }
  ],

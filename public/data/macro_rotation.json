@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-29",
+  "generated_at": "2026-09-30",
   "model": "qwen2.5:7b",
-  "rotation": "Favor sectors resilient to inflation and monetary policy uncertainty, such as healthcare and utilities. Pressure sectors sensitive to geopolitical instability and commodity prices, like energy and materials. Favor tech and AI-related sectors given the expected productivity growth, despite the current market volatility. Pressure sectors exposed to trade tensions, such as manufacturing and export-oriented businesses.",
+  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors likely to benefit include utilities and consumer staples, which often perform well in inflationary environments. Conversely, technology and real estate sectors may face pressure due to higher interest rates. For labor market stabilization, sectors reliant on skilled labor, such as healthcare and professional services, could see increased demand.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
