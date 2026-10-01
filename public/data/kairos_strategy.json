@@ -35,14 +35,15 @@
   "anchor": "2026-08-11",
   "next_rebalance": "2027-01-05",
   "effective_trading_day": "2027-01-05",
-  "book_type": "live",
-  "rebalance_book_type": "live",
+  "book_type": "model",
+  "rebalance_book_type": "model",
   "go_live": "2026-09-01",
+  "trading_stopped": "2026-09-21",
   "go_live_pending": false,
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-09-30",
+  "computed_for": "2026-10-01",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [

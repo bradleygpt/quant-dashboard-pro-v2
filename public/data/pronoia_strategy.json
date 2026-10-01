@@ -31,14 +31,15 @@
   "anchor": "2026-06-16",
   "next_rebalance": "2026-11-10",
   "effective_trading_day": "2026-11-10",
-  "book_type": "live",
-  "rebalance_book_type": "live",
+  "book_type": "model",
+  "rebalance_book_type": "model",
   "go_live": "2026-09-01",
+  "trading_stopped": "2026-09-21",
   "go_live_pending": false,
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-09-30",
+  "computed_for": "2026-10-01",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [

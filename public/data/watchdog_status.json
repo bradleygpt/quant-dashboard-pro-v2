@@ -1,102 +1,48 @@
 {
   "ok": false,
-  "checked_at": "2026-09-28T19:00:07.842137",
+  "checked_at": "2026-09-30T19:00:10.833293",
   "alerts": [
     {
-      "kind": "delivery_stall",
-      "source": "web repo public/data",
-      "last_commit": "2026-09-26T08:31:49-04:00",
-      "age_hours": 58.5,
-      "budget_hours": 48
+      "kind": "monitor_degraded",
+      "source": "deploy_health",
+      "reason": "no Vercel token (VERCEL_TOKEN unset and the CLI credential is unreadable) -- deploy health NOT checked"
     },
     {
       "kind": "suppression_expired",
       "source": "ops/alert_suppressions.json",
-      "sleeve": "statera",
-      "layer": "stage5",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
+      "sleeve": null,
+      "layer": null,
+      "suppressed_kind": "monitor_degraded",
+      "expired_on": "2026-09-28",
+      "days_overdue": 2,
+      "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
       "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
     },
     {
       "kind": "suppression_expired",
       "source": "ops/alert_suppressions.json",
-      "sleeve": "statera",
-      "layer": "web",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-      "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-    },
-    {
-      "kind": "suppression_expired",
-      "source": "ops/alert_suppressions.json",
-      "sleeve": "auxo",
-      "layer": "stage5",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-      "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-    },
-    {
-      "kind": "suppression_expired",
-      "source": "ops/alert_suppressions.json",
-      "sleeve": "auxo",
-      "layer": "web",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-      "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-    },
-    {
-      "kind": "suppression_expired",
-      "source": "ops/alert_suppressions.json",
-      "sleeve": "kairos",
-      "layer": "stage5",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
-      "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-    },
-    {
-      "kind": "suppression_expired",
-      "source": "ops/alert_suppressions.json",
-      "sleeve": "kairos",
-      "layer": "web",
-      "suppressed_kind": "schedule_live_before_go_live",
-      "expired_on": "2026-09-24",
-      "days_overdue": 4,
-      "reason": "go_live amendment pending in ops/rebalance_schedule.py lines 65, 77, 86, 104. Sleeve went live 2026-09-01; config still reads go_live 2026-11-10. Bradley's amendment.",
+      "sleeve": null,
+      "layer": null,
+      "suppressed_kind": "monitor_degraded",
+      "expired_on": "2026-09-28",
+      "days_overdue": 2,
+      "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
       "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
     }
   ],
   "suppressed": [
-    {
-      "kind": "monitor_degraded",
-      "sleeve": null,
-      "layer": null,
-      "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
-      "expires": "2026-09-28",
-      "days_left": 0
-    },
     {
       "kind": "live_book_not_researchable",
       "sleeve": "pronoia",
       "layer": null,
       "reason": "Bradley stopped trading 2026-09-21; no future orders, gating purpose moot. Expires at pronoia's next rebalance. (Retained mechanics: the match is keyed on exactly AAOI/INBX/NG/NOK, so a FIFTH name appearing, or any of these four changing, is a new condition and fires. The prior reason cited the sleeve's exclusion from the nightly chain; that lapsed when C3 was reinstated 2026-09-24 under the keep-live ruling.)",
       "expires": "2026-11-10",
-      "days_left": 43
+      "days_left": 41
     }
   ],
   "notify": {
     "toast": "skipped: BurntToast not installed",
     "email": "sent to bmhartnett1990@gmail.com",
-    "notified_at": "2026-09-28T19:00:11"
+    "notified_at": "2026-09-30T19:00:13"
   }
 }

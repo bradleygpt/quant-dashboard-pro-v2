@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-30",
+  "generated_at": "2026-10-01",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors likely to benefit include utilities and consumer staples, which often perform well in inflationary environments. Conversely, technology and real estate sectors may face pressure due to higher interest rates. For labor market stabilization, sectors reliant on skilled labor, such as healthcare and professional services, could see increased demand.",
+  "rotation": "Favor sectors with inflation protection, such as energy and commodities. Pressure is on tech and AI, given the productivity puzzle and market fragility concerns. Favor stable labor market sectors like healthcare and consumer staples. Pressure on trade-dependent sectors like manufacturing.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
