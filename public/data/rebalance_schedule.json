@@ -1,5 +1,5 @@
 {
-  "generated_for": "2026-10-01",
+  "generated_for": "2026-10-02",
   "source": "ops/rebalance_schedule.py",
   "note": "COMPUTED, never stored. Each entry carries the model that produced the date and whether that rebalance is paper or live.",
   "retired": [
@@ -17,8 +17,8 @@
       "model_label": "first of month",
       "hold_days": null,
       "anchor": null,
-      "next_rebalance": "2026-10-01",
-      "effective_trading_day": "2026-10-01",
+      "next_rebalance": "2026-11-01",
+      "effective_trading_day": "2026-11-02",
       "book_type": "model",
       "rebalance_book_type": "model",
       "go_live": "2026-05-29",
@@ -27,7 +27,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live book. Rebalances the first of each month; run on the preceding weekend so positions are set for the first trading day.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     },
     "kairos": {
@@ -46,7 +46,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     },
     "auxo": {
@@ -65,7 +65,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     },
     "pronoia": {
@@ -84,7 +84,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     },
     "statera": {
@@ -103,7 +103,7 @@
       "never_goes_live": false,
       "gates_execution": false,
       "rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     },
     "paper_track_event_pead": {
@@ -112,8 +112,8 @@
       "model_label": "first of month",
       "hold_days": null,
       "anchor": null,
-      "next_rebalance": "2026-10-01",
-      "effective_trading_day": "2026-10-01",
+      "next_rebalance": "2026-11-01",
+      "effective_trading_day": "2026-11-02",
       "book_type": "paper",
       "rebalance_book_type": "paper",
       "go_live": null,
@@ -122,7 +122,7 @@
       "never_goes_live": true,
       "gates_execution": true,
       "rationale": "Forward out-of-sample paper track, compared to SPY at each first-of-month rebalance. Research only \u2014 never trades real money.",
-      "computed_for": "2026-10-01",
+      "computed_for": "2026-10-02",
       "source": "ops/rebalance_schedule.py"
     }
   }

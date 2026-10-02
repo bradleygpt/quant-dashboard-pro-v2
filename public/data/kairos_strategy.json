@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-01",
+  "computed_for": "2026-10-02",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -346,12 +346,12 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 10.057727
+     "score": 10.059184
     },
     {
      "rank": 2,
      "ticker": "VCTR",
-     "score": 9.761379
+     "score": 9.762836
     },
     {
      "rank": 3,
@@ -371,7 +371,7 @@
     {
      "rank": 6,
      "ticker": "ECPG",
-     "score": 9.455112
+     "score": 9.456569
     },
     {
      "rank": 7,
@@ -381,12 +381,12 @@
     {
      "rank": 8,
      "ticker": "INSW",
-     "score": 9.435991
+     "score": 9.434534
     },
     {
      "rank": 9,
      "ticker": "EVRG",
-     "score": 9.329865
+     "score": 9.328407
     },
     {
      "rank": 10,
@@ -396,7 +396,7 @@
     {
      "rank": 11,
      "ticker": "HUM",
-     "score": 9.099842
+     "score": 9.101299
     },
     {
      "rank": 12,
@@ -406,7 +406,7 @@
     {
      "rank": 13,
      "ticker": "GPN",
-     "score": 9.083755
+     "score": 9.085212
     },
     {
      "rank": 14,
@@ -416,7 +416,7 @@
     {
      "rank": 15,
      "ticker": "HALO",
-     "score": 9.059407
+     "score": 9.060864
     },
     {
      "rank": 16,
@@ -436,7 +436,7 @@
     {
      "rank": 19,
      "ticker": "AMT",
-     "score": 8.965071
+     "score": 8.966529
     },
     {
      "rank": 20,
@@ -456,7 +456,7 @@
     {
      "rank": 23,
      "ticker": "DAL",
-     "score": 8.88966
+     "score": 8.891117
     },
     {
      "rank": 24,
@@ -466,7 +466,7 @@
     {
      "rank": 25,
      "ticker": "KRYS",
-     "score": 8.880428
+     "score": 8.881886
     }
    ]
   }

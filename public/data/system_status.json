@@ -1,30 +1,85 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-10-01T20:38:08"
+    "at": "2026-10-02T00:51:54"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": null
+      "asOf": "2026-09-01"
     },
     "return": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-09-30"
     }
   },
   "ppi": {
-    "score": 42.5,
-    "level": "ELEVATED"
+    "score": 34.2,
+    "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null,
+    "nextRebalance": "2026-08-03",
     "rebalanceModel": null,
     "rebalanceBookType": null,
     "effectiveTradingDay": null
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01"
+    },
+    "auxo": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
+    },
+    "statera": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-10-06",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order."
+    },
+    "pronoia": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
+    },
+    "aristeia": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
+    },
+    "auxesis": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
+    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -45,15 +100,54 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": false,
+    "alerts": [
+      {
+        "kind": "monitor_degraded",
+        "source": "deploy_health",
+        "reason": "no Vercel token (VERCEL_TOKEN unset and the CLI credential is unreadable) -- deploy health NOT checked"
+      },
+      {
+        "kind": "suppression_expired",
+        "source": "ops/alert_suppressions.json",
+        "sleeve": null,
+        "layer": null,
+        "suppressed_kind": "monitor_degraded",
+        "expired_on": "2026-09-28",
+        "days_overdue": 2,
+        "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
+        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
+      },
+      {
+        "kind": "suppression_expired",
+        "source": "ops/alert_suppressions.json",
+        "sleeve": null,
+        "layer": null,
+        "suppressed_kind": "monitor_degraded",
+        "expired_on": "2026-09-28",
+        "days_overdue": 2,
+        "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
+        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
+      }
+    ],
+    "checked_at": "2026-09-30T19:00:10.833293"
+  },
   "market": {
-    "state": "after"
+    "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-10-01",
-    "ppi_breadth_pct": 24.2,
+    "ppi_as_of": "2026-10-02",
+    "ppi_breadth_pct": 67.1,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }

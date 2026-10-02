@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-01",
+  "computed_for": "2026-10-02",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -94,7 +94,7 @@
     {
      "rank": 2,
      "ticker": "NG",
-     "score": 0.999162
+     "score": 1.0
     },
     {
      "rank": 3,
@@ -108,7 +108,7 @@
     },
     {
      "rank": 5,
-     "ticker": "NCI",
+     "ticker": "RCUS",
      "score": 0.997451
     },
     {
@@ -118,37 +118,37 @@
     },
     {
      "rank": 7,
-     "ticker": "INBX",
+     "ticker": "NCI",
      "score": 0.996602
     },
     {
      "rank": 8,
-     "ticker": "STX",
+     "ticker": "INBX",
      "score": 0.995752
     },
     {
      "rank": 9,
-     "ticker": "LRCX",
+     "ticker": "BTSG",
      "score": 0.994902
     },
     {
      "rank": 10,
-     "ticker": "BTSG",
+     "ticker": "LRCX",
      "score": 0.994053
     },
     {
      "rank": 11,
-     "ticker": "MU",
+     "ticker": "FORM",
      "score": 0.993203
     },
     {
      "rank": 12,
-     "ticker": "FORM",
+     "ticker": "ICHR",
      "score": 0.992353
     },
     {
      "rank": 13,
-     "ticker": "HUBG",
+     "ticker": "STX",
      "score": 0.991504
     },
     {
@@ -158,27 +158,27 @@
     },
     {
      "rank": 15,
-     "ticker": "ICHR",
+     "ticker": "DD",
      "score": 0.989805
     },
     {
      "rank": 16,
-     "ticker": "WDC",
+     "ticker": "INTC",
      "score": 0.988955
     },
     {
      "rank": 17,
-     "ticker": "INTC",
+     "ticker": "MU",
      "score": 0.988105
     },
     {
      "rank": 18,
-     "ticker": "DD",
+     "ticker": "COLL",
      "score": 0.987256
     },
     {
      "rank": 19,
-     "ticker": "UCTT",
+     "ticker": "ACMR",
      "score": 0.986406
     },
     {
@@ -188,27 +188,27 @@
     },
     {
      "rank": 21,
-     "ticker": "VSTS",
+     "ticker": "WDC",
      "score": 0.985556
     },
     {
      "rank": 22,
-     "ticker": "VIAV",
+     "ticker": "MRNA",
      "score": 0.984707
     },
     {
      "rank": 23,
-     "ticker": "PARR",
+     "ticker": "VSTS",
      "score": 0.983857
     },
     {
      "rank": 24,
-     "ticker": "MRNA",
+     "ticker": "INSW",
      "score": 0.983008
     },
     {
      "rank": 25,
-     "ticker": "NOK",
+     "ticker": "UCTT",
      "score": 0.982158
     }
    ]
@@ -1490,7 +1490,7 @@
   },
   {
    "label": "2026",
-   "strategy": 24.2,
+   "strategy": 12.2,
    "spy": 11.9
   }
  ],
