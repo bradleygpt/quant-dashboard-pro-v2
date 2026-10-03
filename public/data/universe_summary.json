@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-26",
+  "generated_at": "2026-10-03",
   "model": "qwen2.5:7b",
-  "summary": "The market exhibits a cautiously optimistic posture, with a slight risk-on bias supported by the 2% Buy-tier and positive median fair-value premium. Strength is concentrated in Utilities, Communication Services, and Energy sectors, while Technology, Industrials, and Consumer Cyclical sectors show relative weakness, indicating a rotation towards defensive and utility stocks.",
+  "summary": "The market exhibits a cautious posture, with a slight risk-off sentiment indicated by the low 2% Buy-tier stocks and a median fair-value premium of -1.6%, suggesting modest overvaluation. Strength is concentrated in Utilities, Communication Services, and Energy sectors, while Technology, Industrials, and Consumer Cyclical sectors are lagging, implying a rotation towards more defensive sectors.",
   "stats": {
     "n": 1290,
     "buy_tier_pct": 2,
