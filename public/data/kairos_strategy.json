@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-02",
+  "computed_for": "2026-10-07",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [

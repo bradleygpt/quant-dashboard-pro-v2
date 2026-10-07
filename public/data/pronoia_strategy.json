@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-02",
+  "computed_for": "2026-10-07",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -88,12 +88,12 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "LQDA",
+     "ticker": "NG",
      "score": 1.0
     },
     {
      "rank": 2,
-     "ticker": "NG",
+     "ticker": "LQDA",
      "score": 1.0
     },
     {
@@ -108,13 +108,13 @@
     },
     {
      "rank": 5,
-     "ticker": "RCUS",
-     "score": 0.997451
+     "ticker": "APLS",
+     "score": 0.997492
     },
     {
      "rank": 6,
-     "ticker": "APLS",
-     "score": 0.996656
+     "ticker": "RCUS",
+     "score": 0.997451
     },
     {
      "rank": 7,
@@ -163,52 +163,52 @@
     },
     {
      "rank": 16,
-     "ticker": "INTC",
+     "ticker": "MU",
      "score": 0.988955
     },
     {
      "rank": 17,
-     "ticker": "MU",
+     "ticker": "INTC",
      "score": 0.988105
     },
     {
      "rank": 18,
-     "ticker": "COLL",
+     "ticker": "ACMR",
      "score": 0.987256
     },
     {
      "rank": 19,
-     "ticker": "ACMR",
+     "ticker": "WDC",
      "score": 0.986406
     },
     {
      "rank": 20,
-     "ticker": "MRLN",
-     "score": 0.985726
-    },
-    {
-     "rank": 21,
-     "ticker": "WDC",
+     "ticker": "COLL",
      "score": 0.985556
     },
     {
-     "rank": 22,
-     "ticker": "MRNA",
+     "rank": 21,
+     "ticker": "UCTT",
      "score": 0.984707
     },
     {
+     "rank": 22,
+     "ticker": "MRLN",
+     "score": 0.984047
+    },
+    {
      "rank": 23,
-     "ticker": "VSTS",
+     "ticker": "INSW",
      "score": 0.983857
     },
     {
      "rank": 24,
-     "ticker": "INSW",
+     "ticker": "MRNA",
      "score": 0.983008
     },
     {
      "rank": 25,
-     "ticker": "UCTT",
+     "ticker": "VSTS",
      "score": 0.982158
     }
    ]
@@ -1407,7 +1407,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 15468.7,
+   "equity": 15468.6,
    "spy": 597.6,
    "nasdaq": 976.7
   }
@@ -1490,7 +1490,7 @@
   },
   {
    "label": "2026",
-   "strategy": 12.2,
+   "strategy": 16.2,
    "spy": 11.9
   }
  ],
