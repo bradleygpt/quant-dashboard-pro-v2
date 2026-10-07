@@ -23,7 +23,7 @@
     "earnings_reviews": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "system_status": {
@@ -37,67 +37,67 @@
     "universe_floor0": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-07",
-      "generated_at": "2026-10-07T16:53:55",
+      "generated_at": "2026-10-07T17:33:34",
       "check_status": "ok"
     },
     "regime_timeseries": {
@@ -109,12 +109,12 @@
     },
     "paper_track_event_pead": {
       "source": "producer-stamped (not written by bake)",
-      "as_of": "2026-08-31",
-      "generated_at": "2026-08-31T20:32:33",
+      "as_of": "2026-10-07",
+      "generated_at": "2026-10-07T16:57:02",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-10-07T16:53:55",
+  "generated_at": "2026-10-07T17:33:34",
   "blob": {
     "version": "20261007T213425Z",
     "published_at": "2026-10-07T21:34:27+00:00",

@@ -4,7 +4,7 @@
   "note": "AI narrative \u2014 fed only pre-computed sector stats, never invents figures",
   "sectors": {
     "Basic Materials": {
-      "narrative": "The Basic Materials sector has a constructive overall posture with 4% of names rated Buy or better. The standout weakness is the valuation, with an average grade of B-. Notable names include CENX and NEM, which score highly at 8.8 and 8.5, respectively.",
+      "narrative": "The Basic Materials sector has a neutral overall posture, with an average composite score of 6.95 and only 4% of names rated Buy or better. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated B-. Notably, CENX and NEM stand out with composite scores of 8.8 and 8.5, respectively, while AMR and OLN are the weakest with scores of 5.0 and 5.1.",
       "stats": {
         "sector": "Basic Materials",
         "n": 51,
@@ -37,7 +37,7 @@
       }
     },
     "Communication Services": {
-      "narrative": "The Communication Services sector has a neutral overall posture, with an average composite score of 6.96 and no stocks rated higher than a Hold. The Valuation pillar stands out as the strongest, with an average grade of B-, while Momentum is the weakest among the pillars. GOOGL, QNST, and GOOG stand out with composite scores above 8.0, whereas SSTK and LBRDK are the weakest with scores below 5.6.",
+      "narrative": "The Communication Services sector has a neutral overall posture, with no names rated higher than a Hold. The standout weakness is across all pillars, as the average grades are uniformly below C. Notably, GOOGL, QNST, and GOOG score highest at 8.2, while SSTK and LBRDK are the weakest at 5.3 and 5.6, respectively.",
       "stats": {
         "sector": "Communication Services",
         "n": 51,
@@ -70,7 +70,7 @@
       }
     },
     "Consumer Cyclical": {
-      "narrative": "The Consumer Cyclical sector has a neutral overall posture, with an average composite score of 6.92. The standout weakness is the Valuation pillar, with an average grade of 'B-'. Notable standout names include BKNG, MCW, and VSCO, each scoring 8.9, while TSLA and DFH are the weakest with scores of 4.6 and 4.9, respectively.",
+      "narrative": "The Consumer Cyclical sector has a neutral overall posture, with an average composite score of 6.92 and only 3% of names rated as Buy or better. The standout weakness is the Valuation pillar, which has a grade of B-. Notably, BKNG, MCW, and VSCO stand out with high composite scores of 8.9, while TSLA and DFH are the weakest with scores of 4.6 and 4.9, respectively.",
       "stats": {
         "sector": "Consumer Cyclical",
         "n": 178,
@@ -103,7 +103,7 @@
       }
     },
     "Consumer Defensive": {
-      "narrative": "The Consumer Defensive sector has a neutral overall posture, with an average composite score of 6.94 and a majority of Hold ratings. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated 'B-'. Notably, CVSA, DAR, and COKE stand out with high composite scores of 8.7, 8.5, and 8.5, respectively, while ACI and VITL are the weakest with scores of 5.1.",
+      "narrative": "The Consumer Defensive sector overall has a neutral posture, with an average composite score of 6.94 and a majority of Hold ratings. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all scoring B-. Notable names include CVSA and DAR with composite scores of 8.7 and 8.5, respectively, while ACI and VITL are the weakest with scores of 5.1.",
       "stats": {
         "sector": "Consumer Defensive",
         "n": 70,
@@ -136,7 +136,7 @@
       }
     },
     "Energy": {
-      "narrative": "The Energy sector overall posture is neutral, with an average composite score of 6.95 and 7% of names rated Buy or better. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all scoring B-. Notable names include PARR, LPG, and SM, which score above 8.0, while CCJ and AESI are the weakest with scores below 5.0.",
+      "narrative": "The Energy sector overall has a constructive posture with 7% of names rated Buy or better. The Valuation pillar stands out as the strongest, with three names scoring above 8.0. PARR, LPG, and SM are the standout names, each scoring 8.9 or higher.",
       "stats": {
         "sector": "Energy",
         "n": 59,
@@ -169,7 +169,7 @@
       }
     },
     "Financial Services": {
-      "narrative": "The Financial Services sector overall posture is cautious, with only 1% of companies rated Buy or better. The weakest pillar is EPS Revisions, with a grade of B-. Notable companies include ECPG and COF with composite scores of 9.1 and 8.7, respectively, while WD and HLI are the weakest with scores of 4.7 and 5.0.",
+      "narrative": "The Financial Services sector has a neutral overall posture, with an average composite score of 6.93 and a majority of \"Hold\" ratings. The weakest pillar is EPS Revisions, with a grade of B-. Notable names include ECPG and COF, both scoring above 8.7, while WD and HLI lag significantly with scores of 4.7 and 5.0, respectively.",
       "stats": {
         "sector": "Financial Services",
         "n": 207,
@@ -202,7 +202,7 @@
       }
     },
     "Healthcare": {
-      "narrative": "The Healthcare sector overall has a neutral posture, with an average composite score of 6.92 and no stocks rated as Buy or better. The standout weakness is the valuation, with an average grade of B-. Notably, PTGX, INDV, and HRMY stand out with composite scores of 8.5, while BEAM and MOH are the weakest with scores of 5.2 and 5.3, respectively.",
+      "narrative": "The Healthcare sector overall has a neutral posture, with no strong buys or better ratings. The standout weakness is valuation, with all pillars scoring below 'B'. Notably, PTGX, INDV, and HRMY stand out with composite scores of 8.5, while BEAM and MOH are the weakest with scores of 5.2 and 5.3, respectively.",
       "stats": {
         "sector": "Healthcare",
         "n": 158,
@@ -235,7 +235,7 @@
       }
     },
     "Industrials": {
-      "narrative": "The Industrials sector has a neutral overall posture, with an average composite score of 6.92 and a majority of Hold ratings. The Valuation pillar stands out as the strongest, with an average grade of B-, while EPS Revisions is the weakest at B-. Notable names include GFF, GEO, and PBI, which score above 8.0, compared to weaker performers like GBX and TNC, which score below 5.0.",
+      "narrative": "The Industrials sector has a neutral overall posture, with an average composite score of 6.92. The standout weakness is the Valuation pillar, which has a grade of B-. Notably, GFF, GEO, and PBI stand out with composite scores of 9.1, 8.7, and 8.6, respectively, while GBX and TNC are the weakest with scores of 4.6 and 4.8.",
       "stats": {
         "sector": "Industrials",
         "n": 175,
@@ -268,7 +268,7 @@
       }
     },
     "Real Estate": {
-      "narrative": "The Real Estate sector overall posture is cautiously neutral, with only 2% of names rated as Buy or better. The standout weakness pillar is Valuation, Growth, Profitability, Momentum, and EPS Revisions, all rated B-. Notable names standing out are ADAM, JLL, and IRM, with composite scores of 9.0, 8.6, and 8.4, respectively.",
+      "narrative": "The Real Estate sector overall has a neutral posture, with a modest average composite score of 6.94. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated B-. Notably, ADAM, JLL, and IRM stand out with composite scores of 9.0, 8.6, and 8.4, respectively, while OPEN and JBGS are the weakest with scores of 4.8.",
       "stats": {
         "sector": "Real Estate",
         "n": 92,
@@ -301,7 +301,7 @@
       }
     },
     "Technology": {
-      "narrative": "The Technology sector shows a neutral overall posture with an average composite score of 6.92. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated 'B-'. Notably, MU, SNDK, and TSM stand out with composite scores of 9.7, 8.9, and 8.5, respectively, while CIFR and PI are the weakest with scores of 4.6 and 5.1.",
+      "narrative": "The Technology sector overall posture is neutral, with 1% of names rated as Buy or better. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated B-. Notable names standing out are MU, SNDK, and TSM, with composite scores of 9.7, 8.9, and 8.5, respectively.",
       "stats": {
         "sector": "Technology",
         "n": 203,
@@ -334,7 +334,7 @@
       }
     },
     "Utilities": {
-      "narrative": "The Utilities sector has a neutral overall posture, with an average composite score of 6.96. The standout weakness is the valuation, with an average grade of B-. Notably, PCG, EIX, and NWN stand out with composite scores of 8.7, 8.6, and 8.3, respectively, while OKLO and CMS are the weakest with scores of 5.4 and 5.6.",
+      "narrative": "The Utilities sector overall has a neutral posture, with an average composite score of 6.96 and a low 4% of names rated Buy or better. The standout weakness is the Valuation, Growth, Profitability, Momentum, and EPS Revisions pillars, all rated B-. Notable names include PCG and EIX, which score 8.7 and 8.6, respectively, while OKLO stands out as the weakest with a score of 5.4.",
       "stats": {
         "sector": "Utilities",
         "n": 46,

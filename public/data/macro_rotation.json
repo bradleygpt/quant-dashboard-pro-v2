@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-10-07",
   "model": "qwen2.5:7b",
-  "rotation": "Favor sectors with inflation protection, such as energy and utilities. Pressure is on technology and AI-related sectors due to market volatility concerns. Favor stable and defensive sectors like healthcare and consumer staples. Pressure on trade-dependent sectors given the tariff policy risk.",
+  "rotation": "Given the risks of persistent inflation and monetary policy uncertainty, sectors likely to benefit include utilities and consumer staples, which tend to perform well in inflationary environments. Conversely, technology and real estate sectors may face pressure due to higher borrowing costs and interest rate hikes. Additionally, sectors exposed to geopolitical instability and commodity price volatility, such as energy and materials, may experience increased volatility.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
