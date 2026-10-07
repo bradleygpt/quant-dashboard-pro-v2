@@ -104,33 +104,33 @@
   },
   "generated_at": "2026-10-07T11:21:44",
   "blob": {
-    "version": "20261007T053911Z",
-    "published_at": "2026-10-07T05:39:12+00:00",
-    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@f092bff10ff0d95419f38e93f2aed1a29f01ea84/data",
-    "commit_sha": "f092bff10ff0d95419f38e93f2aed1a29f01ea84",
+    "version": "20261007T204818Z",
+    "published_at": "2026-10-07T20:48:21+00:00",
+    "base_url": "https://cdn.jsdelivr.net/gh/bradleygpt/akribeia-data@5312575a1332365c7e13aaa47dd8ea62cfaa21eb/data",
+    "commit_sha": "5312575a1332365c7e13aaa47dd8ea62cfaa21eb",
     "manifest_key": "_manifest/version_manifest.json",
     "files": {
       "earnings_reviews.json": {
         "key": "earnings_reviews.json",
-        "sha256": "67ca9c34f4c0e4126e837284262b9167318a75078e3742b1f0a838ce09a77ea4",
+        "sha256": "de24065988137ed52b2a0156b4143a56c90beb3d60d1594fa93311162878686c",
         "bytes": 6176191,
         "as_of": "2026-10-07"
       },
       "universe_floor0.json": {
         "key": "universe_floor0.json",
-        "sha256": "e52956551ec7329fa27cf749159c71cfd1335bb465fa56a0b9437ff08462d58d",
+        "sha256": "160dc901e78be55c04014438fb6cc5b02e9a6ada1cecdfbb9417ddff2e3b8511",
         "bytes": 1807853,
         "as_of": "2026-10-07"
       },
       "universe_floor1.json": {
         "key": "universe_floor1.json",
-        "sha256": "f58fe8b410fbc0f9df272d8cd2b197d37cc01c810cd11dd2db5fa40b43495f0d",
+        "sha256": "a2539d33da7d337206866fea007b4fdc5b22411b614ce9731a99d54f8f57dcd5",
         "bytes": 1711437,
         "as_of": "2026-10-07"
       },
       "universe_floor10.json": {
         "key": "universe_floor10.json",
-        "sha256": "bf3de85e1a574fd58912e78ac5afa8c4d32cb700b89293f645f07c8b479bf33a",
+        "sha256": "70a25d40e3bc5e71dd61b9e0cffb0c9fb33285cd4c3ba04628da4fd068117108",
         "bytes": 878528,
         "as_of": "2026-10-07"
       },
@@ -142,7 +142,7 @@
       },
       "quarterly.json": {
         "key": "quarterly.json",
-        "sha256": "dfe7042f224a690587d5a5e6e51a65c8193cfdbcb42dc8bef399f3a7b3bb290b",
+        "sha256": "fec01f66c748bc636442acc38d452991224f1f59d1ac264d9329dc4ba6728ef3",
         "bytes": 4029116,
         "as_of": "2026-10-07"
       },
