@@ -1,7 +1,7 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-10-07T17:33:33"
+    "at": "2026-10-08T00:58:17"
   },
   "engines": {
     "binary": {
@@ -113,47 +113,18 @@
     "ok": false,
     "alerts": [
       {
-        "kind": "rebalance_lag",
-        "source": "c78q.json",
-        "target_as_of": "2026-09-01",
-        "next_rebalance": "2026-10-01",
-        "note": "next_rebalance arrived but target.as_of never advanced (the June/July condition)"
-      },
-      {
         "kind": "monitor_degraded",
-        "source": "deploy_health",
-        "reason": "no Vercel token (VERCEL_TOKEN unset and the CLI credential is unreadable) -- deploy health NOT checked"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": null,
-        "layer": null,
-        "suppressed_kind": "monitor_degraded",
-        "expired_on": "2026-09-28",
-        "days_overdue": 3,
-        "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
-      },
-      {
-        "kind": "suppression_expired",
-        "source": "ops/alert_suppressions.json",
-        "sleeve": null,
-        "layer": null,
-        "suppressed_kind": "monitor_degraded",
-        "expired_on": "2026-09-28",
-        "days_overdue": 3,
-        "reason": "Vercel CLI credential expired; awaiting VERCEL_TOKEN. The token file is still present but the API rejects it (HTTP 403), so the deploy-health check cannot read deployment state. Both emitting sources are covered: 'deploy_health' is the no-credential branch, 'deploy_health:watchrec-v2' the per-target API-call branch. Suppressing the CHECK, not a deployment failure - deploy_failed and deploy_behind are NOT suppressed and still fire if they ever evaluate.",
-        "note": "acknowledgement expired \u2014 resolve the underlying ruling or renew the entry deliberately; it is no longer suppressing"
+        "source": "deploy_health:watchrec-v2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
-    "checked_at": "2026-10-01T19:00:09.084862"
+    "checked_at": "2026-10-07T19:00:03.388426"
   },
   "market": {
-    "state": "after"
+    "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-10-07",
+    "ppi_as_of": "2026-10-08",
     "ppi_breadth_pct": 67.1,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
