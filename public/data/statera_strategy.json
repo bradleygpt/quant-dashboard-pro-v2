@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order.",
-  "computed_for": "2026-10-08",
+  "computed_for": "2026-10-09",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-04",

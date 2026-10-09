@@ -1,30 +1,85 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-10-08T20:57:36"
+    "at": "2026-10-09T01:23:50"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": null
+      "asOf": "2026-09-01"
     },
     "return": {
-      "current": false,
-      "asOf": null
+      "current": true,
+      "asOf": "2026-09-30"
     }
   },
   "ppi": {
-    "score": 37.3,
+    "score": 31.3,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": null,
-    "rebalanceModel": null,
-    "rebalanceBookType": null,
-    "effectiveTradingDay": null
+    "nextRebalance": "2026-11-01",
+    "rebalanceModel": "calendar_monthly_first",
+    "rebalanceBookType": "model",
+    "effectiveTradingDay": "2026-11-02"
   },
   "strategies": {
+    "katalepsis": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01"
+    },
+    "auxo": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
+    },
+    "statera": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-11-04",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order."
+    },
+    "pronoia": {
+      "book_type": "live",
+      "status": "deployed",
+      "as_of": "2026-09-01",
+      "next_rebalance": "2026-11-10",
+      "rebalance_model": "hold_expiry",
+      "rebalance_model_label": "hold expiry",
+      "rebalance_book_type": "model",
+      "go_live": "2026-09-01",
+      "go_live_pending": false,
+      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
+    },
+    "aristeia": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
+    },
+    "auxesis": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
+    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -45,15 +100,32 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
+    },
+    "prosodos": {
+      "book_type": "paper",
+      "retired": true,
+      "status": "retired (holdings-redundant)",
+      "next_rebalance": null,
+      "rebalance_model": null
     }
   },
-  "watchdog": null,
+  "watchdog": {
+    "ok": false,
+    "alerts": [
+      {
+        "kind": "monitor_degraded",
+        "source": "deploy_health:watchrec-v2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    ],
+    "checked_at": "2026-10-07T19:00:03.388426"
+  },
   "market": {
-    "state": "after"
+    "state": "closed"
   },
   "_meta": {
-    "ppi_as_of": "2026-10-08",
-    "ppi_breadth_pct": 28.2,
+    "ppi_as_of": "2026-10-09",
+    "ppi_breadth_pct": 67.1,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }

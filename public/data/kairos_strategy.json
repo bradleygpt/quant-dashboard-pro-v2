@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-08",
+  "computed_for": "2026-10-09",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -346,7 +346,7 @@
     {
      "rank": 1,
      "ticker": "TGTX",
-     "score": 10.059184
+     "score": 10.060641
     },
     {
      "rank": 2,
@@ -371,7 +371,7 @@
     {
      "rank": 6,
      "ticker": "ECPG",
-     "score": 9.456569
+     "score": 9.458026
     },
     {
      "rank": 7,
@@ -416,7 +416,7 @@
     {
      "rank": 15,
      "ticker": "HALO",
-     "score": 9.060864
+     "score": 9.062322
     },
     {
      "rank": 16,
@@ -426,7 +426,7 @@
     {
      "rank": 17,
      "ticker": "NHC",
-     "score": 9.026814
+     "score": 9.028271
     },
     {
      "rank": 18,
@@ -436,7 +436,7 @@
     {
      "rank": 19,
      "ticker": "AMT",
-     "score": 8.966529
+     "score": 8.967986
     },
     {
      "rank": 20,
@@ -456,17 +456,17 @@
     {
      "rank": 23,
      "ticker": "DAL",
-     "score": 8.891117
+     "score": 8.892574
     },
     {
      "rank": 24,
      "ticker": "AVB",
-     "score": 8.885698
+     "score": 8.887156
     },
     {
      "rank": 25,
      "ticker": "KRYS",
-     "score": 8.881886
+     "score": 8.883343
     }
    ]
   }

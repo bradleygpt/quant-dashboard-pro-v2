@@ -1,6 +1,6 @@
 {
   "ok": false,
-  "checked_at": "2026-10-07T19:00:03.388426",
+  "checked_at": "2026-10-08T19:00:08.622956",
   "alerts": [
     {
       "kind": "monitor_degraded",
@@ -15,12 +15,12 @@
       "layer": null,
       "reason": "Bradley stopped trading 2026-09-21; no future orders, gating purpose moot. Expires at pronoia's next rebalance. (Retained mechanics: the match is keyed on exactly AAOI/INBX/NG/NOK, so a FIFTH name appearing, or any of these four changing, is a new condition and fires. The prior reason cited the sleeve's exclusion from the nightly chain; that lapsed when C3 was reinstated 2026-09-24 under the keep-live ruling.)",
       "expires": "2026-11-10",
-      "days_left": 34
+      "days_left": 33
     }
   ],
   "notify": {
     "toast": "skipped: BurntToast not installed",
     "email": "sent to bmhartnett1990@gmail.com",
-    "notified_at": "2026-10-07T19:00:05"
+    "notified_at": "2026-10-08T19:00:10"
   }
 }

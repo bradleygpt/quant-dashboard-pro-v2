@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-08",
+  "generated_at": "2026-10-09",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors likely to benefit include utilities and consumer staples, which tend to perform well in inflationary environments. Conversely, technology and real estate investment trusts (REITs) may face pressure due to higher interest rates. Geopolitical instability and commodity price volatility could benefit energy and natural resources sectors, while pressuring financials and consumer discretionary sectors.",
+  "rotation": "Given the risks of persistent inflation and monetary policy uncertainty, sectors likely to benefit include utilities and consumer staples, which tend to perform well in inflationary environments. Conversely, technology and real estate investment trusts (REITs) may face pressure as interest rates remain high. For geopolitical instability and commodity price volatility, energy and materials sectors could see increased volatility and potential gains.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
