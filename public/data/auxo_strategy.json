@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-09",
+  "computed_for": "2026-10-10",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
