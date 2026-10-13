@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-11",
+ "generated_at": "2026-10-09",
  "engine": "Pronoia",
  "character": "12-Month Foresight",
  "tagline": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve.",
@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-10",
+  "computed_for": "2026-10-13",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -84,7 +84,7 @@
     "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live; fills pending",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-09-11",
+   "signal_as_of": "2026-10-09",
    "signal_top25": [
     {
      "rank": 1,
@@ -98,23 +98,23 @@
     },
     {
      "rank": 3,
-     "ticker": "AAOI",
-     "score": 0.99915
+     "ticker": "CLMT",
+     "score": 0.999146
     },
     {
      "rank": 4,
-     "ticker": "CLMT",
-     "score": 0.998301
+     "ticker": "AAOI",
+     "score": 0.998292
     },
     {
      "rank": 5,
-     "ticker": "COHR",
-     "score": 0.997451
+     "ticker": "APLS",
+     "score": 0.997492
     },
     {
      "rank": 6,
-     "ticker": "APLS",
-     "score": 0.996656
+     "ticker": "INBX",
+     "score": 0.997438
     },
     {
      "rank": 7,
@@ -123,93 +123,93 @@
     },
     {
      "rank": 8,
-     "ticker": "KRYS",
-     "score": 0.995752
+     "ticker": "MRNA",
+     "score": 0.996584
     },
     {
      "rank": 9,
-     "ticker": "WDC",
-     "score": 0.994902
+     "ticker": "STX",
+     "score": 0.99573
     },
     {
      "rank": 10,
-     "ticker": "INBX",
-     "score": 0.994053
+     "ticker": "FORM",
+     "score": 0.994876
     },
     {
      "rank": 11,
-     "ticker": "BTSG",
-     "score": 0.993203
+     "ticker": "WDC",
+     "score": 0.994022
     },
     {
      "rank": 12,
-     "ticker": "STX",
-     "score": 0.992353
+     "ticker": "LRCX",
+     "score": 0.993168
     },
     {
      "rank": 13,
-     "ticker": "AMD",
-     "score": 0.991504
+     "ticker": "MXL",
+     "score": 0.992314
     },
     {
      "rank": 14,
-     "ticker": "VIR",
-     "score": 0.990654
+     "ticker": "VSTS",
+     "score": 0.99146
     },
     {
      "rank": 15,
-     "ticker": "ENVA",
-     "score": 0.989805
+     "ticker": "INSW",
+     "score": 0.990606
     },
     {
      "rank": 16,
-     "ticker": "MXL",
-     "score": 0.988955
+     "ticker": "INTC",
+     "score": 0.989752
     },
     {
      "rank": 17,
-     "ticker": "LRCX",
-     "score": 0.988105
+     "ticker": "HZO",
+     "score": 0.988898
     },
     {
      "rank": 18,
-     "ticker": "FORM",
-     "score": 0.987256
+     "ticker": "PARR",
+     "score": 0.988044
     },
     {
      "rank": 19,
      "ticker": "MU",
-     "score": 0.986406
+     "score": 0.98719
     },
     {
      "rank": 20,
-     "ticker": "ICHR",
-     "score": 0.985556
+     "ticker": "MRVL",
+     "score": 0.986336
     },
     {
      "rank": 21,
-     "ticker": "DD",
-     "score": 0.984707
+     "ticker": "MRLN",
+     "score": 0.985726
     },
     {
      "rank": 22,
-     "ticker": "HUBG",
-     "score": 0.983857
+     "ticker": "NOK",
+     "score": 0.985483
     },
     {
      "rank": 23,
-     "ticker": "AHT",
-     "score": 0.98341
+     "ticker": "VIAV",
+     "score": 0.984628
     },
     {
      "rank": 24,
-     "ticker": "UCTT",
-     "score": 0.983008
+     "ticker": "MPC",
+     "score": 0.983775
     },
     {
      "rank": 25,
-     "ticker": "MRLN",
-     "score": 0.982368
+     "ticker": "ICHR",
+     "score": 0.982921
     }
    ]
   }
@@ -1410,6 +1410,12 @@
    "equity": 15468.6,
    "spy": 597.6,
    "nasdaq": 976.7
+  },
+  {
+   "date": "2026-09-30",
+   "equity": 14119.7,
+   "spy": 594.9,
+   "nasdaq": 994.8
   }
  ],
  "yearly": [
@@ -1490,8 +1496,8 @@
   },
   {
    "label": "2026",
-   "strategy": 28.6,
-   "spy": 11.9
+   "strategy": 37.9,
+   "spy": 14.1
   }
  ],
  "holdings": [

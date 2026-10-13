@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-11",
+ "generated_at": "2026-10-09",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-10",
+  "computed_for": "2026-10-13",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -329,132 +329,132 @@
     "reason": "9/01 orders followed the 2026-08-29-served artifact book; bank held SNEX",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-09-11",
+   "signal_as_of": "2026-10-09",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "UVV",
-     "score": 10.983333
+     "score": 10.9
     },
     {
      "rank": 2,
-     "ticker": "MOS",
-     "score": 10.773333
+     "ticker": "SONO",
+     "score": 10.866668
     },
     {
      "rank": 3,
-     "ticker": "SONO",
-     "score": 10.733334
+     "ticker": "NTCT",
+     "score": 10.599999
     },
     {
      "rank": 4,
      "ticker": "GEO",
-     "score": 10.591667
+     "score": 10.525001
     },
     {
      "rank": 5,
-     "ticker": "NTCT",
-     "score": 10.55
+     "ticker": "PRIM",
+     "score": 10.475
     },
     {
      "rank": 6,
-     "ticker": "MMI",
-     "score": 10.516666
-    },
-    {
-     "rank": 7,
-     "ticker": "SNEX",
-     "score": 10.491667
-    },
-    {
-     "rank": 8,
-     "ticker": "ARR",
-     "score": 10.466667
-    },
-    {
-     "rank": 9,
      "ticker": "LPG",
      "score": 10.325
     },
     {
-     "rank": 10,
+     "rank": 7,
+     "ticker": "MMI",
+     "score": 10.266666
+    },
+    {
+     "rank": 8,
      "ticker": "BKNG",
-     "score": 10.3
+     "score": 10.266666
+    },
+    {
+     "rank": 9,
+     "ticker": "ARR",
+     "score": 10.266666
+    },
+    {
+     "rank": 10,
+     "ticker": "SNEX",
+     "score": 10.158334
     },
     {
      "rank": 11,
-     "ticker": "PRIM",
-     "score": 10.255
+     "ticker": "MOS",
+     "score": 10.15
     },
     {
      "rank": 12,
-     "ticker": "ACA",
-     "score": 10.173332
+     "ticker": "COHU",
+     "score": 10.099999
     },
     {
      "rank": 13,
-     "ticker": "PIPR",
-     "score": 10.150001
+     "ticker": "ED",
+     "score": 10.061666
     },
     {
      "rank": 14,
-     "ticker": "COHU",
-     "score": 10.133333
+     "ticker": "ACA",
+     "score": 10.053333
     },
     {
      "rank": 15,
      "ticker": "EZPW",
-     "score": 10.099999
+     "score": 10.033334
     },
     {
      "rank": 16,
-     "ticker": "ED",
-     "score": 10.094999
+     "ticker": "BOOT",
+     "score": 10.008332
     },
     {
      "rank": 17,
-     "ticker": "BOOT",
-     "score": 9.958333
+     "ticker": "RL",
+     "score": 9.936666
     },
     {
      "rank": 18,
-     "ticker": "TGTX",
-     "score": 9.915
+     "ticker": "VFC",
+     "score": 9.923333
     },
     {
      "rank": 19,
-     "ticker": "SMCI",
-     "score": 9.898333
+     "ticker": "DECK",
+     "score": 9.905
     },
     {
      "rank": 20,
-     "ticker": "UFCS",
-     "score": 9.808333
+     "ticker": "HAFC",
+     "score": 9.87
     },
     {
      "rank": 21,
-     "ticker": "FISV",
-     "score": 9.799999
+     "ticker": "SMCI",
+     "score": 9.851666
     },
     {
      "rank": 22,
-     "ticker": "HRMY",
-     "score": 9.791666
+     "ticker": "PIPR",
+     "score": 9.85
     },
     {
      "rank": 23,
-     "ticker": "HAFC",
-     "score": 9.786666
+     "ticker": "MXL",
+     "score": 9.85
     },
     {
      "rank": 24,
      "ticker": "COLL",
-     "score": 9.783333
+     "score": 9.833333
     },
     {
      "rank": 25,
-     "ticker": "PAHC",
-     "score": 9.773333
+     "ticker": "AFL",
+     "score": 9.833333
     }
    ]
   }
@@ -1652,9 +1652,15 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 6875.6,
+   "equity": 6875.7,
    "spy": 597.6,
    "nasdaq": 976.7
+  },
+  {
+   "date": "2026-09-30",
+   "equity": 6970.4,
+   "spy": 594.9,
+   "nasdaq": 994.8
   }
  ],
  "yearly": [
@@ -1735,8 +1741,8 @@
   },
   {
    "label": "2026",
-   "strategy": 9.2,
-   "spy": 11.9
+   "strategy": 13.9,
+   "spy": 14.1
   }
  ],
  "holdings": [

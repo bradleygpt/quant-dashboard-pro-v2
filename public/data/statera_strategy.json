@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-11",
+ "generated_at": "2026-10-09",
  "engine": "Statera",
  "character": "Value-heavy",
  "tagline": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence.",
@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order.",
-  "computed_for": "2026-10-10",
+  "computed_for": "2026-10-13",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-04",
@@ -739,6 +739,277 @@
      "rank": 25,
      "ticker": "MATW",
      "score": 11.4
+    }
+   ]
+  },
+  {
+   "as_of": "2026-09-16",
+   "held_n": 8,
+   "held_tickers": [
+    "DXC",
+    "SSTK",
+    "VYX",
+    "EGBN",
+    "ABR",
+    "QDEL",
+    "JBLU",
+    "HTZ"
+   ],
+   "top25": [
+    {
+     "rank": 1,
+     "ticker": "DXC",
+     "score": 12.0
+    },
+    {
+     "rank": 2,
+     "ticker": "SSTK",
+     "score": 12.0
+    },
+    {
+     "rank": 3,
+     "ticker": "VYX",
+     "score": 12.0
+    },
+    {
+     "rank": 4,
+     "ticker": "EGBN",
+     "score": 12.0
+    },
+    {
+     "rank": 5,
+     "ticker": "ABR",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
+     "ticker": "QDEL",
+     "score": 12.0
+    },
+    {
+     "rank": 7,
+     "ticker": "JBLU",
+     "score": 12.0
+    },
+    {
+     "rank": 8,
+     "ticker": "HTZ",
+     "score": 12.0
+    },
+    {
+     "rank": 9,
+     "ticker": "HUBG",
+     "score": 12.0
+    },
+    {
+     "rank": 10,
+     "ticker": "LNC",
+     "score": 12.0
+    },
+    {
+     "rank": 11,
+     "ticker": "KMPR",
+     "score": 12.0
+    },
+    {
+     "rank": 12,
+     "ticker": "BKNG",
+     "score": 11.75
+    },
+    {
+     "rank": 13,
+     "ticker": "MAN",
+     "score": 11.666667
+    },
+    {
+     "rank": 14,
+     "ticker": "AOSL",
+     "score": 11.666667
+    },
+    {
+     "rank": 15,
+     "ticker": "CCOI",
+     "score": 11.666667
+    },
+    {
+     "rank": 16,
+     "ticker": "ADNT",
+     "score": 11.666667
+    },
+    {
+     "rank": 17,
+     "ticker": "KSS",
+     "score": 11.6
+    },
+    {
+     "rank": 18,
+     "ticker": "UPBD",
+     "score": 11.6
+    },
+    {
+     "rank": 19,
+     "ticker": "PRAA",
+     "score": 11.5
+    },
+    {
+     "rank": 20,
+     "ticker": "AHCO",
+     "score": 11.5
+    },
+    {
+     "rank": 21,
+     "ticker": "WHR",
+     "score": 11.4
+    },
+    {
+     "rank": 22,
+     "ticker": "MATW",
+     "score": 11.4
+    },
+    {
+     "rank": 23,
+     "ticker": "COKE",
+     "score": 11.4
+    },
+    {
+     "rank": 24,
+     "ticker": "CNC",
+     "score": 11.333333
+    },
+    {
+     "rank": 25,
+     "ticker": "WKC",
+     "score": 11.333333
+    }
+   ],
+   "book_type": "paper",
+   "source": "factor-builder",
+   "signal_as_of": "2026-10-09",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "HUBG",
+     "score": 12.0
+    },
+    {
+     "rank": 2,
+     "ticker": "LNC",
+     "score": 12.0
+    },
+    {
+     "rank": 3,
+     "ticker": "VYX",
+     "score": 12.0
+    },
+    {
+     "rank": 4,
+     "ticker": "JBLU",
+     "score": 12.0
+    },
+    {
+     "rank": 5,
+     "ticker": "DXC",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
+     "ticker": "ABR",
+     "score": 12.0
+    },
+    {
+     "rank": 7,
+     "ticker": "KMPR",
+     "score": 12.0
+    },
+    {
+     "rank": 8,
+     "ticker": "HTZ",
+     "score": 12.0
+    },
+    {
+     "rank": 9,
+     "ticker": "SSTK",
+     "score": 11.75
+    },
+    {
+     "rank": 10,
+     "ticker": "BKNG",
+     "score": 11.75
+    },
+    {
+     "rank": 11,
+     "ticker": "MAN",
+     "score": 11.666667
+    },
+    {
+     "rank": 12,
+     "ticker": "QDEL",
+     "score": 11.666667
+    },
+    {
+     "rank": 13,
+     "ticker": "ADNT",
+     "score": 11.666667
+    },
+    {
+     "rank": 14,
+     "ticker": "LUMN",
+     "score": 11.666667
+    },
+    {
+     "rank": 15,
+     "ticker": "UPBD",
+     "score": 11.6
+    },
+    {
+     "rank": 16,
+     "ticker": "GBX",
+     "score": 11.5
+    },
+    {
+     "rank": 17,
+     "ticker": "AHCO",
+     "score": 11.5
+    },
+    {
+     "rank": 18,
+     "ticker": "WHR",
+     "score": 11.4
+    },
+    {
+     "rank": 19,
+     "ticker": "GIII",
+     "score": 11.4
+    },
+    {
+     "rank": 20,
+     "ticker": "COKE",
+     "score": 11.4
+    },
+    {
+     "rank": 21,
+     "ticker": "PRG",
+     "score": 11.4
+    },
+    {
+     "rank": 22,
+     "ticker": "CCOI",
+     "score": 11.333333
+    },
+    {
+     "rank": 23,
+     "ticker": "REZI",
+     "score": 11.333333
+    },
+    {
+     "rank": 24,
+     "ticker": "NX",
+     "score": 11.333333
+    },
+    {
+     "rank": 25,
+     "ticker": "AOSL",
+     "score": 11.333333
     }
    ]
   }
@@ -1939,6 +2210,12 @@
    "equity": 6431.9,
    "spy": 597.6,
    "nasdaq": 976.7
+  },
+  {
+   "date": "2026-09-30",
+   "equity": 5457.8,
+   "spy": 594.9,
+   "nasdaq": 994.8
   }
  ],
  "yearly": [
@@ -2019,11 +2296,24 @@
   },
   {
    "label": "2026",
-   "strategy": 19.4,
-   "spy": 11.9
+   "strategy": 9.0,
+   "spy": 14.1
   }
  ],
  "holdings": [
+  {
+   "date": "2026-09-16",
+   "tickers": [
+    "ABR",
+    "DXC",
+    "EGBN",
+    "HTZ",
+    "JBLU",
+    "QDEL",
+    "SSTK",
+    "VYX"
+   ]
+  },
   {
    "date": "2026-09-01",
    "tickers": [
@@ -4484,7 +4774,7 @@
  "pit_freeze": {
   "freeze_date": "2026-07-31",
   "frozen_at": null,
-  "boundary": "2026-09-01",
+  "boundary": "2026-09-16",
   "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
   "snapshot": "statera_frozen.json",
   "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."
@@ -4495,7 +4785,7 @@
   "Backtested 2011-2026, NOT a forward projection. Recorded walk-forward validation (expanding-window annual re-search, chained 2013-2026; hunt8 2026-08-06) realized 0.23x-0.54x of backtest CAGR across the selection procedures, with walk-forward drawdowns roughly 2x the in-sample drawdowns. An earlier '~0.4x' note was one prior internal measurement whose output was not preserved. Per-2yr regime CAGR ranged 5% to 64% (median 30%).",
   "The 2021-2026 'OOS' column is a date SLICE of the same backtest, NOT a holdout: weights/N/hold were selected by full-window 2011-2026 grid search (5,720 configs), so 2021-2026 sat inside the selection objective. The recorded walk-forward figures above are the honest out-of-sample read.",
   "TRUE daily mark-to-market - the -34% drawdown is the real intra-period low (COVID 2020), not a smoothed rebalance-spaced figure.",
-  "Top-8 concentration: high single-name risk. Held 163 distinct names over the backtest, rotating ~8 at a time.",
+  "Top-8 concentration: high single-name risk. Held 164 distinct names over the backtest, rotating ~8 at a time.",
   "Frictionless backtest: ignores ~331%/yr turnover cost, slippage, and short-term-gains tax. Net returns will be lower.",
   "Current holdings = LIVE broker-confirmed position as of 2026-09-01; next rebalance projected 2026-11-04 (21-day hold).",
   "SELECTION PROVENANCE: config chosen 2026-08-06 by a CONSTRAINED grid search (hunt7) -- admissibility ceilings on holdings overlap and sector concentration derived from the incumbent four-sleeve book -- then ranked by CAGR+Sharpe. Promoted (as Statera) 2026-08-07, Bradley's call, replacing retired Prosodos.",

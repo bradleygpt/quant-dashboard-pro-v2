@@ -1614,10 +1614,276 @@
             "score": 0.692393
           }
         ]
+      },
+      {
+        "as_of": "2026-09-30",
+        "held_n": 3,
+        "held_tickers": [
+          "INTC",
+          "STX",
+          "VCYT"
+        ],
+        "top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.759091
+          },
+          {
+            "rank": 2,
+            "ticker": "STX",
+            "score": 0.756596
+          },
+          {
+            "rank": 3,
+            "ticker": "VCYT",
+            "score": 0.749258
+          },
+          {
+            "rank": 4,
+            "ticker": "DVA",
+            "score": 0.745593
+          },
+          {
+            "rank": 5,
+            "ticker": "ICHR",
+            "score": 0.733745
+          },
+          {
+            "rank": 6,
+            "ticker": "VSTS",
+            "score": 0.733468
+          },
+          {
+            "rank": 7,
+            "ticker": "CNC",
+            "score": 0.731269
+          },
+          {
+            "rank": 8,
+            "ticker": "LQDA",
+            "score": 0.729794
+          },
+          {
+            "rank": 9,
+            "ticker": "AMD",
+            "score": 0.729616
+          },
+          {
+            "rank": 10,
+            "ticker": "MXL",
+            "score": 0.727249
+          },
+          {
+            "rank": 11,
+            "ticker": "WDC",
+            "score": 0.720586
+          },
+          {
+            "rank": 12,
+            "ticker": "AMN",
+            "score": 0.718759
+          },
+          {
+            "rank": 13,
+            "ticker": "UFCS",
+            "score": 0.711979
+          },
+          {
+            "rank": 14,
+            "ticker": "INSW",
+            "score": 0.709978
+          },
+          {
+            "rank": 15,
+            "ticker": "BTSG",
+            "score": 0.708279
+          },
+          {
+            "rank": 16,
+            "ticker": "VIAV",
+            "score": 0.702744
+          },
+          {
+            "rank": 17,
+            "ticker": "MTZ",
+            "score": 0.702313
+          },
+          {
+            "rank": 18,
+            "ticker": "UCTT",
+            "score": 0.701179
+          },
+          {
+            "rank": 19,
+            "ticker": "POWL",
+            "score": 0.698918
+          },
+          {
+            "rank": 20,
+            "ticker": "MRVL",
+            "score": 0.698709
+          },
+          {
+            "rank": 21,
+            "ticker": "XNCR",
+            "score": 0.697733
+          },
+          {
+            "rank": 22,
+            "ticker": "LNTH",
+            "score": 0.697143
+          },
+          {
+            "rank": 23,
+            "ticker": "MU",
+            "score": 0.694568
+          },
+          {
+            "rank": 24,
+            "ticker": "FTRE",
+            "score": 0.693913
+          },
+          {
+            "rank": 25,
+            "ticker": "ENVA",
+            "score": 0.692393
+          }
+        ],
+        "book_type": "model",
+        "source": "rebake | Bradley stopped trading 2026-09-21; no future orders. MODEL book: what the model would hold at this rebalance, never sent to a broker - not a live position.",
+        "signal_as_of": "2026-10-09",
+        "signal_top25": [
+          {
+            "rank": 1,
+            "ticker": "INTC",
+            "score": 0.759091
+          },
+          {
+            "rank": 2,
+            "ticker": "STX",
+            "score": 0.756596
+          },
+          {
+            "rank": 3,
+            "ticker": "VCYT",
+            "score": 0.749258
+          },
+          {
+            "rank": 4,
+            "ticker": "DVA",
+            "score": 0.745593
+          },
+          {
+            "rank": 5,
+            "ticker": "ICHR",
+            "score": 0.733745
+          },
+          {
+            "rank": 6,
+            "ticker": "VSTS",
+            "score": 0.733468
+          },
+          {
+            "rank": 7,
+            "ticker": "CNC",
+            "score": 0.731269
+          },
+          {
+            "rank": 8,
+            "ticker": "LQDA",
+            "score": 0.729794
+          },
+          {
+            "rank": 9,
+            "ticker": "AMD",
+            "score": 0.729616
+          },
+          {
+            "rank": 10,
+            "ticker": "MXL",
+            "score": 0.727249
+          },
+          {
+            "rank": 11,
+            "ticker": "WDC",
+            "score": 0.720586
+          },
+          {
+            "rank": 12,
+            "ticker": "AMN",
+            "score": 0.718759
+          },
+          {
+            "rank": 13,
+            "ticker": "UFCS",
+            "score": 0.711979
+          },
+          {
+            "rank": 14,
+            "ticker": "INSW",
+            "score": 0.709978
+          },
+          {
+            "rank": 15,
+            "ticker": "BTSG",
+            "score": 0.708279
+          },
+          {
+            "rank": 16,
+            "ticker": "VIAV",
+            "score": 0.702744
+          },
+          {
+            "rank": 17,
+            "ticker": "MTZ",
+            "score": 0.702313
+          },
+          {
+            "rank": 18,
+            "ticker": "UCTT",
+            "score": 0.701179
+          },
+          {
+            "rank": 19,
+            "ticker": "POWL",
+            "score": 0.698918
+          },
+          {
+            "rank": 20,
+            "ticker": "MRVL",
+            "score": 0.698709
+          },
+          {
+            "rank": 21,
+            "ticker": "XNCR",
+            "score": 0.697733
+          },
+          {
+            "rank": 22,
+            "ticker": "LNTH",
+            "score": 0.697143
+          },
+          {
+            "rank": 23,
+            "ticker": "MU",
+            "score": 0.694568
+          },
+          {
+            "rank": 24,
+            "ticker": "FTRE",
+            "score": 0.693913
+          },
+          {
+            "rank": 25,
+            "ticker": "ENVA",
+            "score": 0.692393
+          }
+        ]
       }
     ],
     "signal_now": {
-      "as_of": "2026-09-11",
+      "as_of": "2026-10-09",
       "rows": [
         {
           "rank": 1,
