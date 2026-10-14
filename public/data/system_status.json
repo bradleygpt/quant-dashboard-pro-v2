@@ -1,85 +1,30 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-10-14T00:23:06"
+    "at": "2026-10-14T09:45:41"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": "2026-09-01"
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-09-30"
+      "asOf": null
     }
   },
   "ppi": {
-    "score": 31.9,
+    "score": 37.9,
     "level": "MODERATE"
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-11-01",
-    "rebalanceModel": "calendar_monthly_first",
-    "rebalanceBookType": "model",
-    "effectiveTradingDay": "2026-11-02"
+    "nextRebalance": null,
+    "rebalanceModel": null,
+    "rebalanceBookType": null,
+    "effectiveTradingDay": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01"
-    },
-    "auxo": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "statera": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-04",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order."
-    },
-    "pronoia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "aristeia": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
-    "auxesis": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -100,39 +45,15 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
     }
   },
-  "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "delivery_stall",
-        "source": "web repo public/data",
-        "last_commit": "2026-10-10T08:31:52-04:00",
-        "age_hours": 58.5,
-        "budget_hours": 48
-      },
-      {
-        "kind": "monitor_degraded",
-        "source": "deploy_health:watchrec-v2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      }
-    ],
-    "checked_at": "2026-10-12T19:00:12.330648"
-  },
+  "watchdog": null,
   "market": {
-    "state": "closed"
+    "state": "pre"
   },
   "_meta": {
     "ppi_as_of": "2026-10-14",
-    "ppi_breadth_pct": 67.1,
+    "ppi_breadth_pct": 33.7,
     "source": "PPI computed live (SPY/VIX/VVIX + baked-universe breadth, decoupled from c78q); c78q nextRebalance from monthly ETL; mlpred effective_date; US session snapshot",
     "pnl_note": "null \u2014 no live mark newer than entry; not fabricated"
   }
