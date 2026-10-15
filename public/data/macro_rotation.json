@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-14",
+  "generated_at": "2026-10-15",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors with inflation-hedging potential, such as energy and commodities, are favored. Conversely, technology and consumer discretionary sectors, which may face higher borrowing costs, are pressured. The stabilization of the labor market amid shifting dynamics supports sectors reliant on labor, such as healthcare and education, while pressuring those in retail and hospitality.",
+  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors with strong pricing power and defensive characteristics, such as healthcare and consumer staples, are favored. Conversely, technology and discretionary retail sectors are pressured due to potential interest rate hikes and economic slowdown concerns. Additionally, sectors sensitive to geopolitical instability, like energy, could see volatility, while those impacted by trade deficits, such as manufacturing, face pressure.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
