@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-15",
+  "computed_for": "2026-10-16",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -346,12 +346,12 @@
     {
      "rank": 1,
      "ticker": "VCTR",
-     "score": 9.860151
+     "score": 9.861605
     },
     {
      "rank": 2,
      "ticker": "AMT",
-     "score": 9.734613
+     "score": 9.736068
     },
     {
      "rank": 3,
@@ -361,17 +361,17 @@
     {
      "rank": 4,
      "ticker": "AEO",
-     "score": 9.376009
+     "score": 9.378917
     },
     {
      "rank": 5,
      "ticker": "DAL",
-     "score": 9.361284
+     "score": 9.362738
     },
     {
      "rank": 6,
      "ticker": "BEN",
-     "score": 9.344358
+     "score": 9.345812
     },
     {
      "rank": 7,
@@ -391,7 +391,7 @@
     {
      "rank": 10,
      "ticker": "DINO",
-     "score": 9.070633
+     "score": 9.07354
     },
     {
      "rank": 11,
@@ -411,22 +411,22 @@
     {
      "rank": 14,
      "ticker": "ABM",
-     "score": 8.899488
+     "score": 8.902397
     },
     {
      "rank": 15,
      "ticker": "HALO",
-     "score": 8.868513
+     "score": 8.869967
     },
     {
      "rank": 16,
      "ticker": "MTDR",
-     "score": 8.859226
+     "score": 8.86068
     },
     {
      "rank": 17,
      "ticker": "HLX",
-     "score": 8.843037
+     "score": 8.845944
     },
     {
      "rank": 18,
@@ -436,12 +436,12 @@
     {
      "rank": 19,
      "ticker": "PGNY",
-     "score": 8.816023
+     "score": 8.817477
     },
     {
      "rank": 20,
      "ticker": "GILD",
-     "score": 8.792854
+     "score": 8.79431
     },
     {
      "rank": 21,
@@ -461,7 +461,7 @@
     {
      "rank": 24,
      "ticker": "MCY",
-     "score": 8.749252
+     "score": 8.750706
     },
     {
      "rank": 25,
