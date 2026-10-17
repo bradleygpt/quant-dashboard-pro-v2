@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-15",
+  "generated_at": "2026-10-17",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors with strong pricing power and defensive characteristics, such as healthcare and consumer staples, are favored. Conversely, technology and discretionary retail sectors are pressured due to potential interest rate hikes and economic slowdown concerns. Additionally, sectors sensitive to geopolitical instability, like energy, could see volatility, while those impacted by trade deficits, such as manufacturing, face pressure.",
+  "rotation": "Inflation and monetary policy uncertainty suggest a preference for sectors with pricing power, such as energy and materials. Geopolitical instability and commodity price volatility pressure sectors reliant on global trade, like basic materials and industrials. Rising national debt and labor market stabilization favor defensive sectors like healthcare and consumer staples. AI investment and productivity concerns could support tech and software sectors, while erosion of trust may impact financials and real estate.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
