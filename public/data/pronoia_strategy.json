@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09",
+ "generated_at": "2026-10-16",
  "engine": "Pronoia",
  "character": "12-Month Foresight",
  "tagline": "ML 12-month expected-return foresight (pred_12m) over the BROAD universe \u2014 top-5 by the model's year-ahead forecast, held ~105 days. The validated, decorrelated 5th sleeve.",
@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-17",
+  "computed_for": "2026-10-20",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -84,7 +84,7 @@
     "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live; fills pending",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-10-09",
+   "signal_as_of": "2026-10-16",
    "signal_top25": [
     {
      "rank": 1,
@@ -128,22 +128,22 @@
     },
     {
      "rank": 9,
-     "ticker": "STX",
+     "ticker": "LRCX",
      "score": 0.99573
     },
     {
      "rank": 10,
-     "ticker": "FORM",
+     "ticker": "WDC",
      "score": 0.994876
     },
     {
      "rank": 11,
-     "ticker": "WDC",
+     "ticker": "FORM",
      "score": 0.994022
     },
     {
      "rank": 12,
-     "ticker": "LRCX",
+     "ticker": "TER",
      "score": 0.993168
     },
     {
@@ -158,7 +158,7 @@
     },
     {
      "rank": 15,
-     "ticker": "INSW",
+     "ticker": "STX",
      "score": 0.990606
     },
     {
@@ -168,22 +168,22 @@
     },
     {
      "rank": 17,
-     "ticker": "HZO",
+     "ticker": "AMD",
      "score": 0.988898
     },
     {
      "rank": 18,
-     "ticker": "PARR",
+     "ticker": "VIAV",
      "score": 0.988044
     },
     {
      "rank": 19,
-     "ticker": "MU",
+     "ticker": "UCTT",
      "score": 0.98719
     },
     {
      "rank": 20,
-     "ticker": "MRVL",
+     "ticker": "MU",
      "score": 0.986336
     },
     {
@@ -198,17 +198,17 @@
     },
     {
      "rank": 23,
-     "ticker": "VIAV",
+     "ticker": "PARR",
      "score": 0.984628
     },
     {
      "rank": 24,
-     "ticker": "MPC",
+     "ticker": "HZO",
      "score": 0.983775
     },
     {
      "rank": 25,
-     "ticker": "ICHR",
+     "ticker": "INSW",
      "score": 0.982921
     }
    ]
@@ -1496,8 +1496,8 @@
   },
   {
    "label": "2026",
-   "strategy": 37.9,
-   "spy": 14.1
+   "strategy": 24.4,
+   "spy": 11.9
   }
  ],
  "holdings": [

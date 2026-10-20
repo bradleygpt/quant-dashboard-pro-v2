@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09",
+ "generated_at": "2026-10-16",
  "engine": "Kairos",
  "character": "Event-Momentum",
  "tagline": "Event-momentum composite (50% event pillar: PEAD / 8-K sentiment / insider; 20% momentum; 10% each value/growth/profitability) over the BROAD universe, top-5, ~105-day hold. LIVE from 2026-09-01; the hunt10 winner as a fixed config.",
@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-17",
+  "computed_for": "2026-10-20",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -341,132 +341,132 @@
     "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live checkpoint; fills pending",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-10-09",
+   "signal_as_of": "2026-10-16",
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "VCTR",
-     "score": 9.861605
+     "ticker": "AMT",
+     "score": 9.841231
     },
     {
      "rank": 2,
-     "ticker": "AMT",
-     "score": 9.736068
+     "ticker": "VCTR",
+     "score": 9.763522
     },
     {
      "rank": 3,
-     "ticker": "CORT",
-     "score": 9.423409
+     "ticker": "AEO",
+     "score": 9.463655
     },
     {
      "rank": 4,
-     "ticker": "AEO",
-     "score": 9.378917
+     "ticker": "AME",
+     "score": 9.287787
     },
     {
      "rank": 5,
-     "ticker": "DAL",
-     "score": 9.362738
+     "ticker": "STLD",
+     "score": 9.186607
     },
     {
      "rank": 6,
-     "ticker": "BEN",
-     "score": 9.345812
+     "ticker": "CON",
+     "score": 9.16342
     },
     {
      "rank": 7,
-     "ticker": "AME",
-     "score": 9.222553
+     "ticker": "CB",
+     "score": 9.14452
     },
     {
      "rank": 8,
-     "ticker": "CON",
-     "score": 9.2178
+     "ticker": "DINO",
+     "score": 9.080425
     },
     {
      "rank": 9,
-     "ticker": "STLD",
-     "score": 9.089907
+     "ticker": "ABM",
+     "score": 9.055855
     },
     {
      "rank": 10,
-     "ticker": "DINO",
-     "score": 9.07354
+     "ticker": "BEN",
+     "score": 9.049623
     },
     {
      "rank": 11,
-     "ticker": "TGTX",
-     "score": 8.989673
+     "ticker": "HALO",
+     "score": 9.037846
     },
     {
      "rank": 12,
-     "ticker": "IVZ",
-     "score": 8.978325
+     "ticker": "MTDR",
+     "score": 9.030052
     },
     {
      "rank": 13,
-     "ticker": "TWLO",
-     "score": 8.906025
+     "ticker": "CTAS",
+     "score": 9.004032
     },
     {
      "rank": 14,
-     "ticker": "ABM",
-     "score": 8.902397
+     "ticker": "WS",
+     "score": 8.975677
     },
     {
      "rank": 15,
-     "ticker": "HALO",
-     "score": 8.869967
+     "ticker": "AMN",
+     "score": 8.941294
     },
     {
      "rank": 16,
-     "ticker": "MTDR",
-     "score": 8.86068
+     "ticker": "LLY",
+     "score": 8.909027
     },
     {
      "rank": 17,
-     "ticker": "HLX",
-     "score": 8.845944
+     "ticker": "CORT",
+     "score": 8.904747
     },
     {
      "rank": 18,
-     "ticker": "DDOG",
-     "score": 8.822838
+     "ticker": "ACN",
+     "score": 8.89802
     },
     {
      "rank": 19,
-     "ticker": "PGNY",
-     "score": 8.817477
+     "ticker": "DIS",
+     "score": 8.854269
     },
     {
      "rank": 20,
-     "ticker": "GILD",
-     "score": 8.79431
+     "ticker": "HLX",
+     "score": 8.849198
     },
     {
      "rank": 21,
-     "ticker": "ESI",
-     "score": 8.776127
+     "ticker": "TGTX",
+     "score": 8.837676
     },
     {
      "rank": 22,
-     "ticker": "INCY",
-     "score": 8.763052
+     "ticker": "NSIT",
+     "score": 8.830336
     },
     {
      "rank": 23,
-     "ticker": "BGC",
-     "score": 8.758261
+     "ticker": "GILD",
+     "score": 8.827342
     },
     {
      "rank": 24,
-     "ticker": "MCY",
-     "score": 8.750706
+     "ticker": "NHC",
+     "score": 8.762983
     },
     {
      "rank": 25,
-     "ticker": "CVI",
-     "score": 8.741243
+     "ticker": "DAL",
+     "score": 8.750577
     }
    ]
   }
@@ -1753,8 +1753,8 @@
   },
   {
    "label": "2026",
-   "strategy": 41.2,
-   "spy": 14.1
+   "strategy": 33.5,
+   "spy": 11.9
   }
  ],
  "holdings": [

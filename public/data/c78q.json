@@ -1752,7 +1752,7 @@
         ],
         "book_type": "model",
         "source": "rebake | Bradley stopped trading 2026-09-21; no future orders. MODEL book: what the model would hold at this rebalance, never sent to a broker - not a live position.",
-        "signal_as_of": "2026-10-09",
+        "signal_as_of": "2026-10-16",
         "signal_top25": [
           {
             "rank": 1,
@@ -1883,7 +1883,7 @@
       }
     ],
     "signal_now": {
-      "as_of": "2026-10-09",
+      "as_of": "2026-10-16",
       "rows": [
         {
           "rank": 1,

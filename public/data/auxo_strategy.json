@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09",
+ "generated_at": "2026-10-16",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-17",
+  "computed_for": "2026-10-20",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -329,112 +329,112 @@
     "reason": "9/01 orders followed the 2026-08-29-served artifact book; bank held SNEX",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-10-09",
+   "signal_as_of": "2026-10-16",
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "UVV",
-     "score": 10.9
+     "ticker": "SONO",
+     "score": 10.933334
     },
     {
      "rank": 2,
-     "ticker": "SONO",
-     "score": 10.866668
+     "ticker": "UVV",
+     "score": 10.866666
     },
     {
      "rank": 3,
      "ticker": "NTCT",
-     "score": 10.599999
+     "score": 10.549999
     },
     {
      "rank": 4,
      "ticker": "GEO",
-     "score": 10.525001
+     "score": 10.428333
     },
     {
      "rank": 5,
      "ticker": "PRIM",
-     "score": 10.475
+     "score": 10.288333
     },
     {
      "rank": 6,
-     "ticker": "LPG",
-     "score": 10.325
-    },
-    {
-     "rank": 7,
      "ticker": "MMI",
      "score": 10.266666
     },
     {
-     "rank": 8,
+     "rank": 7,
      "ticker": "BKNG",
      "score": 10.266666
     },
     {
-     "rank": 9,
+     "rank": 8,
      "ticker": "ARR",
-     "score": 10.266666
+     "score": 10.25
+    },
+    {
+     "rank": 9,
+     "ticker": "MOS",
+     "score": 10.156666
     },
     {
      "rank": 10,
-     "ticker": "SNEX",
-     "score": 10.158334
+     "ticker": "ED",
+     "score": 10.155
     },
     {
      "rank": 11,
-     "ticker": "MOS",
-     "score": 10.15
+     "ticker": "EZPW",
+     "score": 10.150001
     },
     {
      "rank": 12,
-     "ticker": "COHU",
-     "score": 10.099999
+     "ticker": "LPG",
+     "score": 10.084999
     },
     {
      "rank": 13,
-     "ticker": "ED",
-     "score": 10.061666
+     "ticker": "SNEX",
+     "score": 10.075001
     },
     {
      "rank": 14,
+     "ticker": "BOOT",
+     "score": 10.058332
+    },
+    {
+     "rank": 15,
      "ticker": "ACA",
      "score": 10.053333
     },
     {
-     "rank": 15,
-     "ticker": "EZPW",
-     "score": 10.033334
-    },
-    {
      "rank": 16,
-     "ticker": "BOOT",
-     "score": 10.008332
+     "ticker": "VFC",
+     "score": 9.966666
     },
     {
      "rank": 17,
      "ticker": "RL",
-     "score": 9.936666
+     "score": 9.953334
     },
     {
      "rank": 18,
-     "ticker": "VFC",
-     "score": 9.923333
+     "ticker": "COLL",
+     "score": 9.95
     },
     {
      "rank": 19,
      "ticker": "DECK",
-     "score": 9.905
+     "score": 9.938333
     },
     {
      "rank": 20,
-     "ticker": "HAFC",
-     "score": 9.87
+     "ticker": "COHU",
+     "score": 9.933332
     },
     {
      "rank": 21,
-     "ticker": "SMCI",
-     "score": 9.851666
+     "ticker": "AFL",
+     "score": 9.9
     },
     {
      "rank": 22,
@@ -443,18 +443,18 @@
     },
     {
      "rank": 23,
-     "ticker": "MXL",
-     "score": 9.85
+     "ticker": "PAHC",
+     "score": 9.833333
     },
     {
      "rank": 24,
-     "ticker": "COLL",
-     "score": 9.833333
+     "ticker": "LCID",
+     "score": 9.816668
     },
     {
      "rank": 25,
-     "ticker": "AFL",
-     "score": 9.833333
+     "ticker": "COF",
+     "score": 9.816667
     }
    ]
   }
@@ -1658,7 +1658,7 @@
   },
   {
    "date": "2026-09-30",
-   "equity": 6970.4,
+   "equity": 6970.6,
    "spy": 594.9,
    "nasdaq": 994.8
   }
@@ -1741,8 +1741,8 @@
   },
   {
    "label": "2026",
-   "strategy": 13.9,
-   "spy": 14.1
+   "strategy": 9.8,
+   "spy": 11.9
   }
  ],
  "holdings": [

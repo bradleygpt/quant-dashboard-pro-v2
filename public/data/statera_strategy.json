@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09",
+ "generated_at": "2026-10-16",
  "engine": "Statera",
  "character": "Value-heavy",
  "tagline": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence.",
@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order.",
-  "computed_for": "2026-10-17",
+  "computed_for": "2026-10-20",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-04",
@@ -1009,6 +1009,277 @@
     {
      "rank": 25,
      "ticker": "AOSL",
+     "score": 11.333333
+    }
+   ]
+  },
+  {
+   "as_of": "2026-10-15",
+   "held_n": 8,
+   "held_tickers": [
+    "KMPR",
+    "DXC",
+    "JBLU",
+    "ABR",
+    "MAN",
+    "EGBN",
+    "HTZ",
+    "VYX"
+   ],
+   "top25": [
+    {
+     "rank": 1,
+     "ticker": "KMPR",
+     "score": 12.0
+    },
+    {
+     "rank": 2,
+     "ticker": "DXC",
+     "score": 12.0
+    },
+    {
+     "rank": 3,
+     "ticker": "JBLU",
+     "score": 12.0
+    },
+    {
+     "rank": 4,
+     "ticker": "ABR",
+     "score": 12.0
+    },
+    {
+     "rank": 5,
+     "ticker": "MAN",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
+     "ticker": "EGBN",
+     "score": 12.0
+    },
+    {
+     "rank": 7,
+     "ticker": "HTZ",
+     "score": 12.0
+    },
+    {
+     "rank": 8,
+     "ticker": "VYX",
+     "score": 12.0
+    },
+    {
+     "rank": 9,
+     "ticker": "HUBG",
+     "score": 12.0
+    },
+    {
+     "rank": 10,
+     "ticker": "LNC",
+     "score": 12.0
+    },
+    {
+     "rank": 11,
+     "ticker": "BKNG",
+     "score": 11.75
+    },
+    {
+     "rank": 12,
+     "ticker": "SSTK",
+     "score": 11.75
+    },
+    {
+     "rank": 13,
+     "ticker": "AOSL",
+     "score": 11.666667
+    },
+    {
+     "rank": 14,
+     "ticker": "ADNT",
+     "score": 11.666667
+    },
+    {
+     "rank": 15,
+     "ticker": "LUMN",
+     "score": 11.666667
+    },
+    {
+     "rank": 16,
+     "ticker": "UPBD",
+     "score": 11.6
+    },
+    {
+     "rank": 17,
+     "ticker": "AHCO",
+     "score": 11.5
+    },
+    {
+     "rank": 18,
+     "ticker": "GBX",
+     "score": 11.5
+    },
+    {
+     "rank": 19,
+     "ticker": "ALK",
+     "score": 11.4
+    },
+    {
+     "rank": 20,
+     "ticker": "WHR",
+     "score": 11.4
+    },
+    {
+     "rank": 21,
+     "ticker": "COKE",
+     "score": 11.4
+    },
+    {
+     "rank": 22,
+     "ticker": "PRG",
+     "score": 11.4
+    },
+    {
+     "rank": 23,
+     "ticker": "NX",
+     "score": 11.333333
+    },
+    {
+     "rank": 24,
+     "ticker": "CCOI",
+     "score": 11.333333
+    },
+    {
+     "rank": 25,
+     "ticker": "WKC",
+     "score": 11.333333
+    }
+   ],
+   "book_type": "model",
+   "source": "factor-builder | Bradley stopped trading 2026-09-21; no future orders. MODEL book: what the model would hold at this rebalance, never sent to a broker - not a live position.",
+   "signal_as_of": "2026-10-16",
+   "signal_top25": [
+    {
+     "rank": 1,
+     "ticker": "JBLU",
+     "score": 12.0
+    },
+    {
+     "rank": 2,
+     "ticker": "ABR",
+     "score": 12.0
+    },
+    {
+     "rank": 3,
+     "ticker": "MAN",
+     "score": 12.0
+    },
+    {
+     "rank": 4,
+     "ticker": "HUBG",
+     "score": 12.0
+    },
+    {
+     "rank": 5,
+     "ticker": "LNC",
+     "score": 12.0
+    },
+    {
+     "rank": 6,
+     "ticker": "HTZ",
+     "score": 12.0
+    },
+    {
+     "rank": 7,
+     "ticker": "DXC",
+     "score": 11.8
+    },
+    {
+     "rank": 8,
+     "ticker": "KMPR",
+     "score": 11.75
+    },
+    {
+     "rank": 9,
+     "ticker": "BKNG",
+     "score": 11.75
+    },
+    {
+     "rank": 10,
+     "ticker": "SSTK",
+     "score": 11.75
+    },
+    {
+     "rank": 11,
+     "ticker": "LUMN",
+     "score": 11.666667
+    },
+    {
+     "rank": 12,
+     "ticker": "QDEL",
+     "score": 11.666667
+    },
+    {
+     "rank": 13,
+     "ticker": "VYX",
+     "score": 11.666667
+    },
+    {
+     "rank": 14,
+     "ticker": "ADNT",
+     "score": 11.666667
+    },
+    {
+     "rank": 15,
+     "ticker": "REZI",
+     "score": 11.666667
+    },
+    {
+     "rank": 16,
+     "ticker": "AOSL",
+     "score": 11.666667
+    },
+    {
+     "rank": 17,
+     "ticker": "UPBD",
+     "score": 11.6
+    },
+    {
+     "rank": 18,
+     "ticker": "AHCO",
+     "score": 11.5
+    },
+    {
+     "rank": 19,
+     "ticker": "WHR",
+     "score": 11.4
+    },
+    {
+     "rank": 20,
+     "ticker": "ALK",
+     "score": 11.4
+    },
+    {
+     "rank": 21,
+     "ticker": "PRG",
+     "score": 11.4
+    },
+    {
+     "rank": 22,
+     "ticker": "NX",
+     "score": 11.333333
+    },
+    {
+     "rank": 23,
+     "ticker": "WKC",
+     "score": 11.333333
+    },
+    {
+     "rank": 24,
+     "ticker": "CNC",
+     "score": 11.333333
+    },
+    {
+     "rank": 25,
+     "ticker": "CCOI",
      "score": 11.333333
     }
    ]
@@ -2296,11 +2567,24 @@
   },
   {
    "label": "2026",
-   "strategy": 12.2,
-   "spy": 14.1
+   "strategy": 9.6,
+   "spy": 11.9
   }
  ],
  "holdings": [
+  {
+   "date": "2026-10-15",
+   "tickers": [
+    "ABR",
+    "DXC",
+    "EGBN",
+    "HTZ",
+    "JBLU",
+    "KMPR",
+    "MAN",
+    "VYX"
+   ]
+  },
   {
    "date": "2026-09-16",
    "tickers": [
@@ -4774,7 +5058,7 @@
  "pit_freeze": {
   "freeze_date": "2026-07-31",
   "frozen_at": null,
-  "boundary": "2026-09-16",
+  "boundary": "2026-10-15",
   "boundary_rule": "max(freeze_date, latest banked ledger as_of) - 2026-09-07 order",
   "snapshot": "statera_frozen.json",
   "policy": "PIT-FREEZE 2026-08-07: history on/before freeze_date never re-derives; rebuilds append strictly-post-freeze points only."

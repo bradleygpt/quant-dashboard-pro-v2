@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-17",
+  "generated_at": "2026-10-20",
   "model": "qwen2.5:7b",
-  "rotation": "Inflation and monetary policy uncertainty suggest a preference for sectors with pricing power, such as energy and materials. Geopolitical instability and commodity price volatility pressure sectors reliant on global trade, like basic materials and industrials. Rising national debt and labor market stabilization favor defensive sectors like healthcare and consumer staples. AI investment and productivity concerns could support tech and software sectors, while erosion of trust may impact financials and real estate.",
+  "rotation": "Inflation risks and monetary policy uncertainty favor sectors like utilities and consumer staples, which tend to perform well in stable interest rate environments. Geopolitical instability pressures energy and materials sectors, while the AI investment boom and productivity puzzle favor tech and IT services. Labor market stabilization amid shifting dynamics supports healthcare and consumer discretionary sectors. Tariff policy and trade deficit concerns pressure exporters and import-sensitive sectors.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",

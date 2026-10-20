@@ -1,77 +1,77 @@
 {
  "product": "Stock of the Day",
- "date": "2026-10-09",
+ "date": "2026-10-16",
  "pick": {
-  "ticker": "TGTX",
-  "consensus": 85.8,
+  "ticker": "DINO",
+  "consensus": 85.4,
   "n_streams": 5,
   "streams": {
-   "S1": 95.1,
-   "S2": 96.4,
-   "S3": 92.5,
-   "S4": 76.0,
-   "S5": 68.9
+   "S1": 93.5,
+   "S2": 96.2,
+   "S3": 97.3,
+   "S4": 75.0,
+   "S5": 65.0
   }
  },
  "runners_up": [
   {
-   "ticker": "DINO",
-   "consensus": 85.5,
-   "n_streams": 5,
-   "streams": {
-    "S1": 93.5,
-    "S2": 96.8,
-    "S3": 97.3,
-    "S4": 75.0,
-    "S5": 64.9
-   }
-  },
-  {
    "ticker": "BFH",
-   "consensus": 84.3,
+   "consensus": 84.9,
    "n_streams": 4,
    "streams": {
     "S1": 89.1,
-    "S2": 85.5,
+    "S2": 86.5,
     "S3": 91.3,
     "S4": null,
-    "S5": 71.1
+    "S5": 72.5
+   }
+  },
+  {
+   "ticker": "TGTX",
+   "consensus": 84.4,
+   "n_streams": 5,
+   "streams": {
+    "S1": 95.1,
+    "S2": 91.1,
+    "S3": 92.5,
+    "S4": 75.9,
+    "S5": 67.2
    }
   },
   {
    "ticker": "MATX",
-   "consensus": 83.8,
+   "consensus": 84.2,
    "n_streams": 5,
    "streams": {
     "S1": 95.3,
-    "S2": 93.6,
+    "S2": 96.6,
     "S3": 96.0,
-    "S4": 63.7,
-    "S5": 70.6
+    "S4": 63.6,
+    "S5": 69.3
+   }
+  },
+  {
+   "ticker": "WDC",
+   "consensus": 83.6,
+   "n_streams": 5,
+   "streams": {
+    "S1": 99.2,
+    "S2": 99.3,
+    "S3": 80.0,
+    "S4": 89.3,
+    "S5": 50.2
    }
   },
   {
    "ticker": "MBIN",
-   "consensus": 83.6,
+   "consensus": 83.1,
    "n_streams": 4,
    "streams": {
     "S1": 88.9,
-    "S2": 88.1,
+    "S2": 88.8,
     "S3": 98.9,
     "S4": null,
-    "S5": 58.3
-   }
-  },
-  {
-   "ticker": "CON",
-   "consensus": 83.2,
-   "n_streams": 5,
-   "streams": {
-    "S1": 82.6,
-    "S2": 93.7,
-    "S3": 83.5,
-    "S4": 84.4,
-    "S5": 71.9
+    "S5": 55.9
    }
   }
  ],
