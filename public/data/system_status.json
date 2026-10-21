@@ -1,16 +1,16 @@
 {
   "bake": {
     "fresh": true,
-    "at": "2026-10-21T01:28:58"
+    "at": "2026-10-21T09:36:46"
   },
   "engines": {
     "binary": {
       "current": false,
-      "asOf": "2026-09-01"
+      "asOf": null
     },
     "return": {
       "current": false,
-      "asOf": "2026-09-30"
+      "asOf": null
     }
   },
   "ppi": {
@@ -19,67 +19,12 @@
   },
   "c78q": {
     "pnl": null,
-    "nextRebalance": "2026-11-01",
-    "rebalanceModel": "calendar_monthly_first",
-    "rebalanceBookType": "model",
-    "effectiveTradingDay": "2026-11-02"
+    "nextRebalance": null,
+    "rebalanceModel": null,
+    "rebalanceBookType": null,
+    "effectiveTradingDay": null
   },
   "strategies": {
-    "katalepsis": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01"
-    },
-    "auxo": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "statera": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-04",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 21-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 cohort. Replaces retired Prosodos per Bradley's 2026-08-07 order."
-    },
-    "pronoia": {
-      "book_type": "live",
-      "status": "deployed",
-      "as_of": "2026-09-01",
-      "next_rebalance": "2026-11-10",
-      "rebalance_model": "hold_expiry",
-      "rebalance_model_label": "hold expiry",
-      "rebalance_book_type": "model",
-      "go_live": "2026-09-01",
-      "go_live_pending": false,
-      "schedule_rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry."
-    },
-    "aristeia": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
-    "auxesis": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
-    },
     "axia": {
       "book_type": "paper",
       "retired": true,
@@ -100,47 +45,11 @@
       "status": "retired (holdings-redundant)",
       "next_rebalance": null,
       "rebalance_model": null
-    },
-    "prosodos": {
-      "book_type": "paper",
-      "retired": true,
-      "status": "retired (holdings-redundant)",
-      "next_rebalance": null,
-      "rebalance_model": null
     }
   },
-  "watchdog": {
-    "ok": false,
-    "alerts": [
-      {
-        "kind": "delivery_stall",
-        "source": "web repo public/data",
-        "last_commit": "2026-10-17T08:31:49-04:00",
-        "age_hours": 65.0,
-        "budget_hours": 48
-      },
-      {
-        "kind": "monitor_degraded",
-        "source": "deploy_health:watchrec-v2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "kind": "lapsed_pin",
-        "layer": "v3_deploy",
-        "source": "akribeia-dashboard-v3 pinned data version",
-        "age_sessions": 9.0,
-        "budget_sessions": 3,
-        "age_days": 12.4
-      },
-      {
-        "kind": "job_failed_flag",
-        "source": "ops/heartbeats/data_publish_FAILED.json"
-      }
-    ],
-    "checked_at": "2026-10-20T01:30:14.066871"
-  },
+  "watchdog": null,
   "market": {
-    "state": "closed"
+    "state": "pre"
   },
   "_meta": {
     "ppi_as_of": "2026-10-21",
