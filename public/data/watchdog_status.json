@@ -1,33 +1,17 @@
 {
-  "ok": false,
-  "checked_at": "2026-10-20T01:30:14.066871",
-  "alerts": [
-    {
-      "kind": "delivery_stall",
-      "source": "web repo public/data",
-      "last_commit": "2026-10-17T08:31:49-04:00",
-      "age_hours": 65.0,
-      "budget_hours": 48
-    },
+  "ok": true,
+  "checked_at": "2026-10-20T19:29:51.712239",
+  "alerts": [],
+  "suppressed": [
     {
       "kind": "monitor_degraded",
-      "source": "deploy_health:watchrec-v2",
-      "reason": "HTTPError: HTTP Error 403: Forbidden"
+      "sleeve": null,
+      "layer": null,
+      "reason": "Bradley 2026-10-20: do not fix now. Vercel paused bradleygpts-projects on 2026-10-13 until about 2026-11-12 (every watchrec-v2 deploy answers 402), and VERCEL_TOKEN was already invalid for that account (open rulings #7: not a bradleygpt-account token). Matched on this exact 403 only, so any other deploy_health failure, deploy_failed or deploy_behind still fires. From 2026-11-13 the entry expires: the 403 alerts normally again and suppression_expired flags the entry.",
+      "report": "known: Vercel paused, token invalid, expected until 2026-11-12",
+      "expires": "2026-11-12",
+      "days_left": 23
     },
-    {
-      "kind": "lapsed_pin",
-      "layer": "v3_deploy",
-      "source": "akribeia-dashboard-v3 pinned data version",
-      "age_sessions": 9.0,
-      "budget_sessions": 3,
-      "age_days": 12.4
-    },
-    {
-      "kind": "job_failed_flag",
-      "source": "ops/heartbeats/data_publish_FAILED.json"
-    }
-  ],
-  "suppressed": [
     {
       "kind": "live_book_not_researchable",
       "sleeve": "pronoia",
@@ -36,10 +20,5 @@
       "expires": "2026-11-10",
       "days_left": 21
     }
-  ],
-  "notify": {
-    "toast": "skipped: BurntToast not installed",
-    "email": "sent to bmhartnett1990@gmail.com",
-    "notified_at": "2026-10-20T01:30:16"
-  }
+  ]
 }

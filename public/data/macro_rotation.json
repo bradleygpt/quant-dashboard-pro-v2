@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-20",
+  "generated_at": "2026-10-21",
   "model": "qwen2.5:7b",
-  "rotation": "Inflation risks and monetary policy uncertainty favor sectors like utilities and consumer staples, which tend to perform well in stable interest rate environments. Geopolitical instability pressures energy and materials sectors, while the AI investment boom and productivity puzzle favor tech and IT services. Labor market stabilization amid shifting dynamics supports healthcare and consumer discretionary sectors. Tariff policy and trade deficit concerns pressure exporters and import-sensitive sectors.",
+  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors with pricing power and defensive characteristics, such as healthcare and consumer staples, are favored. Conversely, technology and consumer discretionary sectors, which may face higher borrowing costs, are pressured. Additionally, the erosion of trust and market fragility suggest a preference for stable and resilient sectors, further pressuring tech and financials.",
   "risks_used": [
     {
       "title": "Persistent Inflation and Monetary Policy Uncertainty",
