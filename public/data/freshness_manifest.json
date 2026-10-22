@@ -11,7 +11,6 @@
         "Fannie Mae (ESR)",
         "KPMG Economics",
         "Guggenheim Investments",
-        "UBS CIO GWM",
         "Goldman Sachs Research",
         "Morgan Stanley Research",
         "Yardeni Research",
@@ -24,13 +23,13 @@
     "earnings_reviews": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "system_status": {
       "source": "bake.py system_status block (c78q.json ppi+state, mlpred effective_date, US session snapshot)",
       "as_of": "2026-10-22",
-      "ppi": "35.7 MODERATE (live c78q PPI, as-of 2026-10-22)",
+      "ppi": "39.3 MODERATE (live c78q PPI, as-of 2026-10-22)",
       "c78q_pnl": "null \u2014 no live mark newer than entry; not fabricated",
       "consumed_by": "TRI-STAR landing (LandingDemoTab)",
       "check_status": "ok"
@@ -38,71 +37,71 @@
     "universe_floor0": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "universe_floor1": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "universe_floor10": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "quarterly": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "snapshots": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "quant_backtest": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "doppelganger": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "etf": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "market_static": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "pundits": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     },
     "help": {
       "source": "bake.py vintage pass",
       "as_of": "2026-10-22",
-      "generated_at": "2026-10-22T09:42:42",
+      "generated_at": "2026-10-22T19:31:38",
       "check_status": "ok"
     }
   },
-  "generated_at": "2026-10-22T09:42:42",
+  "generated_at": "2026-10-22T19:31:38",
   "blob": {
     "version": "20261021T052932Z",
     "published_at": "2026-10-21T05:29:33+00:00",
