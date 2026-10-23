@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "checked_at": "2026-10-20T19:29:51.712239",
+  "checked_at": "2026-10-22T19:00:07.476924",
   "alerts": [],
   "suppressed": [
     {
@@ -10,7 +10,7 @@
       "reason": "Bradley 2026-10-20: do not fix now. Vercel paused bradleygpts-projects on 2026-10-13 until about 2026-11-12 (every watchrec-v2 deploy answers 402), and VERCEL_TOKEN was already invalid for that account (open rulings #7: not a bradleygpt-account token). Matched on this exact 403 only, so any other deploy_health failure, deploy_failed or deploy_behind still fires. From 2026-11-13 the entry expires: the 403 alerts normally again and suppression_expired flags the entry.",
       "report": "known: Vercel paused, token invalid, expected until 2026-11-12",
       "expires": "2026-11-12",
-      "days_left": 23
+      "days_left": 21
     },
     {
       "kind": "live_book_not_researchable",
@@ -18,7 +18,7 @@
       "layer": null,
       "reason": "Bradley stopped trading 2026-09-21; no future orders, gating purpose moot. Expires at pronoia's next rebalance. (Retained mechanics: the match is keyed on exactly AAOI/INBX/NG/NOK, so a FIFTH name appearing, or any of these four changing, is a new condition and fires. The prior reason cited the sleeve's exclusion from the nightly chain; that lapsed when C3 was reinstated 2026-09-24 under the keep-live ruling.)",
       "expires": "2026-11-10",
-      "days_left": 21
+      "days_left": 19
     }
   ]
 }

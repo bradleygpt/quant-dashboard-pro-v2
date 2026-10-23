@@ -1,42 +1,47 @@
 {
-  "generated_at": "2026-10-21",
+  "generated_at": "2026-10-23",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy uncertainty, sectors with pricing power and defensive characteristics, such as healthcare and consumer staples, are favored. Conversely, technology and consumer discretionary sectors, which may face higher borrowing costs, are pressured. Additionally, the erosion of trust and market fragility suggest a preference for stable and resilient sectors, further pressuring tech and financials.",
+  "rotation": "Given the high severity of persistent inflation and monetary policy tightening, sectors likely to benefit include utilities and consumer staples, which tend to perform well in higher interest rate environments. Conversely, technology and real estate sectors may face pressure due to higher borrowing costs and reduced consumer spending power.",
   "risks_used": [
     {
-      "title": "Persistent Inflation and Monetary Policy Uncertainty",
+      "title": "Persistent Inflation and Monetary Policy Tightening",
       "category": "Inflation",
       "severity": "High"
     },
     {
-      "title": "Geopolitical Instability and Commodity Price Volatility",
+      "title": "Geopolitical Fragmentation and Trade Tensions",
       "category": "Geopolitical",
       "severity": "High"
     },
     {
-      "title": "US Fiscal Deficit and Rising National Debt",
-      "category": "Fiscal",
+      "title": "AI Investment Boom and its Economic Impact",
+      "category": "Growth",
+      "severity": "Medium"
+    },
+    {
+      "title": "Elevated Interest Rates and Debt Servicing Costs",
+      "category": "Policy",
       "severity": "High"
     },
     {
-      "title": "AI Investment Boom and Productivity Puzzle",
-      "category": "Markets",
+      "title": "Divergent Global Economic Performance",
+      "category": "Growth",
       "severity": "Medium"
     },
     {
-      "title": "Erosion of Trust and Market Fragility",
-      "category": "Markets",
-      "severity": "Medium"
-    },
-    {
-      "title": "Labor Market Stabilization Amidst Shifting Dynamics",
+      "title": "Labor Market Tightness and Wage Pressures",
       "category": "Labor",
       "severity": "Medium"
     },
     {
-      "title": "Tariff Policy and Trade Deficit Widening",
-      "category": "Trade",
-      "severity": "Low"
+      "title": "Fiscal Sustainability and Government Debt",
+      "category": "Fiscal",
+      "severity": "Medium"
+    },
+    {
+      "title": "Energy Price Volatility and Supply Shocks",
+      "category": "Inflation",
+      "severity": "Medium"
     }
   ]
 }
