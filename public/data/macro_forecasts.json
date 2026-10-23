@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T09:36:09",
+  "generated_at": "2026-10-23T19:38:05",
   "consensus": {
     "metrics": [
       "gdp",
@@ -63,21 +63,6 @@
             "LR": 3.2
           },
           "sp500_target": {}
-        }
-      },
-      {
-        "id": "worldbank_gep",
-        "name": "World Bank (GEP)",
-        "kind": "official",
-        "live": true,
-        "as_of": "2026-06",
-        "source": "World Bank Data360 WB_GEP",
-        "url": "https://data360.worldbank.org/en/dataset/WB_GEP",
-        "notes": "GEP publishes GDP growth forecasts (no CPI/unemployment in this dataset).",
-        "values": {
-          "gdp": {
-            "2026": 2.0
-          }
         }
       },
       {
@@ -340,15 +325,6 @@
       "live": true,
       "source": "FRED Release 326 (FOMC SEP)",
       "url": "https://fred.stlouisfed.org/release?rid=326",
-      "kind": "official"
-    },
-    {
-      "id": "worldbank_gep",
-      "name": "World Bank (GEP)",
-      "as_of": "2026-06",
-      "live": true,
-      "source": "World Bank Data360 WB_GEP",
-      "url": "https://data360.worldbank.org/en/dataset/WB_GEP",
       "kind": "official"
     },
     {
