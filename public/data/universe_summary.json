@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-10-17",
+  "generated_at": "2026-10-24",
   "model": "qwen2.5:7b",
-  "summary": "The market maintains a cautious posture, with a slight risk-off sentiment as indicated by the low 2% Buy-tier rating and the median fair-value premium of -1.6%, suggesting stocks are trading below their fair values. Strength is concentrated in sectors like Utilities, Communication Services, and Energy, while Technology, Industrials, and Consumer Cyclical sectors are lagging, implying a rotation towards more defensive sectors.",
+  "summary": "The market exhibits a cautious posture, with a slight risk-off sentiment as indicated by the preponderance of neutral to bearish ratings. Valuations are modestly compressed, with a median fair-value premium of -4.5%, suggesting stocks are trading below their fair values. Sectorally, strength is concentrated in Basic Materials, Communication Services, and Energy, while Healthcare, Technology, and Consumer Cyclical sectors lag, implying a rotation towards more resilient sectors.",
   "stats": {
     "n": 1290,
     "buy_tier_pct": 2,
     "rating_dist": {
-      "Strong Buy+": 5,
-      "Strong Buy": 19,
-      "Buy": 1,
-      "Hold": 1102,
-      "Sell": 151,
-      "Strong Sell": 12
+      "Strong Buy+": 7,
+      "Strong Buy": 16,
+      "Buy": 2,
+      "Hold": 1104,
+      "Sell": 144,
+      "Strong Sell": 17
     },
-    "median_fv_premium_pct": -1.6,
+    "median_fv_premium_pct": -4.5,
     "strongest_sectors": [
-      "Utilities (6.96)",
+      "Basic Materials (6.96)",
       "Communication Services (6.96)",
       "Energy (6.95)"
     ],
     "weakest_sectors": [
+      "Healthcare (6.91)",
       "Technology (6.92)",
-      "Industrials (6.92)",
       "Consumer Cyclical (6.92)"
     ],
     "momentum_leaders": [
+      "MRNA",
       "SNDK",
       "LITE",
-      "MU",
-      "WDC",
-      "STX"
+      "MXL",
+      "MU"
     ]
   }
 }
