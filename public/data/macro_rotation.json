@@ -1,46 +1,36 @@
 {
-  "generated_at": "2026-10-23",
+  "generated_at": "2026-10-24",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and monetary policy tightening, sectors likely to benefit include utilities and consumer staples, which tend to perform well in higher interest rate environments. Conversely, technology and real estate sectors may face pressure due to higher borrowing costs and reduced consumer spending power.",
+  "rotation": "Given the high severity of persistent inflationary pressures and monetary policy uncertainty, sectors with pricing power and defensiveness, such as consumer staples and healthcare, are favored. Conversely, technology and consumer discretionary sectors are pressured due to potential interest rate hikes and slowing global growth.",
   "risks_used": [
     {
-      "title": "Persistent Inflation and Monetary Policy Tightening",
+      "title": "Persistent Inflationary Pressures and Monetary Policy Uncertainty",
       "category": "Inflation",
       "severity": "High"
     },
     {
-      "title": "Geopolitical Fragmentation and Trade Tensions",
+      "title": "Geopolitical Tensions and Supply Chain Disruptions",
       "category": "Geopolitical",
       "severity": "High"
     },
     {
-      "title": "AI Investment Boom and its Economic Impact",
+      "title": "Slowing Global Growth Amidst Uneven Recovery",
       "category": "Growth",
+      "severity": "Medium"
+    },
+    {
+      "title": "Artificial Intelligence (AI) Investment and Economic Impact",
+      "category": "Markets",
       "severity": "Medium"
     },
     {
       "title": "Elevated Interest Rates and Debt Servicing Costs",
       "category": "Policy",
-      "severity": "High"
-    },
-    {
-      "title": "Divergent Global Economic Performance",
-      "category": "Growth",
       "severity": "Medium"
     },
     {
-      "title": "Labor Market Tightness and Wage Pressures",
-      "category": "Labor",
-      "severity": "Medium"
-    },
-    {
-      "title": "Fiscal Sustainability and Government Debt",
+      "title": "Fiscal Vulnerabilities and Debt Sustainability",
       "category": "Fiscal",
-      "severity": "Medium"
-    },
-    {
-      "title": "Energy Price Volatility and Supply Shocks",
-      "category": "Inflation",
       "severity": "Medium"
     }
   ]
