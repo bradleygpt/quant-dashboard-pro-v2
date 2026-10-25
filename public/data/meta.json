@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-25T09:19:52Z",
-  "source_commit": "f12e50b",
+  "generated_at": "2026-10-25T18:37:28Z",
+  "source_commit": "b151bb0",
   "default_preset": "equal",
   "default_floor": 0,
   "floors": [
@@ -24,7 +24,7 @@
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-10-18T15:14:34.423792+00:00",
+      "backtest_recomputed_at": "2026-10-25T15:57:23.137435+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "m_heavy": {
@@ -36,13 +36,13 @@
         "Momentum": 0.8,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 27.57,
+      "backtest_cagr": 27.6,
       "backtest_sharpe": 1.04,
       "backtest_max_dd": -28.98,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-10-18T15:14:34.423792+00:00",
+      "backtest_recomputed_at": "2026-10-25T15:57:23.137435+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "v_heavy": {
@@ -54,13 +54,13 @@
         "Momentum": 0.2,
         "EPS Revisions": 0.0
       },
-      "backtest_cagr": 16.71,
+      "backtest_cagr": 16.7,
       "backtest_sharpe": 0.91,
       "backtest_max_dd": -37.32,
       "backtest_universe": "Full universe (no MC floor), 1996-2026",
       "validated_at_floor": true,
       "backtest_provenance": "recomputed",
-      "backtest_recomputed_at": "2026-10-18T15:14:34.423792+00:00",
+      "backtest_recomputed_at": "2026-10-25T15:57:23.137435+00:00",
       "backtest_window": "TOP-25 equal-weight \u00b7 quarterly rebalance \u00b7 2011+ (EDGAR point-in-time era)"
     },
     "research_vq": {
