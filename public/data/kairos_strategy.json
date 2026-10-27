@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16",
+ "generated_at": "2026-10-23",
  "engine": "Kairos",
  "character": "Event-Momentum",
  "tagline": "Event-momentum composite (50% event pillar: PEAD / 8-K sentiment / insider; 20% momentum; 10% each value/growth/profitability) over the BROAD universe, top-5, ~105-day hold. LIVE from 2026-09-01; the hunt10 winner as a fixed config.",
@@ -43,7 +43,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "LIVE from 2026-09-01 (hunt10 EMC winner as a FIXED config; the re-selecting procedure failed the PIT book test and does not ship). Paper from 2026-08-11. Pre-registered checkpoints continue: 2026-08-28 validation, 2026-11-10 evaluation. Criteria in ops/kairos_checkpoints.md.",
-  "computed_for": "2026-10-24",
+  "computed_for": "2026-10-27",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -341,132 +341,132 @@
     "note": "9/01 deployment ahead of the scheduled 2026-11-10 go-live checkpoint; fills pending",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-10-16",
+   "signal_as_of": "2026-10-23",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "AMT",
-     "score": 9.841231
+     "score": 9.730862
     },
     {
      "rank": 2,
      "ticker": "VCTR",
-     "score": 9.763522
+     "score": 9.619299
     },
     {
      "rank": 3,
-     "ticker": "AEO",
-     "score": 9.463655
+     "ticker": "MTDR",
+     "score": 9.520226
     },
     {
      "rank": 4,
-     "ticker": "AME",
-     "score": 9.287787
+     "ticker": "AEO",
+     "score": 9.345821
     },
     {
      "rank": 5,
      "ticker": "STLD",
-     "score": 9.186607
+     "score": 9.16243
     },
     {
      "rank": 6,
      "ticker": "CON",
-     "score": 9.16342
+     "score": 9.161154
     },
     {
      "rank": 7,
-     "ticker": "CB",
-     "score": 9.14452
+     "ticker": "ABM",
+     "score": 9.060875
     },
     {
      "rank": 8,
      "ticker": "DINO",
-     "score": 9.080425
+     "score": 9.035199
     },
     {
      "rank": 9,
-     "ticker": "ABM",
-     "score": 9.055855
+     "ticker": "WS",
+     "score": 9.015018
     },
     {
      "rank": 10,
-     "ticker": "BEN",
-     "score": 9.049623
+     "ticker": "HALO",
+     "score": 8.999571
     },
     {
      "rank": 11,
-     "ticker": "HALO",
-     "score": 9.037846
+     "ticker": "ACN",
+     "score": 8.984741
     },
     {
      "rank": 12,
-     "ticker": "MTDR",
-     "score": 9.030052
+     "ticker": "PGNY",
+     "score": 8.963814
     },
     {
      "rank": 13,
      "ticker": "CTAS",
-     "score": 9.004032
+     "score": 8.942884
     },
     {
      "rank": 14,
-     "ticker": "WS",
-     "score": 8.975677
+     "ticker": "NSIT",
+     "score": 8.925329
     },
     {
      "rank": 15,
      "ticker": "AMN",
-     "score": 8.941294
+     "score": 8.892565
     },
     {
      "rank": 16,
-     "ticker": "LLY",
-     "score": 8.909027
+     "ticker": "AME",
+     "score": 8.8724
     },
     {
      "rank": 17,
-     "ticker": "CORT",
-     "score": 8.904747
+     "ticker": "BEN",
+     "score": 8.848701
     },
     {
      "rank": 18,
-     "ticker": "ACN",
-     "score": 8.89802
+     "ticker": "CB",
+     "score": 8.799366
     },
     {
      "rank": 19,
      "ticker": "DIS",
-     "score": 8.854269
+     "score": 8.790364
     },
     {
      "rank": 20,
-     "ticker": "HLX",
-     "score": 8.849198
+     "ticker": "IQV",
+     "score": 8.786816
     },
     {
      "rank": 21,
-     "ticker": "TGTX",
-     "score": 8.837676
+     "ticker": "MD",
+     "score": 8.769875
     },
     {
      "rank": 22,
-     "ticker": "NSIT",
-     "score": 8.830336
+     "ticker": "DAL",
+     "score": 8.761587
     },
     {
      "rank": 23,
-     "ticker": "GILD",
-     "score": 8.827342
+     "ticker": "LLY",
+     "score": 8.731461
     },
     {
      "rank": 24,
-     "ticker": "NHC",
-     "score": 8.762983
+     "ticker": "VFC",
+     "score": 8.702194
     },
     {
      "rank": 25,
-     "ticker": "DAL",
-     "score": 8.750577
+     "ticker": "ALL",
+     "score": 8.701782
     }
    ]
   }
@@ -1753,8 +1753,8 @@
   },
   {
    "label": "2026",
-   "strategy": 33.5,
-   "spy": 11.9
+   "strategy": 34.7,
+   "spy": 11.4
   }
  ],
  "holdings": [

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16",
+ "generated_at": "2026-10-23",
  "engine": "Auxo",
  "character": "Growth-heavy",
  "tagline": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored.",
@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-07, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-24",
+  "computed_for": "2026-10-27",
   "source": "ops/rebalance_schedule.py"
  },
  "next_rebalance": "2026-11-10",
@@ -329,132 +329,132 @@
     "reason": "9/01 orders followed the 2026-08-29-served artifact book; bank held SNEX",
     "ruled": "2026-09-08"
    },
-   "signal_as_of": "2026-10-16",
+   "signal_as_of": "2026-10-23",
    "signal_top25": [
     {
      "rank": 1,
      "ticker": "SONO",
-     "score": 10.933334
+     "score": 10.816668
     },
     {
      "rank": 2,
      "ticker": "UVV",
-     "score": 10.866666
+     "score": 10.816666
     },
     {
      "rank": 3,
      "ticker": "NTCT",
-     "score": 10.549999
+     "score": 10.599999
     },
     {
      "rank": 4,
      "ticker": "GEO",
-     "score": 10.428333
+     "score": 10.411667
     },
     {
      "rank": 5,
-     "ticker": "PRIM",
-     "score": 10.288333
+     "ticker": "ARR",
+     "score": 10.283333
     },
     {
      "rank": 6,
-     "ticker": "MMI",
-     "score": 10.266666
+     "ticker": "PRIM",
+     "score": 10.235
     },
     {
      "rank": 7,
      "ticker": "BKNG",
-     "score": 10.266666
+     "score": 10.233334
     },
     {
      "rank": 8,
-     "ticker": "ARR",
-     "score": 10.25
+     "ticker": "ED",
+     "score": 10.221666
     },
     {
      "rank": 9,
      "ticker": "MOS",
-     "score": 10.156666
+     "score": 10.19
     },
     {
      "rank": 10,
-     "ticker": "ED",
-     "score": 10.155
+     "ticker": "MMI",
+     "score": 10.166667
     },
     {
      "rank": 11,
-     "ticker": "EZPW",
-     "score": 10.150001
+     "ticker": "LPG",
+     "score": 10.051666
     },
     {
      "rank": 12,
-     "ticker": "LPG",
-     "score": 10.084999
+     "ticker": "ACA",
+     "score": 10.036666
     },
     {
      "rank": 13,
      "ticker": "SNEX",
-     "score": 10.075001
+     "score": 10.008334
     },
     {
      "rank": 14,
      "ticker": "BOOT",
-     "score": 10.058332
+     "score": 9.974999
     },
     {
      "rank": 15,
-     "ticker": "ACA",
-     "score": 10.053333
+     "ticker": "VFC",
+     "score": 9.903333
     },
     {
      "rank": 16,
-     "ticker": "VFC",
-     "score": 9.966666
+     "ticker": "ATO",
+     "score": 9.891666
     },
     {
      "rank": 17,
-     "ticker": "RL",
-     "score": 9.953334
+     "ticker": "COLL",
+     "score": 9.883333
     },
     {
      "rank": 18,
-     "ticker": "COLL",
-     "score": 9.95
+     "ticker": "COHU",
+     "score": 9.883333
     },
     {
      "rank": 19,
-     "ticker": "DECK",
-     "score": 9.938333
+     "ticker": "RL",
+     "score": 9.87
     },
     {
      "rank": 20,
-     "ticker": "COHU",
-     "score": 9.933332
+     "ticker": "PIPR",
+     "score": 9.833334
     },
     {
      "rank": 21,
-     "ticker": "AFL",
-     "score": 9.9
+     "ticker": "DECK",
+     "score": 9.821666
     },
     {
      "rank": 22,
-     "ticker": "PIPR",
-     "score": 9.85
-    },
-    {
-     "rank": 23,
-     "ticker": "PAHC",
-     "score": 9.833333
-    },
-    {
-     "rank": 24,
      "ticker": "LCID",
      "score": 9.816668
     },
     {
-     "rank": 25,
-     "ticker": "COF",
+     "rank": 23,
+     "ticker": "AFL",
      "score": 9.816667
+    },
+    {
+     "rank": 24,
+     "ticker": "EIX",
+     "score": 9.801666
+    },
+    {
+     "rank": 25,
+     "ticker": "FISV",
+     "score": 9.799999
     }
    ]
   }
@@ -1658,7 +1658,7 @@
   },
   {
    "date": "2026-09-30",
-   "equity": 6970.6,
+   "equity": 6970.4,
    "spy": 594.9,
    "nasdaq": 994.8
   }
@@ -1741,8 +1741,8 @@
   },
   {
    "label": "2026",
-   "strategy": 9.8,
-   "spy": 11.9
+   "strategy": 7.4,
+   "spy": 11.4
   }
  ],
  "holdings": [

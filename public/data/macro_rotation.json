@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-24",
+  "generated_at": "2026-10-27",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflationary pressures and monetary policy uncertainty, sectors with pricing power and defensiveness, such as consumer staples and healthcare, are favored. Conversely, technology and consumer discretionary sectors are pressured due to potential interest rate hikes and slowing global growth.",
+  "rotation": "Given the high severity of persistent inflationary pressures and monetary policy uncertainty, sectors likely to benefit include energy and utilities. Conversely, technology and consumer discretionary sectors may face pressure due to elevated interest rates and potential slowing global growth.",
   "risks_used": [
     {
       "title": "Persistent Inflationary Pressures and Monetary Policy Uncertainty",

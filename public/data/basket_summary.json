@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16",
+ "generated_at": "2026-10-23",
  "strategies": [
   "Katalepsis",
   "Auxo",
@@ -9,14 +9,14 @@
  "n": 4,
  "weighting": "equal-weight pooled",
  "full": {
-  "cagr": 33.6,
-  "sharpe": 1.24,
-  "max_dd": -20.5
+  "cagr": 34.0,
+  "sharpe": 1.23,
+  "max_dd": -24.1
  },
  "deployable": {
-  "cagr": 32.1,
-  "sharpe": 1.24,
-  "max_dd": -20.5
+  "cagr": 30.8,
+  "sharpe": 1.18,
+  "max_dd": -25.4
  },
  "spy_cagr": 13.7,
  "note": "Combined book = equal-weight of the 5 sleeves' monthly returns. Deployable excludes >10% SPY drawdowns (PPI takes the book to cash there)."
