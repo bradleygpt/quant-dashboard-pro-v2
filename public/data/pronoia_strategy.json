@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-27",
+  "computed_for": "2026-10-28",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -88,12 +88,12 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "LQDA",
+     "ticker": "NG",
      "score": 1.0
     },
     {
      "rank": 2,
-     "ticker": "NG",
+     "ticker": "LQDA",
      "score": 1.0
     },
     {
@@ -118,12 +118,12 @@
     },
     {
      "rank": 7,
-     "ticker": "MRNA",
+     "ticker": "INBX",
      "score": 0.997438
     },
     {
      "rank": 8,
-     "ticker": "INBX",
+     "ticker": "STX",
      "score": 0.996584
     },
     {
@@ -133,83 +133,83 @@
     },
     {
      "rank": 10,
-     "ticker": "MXL",
+     "ticker": "MRVL",
      "score": 0.994876
     },
     {
      "rank": 11,
-     "ticker": "MU",
+     "ticker": "MXL",
      "score": 0.994022
     },
     {
      "rank": 12,
-     "ticker": "SMRT",
-     "score": 0.993548
+     "ticker": "MRNA",
+     "score": 0.993168
     },
     {
      "rank": 13,
      "ticker": "VSTS",
-     "score": 0.993168
-    },
-    {
-     "rank": 14,
-     "ticker": "WDC",
      "score": 0.992314
     },
     {
-     "rank": 15,
-     "ticker": "VIAV",
+     "rank": 14,
+     "ticker": "UCTT",
      "score": 0.99146
     },
     {
-     "rank": 16,
-     "ticker": "STX",
+     "rank": 15,
+     "ticker": "MU",
      "score": 0.990606
     },
     {
-     "rank": 17,
-     "ticker": "UCTT",
+     "rank": 16,
+     "ticker": "PARR",
      "score": 0.989752
     },
     {
-     "rank": 18,
-     "ticker": "NOK",
+     "rank": 17,
+     "ticker": "WDC",
      "score": 0.988898
     },
     {
-     "rank": 19,
-     "ticker": "INTC",
+     "rank": 18,
+     "ticker": "AMD",
      "score": 0.988044
     },
     {
-     "rank": 20,
-     "ticker": "MRLN",
-     "score": 0.987406
-    },
-    {
-     "rank": 21,
-     "ticker": "AMD",
+     "rank": 19,
+     "ticker": "INSW",
      "score": 0.98719
     },
     {
-     "rank": 22,
-     "ticker": "TER",
+     "rank": 20,
+     "ticker": "PENG",
      "score": 0.986336
     },
     {
-     "rank": 23,
-     "ticker": "BTSG",
+     "rank": 21,
+     "ticker": "NOK",
      "score": 0.985483
     },
     {
-     "rank": 24,
-     "ticker": "MRVL",
+     "rank": 22,
+     "ticker": "MRLN",
+     "score": 0.984887
+    },
+    {
+     "rank": 23,
+     "ticker": "INTC",
      "score": 0.984628
     },
     {
-     "rank": 25,
-     "ticker": "INSW",
+     "rank": 24,
+     "ticker": "ICHR",
      "score": 0.983775
+    },
+    {
+     "rank": 25,
+     "ticker": "MSGS",
+     "score": 0.982921
     }
    ]
   }
@@ -1496,7 +1496,7 @@
   },
   {
    "label": "2026",
-   "strategy": 8.3,
+   "strategy": -1.0,
    "spy": 11.4
   }
  ],

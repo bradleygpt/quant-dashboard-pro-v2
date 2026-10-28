@@ -1,37 +1,42 @@
 {
-  "generated_at": "2026-10-27",
+  "generated_at": "2026-10-28",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflationary pressures and monetary policy uncertainty, sectors likely to benefit include energy and utilities. Conversely, technology and consumer discretionary sectors may face pressure due to elevated interest rates and potential slowing global growth.",
+  "rotation": "Favor sectors resistant to inflation and monetary tightening, such as healthcare and utilities. Pressure on technology and consumer discretionary sectors due to potential stagflation and AI investment uncertainty. Favor defensive sectors like consumer staples and real estate investment trusts (REITs). Pressure on energy and materials due to geopolitical tensions.",
   "risks_used": [
     {
-      "title": "Persistent Inflationary Pressures and Monetary Policy Uncertainty",
+      "title": "Persistent Inflationary Pressures and Monetary Policy Tightening",
       "category": "Inflation",
       "severity": "High"
     },
     {
-      "title": "Geopolitical Tensions and Supply Chain Disruptions",
+      "title": "Geopolitical Tensions and Escalation of Conflicts",
       "category": "Geopolitical",
       "severity": "High"
     },
     {
-      "title": "Slowing Global Growth Amidst Uneven Recovery",
+      "title": "Slowing Global Growth Amidst Divergent Economic Performance",
       "category": "Growth",
       "severity": "Medium"
     },
     {
-      "title": "Artificial Intelligence (AI) Investment and Economic Impact",
-      "category": "Markets",
-      "severity": "Medium"
-    },
-    {
-      "title": "Elevated Interest Rates and Debt Servicing Costs",
-      "category": "Policy",
-      "severity": "Medium"
-    },
-    {
-      "title": "Fiscal Vulnerabilities and Debt Sustainability",
+      "title": "Elevated US Fiscal Deficits and Rising National Debt",
       "category": "Fiscal",
+      "severity": "High"
+    },
+    {
+      "title": "Uncertainty Surrounding AI Investment and Its Economic Impact",
+      "category": "Growth",
       "severity": "Medium"
+    },
+    {
+      "title": "Labor Market Dynamics and Potential for Stagflation",
+      "category": "Labor",
+      "severity": "Medium"
+    },
+    {
+      "title": "Trade Policy Uncertainty and Tariffs",
+      "category": "Trade",
+      "severity": "Low"
     }
   ]
 }
