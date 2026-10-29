@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-28",
+  "generated_at": "2026-10-29",
   "model": "qwen2.5:7b",
-  "rotation": "Favor sectors resistant to inflation and monetary tightening, such as healthcare and utilities. Pressure on technology and consumer discretionary sectors due to potential stagflation and AI investment uncertainty. Favor defensive sectors like consumer staples and real estate investment trusts (REITs). Pressure on energy and materials due to geopolitical tensions.",
+  "rotation": "Favor sectors with inflation protection, such as energy and utilities. Pressure on tech and consumer discretionary due to interest rate hikes and affordability concerns. Favor fiscal resilience sectors like healthcare and consumer staples. Mitigate exposure to trade tensions and geopolitical risks, avoiding sectors like materials and industrials.",
   "risks_used": [
     {
       "title": "Persistent Inflationary Pressures and Monetary Policy Tightening",
@@ -9,34 +9,39 @@
       "severity": "High"
     },
     {
-      "title": "Geopolitical Tensions and Escalation of Conflicts",
+      "title": "Geopolitical Escalation and Trade Tensions",
       "category": "Geopolitical",
       "severity": "High"
     },
     {
-      "title": "Slowing Global Growth Amidst Divergent Economic Performance",
+      "title": "AI Investment Boom and Potential Disruptions",
       "category": "Growth",
       "severity": "Medium"
     },
     {
-      "title": "Elevated US Fiscal Deficits and Rising National Debt",
+      "title": "Fiscal Vulnerabilities and Rising Debt Levels",
       "category": "Fiscal",
       "severity": "High"
     },
     {
-      "title": "Uncertainty Surrounding AI Investment and Its Economic Impact",
-      "category": "Growth",
-      "severity": "Medium"
-    },
-    {
-      "title": "Labor Market Dynamics and Potential for Stagflation",
+      "title": "Labor Market Dynamics and Affordability Concerns",
       "category": "Labor",
       "severity": "Medium"
     },
     {
-      "title": "Trade Policy Uncertainty and Tariffs",
-      "category": "Trade",
-      "severity": "Low"
+      "title": "Bond Market Volatility and Higher Interest Rates",
+      "category": "Markets",
+      "severity": "Medium"
+    },
+    {
+      "title": "Energy Price Shocks and Supply Chain Disruptions",
+      "category": "Geopolitical",
+      "severity": "High"
+    },
+    {
+      "title": "Cybersecurity and Geopolitical Risks Intensifying",
+      "category": "Geopolitical",
+      "severity": "Medium"
     }
   ]
 }

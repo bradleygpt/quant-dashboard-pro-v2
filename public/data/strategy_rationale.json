@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-28",
+  "generated_at": "2026-10-29",
   "model": "qwen2.5:7b",
   "note": "AI rationale \u2014 fed only the strategy's holdings + their quant characteristics, never invents",
   "strategies": {
     "Katalepsis": {
-      "rationale": "These names share a high composite score, with WDC and STX having scores of 7.8 and 8.0 respectively, indicating strong conviction. DVA, while having a slightly lower score of 7.2, still ranks well within the portfolio. This basket fits Katalepsis's thesis by focusing on posterior-ranked conviction, blending signals to identify the most promising investments across Technology and Healthcare sectors.",
+      "rationale": "These names share a high composite score, ranging from 7.8 to 7.9, indicating strong conviction. The basket fits Katalepsis's thesis by focusing on posterior-ranked stocks, blending signals to identify the most promising investments across Technology and Healthcare sectors.",
       "holdings": [
         "STX",
         "WDC",
@@ -17,7 +17,7 @@
       "thesis": "Posterior-ranked conviction book (c78q signal blend)."
     },
     "Auxo": {
-      "rationale": "These holdings share a common thread of fast-growing sectors with strong revenue and earnings compounding, as reflected in their composite scores. The basket fits Auxo's growth-led strategy by focusing on companies like UVV in Consumer Defensive, GEO in Industrials, and SONO in Technology, all of which have positive pillar grades, particularly in growth and business quality, supporting the thesis of investing in the fastest-compounding revenue and earnings.",
+      "rationale": "These holdings share a common thread of high growth potential (indicated by their composite scores and pillar grades), aligning with Auxo's growth-led strategy. The basket includes names with strong revenue and earnings compounding, such as GEO and UVV, while maintaining a balance that fits the lightly value-anchored approach of the strategy.",
       "holdings": [
         "UVV",
         "GEO",
@@ -31,7 +31,7 @@
       "thesis": "Growth-led - the fastest-compounding revenue and earnings, lightly value-anchored."
     },
     "Statera": {
-      "rationale": "These holdings share a common thread of being the cheapest names by composite valuation, with scores ranging from 5.3 to 8.0, aligning with Statera's value-led strategy. The diversified top-8 picks across sectors like Technology, Industrials, Real Estate, Financial Services, and Communication Services are selected for their fast 21-day cadence, ensuring a dynamic and responsive portfolio to market changes.",
+      "rationale": "These names share a common thread of being value-led, with composite scores ranging from 5.2 to 8.2, focusing on the cheapest stocks by valuation. This basket fits Statera's thesis by diversifying across sectors like Technology, Industrials, Real Estate, Financial Services, and Communication Services, while maintaining a fast 21-day cadence for active management.",
       "holdings": [
         "VYX",
         "HTZ",
@@ -51,7 +51,7 @@
       "thesis": "Value-led - the cheapest names by composite valuation, a diversified top-8 on a fast 21-day cadence."
     },
     "Pronoia": {
-      "rationale": "These holdings share a common thread of being technology-focused stocks, as indicated by the sector mix. The strategy's alpha driver is based on the model's 12-month foresight, and these technology stocks, including MU with a high score of 9.5, are among the top-5 picks by the model's year-ahead forecast, aligning with the Pronoia strategy's approach.",
+      "rationale": "These holdings share a common thread of being technology-focused stocks, aligning with the strategy's sector mix. The basket fits Pronoia's thesis by selecting top-5 positions based on the model's year-ahead forecast, with MU scoring the highest at 9.6, indicating strong expected returns over the 12-month horizon as predicted by the ML model.",
       "holdings": [
         "AAOI",
         "INBX",
