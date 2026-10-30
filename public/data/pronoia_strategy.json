@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-29",
+  "computed_for": "2026-10-30",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -113,37 +113,37 @@
     },
     {
      "rank": 6,
-     "ticker": "NCI",
-     "score": 0.997451
-    },
-    {
-     "rank": 7,
      "ticker": "INBX",
      "score": 0.997438
     },
     {
-     "rank": 8,
+     "rank": 7,
      "ticker": "STX",
      "score": 0.996584
     },
     {
+     "rank": 8,
+     "ticker": "NCI",
+     "score": 0.995752
+    },
+    {
      "rank": 9,
-     "ticker": "FORM",
+     "ticker": "MRNA",
      "score": 0.99573
     },
     {
      "rank": 10,
-     "ticker": "MRVL",
+     "ticker": "MU",
      "score": 0.994876
     },
     {
      "rank": 11,
-     "ticker": "MXL",
+     "ticker": "FORM",
      "score": 0.994022
     },
     {
      "rank": 12,
-     "ticker": "MRNA",
+     "ticker": "MXL",
      "score": 0.993168
     },
     {
@@ -153,42 +153,42 @@
     },
     {
      "rank": 14,
-     "ticker": "UCTT",
+     "ticker": "LRCX",
      "score": 0.99146
     },
     {
      "rank": 15,
-     "ticker": "MU",
+     "ticker": "UCTT",
      "score": 0.990606
     },
     {
      "rank": 16,
-     "ticker": "PARR",
+     "ticker": "INTC",
      "score": 0.989752
     },
     {
      "rank": 17,
-     "ticker": "WDC",
+     "ticker": "NOK",
      "score": 0.988898
     },
     {
      "rank": 18,
-     "ticker": "AMD",
+     "ticker": "COHR",
      "score": 0.988044
     },
     {
      "rank": 19,
-     "ticker": "INSW",
+     "ticker": "VIAV",
      "score": 0.98719
     },
     {
      "rank": 20,
-     "ticker": "PENG",
+     "ticker": "AMD",
      "score": 0.986336
     },
     {
      "rank": 21,
-     "ticker": "NOK",
+     "ticker": "ICHR",
      "score": 0.985483
     },
     {
@@ -198,17 +198,17 @@
     },
     {
      "rank": 23,
-     "ticker": "INTC",
+     "ticker": "MPC",
      "score": 0.984628
     },
     {
      "rank": 24,
-     "ticker": "ICHR",
+     "ticker": "VIR",
      "score": 0.983775
     },
     {
      "rank": 25,
-     "ticker": "MSGS",
+     "ticker": "WDC",
      "score": 0.982921
     }
    ]
@@ -1407,7 +1407,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 15468.6,
+   "equity": 15468.7,
    "spy": 597.6,
    "nasdaq": 976.7
   },
@@ -1496,7 +1496,7 @@
   },
   {
    "label": "2026",
-   "strategy": -1.0,
+   "strategy": 9.3,
    "spy": 11.4
   }
  ],

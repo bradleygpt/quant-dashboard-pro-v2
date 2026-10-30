@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-29",
+  "generated_at": "2026-10-30",
   "model": "qwen2.5:7b",
-  "rotation": "Favor sectors with inflation protection, such as energy and utilities. Pressure on tech and consumer discretionary due to interest rate hikes and affordability concerns. Favor fiscal resilience sectors like healthcare and consumer staples. Mitigate exposure to trade tensions and geopolitical risks, avoiding sectors like materials and industrials.",
+  "rotation": "Favor sectors resilient to inflation and monetary tightening, such as healthcare and utilities. Pressure sectors sensitive to interest rates and economic growth, including real estate and discretionary retail.",
   "risks_used": [
     {
       "title": "Persistent Inflationary Pressures and Monetary Policy Tightening",
