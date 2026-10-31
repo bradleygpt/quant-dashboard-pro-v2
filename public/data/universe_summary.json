@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-10-24",
+  "generated_at": "2026-10-31",
   "model": "qwen2.5:7b",
-  "summary": "The market exhibits a cautious posture, with a slight risk-off sentiment as indicated by the preponderance of neutral to bearish ratings. Valuations are modestly compressed, with a median fair-value premium of -4.5%, suggesting stocks are trading below their fair values. Sectorally, strength is concentrated in Basic Materials, Communication Services, and Energy, while Healthcare, Technology, and Consumer Cyclical sectors lag, implying a rotation towards more resilient sectors.",
+  "summary": "The market currently exhibits a cautious posture, with a slight risk-off sentiment as indicated by the dominance of hold and sell ratings, particularly in key sectors like Healthcare, Technology, and Consumer Cyclical. Valuations are slightly compressed, with a median fair-value premium of -4.0%, suggesting that stocks are trading below their fair values. The strength is concentrated in sectors like Basic Materials, Real Estate, and Communication Services, indicating a rotation away from traditionally more volatile sectors towards more stable areas.",
   "stats": {
     "n": 1290,
     "buy_tier_pct": 2,
     "rating_dist": {
       "Strong Buy+": 7,
-      "Strong Buy": 16,
-      "Buy": 2,
+      "Strong Buy": 15,
+      "Buy": 3,
       "Hold": 1104,
-      "Sell": 144,
-      "Strong Sell": 17
+      "Sell": 142,
+      "Strong Sell": 19
     },
-    "median_fv_premium_pct": -4.5,
+    "median_fv_premium_pct": -4.0,
     "strongest_sectors": [
       "Basic Materials (6.96)",
-      "Communication Services (6.96)",
-      "Energy (6.95)"
+      "Real Estate (6.96)",
+      "Communication Services (6.96)"
     ],
     "weakest_sectors": [
       "Healthcare (6.91)",
@@ -27,8 +27,8 @@
     "momentum_leaders": [
       "MRNA",
       "SNDK",
-      "LITE",
       "MXL",
+      "LITE",
       "MU"
     ]
   }
