@@ -12,8 +12,8 @@
   },
   "inception_date": "2026-06-17",
   "benchmark": "SPY",
-  "spy_entry_adj_close": 777.219970703125,
-  "spy_entry_date": "2026-10-07",
+  "spy_entry_adj_close": 755.719970703125,
+  "spy_entry_date": "2026-10-30",
   "expected_net_cagr_backtest": "Event-balanced (.25ml/.25fund/.50event). Backtest 30.0%; liquidity-survival 0.96 (edge is tradeable, NOT microcap); worst 2-yr regime +12.7%; maxDD -41%; Sharpe 0.94. Realistic forward expectation ~25-29% after survivorship+concentration. E3/PEAD core confirmed by open-hunt OOS walk-forward (selected every fold). ADV reported per holding for sizing, not exclusion.",
   "display": {
     "engine": "Aristeia",
@@ -139,57 +139,85 @@
           "ret_pct": -3.69
         }
       ]
+    },
+    {
+      "closed_on": "2026-10-30",
+      "from_date": "2026-10-07",
+      "book_return_pct": -3.19,
+      "spy_return_pct": -2.77,
+      "relative_pct": -0.42,
+      "holdings": [
+        {
+          "ticker": "INSW",
+          "entry": 116.94,
+          "exit": 111.94999694824219,
+          "ret_pct": -4.27
+        },
+        {
+          "ticker": "DVA",
+          "entry": 176.78,
+          "exit": 187.5,
+          "ret_pct": 6.06
+        },
+        {
+          "ticker": "AKAM",
+          "entry": 104.61,
+          "exit": 92.72000122070312,
+          "ret_pct": -11.37
+        }
+      ]
     }
   ],
   "current_holdings": [
     {
-      "ticker": "INSW",
-      "entry_date": "2026-10-07",
-      "entry_adj_close": 116.94,
-      "adv_usd_m": 56.9,
-      "blend_score": 10.032,
-      "event": 10.27,
-      "fund": 8.2,
-      "ml": 11.4,
+      "ticker": "NSIT",
+      "entry_date": "2026-10-30",
+      "entry_adj_close": 172.74,
+      "adv_usd_m": 53.6,
+      "blend_score": 10.023,
+      "event": 11.72,
+      "fund": 6.45,
+      "ml": 10.21,
       "weight": 0.3333
     },
     {
-      "ticker": "DVA",
-      "entry_date": "2026-10-07",
-      "entry_adj_close": 176.78,
-      "adv_usd_m": 105.6,
-      "blend_score": 9.989,
-      "event": 10.06,
-      "fund": 8.78,
-      "ml": 11.06,
+      "ticker": "CORT",
+      "entry_date": "2026-10-30",
+      "entry_adj_close": 81.12,
+      "adv_usd_m": 94.2,
+      "blend_score": 9.979,
+      "event": 11.11,
+      "fund": 6.44,
+      "ml": 11.25,
       "weight": 0.3333
     },
     {
       "ticker": "AKAM",
-      "entry_date": "2026-10-07",
-      "entry_adj_close": 104.61,
-      "adv_usd_m": 327.5,
-      "blend_score": 9.973,
-      "event": 11.04,
-      "fund": 7.98,
-      "ml": 9.83,
+      "entry_date": "2026-10-30",
+      "entry_adj_close": 92.72,
+      "adv_usd_m": 677.5,
+      "blend_score": 9.938,
+      "event": 10.98,
+      "fund": 7.82,
+      "ml": 9.96,
       "weight": 0.3333
     }
   ],
   "pending_rebalance": {
-    "deploy_next_trading_day_after": "2026-10-07",
+    "deploy_next_trading_day_after": "2026-10-30",
     "sell": [
-      "PGNY"
-    ],
-    "buy": [
+      "INSW",
       "DVA"
     ],
+    "buy": [
+      "NSIT",
+      "CORT"
+    ],
     "hold": [
-      "INSW",
       "AKAM"
     ]
   },
-  "generated_at": "2026-10-07T16:57:02",
+  "generated_at": "2026-10-31T01:26:10",
   "skips": [
     {
       "period": "2026-07",

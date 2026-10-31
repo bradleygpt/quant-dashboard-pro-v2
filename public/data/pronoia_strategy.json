@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-30",
+  "computed_for": "2026-10-31",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -88,12 +88,12 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "NG",
+     "ticker": "LQDA",
      "score": 1.0
     },
     {
      "rank": 2,
-     "ticker": "LQDA",
+     "ticker": "NG",
      "score": 1.0
     },
     {
@@ -188,13 +188,13 @@
     },
     {
      "rank": 21,
-     "ticker": "ICHR",
-     "score": 0.985483
+     "ticker": "MRLN",
+     "score": 0.985726
     },
     {
      "rank": 22,
-     "ticker": "MRLN",
-     "score": 0.984887
+     "ticker": "ICHR",
+     "score": 0.985483
     },
     {
      "rank": 23,

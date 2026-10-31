@@ -3,75 +3,75 @@
  "date": "2026-10-23",
  "pick": {
   "ticker": "WDC",
-  "consensus": 86.6,
+  "consensus": 86.7,
   "n_streams": 5,
   "streams": {
    "S1": 99.2,
    "S2": 99.0,
-   "S3": 94.7,
+   "S3": 95.2,
    "S4": 89.3,
    "S5": 50.7
   }
  },
  "runners_up": [
   {
-   "ticker": "DINO",
-   "consensus": 85.6,
-   "n_streams": 5,
-   "streams": {
-    "S1": 93.5,
-    "S2": 96.7,
-    "S3": 97.9,
-    "S4": 75.0,
-    "S5": 64.7
-   }
-  },
-  {
    "ticker": "TGTX",
-   "consensus": 83.0,
+   "consensus": 82.9,
    "n_streams": 5,
    "streams": {
     "S1": 95.1,
     "S2": 94.7,
-    "S3": 85.3,
+    "S3": 84.8,
     "S4": 75.8,
     "S5": 64.2
    }
   },
   {
-   "ticker": "MBIN",
-   "consensus": 82.7,
-   "n_streams": 4,
-   "streams": {
-    "S1": 88.9,
-    "S2": 88.8,
-    "S3": 98.2,
-    "S4": null,
-    "S5": 55.0
-   }
-  },
-  {
    "ticker": "STLD",
-   "consensus": 82.6,
+   "consensus": 82.8,
    "n_streams": 5,
    "streams": {
     "S1": 93.8,
     "S2": 89.9,
-    "S3": 84.4,
+    "S3": 85.3,
     "S4": 75.3,
     "S5": 69.8
    }
   },
   {
    "ticker": "MATX",
-   "consensus": 82.3,
+   "consensus": 82.6,
    "n_streams": 5,
    "streams": {
     "S1": 95.3,
     "S2": 91.6,
-    "S3": 91.8,
+    "S3": 93.2,
     "S4": 63.6,
     "S5": 69.2
+   }
+  },
+  {
+   "ticker": "MBIN",
+   "consensus": 82.4,
+   "n_streams": 4,
+   "streams": {
+    "S1": 88.9,
+    "S2": 88.8,
+    "S3": 97.0,
+    "S4": null,
+    "S5": 55.0
+   }
+  },
+  {
+   "ticker": "DVA",
+   "consensus": 82.1,
+   "n_streams": 5,
+   "streams": {
+    "S1": 99.8,
+    "S2": 81.8,
+    "S3": 96.4,
+    "S4": 82.7,
+    "S5": 49.8
    }
   }
  ],

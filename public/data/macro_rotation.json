@@ -1,47 +1,47 @@
 {
-  "generated_at": "2026-10-30",
+  "generated_at": "2026-10-31",
   "model": "qwen2.5:7b",
-  "rotation": "Favor sectors resilient to inflation and monetary tightening, such as healthcare and utilities. Pressure sectors sensitive to interest rates and economic growth, including real estate and discretionary retail.",
+  "rotation": "Given the high severity of persistent inflation and geopolitical risks, sectors like energy and materials are likely to remain favored. Conversely, sectors sensitive to interest rate hikes, such as real estate and financials, are pressured. AI and tech sectors may benefit from the investment boom, while labor market dynamics suggest continued pressure on consumer discretionary and healthcare sectors due to stagnant opportunities.",
   "risks_used": [
     {
-      "title": "Persistent Inflationary Pressures and Monetary Policy Tightening",
+      "title": "Persistent and elevated inflation pressures",
       "category": "Inflation",
       "severity": "High"
     },
     {
-      "title": "Geopolitical Escalation and Trade Tensions",
+      "title": "Geopolitical fragmentation and conflict escalation",
       "category": "Geopolitical",
       "severity": "High"
     },
     {
-      "title": "AI Investment Boom and Potential Disruptions",
-      "category": "Growth",
-      "severity": "Medium"
-    },
-    {
-      "title": "Fiscal Vulnerabilities and Rising Debt Levels",
-      "category": "Fiscal",
+      "title": "Monetary policy tightening and its impact on growth",
+      "category": "Policy",
       "severity": "High"
     },
     {
-      "title": "Labor Market Dynamics and Affordability Concerns",
-      "category": "Labor",
-      "severity": "Medium"
-    },
-    {
-      "title": "Bond Market Volatility and Higher Interest Rates",
+      "title": "AI investment boom and potential for disruption",
       "category": "Markets",
       "severity": "Medium"
     },
     {
-      "title": "Energy Price Shocks and Supply Chain Disruptions",
-      "category": "Geopolitical",
-      "severity": "High"
+      "title": "Fiscal vulnerabilities and rising government debt",
+      "category": "Fiscal",
+      "severity": "Medium"
     },
     {
-      "title": "Cybersecurity and Geopolitical Risks Intensifying",
-      "category": "Geopolitical",
+      "title": "Energy supply constraints and price volatility",
+      "category": "Inflation",
       "severity": "Medium"
+    },
+    {
+      "title": "Labor market dynamics: Low unemployment but stagnant opportunity",
+      "category": "Labor",
+      "severity": "Low"
+    },
+    {
+      "title": "Trade policy uncertainty and protectionism",
+      "category": "Trade",
+      "severity": "Low"
     }
   ]
 }
