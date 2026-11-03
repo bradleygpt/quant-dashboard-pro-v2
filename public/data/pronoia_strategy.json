@@ -39,7 +39,7 @@
   "never_goes_live": false,
   "gates_execution": false,
   "rationale": "Live sleeve on a 105-trading-day hold. Paper from 2026-08-10, deployed live 2026-09-01 ahead of the scheduled 2026-11-10 expiry.",
-  "computed_for": "2026-10-31",
+  "computed_for": "2026-11-03",
   "source": "ops/rebalance_schedule.py"
  },
  "rebalance_ledger": [
@@ -88,37 +88,37 @@
    "signal_top25": [
     {
      "rank": 1,
-     "ticker": "LQDA",
+     "ticker": "MRNA",
      "score": 1.0
     },
     {
      "rank": 2,
      "ticker": "NG",
-     "score": 1.0
+     "score": 0.999162
     },
     {
      "rank": 3,
-     "ticker": "CLMT",
+     "ticker": "LQDA",
      "score": 0.999146
     },
     {
      "rank": 4,
-     "ticker": "AAOI",
+     "ticker": "CLMT",
      "score": 0.998292
     },
     {
      "rank": 5,
-     "ticker": "APLS",
-     "score": 0.997492
-    },
-    {
-     "rank": 6,
-     "ticker": "INBX",
+     "ticker": "AAOI",
      "score": 0.997438
     },
     {
+     "rank": 6,
+     "ticker": "APLS",
+     "score": 0.996656
+    },
+    {
      "rank": 7,
-     "ticker": "STX",
+     "ticker": "INBX",
      "score": 0.996584
     },
     {
@@ -128,87 +128,87 @@
     },
     {
      "rank": 9,
-     "ticker": "MRNA",
+     "ticker": "TGTX",
      "score": 0.99573
     },
     {
      "rank": 10,
-     "ticker": "MU",
+     "ticker": "FORM",
      "score": 0.994876
     },
     {
      "rank": 11,
-     "ticker": "FORM",
+     "ticker": "LRCX",
      "score": 0.994022
     },
     {
      "rank": 12,
-     "ticker": "MXL",
+     "ticker": "VSTS",
      "score": 0.993168
     },
     {
      "rank": 13,
-     "ticker": "VSTS",
+     "ticker": "MU",
      "score": 0.992314
     },
     {
      "rank": 14,
-     "ticker": "LRCX",
+     "ticker": "COHR",
      "score": 0.99146
     },
     {
      "rank": 15,
-     "ticker": "UCTT",
+     "ticker": "UFCS",
      "score": 0.990606
     },
     {
      "rank": 16,
-     "ticker": "INTC",
+     "ticker": "MXL",
      "score": 0.989752
     },
     {
      "rank": 17,
-     "ticker": "NOK",
+     "ticker": "AMD",
      "score": 0.988898
     },
     {
      "rank": 18,
-     "ticker": "COHR",
+     "ticker": "STX",
      "score": 0.988044
     },
     {
      "rank": 19,
-     "ticker": "VIAV",
+     "ticker": "UCTT",
      "score": 0.98719
     },
     {
      "rank": 20,
-     "ticker": "AMD",
+     "ticker": "WDC",
      "score": 0.986336
     },
     {
      "rank": 21,
-     "ticker": "MRLN",
-     "score": 0.985726
-    },
-    {
-     "rank": 22,
-     "ticker": "ICHR",
+     "ticker": "INTC",
      "score": 0.985483
     },
     {
-     "rank": 23,
-     "ticker": "MPC",
+     "rank": 22,
+     "ticker": "VIAV",
      "score": 0.984628
     },
     {
-     "rank": 24,
-     "ticker": "VIR",
+     "rank": 23,
+     "ticker": "NOK",
      "score": 0.983775
     },
     {
+     "rank": 24,
+     "ticker": "MRLN",
+     "score": 0.983207
+    },
+    {
      "rank": 25,
-     "ticker": "WDC",
+     "ticker": "MRVL",
      "score": 0.982921
     }
    ]
@@ -1407,7 +1407,7 @@
   },
   {
    "date": "2026-08-31",
-   "equity": 15468.7,
+   "equity": 15468.6,
    "spy": 597.6,
    "nasdaq": 976.7
   },
@@ -1496,7 +1496,7 @@
   },
   {
    "label": "2026",
-   "strategy": 9.3,
+   "strategy": 21.7,
    "spy": 11.4
   }
  ],

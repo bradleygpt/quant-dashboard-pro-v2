@@ -1,46 +1,46 @@
 {
-  "generated_at": "2026-10-31",
+  "generated_at": "2026-11-03",
   "model": "qwen2.5:7b",
-  "rotation": "Given the high severity of persistent inflation and geopolitical risks, sectors like energy and materials are likely to remain favored. Conversely, sectors sensitive to interest rate hikes, such as real estate and financials, are pressured. AI and tech sectors may benefit from the investment boom, while labor market dynamics suggest continued pressure on consumer discretionary and healthcare sectors due to stagnant opportunities.",
+  "rotation": "Given the high severity of persistent inflationary pressures and monetary policy tightening, sectors like energy and materials may benefit. Conversely, technology and consumer discretionary sectors could face pressure due to higher interest rates and potential economic slowdown.",
   "risks_used": [
     {
-      "title": "Persistent and elevated inflation pressures",
+      "title": "Persistent Inflationary Pressures Amidst Geopolitical Shocks",
       "category": "Inflation",
       "severity": "High"
     },
     {
-      "title": "Geopolitical fragmentation and conflict escalation",
-      "category": "Geopolitical",
+      "title": "AI Investment Boom and its Economic Impact",
+      "category": "Growth",
       "severity": "High"
     },
     {
-      "title": "Monetary policy tightening and its impact on growth",
+      "title": "Monetary Policy Tightening and its Lagged Effects",
       "category": "Policy",
       "severity": "High"
     },
     {
-      "title": "AI investment boom and potential for disruption",
-      "category": "Markets",
+      "title": "Geopolitical Fragmentation and Trade Tensions",
+      "category": "Geopolitical",
       "severity": "Medium"
     },
     {
-      "title": "Fiscal vulnerabilities and rising government debt",
+      "title": "Elevated Public Debt and Fiscal Vulnerabilities",
       "category": "Fiscal",
       "severity": "Medium"
     },
     {
-      "title": "Energy supply constraints and price volatility",
-      "category": "Inflation",
+      "title": "Labor Market Resilience Amidst Shifting Dynamics",
+      "category": "Labor",
       "severity": "Medium"
     },
     {
-      "title": "Labor market dynamics: Low unemployment but stagnant opportunity",
-      "category": "Labor",
-      "severity": "Low"
+      "title": "Commodity Price Volatility and Supply Constraints",
+      "category": "Markets",
+      "severity": "Medium"
     },
     {
-      "title": "Trade policy uncertainty and protectionism",
-      "category": "Trade",
+      "title": "Financial Market Stability and Interest Rate Risk",
+      "category": "Markets",
       "severity": "Low"
     }
   ]
